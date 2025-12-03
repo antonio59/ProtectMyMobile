@@ -2,14 +2,14 @@
 // Handles the entire voting flow with conditional questions
 
 import { useState, useEffect } from 'react';
-import type { CommunityResponse, CommunityStats } from '../lib/communityData';
+import type { CommunityResponse, CommunityStats } from '../lib/convexData';
 import { 
-  getOrCreateSessionId, 
-  checkHasVoted,
   generateInsights,
   getMostCommonLocation,
-  getSecurityAdoptionRate
-} from '../lib/communityData';
+  getSecurityAdoptionRate,
+  checkHasVoted
+} from '../lib/convexData';
+import { getOrCreateSessionId } from '../lib/convexMutations';
 import { CheckCircle2, AlertCircle } from 'lucide-react';
 
 import { triggerStatsRefresh } from '../lib/stores/communityStore';

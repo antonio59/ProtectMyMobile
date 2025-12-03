@@ -1,0 +1,401 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+---
+
+<Layout 
+  title="Data Manager | ProtectMyMobile Admin"
+  description="Import and manage theft statistics data."
+>
+  <Header />
+  
+  <main class="bg-[#f3f2f1] min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-7xl">
+      <div class="mb-8">
+        <h1 class="text-3xl font-bold">Theft Data Manager</h1>
+        <p class="text-neutral-600 mt-2">Import data from WhatDoTheyKnow FOI responses and manage theft statistics.</p>
+      </div>
+
+      <!-- Stats Overview -->
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
+        <div class="bg-white rounded-lg p-4 shadow-sm">
+          <div class="text-2xl font-bold text-neutral-900" id="stat-total-records">-</div>
+          <div class="text-xs text-neutral-500">Total Records</div>
+        </div>
+        <div class="bg-white rounded-lg p-4 shadow-sm">
+          <div class="text-2xl font-bold text-blue-600" id="stat-total-thefts">-</div>
+          <div class="text-xs text-neutral-500">Total Thefts</div>
+        </div>
+        <div class="bg-white rounded-lg p-4 shadow-sm">
+          <div class="text-2xl font-bold text-green-600" id="stat-wdtk-entries">-</div>
+          <div class="text-xs text-neutral-500">WDTK Entries</div>
+        </div>
+        <div class="bg-white rounded-lg p-4 shadow-sm">
+          <div class="text-2xl font-bold text-yellow-600" id="stat-pending-import">-</div>
+          <div class="text-xs text-neutral-500">Pending Import</div>
+        </div>
+        <div class="bg-white rounded-lg p-4 shadow-sm">
+          <div class="text-2xl font-bold text-purple-600" id="stat-locations">-</div>
+          <div class="text-xs text-neutral-500">Locations</div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-wrap gap-3 mb-6">
+        <button id="seed-btn" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+          Seed Verified Data
+        </button>
+        <button id="scan-btn" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+          Scan WhatDoTheyKnow
+        </button>
+        <button id="scrape-btn" class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700">
+          Deep Scrape WDTK (All Pages)
+        </button>
+        <button id="test-email-btn" class="px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700">
+          Test Email Notifications
+        </button>
+        <button id="refresh-btn" class="px-4 py-2 bg-neutral-200 rounded-lg hover:bg-neutral-300">
+          Refresh
+        </button>
+      </div>
+      
+      <!-- Email Configuration Notice -->
+      <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
+        <p class="text-sm text-yellow-800">
+          <strong>📧 Email Notifications:</strong> Currently using test address (delivered@resend.dev). 
+          To receive real notifications, update the recipient email in the API routes or add your verified domain to Resend.
+        </p>
+      </div>
+
+      <!-- WDTK Entries with Data -->
+      <div class="bg-white rounded-xl shadow-md overflow-hidden mb-8">
+        <div class="p-4 border-b bg-neutral-50">
+          <h2 class="font-bold">WhatDoTheyKnow FOI Responses (with Data)</h2>
+          <p class="text-sm text-neutral-600">Successful FOI responses that can be imported</p>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full">
+            <thead class="bg-neutral-50 border-b">
+              <tr>
+                <th class="text-left px-4 py-3 text-sm font-semibold">Police Force</th>
+                <th class="text-left px-4 py-3 text-sm font-semibold">Title</th>
+                <th class="text-left px-4 py-3 text-sm font-semibold">Date</th>
+                <th class="text-left px-4 py-3 text-sm font-semibold">Status</th>
+                <th class="text-left px-4 py-3 text-sm font-semibold">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="wdtk-table">
+              <tr><td colspan="5" class="text-center py-8 text-neutral-500">Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Manual Import -->
+      <div class="bg-white rounded-xl shadow-md p-6">
+        <h2 class="font-bold mb-4">Manual Data Import</h2>
+        <p class="text-sm text-neutral-600 mb-4">Upload a CSV file with theft data. Required columns: date, location_name, latitude, longitude, theft_count</p>
+        
+        <form id="import-form" class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium mb-1">Data Source Name</label>
+            <input type="text" id="source-name" class="w-full border rounded-lg px-3 py-2" placeholder="e.g., Met Police FOI 2024" required />
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">CSV File</label>
+            <input type="file" id="csv-file" accept=".csv" class="w-full border rounded-lg px-3 py-2" required />
+          </div>
+          <div class="flex gap-2">
+            <button type="button" id="preview-btn" class="px-4 py-2 bg-neutral-200 rounded-lg hover:bg-neutral-300">
+              Preview Data
+            </button>
+            <button type="submit" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90">
+              Import Data
+            </button>
+          </div>
+        </form>
+
+        <!-- Preview Area -->
+        <div id="preview-area" class="mt-4 hidden">
+          <h3 class="font-medium mb-2">Preview (first 5 rows)</h3>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm border">
+              <thead id="preview-head" class="bg-neutral-100"></thead>
+              <tbody id="preview-body"></tbody>
+            </table>
+          </div>
+          <p id="preview-count" class="text-sm text-neutral-600 mt-2"></p>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <Footer />
+</Layout>
+
+<script>
+  const CONVEX_URL = import.meta.env.PUBLIC_CONVEX_URL || '';
+
+  async function convexQuery(path: string, args: any = {}) {
+    const res = await fetch(`${CONVEX_URL}/api/query`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ path, args }),
+    });
+    return (await res.json()).value;
+  }
+
+  async function convexMutation(path: string, args: any = {}) {
+    const res = await fetch(`${CONVEX_URL}/api/mutation`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ path, args }),
+    });
+    return (await res.json()).value;
+  }
+
+  let parsedData: any[] = [];
+
+  async function loadStats() {
+    try {
+      const [dataStats, wdtkStats] = await Promise.all([
+        convexQuery('theftDataPoints:getStats'),
+        convexQuery('wdtkEntries:getStats'),
+      ]);
+
+      document.getElementById('stat-total-records')!.textContent = dataStats?.totalRecords?.toLocaleString() || '0';
+      document.getElementById('stat-total-thefts')!.textContent = dataStats?.totalThefts?.toLocaleString() || '0';
+      document.getElementById('stat-locations')!.textContent = dataStats?.uniqueLocations?.toLocaleString() || '0';
+      document.getElementById('stat-wdtk-entries')!.textContent = wdtkStats?.total || '0';
+      document.getElementById('stat-pending-import')!.textContent = wdtkStats?.pendingImport || '0';
+    } catch (err) {
+      console.error('Failed to load stats:', err);
+    }
+  }
+
+  async function loadWdtkEntries() {
+    const tbody = document.getElementById('wdtk-table')!;
+    try {
+      const entries = await convexQuery('wdtkEntries:list', { hasData: true }) || [];
+      
+      if (entries.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" class="text-center py-8 text-neutral-500">No WDTK entries with data found. Click "Scan WhatDoTheyKnow" to fetch.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = entries.map((e: any) => {
+        const date = new Date(e.publishedAt).toLocaleDateString('en-GB');
+        const statusColors: Record<string, string> = {
+          successful: 'bg-green-100 text-green-800',
+          partial: 'bg-yellow-100 text-yellow-800',
+        };
+        const statusClass = statusColors[e.status] || 'bg-neutral-100';
+        
+        return `
+          <tr class="border-b hover:bg-neutral-50">
+            <td class="px-4 py-3 text-sm font-medium">${e.policeForce || 'Unknown'}</td>
+            <td class="px-4 py-3 text-sm">
+              <a href="${e.url}" target="_blank" class="text-primary hover:underline">${e.title}</a>
+            </td>
+            <td class="px-4 py-3 text-sm text-neutral-600">${date}</td>
+            <td class="px-4 py-3">
+              <span class="px-2 py-1 rounded-full text-xs font-medium ${statusClass}">
+                ${e.dataImported ? 'Imported' : e.status}
+              </span>
+              ${e.recordsImported ? `<span class="text-xs text-neutral-500 ml-1">(${e.recordsImported} records)</span>` : ''}
+            </td>
+            <td class="px-4 py-3">
+              <a href="${e.url}" target="_blank" class="text-sm text-blue-600 hover:underline">View Response</a>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    } catch (err) {
+      console.error('Failed to load WDTK entries:', err);
+      tbody.innerHTML = '<tr><td colspan="5" class="text-center py-8 text-red-500">Failed to load entries</td></tr>';
+    }
+  }
+
+  function parseCSV(text: string): any[] {
+    const lines = text.trim().split('\n');
+    if (lines.length < 2) return [];
+    
+    const headers = lines[0].split(',').map(h => h.trim().toLowerCase().replace(/['"]/g, ''));
+    const records = [];
+    
+    for (let i = 1; i < lines.length; i++) {
+      const values = lines[i].split(',').map(v => v.trim().replace(/['"]/g, ''));
+      const record: any = {};
+      headers.forEach((h, idx) => record[h] = values[idx]);
+      
+      if (record.date && record.location_name && record.theft_count) {
+        records.push(record);
+      }
+    }
+    return records;
+  }
+
+  function showPreview() {
+    const fileInput = document.getElementById('csv-file') as HTMLInputElement;
+    if (!fileInput.files?.[0]) {
+      alert('Please select a CSV file first');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const text = e.target?.result as string;
+      parsedData = parseCSV(text);
+      
+      if (parsedData.length === 0) {
+        alert('No valid data found in CSV. Check column names.');
+        return;
+      }
+
+      const preview = document.getElementById('preview-area')!;
+      const thead = document.getElementById('preview-head')!;
+      const tbody = document.getElementById('preview-body')!;
+      const count = document.getElementById('preview-count')!;
+
+      const headers = Object.keys(parsedData[0]);
+      thead.innerHTML = `<tr>${headers.map(h => `<th class="px-2 py-1 text-left">${h}</th>`).join('')}</tr>`;
+      tbody.innerHTML = parsedData.slice(0, 5).map(row => 
+        `<tr>${headers.map(h => `<td class="px-2 py-1 border-t">${row[h] || ''}</td>`).join('')}</tr>`
+      ).join('');
+      count.textContent = `Total rows: ${parsedData.length}`;
+      preview.classList.remove('hidden');
+    };
+    reader.readAsText(fileInput.files[0]);
+  }
+
+  async function importData(e: Event) {
+    e.preventDefault();
+    
+    if (parsedData.length === 0) {
+      alert('Please preview the data first');
+      return;
+    }
+
+    const sourceName = (document.getElementById('source-name') as HTMLInputElement).value;
+    if (!sourceName) {
+      alert('Please enter a data source name');
+      return;
+    }
+
+    try {
+      const dataPoints = parsedData.map(row => ({
+        date: row.date,
+        locationName: row.location_name,
+        latitude: parseFloat(row.latitude) || 0,
+        longitude: parseFloat(row.longitude) || 0,
+        theftCount: parseInt(row.theft_count) || 0,
+        dataSource: sourceName,
+      }));
+
+      await convexMutation('theftDataPoints:createBatch', { dataPoints });
+      
+      alert(`Successfully imported ${dataPoints.length} records!`);
+      parsedData = [];
+      document.getElementById('preview-area')!.classList.add('hidden');
+      (document.getElementById('import-form') as HTMLFormElement).reset();
+      await loadStats();
+    } catch (err) {
+      console.error('Import failed:', err);
+      alert('Import failed. Check console for details.');
+    }
+  }
+
+  async function seedData() {
+    if (!confirm('This will seed the database with verified UK theft statistics. Continue?')) return;
+    
+    try {
+      const response = await fetch('/api/admin/seed-theft-data');
+      const data = await response.json();
+      
+      if (data.success) {
+        alert(`Data seeded!\n\n${data.message}\nLocations: ${data.locations}\nMonths: ${data.months}`);
+        await loadStats();
+      } else {
+        alert('Seed failed: ' + (data.message || data.error));
+      }
+    } catch (err) {
+      console.error('Seed failed:', err);
+      alert('Seed failed. Check console for details.');
+    }
+  }
+
+  async function scanWdtk() {
+    try {
+      const response = await fetch('/api/cron/monitor-wdtk');
+      const data = await response.json();
+      
+      if (data.success) {
+        alert(`Scan complete!\n\nNew entries: ${data.new_entries}\nSuccessful responses: ${data.successful_responses}`);
+        await loadWdtkEntries();
+        await loadStats();
+      } else {
+        alert('Scan failed: ' + data.error);
+      }
+    } catch (err) {
+      console.error('Scan failed:', err);
+      alert('Scan failed. Check console for details.');
+    }
+  }
+
+  async function deepScrapeWdtk() {
+    if (!confirm('This will scrape multiple pages of WDTK for FOI requests. This may take a minute. Continue?')) return;
+    
+    try {
+      const response = await fetch('/api/admin/scrape-wdtk?pages=10');
+      const data = await response.json();
+      
+      if (data.success) {
+        alert(`Deep scrape complete!\n\nTotal found: ${data.totalFound}\nRelevant: ${data.relevant}\nNew saved: ${data.saved}\nSkipped (existing): ${data.skipped}`);
+        await loadWdtkEntries();
+        await loadStats();
+      } else {
+        alert('Scrape failed: ' + data.error);
+      }
+    } catch (err) {
+      console.error('Scrape failed:', err);
+      alert('Scrape failed. Check console for details.');
+    }
+  }
+
+  // Event listeners
+  document.addEventListener('DOMContentLoaded', () => {
+    loadStats();
+    loadWdtkEntries();
+  });
+
+  async function testEmail() {
+    const email = prompt('Enter your email address to receive a test notification:', '');
+    if (!email) return;
+    
+    try {
+      const response = await fetch(`/api/admin/test-email?email=${encodeURIComponent(email)}`);
+      const data = await response.json();
+      
+      if (data.success) {
+        alert(`Test email sent to ${email}!\n\nCheck your inbox (and spam folder).`);
+      } else {
+        alert('Email failed: ' + data.error);
+      }
+    } catch (err) {
+      console.error('Email test failed:', err);
+      alert('Email test failed. Check console for details.');
+    }
+  }
+
+  document.getElementById('seed-btn')?.addEventListener('click', seedData);
+  document.getElementById('scan-btn')?.addEventListener('click', scanWdtk);
+  document.getElementById('scrape-btn')?.addEventListener('click', deepScrapeWdtk);
+  document.getElementById('test-email-btn')?.addEventListener('click', testEmail);
+  document.getElementById('refresh-btn')?.addEventListener('click', () => {
+    loadStats();
+    loadWdtkEntries();
+  });
+  document.getElementById('preview-btn')?.addEventListener('click', showPreview);
+  document.getElementById('import-form')?.addEventListener('submit', importData);
+</script>

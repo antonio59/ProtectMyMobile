@@ -2,18 +2,18 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { getMobileProviders } from '../lib/supabase';
+import { getMobileProviders } from '../lib/convexData';
 import { mobileProviders as staticProviders } from '../data/mobileProviders';
 import { Phone, Search, Globe, AlertCircle } from 'lucide-react';
 
-// Fetch providers from Supabase
+// Fetch providers from Convex
 const providersData = await getMobileProviders();
 
-// Map Supabase data to match old format
+// Map Convex data to match old format
 const mobileProviders = providersData.map(provider => {
-  const staticProvider = staticProviders.find(p => p.id === provider.id || p.name === provider.name);
+  const staticProvider = staticProviders.find(p => p.id === provider._id || p.name === provider.name);
   return {
-    id: provider.id,
+    id: provider._id,
     name: provider.name,
     colour: staticProvider?.colour || '#1d4ed8', // Use static color if available
     initial: provider.name.charAt(0).toUpperCase(),
@@ -23,7 +23,7 @@ const mobileProviders = providersData.map(provider => {
     },
     network: provider.network,
     website: provider.website,
-    is_mvno: provider.is_mvno,
+    is_mvno: provider.isMvno,
     // Default steps
     steps: [
       provider.phone ? 'Call customer services to report your SIM stolen' : 'Log into your account on another device',

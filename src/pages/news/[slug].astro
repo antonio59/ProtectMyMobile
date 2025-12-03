@@ -2,7 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
-import { getNewsPosts, getNewsPostBySlug } from '@/lib/supabase';
+import { getNewsPosts, getNewsPostBySlug } from '../../lib/convexData';
 import { Calendar, ExternalLink, ArrowLeft } from 'lucide-react';
 import { marked } from 'marked';
 
@@ -60,8 +60,9 @@ const categoryColors: Record<string, string> = {
   other: 'bg-gray-100 text-gray-800',
 };
 
-function formatDate(dateString: string) {
-  return new Date(dateString).toLocaleDateString('en-GB', {
+function formatDate(dateValue: string | number) {
+  const date = typeof dateValue === 'number' ? new Date(dateValue) : new Date(dateValue);
+  return date.toLocaleDateString('en-GB', {
     day: 'numeric',
     month: 'long',
     year: 'numeric'
@@ -88,10 +89,10 @@ function formatDate(dateString: string) {
         <article class="bg-white rounded-lg shadow-md overflow-hidden">
           <div class="p-8">
             <!-- Source -->
-            {post.source_url && (
+            {post.sourceUrl && (
               <div class="mb-4 text-xs text-neutral-500">
-                <a href={post.source_url} target="_blank" rel="noopener noreferrer" class="text-primary hover:underline inline-flex items-center font-medium">
-                  Source: {post.source_name || 'External Link'}
+                <a href={post.sourceUrl} target="_blank" rel="noopener noreferrer" class="text-primary hover:underline inline-flex items-center font-medium">
+                  Source: {post.sourceName || 'External Link'}
                   <ExternalLink class="h-3 w-3 ml-1" />
                 </a>
               </div>

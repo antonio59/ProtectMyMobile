@@ -1,20 +1,15 @@
 import type { APIRoute } from 'astro';
 import Parser from 'rss-parser';
-import { createClient } from '@supabase/supabase-js';
+import { ConvexHttpClient } from 'convex/browser';
+import { api } from '../../../../convex/_generated/api';
 import { Resend } from 'resend';
 
 // Initialize RSS parser
 const parser = new Parser();
 
-// Initialize Supabase with Service Role for Admin access
-// We need this to bypass RLS policies for insertion
-const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
-const supabaseServiceKey = import.meta.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
-
-// Use the service client if available, otherwise fall back to default (which might fail RLS)
-const supabase = supabaseServiceKey 
-  ? createClient(supabaseUrl, supabaseServiceKey)
-  : null;
+// Initialize Convex client
+const convexUrl = import.meta.env.PUBLIC_CONVEX_URL;
+const convex = convexUrl ? new ConvexHttpClient(convexUrl) : null;
 
 // Helper to generate slug
 function generateSlug(title: string): string {
@@ -38,10 +33,10 @@ function categorizeArticle(title: string, snippet: string): 'arrest' | 'seizure'
 }
 
 export const GET: APIRoute = async () => {
-  if (!supabase) {
+  if (!convex) {
     return new Response(JSON.stringify({ 
       success: false, 
-      error: 'Missing SUPABASE_SERVICE_ROLE_KEY. Cannot perform admin operations.' 
+      error: 'Missing PUBLIC_CONVEX_URL. Cannot perform database operations.' 
     }), { status: 500 });
   }
 
@@ -54,11 +49,9 @@ export const GET: APIRoute = async () => {
     }
 
     // 2. Get existing posts to check for duplicates
-    const { data: existingPosts } = await supabase
-      .from('news_posts')
-      .select('slug, source_url');
+    const existingPosts = await convex.query(api.newsPosts.list, { publishedOnly: false });
       
-    const existingUrls = new Set(existingPosts?.map((p: any) => p.source_url) || []);
+    const existingUrls = new Set(existingPosts?.map((p: any) => p.sourceUrl) || []);
     const existingSlugs = new Set(existingPosts?.map((p: any) => p.slug) || []);
     
     const newArticles = [];
@@ -84,24 +77,27 @@ export const GET: APIRoute = async () => {
 
         const category = categorizeArticle(article.title!, article.contentSnippet || '');
         
-        const { data: newPost, error } = await supabase
-          .from('news_posts')
-          .insert([{
-            title: article.title!,
-            slug: slug,
-            excerpt: article.contentSnippet?.substring(0, 150) + '...' || 'No excerpt available.',
-            content: article.content || article.contentSnippet || 'Content to be curated.',
-            author_name: 'Automated News Bot',
-            category: category,
-            source_url: article.link,
-            source_name: article.source?.trim() || 'Google News',
-            published: true
-          }])
-          .select()
-          .single();
+        const newPostId = await convex.mutation(api.newsPosts.create, {
+          title: article.title!,
+          slug: slug,
+          excerpt: article.contentSnippet?.substring(0, 150) + '...' || 'No excerpt available.',
+          content: article.content || article.contentSnippet || 'Content to be curated.',
+          authorName: 'Automated News Bot',
+          category: category,
+          sourceUrl: article.link,
+          sourceName: article.source?.trim() || 'Google News',
+          published: true
+        });
 
-        if (error) throw error;
-        if (newPost) createdPosts.push(newPost);
+        if (newPostId) {
+          createdPosts.push({
+            _id: newPostId,
+            title: article.title!,
+            sourceUrl: article.link,
+            sourceName: article.source?.trim() || 'Google News',
+            category: category
+          });
+        }
         
       } catch (err) {
         console.error('Failed to create post:', article.title, err);
@@ -127,8 +123,8 @@ export const GET: APIRoute = async () => {
                 ${createdPosts.map((p: any) => `
                   <li>
                     <strong>${p.title}</strong><br>
-                    <span style="font-size: 0.8em; color: #666;">${p.source_name} • ${p.category}</span><br>
-                    <a href="${p.source_url}">Original Link</a>
+                    <span style="font-size: 0.8em; color: #666;">${p.sourceName} • ${p.category}</span><br>
+                    <a href="${p.sourceUrl}">Original Link</a>
                   </li>
                 `).join('')}
               </ul>

@@ -1,0 +1,477 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+---
+
+<Layout 
+  title="FOI & Data Manager | ProtectMyMobile Admin"
+  description="Manage FOI requests and import theft data from multiple sources."
+>
+  <Header />
+  
+  <main class="bg-[#f3f2f1] min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-7xl">
+      <div class="flex items-center justify-between mb-8">
+        <div>
+          <h1 class="text-3xl font-bold flex items-center gap-3">
+            <svg class="h-8 w-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+            FOI & Data Manager
+          </h1>
+          <p class="text-neutral-600 mt-2">Track FOI requests and import theft data from WhatDoTheyKnow and direct requests.</p>
+        </div>
+        <div class="flex gap-2">
+          <button id="scan-wdtk-btn" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+            Scan WhatDoTheyKnow
+          </button>
+          <button id="seed-btn" class="px-4 py-2 bg-neutral-200 text-neutral-700 rounded-lg hover:bg-neutral-300 transition-colors">
+            Seed Police Forces
+          </button>
+          <button id="send-btn" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">
+            Send Direct Requests
+          </button>
+        </div>
+      </div>
+      
+      <!-- Tabs -->
+      <div class="flex border-b mb-6">
+        <button id="tab-wdtk" class="px-6 py-3 font-medium border-b-2 border-primary text-primary">
+          WhatDoTheyKnow
+        </button>
+        <button id="tab-direct" class="px-6 py-3 font-medium border-b-2 border-transparent text-neutral-600 hover:text-neutral-800">
+          Direct Requests
+        </button>
+        <button id="tab-data" class="px-6 py-3 font-medium border-b-2 border-transparent text-neutral-600 hover:text-neutral-800">
+          Theft Data
+        </button>
+      </div>
+
+      <!-- Stats Cards -->
+      <div id="stats-container" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4 mb-8">
+        <div class="bg-white rounded-lg p-4 shadow-sm">
+          <div class="text-2xl font-bold text-neutral-900" id="stat-total">-</div>
+          <div class="text-xs text-neutral-500">Total</div>
+        </div>
+        <div class="bg-white rounded-lg p-4 shadow-sm">
+          <div class="text-2xl font-bold text-blue-600" id="stat-sent">-</div>
+          <div class="text-xs text-neutral-500">Sent</div>
+        </div>
+        <div class="bg-white rounded-lg p-4 shadow-sm">
+          <div class="text-2xl font-bold text-yellow-600" id="stat-acknowledged">-</div>
+          <div class="text-xs text-neutral-500">Acknowledged</div>
+        </div>
+        <div class="bg-white rounded-lg p-4 shadow-sm">
+          <div class="text-2xl font-bold text-green-600" id="stat-received">-</div>
+          <div class="text-xs text-neutral-500">Received</div>
+        </div>
+        <div class="bg-white rounded-lg p-4 shadow-sm">
+          <div class="text-2xl font-bold text-emerald-600" id="stat-processed">-</div>
+          <div class="text-xs text-neutral-500">Processed</div>
+        </div>
+        <div class="bg-white rounded-lg p-4 shadow-sm">
+          <div class="text-2xl font-bold text-red-600" id="stat-overdue">-</div>
+          <div class="text-xs text-neutral-500">Overdue</div>
+        </div>
+        <div class="bg-white rounded-lg p-4 shadow-sm">
+          <div class="text-2xl font-bold text-red-400" id="stat-rejected">-</div>
+          <div class="text-xs text-neutral-500">Rejected</div>
+        </div>
+        <div class="bg-white rounded-lg p-4 shadow-sm">
+          <div class="text-2xl font-bold text-purple-600" id="stat-records">-</div>
+          <div class="text-xs text-neutral-500">Records Imported</div>
+        </div>
+      </div>
+
+      <!-- Filters -->
+      <div class="bg-white rounded-lg p-4 shadow-sm mb-6">
+        <div class="flex flex-wrap gap-4 items-center">
+          <label class="text-sm font-medium text-neutral-700">Filter by Status:</label>
+          <select id="status-filter" class="border border-neutral-300 rounded-lg px-3 py-2 text-sm">
+            <option value="">All Requests</option>
+            <option value="sent">Sent (Awaiting)</option>
+            <option value="acknowledged">Acknowledged</option>
+            <option value="received">Received</option>
+            <option value="processed">Processed</option>
+            <option value="overdue">Overdue</option>
+            <option value="rejected">Rejected</option>
+          </select>
+          <button id="refresh-btn" class="ml-auto px-4 py-2 text-sm bg-neutral-100 rounded-lg hover:bg-neutral-200">
+            Refresh
+          </button>
+        </div>
+      </div>
+
+      <!-- Requests Table -->
+      <div class="bg-white rounded-xl shadow-md overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full">
+            <thead class="bg-neutral-50 border-b">
+              <tr>
+                <th class="text-left px-4 py-3 text-sm font-semibold text-neutral-700">Reference</th>
+                <th class="text-left px-4 py-3 text-sm font-semibold text-neutral-700">Police Force</th>
+                <th class="text-left px-4 py-3 text-sm font-semibold text-neutral-700">Date Range</th>
+                <th class="text-left px-4 py-3 text-sm font-semibold text-neutral-700">Status</th>
+                <th class="text-left px-4 py-3 text-sm font-semibold text-neutral-700">Due Date</th>
+                <th class="text-left px-4 py-3 text-sm font-semibold text-neutral-700">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="requests-table">
+              <tr>
+                <td colspan="6" class="text-center py-8 text-neutral-500">Loading...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Update Modal -->
+      <div id="update-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-xl p-6 max-w-lg w-full mx-4 max-h-[90vh] overflow-y-auto">
+          <h3 class="text-xl font-bold mb-4">Update Request Status</h3>
+          <form id="update-form">
+            <input type="hidden" id="update-id" />
+            
+            <div class="mb-4">
+              <label class="block text-sm font-medium mb-1">Status</label>
+              <select id="update-status" class="w-full border rounded-lg px-3 py-2">
+                <option value="sent">Sent (Awaiting)</option>
+                <option value="acknowledged">Acknowledged</option>
+                <option value="extended">Extended (More Time)</option>
+                <option value="received">Response Received</option>
+                <option value="processed">Data Processed</option>
+                <option value="rejected">Rejected</option>
+              </select>
+            </div>
+            
+            <div class="mb-4">
+              <label class="block text-sm font-medium mb-1">Notes</label>
+              <textarea id="update-notes" class="w-full border rounded-lg px-3 py-2 h-24" placeholder="Any notes about the response..."></textarea>
+            </div>
+            
+            <div class="mb-4" id="rejection-reason-container" style="display:none;">
+              <label class="block text-sm font-medium mb-1">Rejection Reason</label>
+              <input type="text" id="update-rejection" class="w-full border rounded-lg px-3 py-2" placeholder="e.g., Cost exceeded limit" />
+            </div>
+
+            <div class="mb-4" id="file-upload-container" style="display:none;">
+              <label class="block text-sm font-medium mb-1">Upload Data File (CSV)</label>
+              <input type="file" id="update-file" accept=".csv" class="w-full border rounded-lg px-3 py-2" />
+              <p class="text-xs text-neutral-500 mt-1">CSV should have columns: date, location_name, latitude, longitude, theft_count</p>
+            </div>
+            
+            <div class="flex gap-2 justify-end mt-6">
+              <button type="button" id="cancel-update" class="px-4 py-2 border rounded-lg hover:bg-neutral-50">Cancel</button>
+              <button type="submit" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90">Save Changes</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <Footer />
+</Layout>
+
+<script>
+  const CONVEX_URL = import.meta.env.PUBLIC_CONVEX_URL || '';
+  
+  interface FOIRequest {
+    _id: string;
+    referenceNumber: string;
+    policeForce: string;
+    policeForceEmail: string;
+    requestDate: number;
+    dateRangeStart: string;
+    dateRangeEnd: string;
+    status: string;
+    dueDate: number;
+    responseNotes?: string;
+    recordsImported?: number;
+  }
+
+  let allRequests: FOIRequest[] = [];
+
+  async function convexQuery(functionPath: string, args: any = {}) {
+    const response = await fetch(`${CONVEX_URL}/api/query`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ path: functionPath, args }),
+    });
+    const data = await response.json();
+    return data.value;
+  }
+
+  async function convexMutation(functionPath: string, args: any = {}) {
+    const response = await fetch(`${CONVEX_URL}/api/mutation`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ path: functionPath, args }),
+    });
+    const data = await response.json();
+    return data.value;
+  }
+
+  async function loadStats() {
+    try {
+      const stats = await convexQuery('foiRequests:getStats');
+      if (stats) {
+        document.getElementById('stat-total')!.textContent = stats.total;
+        document.getElementById('stat-sent')!.textContent = stats.sent;
+        document.getElementById('stat-acknowledged')!.textContent = stats.acknowledged;
+        document.getElementById('stat-received')!.textContent = stats.received;
+        document.getElementById('stat-processed')!.textContent = stats.processed;
+        document.getElementById('stat-overdue')!.textContent = stats.overdue;
+        document.getElementById('stat-rejected')!.textContent = stats.rejected;
+        document.getElementById('stat-records')!.textContent = stats.totalRecordsImported.toLocaleString();
+      }
+    } catch (err) {
+      console.error('Failed to load stats:', err);
+    }
+  }
+
+  async function loadRequests(statusFilter?: string) {
+    const tbody = document.getElementById('requests-table')!;
+    tbody.innerHTML = '<tr><td colspan="6" class="text-center py-8 text-neutral-500">Loading...</td></tr>';
+    
+    try {
+      const args: any = {};
+      if (statusFilter) args.status = statusFilter;
+      
+      allRequests = await convexQuery('foiRequests:list', args) || [];
+      
+      if (allRequests.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" class="text-center py-8 text-neutral-500">No FOI requests found. Send quarterly requests or seed police forces first.</td></tr>';
+        return;
+      }
+
+      const now = Date.now();
+      
+      tbody.innerHTML = allRequests.map(req => {
+        const isOverdue = req.status === 'sent' && req.dueDate < now;
+        const statusColors: Record<string, string> = {
+          sent: 'bg-blue-100 text-blue-800',
+          acknowledged: 'bg-yellow-100 text-yellow-800',
+          extended: 'bg-orange-100 text-orange-800',
+          received: 'bg-green-100 text-green-800',
+          processed: 'bg-emerald-100 text-emerald-800',
+          rejected: 'bg-red-100 text-red-800',
+          overdue: 'bg-red-200 text-red-900',
+        };
+        
+        const displayStatus = isOverdue ? 'overdue' : req.status;
+        const statusClass = statusColors[displayStatus] || 'bg-neutral-100 text-neutral-800';
+        
+        const requestDate = new Date(req.requestDate).toLocaleDateString('en-GB');
+        const dueDate = new Date(req.dueDate).toLocaleDateString('en-GB');
+        
+        return `
+          <tr class="border-b hover:bg-neutral-50">
+            <td class="px-4 py-3 text-sm font-mono">${req.referenceNumber}</td>
+            <td class="px-4 py-3 text-sm">${req.policeForce}</td>
+            <td class="px-4 py-3 text-sm text-neutral-600">${req.dateRangeStart} to ${req.dateRangeEnd}</td>
+            <td class="px-4 py-3">
+              <span class="px-2 py-1 rounded-full text-xs font-medium ${statusClass}">
+                ${displayStatus.charAt(0).toUpperCase() + displayStatus.slice(1)}
+              </span>
+            </td>
+            <td class="px-4 py-3 text-sm ${isOverdue ? 'text-red-600 font-medium' : 'text-neutral-600'}">${dueDate}</td>
+            <td class="px-4 py-3">
+              <button 
+                onclick="openUpdateModal('${req._id}')"
+                class="text-sm text-primary hover:underline"
+              >
+                Update
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+      
+    } catch (err) {
+      console.error('Failed to load requests:', err);
+      tbody.innerHTML = '<tr><td colspan="6" class="text-center py-8 text-red-500">Failed to load requests</td></tr>';
+    }
+  }
+
+  function openUpdateModal(id: string) {
+    const request = allRequests.find(r => r._id === id);
+    if (!request) return;
+    
+    (document.getElementById('update-id') as HTMLInputElement).value = id;
+    (document.getElementById('update-status') as HTMLSelectElement).value = request.status;
+    (document.getElementById('update-notes') as HTMLTextAreaElement).value = request.responseNotes || '';
+    
+    document.getElementById('update-modal')!.classList.remove('hidden');
+    document.getElementById('update-modal')!.classList.add('flex');
+    
+    handleStatusChange();
+  }
+
+  function closeUpdateModal() {
+    document.getElementById('update-modal')!.classList.add('hidden');
+    document.getElementById('update-modal')!.classList.remove('flex');
+  }
+
+  function handleStatusChange() {
+    const status = (document.getElementById('update-status') as HTMLSelectElement).value;
+    const rejectionContainer = document.getElementById('rejection-reason-container')!;
+    const fileContainer = document.getElementById('file-upload-container')!;
+    
+    rejectionContainer.style.display = status === 'rejected' ? 'block' : 'none';
+    fileContainer.style.display = (status === 'received' || status === 'processed') ? 'block' : 'none';
+  }
+
+  async function handleUpdateSubmit(e: Event) {
+    e.preventDefault();
+    
+    const id = (document.getElementById('update-id') as HTMLInputElement).value;
+    const status = (document.getElementById('update-status') as HTMLSelectElement).value;
+    const notes = (document.getElementById('update-notes') as HTMLTextAreaElement).value;
+    const rejection = (document.getElementById('update-rejection') as HTMLInputElement).value;
+    const fileInput = document.getElementById('update-file') as HTMLInputElement;
+    
+    try {
+      const updateArgs: any = { id, status, responseNotes: notes || undefined };
+      
+      if (status === 'rejected') {
+        updateArgs.rejectionReason = rejection;
+      }
+      
+      if (status === 'acknowledged') {
+        updateArgs.acknowledgedAt = Date.now();
+      }
+      
+      if (status === 'received') {
+        updateArgs.responseReceivedAt = Date.now();
+      }
+      
+      if (status === 'processed') {
+        updateArgs.processedAt = Date.now();
+      }
+      
+      // Handle file upload and import
+      if (fileInput.files && fileInput.files[0]) {
+        const file = fileInput.files[0];
+        const text = await file.text();
+        const records = parseCSV(text);
+        
+        if (records.length > 0) {
+          // Import records to theftDataPoints
+          const request = allRequests.find(r => r._id === id);
+          for (const record of records) {
+            await convexMutation('theftDataPoints:create', {
+              date: record.date,
+              locationName: record.location_name,
+              latitude: parseFloat(record.latitude),
+              longitude: parseFloat(record.longitude),
+              theftCount: parseInt(record.theft_count),
+              dataSource: request?.policeForce || 'FOI Request',
+            });
+          }
+          
+          updateArgs.recordsImported = records.length;
+          updateArgs.responseFileName = file.name;
+        }
+      }
+      
+      await convexMutation('foiRequests:update', updateArgs);
+      
+      closeUpdateModal();
+      await loadRequests();
+      await loadStats();
+      
+      alert('Request updated successfully!');
+      
+    } catch (err) {
+      console.error('Update failed:', err);
+      alert('Failed to update request');
+    }
+  }
+
+  function parseCSV(text: string): any[] {
+    const lines = text.trim().split('\n');
+    if (lines.length < 2) return [];
+    
+    const headers = lines[0].split(',').map(h => h.trim().toLowerCase().replace(/['"]/g, ''));
+    const records = [];
+    
+    for (let i = 1; i < lines.length; i++) {
+      const values = lines[i].split(',').map(v => v.trim().replace(/['"]/g, ''));
+      const record: any = {};
+      headers.forEach((h, idx) => {
+        record[h] = values[idx];
+      });
+      
+      // Validate required fields
+      if (record.date && record.location_name && record.theft_count) {
+        records.push(record);
+      }
+    }
+    
+    return records;
+  }
+
+  async function seedPoliceForces() {
+    try {
+      const result = await convexMutation('policeForces:seedUKForces');
+      alert(result.message + ` (${result.count} forces)`);
+    } catch (err) {
+      console.error('Seed failed:', err);
+      alert('Failed to seed police forces');
+    }
+  }
+
+  async function sendQuarterlyRequests() {
+    if (!confirm('This will send FOI requests to all active police forces. Continue?')) return;
+    
+    try {
+      const response = await fetch('/api/cron/send-foi-requests');
+      const data = await response.json();
+      
+      if (data.success) {
+        alert(`FOI requests sent!\n\nSent: ${data.results.sent.length}\nSkipped: ${data.results.skipped.length}\nFailed: ${data.results.failed.length}`);
+        await loadRequests();
+        await loadStats();
+      } else {
+        alert('Failed: ' + data.error);
+      }
+    } catch (err) {
+      console.error('Send failed:', err);
+      alert('Failed to send requests');
+    }
+  }
+
+  // Make functions available globally
+  (window as any).openUpdateModal = openUpdateModal;
+
+  // Event listeners
+  document.addEventListener('DOMContentLoaded', () => {
+    loadStats();
+    loadRequests();
+  });
+
+  document.getElementById('status-filter')?.addEventListener('change', (e) => {
+    const value = (e.target as HTMLSelectElement).value;
+    loadRequests(value || undefined);
+  });
+
+  document.getElementById('refresh-btn')?.addEventListener('click', () => {
+    const filter = (document.getElementById('status-filter') as HTMLSelectElement).value;
+    loadRequests(filter || undefined);
+    loadStats();
+  });
+
+  document.getElementById('seed-btn')?.addEventListener('click', seedPoliceForces);
+  document.getElementById('send-btn')?.addEventListener('click', sendQuarterlyRequests);
+  document.getElementById('cancel-update')?.addEventListener('click', closeUpdateModal);
+  document.getElementById('update-form')?.addEventListener('submit', handleUpdateSubmit);
+  document.getElementById('update-status')?.addEventListener('change', handleStatusChange);
+  
+  document.getElementById('update-modal')?.addEventListener('click', (e) => {
+    if (e.target === document.getElementById('update-modal')) {
+      closeUpdateModal();
+    }
+  });
+</script>

@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { createContactSubmission } from '../../../lib/supabase';
+import { createContactSubmission } from '../../../lib/convexMutations';
 import { Resend } from 'resend';
 
 export const POST: APIRoute = async ({ request }) => {
@@ -30,7 +30,7 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // Save to Supabase
+    // Save to Convex
     const result = await createContactSubmission({
       name,
       email,

@@ -2,25 +2,25 @@
 // Handles community response submissions
 
 import type { APIRoute } from 'astro';
-import { submitCommunityResponse, hashIP } from '../../../lib/communityData';
-import type { CommunityResponse } from '../../../lib/communityData';
+import { submitCommunityResponse, hashIP } from '../../../lib/convexMutations';
 
 export const POST: APIRoute = async ({ request }) => {
   try {
     const body = await request.json();
     
     // Validate required fields
-    if (!body.had_phone_stolen) {
+    if (!body.had_phone_stolen && !body.hadPhoneStolen) {
       return new Response(JSON.stringify({ 
         success: false,
-        error: 'Missing required field: had_phone_stolen' 
+        error: 'Missing required field: hadPhoneStolen' 
       }), {
         status: 400,
         headers: { 'Content-Type': 'application/json' },
       });
     }
 
-    if (!body.session_id) {
+    const sessionId = body.session_id || body.sessionId;
+    if (!sessionId) {
       return new Response(JSON.stringify({ 
         success: false,
         error: 'Missing session ID' 
@@ -30,9 +30,13 @@ export const POST: APIRoute = async ({ request }) => {
       });
     }
 
+    const hadPhoneStolen = body.hadPhoneStolen || body.had_phone_stolen;
+    
     // Validate conditional fields
-    if (body.had_phone_stolen === 'yes') {
-      if (!body.phone_recovered || !body.theft_location) {
+    if (hadPhoneStolen === 'yes') {
+      const phoneRecovered = body.phoneRecovered || body.phone_recovered;
+      const theftLocation = body.theftLocation || body.theft_location;
+      if (!phoneRecovered || !theftLocation) {
         return new Response(JSON.stringify({ 
           success: false,
           error: 'Missing required fields for theft victims' 
@@ -49,29 +53,18 @@ export const POST: APIRoute = async ({ request }) => {
                      'unknown';
     const ipHash = clientIP !== 'unknown' ? await hashIP(clientIP) : undefined;
 
-    // Prepare response object
-    const response: CommunityResponse = {
-      had_phone_stolen: body.had_phone_stolen,
-      phone_recovered: body.phone_recovered || null,
-      replacement_method: body.replacement_method || null,
-      theft_location: body.theft_location || null,
-      security_measures: body.security_measures || [],
-      reported_to_police: body.reported_to_police || null,
-    };
-
-    // Submit to database
-    const result = await submitCommunityResponse(
-      response,
-      body.session_id,
-      ipHash
-    );
-
-    if (!result.success) {
-      return new Response(JSON.stringify(result), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' },
-      });
-    }
+    // Submit to Convex
+    await submitCommunityResponse({
+      hadPhoneStolen: hadPhoneStolen,
+      phoneRecovered: body.phoneRecovered || body.phone_recovered || undefined,
+      replacementMethod: body.replacementMethod || body.replacement_method || undefined,
+      theftLocation: body.theftLocation || body.theft_location || undefined,
+      securityMeasures: body.securityMeasures || body.security_measures || undefined,
+      reportedToPolice: body.reportedToPolice || body.reported_to_police || undefined,
+      sessionId: sessionId,
+      userIpHash: ipHash,
+      userAgent: request.headers.get('user-agent') || undefined,
+    });
 
     return new Response(JSON.stringify({ 
       success: true,
@@ -83,11 +76,14 @@ export const POST: APIRoute = async ({ request }) => {
 
   } catch (error) {
     console.error('Error in submit API:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Internal server error';
+    const status = errorMessage.includes('already submitted') ? 400 : 500;
+    
     return new Response(JSON.stringify({ 
       success: false,
-      error: 'Internal server error' 
+      error: errorMessage 
     }), {
-      status: 500,
+      status,
       headers: { 'Content-Type': 'application/json' },
     });
   }

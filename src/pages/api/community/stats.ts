@@ -2,7 +2,7 @@
 // Returns community analytics statistics
 
 import type { APIRoute } from 'astro';
-import { getCommunityStats } from '../../../lib/communityData';
+import { getCommunityStats } from '../../../lib/convexData';
 
 export const GET: APIRoute = async () => {
   try {

@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { getNewsPosts } from '@/lib/supabase';
+import { getNewsPosts } from '../lib/convexData';
 import {
   Shield,
   AlertTriangle,
@@ -24,8 +24,9 @@ try {
   console.error('Error fetching news:', e);
 }
 
-function formatDate(dateString: string) {
-  return new Date(dateString).toLocaleDateString('en-GB', {
+function formatDate(dateValue: string | number) {
+  const date = typeof dateValue === 'number' ? new Date(dateValue) : new Date(dateValue);
+  return date.toLocaleDateString('en-GB', {
     day: 'numeric',
     month: 'short',
     year: 'numeric'
@@ -101,7 +102,7 @@ const categoryBorderColors: Record<string, string> = {
                     <Newspaper class="h-4 w-4 text-blue-600 flex-shrink-0" />
                     <span class="text-xs text-neutral-500 uppercase font-medium">{post.category.replace('_', ' ')}</span>
                     <span class="text-xs text-neutral-400">•</span>
-                    <span class="text-xs text-neutral-500">{formatDate(post.published_at || post.created_at)}</span>
+                    <span class="text-xs text-neutral-500">{formatDate(post.publishedAt || post._creationTime)}</span>
                   </div>
                   <h3 class="text-lg font-semibold mb-2 group-hover:text-primary transition-colors line-clamp-2">
                     {post.title}

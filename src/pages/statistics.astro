@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import UKStatistics from '../components/UKStatistics';
+import UKStatisticsLive from '../components/UKStatisticsLive';
 import { BarChart3, TrendingUp, MapPin, AlertTriangle, Clock, Smartphone, ArrowRight } from 'lucide-react';
 ---
 
@@ -24,9 +24,9 @@ import { BarChart3, TrendingUp, MapPin, AlertTriangle, Clock, Smartphone, ArrowR
         </p>
       </div>
 
-      <!-- Key Metrics - Interactive Component -->
+      <!-- Key Metrics - Live Data Component -->
       <section class="mb-12">
-        <UKStatistics client:load />
+        <UKStatisticsLive client:load />
       </section>
       
       <!-- Time of Day Analysis -->

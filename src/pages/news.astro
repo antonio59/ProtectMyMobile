@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { getNewsPosts } from '@/lib/supabase';
+import { getNewsPosts } from '../lib/convexData';
 import { Newspaper, Calendar, ExternalLink, ArrowRight } from 'lucide-react';
 
 let posts = [];
@@ -24,8 +24,9 @@ const categoryColors: Record<string, string> = {
   other: 'bg-gray-100 text-gray-800',
 };
 
-function formatDate(dateString: string) {
-  return new Date(dateString).toLocaleDateString('en-GB', {
+function formatDate(dateValue: string | number) {
+  const date = typeof dateValue === 'number' ? new Date(dateValue) : new Date(dateValue);
+  return date.toLocaleDateString('en-GB', {
     day: 'numeric',
     month: 'long',
     year: 'numeric'
@@ -84,7 +85,7 @@ function formatDate(dateString: string) {
                     </span>
                     <span class="text-sm text-neutral-500 flex items-center">
                       <Calendar class="h-4 w-4 mr-1" />
-                      {formatDate(post.published_at || post.created_at)}
+                      {formatDate(post.publishedAt || post._creationTime)}
                     </span>
                   </div>
                   
@@ -103,11 +104,11 @@ function formatDate(dateString: string) {
                       Read full article <ArrowRight class="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" />
                     </a>
                     
-                    {post.source_url && (
-                      <a href={post.source_url} target="_blank" rel="noopener noreferrer" 
+                    {post.sourceUrl && (
+                      <a href={post.sourceUrl} target="_blank" rel="noopener noreferrer" 
                          class="text-xs text-neutral-400 hover:text-neutral-600 flex items-center">
                         <ExternalLink class="h-3 w-3 mr-1" />
-                        {post.source_name || 'Source'}
+                        {post.sourceName || 'Source'}
                       </a>
                     )}
                   </div>

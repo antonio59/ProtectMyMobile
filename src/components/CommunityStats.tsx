@@ -2,8 +2,8 @@
 // Shows live statistics before voting
 
 import { useEffect, useState } from 'react';
-import type { CommunityStats } from '../lib/communityData';
-import { getMostCommonLocation, getSecurityAdoptionRate } from '../lib/communityData';
+import type { CommunityStats } from '../lib/convexData';
+import { getMostCommonLocation, getSecurityAdoptionRate } from '../lib/convexData';
 import { TrendingDown, MapPin, Shield, AlertTriangle } from 'lucide-react';
 import { useStore } from '@nanostores/react';
 import { statsRefreshTrigger } from '../lib/stores/communityStore';

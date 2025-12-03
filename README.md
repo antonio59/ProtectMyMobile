@@ -10,12 +10,12 @@
 - **Framework:** [Astro](https://astro.build) (SSR mode)
 - **UI Library:** [React](https://react.dev) (for interactive islands)
 - **Styling:** [Tailwind CSS](https://tailwindcss.com)
-- **Database:** [Supabase](https://supabase.com) (PostgreSQL)
-- **Maps:** [Leaflet](https://leafletjs.com) / [React-Leaflet](https://react-leaflet.js.org)
+- **Database:** [Convex](https://convex.dev) (Real-time backend)
+- **Maps:** [Leaflet](https://leafletjs.com)
 - **Charts:** [Recharts](https://recharts.org)
 - **Hosting:** [Netlify](https://netlify.com)
 - **Icons:** [Lucide React](https://lucide.dev)
-- **Analytics:** [Umami](https://umami.is) (Self-hosted)
+- **Package Manager:** [Bun](https://bun.sh)
 
 ## ✨ Key Features
 
@@ -44,9 +44,8 @@
 ## 🛠️ Development
 
 ### Prerequisites
-- Node.js 18+
-- npm
-- Supabase account
+- [Bun](https://bun.sh) 1.3+
+- [Convex](https://convex.dev) account
 
 ### Setup
 
@@ -58,20 +57,24 @@
 
 2. **Install dependencies:**
    ```bash
-   npm install
+   bun install
    ```
 
 3. **Environment Variables:**
    Create a `.env` file in the root directory:
    ```env
-   PUBLIC_SUPABASE_URL=your_supabase_url
-   PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+   PUBLIC_CONVEX_URL=your_convex_deployment_url
    RESEND_API_KEY=your_resend_key_optional
    ```
 
-4. **Start Development Server:**
+4. **Start Convex development server:**
    ```bash
-   npm run dev
+   bunx convex dev
+   ```
+
+5. **Start Astro development server:**
+   ```bash
+   bun run dev
    ```
    Visit `http://localhost:4321`
 
@@ -79,35 +82,33 @@
 
 ```
 /
+├── convex/                  # Convex backend functions & schema
+│   ├── schema.ts            # Database schema
+│   ├── banks.ts             # Bank queries/mutations
+│   ├── newsPosts.ts         # News queries/mutations
+│   └── ...
 ├── public/                  # Static assets (images, geojson)
 ├── src/
 │   ├── components/          # UI Components (React & Astro)
-│   │   ├── TimelapseMapFinal.tsx  # Main map component
-│   │   ├── UKStatistics.tsx       # Stats dashboard
-│   │   └── ...
 │   ├── data/                # Static data files
 │   ├── layouts/             # Astro layouts
-│   ├── lib/                 # Utilities & Supabase client
+│   ├── lib/                 # Utilities & Convex client
 │   ├── pages/               # File-based routing
 │   │   ├── api/             # Server-side API endpoints
-│   │   ├── statistics.astro # Stats page
-│   │   ├── timelapse.astro  # Map page
 │   │   └── ...
 │   └── styles/              # Global CSS
-├── supabase-schema.sql      # Database definitions
 └── package.json
 ```
 
 ## 🚢 Deployment
 
-The project is configured for deployment on **Netlify**.
+The project is configured for deployment on **Netlify** with **Bun**.
 
 1. Connect your GitHub repository to Netlify.
-2. Set the build command: `npm run build`.
-3. Set the publish directory: `dist`.
-4. Add your Environment Variables in the Netlify dashboard.
-
-See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed instructions.
+2. Build command: `bun run build`
+3. Publish directory: `dist`
+4. Add `PUBLIC_CONVEX_URL` and other environment variables in Netlify dashboard.
+5. Deploy Convex to production: `bunx convex deploy --prod`
 
 ## 📄 License
 

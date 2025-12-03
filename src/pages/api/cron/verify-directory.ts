@@ -1,36 +1,24 @@
 import type { APIRoute } from 'astro';
-import { createClient } from '@supabase/supabase-js';
+import { ConvexHttpClient } from 'convex/browser';
+import { api } from '../../../../convex/_generated/api';
 import { Resend } from 'resend';
 
-// Initialize Supabase with Service Role for Admin access
-const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
-const supabaseServiceKey = import.meta.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
-
-const supabase = supabaseServiceKey 
-  ? createClient(supabaseUrl, supabaseServiceKey)
-  : null;
+// Initialize Convex client
+const convexUrl = import.meta.env.PUBLIC_CONVEX_URL;
+const convex = convexUrl ? new ConvexHttpClient(convexUrl) : null;
 
 export const GET: APIRoute = async () => {
-  if (!supabase) {
+  if (!convex) {
     return new Response(JSON.stringify({ 
       success: false, 
-      error: 'Missing SUPABASE_SERVICE_ROLE_KEY. Cannot perform admin operations.' 
+      error: 'Missing PUBLIC_CONVEX_URL. Cannot perform database operations.' 
     }), { status: 500 });
   }
 
   try {
-    // 1. Fetch Banks and Providers
-    const { data: banks, error: banksError } = await supabase
-      .from('banks')
-      .select('id, name, website');
-      
-    const { data: providers, error: providersError } = await supabase
-      .from('mobile_providers')
-      .select('id, name, website');
-
-    if (banksError || providersError) {
-      throw new Error('Failed to fetch directory data');
-    }
+    // 1. Fetch Banks and Providers from Convex
+    const banks = await convex.query(api.banks.list, { activeOnly: false });
+    const providers = await convex.query(api.mobileProviders.list, { activeOnly: false });
 
     const report = {
       checked: 0,
@@ -39,7 +27,7 @@ export const GET: APIRoute = async () => {
       details: [] as string[]
     };
 
-    const checkUrl = async (url: string, name: string, table: 'banks' | 'mobile_providers', id: string) => {
+    const checkUrl = async (url: string, name: string, type: 'bank' | 'provider', id: any) => {
       report.checked++;
       try {
         const controller = new AbortController();
@@ -54,16 +42,15 @@ export const GET: APIRoute = async () => {
 
         if (response.ok || response.status === 405) { // 405 Method Not Allowed is often returned for HEAD but implies server exists
           report.active++;
-          // Update last_verified
-          await supabase
-            .from(table)
-            .update({ last_verified: new Date().toISOString(), active: true })
-            .eq('id', id);
+          // Update last_verified via Convex
+          if (type === 'bank') {
+            await convex.mutation(api.banks.update, { id, lastVerified: Date.now(), active: true });
+          } else {
+            await convex.mutation(api.mobileProviders.update, { id, lastVerified: Date.now(), active: true });
+          }
         } else {
           report.inactive++;
           report.details.push(`❌ ${name} (${url}) returned ${response.status}`);
-          // Optionally mark inactive, but maybe manual review is safer
-          // await supabase.from(table).update({ active: false }).eq('id', id);
         }
       } catch (err: any) {
         report.inactive++;
@@ -73,8 +60,8 @@ export const GET: APIRoute = async () => {
 
     // Check in parallel batches
     const promises = [
-      ...(banks || []).map(b => checkUrl(b.website, b.name, 'banks', b.id)),
-      ...(providers || []).map(p => checkUrl(p.website, p.name, 'mobile_providers', p.id))
+      ...(banks || []).map(b => checkUrl(b.website, b.name, 'bank', b._id)),
+      ...(providers || []).map(p => checkUrl(p.website, p.name, 'provider', p._id))
     ];
 
     await Promise.all(promises);

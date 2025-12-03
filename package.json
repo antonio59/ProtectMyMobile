@@ -7,15 +7,20 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "convex": "bunx convex",
+    "convex:dev": "bunx convex dev",
+    "convex:deploy": "bunx convex deploy",
+    "convex:deploy:prod": "bunx convex deploy --prod",
+    "migrate": "bun run scripts/migrate-supabase-to-convex.ts"
   },
+  "packageManager": "bun@1.3.3",
   "dependencies": {
     "@astrojs/netlify": "^6.0.0",
     "@astrojs/react": "^4.4.2",
     "@astrojs/sitemap": "^3.6.0",
     "@nanostores/react": "^1.0.0",
     "@radix-ui/react-slot": "^1.2.4",
-    "@supabase/supabase-js": "^2.81.1",
     "@tanstack/react-query": "^5.90.7",
     "@types/leaflet": "^1.9.21",
     "@types/react": "^19.2.2",
@@ -23,6 +28,7 @@
     "astro": "^5.15.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "convex": "^1.30.0",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.553.0",
     "marked": "^17.0.0",
@@ -39,12 +45,12 @@
   },
   "devDependencies": {
     "@astrojs/tailwind": "^6.0.2",
+    "@esbuild/darwin-arm64": "0.25.12",
+    "@netlify/functions": "^5.1.0",
+    "@rollup/rollup-darwin-arm64": "^4.53.2",
     "@tailwindcss/typography": "^0.5.19",
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.6",
     "tailwindcss": "^3.4.17"
-  },
-  "optionalDependencies": {
-    "@rollup/rollup-darwin-arm64": "^4.53.2"
   }
 }

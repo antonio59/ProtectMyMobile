@@ -1,4 +1,4 @@
-import { supabase } from './supabase';
+import { getTheftDataPoints } from './convexData';
 
 export interface TimelapseDataPoint {
   id?: string;
@@ -12,54 +12,36 @@ export interface TimelapseDataPoint {
 }
 
 /**
- * Fetch all timelapse data from Supabase
+ * Fetch all timelapse data from Convex
  */
 export async function getTimelapseData(): Promise<TimelapseDataPoint[]> {
-  const { data, error } = await supabase
-    .from('timelapse_data')
-    .select('*')
-    .order('date', { ascending: true })
-    .order('borough', { ascending: true });
-
-  if (error) {
-    console.error('Error fetching timelapse data:', error);
-    return [];
-  }
-
-  return data || [];
+  const data = await getTheftDataPoints();
+  
+  // Map Convex data to TimelapseDataPoint format
+  return data.map(point => ({
+    id: point._id,
+    date: point.date,
+    borough: point.locationName,
+    lat: point.latitude,
+    lng: point.longitude,
+    thefts: point.theftCount,
+  }));
 }
 
 /**
- * Upload timelapse data (admin only)
+ * Upload timelapse data (admin only) - Now handled by Convex mutations
  */
-export async function uploadTimelapseData(data: TimelapseDataPoint[]) {
-  const { data: result, error } = await supabase
-    .from('timelapse_data')
-    .upsert(data, { 
-      onConflict: 'date,borough',
-      ignoreDuplicates: false 
-    });
-
-  if (error) {
-    throw new Error(`Failed to upload data: ${error.message}`);
-  }
-
-  return result;
+export async function uploadTimelapseData(_data: TimelapseDataPoint[]) {
+  console.warn('Use Convex mutations for uploading timelapse data');
+  throw new Error('Use Convex mutations for uploading timelapse data');
 }
 
 /**
- * Delete timelapse data by date range (admin only)
+ * Delete timelapse data by date range (admin only) - Now handled by Convex mutations
  */
-export async function deleteTimelapseData(startDate: string, endDate: string) {
-  const { error } = await supabase
-    .from('timelapse_data')
-    .delete()
-    .gte('date', startDate)
-    .lte('date', endDate);
-
-  if (error) {
-    throw new Error(`Failed to delete data: ${error.message}`);
-  }
+export async function deleteTimelapseData(_startDate: string, _endDate: string) {
+  console.warn('Use Convex mutations for deleting timelapse data');
+  throw new Error('Use Convex mutations for deleting timelapse data');
 }
 
 // London borough coordinates reference

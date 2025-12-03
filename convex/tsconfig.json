@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "allowJs": false,
+    "strict": true,
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+    "skipLibCheck": true,
+    "target": "ESNext",
+    "module": "ESNext",
+    "noEmit": true
+  },
+  "include": ["./**/*.ts"],
+  "exclude": ["./_generated"]
+}
