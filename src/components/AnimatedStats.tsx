@@ -41,7 +41,7 @@ const stats: Stat[] = [
     value: '1 in 6', 
     label: 'Minutes', 
     sublabel: '(theft rate)',
-    color: 'text-purple-600'
+    color: 'text-teal-600'
   },
 ];
 

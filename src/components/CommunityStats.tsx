@@ -118,13 +118,13 @@ export default function CommunityStatsDisplay({ initialStats }: Props) {
         </div>
 
         {/* Police Reporting */}
-        <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-lg shadow-md p-6 border-2 border-purple-200">
+        <div className="bg-gradient-to-br from-teal-50 to-cyan-50 rounded-lg shadow-md p-6 border-2 border-teal-200">
           <div className="flex items-center justify-between mb-3">
             <h3 className="text-sm font-medium text-neutral-700">Police Reports</h3>
-            <AlertTriangle className="h-5 w-5 text-purple-600" />
+            <AlertTriangle className="h-5 w-5 text-teal-600" />
           </div>
           <div className="mb-2">
-            <div className="text-4xl font-bold text-purple-600">{reportingRate}%</div>
+            <div className="text-4xl font-bold text-teal-600">{reportingRate}%</div>
           </div>
           <div className="text-xs text-neutral-600">
             Reported theft to police

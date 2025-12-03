@@ -101,9 +101,9 @@ export default function UKStatistics() {
               <div className="text-5xl font-bold mb-2">{staticData.chargeRate}</div>
               <div className="text-blue-100 font-medium">Result in charges</div>
             </div>
-             <div className="bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-xl shadow-lg p-8">
+             <div className="bg-gradient-to-br from-teal-500 to-teal-600 text-white rounded-xl shadow-lg p-8">
               <div className="text-4xl font-bold mb-2">{staticData.theftRate}</div>
-              <div className="text-purple-100 font-medium">Theft Rate</div>
+              <div className="text-teal-100 font-medium">Theft Rate</div>
             </div>
         </div>
       </div>
@@ -165,13 +165,13 @@ export default function UKStatistics() {
           </div>
         </div>
         
-        <div className="bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-xl shadow-lg p-8 transition-all hover:scale-[1.02]">
+        <div className="bg-gradient-to-br from-teal-500 to-teal-600 text-white rounded-xl shadow-lg p-8 transition-all hover:scale-[1.02]">
           <div className="flex items-center justify-between mb-4">
             <Smartphone className="h-10 w-10 opacity-80" />
           </div>
           <div className="text-4xl font-bold mb-2">{data.theftRate}</div>
-          <div className="text-purple-100 font-medium">Theft Rate</div>
-           <div className="mt-4 pt-4 border-t border-purple-400 text-xs text-purple-100">
+          <div className="text-teal-100 font-medium">Theft Rate</div>
+           <div className="mt-4 pt-4 border-t border-teal-400 text-xs text-teal-100">
             High Frequency
           </div>
         </div>

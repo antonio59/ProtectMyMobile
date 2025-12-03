@@ -20,8 +20,8 @@ interface Props {
 const categoryColors: Record<string, string> = {
   arrest: 'border-l-red-500 bg-red-50/50',
   seizure: 'border-l-orange-500 bg-orange-50/50',
-  law_change: 'border-l-purple-500 bg-purple-50/50',
-  law_changes: 'border-l-purple-500 bg-purple-50/50',
+  law_change: 'border-l-teal-500 bg-teal-50/50',
+  law_changes: 'border-l-teal-500 bg-teal-50/50',
   statistics: 'border-l-blue-500 bg-blue-50/50',
   prevention_tip: 'border-l-green-500 bg-green-50/50',
   other: 'border-l-neutral-500 bg-neutral-50/50',
@@ -31,8 +31,8 @@ const categoryColors: Record<string, string> = {
 const categoryBadgeColors: Record<string, string> = {
   arrest: 'bg-red-100 text-red-700',
   seizure: 'bg-orange-100 text-orange-700',
-  law_change: 'bg-purple-100 text-purple-700',
-  law_changes: 'bg-purple-100 text-purple-700',
+  law_change: 'bg-teal-100 text-teal-700',
+  law_changes: 'bg-teal-100 text-teal-700',
   statistics: 'bg-blue-100 text-blue-700',
   prevention_tip: 'bg-green-100 text-green-700',
   other: 'bg-neutral-100 text-neutral-700',

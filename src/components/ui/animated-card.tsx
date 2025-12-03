@@ -74,7 +74,7 @@ interface StatCardProps {
   label: string;
   icon?: ReactNode;
   trend?: { value: number; positive: boolean };
-  color?: 'red' | 'orange' | 'blue' | 'green' | 'purple';
+  color?: 'red' | 'orange' | 'blue' | 'green' | 'teal';
   delay?: number;
 }
 
@@ -83,10 +83,11 @@ const colorClasses = {
   orange: 'from-orange-500 to-orange-600',
   blue: 'from-blue-500 to-blue-600',
   green: 'from-green-500 to-green-600',
-  purple: 'from-purple-500 to-purple-600',
+  teal: 'from-teal-500 to-teal-600',
 };
 
 export function StatCard({ value, label, icon, trend, color = 'blue', delay = 0 }: StatCardProps) {
+  // Note: 'teal' is now preferred over 'purple' for consistency
   return (
     <motion.div
       className={cn(
@@ -142,7 +143,7 @@ interface NewsCardProps {
 const categoryColors: Record<string, string> = {
   arrest: 'bg-red-100 text-red-700 border-red-200',
   seizure: 'bg-orange-100 text-orange-700 border-orange-200',
-  law_change: 'bg-purple-100 text-purple-700 border-purple-200',
+  law_change: 'bg-teal-100 text-teal-700 border-teal-200',
   statistics: 'bg-blue-100 text-blue-700 border-blue-200',
   prevention_tip: 'bg-green-100 text-green-700 border-green-200',
   other: 'bg-neutral-100 text-neutral-700 border-neutral-200',

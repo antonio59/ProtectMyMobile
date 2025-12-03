@@ -224,13 +224,13 @@ export default function UKStatisticsLive() {
           </div>
         </div>
         
-        <div className="bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-xl shadow-lg p-6">
+        <div className="bg-gradient-to-br from-teal-500 to-teal-600 text-white rounded-xl shadow-lg p-6">
           <div className="flex items-center justify-between mb-4">
             <TrendingUp className="h-8 w-8 opacity-80" />
           </div>
           <div className="text-4xl font-bold mb-1">{hourlyRate}</div>
-          <div className="text-purple-100 text-sm">Thefts Per Hour</div>
-          <div className="mt-3 pt-3 border-t border-purple-400/50 text-xs text-purple-200">
+          <div className="text-teal-100 text-sm">Thefts Per Hour</div>
+          <div className="mt-3 pt-3 border-t border-teal-400/50 text-xs text-teal-200">
             UK-wide average
           </div>
         </div>
