@@ -1,167 +1,193 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
+import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
-import { Card, CardContent } from "@/components/ui/card";
-import { Shield, IdCard, Fingerprint, Lock, ShieldCheck, AlertCircle } from "lucide-react";
+import { Shield, IdCard, Fingerprint, Lock, ShieldCheck, AlertCircle, ArrowRight, CheckCircle2, Hash } from "lucide-react";
 ---
 
 <Layout 
   title="Prevention Guides - Secure Your Mobile | ProtectMyMobile"
   description="Learn how to secure your mobile device with PIN locks, biometric security, and app-specific protection to prevent theft."
 >
-  <Header />
+  <HeaderMobile client:load />
   
-  <main class="bg-[#f3f2f1]">
-    <div class="container mx-auto px-4 py-6">
-      <div class="mb-8">
-        <h1 class="flex items-center text-3xl md:text-4xl font-bold mb-4">
-          <Shield class="h-10 w-10 mr-3 flex-shrink-0 text-primary" />
-          Prevention Guides
-        </h1>
-        <p class="text-xl text-neutral-600 mb-6">
+  <main class="bg-[#f3f2f1] min-h-screen">
+    <div class="container mx-auto px-4 py-6 max-w-6xl">
+      <!-- Hero Section -->
+      <div class="bg-gradient-to-br from-primary to-blue-700 text-white rounded-2xl p-6 md:p-10 mb-8 shadow-xl">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="bg-white/20 p-3 rounded-xl">
+            <Shield class="h-8 w-8" />
+          </div>
+          <h1 class="text-2xl md:text-3xl font-bold">Prevention Guides</h1>
+        </div>
+        <p class="text-blue-100 text-sm md:text-base max-w-xl mb-6">
           Take these preventative measures to secure your phone and minimise risk in case of theft.
         </p>
+        <a href="/security-checkup" class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-primary rounded-xl font-semibold text-sm hover:bg-blue-50 transition-colors shadow-lg">
+          <ShieldCheck class="h-4 w-4" />
+          Take Security Checkup
+          <ArrowRight class="h-4 w-4" />
+        </a>
+      </div>
+
+      <!-- Essential Security Measures -->
+      <section class="mb-10">
+        <h2 class="text-xl md:text-2xl font-bold mb-6 flex items-center gap-2">
+          <CheckCircle2 class="h-6 w-6 text-primary" />
+          Essential Security Measures
+        </h2>
         
-        <h2 class="text-2xl font-bold mb-4">Essential Security Measures</h2>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <!-- Secure SIM Card -->
-          <div class="bg-white rounded-lg shadow-md p-6">
-            <h3 class="flex items-center text-xl font-semibold mb-4">
-              <div class="bg-primary/10 rounded-full p-2 mr-3 flex-shrink-0">
-                <IdCard className="h-6 w-6 text-primary" />
+          <div class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-neutral-100">
+            <div class="h-2 bg-gradient-to-r from-primary to-blue-600"></div>
+            <div class="p-6">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="bg-primary/10 rounded-xl p-3">
+                  <IdCard class="h-6 w-6 text-primary" />
+                </div>
+                <h3 class="text-lg font-bold">Secure Your SIM</h3>
               </div>
-              Secure Your SIM Card
-            </h3>
-            <p class="text-neutral-700 mb-4">
-              Set a PIN for your SIM card to prevent unauthorised use if stolen.
-            </p>
-            
-            <div class="mb-4">
-              <h4 class="font-medium mb-2">How to Set SIM PIN:</h4>
-              <ol class="list-decimal pl-5 text-neutral-700 space-y-1 text-sm">
-                <li>Go to Settings on your phone</li>
-                <li>Select "Security" or "Privacy"</li>
-                <li>Look for "SIM card lock" or "SIM PIN"</li>
-                <li>Enable SIM PIN and set a unique 4-8 digit code</li>
-                <li>Store this PIN securely (not on your phone)</li>
+              <p class="text-neutral-600 text-sm mb-4">
+                Set a PIN for your SIM card to prevent unauthorised use if stolen.
+              </p>
+              <ol class="list-decimal pl-5 text-neutral-700 space-y-1 text-sm mb-4">
+                <li>Go to Settings → Security</li>
+                <li>Find "SIM card lock"</li>
+                <li>Enable and set a unique PIN</li>
+                <li>Store PIN securely offline</li>
               </ol>
-            </div>
-            
-            <div class="p-3 bg-yellow-50 border border-yellow-200 rounded-md text-sm">
-              <p class="font-medium text-yellow-800">Important:</p>
-              <p class="text-yellow-700">After enabling, you'll need this PIN when restarting your phone or moving the SIM to another device.</p>
+              <div class="p-3 bg-yellow-50 border border-yellow-200 rounded-xl text-xs">
+                <p class="text-yellow-800"><strong>Note:</strong> You'll need this PIN when restarting your phone.</p>
+              </div>
             </div>
           </div>
           
           <!-- Biometric Authentication -->
-          <div class="bg-white rounded-lg shadow-md p-6">
-            <h3 class="flex items-center text-xl font-semibold mb-4">
-              <div class="bg-primary/10 rounded-full p-2 mr-3 flex-shrink-0">
-                <Fingerprint className="h-6 w-6 text-primary" />
+          <div class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-neutral-100">
+            <div class="h-2 bg-gradient-to-r from-green-500 to-emerald-600"></div>
+            <div class="p-6">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="bg-green-100 rounded-xl p-3">
+                  <Fingerprint class="h-6 w-6 text-green-600" />
+                </div>
+                <h3 class="text-lg font-bold">Biometric Auth</h3>
               </div>
-              Use Biometric Authentication
-            </h3>
-            <p class="text-neutral-700 mb-4">
-              Set up fingerprint or face recognition alongside a strong passcode.
-            </p>
-            
-            <div class="mb-4">
-              <h4 class="font-medium mb-2">Setting Up Biometrics:</h4>
+              <p class="text-neutral-600 text-sm mb-4">
+                Set up fingerprint or face recognition alongside a strong passcode.
+              </p>
               <ol class="list-decimal pl-5 text-neutral-700 space-y-1 text-sm">
-                <li>Go to Settings on your phone</li>
-                <li>Select "Security" or "Face ID & Passcode"/"Fingerprint"</li>
-                <li>Follow the on-screen instructions to register your biometrics</li>
-                <li>Ensure you also set a strong backup passcode (use at least 6 digits)</li>
+                <li>Go to Settings → Security</li>
+                <li>Select Face ID or Fingerprint</li>
+                <li>Register your biometrics</li>
+                <li>Set 6+ digit backup passcode</li>
               </ol>
             </div>
           </div>
           
           <!-- App-Specific Security -->
-          <div class="bg-white rounded-lg shadow-md p-6">
-            <h3 class="flex items-center text-xl font-semibold mb-4">
-              <div class="bg-primary/10 rounded-full p-2 mr-3 flex-shrink-0">
-                <Lock className="h-6 w-6 text-primary" />
+          <div class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-neutral-100">
+            <div class="h-2 bg-gradient-to-r from-orange-500 to-red-500"></div>
+            <div class="p-6">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="bg-orange-100 rounded-xl p-3">
+                  <Lock class="h-6 w-6 text-orange-600" />
+                </div>
+                <h3 class="text-lg font-bold">App Security</h3>
               </div>
-              Set App-Specific Security
-            </h3>
-            <p class="text-neutral-700 mb-4">
-              Enable additional security for banking and payment apps.
-            </p>
-            
-            <div class="mb-4">
-              <h4 class="font-medium mb-2">Securing Banking Apps:</h4>
+              <p class="text-neutral-600 text-sm mb-4">
+                Enable additional security for banking and payment apps.
+              </p>
               <ol class="list-decimal pl-5 text-neutral-700 space-y-1 text-sm">
-                <li>Open your banking/payment app settings</li>
-                <li>Look for "Security" or "Privacy" options</li>
-                <li>Enable app-specific PIN/biometric login (different from your phone PIN)</li>
-                <li>Enable two-factor authentication if available</li>
-                <li>Set login notification alerts</li>
+                <li>Open banking app settings</li>
+                <li>Enable app-specific PIN</li>
+                <li>Turn on 2FA if available</li>
+                <li>Enable login notifications</li>
               </ol>
             </div>
           </div>
         </div>
-        
-        <!-- Security Checkup Button -->
-        <div class="border border-primary rounded-lg p-6 mb-8 bg-gradient-to-r from-primary/5 to-transparent">
-          <div class="flex flex-col md:flex-row items-center">
-            <div class="flex-1 mb-4 md:mb-0 md:mr-6">
-              <h3 class="flex items-center text-xl font-semibold mb-2">How secure is your phone?</h3>
-              <p class="text-neutral-700">Complete our quick assessment to identify security gaps and get personalised recommendations.</p>
+      </section>
+      
+      <!-- IMEI Information -->
+      <section class="mb-10">
+        <div class="bg-white rounded-2xl shadow-md overflow-hidden border border-neutral-100">
+          <div class="h-2 bg-gradient-to-r from-teal-500 to-cyan-500"></div>
+          <div class="p-6 md:p-8">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="bg-teal-100 rounded-xl p-3">
+                <Hash class="h-6 w-6 text-teal-600" />
+              </div>
+              <h3 class="text-xl font-bold">Know Your IMEI Number</h3>
             </div>
-            <div>
-              <a href="/security-checkup" class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2">
-                Start Security Checkup
-              </a>
+            
+            <p class="text-neutral-700 mb-6">
+              Your IMEI is your phone's unique 15-digit identifier. You'll need this to report theft to police and your network.
+            </p>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+              <div class="p-4 bg-blue-50 border border-blue-200 rounded-xl">
+                <h4 class="font-semibold text-blue-900 mb-3">How to find your IMEI:</h4>
+                <ul class="space-y-2 text-sm text-blue-800">
+                  <li class="flex items-start gap-2">
+                    <CheckCircle2 class="h-4 w-4 mt-0.5 flex-shrink-0" />
+                    <span>Dial <code class="bg-blue-100 px-2 py-0.5 rounded font-mono">*#06#</code></span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <CheckCircle2 class="h-4 w-4 mt-0.5 flex-shrink-0" />
+                    <span>Settings → About Phone → IMEI</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <CheckCircle2 class="h-4 w-4 mt-0.5 flex-shrink-0" />
+                    <span>Check original phone box</span>
+                  </li>
+                </ul>
+              </div>
+              
+              <div class="p-4 bg-neutral-100 rounded-xl">
+                <h4 class="font-semibold text-neutral-900 mb-3">Where to store it safely:</h4>
+                <ul class="space-y-2 text-sm text-neutral-700">
+                  <li class="flex items-start gap-2">
+                    <CheckCircle2 class="h-4 w-4 mt-0.5 flex-shrink-0 text-green-600" />
+                    <span>Password manager (most secure)</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <CheckCircle2 class="h-4 w-4 mt-0.5 flex-shrink-0 text-green-600" />
+                    <span>Email to yourself</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <CheckCircle2 class="h-4 w-4 mt-0.5 flex-shrink-0 text-green-600" />
+                    <span>Written down at home</span>
+                  </li>
+                </ul>
+              </div>
             </div>
-          </div>
-        </div>
-        
-        <!-- IMEI Information -->
-        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-          <h3 class="flex items-center text-xl font-semibold mb-4">
-            <div class="bg-primary/10 rounded-full p-2 mr-3 flex-shrink-0">
-              <ShieldCheck className="h-6 w-6 text-primary" />
-            </div>
-            Know Your IMEI Number
-          </h3>
-          <p class="text-neutral-700 mb-4">
-            Your IMEI (International Mobile Equipment Identity) is your phone's unique 15-digit identifier. You'll need this to report theft to police and your network provider.
-          </p>
-          
-          <div class="mb-4 p-4 bg-blue-50 border border-blue-200 rounded-md">
-            <h4 class="flex items-center font-medium mb-3 text-blue-900">How to find your IMEI:</h4>
-            <ul class="list-disc pl-5 text-blue-800 space-y-2">
-              <li><strong>Easiest:</strong> Dial <code class="bg-blue-100 px-2 py-1 rounded">*#06#</code> on your phone's keypad - the number appears instantly</li>
-              <li><strong>In settings:</strong> Go to Settings → About Phone/General → IMEI</li>
-              <li><strong>On packaging:</strong> Check the original box your phone came in</li>
-              <li><strong>On receipt:</strong> Your purchase receipt may have it listed</li>
-            </ul>
-          </div>
-          
-          <div class="p-4 bg-green-50 border border-green-200 rounded-md mb-4">
-            <div class="flex items-start">
-              <ShieldCheck className="h-5 w-5 text-green-600 mr-2 mt-0.5 flex-shrink-0" />
+            
+            <div class="mt-6 p-4 bg-green-50 border border-green-200 rounded-xl flex items-start gap-3">
+              <ShieldCheck class="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
               <div>
-                <p class="font-medium text-green-800 mb-2">We protect your privacy</p>
-                <p class="text-green-700 text-sm mb-2">We <strong>never</strong> ask for or store your IMEI number. Keep it private and secure on your own devices.</p>
+                <p class="font-medium text-green-800">We protect your privacy</p>
+                <p class="text-green-700 text-sm">We never ask for or store your IMEI. Keep it private and secure.</p>
               </div>
             </div>
           </div>
-
-          <div class="p-4 bg-neutral-100 rounded-md">
-            <h4 class="font-medium mb-3">Where to save your IMEI securely:</h4>
-            <ul class="list-disc pl-5 text-neutral-700 space-y-2 text-sm">
-              <li><strong>Password manager</strong> (1Password, Bitwarden, LastPass) - most secure digital option</li>
-              <li><strong>Encrypted notes</strong> on a separate device or computer</li>
-              <li><strong>Email to yourself</strong> with a clear subject like "Phone IMEI - [Phone Model]"</li>
-              <li><strong>Write it down</strong> and keep it in a safe place at home</li>
-              <li><strong>Take a screenshot</strong> of the *#06# screen and store in a secure photo album</li>
-            </ul>
-          </div>
         </div>
-      </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="bg-gradient-to-r from-primary/10 to-blue-100 rounded-2xl p-6 md:p-8 border border-primary/20">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div>
+            <h3 class="text-xl font-bold mb-2">How secure is your phone?</h3>
+            <p class="text-neutral-700">Complete our quick assessment to identify security gaps.</p>
+          </div>
+          <a href="/security-checkup" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-white rounded-xl font-semibold hover:bg-primary/90 transition-colors shadow-lg">
+            Start Security Checkup
+            <ArrowRight class="h-4 w-4" />
+          </a>
+        </div>
+      </section>
     </div>
   </main>
   

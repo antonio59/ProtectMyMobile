@@ -1,30 +1,44 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
+import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
 import SecurityCheckup from '../components/SecurityCheckup';
-import { ShieldCheck } from 'lucide-react';
+import { ShieldCheck, Clock, CheckCircle2 } from 'lucide-react';
 ---
 
 <Layout 
   title="Security Checkup - Assess Your Mobile Security | ProtectMyMobile"
   description="Take our interactive security assessment to identify vulnerabilities and get personalised recommendations for protecting your mobile device."
 >
-  <Header />
+  <HeaderMobile client:load />
   
-  <main class="bg-[#f3f2f1]">
-    <div class="container mx-auto px-4 py-8">
-      <div class="max-w-4xl mx-auto">
-        <div class="text-center mb-8">
-          <h1 class="flex items-center justify-center text-4xl font-bold mb-4">
-            <ShieldCheck class="h-10 w-10 mr-3 text-primary" />
-            Mobile Security Checkup
-          </h1>
-          <p class="text-xl text-neutral-600 max-w-2xl mx-auto">
-            Answer 12 quick questions to discover how secure your phone really is and get personalised recommendations.
-          </p>
+  <main class="bg-[#f3f2f1] min-h-screen">
+    <div class="container mx-auto px-4 py-6 max-w-4xl">
+      <!-- Hero Section -->
+      <div class="bg-gradient-to-br from-teal-600 to-cyan-700 text-white rounded-2xl p-6 md:p-10 mb-8 shadow-xl">
+        <div class="flex flex-col md:flex-row md:items-center gap-4 mb-4">
+          <div class="bg-white/20 p-4 rounded-2xl">
+            <ShieldCheck class="h-10 w-10" />
+          </div>
+          <div>
+            <h1 class="text-2xl md:text-3xl font-bold">Mobile Security Checkup</h1>
+            <p class="text-teal-100 mt-1">Discover how secure your phone really is</p>
+          </div>
         </div>
-        
+        <div class="flex flex-wrap gap-4">
+          <div class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-lg text-sm">
+            <Clock class="h-4 w-4" />
+            <span>Takes 2-3 minutes</span>
+          </div>
+          <div class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-lg text-sm">
+            <CheckCircle2 class="h-4 w-4" />
+            <span>12 quick questions</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Checkup Component -->
+      <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-neutral-100">
         <SecurityCheckup client:load />
       </div>
     </div>
