@@ -13,19 +13,16 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
+    - name: Setup Bun
+      uses: oven-sh/setup-bun@v2
       with:
-        node-version: '20'
-        cache: 'npm'
+        bun-version: latest
         
     - name: Install dependencies
-      run: npm ci
+      run: bun install
       
     - name: Build Project
-      run: npm run build
+      run: bun run build
       env:
-        # Mock env vars for build to succeed if they are used at build time
-        PUBLIC_SUPABASE_URL: ${{ secrets.PUBLIC_SUPABASE_URL || 'https://example.supabase.co' }}
-        PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.PUBLIC_SUPABASE_ANON_KEY || 'mock-key-for-build' }}
+        PUBLIC_CONVEX_URL: ${{ secrets.PUBLIC_CONVEX_URL || 'https://example.convex.cloud' }}
         RESEND_API_KEY: 'mock-key-for-build'
