@@ -50,7 +50,7 @@ export default function AnimatedHero() {
         </motion.h1>
         
         <motion.p 
-          className="text-base sm:text-lg md:text-xl mb-8 max-w-3xl text-blue-100"
+          className="text-base sm:text-lg md:text-xl mb-8 text-blue-100"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
