@@ -1,0 +1,193 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+---
+
+<Layout 
+  title="Add News Article | ProtectMyMobile Admin"
+  description="Manually add news articles."
+>
+  <Header />
+  
+  <main class="bg-[#f3f2f1] min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-3xl">
+      <div class="flex justify-between items-start mb-8">
+        <div>
+          <h1 class="text-3xl font-bold">Add News Article</h1>
+          <p class="text-neutral-600 mt-2">Manually add articles that aren't picked up by automated scraping.</p>
+        </div>
+        <a href="/admin/logout" class="text-sm text-neutral-500 hover:text-red-600">Logout</a>
+      </div>
+
+      <div class="bg-white rounded-xl shadow-md p-6">
+        <form id="add-news-form" class="space-y-6">
+          <div>
+            <label class="block text-sm font-medium mb-1">Article Title *</label>
+            <input type="text" id="title" required class="w-full border rounded-lg px-3 py-2" 
+              placeholder="e.g., Revolut Unveils Street Mode to Fight Transfer Muggings">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">Source URL *</label>
+            <input type="url" id="sourceUrl" required class="w-full border rounded-lg px-3 py-2"
+              placeholder="https://example.com/article">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">Source Name *</label>
+            <input type="text" id="sourceName" required class="w-full border rounded-lg px-3 py-2"
+              placeholder="e.g., Fintech Global">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">Excerpt / Summary *</label>
+            <textarea id="excerpt" required rows="3" class="w-full border rounded-lg px-3 py-2"
+              placeholder="Brief summary of the article (1-2 sentences)"></textarea>
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">Full Content (optional)</label>
+            <textarea id="content" rows="6" class="w-full border rounded-lg px-3 py-2"
+              placeholder="Full article content or leave blank to use excerpt"></textarea>
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">Category *</label>
+            <select id="category" required class="w-full border rounded-lg px-3 py-2">
+              <option value="prevention_tip">Prevention Tip</option>
+              <option value="statistics">Statistics</option>
+              <option value="arrest">Arrest / Charges</option>
+              <option value="seizure">Seizure / Recovery</option>
+              <option value="law_change">Law / Policy Change</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">Featured Image URL (optional)</label>
+            <input type="url" id="imageUrl" class="w-full border rounded-lg px-3 py-2"
+              placeholder="https://example.com/image.jpg">
+          </div>
+          
+          <div class="flex items-center gap-2">
+            <input type="checkbox" id="published" checked class="rounded">
+            <label for="published" class="text-sm">Publish immediately</label>
+          </div>
+          
+          <div class="flex gap-3">
+            <button type="submit" class="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary/90">
+              Add Article
+            </button>
+            <a href="/admin/data" class="px-6 py-2 bg-neutral-200 rounded-lg hover:bg-neutral-300">
+              Back to Dashboard
+            </a>
+          </div>
+        </form>
+        
+        <div id="result" class="mt-4 hidden"></div>
+      </div>
+      
+      <!-- Quick Add from URL -->
+      <div class="bg-white rounded-xl shadow-md p-6 mt-6">
+        <h2 class="text-xl font-bold mb-4">Quick Add from URL</h2>
+        <p class="text-sm text-neutral-600 mb-4">Paste an article URL and we'll try to extract the details automatically.</p>
+        
+        <div class="flex gap-2">
+          <input type="url" id="quick-url" class="flex-1 border rounded-lg px-3 py-2" 
+            placeholder="https://example.com/article">
+          <button id="fetch-btn" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+            Fetch Details
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <Footer />
+</Layout>
+
+<script>
+  const CONVEX_URL = import.meta.env.PUBLIC_CONVEX_URL || '';
+
+  function generateSlug(title: string): string {
+    return title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)+/g, '')
+      .substring(0, 100);
+  }
+
+  async function convexMutation(path: string, args: any) {
+    const res = await fetch(`${CONVEX_URL}/api/mutation`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ path, args }),
+    });
+    return (await res.json()).value;
+  }
+
+  document.getElementById('add-news-form')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const title = (document.getElementById('title') as HTMLInputElement).value;
+    const sourceUrl = (document.getElementById('sourceUrl') as HTMLInputElement).value;
+    const sourceName = (document.getElementById('sourceName') as HTMLInputElement).value;
+    const excerpt = (document.getElementById('excerpt') as HTMLTextAreaElement).value;
+    const content = (document.getElementById('content') as HTMLTextAreaElement).value;
+    const category = (document.getElementById('category') as HTMLSelectElement).value;
+    const imageUrl = (document.getElementById('imageUrl') as HTMLInputElement).value;
+    const published = (document.getElementById('published') as HTMLInputElement).checked;
+    
+    const resultDiv = document.getElementById('result')!;
+    resultDiv.className = 'mt-4 p-4 rounded-lg';
+    resultDiv.textContent = 'Adding article...';
+    resultDiv.classList.remove('hidden');
+    
+    try {
+      await convexMutation('newsPosts:create', {
+        title,
+        slug: generateSlug(title),
+        excerpt: excerpt.substring(0, 200) + (excerpt.length > 200 ? '...' : ''),
+        content: content || excerpt,
+        authorName: 'Admin',
+        category,
+        sourceUrl,
+        sourceName,
+        featuredImageUrl: imageUrl || undefined,
+        published,
+      });
+      
+      resultDiv.className = 'mt-4 p-4 rounded-lg bg-green-100 text-green-800';
+      resultDiv.innerHTML = `✅ Article added successfully! <a href="/news" class="underline">View news page</a>`;
+      
+      // Clear form
+      (document.getElementById('add-news-form') as HTMLFormElement).reset();
+      
+    } catch (err: any) {
+      resultDiv.className = 'mt-4 p-4 rounded-lg bg-red-100 text-red-800';
+      resultDiv.textContent = '❌ Error: ' + err.message;
+    }
+  });
+
+  document.getElementById('fetch-btn')?.addEventListener('click', async () => {
+    const url = (document.getElementById('quick-url') as HTMLInputElement).value;
+    if (!url) {
+      alert('Please enter a URL');
+      return;
+    }
+    
+    // Extract domain as source name
+    try {
+      const domain = new URL(url).hostname.replace('www.', '');
+      const sourceName = domain.split('.')[0].charAt(0).toUpperCase() + domain.split('.')[0].slice(1);
+      
+      (document.getElementById('sourceUrl') as HTMLInputElement).value = url;
+      (document.getElementById('sourceName') as HTMLInputElement).value = sourceName;
+      
+      alert('URL filled in. Please manually add the title and excerpt from the article.');
+    } catch {
+      alert('Invalid URL');
+    }
+  });
+</script>
