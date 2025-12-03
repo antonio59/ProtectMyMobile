@@ -2,16 +2,20 @@
 import Layout from '../layouts/Layout.astro';
 import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
-import { getMobileProviders } from '../lib/convexData';
+import { getMobileProviders, getDirectoryLastVerified } from '../lib/convexData';
 import { mobileProviders as staticProviders } from '../data/mobileProviders';
 import { Phone, Search, Globe, AlertCircle, Clock, CheckCircle2, ExternalLink } from 'lucide-react';
 
-// Last updated date - update this when you verify the data
-const lastUpdated = new Date('2024-12-03').toLocaleDateString('en-GB', {
-  day: 'numeric',
-  month: 'long', 
-  year: 'numeric'
-});
+// Get last verified date from Convex (automatically updated when cron runs)
+const verifiedDates = await getDirectoryLastVerified();
+const lastVerifiedTimestamp = verifiedDates.mobileProviders;
+const lastUpdated = lastVerifiedTimestamp 
+  ? new Date(lastVerifiedTimestamp).toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'long', 
+      year: 'numeric'
+    })
+  : 'Pending verification';
 
 // Fetch providers from Convex
 const providersData = await getMobileProviders();

@@ -18,6 +18,7 @@ import type * as mobileProviders from "../mobileProviders.js";
 import type * as newsPosts from "../newsPosts.js";
 import type * as pageViews from "../pageViews.js";
 import type * as policeForces from "../policeForces.js";
+import type * as siteMetadata from "../siteMetadata.js";
 import type * as theftDataPoints from "../theftDataPoints.js";
 import type * as wdtkEntries from "../wdtkEntries.js";
 
@@ -38,6 +39,7 @@ declare const fullApi: ApiFromModules<{
   newsPosts: typeof newsPosts;
   pageViews: typeof pageViews;
   policeForces: typeof policeForces;
+  siteMetadata: typeof siteMetadata;
   theftDataPoints: typeof theftDataPoints;
   wdtkEntries: typeof wdtkEntries;
 }>;

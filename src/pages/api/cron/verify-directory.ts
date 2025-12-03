@@ -66,6 +66,10 @@ export const GET: APIRoute = async () => {
 
     await Promise.all(promises);
 
+    // Update site metadata with last verified timestamps
+    await convex.mutation(api.siteMetadata.updateDirectoryVerified, { directory: 'banks' });
+    await convex.mutation(api.siteMetadata.updateDirectoryVerified, { directory: 'mobileProviders' });
+
     // 2. Send Report via Resend
     const resendApiKey = import.meta.env.RESEND_API_KEY || process.env.RESEND_API_KEY;
     if (resendApiKey) {

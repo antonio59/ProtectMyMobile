@@ -2,16 +2,20 @@
 import Layout from '../layouts/Layout.astro';
 import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
-import { getBanks } from '../lib/convexData';
+import { getBanks, getDirectoryLastVerified } from '../lib/convexData';
 import { banks as staticBanks } from '../data/banks';
 import { Building2, Search, Phone, Globe, AlertCircle, Clock, CheckCircle2, ExternalLink, CreditCard } from 'lucide-react';
 
-// Last updated date - update this when you verify the data
-const lastUpdated = new Date('2024-12-03').toLocaleDateString('en-GB', {
-  day: 'numeric',
-  month: 'long', 
-  year: 'numeric'
-});
+// Get last verified date from Convex (automatically updated when cron runs)
+const verifiedDates = await getDirectoryLastVerified();
+const lastVerifiedTimestamp = verifiedDates.banks;
+const lastUpdated = lastVerifiedTimestamp 
+  ? new Date(lastVerifiedTimestamp).toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'long', 
+      year: 'numeric'
+    })
+  : 'Pending verification';
 
 // Fetch banks from Convex
 const banksData = await getBanks();

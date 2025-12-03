@@ -2,6 +2,13 @@ import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
 
 export default defineSchema({
+  // Site Metadata (for tracking last verified dates, etc.)
+  siteMetadata: defineTable({
+    key: v.string(),
+    value: v.string(),
+    updatedAt: v.number(),
+  }).index("by_key", ["key"]),
+
   // Experience Reports
   experienceReports: defineTable({
     hasExperiencedTheft: v.boolean(),

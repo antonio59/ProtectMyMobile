@@ -64,6 +64,32 @@ export async function checkHasVoted(sessionId: string) {
   return await convexClient.query(api.communityResponses.hasVoted, { sessionId });
 }
 
+// Get site metadata
+export async function getSiteMetadata(key: string) {
+  if (!convexClient) return null;
+  return await convexClient.query(api.siteMetadata.get, { key });
+}
+
+// Get multiple site metadata values
+export async function getMultipleSiteMetadata(keys: string[]) {
+  if (!convexClient) return {};
+  return await convexClient.query(api.siteMetadata.getMultiple, { keys });
+}
+
+// Get directory last verified dates
+export async function getDirectoryLastVerified() {
+  if (!convexClient) return { banks: null, mobileProviders: null };
+  
+  const metadata = await convexClient.query(api.siteMetadata.getMultiple, { 
+    keys: ['banks_last_verified', 'mobileProviders_last_verified'] 
+  });
+  
+  return {
+    banks: metadata['banks_last_verified']?.updatedAt || null,
+    mobileProviders: metadata['mobileProviders_last_verified']?.updatedAt || null,
+  };
+}
+
 // Community Stats type (re-export for components)
 export interface CommunityStats {
   totalResponses: number;
