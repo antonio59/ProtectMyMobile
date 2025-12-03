@@ -1,0 +1,148 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HeaderMobile from '../components/HeaderMobile';
+import Footer from '../components/Footer.astro';
+import { FileText, AlertTriangle, CheckCircle2, Scale } from 'lucide-react';
+---
+
+<Layout 
+  title="Terms of Service | ProtectMyMobile"
+  description="Terms and conditions for using the ProtectMyMobile website and services."
+>
+  <HeaderMobile client:load />
+  
+  <main class="bg-[#f3f2f1] min-h-screen">
+    <div class="container mx-auto px-4 py-6 max-w-4xl">
+      <!-- Hero Section -->
+      <div class="bg-gradient-to-br from-neutral-700 to-neutral-900 text-white rounded-2xl p-6 md:p-10 mb-8 shadow-xl">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="bg-white/20 p-3 rounded-xl">
+            <FileText class="h-8 w-8" />
+          </div>
+          <h1 class="text-2xl md:text-3xl font-bold">Terms of Service</h1>
+        </div>
+        <p class="text-neutral-300 text-sm md:text-base">
+          Last updated: December 2024
+        </p>
+      </div>
+      
+      <!-- Content -->
+      <div class="bg-white rounded-2xl shadow-md overflow-hidden border border-neutral-100">
+        <div class="p-6 md:p-8 space-y-8">
+          
+          <!-- Introduction -->
+          <section>
+            <p class="text-neutral-700">
+              Welcome to ProtectMyMobile. By accessing and using this website, you agree to be bound by these Terms of Service. If you do not agree, please do not use our services.
+            </p>
+          </section>
+          
+          <!-- About the Service -->
+          <section>
+            <div class="flex items-center gap-3 mb-4">
+              <div class="bg-primary/10 rounded-xl p-2">
+                <CheckCircle2 class="h-5 w-5 text-primary" />
+              </div>
+              <h2 class="text-lg font-bold">About Our Service</h2>
+            </div>
+            <p class="text-neutral-700 text-sm mb-3">
+              ProtectMyMobile provides educational information and resources about mobile phone security and theft prevention. Our services include:
+            </p>
+            <ul class="list-disc pl-6 space-y-1 text-neutral-700 text-sm">
+              <li>Prevention guides and security tips</li>
+              <li>Emergency response checklists</li>
+              <li>UK bank and mobile provider directories</li>
+              <li>News and updates about mobile theft</li>
+              <li>Community surveys and statistics</li>
+            </ul>
+          </section>
+          
+          <!-- Disclaimer -->
+          <section class="bg-yellow-50 border border-yellow-200 rounded-xl p-6">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="bg-yellow-100 rounded-xl p-2">
+                <AlertTriangle class="h-5 w-5 text-yellow-600" />
+              </div>
+              <h2 class="text-lg font-bold text-yellow-800">Important Disclaimer</h2>
+            </div>
+            <div class="space-y-3 text-yellow-800 text-sm">
+              <p>
+                <strong>Information Only:</strong> The content on this website is for informational purposes only and does not constitute legal, financial, or professional advice.
+              </p>
+              <p>
+                <strong>No Guarantees:</strong> While we strive to keep information accurate and up-to-date, we cannot guarantee the accuracy, completeness, or timeliness of all content.
+              </p>
+              <p>
+                <strong>Third-Party Links:</strong> We link to external websites (banks, mobile providers, police services). We are not responsible for their content or practices.
+              </p>
+              <p>
+                <strong>Emergency Situations:</strong> In case of emergency, always contact the police (999) or relevant authorities directly. Do not rely solely on this website.
+              </p>
+            </div>
+          </section>
+          
+          <!-- User Responsibilities -->
+          <section>
+            <div class="flex items-center gap-3 mb-4">
+              <div class="bg-blue-100 rounded-xl p-2">
+                <Scale class="h-5 w-5 text-blue-600" />
+              </div>
+              <h2 class="text-lg font-bold">User Responsibilities</h2>
+            </div>
+            <p class="text-neutral-700 text-sm mb-3">By using this website, you agree to:</p>
+            <ul class="list-disc pl-6 space-y-1 text-neutral-700 text-sm">
+              <li>Use the website lawfully and responsibly</li>
+              <li>Not attempt to access restricted areas or systems</li>
+              <li>Not submit false or misleading information</li>
+              <li>Not use automated systems to scrape or copy content</li>
+              <li>Verify critical information with official sources</li>
+            </ul>
+          </section>
+          
+          <!-- Intellectual Property -->
+          <section>
+            <h2 class="text-lg font-bold mb-3">Intellectual Property</h2>
+            <p class="text-neutral-700 text-sm">
+              All original content on this website (text, graphics, logos) is owned by ProtectMyMobile or used with permission. You may share our content for personal, non-commercial purposes with attribution.
+            </p>
+          </section>
+          
+          <!-- Limitation of Liability -->
+          <section>
+            <h2 class="text-lg font-bold mb-3">Limitation of Liability</h2>
+            <p class="text-neutral-700 text-sm">
+              ProtectMyMobile shall not be liable for any direct, indirect, incidental, or consequential damages arising from the use of this website or reliance on any information provided. This includes, but is not limited to, losses resulting from theft, fraud, or failure to prevent theft.
+            </p>
+          </section>
+          
+          <!-- Changes to Terms -->
+          <section>
+            <h2 class="text-lg font-bold mb-3">Changes to These Terms</h2>
+            <p class="text-neutral-700 text-sm">
+              We may update these Terms of Service from time to time. Continued use of the website after changes constitutes acceptance of the new terms.
+            </p>
+          </section>
+          
+          <!-- Governing Law -->
+          <section>
+            <h2 class="text-lg font-bold mb-3">Governing Law</h2>
+            <p class="text-neutral-700 text-sm">
+              These terms are governed by the laws of England and Wales. Any disputes shall be subject to the exclusive jurisdiction of the courts of England and Wales.
+            </p>
+          </section>
+          
+          <!-- Contact -->
+          <section class="bg-neutral-100 rounded-xl p-6">
+            <h2 class="text-lg font-bold mb-2">Questions?</h2>
+            <p class="text-neutral-700 text-sm">
+              If you have questions about these terms, please <a href="/contact" class="text-primary hover:underline">contact us</a>.
+            </p>
+          </section>
+          
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <Footer />
+</Layout>

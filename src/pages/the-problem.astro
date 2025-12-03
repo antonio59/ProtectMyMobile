@@ -1,0 +1,181 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HeaderMobile from '../components/HeaderMobile';
+import Footer from '../components/Footer.astro';
+import { TheftMethodsSection, StatsSection, HotspotsSection, TimelineSection } from '../components/TheftAnimations';
+import { AlertTriangle, TrendingUp, MapPin, Clock, Shield, ArrowRight, ExternalLink } from 'lucide-react';
+---
+
+<Layout 
+  title="The Mobile Theft Epidemic - Understanding the Problem | ProtectMyMobile"
+  description="Learn about the mobile phone theft crisis in the UK, how thieves operate, and why protection matters more than ever."
+>
+  <HeaderMobile client:load />
+  
+  <main class="bg-[#f3f2f1] min-h-screen">
+    <div class="container mx-auto px-4 py-6 max-w-5xl">
+      
+      <!-- Hero Section -->
+      <div class="bg-gradient-to-br from-red-600 to-red-800 text-white rounded-2xl p-6 md:p-10 mb-8 shadow-xl relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+        <div class="relative">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="bg-white/20 p-3 rounded-xl">
+              <AlertTriangle class="h-8 w-8" />
+            </div>
+            <h1 class="text-2xl md:text-3xl font-bold">The Mobile Theft Epidemic</h1>
+          </div>
+          <p class="text-red-100 text-sm md:text-base max-w-xl mb-6">
+            Phone theft in the UK has reached crisis levels. Understanding how thieves operate is the first step to protecting yourself.
+          </p>
+          <div class="flex flex-wrap gap-3">
+            <div class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-lg text-sm">
+              <TrendingUp class="h-4 w-4" />
+              <span>44% increase since 2022</span>
+            </div>
+            <div class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-lg text-sm">
+              <Clock class="h-4 w-4" />
+              <span>One stolen every 3 minutes</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Stats Section -->
+      <section class="mb-10">
+        <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
+          <TrendingUp class="h-5 w-5 text-red-500" />
+          The Numbers
+        </h2>
+        <StatsSection client:visible />
+      </section>
+      
+      <!-- How Thieves Operate -->
+      <section class="mb-10">
+        <div class="bg-white rounded-2xl shadow-md overflow-hidden border border-neutral-100">
+          <div class="h-2 bg-gradient-to-r from-red-500 to-orange-500"></div>
+          <div class="p-6 md:p-8">
+            <h2 class="text-xl font-bold mb-2">How Thieves Operate</h2>
+            <p class="text-neutral-600 text-sm mb-6">
+              Phone thieves use various methods. Watch these animations to understand the tactics and stay alert.
+            </p>
+            <TheftMethodsSection client:visible />
+          </div>
+        </div>
+      </section>
+      
+      <!-- Hotspots -->
+      <section class="mb-10">
+        <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
+          <MapPin class="h-5 w-5 text-red-500" />
+          London Theft Hotspots (2023)
+        </h2>
+        <HotspotsSection client:visible />
+        <p class="text-xs text-neutral-500 mt-4">
+          Source: Metropolitan Police recorded crime data. Other major UK cities also experiencing significant increases.
+        </p>
+      </section>
+      
+      <!-- Timeline -->
+      <section class="mb-10">
+        <div class="bg-white rounded-2xl shadow-md overflow-hidden border border-neutral-100">
+          <div class="h-2 bg-gradient-to-r from-blue-500 to-primary"></div>
+          <div class="p-6 md:p-8">
+            <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
+              <Clock class="h-5 w-5 text-primary" />
+              How We Got Here
+            </h2>
+            <TimelineSection client:visible />
+          </div>
+        </div>
+      </section>
+      
+      <!-- Why It Matters -->
+      <section class="mb-10">
+        <div class="bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl p-6 md:p-8 border border-amber-200">
+          <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
+            <AlertTriangle class="h-5 w-5 text-amber-600" />
+            Why It Matters
+          </h2>
+          <div class="grid md:grid-cols-2 gap-4">
+            <div class="bg-white rounded-xl p-4 shadow-sm">
+              <h3 class="font-semibold mb-2">Beyond the Device Cost</h3>
+              <ul class="text-sm text-neutral-700 space-y-2">
+                <li>• Access to banking apps and financial data</li>
+                <li>• Personal photos and private messages</li>
+                <li>• Email and social media accounts</li>
+                <li>• Two-factor authentication codes</li>
+              </ul>
+            </div>
+            <div class="bg-white rounded-xl p-4 shadow-sm">
+              <h3 class="font-semibold mb-2">Identity Theft Risk</h3>
+              <ul class="text-sm text-neutral-700 space-y-2">
+                <li>• Fraudulent loans taken in your name</li>
+                <li>• Bank accounts emptied</li>
+                <li>• Credit cards maxed out</li>
+                <li>• Recovery can take months</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Government Response -->
+      <section class="mb-10">
+        <div class="bg-white rounded-2xl shadow-md p-6 md:p-8 border border-neutral-100">
+          <h2 class="text-xl font-bold mb-4">Government Response</h2>
+          <p class="text-neutral-700 text-sm mb-4">
+            The UK government has announced plans to tackle the phone theft epidemic, including:
+          </p>
+          <ul class="space-y-2 text-sm text-neutral-700">
+            <li class="flex items-start gap-2">
+              <Shield class="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+              <span>Factory reset blocks - making stolen phones unusable</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <Shield class="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+              <span>Working with manufacturers on kill switch technology</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <Shield class="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+              <span>Increased police focus on organised theft gangs</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <Shield class="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+              <span>National database improvements for stolen devices</span>
+            </li>
+          </ul>
+          <a href="https://www.gov.uk/government/news/government-to-crack-down-on-mobile-phone-enabled-crime" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-primary text-sm mt-4 hover:underline">
+            Read the government announcement
+            <ExternalLink class="h-4 w-4" />
+          </a>
+        </div>
+      </section>
+      
+      <!-- CTA Section -->
+      <section class="bg-gradient-to-r from-primary to-blue-700 rounded-2xl p-6 md:p-8 text-white">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div>
+            <h2 class="text-xl font-bold mb-2">Don't become a statistic</h2>
+            <p class="text-blue-100 text-sm">
+              Take action now to protect your device and know what to do if the worst happens.
+            </p>
+          </div>
+          <div class="flex flex-col sm:flex-row gap-3">
+            <a href="/prevention" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-primary rounded-xl font-semibold text-sm hover:bg-blue-50 transition-colors">
+              <Shield class="h-4 w-4" />
+              Prevention Guide
+            </a>
+            <a href="/emergency" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-red-500 text-white rounded-xl font-semibold text-sm hover:bg-red-600 transition-colors">
+              Emergency Steps
+              <ArrowRight class="h-4 w-4" />
+            </a>
+          </div>
+        </div>
+      </section>
+      
+    </div>
+  </main>
+  
+  <Footer />
+</Layout>

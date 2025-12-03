@@ -1,137 +1,129 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
+import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
-import { Info, Heart, Shield, Users, Target } from 'lucide-react';
+import { Info, Heart, Shield, Users, Target, CheckCircle2, ArrowRight } from 'lucide-react';
 ---
 
 <Layout 
   title="About Us - Our Mission to Protect Mobile Users | ProtectMyMobile"
   description="Learn about ProtectMyMobile's mission to help UK residents protect their mobile devices and respond effectively to theft."
 >
-  <Header />
+  <HeaderMobile client:load />
   
-  <main class="bg-[#f3f2f1]">
-    <div class="container mx-auto px-4 py-8">
-      <div class="max-w-4xl mx-auto">
-        <h1 class="flex items-center text-3xl md:text-4xl font-bold mb-6">
-          <Info class="h-10 w-10 mr-3 flex-shrink-0 text-primary" />
-          About ProtectMyMobile
-        </h1>
-        
-        <!-- Mission Statement -->
-        <div class="bg-white rounded-lg shadow-md p-8 mb-8">
-          <h2 class="flex items-center text-2xl font-semibold mb-4">
-            <Target class="h-12 w-12 mr-3 flex-shrink-0" style={{ color: '#2563eb' }} />
-            Our Mission
-          </h2>
-          <p class="text-lg text-neutral-700 mb-4">
+  <main class="bg-[#f3f2f1] min-h-screen">
+    <div class="container mx-auto px-4 py-6 max-w-5xl">
+      <!-- Hero Section -->
+      <div class="bg-gradient-to-br from-primary to-blue-700 text-white rounded-2xl p-6 md:p-10 mb-8 shadow-xl">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="bg-white/20 p-3 rounded-xl">
+            <Info class="h-8 w-8" />
+          </div>
+          <h1 class="text-2xl md:text-3xl font-bold">About ProtectMyMobile</h1>
+        </div>
+        <p class="text-blue-100 text-sm md:text-base max-w-xl">
+          Empowering UK residents with knowledge and tools to protect their mobile devices from theft.
+        </p>
+      </div>
+      
+      <!-- Mission Statement -->
+      <section class="bg-white rounded-2xl shadow-md overflow-hidden border border-neutral-100 mb-8">
+        <div class="h-2 bg-gradient-to-r from-primary to-blue-600"></div>
+        <div class="p-6 md:p-8">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="bg-primary/10 rounded-xl p-3">
+              <Target class="h-6 w-6 text-primary" />
+            </div>
+            <h2 class="text-xl font-bold">Our Mission</h2>
+          </div>
+          <p class="text-neutral-700 mb-4">
             ProtectMyMobile exists to empower UK residents with the knowledge and tools to protect their mobile devices from theft and respond effectively when theft occurs.
           </p>
-          <p class="text-neutral-700">
-            We believe that everyone deserves access to clear, actionable information about mobile security without having to search through countless websites or deal with confusing processes during stressful situations.
+          <p class="text-neutral-600 text-sm">
+            We believe everyone deserves access to clear, actionable information about mobile security without having to search through countless websites during stressful situations.
           </p>
         </div>
-        
-        <!-- Our Values -->
-        <h2 class="text-2xl font-semibold mb-6">Our Values</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <div class="bg-white rounded-lg shadow-md p-6">
-            <h3 class="flex items-center text-xl font-semibold mb-3">
-              <Shield class="h-8 w-8 mr-2 sm:mr-3 flex-shrink-0" style={{ color: '#2563eb' }} />
-              Privacy First
-            </h3>
-            <p class="text-neutral-700">
+      </section>
+      
+      <!-- Our Values -->
+      <section class="mb-8">
+        <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
+          <Heart class="h-5 w-5 text-red-500" />
+          Our Values
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="bg-white rounded-2xl shadow-md p-6 border border-neutral-100 hover:shadow-lg transition-shadow">
+            <div class="bg-primary/10 rounded-xl p-3 w-fit mb-4">
+              <Shield class="h-6 w-6 text-primary" />
+            </div>
+            <h3 class="text-lg font-bold mb-2">Privacy First</h3>
+            <p class="text-neutral-600 text-sm">
               We don't store your IMEI numbers or personal device information. Your privacy is paramount.
             </p>
           </div>
           
-          <div class="bg-white rounded-lg shadow-md p-6">
-            <h3 class="flex items-center text-xl font-semibold mb-3">
-              <Users class="h-8 w-8 mr-2 sm:mr-3 flex-shrink-0" style={{ color: '#16a34a' }} />
-              Community Driven
-            </h3>
-            <p class="text-neutral-700">
+          <div class="bg-white rounded-2xl shadow-md p-6 border border-neutral-100 hover:shadow-lg transition-shadow">
+            <div class="bg-green-100 rounded-xl p-3 w-fit mb-4">
+              <Users class="h-6 w-6 text-green-600" />
+            </div>
+            <h3 class="text-lg font-bold mb-2">Community Driven</h3>
+            <p class="text-neutral-600 text-sm">
               We learn from real experiences and feedback to continuously improve our guidance.
             </p>
           </div>
           
-          <div class="bg-white rounded-lg shadow-md p-6">
-            <h3 class="flex items-center text-xl font-semibold mb-3">
-              <Heart class="h-8 w-8 mr-2 sm:mr-3 flex-shrink-0" style={{ color: '#dc2626' }} />
-              Always Free
-            </h3>
-            <p class="text-neutral-700">
+          <div class="bg-white rounded-2xl shadow-md p-6 border border-neutral-100 hover:shadow-lg transition-shadow">
+            <div class="bg-red-100 rounded-xl p-3 w-fit mb-4">
+              <Heart class="h-6 w-6 text-red-600" />
+            </div>
+            <h3 class="text-lg font-bold mb-2">Always Free</h3>
+            <p class="text-neutral-600 text-sm">
               Essential security information should be accessible to everyone, always.
             </p>
           </div>
         </div>
-        
-        <!-- Why We Exist -->
-        <div class="bg-white rounded-lg shadow-md p-8 mb-8">
-          <h2 class="text-2xl font-semibold mb-4">Why We Exist</h2>
-          <div class="space-y-4 text-neutral-700">
-            <p>
-              With over 200,000 mobile phones stolen in the UK every year, the emotional and financial impact on victims is significant. Beyond the cost of replacing the device, victims often face:
-            </p>
-            <ul class="list-disc pl-6 space-y-2">
-              <li>Loss of irreplaceable photos, contacts, and memories</li>
-              <li>Risk of identity theft and financial fraud</li>
-              <li>Confusion about what steps to take immediately</li>
-              <li>Difficulty finding the right contact numbers during a stressful time</li>
-            </ul>
-            <p>
-              ProtectMyMobile consolidates all the information you need in one place, from prevention tips to emergency response guides, making it easier to stay safe and act quickly if the worst happens.
-            </p>
-          </div>
+      </section>
+      
+      <!-- Why We Exist -->
+      <section class="bg-white rounded-2xl shadow-md overflow-hidden border border-neutral-100 mb-8">
+        <div class="h-2 bg-gradient-to-r from-red-500 to-orange-500"></div>
+        <div class="p-6 md:p-8">
+          <h2 class="text-xl font-bold mb-4">Why We Exist</h2>
+          <p class="text-neutral-700 mb-4">
+            With over 200,000 mobile phones stolen in the UK every year, the impact on victims is significant:
+          </p>
+          <ul class="space-y-3 mb-4">
+            {[
+              'Loss of irreplaceable photos, contacts, and memories',
+              'Risk of identity theft and financial fraud',
+              'Confusion about what steps to take immediately',
+              'Difficulty finding emergency contacts during stress'
+            ].map(item => (
+              <li class="flex items-start gap-3">
+                <CheckCircle2 class="h-5 w-5 text-red-500 mt-0.5 flex-shrink-0" />
+                <span class="text-neutral-700">{item}</span>
+              </li>
+            ))}
+          </ul>
+          <p class="text-neutral-600 text-sm">
+            ProtectMyMobile consolidates all the information you need in one place, making it easier to stay safe and act quickly.
+          </p>
         </div>
-        
-        <!-- What We Offer -->
-        <div class="bg-white rounded-lg shadow-md p-8">
-          <h2 class="text-2xl font-semibold mb-4">What We Offer</h2>
-          <div class="space-y-4">
-            <div class="flex items-start">
-              <div class="bg-primary/10 rounded-full p-2 mr-4 mt-1">
-                <Shield class="h-5 w-5 text-primary" />
-              </div>
-              <div>
-                <h3 class="font-semibold mb-1">Prevention Guides</h3>
-                <p class="text-neutral-700 text-sm">Comprehensive security tips to protect your device before theft occurs.</p>
-              </div>
-            </div>
-            
-            <div class="flex items-start">
-              <div class="bg-red-100 rounded-full p-2 mr-4 mt-1">
-                <Shield class="h-5 w-5 text-red-600" />
-              </div>
-              <div>
-                <h3 class="font-semibold mb-1">Emergency Response</h3>
-                <p class="text-neutral-700 text-sm">Clear, step-by-step actions to take immediately if your phone is stolen.</p>
-              </div>
-            </div>
-            
-            <div class="flex items-start">
-              <div class="bg-blue-100 rounded-full p-2 mr-4 mt-1">
-                <Users class="h-5 w-5 text-blue-600" />
-              </div>
-              <div>
-                <h3 class="font-semibold mb-1">UK Bank & Provider Directories</h3>
-                <p class="text-neutral-700 text-sm">All the emergency contact numbers you need in one place.</p>
-              </div>
-            </div>
-            
-            <div class="flex items-start">
-              <div class="bg-teal-100 rounded-full p-2 mr-4 mt-1">
-                <Users class="h-5 w-5 text-teal-600" />
-              </div>
-              <div>
-                <h3 class="font-semibold mb-1">Latest News & Insights</h3>
-                <p class="text-neutral-700 text-sm">Stay informed about arrests, law changes, and theft trends.</p>
-              </div>
-            </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="bg-gradient-to-r from-primary/10 to-blue-100 rounded-2xl p-6 border border-primary/20">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div>
+            <h3 class="text-lg font-bold mb-1">Learn about the theft epidemic</h3>
+            <p class="text-neutral-600 text-sm">Understand how phones are being stolen across the UK.</p>
           </div>
+          <a href="/the-problem" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-white rounded-xl font-semibold text-sm hover:bg-primary/90 transition-colors">
+            The Problem
+            <ArrowRight class="h-4 w-4" />
+          </a>
         </div>
-      </div>
+      </section>
     </div>
   </main>
   
