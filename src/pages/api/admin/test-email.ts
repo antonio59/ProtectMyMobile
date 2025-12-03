@@ -12,7 +12,7 @@ export const GET: APIRoute = async ({ url }) => {
   }
 
   // Get recipient email from query param or use default
-  const recipientEmail = url.searchParams.get('email') || 'delivered@resend.dev';
+  const recipientEmail = url.searchParams.get('email') || 'protectmymobile.xyz.overlabor129@passmail.com';
 
   try {
     const resend = new Resend(resendApiKey);

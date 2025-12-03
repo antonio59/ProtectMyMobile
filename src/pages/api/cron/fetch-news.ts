@@ -114,7 +114,7 @@ export const GET: APIRoute = async () => {
           
           await resend.emails.send({
             from: 'ProtectMyMobile <onboarding@resend.dev>',
-            to: ['delivered@resend.dev'],
+            to: ['protectmymobile.xyz.overlabor129@passmail.com'],
             subject: `📢 ${createdPosts.length} New News Drafts Created`,
             html: `
               <h2>New Draft Articles Detected</h2>

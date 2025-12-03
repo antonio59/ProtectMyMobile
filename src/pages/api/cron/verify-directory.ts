@@ -73,7 +73,7 @@ export const GET: APIRoute = async () => {
         const resend = new Resend(resendApiKey);
         await resend.emails.send({
           from: 'ProtectMyMobile <onboarding@resend.dev>',
-          to: ['delivered@resend.dev'],
+          to: ['protectmymobile.xyz.overlabor129@passmail.com'],
           subject: `Directory Verification Report: ${report.inactive} Issues Found`,
           html: `
             <h2>Directory Verification Status</h2>

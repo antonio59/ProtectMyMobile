@@ -149,7 +149,7 @@ export const GET: APIRoute = async () => {
         const resend = new Resend(resendApiKey);
         await resend.emails.send({
           from: 'ProtectMyMobile <onboarding@resend.dev>',
-          to: ['delivered@resend.dev'],
+          to: ['protectmymobile.xyz.overlabor129@passmail.com'],
           subject: `🎉 ${successfulNew.length} New FOI Responses Found on WhatDoTheyKnow`,
           html: `
             <h2>New Successful FOI Responses Detected</h2>

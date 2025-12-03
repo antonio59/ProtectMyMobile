@@ -177,7 +177,7 @@ export const GET: APIRoute = async () => {
     // Send summary email to admin
     await resend.emails.send({
       from: 'ProtectMyMobile <onboarding@resend.dev>',
-      to: ['delivered@resend.dev'], // Replace with actual admin email
+      to: ['protectmymobile.xyz.overlabor129@passmail.com'], // Replace with actual admin email
       subject: `FOI Requests Summary: ${results.sent.length} sent, ${results.failed.length} failed`,
       html: `
         <h2>Quarterly FOI Request Summary</h2>

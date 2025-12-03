@@ -48,7 +48,7 @@ export const POST: APIRoute = async ({ request }) => {
         // Send notification to admin
         await resend.emails.send({
           from: 'ProtectMyMobile <onboarding@resend.dev>', // Using default domain for testing
-          to: ['delivered@resend.dev'], // Send to the verified email usually, or your own
+          to: ['protectmymobile.xyz.overlabor129@passmail.com'], // Send to the verified email usually, or your own
           subject: `New Contact: ${subject}`,
           html: `
             <h2>New Contact Submission</h2>
