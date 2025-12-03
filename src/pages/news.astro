@@ -1,9 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
+import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
 import { getNewsPosts } from '../lib/convexData';
-import { Newspaper, Calendar, ExternalLink, ArrowRight } from 'lucide-react';
+import { Newspaper, Calendar, ExternalLink, ArrowRight, Filter, Search } from 'lucide-react';
 
 let posts = [];
 let error = null;
@@ -38,29 +38,51 @@ function formatDate(dateValue: string | number) {
   title="Latest News & Updates - UK Mobile Theft | ProtectMyMobile"
   description="Stay informed about the latest mobile theft news in the UK including arrests, seizures, law changes, and prevention tips."
 >
-  <Header />
+  <HeaderMobile client:load />
   
-  <main class="bg-[#f3f2f1]">
-    <div class="container mx-auto px-4 py-8">
-      <!-- Header -->
-      <div class="mb-8">
-        <h1 class="flex items-center text-3xl font-bold mb-2">
-          <Newspaper class="h-8 w-8 mr-3 text-primary" />
-          Latest News & Updates
-        </h1>
-        <p class="text-lg text-neutral-700">
-          Stay informed about mobile theft arrests, policy changes, and security updates across the UK.
+  <main class="bg-[#f3f2f1] min-h-screen">
+    <div class="container mx-auto px-4 py-6 max-w-6xl">
+      <!-- Hero Section -->
+      <div class="bg-gradient-to-br from-primary to-blue-700 text-white rounded-2xl p-6 md:p-10 mb-8 shadow-xl">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="bg-white/20 p-3 rounded-xl">
+            <Newspaper class="h-8 w-8" />
+          </div>
+          <h1 class="text-2xl md:text-3xl font-bold">Latest News & Updates</h1>
+        </div>
+        <p class="text-blue-100 text-sm md:text-base max-w-xl">
+          Stay informed about mobile theft arrests, policy changes, security updates, and prevention tips across the UK.
         </p>
       </div>
 
-      <!-- Category Filter (Future Enhancement) -->
-      <div class="flex flex-wrap gap-2 mb-6">
-        <span class="text-sm font-medium text-neutral-600">Filter by category:</span>
-        <button class="px-3 py-1 rounded-full bg-primary text-white text-sm">All</button>
-        <button class="px-3 py-1 rounded-full bg-neutral-200 text-neutral-700 text-sm hover:bg-neutral-300">Arrests</button>
-        <button class="px-3 py-1 rounded-full bg-neutral-200 text-neutral-700 text-sm hover:bg-neutral-300">Seizures</button>
-        <button class="px-3 py-1 rounded-full bg-neutral-200 text-neutral-700 text-sm hover:bg-neutral-300">Law Changes</button>
-        <button class="px-3 py-1 rounded-full bg-neutral-200 text-neutral-700 text-sm hover:bg-neutral-300">Statistics</button>
+      <!-- Category Filter -->
+      <div class="bg-white rounded-2xl shadow-md p-4 mb-6">
+        <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+          <div class="flex items-center gap-2 text-sm text-neutral-600">
+            <Filter class="h-4 w-4" />
+            <span class="font-medium">Filter:</span>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <button class="category-btn px-4 py-2 rounded-xl bg-primary text-white text-sm font-medium transition-all" data-category="all">
+              All
+            </button>
+            <button class="category-btn px-4 py-2 rounded-xl bg-neutral-100 text-neutral-700 text-sm font-medium hover:bg-neutral-200 transition-all" data-category="arrest">
+              Arrests
+            </button>
+            <button class="category-btn px-4 py-2 rounded-xl bg-neutral-100 text-neutral-700 text-sm font-medium hover:bg-neutral-200 transition-all" data-category="seizure">
+              Seizures
+            </button>
+            <button class="category-btn px-4 py-2 rounded-xl bg-neutral-100 text-neutral-700 text-sm font-medium hover:bg-neutral-200 transition-all" data-category="law_change">
+              Law Changes
+            </button>
+            <button class="category-btn px-4 py-2 rounded-xl bg-neutral-100 text-neutral-700 text-sm font-medium hover:bg-neutral-200 transition-all" data-category="statistics">
+              Statistics
+            </button>
+            <button class="category-btn px-4 py-2 rounded-xl bg-neutral-100 text-neutral-700 text-sm font-medium hover:bg-neutral-200 transition-all" data-category="prevention_tip">
+              Tips
+            </button>
+          </div>
+        </div>
       </div>
 
       {error ? (
@@ -75,44 +97,39 @@ function formatDate(dateValue: string | number) {
           <p class="text-sm text-neutral-500">In the meantime, explore our prevention guides and resources.</p>
         </div>
       ) : (
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="news-grid">
           {posts.map((post: any) => (
-            <article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow flex flex-col h-full border-l-4 border-blue-500">
-              <div class="p-6 flex flex-col h-full">
-                  <div class="flex items-center gap-2 mb-3">
-                    <span class={`text-xs px-2 py-1 rounded-full font-medium ${categoryColors[post.category] || categoryColors.other}`}>
-                      {post.category.replace('_', ' ')}
-                    </span>
-                    <span class="text-sm text-neutral-500 flex items-center">
-                      <Calendar class="h-4 w-4 mr-1" />
-                      {formatDate(post.publishedAt || post._creationTime)}
-                    </span>
-                  </div>
-                  
-                  <h2 class="text-xl font-bold mb-3 leading-tight">
-                    <a href={`/news/${post.slug}`} class="hover:text-primary transition-colors">
-                      {post.title}
-                    </a>
-                  </h2>
-                  
-                  <p class="text-neutral-600 text-sm mb-4 line-clamp-3 flex-grow">
-                    {post.excerpt}
-                  </p>
-                  
-                  <div class="flex items-center justify-between mt-auto pt-4 border-t border-neutral-100">
-                    <a href={`/news/${post.slug}`} class="text-primary font-medium hover:underline flex items-center text-sm group">
-                      Read full article <ArrowRight class="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" />
-                    </a>
-                    
-                    {post.sourceUrl && (
-                      <a href={post.sourceUrl} target="_blank" rel="noopener noreferrer" 
-                         class="text-xs text-neutral-400 hover:text-neutral-600 flex items-center">
-                        <ExternalLink class="h-3 w-3 mr-1" />
-                        {post.sourceName || 'Source'}
-                      </a>
-                    )}
-                  </div>
+            <article 
+              class="news-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col h-full border border-neutral-100"
+              data-category={post.category}
+            >
+              <div class="p-5 flex flex-col h-full">
+                <div class="flex items-center gap-2 mb-3">
+                  <span class={`text-xs px-3 py-1 rounded-full font-medium ${categoryColors[post.category] || categoryColors.other}`}>
+                    {post.category.replace('_', ' ')}
+                  </span>
                 </div>
+                
+                <h2 class="text-lg font-bold mb-2 leading-snug line-clamp-2">
+                  <a href={`/news/${post.slug}`} class="hover:text-primary transition-colors">
+                    {post.title}
+                  </a>
+                </h2>
+                
+                <p class="text-neutral-600 text-sm mb-4 line-clamp-3 flex-grow">
+                  {post.excerpt}
+                </p>
+                
+                <div class="flex items-center justify-between mt-auto pt-3 border-t border-neutral-100">
+                  <span class="text-xs text-neutral-400 flex items-center">
+                    <Calendar class="h-3 w-3 mr-1" />
+                    {formatDate(post.publishedAt || post._creationTime)}
+                  </span>
+                  <a href={`/news/${post.slug}`} class="text-primary font-medium text-sm flex items-center gap-1 group">
+                    Read <ArrowRight class="h-3 w-3 group-hover:translate-x-1 transition-transform" />
+                  </a>
+                </div>
+              </div>
             </article>
           ))}
         </div>
@@ -121,4 +138,34 @@ function formatDate(dateValue: string | number) {
   </main>
   
   <Footer />
+
+  <script>
+    // Category filter functionality
+    const categoryBtns = document.querySelectorAll('.category-btn');
+    const newsCards = document.querySelectorAll('.news-card');
+    
+    categoryBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const category = btn.getAttribute('data-category');
+        
+        // Update button styles
+        categoryBtns.forEach(b => {
+          b.classList.remove('bg-primary', 'text-white');
+          b.classList.add('bg-neutral-100', 'text-neutral-700');
+        });
+        btn.classList.remove('bg-neutral-100', 'text-neutral-700');
+        btn.classList.add('bg-primary', 'text-white');
+        
+        // Filter cards
+        newsCards.forEach(card => {
+          const cardCategory = card.getAttribute('data-category');
+          if (category === 'all' || cardCategory === category) {
+            (card as HTMLElement).style.display = '';
+          } else {
+            (card as HTMLElement).style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
 </Layout>
