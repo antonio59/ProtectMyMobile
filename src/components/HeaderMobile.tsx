@@ -19,11 +19,21 @@ import {
 } from 'lucide-react';
 import { slideInRight, overlayVariants, staggerContainer, staggerItem } from './ui/motion';
 
-const navLinks = [
-  { href: '/', label: 'Home', icon: Home },
-  { href: '/news', label: 'News', icon: Newspaper },
+// Desktop nav links (shown in header)
+const desktopNavLinks = [
+  { href: '/the-problem', label: 'The Problem', icon: AlertTriangle },
   { href: '/statistics', label: 'Statistics', icon: BarChart3 },
   { href: '/timelapse', label: 'Theft Map', icon: Map },
+  { href: '/news', label: 'News', icon: Newspaper },
+];
+
+// Mobile menu links (full navigation)
+const navLinks = [
+  { href: '/', label: 'Home', icon: Home },
+  { href: '/the-problem', label: 'The Problem', icon: AlertTriangle },
+  { href: '/statistics', label: 'Statistics', icon: BarChart3 },
+  { href: '/timelapse', label: 'Theft Map', icon: Map },
+  { href: '/news', label: 'News', icon: Newspaper },
   { href: '/banks', label: 'Banks', icon: Building2 },
   { href: '/mobile-providers', label: 'Mobile Providers', icon: Phone },
   { href: '/prevention', label: 'Prevention Guide', icon: BookOpen },
@@ -53,7 +63,7 @@ export default function HeaderMobile() {
 
           {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center gap-1">
-            {navLinks.slice(0, 5).map((link) => (
+            {desktopNavLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
