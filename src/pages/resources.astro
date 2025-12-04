@@ -36,10 +36,6 @@ import { Book, Shield, AlertTriangle, Building2, Phone, TrendingUp, Newspaper, M
             <TrendingUp class="h-4 w-4" />
             Statistics
           </a>
-          <a href="/timelapse" class="inline-flex items-center gap-2 px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg text-sm font-medium transition-colors">
-            <Map class="h-4 w-4" />
-            Theft Map
-          </a>
           <a href="/news" class="inline-flex items-center gap-2 px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg text-sm font-medium transition-colors">
             <Newspaper class="h-4 w-4" />
             News
@@ -185,7 +181,7 @@ import { Book, Shield, AlertTriangle, Building2, Phone, TrendingUp, Newspaper, M
       <!-- Data & Insights Section -->
       <section>
         <h2 class="text-xl font-bold mb-6">Data & Insights</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           
           <!-- The Problem -->
           <a href="/the-problem" class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-neutral-100 group">
@@ -209,22 +205,8 @@ import { Book, Shield, AlertTriangle, Building2, Phone, TrendingUp, Newspaper, M
                 <div class="bg-purple-100 rounded-xl p-3 mb-3 group-hover:scale-110 transition-transform">
                   <TrendingUp class="h-6 w-6 text-purple-600" />
                 </div>
-                <h3 class="font-bold text-lg mb-1 group-hover:text-purple-600 transition-colors">Statistics</h3>
-                <p class="text-neutral-600 text-sm">View data and insights on mobile theft trends across the UK.</p>
-              </div>
-            </div>
-          </a>
-          
-          <!-- Theft Map -->
-          <a href="/timelapse" class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-neutral-100 group">
-            <div class="h-2 bg-gradient-to-r from-teal-500 to-cyan-500"></div>
-            <div class="p-6">
-              <div class="flex flex-col items-center text-center">
-                <div class="bg-teal-100 rounded-xl p-3 mb-3 group-hover:scale-110 transition-transform">
-                  <Map class="h-6 w-6 text-teal-600" />
-                </div>
-                <h3 class="font-bold text-lg mb-1 group-hover:text-teal-600 transition-colors">Theft Map</h3>
-                <p class="text-neutral-600 text-sm">Interactive timelapse showing theft hotspots across the UK.</p>
+                <h3 class="font-bold text-lg mb-1 group-hover:text-purple-600 transition-colors">Statistics & Hotspots</h3>
+                <p class="text-neutral-600 text-sm">View theft data, hotspot rankings, and trends across the UK.</p>
               </div>
             </div>
           </a>

@@ -132,25 +132,24 @@ const categoryBorderColors: Record<string, string> = {
       <!-- Animated News Section -->
       <AnimatedNewsSection client:load news={latestNews} />
 
-      <!-- Featured Tool: Timelapse -->
+      <!-- Statistics CTA -->
       <section class="mb-12">
-        <a href="/timelapse" class="block bg-gradient-to-r from-teal-600 to-cyan-600 rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow group">
+        <a href="/statistics" class="block bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow group">
           <div class="p-8 md:p-12 text-white">
             <div class="flex items-start justify-between">
               <div class="flex-1">
                 <div class="inline-flex items-center gap-2 bg-white/20 rounded-full px-4 py-2 mb-4">
-                  <MapPin class="h-5 w-5 mr-2 sm:mr-3 flex-shrink-0" />
-                  <span class="font-medium">NEW FEATURE</span>
+                  <TrendingUp class="h-5 w-5" />
+                  <span class="font-medium">UK DATA</span>
                 </div>
-                <h2 class="flex items-center text-3xl md:text-4xl font-bold mb-4">
-                  UK Theft Hotspots Timelapse
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                  Theft Hotspots & Statistics
                 </h2>
-                <p class="text-xl text-teal-100 mb-6 max-w-2xl">
-                  Explore an interactive map showing where and when mobile thefts occur across the UK. 
-                  See patterns emerge over time and identify high-risk areas.
+                <p class="text-xl text-purple-100 mb-6 max-w-2xl">
+                  See where thefts happen most, when you're at highest risk, and how the epidemic is growing across UK cities.
                 </p>
                 <div class="inline-flex items-center gap-2 text-lg font-semibold group-hover:gap-4 transition-all">
-                  Explore the Map <ArrowRight class="h-5 w-5 mr-2 sm:mr-3 flex-shrink-0" />
+                  View Statistics <ArrowRight class="h-5 w-5" />
                 </div>
               </div>
               <div class="hidden md:block">

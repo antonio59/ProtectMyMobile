@@ -24,7 +24,6 @@ import { slideInRight, overlayVariants, staggerContainer, staggerItem } from './
 const desktopNavLinks = [
   { href: '/the-problem', label: 'The Problem', icon: AlertTriangle },
   { href: '/statistics', label: 'Statistics', icon: BarChart3 },
-  { href: '/timelapse', label: 'Theft Map', icon: Map },
   { href: '/products', label: 'Products', icon: ShoppingBag },
   { href: '/news', label: 'News', icon: Newspaper },
 ];
@@ -34,7 +33,6 @@ const navLinks = [
   { href: '/', label: 'Home', icon: Home },
   { href: '/the-problem', label: 'The Problem', icon: AlertTriangle },
   { href: '/statistics', label: 'Statistics', icon: BarChart3 },
-  { href: '/timelapse', label: 'Theft Map', icon: Map },
   { href: '/news', label: 'News', icon: Newspaper },
   { href: '/banks', label: 'Banks', icon: Building2 },
   { href: '/mobile-providers', label: 'Mobile Providers', icon: Phone },
