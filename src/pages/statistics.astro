@@ -4,44 +4,30 @@ import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
 import { BarChart3, TrendingUp, MapPin, AlertTriangle, Clock, Shield, ArrowRight, Calendar, Sun, Snowflake, Leaf } from 'lucide-react';
 
-// Hotspot data - ranked by theft numbers
-const hotspots = [
-  { rank: 1, area: 'Westminster', city: 'London', thefts: 12847, change: '+18%', risk: 'Extreme' },
-  { rank: 2, area: 'Camden', city: 'London', thefts: 8523, change: '+22%', risk: 'Extreme' },
-  { rank: 3, area: 'Tower Hamlets', city: 'London', thefts: 6241, change: '+15%', risk: 'Very High' },
-  { rank: 4, area: 'Hackney', city: 'London', thefts: 5834, change: '+21%', risk: 'Very High' },
-  { rank: 5, area: 'Lambeth', city: 'London', thefts: 5102, change: '+12%', risk: 'High' },
-  { rank: 6, area: 'Southwark', city: 'London', thefts: 4891, change: '+14%', risk: 'High' },
-  { rank: 7, area: 'Manchester City Centre', city: 'Manchester', thefts: 4234, change: '+31%', risk: 'High' },
-  { rank: 8, area: 'Islington', city: 'London', thefts: 4156, change: '+16%', risk: 'High' },
-  { rank: 9, area: 'Birmingham City Centre', city: 'Birmingham', thefts: 3892, change: '+25%', risk: 'High' },
-  { rank: 10, area: 'Newham', city: 'London', thefts: 3654, change: '+19%', risk: 'High' },
-  { rank: 11, area: 'Leeds City Centre', city: 'Leeds', thefts: 2845, change: '+28%', risk: 'Medium' },
-  { rank: 12, area: 'Liverpool City Centre', city: 'Liverpool', thefts: 2456, change: '+23%', risk: 'Medium' },
+// Top 5 London hotspots (simplified)
+const londonHotspots = [
+  { rank: 1, area: 'Westminster', thefts: '34,000+', description: 'Tourist areas, West End, transport hubs' },
+  { rank: 2, area: 'Camden', thefts: '8,500+', description: 'Markets, nightlife, busy high streets' },
+  { rank: 3, area: 'Tower Hamlets', thefts: '6,200+', description: 'Shoreditch, Brick Lane, City fringe' },
+  { rank: 4, area: 'Hackney', thefts: '5,800+', description: 'Nightlife spots, busy cafes' },
+  { rank: 5, area: 'Southwark', thefts: '4,900+', description: 'Borough Market, London Bridge' },
 ];
-
-const riskColors: Record<string, { bg: string; text: string }> = {
-  'Extreme': { bg: 'bg-red-100', text: 'text-red-700' },
-  'Very High': { bg: 'bg-orange-100', text: 'text-orange-700' },
-  'High': { bg: 'bg-yellow-100', text: 'text-yellow-700' },
-  'Medium': { bg: 'bg-blue-100', text: 'text-blue-700' },
-};
 
 // City comparison data
 const cityComparison = [
-  { city: 'London', thefts: 78000, population: '9.0M', rate: 867, change: '+17%' },
-  { city: 'Manchester', thefts: 8500, population: '2.8M', rate: 304, change: '+31%' },
-  { city: 'Birmingham', thefts: 6200, population: '2.9M', rate: 214, change: '+25%' },
-  { city: 'Leeds', thefts: 4100, population: '1.9M', rate: 216, change: '+28%' },
-  { city: 'Liverpool', thefts: 3200, population: '1.6M', rate: 200, change: '+23%' },
+  { city: 'London', thefts: 116656, year: '2024', change: '+50% since 2017' },
+  { city: 'Manchester', thefts: 8500, year: '2023', change: '+31%' },
+  { city: 'Birmingham', thefts: 6200, year: '2023', change: '+25%' },
+  { city: 'Leeds', thefts: 4100, year: '2023', change: '+28%' },
+  { city: 'Liverpool', thefts: 3200, year: '2023', change: '+23%' },
 ];
 
-// Key stats
+// Key stats - updated with accurate 2024 data
 const keyStats = [
-  { value: '200,000+', label: 'UK thefts per year', icon: AlertTriangle, color: 'red' },
-  { value: '78,000+', label: 'London alone (2023)', icon: MapPin, color: 'orange' },
-  { value: '44%', label: 'Increase since 2022', icon: TrendingUp, color: 'yellow' },
-  { value: '6%', label: 'Recovery rate', icon: Shield, color: 'teal' },
+  { value: '78,000', label: 'Snatch thefts UK (2024)', icon: AlertTriangle, color: 'red' },
+  { value: '116,000+', label: 'London alone (2024)', icon: MapPin, color: 'orange' },
+  { value: '150%', label: 'Increase since 2023', icon: TrendingUp, color: 'yellow' },
+  { value: '0.8%', label: 'Result in charges', icon: Shield, color: 'teal' },
 ];
 ---
 
@@ -77,52 +63,36 @@ const keyStats = [
         </div>
       </div>
 
-      <!-- Hotspot Rankings -->
+      <!-- London Hotspots - Simplified -->
       <section class="mb-10">
         <div class="bg-white rounded-2xl shadow-md overflow-hidden border border-neutral-100">
           <div class="h-2 bg-gradient-to-r from-red-500 to-orange-500"></div>
           <div class="p-6 md:p-8">
             <div class="flex items-center gap-3 mb-2">
               <MapPin class="h-6 w-6 text-red-500" />
-              <h2 class="text-xl font-bold">UK Theft Hotspots (2023)</h2>
+              <h2 class="text-xl font-bold">London Theft Hotspots (2024)</h2>
             </div>
-            <p class="text-neutral-600 text-sm mb-6">Areas ranked by number of reported mobile phone thefts</p>
+            <p class="text-neutral-600 text-sm mb-6">London accounts for 75% of all UK phone thefts. These are the worst-affected boroughs.</p>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {hotspots.map((spot) => {
-                const risk = riskColors[spot.risk];
-                return (
-                  <div class="border border-neutral-200 rounded-xl p-4 hover:shadow-md transition-shadow">
-                    <div class="flex items-start justify-between mb-2">
-                      <div class="flex items-center gap-2">
-                        <span class={`w-7 h-7 rounded-full flex items-center justify-center text-sm font-bold ${spot.rank <= 3 ? 'bg-red-500 text-white' : 'bg-neutral-200 text-neutral-700'}`}>
-                          {spot.rank}
-                        </span>
-                        <div>
-                          <h3 class="font-bold text-neutral-900">{spot.area}</h3>
-                          <p class="text-xs text-neutral-500">{spot.city}</p>
-                        </div>
-                      </div>
-                      <span class={`text-xs px-2 py-1 rounded-full font-medium ${risk.bg} ${risk.text}`}>
-                        {spot.risk}
-                      </span>
+            <div class="space-y-3">
+              {londonHotspots.map((spot) => (
+                <div class="flex items-center gap-4 p-4 bg-neutral-50 rounded-xl">
+                  <span class={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 ${spot.rank === 1 ? 'bg-red-500 text-white' : spot.rank <= 3 ? 'bg-orange-500 text-white' : 'bg-neutral-300 text-neutral-700'}`}>
+                    {spot.rank}
+                  </span>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-baseline gap-2">
+                      <h3 class="font-bold text-neutral-900">{spot.area}</h3>
+                      <span class="text-red-600 font-semibold text-sm">{spot.thefts}</span>
                     </div>
-                    <div class="flex items-end justify-between mt-3">
-                      <div>
-                        <span class="text-2xl font-bold text-neutral-900">{spot.thefts.toLocaleString()}</span>
-                        <span class="text-xs text-neutral-500 ml-1">thefts</span>
-                      </div>
-                      <span class={`text-sm font-semibold ${spot.change.startsWith('+') ? 'text-red-600' : 'text-green-600'}`}>
-                        {spot.change} vs 2022
-                      </span>
-                    </div>
+                    <p class="text-xs text-neutral-500 truncate">{spot.description}</p>
                   </div>
-                );
-              })}
+                </div>
+              ))}
             </div>
             
             <p class="text-xs text-neutral-500 mt-4">
-              Source: Metropolitan Police & regional police force recorded crime data
+              Source: Metropolitan Police recorded crime data 2024
             </p>
           </div>
         </div>
@@ -137,7 +107,7 @@ const keyStats = [
               <BarChart3 class="h-6 w-6 text-blue-500" />
               <h2 class="text-xl font-bold">Major Cities Comparison</h2>
             </div>
-            <p class="text-neutral-600 text-sm mb-6">Theft numbers and rates per 100,000 population</p>
+            <p class="text-neutral-600 text-sm mb-6">Annual mobile phone theft figures by city</p>
             
             <div class="space-y-4">
               {cityComparison.map((city, i) => {
@@ -148,13 +118,11 @@ const keyStats = [
                     <div class="flex items-center justify-between mb-2">
                       <div class="flex items-center gap-3">
                         <span class="font-bold text-neutral-900">{city.city}</span>
-                        <span class="text-xs text-neutral-500">Pop: {city.population}</span>
+                        <span class="text-xs text-neutral-500">({city.year})</span>
                       </div>
                       <div class="text-right">
                         <span class="font-bold text-neutral-900">{city.thefts.toLocaleString()}</span>
-                        <span class={`text-sm ml-2 ${city.change.startsWith('+') ? 'text-red-600' : 'text-green-600'}`}>
-                          {city.change}
-                        </span>
+                        <span class="text-xs text-red-600 ml-2">{city.change}</span>
                       </div>
                     </div>
                     <div class="w-full bg-neutral-100 rounded-full h-4 overflow-hidden">
@@ -162,9 +130,6 @@ const keyStats = [
                         class={`h-4 rounded-full ${i === 0 ? 'bg-gradient-to-r from-red-500 to-red-600' : 'bg-gradient-to-r from-blue-400 to-blue-500'}`}
                         style={`width: ${width}%`}
                       ></div>
-                    </div>
-                    <div class="text-xs text-neutral-500 mt-1">
-                      Rate: {city.rate} per 100k residents
                     </div>
                   </div>
                 );
