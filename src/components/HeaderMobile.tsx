@@ -124,21 +124,23 @@ export default function HeaderMobile() {
 
             {/* Slide-out Menu */}
             <motion.div
-              className="fixed top-0 right-0 h-full w-[85%] max-w-sm bg-white z-50 shadow-2xl md:hidden"
+              className="fixed top-0 right-0 h-full w-[85%] max-w-sm z-50 shadow-2xl md:hidden overflow-hidden"
+              style={{ backgroundColor: '#ffffff' }}
               variants={slideInRight}
               initial="hidden"
               animate="visible"
               exit="exit"
             >
               {/* Menu Header */}
-              <div className="flex items-center justify-between p-4 border-b">
+              <div className="flex items-center justify-between p-4 border-b border-neutral-200 bg-white">
                 <span className="font-bold text-lg text-primary">Menu</span>
                 <motion.button
                   onClick={() => setIsOpen(false)}
-                  className="p-2 rounded-xl bg-neutral-100 hover:bg-neutral-200"
+                  className="p-2.5 rounded-xl bg-neutral-200 hover:bg-neutral-300 active:bg-neutral-400"
                   whileTap={{ scale: 0.9 }}
+                  aria-label="Close menu"
                 >
-                  <X className="h-5 w-5" />
+                  <X className="h-6 w-6 text-neutral-700" />
                 </motion.button>
               </div>
 
@@ -166,7 +168,8 @@ export default function HeaderMobile() {
 
               {/* Navigation Links */}
               <motion.nav
-                className="p-4"
+                className="p-4 bg-white overflow-y-auto"
+                style={{ maxHeight: 'calc(100vh - 220px)' }}
                 variants={staggerContainer}
                 initial="hidden"
                 animate="visible"
@@ -176,7 +179,7 @@ export default function HeaderMobile() {
                     <motion.li key={link.href} variants={staggerItem}>
                       <a
                         href={link.href}
-                        className="flex items-center gap-3 px-4 py-3 rounded-xl text-neutral-700 hover:bg-primary/5 hover:text-primary transition-colors group"
+                        className="flex items-center gap-3 px-4 py-3 rounded-xl text-neutral-700 hover:bg-neutral-100 active:bg-neutral-200 transition-colors group"
                         onClick={() => setIsOpen(false)}
                       >
                         <link.icon className="h-5 w-5 text-neutral-400 group-hover:text-primary transition-colors" />
