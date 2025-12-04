@@ -1,90 +1,220 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
+import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
-import { Book, Shield, AlertTriangle, Building2, Phone, TrendingUp, Newspaper } from 'lucide-react';
+import { Book, Shield, AlertTriangle, Building2, Phone, TrendingUp, Newspaper, Map, ArrowRight, Users } from 'lucide-react';
 ---
 
 <Layout 
   title="Resources - Mobile Security Guides | ProtectMyMobile"
   description="Access comprehensive resources, guides, and information about mobile security, theft prevention, and recovery."
 >
-  <Header />
+  <HeaderMobile client:load />
   
-  <main class="bg-[#f3f2f1]">
-    <div class="container mx-auto px-4 py-8">
-      <h1 class="flex items-center text-3xl md:text-4xl font-bold mb-8">
-        <Book class="h-10 w-10 mr-3 flex-shrink-0 text-primary" />
-        Resources
-      </h1>
+  <main class="bg-[#f3f2f1] min-h-screen">
+    <div class="container mx-auto px-4 py-6 max-w-6xl">
       
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- Prevention -->
-        <a href="/prevention" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
-          <h2 class="flex items-center text-xl font-semibold mb-3">
-            <Shield class="h-8 w-8 mr-2 sm:mr-3 flex-shrink-0" style={{ color: '#2563eb' }} />
-            Prevention Guides
-          </h2>
-          <p class="text-neutral-700 text-sm">
-            Learn how to secure your device with PIN locks, biometrics, and app-specific security measures.
-          </p>
-        </a>
+      <!-- Hero Section -->
+      <div class="bg-gradient-to-br from-primary to-blue-700 text-white rounded-2xl p-6 md:p-10 mb-8 shadow-xl">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="bg-white/20 p-3 rounded-xl">
+            <Book class="h-8 w-8" />
+          </div>
+          <h1 class="text-2xl md:text-3xl font-bold">Resources</h1>
+        </div>
+        <p class="text-blue-100 text-sm md:text-base mb-6">
+          Everything you need to protect your mobile and respond to theft.
+        </p>
         
-        <!-- Emergency -->
-        <a href="/emergency" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
-          <h2 class="flex items-center text-xl font-semibold mb-3">
-            <AlertTriangle class="h-8 w-8 mr-2 sm:mr-3 flex-shrink-0" style={{ color: '#dc2626' }} />
-            Emergency Response
-          </h2>
-          <p class="text-neutral-700 text-sm">
-            Step-by-step instructions for immediate action if your mobile has been stolen.
-          </p>
-        </a>
-        
-        <!-- Banks -->
-        <a href="/banks" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
-          <h2 class="flex items-center text-xl font-semibold mb-3">
-            <Building2 class="h-8 w-8 mr-2 sm:mr-3 flex-shrink-0" style={{ color: '#2563eb' }} />
-            UK Bank Directory
-          </h2>
-          <p class="text-neutral-700 text-sm">
-            Emergency contact information for all major UK banks to secure your accounts.
-          </p>
-        </a>
-        
-        <!-- Mobile Providers -->
-        <a href="/mobile-providers" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
-          <h2 class="flex items-center text-xl font-semibold mb-3">
-            <Phone class="h-8 w-8 mr-2 sm:mr-3 flex-shrink-0" style={{ color: '#16a34a' }} />
-            Mobile Provider Directory
-          </h2>
-          <p class="text-neutral-700 text-sm">
-            Contact details for UK mobile networks to report theft and block your SIM.
-          </p>
-        </a>
-        
-        <!-- Statistics -->
-        <a href="/statistics" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
-          <h2 class="flex items-center text-xl font-semibold mb-3">
-            <TrendingUp class="h-8 w-8 mr-2 sm:mr-3 flex-shrink-0" style={{ color: '#9333ea' }} />
-            Theft Statistics
-          </h2>
-          <p class="text-neutral-700 text-sm">
-            View data and insights on mobile theft trends across the UK.
-          </p>
-        </a>
-        
-        <!-- News -->
-        <a href="/news" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
-          <h2 class="flex items-center text-xl font-semibold mb-3">
-            <Newspaper class="h-8 w-8 mr-2 sm:mr-3 flex-shrink-0" style={{ color: '#ea580c' }} />
-            Latest News
-          </h2>
-          <p class="text-neutral-700 text-sm">
-            Stay informed about arrests, law changes, and theft trends.
-          </p>
-        </a>
+        <!-- Quick Navigation -->
+        <div class="flex flex-wrap gap-2">
+          <a href="/the-problem" class="inline-flex items-center gap-2 px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg text-sm font-medium transition-colors">
+            <AlertTriangle class="h-4 w-4" />
+            The Problem
+          </a>
+          <a href="/statistics" class="inline-flex items-center gap-2 px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg text-sm font-medium transition-colors">
+            <TrendingUp class="h-4 w-4" />
+            Statistics
+          </a>
+          <a href="/timelapse" class="inline-flex items-center gap-2 px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg text-sm font-medium transition-colors">
+            <Map class="h-4 w-4" />
+            Theft Map
+          </a>
+          <a href="/news" class="inline-flex items-center gap-2 px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg text-sm font-medium transition-colors">
+            <Newspaper class="h-4 w-4" />
+            News
+          </a>
+        </div>
       </div>
+      
+      <!-- Main Resources Grid -->
+      <section class="mb-10">
+        <h2 class="text-xl font-bold mb-6">Guides & Tools</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          
+          <!-- Prevention -->
+          <a href="/prevention" class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-neutral-100 group">
+            <div class="h-2 bg-gradient-to-r from-primary to-blue-600"></div>
+            <div class="p-6">
+              <div class="flex items-start gap-4">
+                <div class="bg-primary/10 rounded-xl p-3 group-hover:scale-110 transition-transform">
+                  <Shield class="h-6 w-6 text-primary" />
+                </div>
+                <div class="flex-1">
+                  <h3 class="font-bold text-lg mb-1 group-hover:text-primary transition-colors">Prevention Guides</h3>
+                  <p class="text-neutral-600 text-sm">Learn how to secure your device with PIN locks, biometrics, and app-specific security measures.</p>
+                </div>
+                <ArrowRight class="h-5 w-5 text-neutral-300 group-hover:text-primary group-hover:translate-x-1 transition-all" />
+              </div>
+            </div>
+          </a>
+          
+          <!-- Emergency -->
+          <a href="/emergency" class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-neutral-100 group">
+            <div class="h-2 bg-gradient-to-r from-red-500 to-red-600"></div>
+            <div class="p-6">
+              <div class="flex items-start gap-4">
+                <div class="bg-red-100 rounded-xl p-3 group-hover:scale-110 transition-transform">
+                  <AlertTriangle class="h-6 w-6 text-red-600" />
+                </div>
+                <div class="flex-1">
+                  <h3 class="font-bold text-lg mb-1 group-hover:text-red-600 transition-colors">Emergency Response</h3>
+                  <p class="text-neutral-600 text-sm">Step-by-step instructions for immediate action if your mobile has been stolen.</p>
+                </div>
+                <ArrowRight class="h-5 w-5 text-neutral-300 group-hover:text-red-600 group-hover:translate-x-1 transition-all" />
+              </div>
+            </div>
+          </a>
+          
+          <!-- Security Checkup -->
+          <a href="/security-checkup" class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-neutral-100 group">
+            <div class="h-2 bg-gradient-to-r from-teal-500 to-cyan-500"></div>
+            <div class="p-6">
+              <div class="flex items-start gap-4">
+                <div class="bg-teal-100 rounded-xl p-3 group-hover:scale-110 transition-transform">
+                  <Shield class="h-6 w-6 text-teal-600" />
+                </div>
+                <div class="flex-1">
+                  <h3 class="font-bold text-lg mb-1 group-hover:text-teal-600 transition-colors">Security Checkup</h3>
+                  <p class="text-neutral-600 text-sm">Take our quick assessment to identify security gaps and get personalised recommendations.</p>
+                </div>
+                <ArrowRight class="h-5 w-5 text-neutral-300 group-hover:text-teal-600 group-hover:translate-x-1 transition-all" />
+              </div>
+            </div>
+          </a>
+          
+          <!-- Community Experiences -->
+          <a href="/community-experiences" class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-neutral-100 group">
+            <div class="h-2 bg-gradient-to-r from-purple-500 to-pink-500"></div>
+            <div class="p-6">
+              <div class="flex items-start gap-4">
+                <div class="bg-purple-100 rounded-xl p-3 group-hover:scale-110 transition-transform">
+                  <Users class="h-6 w-6 text-purple-600" />
+                </div>
+                <div class="flex-1">
+                  <h3 class="font-bold text-lg mb-1 group-hover:text-purple-600 transition-colors">Community Experiences</h3>
+                  <p class="text-neutral-600 text-sm">Read real stories from theft victims and share your own experience to help others.</p>
+                </div>
+                <ArrowRight class="h-5 w-5 text-neutral-300 group-hover:text-purple-600 group-hover:translate-x-1 transition-all" />
+              </div>
+            </div>
+          </a>
+          
+        </div>
+      </section>
+      
+      <!-- Directories Section -->
+      <section class="mb-10">
+        <h2 class="text-xl font-bold mb-6">Directories</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          
+          <!-- Banks -->
+          <a href="/banks" class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-neutral-100 group">
+            <div class="h-2 bg-gradient-to-r from-blue-500 to-indigo-500"></div>
+            <div class="p-6">
+              <div class="flex items-start gap-4">
+                <div class="bg-blue-100 rounded-xl p-3 group-hover:scale-110 transition-transform">
+                  <Building2 class="h-6 w-6 text-blue-600" />
+                </div>
+                <div class="flex-1">
+                  <h3 class="font-bold text-lg mb-1 group-hover:text-blue-600 transition-colors">UK Bank Directory</h3>
+                  <p class="text-neutral-600 text-sm">Emergency contact information for all major UK banks to secure your accounts.</p>
+                </div>
+                <ArrowRight class="h-5 w-5 text-neutral-300 group-hover:text-blue-600 group-hover:translate-x-1 transition-all" />
+              </div>
+            </div>
+          </a>
+          
+          <!-- Mobile Providers -->
+          <a href="/mobile-providers" class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-neutral-100 group">
+            <div class="h-2 bg-gradient-to-r from-green-500 to-emerald-500"></div>
+            <div class="p-6">
+              <div class="flex items-start gap-4">
+                <div class="bg-green-100 rounded-xl p-3 group-hover:scale-110 transition-transform">
+                  <Phone class="h-6 w-6 text-green-600" />
+                </div>
+                <div class="flex-1">
+                  <h3 class="font-bold text-lg mb-1 group-hover:text-green-600 transition-colors">Mobile Provider Directory</h3>
+                  <p class="text-neutral-600 text-sm">Contact details for UK mobile networks to report theft and block your SIM.</p>
+                </div>
+                <ArrowRight class="h-5 w-5 text-neutral-300 group-hover:text-green-600 group-hover:translate-x-1 transition-all" />
+              </div>
+            </div>
+          </a>
+          
+        </div>
+      </section>
+      
+      <!-- Data & Insights Section -->
+      <section>
+        <h2 class="text-xl font-bold mb-6">Data & Insights</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          
+          <!-- The Problem -->
+          <a href="/the-problem" class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-neutral-100 group">
+            <div class="h-2 bg-gradient-to-r from-red-500 to-orange-500"></div>
+            <div class="p-6">
+              <div class="flex flex-col items-center text-center">
+                <div class="bg-red-100 rounded-xl p-3 mb-3 group-hover:scale-110 transition-transform">
+                  <AlertTriangle class="h-6 w-6 text-red-600" />
+                </div>
+                <h3 class="font-bold text-lg mb-1 group-hover:text-red-600 transition-colors">The Problem</h3>
+                <p class="text-neutral-600 text-sm">Understand the UK phone theft epidemic and how thieves operate.</p>
+              </div>
+            </div>
+          </a>
+          
+          <!-- Statistics -->
+          <a href="/statistics" class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-neutral-100 group">
+            <div class="h-2 bg-gradient-to-r from-purple-500 to-violet-500"></div>
+            <div class="p-6">
+              <div class="flex flex-col items-center text-center">
+                <div class="bg-purple-100 rounded-xl p-3 mb-3 group-hover:scale-110 transition-transform">
+                  <TrendingUp class="h-6 w-6 text-purple-600" />
+                </div>
+                <h3 class="font-bold text-lg mb-1 group-hover:text-purple-600 transition-colors">Statistics</h3>
+                <p class="text-neutral-600 text-sm">View data and insights on mobile theft trends across the UK.</p>
+              </div>
+            </div>
+          </a>
+          
+          <!-- Theft Map -->
+          <a href="/timelapse" class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-neutral-100 group">
+            <div class="h-2 bg-gradient-to-r from-teal-500 to-cyan-500"></div>
+            <div class="p-6">
+              <div class="flex flex-col items-center text-center">
+                <div class="bg-teal-100 rounded-xl p-3 mb-3 group-hover:scale-110 transition-transform">
+                  <Map class="h-6 w-6 text-teal-600" />
+                </div>
+                <h3 class="font-bold text-lg mb-1 group-hover:text-teal-600 transition-colors">Theft Map</h3>
+                <p class="text-neutral-600 text-sm">Interactive timelapse showing theft hotspots across the UK.</p>
+              </div>
+            </div>
+          </a>
+          
+        </div>
+      </section>
+      
     </div>
   </main>
   
