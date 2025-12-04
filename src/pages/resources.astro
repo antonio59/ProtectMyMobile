@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
-import { Book, Shield, AlertTriangle, Building2, Phone, TrendingUp, Newspaper, Map, ArrowRight, Users } from 'lucide-react';
+import { Book, Shield, AlertTriangle, Building2, Phone, TrendingUp, Newspaper, Map, ArrowRight, Users, ShoppingBag } from 'lucide-react';
 ---
 
 <Layout 
@@ -116,6 +116,23 @@ import { Book, Shield, AlertTriangle, Building2, Phone, TrendingUp, Newspaper, M
                   <p class="text-neutral-600 text-sm">Read real stories from theft victims and share your own experience to help others.</p>
                 </div>
                 <ArrowRight class="h-5 w-5 text-neutral-300 group-hover:text-purple-600 group-hover:translate-x-1 transition-all" />
+              </div>
+            </div>
+          </a>
+          
+          <!-- Product Recommendations -->
+          <a href="/products" class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-neutral-100 group">
+            <div class="h-2 bg-gradient-to-r from-orange-500 to-amber-500"></div>
+            <div class="p-6">
+              <div class="flex items-start gap-4">
+                <div class="bg-orange-100 rounded-xl p-3 group-hover:scale-110 transition-transform">
+                  <ShoppingBag class="h-6 w-6 text-orange-600" />
+                </div>
+                <div class="flex-1">
+                  <h3 class="font-bold text-lg mb-1 group-hover:text-orange-600 transition-colors">Product Recommendations</h3>
+                  <p class="text-neutral-600 text-sm">Discover products that can help protect your phone from theft.</p>
+                </div>
+                <ArrowRight class="h-5 w-5 text-neutral-300 group-hover:text-orange-600 group-hover:translate-x-1 transition-all" />
               </div>
             </div>
           </a>

@@ -15,7 +15,8 @@ import {
   Phone,
   BookOpen,
   HelpCircle,
-  ChevronRight
+  ChevronRight,
+  ShoppingBag
 } from 'lucide-react';
 import { slideInRight, overlayVariants, staggerContainer, staggerItem } from './ui/motion';
 
@@ -37,6 +38,7 @@ const navLinks = [
   { href: '/banks', label: 'Banks', icon: Building2 },
   { href: '/mobile-providers', label: 'Mobile Providers', icon: Phone },
   { href: '/prevention', label: 'Prevention Guide', icon: BookOpen },
+  { href: '/products', label: 'Product Recommendations', icon: ShoppingBag },
   { href: '/resources', label: 'Resources', icon: HelpCircle },
 ];
 

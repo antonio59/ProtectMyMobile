@@ -1,0 +1,301 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HeaderMobile from '../components/HeaderMobile';
+import Footer from '../components/Footer.astro';
+import { ShoppingBag, Shield, Smartphone, Watch, Backpack, Lock, Eye, CreditCard, Tag, ChevronRight, AlertTriangle, CheckCircle2 } from 'lucide-react';
+
+const productCategories = [
+  {
+    title: "Phone Lanyards & Wrist Straps",
+    description: "Attach your phone to your wrist or around your neck to prevent snatch theft. Essential for busy streets and public transport.",
+    icon: Watch,
+    color: "blue",
+    benefits: [
+      "Prevents grab-and-run theft",
+      "Keeps phone secure while in use",
+      "Quick access without fumbling in pockets"
+    ],
+    lookFor: [
+      "Strong, durable cord material",
+      "Secure phone attachment point",
+      "Adjustable length",
+      "Compatible with your phone case"
+    ]
+  },
+  {
+    title: "Anti-Theft Crossbody Bags",
+    description: "Specially designed bags with hidden zips, slash-proof material, and RFID blocking. Wear across your body for maximum security.",
+    icon: Backpack,
+    color: "green",
+    benefits: [
+      "Hidden zippers deter pickpockets",
+      "Slash-proof straps and fabric",
+      "RFID protection for cards",
+      "Keeps valuables close to body"
+    ],
+    lookFor: [
+      "Lockable zippers",
+      "Cut-resistant straps",
+      "RFID-blocking pocket",
+      "Comfortable crossbody design"
+    ]
+  },
+  {
+    title: "Phone Tracking Devices",
+    description: "Small Bluetooth trackers that attach to your phone case or sit in your bag. Help locate your device if stolen.",
+    icon: Tag,
+    color: "teal",
+    benefits: [
+      "Track phone location remotely",
+      "Crowd-sourced finding network",
+      "Separation alerts",
+      "Long battery life"
+    ],
+    lookFor: [
+      "Compatibility with your phone (Apple/Android)",
+      "Range and accuracy",
+      "Battery life (rechargeable vs replaceable)",
+      "Size and attachment options"
+    ]
+  },
+  {
+    title: "Phone Grips & Holders",
+    description: "Attachable grips that make your phone harder to knock out of your hand. Reduces accidental drops and opportunistic grabs.",
+    icon: Smartphone,
+    color: "purple",
+    benefits: [
+      "Secure one-handed grip",
+      "Harder for thieves to snatch",
+      "Doubles as a stand",
+      "Reduces drops"
+    ],
+    lookFor: [
+      "Strong adhesive or MagSafe compatible",
+      "Comfortable grip design",
+      "Doesn't interfere with wireless charging",
+      "Collapsible for pocket storage"
+    ]
+  },
+  {
+    title: "Privacy Screen Protectors",
+    description: "Screen films that prevent others from viewing your screen from the side. Stops shoulder surfing for passwords and PINs.",
+    icon: Eye,
+    color: "orange",
+    benefits: [
+      "Blocks side-angle viewing",
+      "Protects passwords and banking apps",
+      "Still protects against scratches",
+      "Deters opportunistic thieves"
+    ],
+    lookFor: [
+      "Quality of privacy angle",
+      "Screen clarity when viewed straight-on",
+      "Scratch and impact resistance",
+      "Easy installation"
+    ]
+  },
+  {
+    title: "RFID Blocking Wallets & Cases",
+    description: "Protect your contactless cards from electronic pickpocketing. Essential as many thieves now target digital theft too.",
+    icon: CreditCard,
+    color: "red",
+    benefits: [
+      "Blocks contactless card skimming",
+      "Protects against electronic pickpocketing",
+      "Peace of mind in crowded areas",
+      "Often includes phone pocket"
+    ],
+    lookFor: [
+      "Tested RFID/NFC blocking",
+      "Quality construction",
+      "Adequate card capacity",
+      "Phone-compatible options available"
+    ]
+  },
+  {
+    title: "Secure Phone Cases",
+    description: "Heavy-duty cases with lanyard attachment points, card holders, and enhanced grip surfaces.",
+    icon: Shield,
+    color: "indigo",
+    benefits: [
+      "Built-in lanyard attachment",
+      "Enhanced grip texture",
+      "Drop protection",
+      "Some include card storage"
+    ],
+    lookFor: [
+      "Lanyard loop or attachment point",
+      "Textured or grippy surface",
+      "Military-grade drop protection",
+      "Doesn't add too much bulk"
+    ]
+  },
+  {
+    title: "Phone Insurance",
+    description: "While not a physical product, comprehensive phone insurance can cover theft, giving you peace of mind and financial protection.",
+    icon: Lock,
+    color: "slate",
+    benefits: [
+      "Financial protection if stolen",
+      "Often covers accidental damage too",
+      "Quick replacement process",
+      "Worldwide coverage options"
+    ],
+    lookFor: [
+      "Theft specifically covered (not just loss)",
+      "Excess/deductible amount",
+      "Claim process simplicity",
+      "Coverage limits and exclusions"
+    ]
+  }
+];
+
+const colorClasses: Record<string, { bg: string; border: string; icon: string; light: string }> = {
+  blue: { bg: 'bg-blue-500', border: 'border-blue-200', icon: 'text-blue-600', light: 'bg-blue-50' },
+  green: { bg: 'bg-green-500', border: 'border-green-200', icon: 'text-green-600', light: 'bg-green-50' },
+  teal: { bg: 'bg-teal-500', border: 'border-teal-200', icon: 'text-teal-600', light: 'bg-teal-50' },
+  purple: { bg: 'bg-purple-500', border: 'border-purple-200', icon: 'text-purple-600', light: 'bg-purple-50' },
+  orange: { bg: 'bg-orange-500', border: 'border-orange-200', icon: 'text-orange-600', light: 'bg-orange-50' },
+  red: { bg: 'bg-red-500', border: 'border-red-200', icon: 'text-red-600', light: 'bg-red-50' },
+  indigo: { bg: 'bg-indigo-500', border: 'border-indigo-200', icon: 'text-indigo-600', light: 'bg-indigo-50' },
+  slate: { bg: 'bg-slate-500', border: 'border-slate-200', icon: 'text-slate-600', light: 'bg-slate-50' },
+};
+---
+
+<Layout 
+  title="Product Recommendations - Protect Your Phone | ProtectMyMobile"
+  description="Discover products that can help protect your mobile phone from theft, including lanyards, anti-theft bags, tracking devices, and more."
+>
+  <HeaderMobile client:load />
+  
+  <main class="bg-[#f3f2f1] min-h-screen">
+    <div class="container mx-auto px-4 py-6 max-w-6xl">
+      
+      <!-- Hero Section -->
+      <div class="bg-gradient-to-br from-teal-600 to-cyan-700 text-white rounded-2xl p-6 md:p-10 mb-8 shadow-xl">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="bg-white/20 p-3 rounded-xl">
+            <ShoppingBag class="h-8 w-8" />
+          </div>
+          <h1 class="text-2xl md:text-3xl font-bold">Product Recommendations</h1>
+        </div>
+        <p class="text-teal-100 text-sm md:text-base mb-4">
+          Products and accessories that can help protect your phone from theft. We've categorised the types of products worth considering.
+        </p>
+        <div class="flex items-start gap-2 bg-white/10 rounded-xl p-4 text-sm">
+          <AlertTriangle class="h-5 w-5 flex-shrink-0 mt-0.5" />
+          <p class="text-teal-50">
+            <strong>Note:</strong> We don't currently recommend specific brands or retailers. Research products thoroughly and read reviews before purchasing.
+          </p>
+        </div>
+      </div>
+      
+      <!-- Product Categories -->
+      <div class="space-y-6">
+        {productCategories.map((product) => {
+          const colors = colorClasses[product.color];
+          return (
+            <div class={`bg-white rounded-2xl shadow-md overflow-hidden border ${colors.border}`}>
+              <div class={`h-2 ${colors.bg}`}></div>
+              <div class="p-6">
+                <div class="flex flex-col md:flex-row md:items-start gap-6">
+                  <!-- Icon and Title -->
+                  <div class="flex items-start gap-4 md:w-1/3">
+                    <div class={`${colors.light} rounded-xl p-3 flex-shrink-0`}>
+                      <product.icon class={`h-6 w-6 ${colors.icon}`} />
+                    </div>
+                    <div>
+                      <h2 class="text-lg font-bold text-neutral-900">{product.title}</h2>
+                      <p class="text-sm text-neutral-600 mt-1">{product.description}</p>
+                    </div>
+                  </div>
+                  
+                  <!-- Benefits and What to Look For -->
+                  <div class="flex-1 grid sm:grid-cols-2 gap-4">
+                    <!-- Benefits -->
+                    <div class={`${colors.light} rounded-xl p-4`}>
+                      <h3 class="font-semibold text-sm text-neutral-900 mb-2">Benefits</h3>
+                      <ul class="space-y-1.5">
+                        {product.benefits.map((benefit) => (
+                          <li class="flex items-start gap-2 text-sm text-neutral-700">
+                            <CheckCircle2 class={`h-4 w-4 ${colors.icon} flex-shrink-0 mt-0.5`} />
+                            <span>{benefit}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    
+                    <!-- What to Look For -->
+                    <div class="bg-neutral-50 rounded-xl p-4">
+                      <h3 class="font-semibold text-sm text-neutral-900 mb-2">What to Look For</h3>
+                      <ul class="space-y-1.5">
+                        {product.lookFor.map((item) => (
+                          <li class="flex items-start gap-2 text-sm text-neutral-600">
+                            <ChevronRight class="h-4 w-4 text-neutral-400 flex-shrink-0 mt-0.5" />
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      
+      <!-- Tips Section -->
+      <section class="mt-10 bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl p-6 md:p-8 border border-amber-200">
+        <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
+          <Shield class="h-5 w-5 text-amber-600" />
+          General Buying Tips
+        </h2>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="bg-white rounded-xl p-4 shadow-sm">
+            <h3 class="font-semibold mb-2">Before You Buy</h3>
+            <ul class="text-sm text-neutral-700 space-y-2">
+              <li>• Read multiple reviews from verified purchasers</li>
+              <li>• Check compatibility with your specific phone model</li>
+              <li>• Compare prices across multiple retailers</li>
+              <li>• Look for products with warranties or guarantees</li>
+            </ul>
+          </div>
+          <div class="bg-white rounded-xl p-4 shadow-sm">
+            <h3 class="font-semibold mb-2">Remember</h3>
+            <ul class="text-sm text-neutral-700 space-y-2">
+              <li>• No product guarantees complete protection</li>
+              <li>• Combine products with good security habits</li>
+              <li>• Stay aware of your surroundings</li>
+              <li>• Keep phone software and security up to date</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      
+      <!-- CTA -->
+      <section class="mt-10 bg-gradient-to-r from-primary to-blue-700 rounded-2xl p-6 md:p-8 text-white">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div>
+            <h2 class="text-xl font-bold mb-2">Products are just one part of protection</h2>
+            <p class="text-blue-100 text-sm">
+              Learn essential security practices and what to do if the worst happens.
+            </p>
+          </div>
+          <div class="flex flex-col sm:flex-row gap-3">
+            <a href="/prevention" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-primary rounded-xl font-semibold text-sm hover:bg-blue-50 transition-colors">
+              <Shield class="h-4 w-4" />
+              Prevention Guide
+            </a>
+            <a href="/security-checkup" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white/20 text-white rounded-xl font-semibold text-sm hover:bg-white/30 transition-colors">
+              Security Checkup
+            </a>
+          </div>
+        </div>
+      </section>
+      
+    </div>
+  </main>
+  
+  <Footer />
+</Layout>
