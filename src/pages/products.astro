@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
-import { ShoppingBag, Shield, Smartphone, Watch, Backpack, Lock, Eye, CreditCard, Tag, ChevronRight, AlertTriangle, CheckCircle2 } from 'lucide-react';
+import { ShoppingBag, Shield, Smartphone, Watch, Backpack, Lock, Eye, CreditCard, Tag, ChevronRight, AlertTriangle, CheckCircle2, ExternalLink } from 'lucide-react';
 
 const productCategories = [
   {
@@ -10,6 +10,7 @@ const productCategories = [
     description: "Attach your phone to your wrist or around your neck to prevent snatch theft. Essential for busy streets and public transport.",
     icon: Watch,
     color: "blue",
+    affiliateLink: "https://amzn.to/4pSVcfm",
     benefits: [
       "Prevents grab-and-run theft",
       "Keeps phone secure while in use",
@@ -27,6 +28,7 @@ const productCategories = [
     description: "Specially designed bags with hidden zips, slash-proof material, and RFID blocking. Wear across your body for maximum security.",
     icon: Backpack,
     color: "green",
+    affiliateLink: "https://amzn.to/4ovAOzD",
     benefits: [
       "Hidden zippers deter pickpockets",
       "Slash-proof straps and fabric",
@@ -45,6 +47,7 @@ const productCategories = [
     description: "Small Bluetooth trackers that attach to your phone case or sit in your bag. Help locate your device if stolen.",
     icon: Tag,
     color: "teal",
+    affiliateLink: "https://amzn.to/4pMUKiv",
     benefits: [
       "Track phone location remotely",
       "Crowd-sourced finding network",
@@ -63,6 +66,7 @@ const productCategories = [
     description: "Attachable grips that make your phone harder to knock out of your hand. Reduces accidental drops and opportunistic grabs.",
     icon: Smartphone,
     color: "purple",
+    affiliateLink: "https://amzn.to/3MaQtqR",
     benefits: [
       "Secure one-handed grip",
       "Harder for thieves to snatch",
@@ -81,6 +85,7 @@ const productCategories = [
     description: "Screen films that prevent others from viewing your screen from the side. Stops shoulder surfing for passwords and PINs.",
     icon: Eye,
     color: "orange",
+    affiliateLink: "https://amzn.to/3MFlaEt",
     benefits: [
       "Blocks side-angle viewing",
       "Protects passwords and banking apps",
@@ -99,6 +104,7 @@ const productCategories = [
     description: "Protect your contactless cards from electronic pickpocketing. Essential as many thieves now target digital theft too.",
     icon: CreditCard,
     color: "red",
+    affiliateLink: "https://amzn.to/4pq3r2G",
     benefits: [
       "Blocks contactless card skimming",
       "Protects against electronic pickpocketing",
@@ -117,6 +123,7 @@ const productCategories = [
     description: "Heavy-duty cases with lanyard attachment points, card holders, and enhanced grip surfaces.",
     icon: Shield,
     color: "indigo",
+    affiliateLink: "https://amzn.to/4izJBiy",
     benefits: [
       "Built-in lanyard attachment",
       "Enhanced grip texture",
@@ -180,12 +187,12 @@ const colorClasses: Record<string, { bg: string; border: string; icon: string; l
           <h1 class="text-2xl md:text-3xl font-bold">Product Recommendations</h1>
         </div>
         <p class="text-teal-100 text-sm md:text-base mb-4">
-          Products and accessories that can help protect your phone from theft. We've categorised the types of products worth considering.
+          Products and accessories that can help protect your phone from theft. Click through to browse options and read reviews.
         </p>
         <div class="flex items-start gap-2 bg-white/10 rounded-xl p-4 text-sm">
           <AlertTriangle class="h-5 w-5 flex-shrink-0 mt-0.5" />
           <p class="text-teal-50">
-            <strong>Note:</strong> We don't currently recommend specific brands or retailers. Research products thoroughly and read reviews before purchasing.
+            <strong>Affiliate Disclosure:</strong> As an Amazon Associate, we earn from qualifying purchases. This helps support our free resources at no extra cost to you.
           </p>
         </div>
       </div>
@@ -206,7 +213,18 @@ const colorClasses: Record<string, { bg: string; border: string; icon: string; l
                     </div>
                     <div>
                       <h2 class="text-lg font-bold text-neutral-900">{product.title}</h2>
-                      <p class="text-sm text-neutral-600 mt-1">{product.description}</p>
+                      <p class="text-sm text-neutral-600 mt-1 mb-3">{product.description}</p>
+                      {product.affiliateLink && (
+                        <a 
+                          href={product.affiliateLink} 
+                          target="_blank" 
+                          rel="noopener noreferrer sponsored"
+                          class={`inline-flex items-center gap-2 px-4 py-2 ${colors.bg} text-white text-sm font-semibold rounded-lg hover:opacity-90 transition-opacity`}
+                        >
+                          Shop on Amazon
+                          <ExternalLink class="h-4 w-4" />
+                        </a>
+                      )}
                     </div>
                   </div>
                   

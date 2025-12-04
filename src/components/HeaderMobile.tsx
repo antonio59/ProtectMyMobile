@@ -25,6 +25,7 @@ const desktopNavLinks = [
   { href: '/the-problem', label: 'The Problem', icon: AlertTriangle },
   { href: '/statistics', label: 'Statistics', icon: BarChart3 },
   { href: '/timelapse', label: 'Theft Map', icon: Map },
+  { href: '/products', label: 'Products', icon: ShoppingBag },
   { href: '/news', label: 'News', icon: Newspaper },
 ];
 
