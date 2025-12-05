@@ -1,0 +1,55 @@
+name: Reddit Bot - Automated Posts
+
+on:
+  # Weekly stats post - Every Monday at 9am UK time
+  schedule:
+    - cron: '0 9 * * 1'
+  
+  # Manual trigger
+  workflow_dispatch:
+    inputs:
+      post_type:
+        description: 'Type of post to make'
+        required: true
+        default: 'stats'
+        type: choice
+        options:
+          - stats
+          - tip
+          - emergency
+
+jobs:
+  post-to-reddit:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Post to Reddit (Scheduled - Stats)
+        if: github.event_name == 'schedule'
+        env:
+          REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
+          REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
+          REDDIT_USERNAME: ${{ secrets.REDDIT_USERNAME }}
+          REDDIT_PASSWORD: ${{ secrets.REDDIT_PASSWORD }}
+          REDDIT_SUBREDDIT: ${{ secrets.REDDIT_SUBREDDIT }}
+        run: bun run reddit:stats
+
+      - name: Post to Reddit (Manual)
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
+          REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
+          REDDIT_USERNAME: ${{ secrets.REDDIT_USERNAME }}
+          REDDIT_PASSWORD: ${{ secrets.REDDIT_PASSWORD }}
+          REDDIT_SUBREDDIT: ${{ secrets.REDDIT_SUBREDDIT }}
+        run: bun run scripts/reddit-bot.ts --type=${{ inputs.post_type }}

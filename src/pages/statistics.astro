@@ -4,6 +4,17 @@ import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
 import { BarChart3, TrendingUp, MapPin, AlertTriangle, Clock, Shield, ArrowRight, Calendar, Sun, Snowflake, Leaf } from 'lucide-react';
 
+const statisticsSchema = {
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "UK Mobile Phone Theft Statistics 2024",
+  "description": "Comprehensive data on mobile phone thefts across UK cities including London, Manchester, Birmingham. Updated 2024 figures from Met Police and ONS.",
+  "keywords": ["phone theft statistics UK", "London phone theft", "mobile crime UK", "snatch theft data"],
+  "creator": { "@type": "Organization", "name": "ProtectMyMobile" },
+  "temporalCoverage": "2017/2024",
+  "spatialCoverage": { "@type": "Place", "name": "United Kingdom" }
+};
+
 // Top 5 London hotspots (simplified)
 const londonHotspots = [
   { rank: 1, area: 'Westminster', thefts: '34,000+', description: 'Tourist areas, West End, transport hubs' },
@@ -32,8 +43,10 @@ const keyStats = [
 ---
 
 <Layout 
-  title="UK Mobile Theft Statistics & Hotspots | ProtectMyMobile"
-  description="Comprehensive statistics on mobile phone theft across the UK including hotspots, trends, time analysis, and seasonal patterns."
+  title="UK Phone Theft Statistics 2024 | London Crime Hotspots & Data"
+  description="78,000+ phones stolen in UK (2024). See London theft hotspots, borough data, seasonal trends. Real statistics from Met Police and ONS."
+  canonicalPath="/statistics"
+  schema={statisticsSchema}
 >
   <HeaderMobile client:load />
   

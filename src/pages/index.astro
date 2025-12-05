@@ -50,8 +50,44 @@ const categoryBorderColors: Record<string, string> = {
 ---
 
 <Layout 
-  title="Mobile Security & Theft Prevention | ProtectMyMobile"
-  description="Protect your mobile from theft with UK-specific guides, emergency response steps, and real-time theft data. Free resources for all UK residents."
+  title="Phone Stolen UK? Mobile Theft Prevention & Recovery | ProtectMyMobile"
+  description="Phone stolen in London or UK? Get immediate help with our emergency guide, report theft, contact banks & providers. UK's #1 mobile theft prevention resource."
+  canonicalPath="/"
+  schema={{
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "ProtectMyMobile - UK Mobile Theft Prevention",
+    "description": "Phone stolen in London or UK? Get immediate help with our emergency guide, report theft, contact banks & providers.",
+    "mainEntity": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What should I do if my phone is stolen in the UK?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "1. Stay calm and ensure your safety. 2. Use Find My iPhone/Android to locate or lock your device. 3. Report to police via 101 or online. 4. Contact your mobile provider to block the SIM. 5. Notify your bank to secure banking apps."
+          }
+        },
+        {
+          "@type": "Question", 
+          "name": "How many phones are stolen in London each year?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Over 78,000 phones were stolen in London in 2023, a 44% increase from 2022. That's approximately one phone stolen every 3 minutes."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the recovery rate for stolen phones in the UK?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The recovery rate for stolen phones in the UK is approximately 6%, making prevention and immediate action after theft crucial."
+          }
+        }
+      ]
+    }
+  }}
 >
   <HeaderMobile client:load />
   

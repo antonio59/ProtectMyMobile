@@ -4,9 +4,52 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description?: string;
+  canonicalPath?: string;
+  ogImage?: string;
+  schema?: object;
 }
 
-const { title, description = "ProtectMyMobile helps UK residents secure their mobile phones, provides step-by-step guidance if your phone is stolen, and offers comprehensive mobile security resources." } = Astro.props;
+const siteUrl = "https://protectmymobile.xyz";
+const { 
+  title, 
+  description = "ProtectMyMobile helps UK residents secure their mobile phones, provides step-by-step guidance if your phone is stolen, and offers comprehensive mobile security resources.",
+  canonicalPath = "",
+  ogImage = "/og-image.png",
+  schema
+} = Astro.props;
+
+const canonicalUrl = `${siteUrl}${canonicalPath}`;
+const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
+
+// Default Organization schema
+const defaultSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "ProtectMyMobile",
+  "url": siteUrl,
+  "logo": `${siteUrl}/favicon.svg`,
+  "description": "UK's leading resource for mobile phone theft prevention and recovery",
+  "areaServed": {
+    "@type": "Country",
+    "name": "United Kingdom"
+  },
+  "sameAs": []
+};
+
+// WebSite schema for search box
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "ProtectMyMobile",
+  "url": siteUrl,
+  "description": description,
+  "publisher": {
+    "@type": "Organization",
+    "name": "ProtectMyMobile"
+  }
+};
+
+const schemas = [defaultSchema, websiteSchema, ...(schema ? [schema] : [])];
 ---
 
 <!DOCTYPE html>
@@ -16,27 +59,37 @@ const { title, description = "ProtectMyMobile helps UK residents secure their mo
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="keywords" content="mobile theft UK, phone security, UK mobile providers, prevent phone theft, report stolen phone, secure banking apps, mobile security guide" />
+    <meta name="keywords" content="mobile theft UK, phone security, UK mobile providers, prevent phone theft, report stolen phone, secure banking apps, mobile security guide, phone stolen london, phone stolen UK" />
     <meta name="author" content="ProtectMyMobile" />
     <meta name="robots" content="index, follow" />
+    <meta name="geo.region" content="GB" />
+    <meta name="geo.placename" content="United Kingdom" />
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://protectmymobile.xyz/" />
+    <meta property="og:url" content={canonicalUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content="https://protectmymobile.xyz/social-share.png" />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:site_name" content="ProtectMyMobile" />
+    <meta property="og:locale" content="en_GB" />
     
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://protectmymobile.xyz/" />
-    <meta property="twitter:title" content={title} />
-    <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content="https://protectmymobile.xyz/social-share.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalUrl} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://protectmymobile.xyz/" />
+    <link rel="canonical" href={canonicalUrl} />
+    
+    <!-- Schema.org JSON-LD -->
+    {schemas.map((s) => (
+      <script type="application/ld+json" set:html={JSON.stringify(s)} />
+    ))}
     
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
