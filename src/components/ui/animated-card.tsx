@@ -54,12 +54,11 @@ export function AnimatedCard({
         'block bg-white rounded-2xl overflow-hidden',
         className
       )}
-      initial={{ opacity: 0, y: 20 }}
+      initial="rest"
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-50px' }}
       transition={{ duration: 0.4, delay }}
       variants={hoverVariants[hoverEffect]}
-      initial="rest"
       whileHover="hover"
       whileTap={{ scale: 0.98 }}
     >

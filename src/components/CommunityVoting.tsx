@@ -411,8 +411,7 @@ export default function CommunityVoting({ initialStats }: Props) {
           ← Back
         </button>
         
-        {currentStep < 6 || (currentStep === 6 && formData.had_phone_stolen !== 'yes') || 
-         (currentStep === 5 && formData.had_phone_stolen !== 'yes') ? (
+        {currentStep < 6 || (currentStep === 6 && formData.had_phone_stolen !== 'yes') ? (
           <button
             onClick={handleNext}
             disabled={!canProceed()}
