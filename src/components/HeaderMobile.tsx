@@ -10,13 +10,13 @@ import {
   Home,
   Newspaper,
   BarChart3,
-  Map,
   Building2,
   Phone,
   BookOpen,
   HelpCircle,
   ChevronRight,
-  ShoppingBag
+  ShoppingBag,
+  MapPin
 } from 'lucide-react';
 import { slideInRight, overlayVariants, staggerContainer, staggerItem } from './ui/motion';
 
@@ -25,6 +25,8 @@ const desktopNavLinks = [
   { href: '/the-problem', label: 'The Problem', icon: AlertTriangle },
   { href: '/statistics', label: 'Statistics', icon: BarChart3 },
   { href: '/products', label: 'Products', icon: ShoppingBag },
+  { href: '/london-visitor-safety', label: 'Visitor Safety', icon: MapPin },
+  { href: '/scenarios', label: 'Scenarios', icon: AlertTriangle },
   { href: '/news', label: 'News', icon: Newspaper },
 ];
 
@@ -37,6 +39,8 @@ const navLinks = [
   { href: '/banks', label: 'Banks', icon: Building2 },
   { href: '/mobile-providers', label: 'Mobile Providers', icon: Phone },
   { href: '/prevention', label: 'Prevention Guide', icon: BookOpen },
+  { href: '/london-visitor-safety', label: 'Visitor Safety', icon: MapPin },
+  { href: '/scenarios', label: 'Scenarios', icon: AlertTriangle },
   { href: '/products', label: 'Product Recommendations', icon: ShoppingBag },
   { href: '/resources', label: 'Resources', icon: HelpCircle },
 ];
@@ -55,7 +59,7 @@ export default function HeaderMobile() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <Shield className="h-7 w-7 text-primary" />
+              <img src="/logo-icon.svg" alt="ProtectMyMobile shield" className="h-7 w-7" />
             </motion.div>
             <span className="text-xl font-bold text-primary tracking-tight">
               ProtectMyMobile

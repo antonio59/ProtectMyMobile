@@ -1,0 +1,116 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HeaderMobile from '../components/HeaderMobile';
+import Footer from '../components/Footer.astro';
+import { ScenarioCarousel } from '../components/ScenarioCarousel';
+import { Shield, AlertTriangle, MapPin } from 'lucide-react';
+
+const pageTitle = "Phone Theft Scenarios & Safety Slides";
+const pageDescription = "Visual guides for common London/UK phone theft scenarios with quick prevention tips and response steps.";
+
+const scenarios = [
+  {
+    title: "Moped Phone-Snatch Safety",
+    folder: "Moped Phone-Snatch Safety",
+    slides: 6,
+    summary: "Avoid kerbside grabs from bikes/scooters with positioning, straps, and quick response steps."
+  },
+  {
+    title: "Street Phone-Snatch Safety Guide",
+    folder: "Street Phone-Snatch Safety Guide",
+    slides: 7,
+    summary: "Street-smart habits to reduce risk in busy areas and what to do immediately after a grab."
+  },
+  {
+    title: "Stay Secure on Public Transport",
+    folder: "Stay Secure on Public Transport",
+    slides: 8,
+    summary: "Protect your phone near open train doors and crowded platforms; keep cards and apps secured."
+  },
+  {
+    title: "Nightlife Phone Safety",
+    folder: "Nightlife Phone Safety",
+    slides: 6,
+    summary: "Stay alert in bars and clubs; avoid table drops and distraction thefts late at night."
+  },
+  {
+    title: "Park Phone-Snatch Safety",
+    folder: "Park Phone-Snatch Safety",
+    slides: 6,
+    summary: "Lower risk when seated outdoors; keep bags zipped and phones tethered."
+  },
+  {
+    title: "Beat the Bump-and-Grab",
+    folder: "Beat the Bump-and-Grab",
+    slides: 6,
+    summary: "Spot and block shoulder bumps and crowd squeezes used to lift phones."
+  },
+  {
+    title: "Spot the Lift / Map Trick",
+    folder: "Spot the Lift_ Map Trick",
+    slides: 6,
+    summary: "Recognise map distraction tricks; keep devices off tables and in sight."
+  },
+  {
+    title: "Café Phone-Safety Snapshot",
+    folder: "Café Phone-Safety Snapshot",
+    slides: 6,
+    summary: "Table safety in cafés: avoid edge placement, tether devices, and watch for cover-and-lift moves."
+  }
+];
+
+function slideUrls(folder: string, count: number) {
+  return Array.from({ length: count }, (_, i) => encodeURI(`/Scenarios/${folder}/${i + 1}.png`));
+}
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonicalPath="/scenarios"
+  ogImage="/og-image.png"
+>
+  <HeaderMobile client:load />
+
+  <main class="bg-[#f3f2f1] min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+      <div class="bg-gradient-to-br from-primary to-blue-700 text-white rounded-2xl p-6 md:p-10 mb-8 shadow-xl">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="bg-white/20 p-3 rounded-xl">
+            <Shield class="h-8 w-8" />
+          </div>
+          <div>
+            <p class="text-xs uppercase tracking-wide text-blue-100 font-semibold">Scenarios</p>
+            <h1 class="text-2xl md:text-3xl font-bold">Real-world phone theft scenarios</h1>
+          </div>
+        </div>
+        <p class="text-blue-100 text-sm md:text-base max-w-3xl">
+          Visual slides for London/UK risk situations: what thieves do, how to prevent it, and the first steps if targeted.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {scenarios.map((scenario) => (
+          <article class="bg-white rounded-2xl shadow-md border border-neutral-100 p-5 flex flex-col gap-4">
+            <div class="flex items-start gap-3">
+              <div class="bg-primary/10 text-primary rounded-lg p-2">
+                <MapPin class="h-5 w-5" />
+              </div>
+              <div>
+                <h2 class="text-lg font-bold text-neutral-900 leading-tight">{scenario.title}</h2>
+                <p class="text-sm text-neutral-600 mt-1">{scenario.summary}</p>
+              </div>
+            </div>
+            <ScenarioCarousel client:load images={slideUrls(scenario.folder, scenario.slides)} title={scenario.title} />
+            <div class="flex items-center gap-2 text-sm text-neutral-500">
+              <AlertTriangle class="h-4 w-4 text-amber-500" />
+              <span>{scenario.slides} slides</span>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

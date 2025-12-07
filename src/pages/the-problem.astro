@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
-import { AlertTriangle, TrendingUp, MapPin, Clock, Shield, ArrowRight, ExternalLink, Bike, Hand, Users, Coffee, Camera, Train, Moon, Briefcase, Map, TreePine } from 'lucide-react';
+import { AlertTriangle, TrendingUp, MapPin, Clock, Shield, ArrowRight, ExternalLink, Bike, Users, Coffee, Camera, Train, Moon, Briefcase, Map, TreePine } from 'lucide-react';
 
 const theftMethods = [
   {
@@ -147,6 +147,10 @@ const hotspots = [
               <Clock class="h-4 w-4" />
               <span>One stolen every 3 minutes</span>
             </div>
+            <a href="/scenarios" class="inline-flex items-center gap-2 bg-white text-red-700 px-4 py-2 rounded-lg text-sm font-semibold shadow-sm hover:bg-white/90 transition">
+              <AlertTriangle class="h-4 w-4" />
+              View scenario slides
+            </a>
           </div>
         </div>
       </div>

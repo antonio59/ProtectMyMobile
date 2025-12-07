@@ -4,17 +4,11 @@ import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
 import { getNewsPosts } from '../lib/convexData';
 import {
-  Shield,
   AlertTriangle,
-  Newspaper,
   MapPin,
   TrendingUp,
-  Calendar,
   ArrowRight,
-  Phone,
-  Building2,
   Clock,
-  Users,
 } from "lucide-react";
 import AnimatedHero from '../components/AnimatedHero';
 import AnimatedNewsSection from '../components/AnimatedNewsSection';
@@ -22,36 +16,18 @@ import AnimatedStats from '../components/AnimatedStats';
 import AnimatedResources from '../components/AnimatedResources';
 
 // Fetch latest news posts
-let latestNews = [];
+let latestNews: any[] = [];
 try {
   const posts = await getNewsPosts(true);
   latestNews = posts.slice(0, 3); // Get 3 most recent
 } catch (e) {
   console.error('Error fetching news:', e);
 }
-
-function formatDate(dateValue: string | number) {
-  const date = typeof dateValue === 'number' ? new Date(dateValue) : new Date(dateValue);
-  return date.toLocaleDateString('en-GB', {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric'
-  });
-}
-
-// Category border colors for visual coding
-const categoryBorderColors: Record<string, string> = {
-  arrest: 'border-red-500',
-  law_changes: 'border-orange-500',
-  statistics: 'border-teal-500',
-  prevention_tip: 'border-green-500',
-  news: 'border-blue-500',
-}
 ---
 
-<Layout 
+<Layout
   title="Phone Stolen UK? Mobile Theft Prevention & Recovery | ProtectMyMobile"
-  description="Phone stolen in London or UK? Get immediate help with our emergency guide, report theft, contact banks & providers. UK's #1 mobile theft prevention resource."
+  description="Phone stolen in London or UK? Get immediate help with our emergency guide, report theft, contact banks & providers. UK + London travel safety for tourists and locals."
   canonicalPath="/"
   schema={{
     "@context": "https://schema.org",
@@ -70,7 +46,7 @@ const categoryBorderColors: Record<string, string> = {
           }
         },
         {
-          "@type": "Question", 
+          "@type": "Question",
           "name": "How many phones are stolen in London each year?",
           "acceptedAnswer": {
             "@type": "Answer",
@@ -84,6 +60,14 @@ const categoryBorderColors: Record<string, string> = {
             "@type": "Answer",
             "text": "The recovery rate for stolen phones in the UK is approximately 6%, making prevention and immediate action after theft crucial."
           }
+        },
+        {
+          "@type": "Question",
+          "name": "How can tourists keep their phones safe while visiting London?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Use cross-body bags, avoid using phones near kerbs or open train doors, enable Face ID/biometrics, turn on Find My, and save local emergency and carrier contact numbers before you arrive."
+          }
         }
       ]
     }
@@ -96,6 +80,34 @@ const categoryBorderColors: Record<string, string> = {
       
       <!-- Animated Hero Section -->
       <AnimatedHero client:load />
+
+      <!-- Visitor Safety Section -->
+      <section class="mb-12">
+        <div class="bg-white rounded-2xl shadow-md border border-neutral-100 p-6 md:p-8">
+          <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
+            <div>
+              <p class="text-xs uppercase tracking-wide text-primary font-semibold mb-1">London visitors</p>
+              <h2 class="text-xl md:text-2xl font-bold text-neutral-900">Tourist safety: keep your phone secure in London</h2>
+              <p class="text-neutral-600 text-sm md:text-base mt-2">Fast tips for travellers and students: avoid kerbside scrolling, use cross-body bags, pre-save Find My links, and know who to contact if you’re targeted.</p>
+            </div>
+            <a href="/emergency" class="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-xl font-semibold shadow-sm hover:bg-primary/90 transition">See emergency steps<ArrowRight class="h-4 w-4" /></a>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl bg-neutral-50 border border-neutral-100">
+              <p class="text-sm font-semibold text-neutral-900 mb-1">Before you arrive</p>
+              <p class="text-sm text-neutral-600">Enable Find My, turn on device passcodes and Face ID/biometrics, and store IMEI + carrier contact numbers.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-neutral-50 border border-neutral-100">
+              <p class="text-sm font-semibold text-neutral-900 mb-1">While in the city</p>
+              <p class="text-sm text-neutral-600">Keep devices away from kerbs and train doors, use cross-body straps, and avoid flashing phones in crowded tourist hotspots.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-neutral-50 border border-neutral-100">
+              <p class="text-sm font-semibold text-neutral-900 mb-1">If it’s stolen</p>
+              <p class="text-sm text-neutral-600">Lock the device remotely, block the SIM, call your bank, and file a report with police—follow our 5-step emergency guide.</p>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <!-- The Problem Section -->
       <section class="mb-12">
@@ -167,6 +179,35 @@ const categoryBorderColors: Record<string, string> = {
 
       <!-- Animated News Section -->
       <AnimatedNewsSection client:load news={latestNews} />
+
+      <!-- Scenarios CTA -->
+      <section class="mb-12">
+        <a href="/scenarios" class="block bg-gradient-to-r from-amber-500 to-orange-500 rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow group">
+          <div class="p-8 md:p-12 text-white">
+            <div class="flex items-start justify-between">
+              <div class="flex-1 space-y-4">
+                <div class="inline-flex items-center gap-2 bg-white/15 rounded-full px-4 py-2 text-sm font-semibold">
+                  <AlertTriangle class="h-4 w-4" />
+                  Real-world scenarios
+                </div>
+                <h2 class="text-3xl md:text-4xl font-bold leading-tight">See how theft happens—and how to stop it</h2>
+                <p class="text-lg text-white/85 max-w-2xl">
+                  Slide-by-slide guides for moped snatches, public transport grabs, nightlife thefts, and more. Learn positioning, habits, and rapid response.
+                </p>
+                <div class="inline-flex items-center gap-2 text-lg font-semibold group-hover:gap-4 transition-all">
+                  View scenario slides <ArrowRight class="h-5 w-5" />
+                </div>
+              </div>
+              <div class="hidden md:flex items-center justify-center">
+                <div class="bg-white/10 rounded-2xl px-6 py-4 text-center min-w-[200px]">
+                  <p class="text-4xl font-extrabold">8</p>
+                  <p class="text-white/80 text-sm">visual playbooks</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </section>
 
       <!-- Statistics CTA -->
       <section class="mb-12">

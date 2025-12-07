@@ -1,0 +1,19 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">ProtectMyMobile icon</title>
+  <desc id="desc">Shield badge with checkmark</desc>
+  <defs>
+    <linearGradient id="shieldFill" x1="24" y1="6" x2="24" y2="74" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2563EB"/>
+      <stop offset="1" stop-color="#0EA5E9"/>
+    </linearGradient>
+    <linearGradient id="shieldStroke" x1="24" y1="0" x2="24" y2="78" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1D4ED8"/>
+      <stop offset="1" stop-color="#0EA5E9" stop-opacity="0.85"/>
+    </linearGradient>
+  </defs>
+
+  <g transform="translate(36 18)">
+    <path d="M24 0L48 9.6V35.4C48 53.2 36.8 68.6 24 74 11.2 68.6 0 53.2 0 35.4V9.6L24 0Z" fill="url(#shieldFill)" stroke="url(#shieldStroke)" stroke-width="3"/>
+    <path d="M14 36.5L22 44.5L36 28" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

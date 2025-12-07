@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
-import { Book, Shield, AlertTriangle, Building2, Phone, TrendingUp, Newspaper, Map, ArrowRight, Users, ShoppingBag } from 'lucide-react';
+import { Book, Shield, AlertTriangle, Building2, Phone, TrendingUp, Newspaper, ArrowRight, Users, ShoppingBag, MapPin } from 'lucide-react';
 ---
 
 <Layout 
@@ -40,6 +40,14 @@ import { Book, Shield, AlertTriangle, Building2, Phone, TrendingUp, Newspaper, M
             <Newspaper class="h-4 w-4" />
             News
           </a>
+          <a href="/london-visitor-safety" class="inline-flex items-center gap-2 px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg text-sm font-medium transition-colors">
+            <MapPin class="h-4 w-4" />
+            Visitor Safety
+          </a>
+          <a href="/scenarios" class="inline-flex items-center gap-2 px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg text-sm font-medium transition-colors">
+            <AlertTriangle class="h-4 w-4" />
+            Scenarios
+          </a>
         </div>
       </div>
       
@@ -64,6 +72,23 @@ import { Book, Shield, AlertTriangle, Building2, Phone, TrendingUp, Newspaper, M
               </div>
             </div>
           </a>
+
+          <!-- Visitor Safety -->
+          <a href="/london-visitor-safety" class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-neutral-100 group">
+            <div class="h-2 bg-gradient-to-r from-blue-600 to-blue-400"></div>
+            <div class="p-6">
+              <div class="flex items-start gap-4">
+                <div class="bg-blue-50 rounded-xl p-3 group-hover:scale-110 transition-transform">
+                  <MapPin class="h-6 w-6 text-blue-600" />
+                </div>
+                <div class="flex-1">
+                  <h3 class="font-bold text-lg mb-1 group-hover:text-blue-700 transition-colors">Visitor Safety (London)</h3>
+                  <p class="text-neutral-600 text-sm">Tourist-focused guidance: pre-arrival prep, where thefts happen, and rapid steps if you’re targeted.</p>
+                </div>
+                <ArrowRight class="h-5 w-5 text-neutral-300 group-hover:text-blue-600 group-hover:translate-x-1 transition-all" />
+              </div>
+            </div>
+          </a>
           
           <!-- Emergency -->
           <a href="/emergency" class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-neutral-100 group">
@@ -78,6 +103,23 @@ import { Book, Shield, AlertTriangle, Building2, Phone, TrendingUp, Newspaper, M
                   <p class="text-neutral-600 text-sm">Step-by-step instructions for immediate action if your mobile has been stolen.</p>
                 </div>
                 <ArrowRight class="h-5 w-5 text-neutral-300 group-hover:text-red-600 group-hover:translate-x-1 transition-all" />
+              </div>
+            </div>
+          </a>
+
+          <!-- Scenarios -->
+          <a href="/scenarios" class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-neutral-100 group">
+            <div class="h-2 bg-gradient-to-r from-amber-500 to-orange-500"></div>
+            <div class="p-6">
+              <div class="flex items-start gap-4">
+                <div class="bg-amber-50 rounded-xl p-3 group-hover:scale-110 transition-transform">
+                  <AlertTriangle class="h-6 w-6 text-amber-600" />
+                </div>
+                <div class="flex-1">
+                  <h3 class="font-bold text-lg mb-1 group-hover:text-amber-700 transition-colors">Scenarios Gallery</h3>
+                  <p class="text-neutral-600 text-sm">Slide-by-slide visuals for common theft setups (moped snatch, transport, nightlife) with prevention cues.</p>
+                </div>
+                <ArrowRight class="h-5 w-5 text-neutral-300 group-hover:text-amber-600 group-hover:translate-x-1 transition-all" />
               </div>
             </div>
           </a>
