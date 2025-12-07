@@ -10,48 +10,56 @@ const pageDescription = "Visual guides for common London/UK phone theft scenario
 
 const scenarios = [
   {
+    id: "moped-snatch",
     title: "Moped Phone-Snatch Safety",
     folder: "Moped Phone-Snatch Safety",
     slides: 6,
     summary: "Avoid kerbside grabs from bikes/scooters with positioning, straps, and quick response steps."
   },
   {
+    id: "street-safety",
     title: "Street Phone-Snatch Safety Guide",
     folder: "Street Phone-Snatch Safety Guide",
     slides: 7,
     summary: "Street-smart habits to reduce risk in busy areas and what to do immediately after a grab."
   },
   {
+    id: "public-transport",
     title: "Stay Secure on Public Transport",
     folder: "Stay Secure on Public Transport",
     slides: 8,
     summary: "Protect your phone near open train doors and crowded platforms; keep cards and apps secured."
   },
   {
+    id: "nightlife",
     title: "Nightlife Phone Safety",
     folder: "Nightlife Phone Safety",
     slides: 6,
     summary: "Stay alert in bars and clubs; avoid table drops and distraction thefts late at night."
   },
   {
+    id: "park-safety",
     title: "Park Phone-Snatch Safety",
     folder: "Park Phone-Snatch Safety",
     slides: 6,
     summary: "Lower risk when seated outdoors; keep bags zipped and phones tethered."
   },
   {
+    id: "bump-and-grab",
     title: "Beat the Bump-and-Grab",
     folder: "Beat the Bump-and-Grab",
     slides: 6,
     summary: "Spot and block shoulder bumps and crowd squeezes used to lift phones."
   },
   {
+    id: "map-trick",
     title: "Spot the Lift / Map Trick",
     folder: "Spot the Lift_ Map Trick",
     slides: 6,
     summary: "Recognise map distraction tricks; keep devices off tables and in sight."
   },
   {
+    id: "cafe-safety",
     title: "Cafe Phone-Safety Snapshot",
     folder: "Cafe Phone-Safety Snapshot",
     slides: 6,
@@ -91,7 +99,11 @@ function slideUrls(folder: string, count: number) {
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         {scenarios.map((scenario, index) => (
-          <article class="bg-white rounded-2xl shadow-md border border-neutral-100 p-5 flex flex-col gap-4 card-lift entrance-slide-up" style={`animation-delay: ${index * 0.1}s`}>
+          <article 
+            id={scenario.id}
+            class="bg-white rounded-2xl shadow-md border border-neutral-100 p-5 flex flex-col gap-4 card-lift entrance-slide-up scroll-mt-24" 
+            style={`animation-delay: ${index * 0.1}s`}
+          >
             <div class="flex items-start gap-3">
               <div class="bg-primary/10 text-primary rounded-lg p-2">
                 <MapPin class="h-5 w-5" />
@@ -101,7 +113,13 @@ function slideUrls(folder: string, count: number) {
                 <p class="text-sm text-neutral-600 mt-1">{scenario.summary}</p>
               </div>
             </div>
-            <ScenarioCarousel client:load images={slideUrls(scenario.folder, scenario.slides)} title={scenario.title} />
+            <ScenarioCarousel 
+              client:load 
+              images={slideUrls(scenario.folder, scenario.slides)} 
+              title={scenario.title}
+              summary={scenario.summary}
+              scenarioId={scenario.id}
+            />
             <div class="flex items-center gap-2 text-sm text-neutral-500">
               <AlertTriangle class="h-4 w-4 text-amber-500" />
               <span>{scenario.slides} slides</span>
