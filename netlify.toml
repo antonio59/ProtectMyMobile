@@ -1,9 +1,11 @@
 [build]
-  command = "bun install && bun run build"
+  # Use Netlify's Bun if available; fall back to install if missing
+  command = "if command -v bun >/dev/null 2>&1; then bun install && bun run build; else curl -fsSL https://bun.sh/install | bash && export PATH=\"$HOME/.bun/bin:$PATH\" && bun install && bun run build; fi"
   publish = "dist"
 
 [build.environment]
   BUN_VERSION = "1.3.3"
+  BUN_INSTALL = "/opt/buildhome/.bun"
 
 [functions]
   directory = "netlify/functions"
