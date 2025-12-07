@@ -1,7 +1,7 @@
 /**
  * Reddit Bot for ProtectMyMobile
  * 
- * Posts automated content to your subreddit (e.g., r/UKPhoneTheft)
+ * Uses native fetch API - no vulnerable dependencies
  * 
  * Setup:
  * 1. Go to https://www.reddit.com/prefs/apps
@@ -15,7 +15,9 @@
  * bun run scripts/reddit-bot.ts --type=tip      # Post prevention tip
  */
 
-import Snoowrap from 'snoowrap';
+// Reddit API endpoints (constants, not user input)
+const REDDIT_AUTH_URL = 'https://www.reddit.com/api/v1/access_token';
+const REDDIT_API_BASE = 'https://oauth.reddit.com';
 
 // Load environment variables
 const REDDIT_CLIENT_ID = process.env.REDDIT_CLIENT_ID;
@@ -30,13 +32,87 @@ if (!REDDIT_CLIENT_ID || !REDDIT_CLIENT_SECRET || !REDDIT_USERNAME || !REDDIT_PA
   process.exit(1);
 }
 
-const reddit = new Snoowrap({
-  userAgent: 'ProtectMyMobile Bot v1.0 (by /u/' + REDDIT_USERNAME + ')',
-  clientId: REDDIT_CLIENT_ID,
-  clientSecret: REDDIT_CLIENT_SECRET,
-  username: REDDIT_USERNAME,
-  password: REDDIT_PASSWORD,
-});
+const USER_AGENT = `ProtectMyMobile Bot v2.0 (by /u/${REDDIT_USERNAME})`;
+
+interface RedditTokenResponse {
+  access_token: string;
+  token_type: string;
+  expires_in: number;
+  scope: string;
+}
+
+interface RedditSubmitResponse {
+  json: {
+    errors: string[][];
+    data?: {
+      url: string;
+      id: string;
+      name: string;
+    };
+  };
+}
+
+async function getAccessToken(): Promise<string> {
+  const credentials = Buffer.from(`${REDDIT_CLIENT_ID}:${REDDIT_CLIENT_SECRET}`).toString('base64');
+  
+  const response = await fetch(REDDIT_AUTH_URL, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Basic ${credentials}`,
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'User-Agent': USER_AGENT,
+    },
+    body: new URLSearchParams({
+      grant_type: 'password',
+      username: REDDIT_USERNAME!,
+      password: REDDIT_PASSWORD!,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to get access token: ${response.status} ${response.statusText}`);
+  }
+
+  const data = await response.json() as RedditTokenResponse;
+  return data.access_token;
+}
+
+async function submitPost(
+  accessToken: string,
+  title: string,
+  text: string
+): Promise<{ url: string; id: string }> {
+  const response = await fetch(`${REDDIT_API_BASE}/api/submit`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${accessToken}`,
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'User-Agent': USER_AGENT,
+    },
+    body: new URLSearchParams({
+      api_type: 'json',
+      kind: 'self',
+      sr: REDDIT_SUBREDDIT,
+      title: title,
+      text: text,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to submit post: ${response.status} ${response.statusText}`);
+  }
+
+  const data = await response.json() as RedditSubmitResponse;
+  
+  if (data.json.errors && data.json.errors.length > 0) {
+    throw new Error(`Reddit API errors: ${JSON.stringify(data.json.errors)}`);
+  }
+
+  return {
+    url: data.json.data?.url || '',
+    id: data.json.data?.id || '',
+  };
+}
 
 // Content templates
 const contentTemplates = {
@@ -207,29 +283,19 @@ async function postToReddit(
   flair?: string
 ): Promise<void> {
   try {
+    console.log(`Authenticating with Reddit...`);
+    const accessToken = await getAccessToken();
+    
     console.log(`Posting to r/${REDDIT_SUBREDDIT}...`);
     console.log(`Title: ${title}`);
 
-    // Snoowrap types are outdated for submitSelfpost on a subreddit instance
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const submission = await reddit.getSubreddit(REDDIT_SUBREDDIT).submitSelfpost({
-      title,
-      text,
-      subredditName: REDDIT_SUBREDDIT,
-    });
+    const result = await submitPost(accessToken, title, text);
 
     console.log(`✅ Posted successfully!`);
-    console.log(`URL: https://reddit.com${submission.permalink}`);
+    console.log(`URL: ${result.url}`);
 
-    // Try to set flair if provided (may fail if flair not set up)
     if (flair) {
-      try {
-        // Note: Flair assignment requires mod permissions or flair to be enabled
-        console.log(`Flair "${flair}" specified (set manually if not auto-applied)`);
-      } catch (e) {
-        console.log(`Note: Could not set flair automatically`);
-      }
+      console.log(`Flair "${flair}" specified (set manually if not auto-applied)`);
     }
   } catch (error) {
     console.error('❌ Failed to post:', error);
@@ -242,7 +308,7 @@ async function main() {
   const typeArg = args.find(arg => arg.startsWith('--type='));
   const postType = typeArg ? typeArg.split('=')[1] : 'stats';
 
-  console.log(`\n🤖 ProtectMyMobile Reddit Bot`);
+  console.log(`\n🤖 ProtectMyMobile Reddit Bot (v2 - native fetch)`);
   console.log(`Subreddit: r/${REDDIT_SUBREDDIT}`);
   console.log(`Post type: ${postType}\n`);
 
@@ -259,8 +325,6 @@ async function main() {
       content = contentTemplates.emergencyReminder();
       break;
     case 'news':
-      // For news, you'd typically fetch from your Convex backend
-      // For now, show usage example
       console.log('For news posts, use: --type=news --title="..." --url="..." --summary="..."');
       const newsTitle = args.find(a => a.startsWith('--title='))?.split('=')[1];
       const newsUrl = args.find(a => a.startsWith('--url='))?.split('=')[1];

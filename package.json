@@ -54,7 +54,6 @@
     "@tanstack/react-query": "^5.90.7",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
-    "@types/snoowrap": "^1.19.0",
     "astro": "^5.15.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -77,14 +76,8 @@
     "resend": "^6.5.0",
     "rss-parser": "^3.13.0",
     "sanitize-html": "^2.14.0",
-    "snoowrap": "^1.23.0",
     "tailwindcss-animate": "^1.0.7",
     "vaul": "^0.9.1"
-  },
-  "overrides": {
-    "form-data": "^4.0.0",
-    "ws": "^8.18.0",
-    "tough-cookie": "^4.1.4"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.3",
