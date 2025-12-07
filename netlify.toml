@@ -1,11 +1,10 @@
 [build]
-  # Use npm for CI builds (handles cross-platform native deps better)
-  # Use bun locally (faster)
-  command = "npm install && npm run build"
+  command = "bun install --frozen-lockfile && bun run build"
   publish = "dist"
 
 [build.environment]
   NODE_VERSION = "20"
+  BUN_VERSION = "1.3.3"
 
 [functions]
   directory = "netlify/functions"
