@@ -1,369 +1,411 @@
 /* =====================================================
-   PROTECTMYMOBILE GLOBAL STYLES
+   PROTECTMYMOBILE GLOBAL STYLES - Tailwind CSS v4
    Mobile-first responsive design
    ===================================================== */
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* =====================================================
+   THEME CONFIGURATION - Tailwind v4
+   ===================================================== */
+
+@theme {
+  /* Custom colors using CSS variables */
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  
+  /* Border radius */
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+}
 
 /* =====================================================
    CSS VARIABLES - Color Scheme
    ===================================================== */
 
-@layer base {
-  :root {
-    /* Primary blue */
-    --primary: 217 91% 60%;
-    --primary-foreground: 0 0% 100%;
-    
-    /* Secondary colors */
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    
-    /* Background and foreground */
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    
-    /* Muted */
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    
-    /* Accent */
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    
-    /* Destructive/Error */
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 100%;
-    
-    /* Border */
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 217 91% 60%;
-    
-    /* Card */
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    
-    /* Popover */
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    
-    /* Radius */
-    --radius: 0.5rem;
-  }
+:root {
+  /* Primary blue */
+  --primary: 217 91% 60%;
+  --primary-foreground: 0 0% 100%;
+  
+  /* Secondary colors */
+  --secondary: 210 40% 96.1%;
+  --secondary-foreground: 222.2 47.4% 11.2%;
+  
+  /* Background and foreground */
+  --background: 0 0% 100%;
+  --foreground: 222.2 84% 4.9%;
+  
+  /* Muted */
+  --muted: 210 40% 96.1%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+  
+  /* Accent */
+  --accent: 210 40% 96.1%;
+  --accent-foreground: 222.2 47.4% 11.2%;
+  
+  /* Destructive/Error */
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 100%;
+  
+  /* Border */
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  --ring: 217 91% 60%;
+  
+  /* Card */
+  --card: 0 0% 100%;
+  --card-foreground: 222.2 84% 4.9%;
+  
+  /* Popover */
+  --popover: 0 0% 100%;
+  --popover-foreground: 222.2 84% 4.9%;
+  
+  /* Radius */
+  --radius: 0.5rem;
 }
 
-@layer base {
-  /* Prevent horizontal overflow on all pages */
-  html {
-    overflow-x: hidden;
-    max-width: 100vw;
-  }
-  
-  body {
-    overflow-x: hidden;
-    max-width: 100vw;
-  }
-  
-  /* Mobile-first responsive typography */
+/* =====================================================
+   BASE STYLES
+   ===================================================== */
+
+/* Prevent horizontal overflow on all pages */
+html {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* Mobile-first responsive typography */
+h1 {
+  font-size: 1.875rem; /* 30px mobile */
+  line-height: 1.3;
+  font-weight: 700;
+  word-break: keep-all;
+  overflow-wrap: normal;
+  hyphens: none;
+}
+
+h2 {
+  font-size: 1.5rem; /* 24px mobile */
+  line-height: 1.35;
+  font-weight: 700;
+  word-break: normal;
+}
+
+h3 {
+  font-size: 1.25rem; /* 20px mobile */
+  line-height: 1.4;
+  font-weight: 600;
+  word-break: normal;
+}
+
+h4 {
+  font-size: 1.125rem; /* 18px mobile */
+  line-height: 1.5;
+  font-weight: 600;
+  word-break: normal;
+}
+
+/* Scale up on tablet (768px+) */
+@media (min-width: 768px) {
   h1 {
-    font-size: 1.875rem; /* 30px mobile */
-    line-height: 1.3;
-    font-weight: 700;
-    word-break: keep-all;
-    overflow-wrap: normal;
-    hyphens: none;
+    font-size: 2.5rem; /* 40px tablet */
   }
   
   h2 {
-    font-size: 1.5rem; /* 24px mobile */
-    line-height: 1.35;
-    font-weight: 700;
-    word-break: normal;
+    font-size: 2rem; /* 32px tablet */
   }
   
   h3 {
-    font-size: 1.25rem; /* 20px mobile */
-    line-height: 1.4;
-    font-weight: 600;
-    word-break: normal;
+    font-size: 1.5rem; /* 24px tablet */
   }
   
   h4 {
-    font-size: 1.125rem; /* 18px mobile */
-    line-height: 1.5;
-    font-weight: 600;
-    word-break: normal;
-  }
-  
-  /* Scale up on tablet (768px+) */
-  @media (min-width: 768px) {
-    h1 {
-      font-size: 2.5rem; /* 40px tablet */
-    }
-    
-    h2 {
-      font-size: 2rem; /* 32px tablet */
-    }
-    
-    h3 {
-      font-size: 1.5rem; /* 24px tablet */
-    }
-    
-    h4 {
-      font-size: 1.25rem; /* 20px tablet */
-    }
-  }
-  
-  /* Scale up on desktop (1024px+) */
-  @media (min-width: 1024px) {
-    h1 {
-      font-size: 3rem; /* 48px desktop */
-    }
-    
-    h2 {
-      font-size: 2.25rem; /* 36px desktop */
-    }
-    
-    h3 {
-      font-size: 1.75rem; /* 28px desktop */
-    }
-    
-    h4 {
-      font-size: 1.5rem; /* 24px desktop */
-    }
-  }
-  
-  /* Prevent text overflow everywhere */
-  * {
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-  }
-  
-  /* But don't break normal headings and short text */
-  h1, h2, h3, h4, h5, h6 {
-    word-break: normal;
-    hyphens: none;
-  }
-  
-  /* Allow phone numbers and long strings to break */
-  .break-text,
-  .force-wrap {
-    word-break: break-word !important;
-    hyphens: auto;
-  }
-  
-  /* Links */
-  a {
-    text-decoration: none;
-    transition: all 0.2s ease;
-  }
-  
-  /* Images */
-  img {
-    max-width: 100%;
-    height: auto;
+    font-size: 1.25rem; /* 20px tablet */
   }
 }
 
-@layer components {
-  /* Responsive container padding */
+/* Scale up on desktop (1024px+) */
+@media (min-width: 1024px) {
+  h1 {
+    font-size: 3rem; /* 48px desktop */
+  }
+  
+  h2 {
+    font-size: 2.25rem; /* 36px desktop */
+  }
+  
+  h3 {
+    font-size: 1.75rem; /* 28px desktop */
+  }
+  
+  h4 {
+    font-size: 1.5rem; /* 24px desktop */
+  }
+}
+
+/* Prevent text overflow everywhere */
+* {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* But don't break normal headings and short text */
+h1, h2, h3, h4, h5, h6 {
+  word-break: normal;
+  hyphens: none;
+}
+
+/* Allow phone numbers and long strings to break */
+.break-text,
+.force-wrap {
+  word-break: break-word !important;
+  hyphens: auto;
+}
+
+/* Links */
+a {
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+/* Images */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* =====================================================
+   COMPONENT STYLES
+   ===================================================== */
+
+/* Responsive container padding */
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem; /* 16px mobile */
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
   .container {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 1rem; /* 16px mobile */
-    padding-right: 1rem;
-  }
-  
-  @media (min-width: 640px) {
-    .container {
-      padding-left: 1.5rem; /* 24px sm */
-      padding-right: 1.5rem;
-    }
-  }
-  
-  @media (min-width: 1024px) {
-    .container {
-      padding-left: 2rem; /* 32px lg */
-      padding-right: 2rem;
-    }
-  }
-  
-  /* Responsive card padding */
-  .card {
-    padding: 1rem; /* 16px mobile */
-  }
-  
-  @media (min-width: 640px) {
-    .card {
-      padding: 1.5rem; /* 24px sm */
-    }
-  }
-  
-  @media (min-width: 1024px) {
-    .card {
-      padding: 2rem; /* 32px lg */
-    }
-  }
-  
-  /* Responsive buttons */
-  .btn {
-    font-size: 0.875rem; /* 14px mobile */
-    padding: 0.5rem 1rem;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 0.5rem;
-    font-weight: 600;
-    transition: all 0.2s ease;
-  }
-  
-  @media (min-width: 640px) {
-    .btn {
-      font-size: 1rem; /* 16px sm+ */
-      padding: 0.75rem 1.5rem;
-    }
-  }
-  
-  /* Stat numbers that might overflow */
-  .stat-number {
-    font-size: 1.875rem; /* 30px mobile */
-    font-weight: 700;
-    word-break: break-word;
-    line-height: 1.2;
-  }
-  
-  @media (min-width: 640px) {
-    .stat-number {
-      font-size: 2.25rem; /* 36px sm */
-    }
-  }
-  
-  @media (min-width: 768px) {
-    .stat-number {
-      font-size: 3rem; /* 48px md */
-    }
-  }
-  
-  @media (min-width: 1024px) {
-    .stat-number {
-      font-size: 3.75rem; /* 60px lg */
-    }
-  }
-  
-  /* Phone numbers and long text that shouldn't break layout */
-  .break-text {
-    word-break: break-word;
-    overflow-wrap: break-word;
-  }
-  
-  .break-all {
-    word-break: break-all;
-  }
-  
-  /* Prevent overflow on specific elements */
-  .no-overflow {
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  
-  /* Responsive grid gaps */
-  .grid-responsive {
-    gap: 1rem; /* 16px mobile */
-  }
-  
-  @media (min-width: 640px) {
-    .grid-responsive {
-      gap: 1.5rem; /* 24px sm */
-    }
-  }
-  
-  @media (min-width: 1024px) {
-    .grid-responsive {
-      gap: 2rem; /* 32px lg */
-    }
-  }
-  
-  /* Responsive section spacing */
-  .section {
-    padding-top: 2rem; /* 32px mobile */
-    padding-bottom: 2rem;
-  }
-  
-  @media (min-width: 768px) {
-    .section {
-      padding-top: 3rem; /* 48px md */
-      padding-bottom: 3rem;
-    }
-  }
-  
-  @media (min-width: 1024px) {
-    .section {
-      padding-top: 4rem; /* 64px lg */
-      padding-bottom: 4rem;
-    }
+    padding-left: 1.5rem; /* 24px sm */
+    padding-right: 1.5rem;
   }
 }
 
-@layer utilities {
-  /* Force text wrapping */
-  .force-wrap {
-    word-wrap: break-word !important;
-    overflow-wrap: break-word !important;
-    word-break: break-word !important;
+@media (min-width: 1024px) {
+  .container {
+    padding-left: 2rem; /* 32px lg */
+    padding-right: 2rem;
   }
-  
-  /* Prevent any overflow */
-  .prevent-overflow {
-    overflow: hidden;
-    max-width: 100%;
+}
+
+/* Responsive card padding */
+.card {
+  padding: 1rem; /* 16px mobile */
+}
+
+@media (min-width: 640px) {
+  .card {
+    padding: 1.5rem; /* 24px sm */
   }
-  
-  /* Responsive text sizes */
+}
+
+@media (min-width: 1024px) {
+  .card {
+    padding: 2rem; /* 32px lg */
+  }
+}
+
+/* Responsive buttons */
+.btn {
+  font-size: 0.875rem; /* 14px mobile */
+  padding: 0.5rem 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+@media (min-width: 640px) {
+  .btn {
+    font-size: 1rem; /* 16px sm+ */
+    padding: 0.75rem 1.5rem;
+  }
+}
+
+/* Stat numbers that might overflow */
+.stat-number {
+  font-size: 1.875rem; /* 30px mobile */
+  font-weight: 700;
+  word-break: break-word;
+  line-height: 1.2;
+}
+
+@media (min-width: 640px) {
+  .stat-number {
+    font-size: 2.25rem; /* 36px sm */
+  }
+}
+
+@media (min-width: 768px) {
+  .stat-number {
+    font-size: 3rem; /* 48px md */
+  }
+}
+
+@media (min-width: 1024px) {
+  .stat-number {
+    font-size: 3.75rem; /* 60px lg */
+  }
+}
+
+/* Phone numbers and long text that shouldn't break layout */
+.break-text {
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.break-all {
+  word-break: break-all;
+}
+
+/* Prevent overflow on specific elements */
+.no-overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Responsive grid gaps */
+.grid-responsive {
+  gap: 1rem; /* 16px mobile */
+}
+
+@media (min-width: 640px) {
+  .grid-responsive {
+    gap: 1.5rem; /* 24px sm */
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-responsive {
+    gap: 2rem; /* 32px lg */
+  }
+}
+
+/* Responsive section spacing */
+.section {
+  padding-top: 2rem; /* 32px mobile */
+  padding-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding-top: 3rem; /* 48px md */
+    padding-bottom: 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section {
+    padding-top: 4rem; /* 64px lg */
+    padding-bottom: 4rem;
+  }
+}
+
+/* =====================================================
+   UTILITY STYLES
+   ===================================================== */
+
+/* Force text wrapping */
+.force-wrap {
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  word-break: break-word !important;
+}
+
+/* Prevent any overflow */
+.prevent-overflow {
+  overflow: hidden;
+  max-width: 100%;
+}
+
+/* Responsive text sizes */
+.text-responsive-sm {
+  font-size: 0.875rem; /* 14px */
+}
+
+@media (min-width: 640px) {
   .text-responsive-sm {
-    font-size: 0.875rem; /* 14px */
-  }
-  
-  @media (min-width: 640px) {
-    .text-responsive-sm {
-      font-size: 1rem; /* 16px */
-    }
-  }
-  
-  .text-responsive-base {
     font-size: 1rem; /* 16px */
   }
-  
-  @media (min-width: 640px) {
-    .text-responsive-base {
-      font-size: 1.125rem; /* 18px */
-    }
-  }
-  
-  .text-responsive-lg {
+}
+
+.text-responsive-base {
+  font-size: 1rem; /* 16px */
+}
+
+@media (min-width: 640px) {
+  .text-responsive-base {
     font-size: 1.125rem; /* 18px */
   }
-  
-  @media (min-width: 640px) {
-    .text-responsive-lg {
-      font-size: 1.25rem; /* 20px */
-    }
+}
+
+.text-responsive-lg {
+  font-size: 1.125rem; /* 18px */
+}
+
+@media (min-width: 640px) {
+  .text-responsive-lg {
+    font-size: 1.25rem; /* 20px */
   }
-  
-  @media (min-width: 768px) {
-    .text-responsive-lg {
-      font-size: 1.5rem; /* 24px */
-    }
+}
+
+@media (min-width: 768px) {
+  .text-responsive-lg {
+    font-size: 1.5rem; /* 24px */
   }
-  
-  /* Safe area for mobile devices (notch, etc) */
-  .safe-area-inset {
-    padding-left: env(safe-area-inset-left);
-    padding-right: env(safe-area-inset-right);
-  }
+}
+
+/* Safe area for mobile devices (notch, etc) */
+.safe-area-inset {
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
 }
 
 /* =====================================================
