@@ -43,6 +43,91 @@
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
+  
+  /* =====================================================
+     TAILWIND v4 ENHANCEMENTS
+     ===================================================== */
+  
+  /* Text shadows for headlines */
+  --text-shadow-hero: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --text-shadow-glow: 0 0 20px rgba(255, 255, 255, 0.3);
+  --text-shadow-danger: 0 0 30px rgba(239, 68, 68, 0.5);
+  
+  /* Custom animations */
+  --animate-fade-in: fade-in 0.5s ease-out;
+  --animate-fade-out: fade-out 0.3s ease-in;
+  --animate-slide-up: slide-up 0.4s ease-out;
+  --animate-slide-down: slide-down 0.4s ease-out;
+  --animate-scale-in: scale-in 0.2s ease-out;
+  --animate-scale-out: scale-out 0.2s ease-in;
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+  --animate-caret-blink: caret-blink 1.25s ease-out infinite;
+  --animate-float: float 3s ease-in-out infinite;
+  --animate-pulse-glow: pulse-glow 2s ease-in-out infinite;
+  
+  /* 3D perspective */
+  --perspective-normal: 1000px;
+  --perspective-dramatic: 500px;
+}
+
+/* =====================================================
+   TAILWIND v4 KEYFRAME ANIMATIONS
+   ===================================================== */
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-down {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes scale-out {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.95); }
+}
+
+@keyframes accordion-down {
+  from { height: 0; opacity: 0; }
+  to { height: var(--radix-accordion-content-height); opacity: 1; }
+}
+
+@keyframes accordion-up {
+  from { height: var(--radix-accordion-content-height); opacity: 1; }
+  to { height: 0; opacity: 0; }
+}
+
+@keyframes caret-blink {
+  0%, 70%, 100% { opacity: 1; }
+  20%, 50% { opacity: 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.4); }
+  50% { box-shadow: 0 0 40px rgba(239, 68, 68, 0.8); }
 }
 
 /* =====================================================
@@ -539,3 +624,182 @@ img {
     background-position: 200% 0;
   }
 }
+
+/* =====================================================
+   TAILWIND v4 UTILITY CLASSES
+   ===================================================== */
+
+/* Text Shadows */
+.text-shadow-hero {
+  text-shadow: var(--text-shadow-hero);
+}
+
+.text-shadow-glow {
+  text-shadow: var(--text-shadow-glow);
+}
+
+.text-shadow-danger {
+  text-shadow: var(--text-shadow-danger);
+}
+
+.text-shadow-none {
+  text-shadow: none;
+}
+
+/* Colored Drop Shadows */
+.shadow-glow-red {
+  box-shadow: 0 10px 40px -10px rgba(239, 68, 68, 0.5);
+}
+
+.shadow-glow-blue {
+  box-shadow: 0 10px 40px -10px rgba(59, 130, 246, 0.5);
+}
+
+.shadow-glow-amber {
+  box-shadow: 0 10px 40px -10px rgba(245, 158, 11, 0.5);
+}
+
+.shadow-glow-emerald {
+  box-shadow: 0 10px 40px -10px rgba(16, 185, 129, 0.5);
+}
+
+/* Pulse Glow Effect */
+.animate-pulse-glow {
+  animation: var(--animate-pulse-glow);
+}
+
+/* Float Animation */
+.animate-float {
+  animation: var(--animate-float);
+}
+
+/* Custom animations for UI components */
+.animate-fade-in {
+  animation: var(--animate-fade-in);
+}
+
+.animate-fade-out {
+  animation: var(--animate-fade-out);
+}
+
+.animate-slide-up {
+  animation: var(--animate-slide-up);
+}
+
+.animate-slide-down {
+  animation: var(--animate-slide-down);
+}
+
+.animate-scale-in {
+  animation: var(--animate-scale-in);
+}
+
+.animate-scale-out {
+  animation: var(--animate-scale-out);
+}
+
+.animate-accordion-down {
+  animation: var(--animate-accordion-down);
+}
+
+.animate-accordion-up {
+  animation: var(--animate-accordion-up);
+}
+
+.animate-caret-blink {
+  animation: var(--animate-caret-blink);
+}
+
+/* 3D Transform Utilities */
+.perspective {
+  perspective: var(--perspective-normal);
+}
+
+.perspective-dramatic {
+  perspective: var(--perspective-dramatic);
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+/* Card lift effect on hover */
+.card-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-lift:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.2);
+}
+
+/* 3D tilt effect */
+.tilt-3d {
+  transition: transform 0.3s ease;
+  transform-style: preserve-3d;
+}
+
+.tilt-3d:hover {
+  transform: perspective(1000px) rotateX(2deg) rotateY(-2deg);
+}
+
+/* Video mask gradient */
+.mask-gradient-bottom {
+  mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+}
+
+.mask-gradient-right {
+  mask-image: linear-gradient(to right, black 70%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, black 70%, transparent 100%);
+}
+
+/* Pointer-specific styles (touch vs mouse) */
+@media (pointer: coarse) {
+  /* Touch devices - larger tap targets */
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+@media (pointer: fine) {
+  /* Mouse/trackpad - enable hover effects */
+  .hover-lift:hover {
+    transform: translateY(-2px);
+  }
+  
+  .hover-glow:hover {
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.4);
+  }
+}
+
+/* Container query support */
+.container-query {
+  container-type: inline-size;
+}
+
+/* Smooth entrance animations */
+.entrance-fade {
+  opacity: 0;
+  animation: fade-in 0.6s ease-out forwards;
+}
+
+.entrance-slide-up {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slide-up 0.6s ease-out forwards;
+}
+
+.entrance-scale {
+  opacity: 0;
+  transform: scale(0.95);
+  animation: scale-in 0.4s ease-out forwards;
+}
+
+/* Stagger delays for lists */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
