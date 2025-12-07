@@ -63,8 +63,8 @@
     "framer-motion": "^12.23.25",
     "input-otp": "^1.4.2",
     "lucide-react": "^0.556.0",
-    "nanostores": "^1.0.1",
     "marked": "^12.0.2",
+    "nanostores": "^1.0.1",
     "react": "^19.2.0",
     "react-day-picker": "^8.10.1",
     "react-dom": "^19.2.0",
@@ -75,6 +75,7 @@
     "resend": "^6.5.0",
     "rss-parser": "^3.13.0",
     "sanitize-html": "^2.14.0",
+    "tailwind-merge": "^3.4.0",
     "vaul": "^0.9.1"
   },
   "devDependencies": {

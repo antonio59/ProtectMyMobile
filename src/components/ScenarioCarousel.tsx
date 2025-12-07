@@ -133,7 +133,7 @@ export function ScenarioCarousel({ images, title, summary, scenarioId }: Props) 
               </div>
               
               {/* Native share (mobile) */}
-              {typeof navigator !== 'undefined' && navigator.share && (
+              {typeof navigator !== 'undefined' && 'share' in navigator && (
                 <button
                   onClick={handleNativeShare}
                   className="w-full flex items-center gap-3 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50 transition-colors"

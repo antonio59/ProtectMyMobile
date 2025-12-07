@@ -7,6 +7,10 @@ updates:
       day: "monday"
       time: "09:00"
     open-pull-requests-limit: 10
+    commit-message:
+      prefix: "deps"
+    labels:
+      - "dependencies"
     groups:
       astro:
         patterns:
@@ -18,17 +22,33 @@ updates:
           - "react-dom"
           - "@types/react"
           - "@types/react-dom"
-      ui:
+      tailwind:
         patterns:
           - "tailwindcss"
           - "@tailwindcss/*"
-          - "lucide-react"
-          - "radix-ui"
-          - "class-variance-authority"
-          - "clsx"
-          - "tailwind-merge"
-  
+          - "postcss"
+      radix-ui:
+        patterns:
+          - "@radix-ui/*"
+      convex:
+        patterns:
+          - "convex"
+      dev-dependencies:
+        dependency-type: "development"
+        update-types:
+          - "minor"
+          - "patch"
+    ignore:
+      # Ignore major version updates for stability - review manually
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "monthly"
+    commit-message:
+      prefix: "ci"
+    labels:
+      - "ci"
+      - "dependencies"
