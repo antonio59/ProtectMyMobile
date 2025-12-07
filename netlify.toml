@@ -1,5 +1,6 @@
 [build]
-  # Use npm for builds (handles native dependencies better than bun)
+  # Use npm for CI builds (handles cross-platform native deps better)
+  # Use bun locally (faster)
   command = "npm install && npm run build"
   publish = "dist"
 
