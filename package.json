@@ -86,7 +86,6 @@
     "@esbuild/darwin-arm64": "0.25.12",
     "@netlify/functions": "^5.1.0",
     "@resvg/resvg-js": "2.6.2",
-    "@resvg/resvg-js-darwin-arm64": "2.6.2",
     "@rollup/rollup-darwin-arm64": "^4.53.2",
     "@tailwindcss/typography": "^0.5.19",
     "@types/sanitize-html": "^2.11.0",
