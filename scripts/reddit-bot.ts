@@ -210,9 +210,13 @@ async function postToReddit(
     console.log(`Posting to r/${REDDIT_SUBREDDIT}...`);
     console.log(`Title: ${title}`);
 
+    // Snoowrap types are outdated for submitSelfpost on a subreddit instance
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     const submission = await reddit.getSubreddit(REDDIT_SUBREDDIT).submitSelfpost({
       title,
       text,
+      subredditName: REDDIT_SUBREDDIT,
     });
 
     console.log(`✅ Posted successfully!`);

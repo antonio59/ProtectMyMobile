@@ -2,6 +2,7 @@ import type { APIRoute } from 'astro';
 import { ConvexHttpClient } from 'convex/browser';
 import { api } from '../../../../convex/_generated/api';
 import { Resend } from 'resend';
+import { requireApiKey } from '../../../lib/security';
 
 const convexUrl = import.meta.env.PUBLIC_CONVEX_URL;
 const convex = convexUrl ? new ConvexHttpClient(convexUrl) : null;
@@ -76,7 +77,10 @@ Website: https://protectmymobile.xyz
 This request is made for research purposes to help provide the public with accurate information about mobile phone theft trends in the UK.`;
 }
 
-export const GET: APIRoute = async () => {
+export const GET: APIRoute = async ({ request }) => {
+  const unauthorized = requireApiKey(request);
+  if (unauthorized) return unauthorized;
+
   if (!convex) {
     return new Response(JSON.stringify({ 
       success: false, 
@@ -146,6 +150,7 @@ export const GET: APIRoute = async () => {
 
         // Create the request record in database
         await convex.mutation(api.foiRequests.create, {
+          adminToken: import.meta.env.CRON_SECRET || process.env.CRON_SECRET,
           referenceNumber,
           policeForce: force.name,
           policeForceEmail: force.foiEmail,
@@ -157,6 +162,7 @@ export const GET: APIRoute = async () => {
 
         // Update last request date on police force
         await convex.mutation(api.policeForces.update, {
+          adminToken: import.meta.env.CRON_SECRET || process.env.CRON_SECRET,
           id: force._id,
           lastRequestDate: Date.now(),
         });

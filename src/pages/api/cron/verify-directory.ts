@@ -2,12 +2,16 @@ import type { APIRoute } from 'astro';
 import { ConvexHttpClient } from 'convex/browser';
 import { api } from '../../../../convex/_generated/api';
 import { Resend } from 'resend';
+import { requireApiKey } from '../../../lib/security';
 
 // Initialize Convex client
 const convexUrl = import.meta.env.PUBLIC_CONVEX_URL;
 const convex = convexUrl ? new ConvexHttpClient(convexUrl) : null;
 
-export const GET: APIRoute = async () => {
+export const GET: APIRoute = async ({ request }) => {
+  const unauthorized = requireApiKey(request);
+  if (unauthorized) return unauthorized;
+
   if (!convex) {
     return new Response(JSON.stringify({ 
       success: false, 
@@ -43,10 +47,11 @@ export const GET: APIRoute = async () => {
         if (response.ok || response.status === 405) { // 405 Method Not Allowed is often returned for HEAD but implies server exists
           report.active++;
           // Update last_verified via Convex
+          const adminToken = import.meta.env.CRON_SECRET || process.env.CRON_SECRET;
           if (type === 'bank') {
-            await convex.mutation(api.banks.update, { id, lastVerified: Date.now(), active: true });
+            await convex.mutation(api.banks.update, { adminToken, id, lastVerified: Date.now(), active: true });
           } else {
-            await convex.mutation(api.mobileProviders.update, { id, lastVerified: Date.now(), active: true });
+            await convex.mutation(api.mobileProviders.update, { adminToken, id, lastVerified: Date.now(), active: true });
           }
         } else {
           report.inactive++;
@@ -67,8 +72,9 @@ export const GET: APIRoute = async () => {
     await Promise.all(promises);
 
     // Update site metadata with last verified timestamps
-    await convex.mutation(api.siteMetadata.updateDirectoryVerified, { directory: 'banks' });
-    await convex.mutation(api.siteMetadata.updateDirectoryVerified, { directory: 'mobileProviders' });
+    const adminToken = import.meta.env.CRON_SECRET || process.env.CRON_SECRET;
+    await convex.mutation(api.siteMetadata.updateDirectoryVerified, { adminToken, directory: 'banks' });
+    await convex.mutation(api.siteMetadata.updateDirectoryVerified, { adminToken, directory: 'mobileProviders' });
 
     // 2. Send Report via Resend
     const resendApiKey = import.meta.env.RESEND_API_KEY || process.env.RESEND_API_KEY;

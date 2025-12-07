@@ -5,8 +5,6 @@ import { useState, useEffect } from 'react';
 import type { CommunityResponse, CommunityStats } from '../lib/convexData';
 import { 
   generateInsights,
-  getMostCommonLocation,
-  getSecurityAdoptionRate,
   checkHasVoted
 } from '../lib/convexData';
 import { getOrCreateSessionId } from '../lib/convexMutations';

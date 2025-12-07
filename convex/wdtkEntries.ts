@@ -1,5 +1,6 @@
 import { v } from "convex/values";
 import { query, mutation } from "./_generated/server";
+import { requireAdmin } from "./auth";
 
 export const list = query({
   args: {
@@ -46,6 +47,7 @@ export const getByWdtkId = query({
 
 export const create = mutation({
   args: {
+    adminToken: v.optional(v.string()),
     wdtkId: v.string(),
     title: v.string(),
     url: v.string(),
@@ -63,22 +65,25 @@ export const create = mutation({
     dataImported: v.boolean(),
   },
   handler: async (ctx, args) => {
+    requireAdmin(ctx, args.adminToken);
     // Check if already exists
+    const { adminToken, ...rest } = args;
     const existing = await ctx.db
       .query("wdtkEntries")
-      .withIndex("by_wdtk_id", (q) => q.eq("wdtkId", args.wdtkId))
+      .withIndex("by_wdtk_id", (q) => q.eq("wdtkId", rest.wdtkId))
       .first();
     
     if (existing) {
       return existing._id;
     }
     
-    return await ctx.db.insert("wdtkEntries", args);
+    return await ctx.db.insert("wdtkEntries", rest);
   },
 });
 
 export const update = mutation({
   args: {
+    adminToken: v.optional(v.string()),
     id: v.id("wdtkEntries"),
     status: v.optional(v.union(
       v.literal("successful"),
@@ -95,17 +100,20 @@ export const update = mutation({
     notes: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
-    const { id, ...updates } = args;
+    requireAdmin(ctx, args.adminToken);
+    const { id, adminToken, ...updates } = args;
     await ctx.db.patch(id, updates);
   },
 });
 
 export const markAsImported = mutation({
   args: {
+    adminToken: v.optional(v.string()),
     id: v.id("wdtkEntries"),
     recordsImported: v.number(),
   },
   handler: async (ctx, args) => {
+    requireAdmin(ctx, args.adminToken);
     await ctx.db.patch(args.id, {
       dataImported: true,
       importedAt: Date.now(),

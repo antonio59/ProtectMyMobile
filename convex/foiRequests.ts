@@ -1,5 +1,6 @@
 import { v } from "convex/values";
 import { query, mutation } from "./_generated/server";
+import { requireAdmin } from "./auth";
 
 export const list = query({
   args: { 
@@ -40,6 +41,7 @@ export const getOverdue = query({
 
 export const create = mutation({
   args: {
+    adminToken: v.optional(v.string()),
     referenceNumber: v.string(),
     policeForce: v.string(),
     policeForceEmail: v.string(),
@@ -52,21 +54,28 @@ export const create = mutation({
     )),
   },
   handler: async (ctx, args) => {
+    requireAdmin(ctx, args.adminToken);
     const now = Date.now();
     // UK FOI deadline is 20 working days, roughly 28 calendar days
     const dueDate = now + (28 * 24 * 60 * 60 * 1000);
     
     return await ctx.db.insert("foiRequests", {
-      ...args,
+      referenceNumber: args.referenceNumber,
+      policeForce: args.policeForce,
+      policeForceEmail: args.policeForceEmail,
+      dateRangeStart: args.dateRangeStart,
+      dateRangeEnd: args.dateRangeEnd,
+      requestBody: args.requestBody,
+      status: args.status || "draft",
       requestDate: now,
       dueDate,
-      status: args.status || "draft",
     });
   },
 });
 
 export const update = mutation({
   args: {
+    adminToken: v.optional(v.string()),
     id: v.id("foiRequests"),
     status: v.optional(v.union(
       v.literal("draft"),
@@ -89,14 +98,16 @@ export const update = mutation({
     dueDate: v.optional(v.number()),
   },
   handler: async (ctx, args) => {
-    const { id, ...updates } = args;
+    requireAdmin(ctx, args.adminToken);
+    const { id, adminToken, ...updates } = args;
     await ctx.db.patch(id, updates);
   },
 });
 
 export const markAsSent = mutation({
-  args: { id: v.id("foiRequests") },
+  args: { id: v.id("foiRequests"), adminToken: v.optional(v.string()) },
   handler: async (ctx, args) => {
+    requireAdmin(ctx, args.adminToken);
     const now = Date.now();
     const dueDate = now + (28 * 24 * 60 * 60 * 1000);
     await ctx.db.patch(args.id, { 

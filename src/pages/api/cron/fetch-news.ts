@@ -3,6 +3,7 @@ import Parser from 'rss-parser';
 import { ConvexHttpClient } from 'convex/browser';
 import { api } from '../../../../convex/_generated/api';
 import { Resend } from 'resend';
+import { requireApiKey } from '../../../lib/security';
 
 // Initialize RSS parser
 const parser = new Parser();
@@ -32,7 +33,10 @@ function categorizeArticle(title: string, snippet: string): 'arrest' | 'seizure'
   return 'other';
 }
 
-export const GET: APIRoute = async () => {
+export const GET: APIRoute = async ({ request }) => {
+  const unauthorized = requireApiKey(request);
+  if (unauthorized) return unauthorized;
+
   if (!convex) {
     return new Response(JSON.stringify({ 
       success: false, 
@@ -78,6 +82,7 @@ export const GET: APIRoute = async () => {
         const category = categorizeArticle(article.title!, article.contentSnippet || '');
         
         const newPostId = await convex.mutation(api.newsPosts.create, {
+          adminToken: import.meta.env.CRON_SECRET || process.env.CRON_SECRET,
           title: article.title!,
           slug: slug,
           excerpt: article.contentSnippet?.substring(0, 150) + '...' || 'No excerpt available.',

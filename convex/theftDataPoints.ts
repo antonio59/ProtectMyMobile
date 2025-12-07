@@ -1,5 +1,6 @@
 import { v } from "convex/values";
 import { query, mutation } from "./_generated/server";
+import { requireAdmin } from "./auth";
 
 export const list = query({
   args: {
@@ -25,6 +26,7 @@ export const list = query({
 
 export const createBatch = mutation({
   args: {
+    adminToken: v.optional(v.string()),
     dataPoints: v.array(
       v.object({
         date: v.string(),
@@ -37,6 +39,7 @@ export const createBatch = mutation({
     ),
   },
   handler: async (ctx, args) => {
+    requireAdmin(ctx, args.adminToken);
     const ids = [];
     for (const point of args.dataPoints) {
       const id = await ctx.db.insert("theftDataPoints", point);
@@ -48,6 +51,7 @@ export const createBatch = mutation({
 
 export const upsert = mutation({
   args: {
+    adminToken: v.optional(v.string()),
     date: v.string(),
     locationName: v.string(),
     dataSource: v.string(),
@@ -56,6 +60,7 @@ export const upsert = mutation({
     theftCount: v.number(),
   },
   handler: async (ctx, args) => {
+    requireAdmin(ctx, args.adminToken);
     const existing = await ctx.db
       .query("theftDataPoints")
       .withIndex("by_date_location_source", (q) =>
@@ -80,6 +85,7 @@ export const upsert = mutation({
 
 export const create = mutation({
   args: {
+    adminToken: v.optional(v.string()),
     date: v.string(),
     locationName: v.string(),
     latitude: v.number(),
@@ -88,7 +94,9 @@ export const create = mutation({
     dataSource: v.string(),
   },
   handler: async (ctx, args) => {
-    return await ctx.db.insert("theftDataPoints", args);
+    requireAdmin(ctx, args.adminToken);
+    const { adminToken, ...rest } = args;
+    return await ctx.db.insert("theftDataPoints", rest);
   },
 });
 

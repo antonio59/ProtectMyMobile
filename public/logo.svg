@@ -1,0 +1,31 @@
+<svg width="420" height="110" viewBox="0 0 420 110" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">ProtectMyMobile logo</title>
+  <desc id="desc">Shield badge with checkmark and ProtectMyMobile text lockup</desc>
+  <defs>
+    <linearGradient id="shieldFill" x1="24" y1="6" x2="24" y2="54" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2563EB"/>
+      <stop offset="1" stop-color="#0EA5E9"/>
+    </linearGradient>
+    <linearGradient id="shieldStroke" x1="24" y1="0" x2="24" y2="60" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1D4ED8"/>
+      <stop offset="1" stop-color="#0EA5E9" stop-opacity="0.85"/>
+    </linearGradient>
+    <linearGradient id="accentBar" x1="0" y1="0" x2="1" y2="0" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#ef4444"/>
+      <stop offset="100%" stop-color="#f97316"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Shield badge -->
+  <g transform="translate(24 18)">
+    <path d="M24 0L48 9.6V35.4C48 53.2 36.8 68.6 24 74 11.2 68.6 0 53.2 0 35.4V9.6L24 0Z" fill="url(#shieldFill)" stroke="url(#shieldStroke)" stroke-width="3"/>
+    <path d="M14 36.5L22 44.5L36 28" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Text lockup -->
+  <text x="90" y="50" fill="#0F172A" font-family="'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="30" font-weight="700" letter-spacing="0.1">ProtectMyMobile</text>
+  <text x="90" y="74" fill="#475569" font-family="'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="15" font-weight="500" letter-spacing="0.25">UK's #1 Phone Theft Prevention Resource</text>
+
+  <!-- Accent bar under text -->
+  <rect x="90" y="82" width="120" height="4" rx="2" fill="url(#accentBar)"/>
+</svg>

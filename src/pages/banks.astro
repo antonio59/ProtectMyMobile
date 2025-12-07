@@ -4,7 +4,7 @@ import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
 import { getBanks, getDirectoryLastVerified } from '../lib/convexData';
 import { banks as staticBanks } from '../data/banks';
-import { Building2, Search, Phone, Globe, AlertCircle, Clock, CheckCircle2, ExternalLink, CreditCard } from 'lucide-react';
+import { Building2, Search, Phone, AlertCircle, Clock, CheckCircle2, ExternalLink } from 'lucide-react';
 
 // Get last verified date from Convex (automatically updated when cron runs)
 const verifiedDates = await getDirectoryLastVerified();

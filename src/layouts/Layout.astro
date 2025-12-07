@@ -12,7 +12,7 @@ interface Props {
 const siteUrl = "https://protectmymobile.xyz";
 const { 
   title, 
-  description = "ProtectMyMobile helps UK residents secure their mobile phones, provides step-by-step guidance if your phone is stolen, and offers comprehensive mobile security resources.",
+  description = "ProtectMyMobile helps UK residents and visitors secure their mobile phones, provides step-by-step guidance if your phone is stolen, and offers comprehensive mobile security resources for London and UK travel.",
   canonicalPath = "",
   ogImage = "/og-image.png",
   schema
@@ -28,7 +28,7 @@ const defaultSchema = {
   "name": "ProtectMyMobile",
   "url": siteUrl,
   "logo": `${siteUrl}/favicon.svg`,
-  "description": "UK's leading resource for mobile phone theft prevention and recovery",
+  "description": "UK and London travel resource for mobile phone theft prevention and recovery",
   "areaServed": {
     "@type": "Country",
     "name": "United Kingdom"
@@ -59,7 +59,7 @@ const schemas = [defaultSchema, websiteSchema, ...(schema ? [schema] : [])];
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="keywords" content="mobile theft UK, phone security, UK mobile providers, prevent phone theft, report stolen phone, secure banking apps, mobile security guide, phone stolen london, phone stolen UK" />
+    <meta name="keywords" content="mobile theft UK, phone security, UK mobile providers, prevent phone theft, report stolen phone, secure banking apps, mobile security guide, phone stolen london, phone stolen UK, london travel safety, tourist safety london, visiting london phone theft, london trip security" />
     <meta name="author" content="ProtectMyMobile" />
     <meta name="robots" content="index, follow" />
     <meta name="geo.region" content="GB" />
@@ -88,14 +88,14 @@ const schemas = [defaultSchema, websiteSchema, ...(schema ? [schema] : [])];
     
     <!-- Schema.org JSON-LD -->
     {schemas.map((s) => (
-      <script type="application/ld+json" set:html={JSON.stringify(s)} />
+      <script type="application/ld+json" is:inline set:html={JSON.stringify(s)} />
     ))}
     
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
     
     <!-- Umami Analytics -->
-    <script defer src="https://umami.antoniosmith.xyz/script.js" data-website-id="54c6cb37-d0a6-475a-959b-07d04ba34920"></script>
+    <script defer is:inline src="https://umami.antoniosmith.xyz/script.js" data-website-id="54c6cb37-d0a6-475a-959b-07d04ba34920"></script>
   </head>
   <body>
     <slot />

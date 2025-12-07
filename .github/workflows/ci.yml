@@ -21,6 +21,9 @@ jobs:
     - name: Install dependencies
       run: bun install
       
+    - name: Security audit
+      run: bun audit
+
     - name: Build Project
       run: bun run build
       env:

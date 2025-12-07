@@ -1,5 +1,6 @@
 import { query, mutation } from "./_generated/server";
 import { v } from "convex/values";
+import { requireAdmin } from "./auth";
 
 // Get a metadata value by key
 export const get = query({
@@ -34,10 +35,12 @@ export const getMultiple = query({
 // Set a metadata value (upsert)
 export const set = mutation({
   args: { 
+    adminToken: v.optional(v.string()),
     key: v.string(),
     value: v.string(),
   },
   handler: async (ctx, args) => {
+    requireAdmin(ctx, args.adminToken);
     const existing = await ctx.db
       .query("siteMetadata")
       .withIndex("by_key", (q) => q.eq("key", args.key))
@@ -64,9 +67,11 @@ export const set = mutation({
 // Update directory verification timestamps
 export const updateDirectoryVerified = mutation({
   args: { 
+    adminToken: v.optional(v.string()),
     directory: v.union(v.literal("banks"), v.literal("mobileProviders")),
   },
   handler: async (ctx, args) => {
+    requireAdmin(ctx, args.adminToken);
     const key = `${args.directory}_last_verified`;
     const now = Date.now();
     

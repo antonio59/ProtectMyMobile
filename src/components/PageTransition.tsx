@@ -1,13 +1,13 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
 interface PageTransitionProps {
   children: React.ReactNode;
 }
 
-const pageVariants = {
+const pageVariants: Variants = {
   initial: {
     opacity: 0,
     y: 20,

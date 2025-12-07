@@ -1,9 +1,14 @@
 import type { APIRoute } from 'astro';
 import { createContactSubmission } from '../../../lib/convexMutations';
 import { Resend } from 'resend';
+import { checkRateLimit, getClientIp } from '../../../lib/security';
 
 export const POST: APIRoute = async ({ request }) => {
   try {
+    const ip = getClientIp(request);
+    const rateLimited = checkRateLimit(`contact:${ip}`, 5, 60_000);
+    if (rateLimited) return rateLimited;
+
     const formData = await request.json();
     const { name, email, subject, message } = formData;
 

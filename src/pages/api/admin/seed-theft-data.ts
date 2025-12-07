@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { ConvexHttpClient } from 'convex/browser';
 import { api } from '../../../../convex/_generated/api';
+import { requireApiKey } from '../../../lib/security';
 
 const convexUrl = import.meta.env.PUBLIC_CONVEX_URL;
 const convex = convexUrl ? new ConvexHttpClient(convexUrl) : null;
@@ -58,7 +59,10 @@ const SEASONALITY = {
   '12': 1.20, // Christmas shopping peak
 };
 
-export const GET: APIRoute = async () => {
+export const GET: APIRoute = async ({ request }) => {
+  const unauthorized = requireApiKey(request);
+  if (unauthorized) return unauthorized;
+
   if (!convex) {
     return new Response(JSON.stringify({ error: 'Missing CONVEX_URL' }), { status: 500 });
   }
@@ -100,7 +104,7 @@ export const GET: APIRoute = async () => {
     }
     
     // Batch insert (appends to existing data from other years)
-    await convex.mutation(api.theftDataPoints.createBatch, { dataPoints });
+    await convex.mutation(api.theftDataPoints.createBatch, { adminToken: import.meta.env.CRON_SECRET || process.env.CRON_SECRET, dataPoints });
     
     return new Response(JSON.stringify({
       success: true,

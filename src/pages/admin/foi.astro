@@ -263,7 +263,6 @@ import Footer from '../../components/Footer.astro';
         const displayStatus = isOverdue ? 'overdue' : req.status;
         const statusClass = statusColors[displayStatus] || 'bg-neutral-100 text-neutral-800';
         
-        const requestDate = new Date(req.requestDate).toLocaleDateString('en-GB');
         const dueDate = new Date(req.dueDate).toLocaleDateString('en-GB');
         
         return `

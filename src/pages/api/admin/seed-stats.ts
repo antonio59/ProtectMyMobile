@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { ConvexHttpClient } from 'convex/browser';
 import { api } from '../../../../convex/_generated/api';
+import { requireApiKey } from '../../../lib/security';
 
 // Realistic data patterns for seeding
 const CITIES = [
@@ -31,7 +32,10 @@ function generateCount(baseRisk: string) {
   return Math.round(base * randomFactor);
 }
 
-export const GET: APIRoute = async () => {
+export const GET: APIRoute = async ({ request }) => {
+  const unauthorized = requireApiKey(request);
+  if (unauthorized) return unauthorized;
+
   const convexUrl = import.meta.env.PUBLIC_CONVEX_URL;
   if (!convexUrl) {
     return new Response('Convex not configured', { status: 500 });
@@ -89,7 +93,7 @@ export const GET: APIRoute = async () => {
     const BATCH_SIZE = 50;
     for (let i = 0; i < dataPoints.length; i += BATCH_SIZE) {
       const batch = dataPoints.slice(i, i + BATCH_SIZE);
-      await convex.mutation(api.theftDataPoints.createBatch, { dataPoints: batch });
+      await convex.mutation(api.theftDataPoints.createBatch, { adminToken: import.meta.env.CRON_SECRET || process.env.CRON_SECRET, dataPoints: batch });
     }
 
     return new Response(`Data seeded successfully: ${dataPoints.length} data points`, { status: 200 });

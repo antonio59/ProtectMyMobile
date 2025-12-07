@@ -1,10 +1,14 @@
 import type { Config, Context } from "@netlify/functions";
 
-export default async (req: Request, context: Context) => {
+export default async (_req: Request, _context: Context) => {
   const siteUrl = process.env.URL || 'http://localhost:4321';
   
   try {
-    const response = await fetch(`${siteUrl}/api/cron/send-foi-requests`);
+    const response = await fetch(`${siteUrl}/api/cron/send-foi-requests`, {
+      headers: {
+        'x-api-key': process.env.CRON_SECRET || '',
+      },
+    });
     const data = await response.json();
     
     console.log('FOI requests result:', data);

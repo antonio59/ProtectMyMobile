@@ -1,5 +1,6 @@
 import { v } from "convex/values";
 import { query, mutation } from "./_generated/server";
+import { requireAdmin } from "./auth";
 
 export const list = query({
   args: { 
@@ -33,6 +34,7 @@ export const getByShortCode = query({
 
 export const create = mutation({
   args: {
+    adminToken: v.optional(v.string()),
     name: v.string(),
     shortCode: v.string(),
     foiEmail: v.string(),
@@ -47,12 +49,15 @@ export const create = mutation({
     active: v.boolean(),
   },
   handler: async (ctx, args) => {
-    return await ctx.db.insert("policeForces", args);
+    requireAdmin(ctx, args.adminToken);
+    const { adminToken, ...rest } = args;
+    return await ctx.db.insert("policeForces", rest);
   },
 });
 
 export const update = mutation({
   args: {
+    adminToken: v.optional(v.string()),
     id: v.id("policeForces"),
     name: v.optional(v.string()),
     foiEmail: v.optional(v.string()),
@@ -61,14 +66,16 @@ export const update = mutation({
     lastRequestDate: v.optional(v.number()),
   },
   handler: async (ctx, args) => {
-    const { id, ...updates } = args;
+    requireAdmin(ctx, args.adminToken);
+    const { id, adminToken, ...updates } = args;
     await ctx.db.patch(id, updates);
   },
 });
 
 export const seedUKForces = mutation({
-  args: {},
-  handler: async (ctx) => {
+  args: { adminToken: v.optional(v.string()) },
+  handler: async (ctx, args) => {
+    requireAdmin(ctx, args.adminToken);
     const existing = await ctx.db.query("policeForces").collect();
     if (existing.length > 0) {
       return { message: "Police forces already seeded", count: existing.length };

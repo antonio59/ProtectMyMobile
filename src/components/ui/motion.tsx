@@ -109,7 +109,7 @@ export const buttonHover = {
 };
 
 // Number counter animation hook
-export function useAnimatedCounter(value: number, duration: number = 1) {
+export function useAnimatedCounter(_value: number, duration: number = 1) {
   return {
     initial: { opacity: 0 },
     animate: { opacity: 1 },

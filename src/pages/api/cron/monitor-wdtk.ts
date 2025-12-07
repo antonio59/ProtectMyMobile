@@ -3,6 +3,7 @@ import { ConvexHttpClient } from 'convex/browser';
 import { api } from '../../../../convex/_generated/api';
 import Parser from 'rss-parser';
 import { Resend } from 'resend';
+import { requireApiKey } from '../../../lib/security';
 
 const convexUrl = import.meta.env.PUBLIC_CONVEX_URL;
 const convex = convexUrl ? new ConvexHttpClient(convexUrl) : null;
@@ -70,7 +71,10 @@ function extractStatus(content: string): string {
   return 'unknown';
 }
 
-export const GET: APIRoute = async () => {
+export const GET: APIRoute = async ({ request }) => {
+  const unauthorized = requireApiKey(request);
+  if (unauthorized) return unauthorized;
+
   if (!convex) {
     return new Response(JSON.stringify({ 
       success: false, 
@@ -122,6 +126,7 @@ export const GET: APIRoute = async () => {
     for (const entry of newEntries) {
       try {
         await convex.mutation(api.wdtkEntries.create, {
+          adminToken: import.meta.env.CRON_SECRET || process.env.CRON_SECRET,
           wdtkId: entry.id,
           title: entry.title,
           url: entry.link,

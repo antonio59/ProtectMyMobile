@@ -1,5 +1,6 @@
 import { v } from "convex/values";
 import { query, mutation } from "./_generated/server";
+import { requireAdmin } from "./auth";
 
 export const list = query({
   args: {},
@@ -13,6 +14,7 @@ export const list = query({
 
 export const create = mutation({
   args: {
+    adminToken: v.optional(v.string()),
     adminId: v.string(),
     adminUsername: v.string(),
     actionType: v.union(
@@ -25,6 +27,8 @@ export const create = mutation({
     metadata: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
-    return await ctx.db.insert("adminActionHistory", args);
+    requireAdmin(ctx, args.adminToken);
+    const { adminToken, ...rest } = args;
+    return await ctx.db.insert("adminActionHistory", rest);
   },
 });

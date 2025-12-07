@@ -1,5 +1,6 @@
 import { v } from "convex/values";
 import { query, mutation } from "./_generated/server";
+import { requireAdmin } from "./auth";
 
 export const list = query({
   args: { publishedOnly: v.optional(v.boolean()) },
@@ -28,6 +29,7 @@ export const getBySlug = query({
 
 export const create = mutation({
   args: {
+    adminToken: v.optional(v.string()),
     title: v.string(),
     slug: v.string(),
     excerpt: v.string(),
@@ -48,9 +50,11 @@ export const create = mutation({
     published: v.boolean(),
   },
   handler: async (ctx, args) => {
+    requireAdmin(ctx, args.adminToken);
+    const { adminToken, ...rest } = args;
     const now = Date.now();
     return await ctx.db.insert("newsPosts", {
-      ...args,
+      ...rest,
       publishedAt: args.published ? now : undefined,
       updatedAt: now,
     });
@@ -59,6 +63,7 @@ export const create = mutation({
 
 export const update = mutation({
   args: {
+    adminToken: v.optional(v.string()),
     id: v.id("newsPosts"),
     title: v.optional(v.string()),
     slug: v.optional(v.string()),
@@ -81,7 +86,8 @@ export const update = mutation({
     published: v.optional(v.boolean()),
   },
   handler: async (ctx, args) => {
-    const { id, ...updates } = args;
+    requireAdmin(ctx, args.adminToken);
+    const { id, adminToken, ...updates } = args;
     const updateData: Record<string, unknown> = { ...updates, updatedAt: Date.now() };
     if (updates.published === true) {
       const existing = await ctx.db.get(id);
@@ -94,8 +100,9 @@ export const update = mutation({
 });
 
 export const remove = mutation({
-  args: { id: v.id("newsPosts") },
+  args: { id: v.id("newsPosts"), adminToken: v.optional(v.string()) },
   handler: async (ctx, args) => {
+    requireAdmin(ctx, args.adminToken);
     await ctx.db.delete(args.id);
   },
 });

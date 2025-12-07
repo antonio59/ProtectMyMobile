@@ -1,4 +1,5 @@
 import { defineMiddleware } from 'astro:middleware';
+import { checkRateLimit, getClientIp } from './lib/security';
 
 const ADMIN_PASSWORD = import.meta.env.ADMIN_PASSWORD || process.env.ADMIN_PASSWORD;
 
@@ -18,6 +19,9 @@ export const onRequest = defineMiddleware(async (context, next) => {
 
   // Check for login form submission
   if (context.request.method === 'POST') {
+    const ip = getClientIp(context.request);
+    const rateLimited = checkRateLimit(`admin-login:${ip}`, 5, 5 * 60_000);
+    if (rateLimited) return rateLimited;
     const formData = await context.request.formData();
     const password = formData.get('password');
     

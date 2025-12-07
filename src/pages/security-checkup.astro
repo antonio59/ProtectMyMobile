@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
-import SecurityCheckup from '../components/SecurityCheckup';
+import SecurityCheckupComponent from '../components/SecurityCheckup';
 import { ShieldCheck, Clock, CheckCircle2 } from 'lucide-react';
 ---
 
@@ -39,7 +39,7 @@ import { ShieldCheck, Clock, CheckCircle2 } from 'lucide-react';
       
       <!-- Checkup Component -->
       <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-neutral-100">
-        <SecurityCheckup client:load />
+        <SecurityCheckupComponent client:load />
       </div>
     </div>
   </main>

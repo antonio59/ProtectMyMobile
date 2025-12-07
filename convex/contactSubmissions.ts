@@ -1,5 +1,6 @@
 import { v } from "convex/values";
 import { query, mutation } from "./_generated/server";
+import { requireAdmin } from "./auth";
 
 export const list = query({
   args: {},
@@ -28,10 +29,12 @@ export const create = mutation({
 
 export const updateResponse = mutation({
   args: {
+    adminToken: v.optional(v.string()),
     id: v.id("contactSubmissions"),
     responseMessage: v.string(),
   },
   handler: async (ctx, args) => {
+    requireAdmin(ctx, args.adminToken);
     await ctx.db.patch(args.id, {
       responded: true,
       responseMessage: args.responseMessage,

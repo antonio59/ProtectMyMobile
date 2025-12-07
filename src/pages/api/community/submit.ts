@@ -3,9 +3,14 @@
 
 import type { APIRoute } from 'astro';
 import { submitCommunityResponse, hashIP } from '../../../lib/convexMutations';
+import { checkRateLimit, getClientIp } from '../../../lib/security';
 
 export const POST: APIRoute = async ({ request }) => {
   try {
+    const ip = getClientIp(request);
+    const rateLimited = checkRateLimit(`community:${ip}`, 10, 60_000);
+    if (rateLimited) return rateLimited;
+
     const body = await request.json();
     
     // Validate required fields

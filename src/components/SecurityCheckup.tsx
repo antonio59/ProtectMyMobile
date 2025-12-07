@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Check, X, Shield, AlertTriangle, CheckCircle2, XCircle, Share2 } from 'lucide-react';
+import { Check, X, Shield, AlertTriangle, CheckCircle2, Share2 } from 'lucide-react';
 
 interface Question {
   id: string;
@@ -65,7 +65,7 @@ export default function SecurityCheckup() {
   };
 
   const getRecommendations = () => {
-    const recs = [];
+    const recs: { title: string; description: string; priority: 'high' | 'medium' }[] = [];
     questions.forEach(q => {
       if (answers[q.id] === false) {
         switch (q.id) {

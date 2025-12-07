@@ -4,7 +4,7 @@ import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
 import { getMobileProviders, getDirectoryLastVerified } from '../lib/convexData';
 import { mobileProviders as staticProviders } from '../data/mobileProviders';
-import { Phone, Search, Globe, AlertCircle, Clock, CheckCircle2, ExternalLink } from 'lucide-react';
+import { Phone, Search, AlertCircle, Clock, CheckCircle2, ExternalLink } from 'lucide-react';
 
 // Get last verified date from Convex (automatically updated when cron runs)
 const verifiedDates = await getDirectoryLastVerified();

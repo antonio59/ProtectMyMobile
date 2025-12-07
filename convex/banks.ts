@@ -1,5 +1,6 @@
 import { v } from "convex/values";
 import { query, mutation } from "./_generated/server";
+import { requireAdmin } from "./auth";
 
 export const list = query({
   args: { activeOnly: v.optional(v.boolean()) },
@@ -16,6 +17,7 @@ export const list = query({
 
 export const create = mutation({
   args: {
+    adminToken: v.optional(v.string()),
     name: v.string(),
     phone: v.optional(v.string()),
     website: v.string(),
@@ -30,12 +32,15 @@ export const create = mutation({
     active: v.boolean(),
   },
   handler: async (ctx, args) => {
-    return await ctx.db.insert("banks", args);
+    requireAdmin(ctx, args.adminToken);
+    const { adminToken, ...rest } = args;
+    return await ctx.db.insert("banks", rest);
   },
 });
 
 export const update = mutation({
   args: {
+    adminToken: v.optional(v.string()),
     id: v.id("banks"),
     name: v.optional(v.string()),
     phone: v.optional(v.string()),
@@ -54,7 +59,8 @@ export const update = mutation({
     lastVerified: v.optional(v.number()),
   },
   handler: async (ctx, args) => {
-    const { id, ...updates } = args;
+    requireAdmin(ctx, args.adminToken);
+    const { id, adminToken, ...updates } = args;
     await ctx.db.patch(id, updates);
   },
 });
