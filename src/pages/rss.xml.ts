@@ -3,7 +3,7 @@ import type { APIContext } from 'astro';
 import { ConvexHttpClient } from 'convex/browser';
 import { api } from '../../convex/_generated/api';
 
-const convexUrl = import.meta.env.PUBLIC_CONVEX_URL;
+const convexUrl = import.meta.env.PUBLIC_CONVEX_URL || 'https://example.convex.cloud';
 
 export async function GET(context: APIContext) {
   const client = new ConvexHttpClient(convexUrl);
@@ -11,13 +11,16 @@ export async function GET(context: APIContext) {
   let items: { title: string; pubDate: Date; description: string; link: string }[] = [];
   
   try {
-    const posts = await client.query(api.news.getPublishedPosts, { limit: 20 });
-    items = posts.map((post: { title: string; publishedAt: number; excerpt: string; slug: string }) => ({
-      title: post.title,
-      pubDate: new Date(post.publishedAt),
-      description: post.excerpt,
-      link: `/news/${post.slug}`,
-    }));
+    const posts = await client.query(api.newsPosts.list, { publishedOnly: true });
+    items = posts
+      .filter((post) => post.publishedAt)
+      .slice(0, 20)
+      .map((post) => ({
+        title: post.title,
+        pubDate: new Date(post.publishedAt!),
+        description: post.excerpt,
+        link: `/news/${post.slug}`,
+      }));
   } catch {
     // If Convex is unavailable, return empty feed
   }
