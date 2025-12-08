@@ -1,0 +1,26 @@
+{
+  "name": "ProtectMyMobile",
+  "short_name": "ProtectMyMobile",
+  "description": "UK phone theft prevention and recovery guide",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "/logo-icon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["security", "utilities", "travel"],
+  "lang": "en-GB",
+  "scope": "/",
+  "orientation": "portrait-primary"
+}
