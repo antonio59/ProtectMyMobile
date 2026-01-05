@@ -3,13 +3,29 @@ import Layout from '../layouts/Layout.astro';
 import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
 import { getNewsPosts } from '../lib/convexData';
-import { Newspaper, Calendar, ArrowRight, Filter, AlertTriangle } from 'lucide-react';
+import { Newspaper, Calendar, ArrowRight, Filter, AlertTriangle, CheckCircle, AlertCircle } from 'lucide-react';
+import { ConvexHttpClient } from 'convex/browser';
+import { api } from '../../convex/_generated/api';
+
+const convexUrl = import.meta.env.PUBLIC_CONVEX_URL;
+const convex = convexUrl ? new ConvexHttpClient(convexUrl) : null;
 
 let posts: any[] = [];
 let error = null;
+let lastFetch = null;
+let recentErrors: any[] = [];
 
 try {
   posts = await getNewsPosts(true);
+  
+  if (convex) {
+    try {
+      lastFetch = await convex.query(api.systemLogs.getLastNewsFetch);
+      recentErrors = await convex.query(api.systemLogs.getRecentErrors, { limit: 3 });
+    } catch (e) {
+      console.error('Error fetching health status:', e);
+    }
+  }
 } catch (e) {
   error = e;
   console.error('Error fetching news posts:', e);
@@ -53,6 +69,40 @@ function formatDate(dateValue: string | number) {
         <p class="text-blue-100 text-sm md:text-base">
           Stay informed about mobile theft arrests, policy changes, security updates, and prevention tips across the UK.
         </p>
+        
+        {lastFetch && (
+          <div class="mt-4 flex items-center gap-2 text-sm bg-white/10 rounded-lg px-4 py-2 w-fit">
+            {lastFetch.level === 'info' ? (
+              <CheckCircle class="h-4 w-4 text-green-300" />
+            ) : lastFetch.level === 'warning' ? (
+              <AlertTriangle class="h-4 w-4 text-yellow-300" />
+            ) : (
+              <AlertCircle class="h-4 w-4 text-red-300" />
+            )}
+            <span class="text-blue-50">
+              Last updated: <span class="font-semibold">{new Date(lastFetch.timestamp).toLocaleString('en-GB', { 
+                day: 'numeric', 
+                month: 'short', 
+                hour: '2-digit', 
+                minute: '2-digit' 
+              })}</span>
+            </span>
+          </div>
+        )}
+        
+        {recentErrors.length > 0 && (
+          <div class="mt-2 text-xs bg-red-500/20 rounded-lg px-3 py-2 w-fit text-red-100">
+            <div class="flex items-center gap-1 font-semibold mb-1">
+              <AlertCircle class="h-3 w-3" />
+              Recent errors ({recentErrors.length})
+            </div>
+            <ul class="space-y-1">
+              {recentErrors.slice(0, 2).map((err: any) => (
+                <li class="opacity-90 truncate" key={err._id}>{err.message}</li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
 
       <!-- Release Notes -->

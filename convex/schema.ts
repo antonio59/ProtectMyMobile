@@ -41,7 +41,7 @@ export default defineSchema({
       v.literal("approve_experience"),
       v.literal("unapprove_experience"),
       v.literal("respond_contact"),
-      v.literal("mark_spam")
+      v.literal("mark_spam"),
     ),
     targetId: v.string(),
     metadata: v.optional(v.string()),
@@ -61,7 +61,7 @@ export default defineSchema({
       v.literal("law_change"),
       v.literal("statistics"),
       v.literal("prevention_tip"),
-      v.literal("other")
+      v.literal("other"),
     ),
     sourceUrl: v.optional(v.string()),
     sourceName: v.optional(v.string()),
@@ -96,7 +96,7 @@ export default defineSchema({
     requestDate: v.number(),
     dateRangeStart: v.string(),
     dateRangeEnd: v.string(),
-    
+
     // Status tracking
     status: v.union(
       v.literal("draft"),
@@ -106,20 +106,20 @@ export default defineSchema({
       v.literal("received"),
       v.literal("processed"),
       v.literal("rejected"),
-      v.literal("overdue")
+      v.literal("overdue"),
     ),
-    
+
     // Response tracking
     dueDate: v.number(),
     acknowledgedAt: v.optional(v.number()),
     responseReceivedAt: v.optional(v.number()),
     processedAt: v.optional(v.number()),
-    
+
     // Content
     requestBody: v.string(),
     responseNotes: v.optional(v.string()),
     rejectionReason: v.optional(v.string()),
-    
+
     // Data file tracking
     responseFileUrl: v.optional(v.string()),
     responseFileName: v.optional(v.string()),
@@ -139,7 +139,7 @@ export default defineSchema({
       v.literal("wales"),
       v.literal("scotland"),
       v.literal("northern_ireland"),
-      v.literal("national")
+      v.literal("national"),
     ),
     website: v.optional(v.string()),
     active: v.boolean(),
@@ -161,7 +161,7 @@ export default defineSchema({
       v.literal("refused"),
       v.literal("awaiting"),
       v.literal("classification"),
-      v.literal("unknown")
+      v.literal("unknown"),
     ),
     hasData: v.boolean(),
     dataImported: v.boolean(),
@@ -179,15 +179,15 @@ export default defineSchema({
     hadPhoneStolen: v.union(
       v.literal("yes"),
       v.literal("no"),
-      v.literal("someone_i_know")
+      v.literal("someone_i_know"),
     ),
     phoneRecovered: v.optional(
       v.union(
         v.literal("yes_fully"),
         v.literal("partially"),
         v.literal("no"),
-        v.literal("investigating")
-      )
+        v.literal("investigating"),
+      ),
     ),
     replacementMethod: v.optional(
       v.union(
@@ -196,8 +196,8 @@ export default defineSchema({
         v.literal("insurance"),
         v.literal("contract"),
         v.literal("not_yet"),
-        v.literal("backup_phone")
-      )
+        v.literal("backup_phone"),
+      ),
     ),
     theftLocation: v.optional(
       v.union(
@@ -206,8 +206,8 @@ export default defineSchema({
         v.literal("street"),
         v.literal("event"),
         v.literal("shop"),
-        v.literal("other")
-      )
+        v.literal("other"),
+      ),
     ),
     securityMeasures: v.optional(v.array(v.string())),
     reportedToPolice: v.optional(
@@ -215,8 +215,8 @@ export default defineSchema({
         v.literal("yes_crime_ref"),
         v.literal("yes_no_followup"),
         v.literal("no"),
-        v.literal("network_only")
-      )
+        v.literal("network_only"),
+      ),
     ),
     sessionId: v.string(),
     userIpHash: v.optional(v.string()),
@@ -231,6 +231,22 @@ export default defineSchema({
     ipHash: v.optional(v.string()),
   }).index("by_path", ["path"]),
 
+  // System Logs for monitoring
+  systemLogs: defineTable({
+    level: v.union(v.literal("info"), v.literal("warning"), v.literal("error")),
+    source: v.union(
+      v.literal("news_scraper"),
+      v.literal("wdtk_scraper"),
+      v.literal("system"),
+    ),
+    message: v.string(),
+    details: v.optional(v.string()),
+    timestamp: v.number(),
+  })
+    .index("by_timestamp", ["timestamp"])
+    .index("by_level", ["level"])
+    .index("by_source", ["source"]),
+
   // Banks
   banks: defineTable({
     name: v.string(),
@@ -241,7 +257,7 @@ export default defineSchema({
       v.literal("high_street"),
       v.literal("online"),
       v.literal("building_society"),
-      v.literal("challenger")
+      v.literal("challenger"),
     ),
     logoUrl: v.optional(v.string()),
     active: v.boolean(),
@@ -261,7 +277,7 @@ export default defineSchema({
       v.literal("Vodafone"),
       v.literal("O2"),
       v.literal("Three"),
-      v.literal("MVNO")
+      v.literal("MVNO"),
     ),
     isMvno: v.boolean(),
     parentNetwork: v.optional(v.string()),

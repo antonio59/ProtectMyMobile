@@ -8,3 +8,9 @@
 
 [functions]
   directory = "netlify/functions"
+
+[[context.production.environment]]
+CRON_SECRET = "CHANGE_ME_IN_NETLIFY_DASHBOARD"
+
+[context.develop.environment]
+CRON_SECRET = "dev-secret-key"

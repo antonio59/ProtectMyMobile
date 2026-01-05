@@ -17,7 +17,9 @@
     "migrate": "bun run scripts/migrate-supabase-to-convex.ts",
     "reddit:stats": "bun run scripts/reddit-bot.ts --type=stats",
     "reddit:tip": "bun run scripts/reddit-bot.ts --type=tip",
-    "reddit:emergency": "bun run scripts/reddit-bot.ts --type=emergency"
+    "reddit:emergency": "bun run scripts/reddit-bot.ts --type=emergency",
+    "news:fetch": "bun run scripts/test-news-fetch.ts",
+    "health:check": "bun run scripts/health-check.ts"
   },
   "dependencies": {
     "@astrojs/netlify": "^6.0.0",
