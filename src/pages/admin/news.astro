@@ -1,0 +1,548 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+---
+
+<AdminLayout 
+  title="Manage News | ProtectMyMobile Admin"
+  description="Manage news articles - publish, unpublish, edit, and delete."
+  currentPage="news"
+>
+  <div class="p-4 lg:p-8">
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+      <div>
+        <h1 class="text-2xl font-bold text-neutral-900">Manage News</h1>
+        <p class="text-neutral-600 text-sm mt-1">Publish, unpublish, edit, and delete news articles.</p>
+      </div>
+      <a 
+        href="/admin/add-news" 
+        class="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-primary text-white rounded-lg font-medium text-sm hover:bg-primary/90 transition-colors"
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+        </svg>
+        Add Article
+      </a>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+      <div class="bg-white rounded-xl p-4 shadow-sm border border-neutral-200">
+        <div class="text-2xl font-bold text-neutral-900" id="stat-total">-</div>
+        <div class="text-xs text-neutral-500">Total Articles</div>
+      </div>
+      <div class="bg-white rounded-xl p-4 shadow-sm border border-neutral-200">
+        <div class="text-2xl font-bold text-green-600" id="stat-published">-</div>
+        <div class="text-xs text-neutral-500">Published</div>
+      </div>
+      <div class="bg-white rounded-xl p-4 shadow-sm border border-neutral-200">
+        <div class="text-2xl font-bold text-yellow-600" id="stat-draft">-</div>
+        <div class="text-xs text-neutral-500">Drafts</div>
+      </div>
+      <div class="bg-white rounded-xl p-4 shadow-sm border border-neutral-200">
+        <div class="text-2xl font-bold text-blue-600" id="stat-sources">-</div>
+        <div class="text-xs text-neutral-500">Sources</div>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-4 mb-6">
+      <div class="flex flex-col sm:flex-row gap-4">
+        <div class="flex-1">
+          <input 
+            type="text" 
+            id="search-input"
+            placeholder="Search articles..." 
+            class="w-full px-4 py-2 border border-neutral-300 rounded-lg text-sm focus:ring-2 focus:ring-primary focus:border-primary"
+          />
+        </div>
+        <div class="flex gap-2">
+          <select id="status-filter" class="px-4 py-2 border border-neutral-300 rounded-lg text-sm bg-white">
+            <option value="all">All Status</option>
+            <option value="published">Published</option>
+            <option value="draft">Drafts</option>
+          </select>
+          <select id="category-filter" class="px-4 py-2 border border-neutral-300 rounded-lg text-sm bg-white">
+            <option value="all">All Categories</option>
+            <option value="arrest">Arrests</option>
+            <option value="seizure">Seizures</option>
+            <option value="law_change">Law Changes</option>
+            <option value="statistics">Statistics</option>
+            <option value="prevention_tip">Prevention Tips</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Articles Table -->
+    <div class="bg-white rounded-xl shadow-sm border border-neutral-200 overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead class="bg-neutral-50 border-b border-neutral-200">
+            <tr>
+              <th class="text-left px-4 py-3 text-xs font-semibold text-neutral-600 uppercase tracking-wider">Article</th>
+              <th class="text-left px-4 py-3 text-xs font-semibold text-neutral-600 uppercase tracking-wider hidden md:table-cell">Category</th>
+              <th class="text-left px-4 py-3 text-xs font-semibold text-neutral-600 uppercase tracking-wider hidden lg:table-cell">Source</th>
+              <th class="text-left px-4 py-3 text-xs font-semibold text-neutral-600 uppercase tracking-wider">Status</th>
+              <th class="text-left px-4 py-3 text-xs font-semibold text-neutral-600 uppercase tracking-wider hidden sm:table-cell">Date</th>
+              <th class="text-right px-4 py-3 text-xs font-semibold text-neutral-600 uppercase tracking-wider">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="articles-table">
+            <tr>
+              <td colspan="6" class="text-center py-12 text-neutral-500">
+                <svg class="w-8 h-8 mx-auto mb-2 animate-spin text-primary" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Loading articles...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Modal -->
+  <div id="edit-modal" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+      <div class="p-6 border-b border-neutral-200">
+        <div class="flex items-center justify-between">
+          <h2 class="text-xl font-bold text-neutral-900">Edit Article</h2>
+          <button id="close-modal" class="p-2 hover:bg-neutral-100 rounded-lg transition-colors">
+            <svg class="w-5 h-5 text-neutral-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <form id="edit-form" class="p-6 space-y-4">
+        <input type="hidden" id="edit-id" />
+        
+        <div>
+          <label class="block text-sm font-medium text-neutral-700 mb-1">Title</label>
+          <input type="text" id="edit-title" class="w-full px-4 py-2 border border-neutral-300 rounded-lg text-sm" required />
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium text-neutral-700 mb-1">Slug</label>
+          <input type="text" id="edit-slug" class="w-full px-4 py-2 border border-neutral-300 rounded-lg text-sm" required />
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium text-neutral-700 mb-1">Excerpt</label>
+          <textarea id="edit-excerpt" rows="2" class="w-full px-4 py-2 border border-neutral-300 rounded-lg text-sm" required></textarea>
+        </div>
+        
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-neutral-700 mb-1">Category</label>
+            <select id="edit-category" class="w-full px-4 py-2 border border-neutral-300 rounded-lg text-sm bg-white">
+              <option value="arrest">Arrest</option>
+              <option value="seizure">Seizure</option>
+              <option value="law_change">Law Change</option>
+              <option value="statistics">Statistics</option>
+              <option value="prevention_tip">Prevention Tip</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-neutral-700 mb-1">Author</label>
+            <input type="text" id="edit-author" class="w-full px-4 py-2 border border-neutral-300 rounded-lg text-sm" />
+          </div>
+        </div>
+        
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-neutral-700 mb-1">Source Name</label>
+            <input type="text" id="edit-source-name" class="w-full px-4 py-2 border border-neutral-300 rounded-lg text-sm" placeholder="e.g., BBC News" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-neutral-700 mb-1">Source URL</label>
+            <input type="url" id="edit-source-url" class="w-full px-4 py-2 border border-neutral-300 rounded-lg text-sm" placeholder="https://..." />
+          </div>
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium text-neutral-700 mb-1">Content (Markdown)</label>
+          <textarea id="edit-content" rows="8" class="w-full px-4 py-2 border border-neutral-300 rounded-lg text-sm font-mono" required></textarea>
+        </div>
+        
+        <div class="flex items-center gap-2">
+          <input type="checkbox" id="edit-published" class="w-4 h-4 text-primary border-neutral-300 rounded" />
+          <label for="edit-published" class="text-sm font-medium text-neutral-700">Published</label>
+        </div>
+        
+        <div class="flex gap-3 pt-4 border-t border-neutral-200">
+          <button type="submit" class="flex-1 px-4 py-2.5 bg-primary text-white rounded-lg font-medium text-sm hover:bg-primary/90 transition-colors">
+            Save Changes
+          </button>
+          <button type="button" id="cancel-edit" class="px-4 py-2.5 bg-neutral-100 text-neutral-700 rounded-lg font-medium text-sm hover:bg-neutral-200 transition-colors">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Delete Confirmation Modal -->
+  <div id="delete-modal" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6">
+      <div class="text-center">
+        <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+          </svg>
+        </div>
+        <h3 class="text-lg font-bold text-neutral-900 mb-2">Delete Article</h3>
+        <p class="text-neutral-600 text-sm mb-6">Are you sure you want to delete "<span id="delete-title" class="font-medium"></span>"? This action cannot be undone.</p>
+        <input type="hidden" id="delete-id" />
+        <div class="flex gap-3">
+          <button id="cancel-delete" class="flex-1 px-4 py-2.5 bg-neutral-100 text-neutral-700 rounded-lg font-medium text-sm hover:bg-neutral-200 transition-colors">
+            Cancel
+          </button>
+          <button id="confirm-delete" class="flex-1 px-4 py-2.5 bg-red-600 text-white rounded-lg font-medium text-sm hover:bg-red-700 transition-colors">
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</AdminLayout>
+
+<script>
+  const CONVEX_URL = import.meta.env.PUBLIC_CONVEX_URL || '';
+
+  interface NewsPost {
+    _id: string;
+    _creationTime: number;
+    title: string;
+    slug: string;
+    excerpt: string;
+    content: string;
+    authorName: string;
+    category: string;
+    sourceUrl?: string;
+    sourceName?: string;
+    published: boolean;
+    publishedAt?: number;
+    updatedAt: number;
+  }
+
+  let allPosts: NewsPost[] = [];
+
+  async function convexQuery(path: string, args: Record<string, unknown> = {}) {
+    const res = await fetch(`${CONVEX_URL}/api/query`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ path, args }),
+    });
+    return (await res.json()).value;
+  }
+
+  async function convexMutation(path: string, args: Record<string, unknown> = {}) {
+    const res = await fetch(`${CONVEX_URL}/api/mutation`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ path, args }),
+    });
+    return (await res.json()).value;
+  }
+
+  function formatDate(timestamp: number): string {
+    return new Date(timestamp).toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric'
+    });
+  }
+
+  const categoryColors: Record<string, string> = {
+    arrest: 'bg-red-100 text-red-700',
+    seizure: 'bg-blue-100 text-blue-700',
+    law_change: 'bg-teal-100 text-teal-700',
+    statistics: 'bg-green-100 text-green-700',
+    prevention_tip: 'bg-yellow-100 text-yellow-700',
+    other: 'bg-neutral-100 text-neutral-700',
+  };
+
+  function renderArticles(posts: NewsPost[]) {
+    const tbody = document.getElementById('articles-table')!;
+    
+    if (posts.length === 0) {
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="6" class="text-center py-12 text-neutral-500">
+            <svg class="w-12 h-12 mx-auto mb-3 text-neutral-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/>
+            </svg>
+            <p class="font-medium">No articles found</p>
+            <p class="text-sm">Try adjusting your filters or add a new article.</p>
+          </td>
+        </tr>
+      `;
+      return;
+    }
+
+    tbody.innerHTML = posts.map(post => `
+      <tr class="border-b border-neutral-100 hover:bg-neutral-50 transition-colors" data-id="${post._id}">
+        <td class="px-4 py-4">
+          <div class="max-w-xs lg:max-w-md">
+            <a href="/news/${post.slug}" target="_blank" class="font-medium text-neutral-900 hover:text-primary transition-colors line-clamp-1">
+              ${post.title}
+            </a>
+            <p class="text-xs text-neutral-500 mt-1 line-clamp-1">${post.excerpt}</p>
+          </div>
+        </td>
+        <td class="px-4 py-4 hidden md:table-cell">
+          <span class="px-2 py-1 rounded-full text-xs font-medium ${categoryColors[post.category] || categoryColors.other}">
+            ${post.category.replace('_', ' ')}
+          </span>
+        </td>
+        <td class="px-4 py-4 hidden lg:table-cell">
+          ${post.sourceName ? `
+            <a href="${post.sourceUrl || '#'}" target="_blank" class="text-sm text-neutral-600 hover:text-primary transition-colors">
+              ${post.sourceName}
+            </a>
+          ` : '<span class="text-neutral-400 text-sm">-</span>'}
+        </td>
+        <td class="px-4 py-4">
+          <button 
+            class="toggle-status px-2 py-1 rounded-full text-xs font-medium transition-colors ${post.published ? 'bg-green-100 text-green-700 hover:bg-green-200' : 'bg-yellow-100 text-yellow-700 hover:bg-yellow-200'}"
+            data-id="${post._id}"
+            data-published="${post.published}"
+          >
+            ${post.published ? 'Published' : 'Draft'}
+          </button>
+        </td>
+        <td class="px-4 py-4 hidden sm:table-cell">
+          <span class="text-sm text-neutral-600">${formatDate(post.publishedAt || post._creationTime)}</span>
+        </td>
+        <td class="px-4 py-4 text-right">
+          <div class="flex items-center justify-end gap-1">
+            <button class="edit-btn p-2 hover:bg-neutral-100 rounded-lg transition-colors" data-id="${post._id}" title="Edit">
+              <svg class="w-4 h-4 text-neutral-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+              </svg>
+            </button>
+            <button class="delete-btn p-2 hover:bg-red-50 rounded-lg transition-colors" data-id="${post._id}" data-title="${post.title}" title="Delete">
+              <svg class="w-4 h-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+              </svg>
+            </button>
+          </div>
+        </td>
+      </tr>
+    `).join('');
+
+    // Attach event listeners
+    attachEventListeners();
+  }
+
+  function updateStats(posts: NewsPost[]) {
+    const published = posts.filter(p => p.published).length;
+    const draft = posts.filter(p => !p.published).length;
+    const sources = new Set(posts.map(p => p.sourceName).filter(Boolean)).size;
+
+    document.getElementById('stat-total')!.textContent = posts.length.toString();
+    document.getElementById('stat-published')!.textContent = published.toString();
+    document.getElementById('stat-draft')!.textContent = draft.toString();
+    document.getElementById('stat-sources')!.textContent = sources.toString();
+  }
+
+  function filterPosts() {
+    const search = (document.getElementById('search-input') as HTMLInputElement).value.toLowerCase();
+    const status = (document.getElementById('status-filter') as HTMLSelectElement).value;
+    const category = (document.getElementById('category-filter') as HTMLSelectElement).value;
+
+    let filtered = allPosts;
+
+    if (search) {
+      filtered = filtered.filter(p => 
+        p.title.toLowerCase().includes(search) || 
+        p.excerpt.toLowerCase().includes(search) ||
+        (p.sourceName?.toLowerCase().includes(search))
+      );
+    }
+
+    if (status !== 'all') {
+      filtered = filtered.filter(p => status === 'published' ? p.published : !p.published);
+    }
+
+    if (category !== 'all') {
+      filtered = filtered.filter(p => p.category === category);
+    }
+
+    renderArticles(filtered);
+  }
+
+  async function loadPosts() {
+    try {
+      allPosts = await convexQuery('newsPosts:list', { publishedOnly: false }) || [];
+      updateStats(allPosts);
+      filterPosts();
+    } catch (err) {
+      console.error('Failed to load posts:', err);
+      document.getElementById('articles-table')!.innerHTML = `
+        <tr>
+          <td colspan="6" class="text-center py-12 text-red-500">
+            Failed to load articles. Please refresh the page.
+          </td>
+        </tr>
+      `;
+    }
+  }
+
+  function attachEventListeners() {
+    // Toggle status buttons
+    document.querySelectorAll('.toggle-status').forEach(btn => {
+      btn.addEventListener('click', async (e) => {
+        const target = e.currentTarget as HTMLButtonElement;
+        const id = target.dataset.id!;
+        const currentlyPublished = target.dataset.published === 'true';
+        
+        try {
+          await convexMutation('newsPosts:update', { 
+            id, 
+            published: !currentlyPublished 
+          });
+          await loadPosts();
+        } catch (err) {
+          console.error('Failed to update status:', err);
+          alert('Failed to update article status');
+        }
+      });
+    });
+
+    // Edit buttons
+    document.querySelectorAll('.edit-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const target = e.currentTarget as HTMLButtonElement;
+        const id = target.dataset.id!;
+        const post = allPosts.find(p => p._id === id);
+        if (post) openEditModal(post);
+      });
+    });
+
+    // Delete buttons
+    document.querySelectorAll('.delete-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const target = e.currentTarget as HTMLButtonElement;
+        const id = target.dataset.id!;
+        const title = target.dataset.title!;
+        openDeleteModal(id, title);
+      });
+    });
+  }
+
+  // Edit Modal
+  function openEditModal(post: NewsPost) {
+    (document.getElementById('edit-id') as HTMLInputElement).value = post._id;
+    (document.getElementById('edit-title') as HTMLInputElement).value = post.title;
+    (document.getElementById('edit-slug') as HTMLInputElement).value = post.slug;
+    (document.getElementById('edit-excerpt') as HTMLTextAreaElement).value = post.excerpt;
+    (document.getElementById('edit-content') as HTMLTextAreaElement).value = post.content;
+    (document.getElementById('edit-category') as HTMLSelectElement).value = post.category;
+    (document.getElementById('edit-author') as HTMLInputElement).value = post.authorName;
+    (document.getElementById('edit-source-name') as HTMLInputElement).value = post.sourceName || '';
+    (document.getElementById('edit-source-url') as HTMLInputElement).value = post.sourceUrl || '';
+    (document.getElementById('edit-published') as HTMLInputElement).checked = post.published;
+    
+    const modal = document.getElementById('edit-modal')!;
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  }
+
+  function closeEditModal() {
+    const modal = document.getElementById('edit-modal')!;
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+  }
+
+  document.getElementById('close-modal')?.addEventListener('click', closeEditModal);
+  document.getElementById('cancel-edit')?.addEventListener('click', closeEditModal);
+
+  document.getElementById('edit-form')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const id = (document.getElementById('edit-id') as HTMLInputElement).value;
+    const updates = {
+      id,
+      title: (document.getElementById('edit-title') as HTMLInputElement).value,
+      slug: (document.getElementById('edit-slug') as HTMLInputElement).value,
+      excerpt: (document.getElementById('edit-excerpt') as HTMLTextAreaElement).value,
+      content: (document.getElementById('edit-content') as HTMLTextAreaElement).value,
+      category: (document.getElementById('edit-category') as HTMLSelectElement).value,
+      authorName: (document.getElementById('edit-author') as HTMLInputElement).value,
+      sourceName: (document.getElementById('edit-source-name') as HTMLInputElement).value || undefined,
+      sourceUrl: (document.getElementById('edit-source-url') as HTMLInputElement).value || undefined,
+      published: (document.getElementById('edit-published') as HTMLInputElement).checked,
+    };
+
+    try {
+      await convexMutation('newsPosts:update', updates);
+      closeEditModal();
+      await loadPosts();
+    } catch (err) {
+      console.error('Failed to update article:', err);
+      alert('Failed to update article');
+    }
+  });
+
+  // Delete Modal
+  function openDeleteModal(id: string, title: string) {
+    (document.getElementById('delete-id') as HTMLInputElement).value = id;
+    document.getElementById('delete-title')!.textContent = title;
+    
+    const modal = document.getElementById('delete-modal')!;
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  }
+
+  function closeDeleteModal() {
+    const modal = document.getElementById('delete-modal')!;
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+  }
+
+  document.getElementById('cancel-delete')?.addEventListener('click', closeDeleteModal);
+
+  document.getElementById('confirm-delete')?.addEventListener('click', async () => {
+    const id = (document.getElementById('delete-id') as HTMLInputElement).value;
+    
+    try {
+      await convexMutation('newsPosts:remove', { id });
+      closeDeleteModal();
+      await loadPosts();
+    } catch (err) {
+      console.error('Failed to delete article:', err);
+      alert('Failed to delete article');
+    }
+  });
+
+  // Filter listeners
+  document.getElementById('search-input')?.addEventListener('input', filterPosts);
+  document.getElementById('status-filter')?.addEventListener('change', filterPosts);
+  document.getElementById('category-filter')?.addEventListener('change', filterPosts);
+
+  // Close modals on escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeEditModal();
+      closeDeleteModal();
+    }
+  });
+
+  // Close modals on backdrop click
+  document.getElementById('edit-modal')?.addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) closeEditModal();
+  });
+  document.getElementById('delete-modal')?.addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) closeDeleteModal();
+  });
+
+  // Initial load
+  loadPosts();
+</script>

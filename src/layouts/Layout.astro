@@ -6,7 +6,7 @@ interface Props {
   description?: string;
   canonicalPath?: string;
   ogImage?: string;
-  schema?: object;
+  schema?: object | object[];
 }
 
 const siteUrl = "https://protectmymobile.xyz";
@@ -49,7 +49,8 @@ const websiteSchema = {
   }
 };
 
-const schemas = [defaultSchema, websiteSchema, ...(schema ? [schema] : [])];
+const additionalSchemas = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
+const schemas = [defaultSchema, websiteSchema, ...additionalSchemas];
 ---
 
 <!DOCTYPE html>
@@ -78,10 +79,12 @@ const schemas = [defaultSchema, websiteSchema, ...(schema ? [schema] : [])];
     
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@protectmymobile" />
     <meta name="twitter:url" content={canonicalUrl} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
+    <meta name="twitter:image:alt" content={title} />
     
     <!-- Canonical URL -->
     <link rel="canonical" href={canonicalUrl} />
