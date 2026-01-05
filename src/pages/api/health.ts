@@ -17,11 +17,7 @@ export const GET: APIRoute = async () => {
   }
 
   try {
-    const lastFetch = await convex.query(api.systemLogs.getLastNewsFetch);
-    const recentErrors = await convex.query(api.systemLogs.getRecentErrors, {
-      limit: 5,
-    });
-
+    // Just check if we can connect to Convex and get news posts
     const newsPosts = await convex.query(api.newsPosts.list, {
       publishedOnly: true,
     });
@@ -31,17 +27,8 @@ export const GET: APIRoute = async () => {
         status: "healthy",
         timestamp: new Date().toISOString(),
         newsScraper: {
-          lastFetch: lastFetch
-            ? new Date(lastFetch.timestamp).toISOString()
-            : null,
-          lastFetchMessage: lastFetch?.message,
           totalPublishedPosts: newsPosts?.length || 0,
         },
-        recentErrors: recentErrors.map((err) => ({
-          level: err.level,
-          message: err.message,
-          timestamp: new Date(err.timestamp).toISOString(),
-        })),
       }),
       { status: 200 },
     );

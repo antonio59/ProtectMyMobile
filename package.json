@@ -13,7 +13,7 @@
     "convex": "bunx convex",
     "convex:dev": "bunx convex dev",
     "convex:deploy": "bunx convex deploy",
-    "convex:deploy:prod": "bunx convex deploy --prod",
+    "convex:deploy:prod": "bunx convex deploy",
     "migrate": "bun run scripts/migrate-supabase-to-convex.ts",
     "reddit:stats": "bun run scripts/reddit-bot.ts --type=stats",
     "reddit:tip": "bun run scripts/reddit-bot.ts --type=tip",
@@ -22,6 +22,7 @@
     "health:check": "bun run scripts/health-check.ts"
   },
   "dependencies": {
+    "convex": "^1.30.0",
     "@astrojs/netlify": "^6.0.0",
     "@astrojs/react": "^4.4.2",
     "@astrojs/rss": "^4.0.14",
