@@ -6,24 +6,12 @@ import { requireApiKey } from "../../../lib/security";
 const convexUrl = import.meta.env.PUBLIC_CONVEX_URL;
 const convex = convexUrl ? new ConvexHttpClient(convexUrl) : null;
 
-async function logMessage(
+function logMessage(
   level: "info" | "warning" | "error",
   message: string,
   details?: string,
 ) {
-  console.error(`[WDTKScraper][${level.toUpperCase()}]`, message, details);
-  if (convex) {
-    try {
-      await convex.mutation(api.systemLogs.create, {
-        level,
-        source: "wdtk_scraper",
-        message,
-        details,
-      });
-    } catch (e) {
-      console.error("Failed to log to Convex:", e);
-    }
-  }
+  console.log(`[WDTKScraper][${level.toUpperCase()}]`, message, details || "");
 }
 
 // Search queries to find mobile theft FOI data
@@ -118,7 +106,7 @@ async function fetchWDTKSearchPage(
       return true;
     });
   } catch (err: any) {
-    await logMessage("error", `Failed to fetch ${url}`, err.message);
+    logMessage("error", `Failed to fetch ${url}`, err.message);
     return [];
   }
 }
@@ -192,10 +180,7 @@ export const GET: APIRoute = async ({ url, request }) => {
 
   const maxPages = parseInt(url.searchParams.get("pages") || "5");
 
-  await logMessage(
-    "info",
-    `Starting WDTK scrape with ${maxPages} pages per query`,
-  );
+  logMessage("info", `Starting WDTK scrape with ${maxPages} pages per query`);
 
   try {
     const allRequests: WDTKRequest[] = [];
@@ -256,7 +241,7 @@ export const GET: APIRoute = async ({ url, request }) => {
         saved.push({ title: req.title, policeForce, status: req.status });
       } catch (err: any) {
         failed.push(req.title);
-        await logMessage(
+        logMessage(
           "error",
           `Failed to save WDTK entry: ${req.title}`,
           err.message,
@@ -264,7 +249,7 @@ export const GET: APIRoute = async ({ url, request }) => {
       }
     }
 
-    await logMessage(
+    logMessage(
       "info",
       `WDTK scrape completed`,
       `Found: ${uniqueRequests.length}, Relevant: ${relevantRequests.length}, Saved: ${saved.length}, Skipped: ${skipped.length}, Failed: ${failed.length}`,
@@ -284,7 +269,7 @@ export const GET: APIRoute = async ({ url, request }) => {
       { status: 200 },
     );
   } catch (error: any) {
-    await logMessage("error", "WDTK scrape failed", error.message);
+    logMessage("error", "WDTK scrape failed", error.message);
     return new Response(JSON.stringify({ error: error.message }), {
       status: 500,
     });

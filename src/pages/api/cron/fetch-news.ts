@@ -90,7 +90,7 @@ async function fetchWithRetry(
 
       const delay = initialDelay * Math.pow(2, attempt - 1);
       await new Promise((resolve) => setTimeout(resolve, delay));
-    } catch (error: any) {
+    } catch (error) {
       if (attempt === maxRetries) throw error;
       const delay = initialDelay * Math.pow(2, attempt - 1);
       await new Promise((resolve) => setTimeout(resolve, delay));
@@ -173,24 +173,12 @@ function categorizeArticle(
   return "other";
 }
 
-async function logMessage(
+function logMessage(
   level: "info" | "warning" | "error",
   message: string,
   details?: string,
 ) {
-  console.error(`[NewsFetch][${level.toUpperCase()}]`, message, details);
-  if (convex) {
-    try {
-      await convex.mutation(api.systemLogs.create, {
-        level,
-        source: "news_scraper",
-        message,
-        details,
-      });
-    } catch (e) {
-      console.error("Failed to log to Convex:", e);
-    }
-  }
+  console.log(`[NewsFetch][${level.toUpperCase()}]`, message, details || "");
 }
 
 export const GET: APIRoute = async ({ request }) => {
@@ -224,7 +212,7 @@ export const GET: APIRoute = async ({ request }) => {
 
     for (const source of NEWS_SOURCES) {
       try {
-        await logMessage("info", `Fetching from ${source.name}`);
+        logMessage("info", `Fetching from ${source.name}`);
 
         const response = await fetchWithRetry(source.url);
         const xml = await response.text();
@@ -233,7 +221,7 @@ export const GET: APIRoute = async ({ request }) => {
         if (feed.items) {
           allItems.push(...feed.items);
           sourcesFetched.push(source.name);
-          await logMessage(
+          logMessage(
             "info",
             `Successfully fetched ${feed.items.length} items from ${source.name}`,
           );
@@ -242,16 +230,12 @@ export const GET: APIRoute = async ({ request }) => {
         await new Promise((resolve) => setTimeout(resolve, 3000));
       } catch (err: any) {
         sourcesFailed.push({ name: source.name, error: err.message });
-        await logMessage(
-          "error",
-          `Failed to fetch from ${source.name}`,
-          err.message,
-        );
+        logMessage("error", `Failed to fetch from ${source.name}`, err.message);
       }
     }
 
     if (allItems.length === 0) {
-      await logMessage("warning", "No articles found from any source");
+      logMessage("warning", "No articles found from any source");
       return new Response(
         JSON.stringify({
           success: true,
@@ -273,19 +257,13 @@ export const GET: APIRoute = async ({ request }) => {
       if (item.guid && seenGuids.has(item.guid)) continue;
       if (existingUrls.has(item.link)) continue;
 
-      const text = (
-        item.title +
-        " " +
-        (item.contentSnippet || "")
-      ).toLowerCase();
-
       if (!isArticleRelevant(item.title, item.contentSnippet || "")) continue;
 
       if (item.guid) seenGuids.add(item.guid);
       newArticles.push(item);
     }
 
-    await logMessage(
+    logMessage(
       "info",
       `Filtered ${allItems.length} items to ${newArticles.length} relevant articles`,
     );
@@ -328,7 +306,7 @@ export const GET: APIRoute = async ({ request }) => {
           });
         }
       } catch (err: any) {
-        await logMessage(
+        logMessage(
           "error",
           `Failed to create post: ${article.title}`,
           err.message,
@@ -375,7 +353,7 @@ export const GET: APIRoute = async ({ request }) => {
             `,
           });
         } catch (emailErr: any) {
-          await logMessage(
+          logMessage(
             "error",
             "Failed to send email notification",
             emailErr instanceof Error ? emailErr.message : String(emailErr),
@@ -384,7 +362,7 @@ export const GET: APIRoute = async ({ request }) => {
       }
     }
 
-    await logMessage(
+    logMessage(
       "info",
       `News fetch completed successfully`,
       `Total: ${allItems.length}, New: ${newArticles.length}, Created: ${createdPosts.length}, Sources: ${sourcesFetched.join(", ")}`,
@@ -404,7 +382,7 @@ export const GET: APIRoute = async ({ request }) => {
 
     return new Response(JSON.stringify(result), { status: 200 });
   } catch (error: any) {
-    await logMessage("error", "News fetch failed", error.message);
+    logMessage("error", "News fetch failed", error.message);
     return new Response(
       JSON.stringify({ success: false, error: error.message }),
       { status: 500 },

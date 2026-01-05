@@ -231,22 +231,6 @@ export default defineSchema({
     ipHash: v.optional(v.string()),
   }).index("by_path", ["path"]),
 
-  // System Logs for monitoring
-  systemLogs: defineTable({
-    level: v.union(v.literal("info"), v.literal("warning"), v.literal("error")),
-    source: v.union(
-      v.literal("news_scraper"),
-      v.literal("wdtk_scraper"),
-      v.literal("system"),
-    ),
-    message: v.string(),
-    details: v.optional(v.string()),
-    timestamp: v.number(),
-  })
-    .index("by_timestamp", ["timestamp"])
-    .index("by_level", ["level"])
-    .index("by_source", ["source"]),
-
   // Banks
   banks: defineTable({
     name: v.string(),
