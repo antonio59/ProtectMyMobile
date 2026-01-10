@@ -112,11 +112,12 @@ function formatDate(dateValue: string | number) {
       ) : (
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-6" id="news-grid">
           {posts.map((post: any) => (
-            <article
-              class="news-card bg-white rounded-xl sm:rounded-2xl shadow-md overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col border border-neutral-100"
+            <a
+              href={`/news/${post.slug}`}
+              class="news-card bg-white rounded-xl sm:rounded-2xl shadow-md overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col border border-neutral-100 group"
               data-category={post.category}
             >
-              <div class="p-4 sm:p-5 lg:p-6 flex flex-col min-h-[220px] sm:min-h-[260px] lg:min-h-[280px]">
+              <div class="p-4 sm:p-5 lg:p-6 flex flex-col h-full">
                 <div class="flex items-center justify-between gap-2 mb-2 sm:mb-3">
                   <span class={`text-[10px] sm:text-xs px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full font-medium whitespace-nowrap ${categoryColors[post.category] || categoryColors.other}`}>
                     {post.category.replace('_', ' ')}
@@ -127,31 +128,29 @@ function formatDate(dateValue: string | number) {
                   </span>
                 </div>
 
-                <h2 class="text-sm sm:text-base lg:text-lg font-bold mb-1.5 sm:mb-2 leading-snug text-neutral-900 line-clamp-2 sm:line-clamp-3">
-                  <a href={`/news/${post.slug}`} class="hover:text-primary transition-colors">
-                    {post.title}
-                  </a>
+                <h2 class="text-sm sm:text-base lg:text-lg font-bold mb-2 sm:mb-3 leading-snug text-neutral-900 group-hover:text-primary transition-colors">
+                  {post.title}
                 </h2>
 
-                <p class="text-neutral-600 text-xs sm:text-sm lg:text-base leading-relaxed line-clamp-2 sm:line-clamp-3 flex-grow">
+                <p class="text-neutral-600 text-xs sm:text-sm leading-relaxed mb-3 sm:mb-4 flex-grow">
                   {post.excerpt}
                 </p>
 
                 <div class="pt-2 sm:pt-3 border-t border-neutral-100 mt-auto flex items-center justify-between">
                   {post.sourceName ? (
-                    <span class="text-[10px] sm:text-xs text-neutral-400 truncate max-w-[100px] sm:max-w-[120px]" title={post.sourceName}>
+                    <span class="text-[10px] sm:text-xs text-neutral-400">
                       {post.sourceName}
                     </span>
                   ) : (
                     <span></span>
                   )}
-                  <a href={`/news/${post.slug}`} class="inline-flex items-center gap-1 text-primary font-semibold text-xs sm:text-sm group whitespace-nowrap">
+                  <span class="inline-flex items-center gap-1 text-primary font-semibold text-xs sm:text-sm whitespace-nowrap">
                     Read more
                     <ArrowRight class="h-3 w-3 sm:h-4 sm:w-4 group-hover:translate-x-1 transition-transform" />
-                  </a>
+                  </span>
                 </div>
               </div>
-            </article>
+            </a>
           ))}
         </div>
       )}

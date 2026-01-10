@@ -49,7 +49,7 @@ if (!post) {
 
 // Convert markdown to HTML
 const rawHtml = await marked.parse(post.content || '');
-const contentHtml = sanitizeHtml(rawHtml as string, {
+let sanitizedHtml = sanitizeHtml(rawHtml as string, {
   allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'h1', 'h2', 'h3']),
   allowedAttributes: {
     ...sanitizeHtml.defaults.allowedAttributes,
@@ -60,6 +60,21 @@ const contentHtml = sanitizeHtml(rawHtml as string, {
     a: sanitizeHtml.simpleTransform('a', { rel: 'noopener noreferrer' }),
   },
 });
+
+// Remove duplicate title - if content starts with an h1 that matches the post title, strip it
+const contentHtml = sanitizedHtml.replace(
+  /^<h1[^>]*>.*?<\/h1>\s*/i,
+  (match) => {
+    // Only remove if the h1 content is similar to the post title (fuzzy match)
+    const h1Text = match.replace(/<[^>]+>/g, '').trim().toLowerCase();
+    const titleText = post.title.toLowerCase().trim();
+    // Remove if h1 is identical or very similar (starts with same words)
+    if (h1Text === titleText || titleText.startsWith(h1Text) || h1Text.startsWith(titleText)) {
+      return '';
+    }
+    return match;
+  }
+);
 
 const categoryColors: Record<string, string> = {
   arrest: 'bg-red-100 text-red-800',
