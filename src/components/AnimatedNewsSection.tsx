@@ -51,59 +51,59 @@ function formatDate(dateValue: string | number) {
 
 export default function AnimatedNewsSection({ news }: Props) {
   return (
-    <section className="mb-12">
+    <section className="mb-8 sm:mb-12">
       <motion.div
-        className="flex items-center justify-between mb-6"
+        className="flex items-center justify-between mb-4 sm:mb-6 lg:mb-8 gap-2"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
       >
-        <h2 className="text-2xl md:text-3xl font-bold text-neutral-900">
+        <h2 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-bold text-neutral-900">
           Latest Mobile Security News
         </h2>
         <motion.a
           href="/news"
-          className="text-primary hover:text-primary/80 font-medium flex items-center gap-1 text-sm md:text-base"
+          className="text-primary hover:text-primary/80 font-medium flex items-center gap-1 sm:gap-2 text-xs sm:text-sm md:text-base lg:text-lg whitespace-nowrap"
           whileHover={{ x: 4 }}
         >
-          View All <ArrowRight className="h-4 w-4" />
+          View All <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 lg:h-5 lg:w-5" />
         </motion.a>
       </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6 lg:gap-8">
         {news.length > 0 ? (
           news.map((post, index) => (
             <motion.a
               key={post._id}
               href={`/news/${post.slug}`}
-              className={`group bg-white rounded-2xl shadow-md hover:shadow-xl transition-all overflow-hidden border-l-4 flex flex-col h-full ${categoryColors[post.category] || categoryColors.other}`}
+              className={`group bg-white rounded-xl sm:rounded-2xl shadow-md hover:shadow-xl transition-all overflow-hidden border-l-4 flex flex-col h-full ${categoryColors[post.category] || categoryColors.other}`}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               whileHover={{ y: -4 }}
             >
-              <div className="p-6 flex flex-col h-full">
-                <div className="flex items-center gap-2 mb-3">
+              <div className="p-4 sm:p-6 lg:p-8 flex flex-col h-full">
+                <div className="flex items-center gap-2 mb-2 sm:mb-3">
                   <span
-                    className={`px-2.5 py-1 rounded-full text-xs font-medium ${categoryBadgeColors[post.category] || categoryBadgeColors.other}`}
+                    className={`px-2 sm:px-2.5 lg:px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs lg:text-sm font-medium ${categoryBadgeColors[post.category] || categoryBadgeColors.other}`}
                   >
                     {post.category.replace("_", " ")}
                   </span>
-                  <span className="text-xs text-neutral-500">
+                  <span className="text-[10px] sm:text-xs lg:text-sm text-neutral-500">
                     {formatDate(post.publishedAt || post._creationTime)}
                   </span>
                 </div>
-                <h3 className="text-base font-semibold mb-2 group-hover:text-primary transition-colors line-clamp-3 leading-snug">
+                <h3 className="text-sm sm:text-base lg:text-lg font-semibold mb-1.5 sm:mb-2 lg:mb-3 group-hover:text-primary transition-colors line-clamp-2 sm:line-clamp-3 leading-snug">
                   {post.title}
                 </h3>
-                <p className="text-neutral-600 text-sm line-clamp-2 leading-relaxed mb-4 flex-grow">
+                <p className="text-neutral-600 text-xs sm:text-sm lg:text-base line-clamp-2 lg:line-clamp-3 leading-relaxed mb-3 sm:mb-4 flex-grow">
                   {post.excerpt}
                 </p>
-                <div className="flex items-center text-primary font-medium text-sm mt-auto group-hover:gap-2 transition-all">
+                <div className="flex items-center text-primary font-medium text-xs sm:text-sm lg:text-base mt-auto group-hover:gap-2 transition-all">
                   Read article
-                  <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 ml-1 group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>
             </motion.a>

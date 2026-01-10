@@ -1,0 +1,560 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HeaderMobile from '../components/HeaderMobile';
+import Footer from '../components/Footer.astro';
+import { MapPin, AlertTriangle, Shield, TrendingUp, ArrowRight, Phone, Building2, Train, Navigation, CheckCircle2 } from 'lucide-react';
+
+export const prerender = true;
+
+export function getStaticPaths() {
+  const locations = [
+    {
+      slug: 'london',
+      name: 'London',
+      fullName: 'Greater London',
+      thefts: 116656,
+      year: 2024,
+      change: '+50% since 2017',
+      rank: 1,
+      hotspots: [
+        { area: 'Westminster', description: 'Oxford Street, Piccadilly, Soho, Leicester Square', risk: 'Very High' },
+        { area: 'Camden', description: 'Camden Market, High Street, nightlife districts', risk: 'Very High' },
+        { area: 'Tower Hamlets', description: 'Shoreditch, Brick Lane, Spitalfields Market', risk: 'High' },
+        { area: 'Hackney', description: 'Dalston, nightlife venues, busy cafes', risk: 'High' },
+        { area: 'Southwark', description: 'Borough Market, London Bridge, South Bank', risk: 'High' }
+      ],
+      transport: {
+        type: 'Tube & Rail',
+        icon: 'Train',
+        risks: [
+          'Phones snatched at open train doors (before closing)',
+          'Grab-and-run on escalators and platforms',
+          'Crowded carriages during rush hour'
+        ],
+        tips: [
+          'Keep phone away from doors when stationary',
+          'Use cross-body straps on platforms',
+          'Stay alert at Oxford Circus, King\'s Cross, Liverpool Street stations'
+        ]
+      },
+      policeForce: 'Metropolitan Police',
+      policePhone: '101',
+      emergencyPhone: '999',
+      reportingUrl: 'https://www.met.police.uk/ro/report/theft/',
+      description: 'London has the highest phone theft rate in the UK with over 116,000 thefts in 2024. Westminster alone accounts for 34,000+ incidents.',
+      residents: true
+    },
+    {
+      slug: 'westminster',
+      name: 'Westminster',
+      fullName: 'City of Westminster, London',
+      thefts: 34000,
+      year: 2024,
+      change: '+60% since 2023',
+      rank: 1,
+      hotspots: [
+        { area: 'Oxford Street', description: 'Shopping district, heavy foot traffic', risk: 'Extreme' },
+        { area: 'Piccadilly Circus', description: 'Tourist hub, busy intersections', risk: 'Extreme' },
+        { area: 'Leicester Square', description: 'Theatres, restaurants, crowds', risk: 'Very High' },
+        { area: 'Soho', description: 'Nightlife, bars, restaurants', risk: 'Very High' },
+        { area: 'Covent Garden', description: 'Market, performers, tourists', risk: 'Very High' }
+      ],
+      transport: {
+        type: 'Tube & Bus',
+        icon: 'Train',
+        risks: [
+          'Very high risk at Oxford Circus, Piccadilly Circus, Leicester Square stations',
+          'Bus stops on Oxford Street and Regent Street',
+          'Kerbside snatch thefts along busy shopping streets'
+        ],
+        tips: [
+          'Never use phone near kerbs on Oxford Street or Regent Street',
+          'Keep devices secure inside shops and cafes',
+          'Extra vigilant at Tube exits in peak shopping hours'
+        ]
+      },
+      policeForce: 'Metropolitan Police (Westminster)',
+      policePhone: '101',
+      emergencyPhone: '999',
+      reportingUrl: 'https://www.met.police.uk/ro/report/theft/',
+      description: 'Westminster is the UK\'s phone theft hotspot with 34,000+ incidents in 2024. The West End shopping and entertainment district sees extreme theft activity.',
+      residents: false
+    },
+    {
+      slug: 'camden',
+      name: 'Camden',
+      fullName: 'London Borough of Camden',
+      thefts: 8500,
+      year: 2024,
+      change: '+45% since 2023',
+      rank: 2,
+      hotspots: [
+        { area: 'Camden Market', description: 'Markets, street vendors, heavy crowds', risk: 'Very High' },
+        { area: 'Camden High Street', description: 'Shopping, restaurants, transport hub', risk: 'Very High' },
+        { area: 'King\'s Cross', description: 'Major railway station, commuter hub', risk: 'High' },
+        { area: 'Kentish Town', description: 'High street, nightlife, pubs', risk: 'Medium' },
+        { area: 'Chalk Farm', description: 'Near markets, entertainment venues', risk: 'Medium' }
+      ],
+      transport: {
+        type: 'Tube & Overground',
+        icon: 'Train',
+        risks: [
+          'Camden Town Tube station extremely busy on weekends',
+          'King\'s Cross St Pancras major theft hotspot',
+          'Chalk Farm and Kentish Town stations during evening hours'
+        ],
+        tips: [
+          'Avoid using phone on Camden High Street near kerbs',
+          'Extra vigilant at Camden Market and surrounding streets',
+          'Keep phones secure at King\'s Cross - both tube and mainline'
+        ]
+      },
+      policeForce: 'Metropolitan Police (Camden)',
+      policePhone: '101',
+      emergencyPhone: '999',
+      reportingUrl: 'https://www.met.police.uk/ro/report/theft/',
+      description: 'Camden is London\'s 2nd highest risk area with 8,500+ phone thefts in 2024. Camden Market and the surrounding high street are major hotspots.',
+      residents: true
+    },
+    {
+      slug: 'manchester',
+      name: 'Manchester',
+      fullName: 'Greater Manchester',
+      thefts: 8500,
+      year: 2023,
+      change: '+31% since 2019',
+      rank: 2,
+      hotspots: [
+        { area: 'City Centre', description: 'Market Street, Arndale, Piccadilly Gardens', risk: 'Very High' },
+        { area: 'Northern Quarter', description: 'Bars, restaurants, nightlife', risk: 'High' },
+        { area: 'Deansgate', description: 'Shopping, dining, entertainment', risk: 'High' },
+        { area: 'Oxford Road', description: 'University area, student population', risk: 'Medium' },
+        { area: 'Spinningfields', description: 'Business district, bars', risk: 'Medium' }
+      ],
+      transport: {
+        type: 'Metrolink & Bus',
+        icon: 'Train',
+        risks: [
+          'Tram platforms at Piccadilly Gardens and Market Street',
+          'Phones grabbed at open tram doors',
+          'Bus stops along Oxford Road and Wilmslow Road'
+        ],
+        tips: [
+          'Keep phones away from tram doors at busy stops',
+          'Stay alert on platforms at Piccadilly and Victoria',
+          'Avoid using phone near kerbs on Market Street and Deansgate'
+        ]
+      },
+      policeForce: 'Greater Manchester Police',
+      policePhone: '101',
+      emergencyPhone: '999',
+      reportingUrl: 'https://www.gmp.police.uk/ro/report/theft/',
+      description: 'Manchester is the UK\'s 2nd highest city for phone theft with 8,500+ incidents. The city centre and tram network are particular risk areas.',
+      residents: true
+    },
+    {
+      slug: 'birmingham',
+      name: 'Birmingham',
+      fullName: 'Birmingham, West Midlands',
+      thefts: 6200,
+      year: 2023,
+      change: '+25% since 2019',
+      rank: 3,
+      hotspots: [
+        { area: 'City Centre', description: 'New Street, Bull Ring, Corporation Street', risk: 'Very High' },
+        { area: 'Broad Street', description: 'Nightlife, bars, restaurants', risk: 'High' },
+        { area: 'Digbeth', description: 'Arts district, markets, nightlife', risk: 'High' },
+        { area: 'Bullring', description: 'Major shopping centre', risk: 'Medium' },
+        { area: 'Brindleyplace', description: 'Bars, restaurants, canal-side', risk: 'Medium' }
+      ],
+      transport: {
+        type: 'Metro & Rail',
+        icon: 'Train',
+        risks: [
+          'Birmingham New Street station - major theft hotspot',
+          'Metro tram stops along Bull Street and Corporation Street',
+          'Bus stops at busy shopping and nightlife areas'
+        ],
+        tips: [
+          'Extra vigilant at New Street station concourse and platforms',
+          'Keep phone secure at Bullring and Grand Central',
+          'Avoid using phone on Broad Street during evening/night hours'
+        ]
+      },
+      policeForce: 'West Midlands Police',
+      policePhone: '101',
+      emergencyPhone: '999',
+      reportingUrl: 'https://www.west-midlands.police.uk/ro/report/theft/',
+      description: 'Birmingham sees 6,200+ phone thefts annually. New Street station and the city centre shopping district are the highest risk areas.',
+      residents: true
+    }
+  ];
+
+  return locations.map((location) => ({
+    params: { location: location.slug },
+    props: { location }
+  }));
+}
+
+const { location } = Astro.props;
+
+const pageTitle = `Phone Theft in ${location.name} | Prevention & Emergency Guide`;
+const pageDescription = `${location.description} Learn how to protect your phone in ${location.name} and what to do if it's stolen.`;
+
+// Location-specific schema with local data
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": pageTitle,
+    "description": pageDescription,
+    "about": {
+      "@type": "Place",
+      "name": location.fullName,
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": location.name,
+        "addressCountry": "GB"
+      }
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": `How to protect your phone in ${location.name}`,
+    "description": `Practical steps to prevent phone theft in ${location.name} and respond if your device is stolen.`,
+    "step": [
+      {
+        "@type": "HowToStep",
+        "name": "Prevention",
+        "text": `Enable device security features, use phone straps, avoid high-risk areas in ${location.name}, and stay alert in crowded locations.`
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Immediate Response",
+        "text": "If stolen, immediately lock/erase device via Find My, block SIM with carrier, contact bank, and report to police."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Report to Police",
+        "text": `Contact ${location.policeForce} on ${location.policePhone} or online to file a theft report. Keep the reference number for insurance.`
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "GovernmentService",
+    "name": `${location.policeForce} - Report Phone Theft`,
+    "serviceType": "Crime Reporting",
+    "provider": {
+      "@type": "GovernmentOrganization",
+      "name": location.policeForce
+    },
+    "areaServed": {
+      "@type": "Place",
+      "name": location.fullName
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": location.reportingUrl,
+      "servicePhone": location.policePhone
+    }
+  }
+];
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonicalPath={`/${location.slug}`}
+  ogImage="/og-image.png"
+  schema={schema}
+>
+  <HeaderMobile client:load />
+
+  <main class="bg-[#f3f2f1] min-h-screen">
+    <div class="container mx-auto px-4 py-4 sm:py-6 md:py-8 max-w-6xl">
+
+      <!-- Hero Section with Location Stats -->
+      <div class="bg-gradient-to-br from-red-600 to-red-800 text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8 shadow-xl">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="bg-white/20 p-2 sm:p-3 rounded-xl">
+            <MapPin class="h-6 w-6 sm:h-8 sm:w-8" />
+          </div>
+          <div>
+            <p class="text-xs uppercase tracking-wide text-red-100 font-semibold">
+              {location.rank === 1 ? 'Highest Risk Area' : `#${location.rank} UK Hotspot`}
+            </p>
+            <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">
+              Phone Theft in {location.name}
+            </h1>
+          </div>
+        </div>
+        <p class="text-red-100 text-sm md:text-base max-w-3xl mb-6">
+          {location.description}
+        </p>
+
+        <!-- Key Stats -->
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
+          <div class="bg-white/15 backdrop-blur-sm rounded-xl p-3 sm:p-4">
+            <div class="text-2xl sm:text-3xl font-bold">{location.thefts.toLocaleString()}</div>
+            <div class="text-xs sm:text-sm text-red-100 mt-1">Thefts in {location.year}</div>
+          </div>
+          <div class="bg-white/15 backdrop-blur-sm rounded-xl p-3 sm:p-4">
+            <div class="text-2xl sm:text-3xl font-bold">{location.change}</div>
+            <div class="text-xs sm:text-sm text-red-100 mt-1">Trend</div>
+          </div>
+          <div class="bg-white/15 backdrop-blur-sm rounded-xl p-3 sm:p-4 col-span-2 md:col-span-1">
+            <div class="text-2xl sm:text-3xl font-bold">{location.rank === 1 ? '1st' : location.rank === 2 ? '2nd' : '3rd'}</div>
+            <div class="text-xs sm:text-sm text-red-100 mt-1">UK Ranking</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Action Cards -->
+      <section class="mb-6 sm:mb-8 grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
+        <div class="bg-white rounded-lg sm:rounded-2xl shadow-sm border border-neutral-100 p-4 sm:p-5 flex gap-3">
+          <div class="bg-primary/10 text-primary rounded-lg p-2 h-fit">
+            <Shield class="h-5 w-5" />
+          </div>
+          <div>
+            <p class="text-sm font-semibold text-neutral-900">Before it happens</p>
+            <ul class="text-xs sm:text-sm text-neutral-600 list-disc pl-4 space-y-1 mt-1">
+              <li>Enable Find My + biometrics</li>
+              <li>Use cross-body phone straps</li>
+              <li>Know your IMEI number</li>
+            </ul>
+          </div>
+        </div>
+        <div class="bg-white rounded-lg sm:rounded-2xl shadow-sm border border-neutral-100 p-4 sm:p-5 flex gap-3">
+          <div class="bg-amber-50 text-amber-600 rounded-lg p-2 h-fit">
+            <AlertTriangle class="h-5 w-5" />
+          </div>
+          <div>
+            <p class="text-sm font-semibold text-neutral-900">Stay alert</p>
+            <ul class="text-xs sm:text-sm text-neutral-600 list-disc pl-4 space-y-1 mt-1">
+              <li>Avoid kerbside scrolling</li>
+              <li>Stay aware in crowds</li>
+              <li>Keep phone secure on transport</li>
+            </ul>
+          </div>
+        </div>
+        <div class="bg-white rounded-lg sm:rounded-2xl shadow-sm border border-neutral-100 p-4 sm:p-5 flex gap-3">
+          <div class="bg-red-50 text-red-600 rounded-lg p-2 h-fit">
+            <Phone class="h-5 w-5" />
+          </div>
+          <div>
+            <p class="text-sm font-semibold text-neutral-900">If stolen</p>
+            <ul class="text-xs sm:text-sm text-neutral-600 list-disc pl-4 space-y-1 mt-1">
+              <li>Lock/erase immediately</li>
+              <li>Block SIM with carrier</li>
+              <li>Report to {location.policeForce}</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- High-Risk Hotspots -->
+      <section class="mb-6 sm:mb-8 md:mb-10">
+        <div class="bg-white rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-neutral-100">
+          <div class="h-2 bg-gradient-to-r from-red-500 to-orange-500"></div>
+          <div class="p-4 sm:p-6 md:p-8">
+            <div class="flex items-center gap-3 mb-2">
+              <Navigation class="h-6 w-6 text-red-500" />
+              <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-neutral-900">
+                High-Risk Locations in {location.name}
+              </h2>
+            </div>
+            <p class="text-neutral-600 text-xs sm:text-sm md:text-base mb-6">
+              These areas see the highest concentration of phone thefts. Be extra vigilant in these locations.
+            </p>
+
+            <div class="space-y-3">
+              {location.hotspots.map((hotspot, index) => (
+                <div class="flex items-start gap-3 sm:gap-4 p-3 sm:p-4 bg-neutral-50 rounded-xl border border-neutral-100">
+                  <div class={`px-2.5 py-1 rounded-lg text-xs font-bold flex-shrink-0 ${
+                    hotspot.risk === 'Extreme' ? 'bg-red-600 text-white' :
+                    hotspot.risk === 'Very High' ? 'bg-red-500 text-white' :
+                    hotspot.risk === 'High' ? 'bg-orange-500 text-white' :
+                    'bg-yellow-500 text-white'
+                  }`}>
+                    {hotspot.risk}
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <h3 class="font-bold text-neutral-900 text-sm md:text-base">{hotspot.area}</h3>
+                    <p class="text-xs sm:text-sm text-neutral-600 mt-1">{hotspot.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Transport-Specific Risks -->
+      <section class="mb-6 sm:mb-8 md:mb-10">
+        <div class="bg-white rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-neutral-100">
+          <div class="h-2 bg-gradient-to-r from-blue-500 to-indigo-500"></div>
+          <div class="p-4 sm:p-6 md:p-8">
+            <div class="flex items-center gap-3 mb-4">
+              <Train class="h-6 w-6 text-blue-600" />
+              <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-neutral-900">
+                {location.transport.type} Safety
+              </h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-4 sm:gap-6">
+              <div>
+                <h3 class="text-sm font-semibold text-neutral-900 mb-3 flex items-center gap-2">
+                  <AlertTriangle class="h-4 w-4 text-amber-600" />
+                  Common Theft Scenarios
+                </h3>
+                <ul class="space-y-2 text-xs sm:text-sm text-neutral-700">
+                  {location.transport.risks.map((risk) => (
+                    <li class="flex gap-2">
+                      <span class="text-red-500 flex-shrink-0">•</span>
+                      <span>{risk}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div>
+                <h3 class="text-sm font-semibold text-neutral-900 mb-3 flex items-center gap-2">
+                  <CheckCircle2 class="h-4 w-4 text-green-600" />
+                  Protection Tips
+                </h3>
+                <ul class="space-y-2 text-xs sm:text-sm text-neutral-700">
+                  {location.transport.tips.map((tip) => (
+                    <li class="flex gap-2">
+                      <span class="text-green-600 flex-shrink-0">✓</span>
+                      <span>{tip}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Local Police Reporting -->
+      <section class="mb-6 sm:mb-8 md:mb-10">
+        <div class="bg-white rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-neutral-100">
+          <div class="h-2 bg-gradient-to-r from-indigo-500 to-purple-500"></div>
+          <div class="p-4 sm:p-6 md:p-8">
+            <div class="flex items-center gap-3 mb-4">
+              <Building2 class="h-6 w-6 text-indigo-600" />
+              <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-neutral-900">
+                Report to {location.policeForce}
+              </h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-4 sm:gap-6">
+              <div class="p-4 bg-neutral-50 rounded-xl border border-neutral-100">
+                <h3 class="text-sm font-semibold text-neutral-900 mb-3">Contact Numbers</h3>
+                <div class="space-y-2 text-sm">
+                  <div class="flex justify-between items-center">
+                    <span class="text-neutral-600">Emergency:</span>
+                    <a href={`tel:${location.emergencyPhone}`} class="font-bold text-red-600">{location.emergencyPhone}</a>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="text-neutral-600">Non-emergency:</span>
+                    <a href={`tel:${location.policePhone}`} class="font-bold text-primary">{location.policePhone}</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-4 bg-primary/5 rounded-xl border border-primary/20">
+                <h3 class="text-sm font-semibold text-neutral-900 mb-3">Online Reporting</h3>
+                <p class="text-xs sm:text-sm text-neutral-600 mb-3">
+                  File a theft report online for faster processing. Keep your crime reference number for insurance claims.
+                </p>
+                <a
+                  href={location.reportingUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-xl font-semibold text-sm shadow-sm hover:bg-primary/90 transition"
+                >
+                  Report Online <ArrowRight class="h-4 w-4" />
+                </a>
+              </div>
+            </div>
+
+            <div class="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-xl">
+              <p class="text-xs sm:text-sm text-blue-900">
+                <strong>What you'll need:</strong> Device details (make/model/IMEI), time and location of theft, description of circumstances.
+                Get your IMEI by dialing *#06# before theft occurs.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Prevention & Emergency CTAs -->
+      <section class="mb-8 sm:mb-10 md:mb-12">
+        <div class="bg-gradient-to-r from-neutral-900 to-neutral-800 text-white rounded-xl sm:rounded-2xl shadow-xl p-4 sm:p-6 md:p-8">
+          <h2 class="text-xl sm:text-2xl font-bold mb-2">
+            {location.residents ? 'Protect Yourself' : 'Essential Guides for Visitors'}
+          </h2>
+          <p class="text-sm text-white/80 mb-6">
+            Complete step-by-step guides to prevent theft and respond quickly if your phone is stolen in {location.name}.
+          </p>
+
+          <div class="grid md:grid-cols-3 gap-3 sm:gap-4">
+            <a
+              href="/prevention"
+              class="p-4 sm:p-5 bg-white/10 rounded-xl border border-white/20 hover:bg-white/15 transition-colors group"
+            >
+              <div class="flex items-center gap-2 mb-2">
+                <Shield class="h-5 w-5 text-green-400" />
+                <h3 class="font-bold text-base sm:text-lg">Prevention Guide</h3>
+              </div>
+              <p class="text-xs sm:text-sm text-white/70 mb-3">
+                Security settings, protective gear, and habits to avoid becoming a target.
+              </p>
+              <div class="flex items-center gap-2 text-sm font-semibold text-green-400 group-hover:gap-3 transition-all">
+                Read guide <ArrowRight class="h-4 w-4" />
+              </div>
+            </a>
+
+            <a
+              href="/emergency"
+              class="p-4 sm:p-5 bg-white/10 rounded-xl border border-white/20 hover:bg-white/15 transition-colors group"
+            >
+              <div class="flex items-center gap-2 mb-2">
+                <AlertTriangle class="h-5 w-5 text-red-400" />
+                <h3 class="font-bold text-base sm:text-lg">Emergency Steps</h3>
+              </div>
+              <p class="text-xs sm:text-sm text-white/70 mb-3">
+                Immediate actions: lock device, block SIM, secure banking, report to police.
+              </p>
+              <div class="flex items-center gap-2 text-sm font-semibold text-red-400 group-hover:gap-3 transition-all">
+                Get help now <ArrowRight class="h-4 w-4" />
+              </div>
+            </a>
+
+            <a
+              href="/statistics"
+              class="p-4 sm:p-5 bg-white/10 rounded-xl border border-white/20 hover:bg-white/15 transition-colors group"
+            >
+              <div class="flex items-center gap-2 mb-2">
+                <TrendingUp class="h-5 w-5 text-purple-400" />
+                <h3 class="font-bold text-base sm:text-lg">UK Statistics</h3>
+              </div>
+              <p class="text-xs sm:text-sm text-white/70 mb-3">
+                See theft data for all UK cities, seasonal trends, and high-risk times.
+              </p>
+              <div class="flex items-center gap-2 text-sm font-semibold text-purple-400 group-hover:gap-3 transition-all">
+                View data <ArrowRight class="h-4 w-4" />
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

@@ -48,67 +48,67 @@ const schema = {
   <HeaderMobile client:load />
 
   <main class="bg-[#f3f2f1] min-h-screen">
-    <div class="container mx-auto px-4 py-8 max-w-6xl">
-      <div class="bg-gradient-to-br from-primary to-blue-700 text-white rounded-2xl p-6 md:p-10 mb-8 shadow-xl">
+    <div class="container mx-auto px-4 py-4 sm:py-6 md:py-8 max-w-6xl">
+      <div class="bg-gradient-to-br from-primary to-blue-700 text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8 shadow-xl">
         <div class="flex items-center gap-3 mb-3">
-          <div class="bg-white/20 p-3 rounded-xl">
-            <ShieldCheck class="h-8 w-8" />
+          <div class="bg-white/20 p-2 sm:p-3 rounded-xl">
+            <ShieldCheck class="h-6 w-6 sm:h-8 sm:w-8" />
           </div>
           <div>
             <p class="text-xs uppercase tracking-wide text-blue-100 font-semibold">London visitors</p>
-            <h1 class="text-2xl md:text-3xl font-bold">Visitor Safety: Protect Your Phone in London</h1>
+            <h1 class="text-xl sm:text-2xl md:text-3xl font-bold">Visitor Safety: Protect Your Phone in London</h1>
           </div>
         </div>
         <p class="text-blue-100 text-sm md:text-base max-w-3xl">
           Practical prevention steps for tourists, students, and business travellers in London—plus exactly what to do if your phone is stolen.
         </p>
         <div class="flex flex-wrap gap-3 mt-5">
-          <span class="inline-flex items-center gap-2 bg-white/15 px-3 py-1.5 rounded-full text-sm">
+          <span class="inline-flex items-center gap-2 bg-white/15 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-sm">
             <MapPin class="h-4 w-4" /> Avoid kerbside scrolling
           </span>
-          <span class="inline-flex items-center gap-2 bg-white/15 px-3 py-1.5 rounded-full text-sm">
+          <span class="inline-flex items-center gap-2 bg-white/15 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-sm">
             <Lock class="h-4 w-4" /> Enable Find My + biometrics
           </span>
-          <span class="inline-flex items-center gap-2 bg-white/15 px-3 py-1.5 rounded-full text-sm">
+          <span class="inline-flex items-center gap-2 bg-white/15 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-sm">
             <PhoneOff class="h-4 w-4" /> Know how to block your SIM fast
           </span>
         </div>
       </div>
 
-      <section class="mb-8 grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div class="bg-white rounded-2xl shadow-sm border border-neutral-100 p-5 flex gap-3">
+      <section class="mb-6 sm:mb-8 grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
+        <div class="bg-white rounded-lg sm:rounded-2xl shadow-sm border border-neutral-100 p-4 sm:p-5 flex gap-3">
           <div class="bg-primary/10 text-primary rounded-lg p-2 h-fit">
             <Lock class="h-5 w-5" />
           </div>
           <div>
             <p class="text-sm font-semibold text-neutral-900">Before you land</p>
-            <ul class="text-sm text-neutral-600 list-disc pl-4 space-y-1 mt-1">
+            <ul class="text-xs sm:text-sm text-neutral-600 list-disc pl-4 space-y-1 mt-1">
               <li>Enable Face ID/biometrics + strong passcode.</li>
               <li>Turn on Find My (Apple/Google) and test it.</li>
               <li>Note IMEI and carrier support numbers.</li>
             </ul>
           </div>
         </div>
-        <div class="bg-white rounded-2xl shadow-sm border border-neutral-100 p-5 flex gap-3">
+        <div class="bg-white rounded-lg sm:rounded-2xl shadow-sm border border-neutral-100 p-4 sm:p-5 flex gap-3">
           <div class="bg-amber-50 text-amber-600 rounded-lg p-2 h-fit">
             <MapPin class="h-5 w-5" />
           </div>
           <div>
             <p class="text-sm font-semibold text-neutral-900">While exploring</p>
-            <ul class="text-sm text-neutral-600 list-disc pl-4 space-y-1 mt-1">
+            <ul class="text-xs sm:text-sm text-neutral-600 list-disc pl-4 space-y-1 mt-1">
               <li>Use cross-body straps; avoid kerbside scrolling.</li>
               <li>Keep phones away from open train doors.</li>
               <li>Stay alert in busy spots (West End, Borough, markets).</li>
             </ul>
           </div>
         </div>
-        <div class="bg-white rounded-2xl shadow-sm border border-neutral-100 p-5 flex gap-3">
+        <div class="bg-white rounded-lg sm:rounded-2xl shadow-sm border border-neutral-100 p-4 sm:p-5 flex gap-3">
           <div class="bg-red-50 text-red-600 rounded-lg p-2 h-fit">
             <AlertTriangle class="h-5 w-5" />
           </div>
           <div>
-            <p class="text-sm font-semibold text-neutral-900">If it’s stolen</p>
-            <ul class="text-sm text-neutral-600 list-disc pl-4 space-y-1 mt-1">
+            <p class="text-sm font-semibold text-neutral-900">If it's stolen</p>
+            <ul class="text-xs sm:text-sm text-neutral-600 list-disc pl-4 space-y-1 mt-1">
               <li>Lock/erase via Find My immediately.</li>
               <li>Block your SIM with your carrier.</li>
               <li>Call your bank to secure banking apps.</li>
@@ -117,13 +117,13 @@ const schema = {
         </div>
       </section>
 
-      <section class="mb-10 grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div class="bg-white rounded-2xl shadow-md border border-neutral-100 p-6">
+      <section class="mb-6 sm:mb-8 md:mb-10 grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+        <div class="bg-white rounded-lg sm:rounded-2xl shadow-md border border-neutral-100 p-4 sm:p-6">
           <div class="flex items-center gap-2 mb-4">
             <CheckCircle2 class="h-5 w-5 text-primary" />
             <p class="text-sm font-semibold text-neutral-900">Pre-arrival checklist</p>
           </div>
-          <ol class="list-decimal pl-5 space-y-2 text-sm text-neutral-700">
+          <ol class="list-decimal pl-5 space-y-2 text-xs sm:text-sm text-neutral-700">
             <li>Save UK emergency numbers: 999 (emergency), 101 (police non-emergency).</li>
             <li>Save carrier lost/stolen lines for your provider.</li>
             <li>Enable Find My, ensure backups are on, and test login recovery.</li>
@@ -132,12 +132,12 @@ const schema = {
           </ol>
         </div>
 
-        <div class="bg-white rounded-2xl shadow-md border border-neutral-100 p-6">
+        <div class="bg-white rounded-lg sm:rounded-2xl shadow-md border border-neutral-100 p-4 sm:p-6">
           <div class="flex items-center gap-2 mb-4">
             <PhoneOff class="h-5 w-5 text-primary" />
             <p class="text-sm font-semibold text-neutral-900">Rapid response (if stolen)</p>
           </div>
-          <ol class="list-decimal pl-5 space-y-2 text-sm text-neutral-700">
+          <ol class="list-decimal pl-5 space-y-2 text-xs sm:text-sm text-neutral-700">
             <li>Lock/erase: iCloud Find My iPhone or Google Find My Device.</li>
             <li>Block SIM: call your carrier to prevent calls/data.</li>
             <li>Secure banking: contact your bank, freeze cards if needed.</li>
@@ -150,11 +150,11 @@ const schema = {
         </div>
       </section>
 
-      <section class="mb-10">
-        <div class="bg-white rounded-2xl shadow-md border border-neutral-100 p-6">
+      <section class="mb-6 sm:mb-8 md:mb-10">
+        <div class="bg-white rounded-lg sm:rounded-2xl shadow-md border border-neutral-100 p-4 sm:p-6">
           <h2 class="text-xl md:text-2xl font-bold text-neutral-900 mb-2">High-risk spots & habits to avoid</h2>
           <p class="text-neutral-600 text-sm md:text-base mb-4">Opportunistic theft is common near kerbs, open train doors, and crowded attractions. Small changes greatly reduce risk.</p>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-neutral-700">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 text-xs sm:text-sm text-neutral-700">
             <div class="p-4 rounded-xl bg-neutral-50 border border-neutral-100">
               <p class="font-semibold text-neutral-900 mb-1">Common scenarios</p>
               <ul class="list-disc pl-4 space-y-1">
@@ -175,18 +175,18 @@ const schema = {
         </div>
       </section>
 
-      <section class="mb-12">
-        <div class="bg-gradient-to-r from-neutral-900 to-neutral-800 text-white rounded-2xl shadow-xl p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <section class="mb-8 sm:mb-10 md:mb-12">
+        <div class="bg-gradient-to-r from-neutral-900 to-neutral-800 text-white rounded-xl sm:rounded-2xl shadow-xl p-4 sm:p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
             <p class="text-xs uppercase tracking-wide text-white/60 font-semibold mb-1">Need help fast?</p>
             <h3 class="text-xl font-bold">Jump to the emergency guide</h3>
             <p class="text-sm text-white/80 mt-1">Step-by-step actions to take within minutes of theft: lock, block SIM, bank, report.</p>
           </div>
           <div class="flex gap-3">
-            <a href="/emergency" class="inline-flex items-center gap-2 px-5 py-3 bg-primary text-white rounded-xl font-semibold shadow-md hover:bg-primary/90 transition">
+            <a href="/emergency" class="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 text-xs sm:text-sm bg-primary text-white rounded-xl font-semibold shadow-md hover:bg-primary/90 transition">
               Open emergency steps <ArrowRight class="h-4 w-4" />
             </a>
-            <a href="/prevention" class="inline-flex items-center gap-2 px-5 py-3 bg-white/10 text-white rounded-xl font-semibold border border-white/15 hover:bg-white/15 transition">
+            <a href="/prevention" class="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 text-xs sm:text-sm bg-white/10 text-white rounded-xl font-semibold border border-white/15 hover:bg-white/15 transition">
               Prevention guide
             </a>
           </div>

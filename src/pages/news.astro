@@ -41,113 +41,113 @@ function formatDate(dateValue: string | number) {
   <HeaderMobile client:load />
   
   <main class="bg-[#f3f2f1] min-h-screen">
-    <div class="container mx-auto px-4 py-6 max-w-6xl">
+    <div class="container mx-auto px-4 py-4 sm:py-6 max-w-6xl">
       <!-- Hero Section -->
-      <div class="bg-gradient-to-br from-primary to-blue-700 text-white rounded-2xl p-6 md:p-10 mb-8 shadow-xl">
-        <div class="flex items-center gap-3 mb-3">
-          <div class="bg-white/20 p-3 rounded-xl">
-            <Newspaper class="h-8 w-8" />
+      <div class="bg-gradient-to-br from-primary to-blue-700 text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 lg:p-12 mb-6 sm:mb-8 shadow-xl">
+        <div class="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
+          <div class="bg-white/20 p-2 sm:p-3 rounded-lg sm:rounded-xl">
+            <Newspaper class="h-6 w-6 sm:h-8 sm:w-8" />
           </div>
-          <h1 class="text-2xl md:text-3xl font-bold">Latest News & Updates</h1>
+          <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">Latest News & Updates</h1>
         </div>
-        <p class="text-blue-100 text-sm md:text-base">
+        <p class="text-blue-100 text-xs sm:text-sm md:text-base lg:text-lg max-w-2xl">
           Stay informed about mobile theft arrests, policy changes, security updates, and prevention tips across the UK.
         </p>
       </div>
 
       <!-- Filter + Sidebar CTA -->
-      <div class="flex flex-col lg:flex-row gap-4 mb-6">
-        <div class="bg-white rounded-2xl shadow-md p-4 flex-1">
-          <div class="flex flex-col sm:flex-row sm:items-center gap-4">
-            <div class="flex items-center gap-2 text-sm text-neutral-600">
+      <div class="flex flex-col lg:flex-row gap-3 sm:gap-4 mb-4 sm:mb-6">
+        <div class="bg-white rounded-xl sm:rounded-2xl shadow-md p-3 sm:p-4 flex-1">
+          <div class="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
+            <div class="flex items-center gap-2 text-xs sm:text-sm text-neutral-600">
               <Filter class="h-4 w-4" />
               <span class="font-medium">Filter:</span>
             </div>
-            <div class="flex flex-wrap gap-2">
-              <button class="category-btn px-4 py-2 rounded-xl bg-primary text-white text-sm font-medium transition-all" data-category="all">
+            <div class="flex gap-1.5 sm:gap-2 overflow-x-auto pb-1 sm:pb-0 sm:flex-wrap -mx-1 px-1 sm:mx-0 sm:px-0">
+              <button class="category-btn px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl bg-primary text-white text-xs sm:text-sm font-medium transition-all whitespace-nowrap flex-shrink-0" data-category="all">
                 All
               </button>
-              <button class="category-btn px-4 py-2 rounded-xl bg-neutral-100 text-neutral-700 text-sm font-medium hover:bg-neutral-200 transition-all" data-category="arrest">
+              <button class="category-btn px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl bg-neutral-100 text-neutral-700 text-xs sm:text-sm font-medium hover:bg-neutral-200 transition-all whitespace-nowrap flex-shrink-0" data-category="arrest">
                 Arrests
               </button>
-              <button class="category-btn px-4 py-2 rounded-xl bg-neutral-100 text-neutral-700 text-sm font-medium hover:bg-neutral-200 transition-all" data-category="seizure">
+              <button class="category-btn px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl bg-neutral-100 text-neutral-700 text-xs sm:text-sm font-medium hover:bg-neutral-200 transition-all whitespace-nowrap flex-shrink-0" data-category="seizure">
                 Seizures
               </button>
-              <button class="category-btn px-4 py-2 rounded-xl bg-neutral-100 text-neutral-700 text-sm font-medium hover:bg-neutral-200 transition-all" data-category="law_change">
+              <button class="category-btn px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl bg-neutral-100 text-neutral-700 text-xs sm:text-sm font-medium hover:bg-neutral-200 transition-all whitespace-nowrap flex-shrink-0" data-category="law_change">
                 Law Changes
               </button>
-              <button class="category-btn px-4 py-2 rounded-xl bg-neutral-100 text-neutral-700 text-sm font-medium hover:bg-neutral-200 transition-all" data-category="statistics">
+              <button class="category-btn px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl bg-neutral-100 text-neutral-700 text-xs sm:text-sm font-medium hover:bg-neutral-200 transition-all whitespace-nowrap flex-shrink-0" data-category="statistics">
                 Statistics
               </button>
-              <button class="category-btn px-4 py-2 rounded-xl bg-neutral-100 text-neutral-700 text-sm font-medium hover:bg-neutral-200 transition-all" data-category="prevention_tip">
+              <button class="category-btn px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl bg-neutral-100 text-neutral-700 text-xs sm:text-sm font-medium hover:bg-neutral-200 transition-all whitespace-nowrap flex-shrink-0" data-category="prevention_tip">
                 Tips
               </button>
             </div>
           </div>
         </div>
 
-        <a href="/scenarios" class="lg:w-72 bg-gradient-to-br from-amber-500 to-orange-500 text-white rounded-2xl shadow-md p-4 flex flex-col gap-2 hover:shadow-lg transition">
-          <div class="inline-flex items-center gap-2 text-xs font-semibold bg-white/20 px-3 py-1 rounded-full w-fit">
-            <AlertTriangle class="h-4 w-4" /> Scenarios
+        <a href="/scenarios" class="lg:w-80 bg-gradient-to-br from-amber-500 to-orange-500 text-white rounded-xl sm:rounded-2xl shadow-md p-3 sm:p-4 lg:p-5 flex flex-col gap-1.5 sm:gap-2 hover:shadow-lg hover:scale-[1.01] transition-all">
+          <div class="inline-flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs font-semibold bg-white/20 px-2 sm:px-3 py-0.5 sm:py-1 rounded-full w-fit">
+            <AlertTriangle class="h-3 w-3 sm:h-4 sm:w-4" /> Scenarios
           </div>
-          <p class="text-base font-bold leading-snug">Visual guides for real-world theft setups</p>
-          <p class="text-sm text-white/80">See moped snatches, transport grabs, nightlife thefts—and how to avoid them.</p>
-          <div class="inline-flex items-center gap-1 text-sm font-semibold">
-            View slides <ArrowRight class="h-4 w-4" />
+          <p class="text-sm sm:text-base lg:text-lg font-bold leading-snug">Visual guides for real-world theft setups</p>
+          <p class="text-xs sm:text-sm text-white/80 hidden sm:block">See moped snatches, transport grabs, nightlife thefts—and how to avoid them.</p>
+          <div class="inline-flex items-center gap-1 text-xs sm:text-sm font-semibold">
+            View slides <ArrowRight class="h-3 w-3 sm:h-4 sm:w-4" />
           </div>
         </a>
       </div>
 
       {error ? (
-        <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
-          <p class="text-yellow-800">Unable to load news posts. Please try again later.</p>
+        <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 sm:p-6">
+          <p class="text-yellow-800 text-sm sm:text-base">Unable to load news posts. Please try again later.</p>
         </div>
       ) : posts.length === 0 ? (
-        <div class="bg-white rounded-lg shadow-md p-12 text-center">
-          <Newspaper class="h-16 w-16 mx-auto mb-4 text-neutral-400" />
-          <h3 class="text-xl font-semibold mb-2">No News Posts Yet</h3>
-          <p class="text-neutral-600 mb-4">Check back soon for the latest updates on mobile theft news in the UK.</p>
-          <p class="text-sm text-neutral-500">In the meantime, explore our prevention guides and resources.</p>
+        <div class="bg-white rounded-xl sm:rounded-2xl shadow-md p-8 sm:p-12 text-center">
+          <Newspaper class="h-12 w-12 sm:h-16 sm:w-16 mx-auto mb-3 sm:mb-4 text-neutral-400" />
+          <h3 class="text-lg sm:text-xl font-semibold mb-2">No News Posts Yet</h3>
+          <p class="text-neutral-600 mb-3 sm:mb-4 text-sm sm:text-base">Check back soon for the latest updates on mobile theft news in the UK.</p>
+          <p class="text-xs sm:text-sm text-neutral-500">In the meantime, explore our prevention guides and resources.</p>
         </div>
       ) : (
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="news-grid">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-6" id="news-grid">
           {posts.map((post: any) => (
-            <article 
-              class="news-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col border border-neutral-100"
+            <article
+              class="news-card bg-white rounded-xl sm:rounded-2xl shadow-md overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col border border-neutral-100"
               data-category={post.category}
             >
-              <div class="p-5 flex flex-col h-[280px]">
-                <div class="flex items-center justify-between gap-2 mb-3">
-                  <span class={`text-xs px-2.5 py-1 rounded-full font-medium whitespace-nowrap ${categoryColors[post.category] || categoryColors.other}`}>
+              <div class="p-4 sm:p-5 lg:p-6 flex flex-col min-h-[220px] sm:min-h-[260px] lg:min-h-[280px]">
+                <div class="flex items-center justify-between gap-2 mb-2 sm:mb-3">
+                  <span class={`text-[10px] sm:text-xs px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full font-medium whitespace-nowrap ${categoryColors[post.category] || categoryColors.other}`}>
                     {post.category.replace('_', ' ')}
                   </span>
-                  <span class="text-xs text-neutral-400 flex items-center whitespace-nowrap">
+                  <span class="text-[10px] sm:text-xs text-neutral-400 flex items-center whitespace-nowrap">
                     <Calendar class="h-3 w-3 mr-1" />
                     {formatDate(post.publishedAt || post._creationTime)}
                   </span>
                 </div>
-                
-                <h2 class="text-base font-bold mb-2 leading-snug text-neutral-900 line-clamp-3">
+
+                <h2 class="text-sm sm:text-base lg:text-lg font-bold mb-1.5 sm:mb-2 leading-snug text-neutral-900 line-clamp-2 sm:line-clamp-3">
                   <a href={`/news/${post.slug}`} class="hover:text-primary transition-colors">
                     {post.title}
                   </a>
                 </h2>
-                
-                <p class="text-neutral-600 text-sm leading-relaxed line-clamp-3 flex-grow">
+
+                <p class="text-neutral-600 text-xs sm:text-sm lg:text-base leading-relaxed line-clamp-2 sm:line-clamp-3 flex-grow">
                   {post.excerpt}
                 </p>
-                
-                <div class="pt-3 border-t border-neutral-100 mt-auto flex items-center justify-between">
+
+                <div class="pt-2 sm:pt-3 border-t border-neutral-100 mt-auto flex items-center justify-between">
                   {post.sourceName ? (
-                    <span class="text-xs text-neutral-400 truncate max-w-[120px]" title={post.sourceName}>
+                    <span class="text-[10px] sm:text-xs text-neutral-400 truncate max-w-[100px] sm:max-w-[120px]" title={post.sourceName}>
                       {post.sourceName}
                     </span>
                   ) : (
                     <span></span>
                   )}
-                  <a href={`/news/${post.slug}`} class="inline-flex items-center gap-1 text-primary font-semibold text-sm group whitespace-nowrap">
+                  <a href={`/news/${post.slug}`} class="inline-flex items-center gap-1 text-primary font-semibold text-xs sm:text-sm group whitespace-nowrap">
                     Read more
-                    <ArrowRight class="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight class="h-3 w-3 sm:h-4 sm:w-4 group-hover:translate-x-1 transition-transform" />
                   </a>
                 </div>
               </div>

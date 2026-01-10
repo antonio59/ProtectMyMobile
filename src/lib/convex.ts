@@ -134,7 +134,7 @@ export interface CommunityStats {
   totalStolen: number;
   neverStolen: number;
   someoneIKnow: number;
-  
+
   recoveryStats: {
     fullyRecovered: number;
     partiallyRecovered: number;
@@ -142,7 +142,7 @@ export interface CommunityStats {
     investigating: number;
     recoveryRate: number;
   };
-  
+
   locationStats: {
     publicTransport: number;
     restaurant: number;
@@ -151,7 +151,7 @@ export interface CommunityStats {
     shop: number;
     other: number;
   };
-  
+
   replacementStats: {
     newOutright: number;
     secondHand: number;
@@ -160,7 +160,7 @@ export interface CommunityStats {
     notYet: number;
     backupPhone: number;
   };
-  
+
   securityStats: {
     usingPin: number;
     usingBiometric: number;
@@ -168,7 +168,7 @@ export interface CommunityStats {
     usingSimPin: number;
     noSecurity: number;
   };
-  
+
   policeStats: {
     yesCrimeRef: number;
     yesNoFollowup: number;
@@ -176,6 +176,20 @@ export interface CommunityStats {
     networkOnly: number;
     reportingRate: number;
   };
-  
+
   lastUpdated: string;
+}
+
+export interface ImportLog {
+  _id: string;
+  _creationTime: number;
+  timestamp: number;
+  source: string;
+  status: 'started' | 'success' | 'partial' | 'failed';
+  recordsProcessed?: number;
+  recordsCreated?: number;
+  recordsSkipped?: number;
+  errorMessage?: string;
+  details?: string;
+  duration?: number;
 }

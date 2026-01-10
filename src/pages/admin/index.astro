@@ -7,16 +7,16 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
   description="Admin dashboard overview."
   currentPage="dashboard"
 >
-  <div class="p-4 lg:p-8">
+  <div class="p-3 sm:p-4 lg:p-8">
     <!-- Header -->
-    <div class="mb-8">
-      <h1 class="text-2xl font-bold text-neutral-900">Dashboard</h1>
-      <p class="text-neutral-600 text-sm mt-1">Overview of your ProtectMyMobile admin panel.</p>
+    <div class="mb-6 sm:mb-8">
+      <h1 class="text-xl sm:text-2xl font-bold text-neutral-900">Dashboard</h1>
+      <p class="text-neutral-600 text-xs sm:text-sm mt-1">Overview of your ProtectMyMobile admin panel.</p>
     </div>
 
     <!-- Stats Grid -->
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-      <div class="bg-white rounded-xl p-5 shadow-sm border border-neutral-200">
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
+      <div class="bg-white rounded-xl p-3 sm:p-4 md:p-5 shadow-sm border border-neutral-200">
         <div class="flex items-center justify-between mb-3">
           <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
             <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -28,90 +28,90 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
         <div class="text-xs text-neutral-500">News Articles</div>
       </div>
 
-      <div class="bg-white rounded-xl p-5 shadow-sm border border-neutral-200">
-        <div class="flex items-center justify-between mb-3">
-          <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
-            <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div class="bg-white rounded-xl p-3 sm:p-4 md:p-5 shadow-sm border border-neutral-200">
+        <div class="flex items-center justify-between mb-2 sm:mb-3">
+          <div class="w-8 h-8 sm:w-10 sm:h-10 bg-green-100 rounded-lg flex items-center justify-center">
+            <svg class="w-4 h-4 sm:w-5 sm:h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
           </div>
         </div>
-        <div class="text-2xl font-bold text-neutral-900" id="stat-published">-</div>
+        <div class="text-xl sm:text-2xl font-bold text-neutral-900" id="stat-published">-</div>
         <div class="text-xs text-neutral-500">Published</div>
       </div>
 
-      <div class="bg-white rounded-xl p-5 shadow-sm border border-neutral-200">
-        <div class="flex items-center justify-between mb-3">
-          <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
-            <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div class="bg-white rounded-xl p-3 sm:p-4 md:p-5 shadow-sm border border-neutral-200">
+        <div class="flex items-center justify-between mb-2 sm:mb-3">
+          <div class="w-8 h-8 sm:w-10 sm:h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+            <svg class="w-4 h-4 sm:w-5 sm:h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
             </svg>
           </div>
         </div>
-        <div class="text-2xl font-bold text-neutral-900" id="stat-data">-</div>
+        <div class="text-xl sm:text-2xl font-bold text-neutral-900" id="stat-data">-</div>
         <div class="text-xs text-neutral-500">Data Points</div>
       </div>
 
-      <div class="bg-white rounded-xl p-5 shadow-sm border border-neutral-200">
-        <div class="flex items-center justify-between mb-3">
-          <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
-            <svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div class="bg-white rounded-xl p-3 sm:p-4 md:p-5 shadow-sm border border-neutral-200">
+        <div class="flex items-center justify-between mb-2 sm:mb-3">
+          <div class="w-8 h-8 sm:w-10 sm:h-10 bg-orange-100 rounded-lg flex items-center justify-center">
+            <svg class="w-4 h-4 sm:w-5 sm:h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
             </svg>
           </div>
         </div>
-        <div class="text-2xl font-bold text-neutral-900" id="stat-foi">-</div>
+        <div class="text-xl sm:text-2xl font-bold text-neutral-900" id="stat-foi">-</div>
         <div class="text-xs text-neutral-500">FOI Requests</div>
       </div>
     </div>
 
     <!-- Quick Actions -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-      <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
-        <h2 class="font-bold text-neutral-900 mb-4">Quick Actions</h2>
-        <div class="grid grid-cols-2 gap-3">
-          <a href="/admin/add-news" class="flex items-center gap-3 p-3 bg-neutral-50 rounded-lg hover:bg-neutral-100 transition-colors">
-            <div class="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
-              <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8">
+      <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-4 sm:p-6">
+        <h2 class="font-bold text-neutral-900 mb-3 sm:mb-4 text-sm sm:text-base">Quick Actions</h2>
+        <div class="grid grid-cols-2 gap-2 sm:gap-3">
+          <a href="/admin/add-news" class="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 bg-neutral-50 rounded-lg hover:bg-neutral-100 transition-colors">
+            <div class="w-7 h-7 sm:w-8 sm:h-8 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+              <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
               </svg>
             </div>
-            <span class="text-sm font-medium text-neutral-700">Add News</span>
+            <span class="text-xs sm:text-sm font-medium text-neutral-700">Add News</span>
           </a>
-          <a href="/admin/news" class="flex items-center gap-3 p-3 bg-neutral-50 rounded-lg hover:bg-neutral-100 transition-colors">
-            <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-              <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <a href="/admin/news" class="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 bg-neutral-50 rounded-lg hover:bg-neutral-100 transition-colors">
+            <div class="w-7 h-7 sm:w-8 sm:h-8 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+              <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/>
               </svg>
             </div>
-            <span class="text-sm font-medium text-neutral-700">Manage News</span>
+            <span class="text-xs sm:text-sm font-medium text-neutral-700">Manage News</span>
           </a>
-          <a href="/admin/data" class="flex items-center gap-3 p-3 bg-neutral-50 rounded-lg hover:bg-neutral-100 transition-colors">
-            <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
-              <svg class="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <a href="/admin/data" class="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 bg-neutral-50 rounded-lg hover:bg-neutral-100 transition-colors">
+            <div class="w-7 h-7 sm:w-8 sm:h-8 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
+              <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"/>
               </svg>
             </div>
-            <span class="text-sm font-medium text-neutral-700">Theft Data</span>
+            <span class="text-xs sm:text-sm font-medium text-neutral-700">Theft Data</span>
           </a>
-          <a href="/admin/foi" class="flex items-center gap-3 p-3 bg-neutral-50 rounded-lg hover:bg-neutral-100 transition-colors">
-            <div class="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center">
-              <svg class="w-4 h-4 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <a href="/admin/foi" class="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 bg-neutral-50 rounded-lg hover:bg-neutral-100 transition-colors">
+            <div class="w-7 h-7 sm:w-8 sm:h-8 bg-orange-100 rounded-lg flex items-center justify-center flex-shrink-0">
+              <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
               </svg>
             </div>
-            <span class="text-sm font-medium text-neutral-700">FOI Requests</span>
+            <span class="text-xs sm:text-sm font-medium text-neutral-700">FOI Requests</span>
           </a>
         </div>
       </div>
 
       <!-- Recent News -->
-      <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
-        <div class="flex items-center justify-between mb-4">
-          <h2 class="font-bold text-neutral-900">Recent News</h2>
-          <a href="/admin/news" class="text-sm text-primary hover:underline">View all</a>
+      <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-4 sm:p-6">
+        <div class="flex items-center justify-between mb-3 sm:mb-4">
+          <h2 class="font-bold text-neutral-900 text-sm sm:text-base">Recent News</h2>
+          <a href="/admin/news" class="text-xs sm:text-sm text-primary hover:underline">View all</a>
         </div>
-        <div id="recent-news" class="space-y-3">
+        <div id="recent-news" class="space-y-2 sm:space-y-3">
           <div class="animate-pulse space-y-3">
             <div class="h-12 bg-neutral-100 rounded-lg"></div>
             <div class="h-12 bg-neutral-100 rounded-lg"></div>
@@ -122,48 +122,48 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     </div>
 
     <!-- External Links -->
-    <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
-      <h2 class="font-bold text-neutral-900 mb-4">External Tools</h2>
-      <div class="flex flex-wrap gap-3">
-        <a 
-          href="https://dashboard.convex.dev" 
-          target="_blank" 
+    <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-4 sm:p-6">
+      <h2 class="font-bold text-neutral-900 mb-3 sm:mb-4 text-sm sm:text-base">External Tools</h2>
+      <div class="flex flex-wrap gap-2 sm:gap-3">
+        <a
+          href="https://dashboard.convex.dev"
+          target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 px-4 py-2 bg-neutral-100 rounded-lg text-sm font-medium text-neutral-700 hover:bg-neutral-200 transition-colors"
+          class="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-neutral-100 rounded-lg text-xs sm:text-sm font-medium text-neutral-700 hover:bg-neutral-200 transition-colors"
         >
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"/>
           </svg>
           Convex Dashboard
         </a>
-        <a 
-          href="https://app.netlify.com" 
-          target="_blank" 
+        <a
+          href="https://app.netlify.com"
+          target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 px-4 py-2 bg-neutral-100 rounded-lg text-sm font-medium text-neutral-700 hover:bg-neutral-200 transition-colors"
+          class="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-neutral-100 rounded-lg text-xs sm:text-sm font-medium text-neutral-700 hover:bg-neutral-200 transition-colors"
         >
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9"/>
           </svg>
           Netlify
         </a>
-        <a 
-          href="https://umami.antoniosmith.xyz" 
-          target="_blank" 
+        <a
+          href="https://umami.antoniosmith.xyz"
+          target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 px-4 py-2 bg-neutral-100 rounded-lg text-sm font-medium text-neutral-700 hover:bg-neutral-200 transition-colors"
+          class="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-neutral-100 rounded-lg text-xs sm:text-sm font-medium text-neutral-700 hover:bg-neutral-200 transition-colors"
         >
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
           </svg>
           Analytics
         </a>
-        <a 
-          href="/" 
+        <a
+          href="/"
           target="_blank"
-          class="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-lg text-sm font-medium text-primary hover:bg-primary/20 transition-colors"
+          class="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-primary/10 rounded-lg text-xs sm:text-sm font-medium text-primary hover:bg-primary/20 transition-colors"
         >
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
           </svg>
           View Site

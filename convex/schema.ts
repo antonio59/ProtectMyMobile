@@ -270,4 +270,25 @@ export default defineSchema({
   })
     .index("by_active", ["active"])
     .index("by_network", ["network"]),
+
+  // Import Logs (tracking data imports from various sources)
+  importLogs: defineTable({
+    timestamp: v.number(),
+    source: v.string(), // 'police.uk', 'wdtk', 'news', 'manual-csv', 'seed'
+    status: v.union(
+      v.literal("started"),
+      v.literal("success"),
+      v.literal("partial"),
+      v.literal("failed"),
+    ),
+    recordsProcessed: v.optional(v.number()),
+    recordsCreated: v.optional(v.number()),
+    recordsSkipped: v.optional(v.number()),
+    errorMessage: v.optional(v.string()),
+    details: v.optional(v.string()),
+    duration: v.optional(v.number()), // milliseconds
+  })
+    .index("by_timestamp", ["timestamp"])
+    .index("by_source", ["source"])
+    .index("by_status", ["status"]),
 });

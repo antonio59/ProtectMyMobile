@@ -12,72 +12,72 @@ import { Info, Heart, Shield, Users, Target, CheckCircle2, ArrowRight } from 'lu
   <HeaderMobile client:load />
   
   <main class="bg-[#f3f2f1] min-h-screen">
-    <div class="container mx-auto px-4 py-6 max-w-5xl">
+    <div class="container mx-auto px-4 py-4 sm:py-6 max-w-5xl">
       <!-- Hero Section -->
-      <div class="bg-gradient-to-br from-primary to-blue-700 text-white rounded-2xl p-6 md:p-10 mb-8 shadow-xl">
+      <div class="bg-gradient-to-br from-primary to-blue-700 text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8 shadow-xl">
         <div class="flex items-center gap-3 mb-3">
           <div class="bg-white/20 p-3 rounded-xl">
-            <Info class="h-8 w-8" />
+            <Info class="h-6 w-6 sm:h-8 sm:w-8" />
           </div>
-          <h1 class="text-2xl md:text-3xl font-bold">About ProtectMyMobile</h1>
+          <h1 class="text-xl sm:text-2xl md:text-3xl font-bold">About ProtectMyMobile</h1>
         </div>
-        <p class="text-blue-100 text-sm md:text-base">
+        <p class="text-blue-100 text-xs sm:text-sm md:text-base">
           Empowering UK residents with knowledge and tools to protect their mobile devices from theft.
         </p>
       </div>
       
       <!-- Mission Statement -->
-      <section class="bg-white rounded-2xl shadow-md overflow-hidden border border-neutral-100 mb-8">
+      <section class="bg-white rounded-lg sm:rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-neutral-100 mb-6 sm:mb-8">
         <div class="h-2 bg-gradient-to-r from-primary to-blue-600"></div>
-        <div class="p-6 md:p-8">
+        <div class="p-4 sm:p-6 md:p-8">
           <div class="flex items-center gap-3 mb-4">
             <div class="bg-primary/10 rounded-xl p-3">
               <Target class="h-6 w-6 text-primary" />
             </div>
-            <h2 class="text-xl font-bold">Our Mission</h2>
+            <h2 class="text-base sm:text-lg md:text-xl font-bold">Our Mission</h2>
           </div>
-          <p class="text-neutral-700 mb-4">
+          <p class="text-neutral-700 mb-4 text-xs sm:text-sm md:text-base">
             ProtectMyMobile exists to empower UK residents with the knowledge and tools to protect their mobile devices from theft and respond effectively when theft occurs.
           </p>
-          <p class="text-neutral-600 text-sm">
+          <p class="text-neutral-600 text-xs sm:text-sm">
             We believe everyone deserves access to clear, actionable information about mobile security without having to search through countless websites during stressful situations.
           </p>
         </div>
       </section>
       
       <!-- Our Values -->
-      <section class="mb-8">
-        <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
+      <section class="mb-6 sm:mb-8">
+        <h2 class="text-base sm:text-lg md:text-xl font-bold mb-6 flex items-center gap-2">
           <Heart class="h-5 w-5 text-red-500" />
           Our Values
         </h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div class="bg-white rounded-2xl shadow-md p-6 border border-neutral-100 hover:shadow-lg transition-shadow">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
+          <div class="bg-white rounded-lg sm:rounded-xl sm:rounded-2xl shadow-md p-4 sm:p-6 border border-neutral-100 hover:shadow-lg transition-shadow">
             <div class="bg-primary/10 rounded-xl p-3 w-fit mb-4">
-              <Shield class="h-6 w-6 text-primary" />
+              <Shield class="h-6 w-6 sm:h-8 sm:w-8 text-primary" />
             </div>
-            <h3 class="text-lg font-bold mb-2">Privacy First</h3>
-            <p class="text-neutral-600 text-sm">
+            <h3 class="text-base sm:text-lg font-bold mb-2">Privacy First</h3>
+            <p class="text-neutral-600 text-xs sm:text-sm">
               We don't store your IMEI numbers or personal device information. Your privacy is paramount.
             </p>
           </div>
-          
-          <div class="bg-white rounded-2xl shadow-md p-6 border border-neutral-100 hover:shadow-lg transition-shadow">
+
+          <div class="bg-white rounded-lg sm:rounded-xl sm:rounded-2xl shadow-md p-4 sm:p-6 border border-neutral-100 hover:shadow-lg transition-shadow">
             <div class="bg-green-100 rounded-xl p-3 w-fit mb-4">
-              <Users class="h-6 w-6 text-green-600" />
+              <Users class="h-6 w-6 sm:h-8 sm:w-8 text-green-600" />
             </div>
-            <h3 class="text-lg font-bold mb-2">Community Driven</h3>
-            <p class="text-neutral-600 text-sm">
+            <h3 class="text-base sm:text-lg font-bold mb-2">Community Driven</h3>
+            <p class="text-neutral-600 text-xs sm:text-sm">
               We learn from real experiences and feedback to continuously improve our guidance.
             </p>
           </div>
-          
-          <div class="bg-white rounded-2xl shadow-md p-6 border border-neutral-100 hover:shadow-lg transition-shadow">
+
+          <div class="bg-white rounded-lg sm:rounded-xl sm:rounded-2xl shadow-md p-4 sm:p-6 border border-neutral-100 hover:shadow-lg transition-shadow">
             <div class="bg-red-100 rounded-xl p-3 w-fit mb-4">
-              <Heart class="h-6 w-6 text-red-600" />
+              <Heart class="h-6 w-6 sm:h-8 sm:w-8 text-red-600" />
             </div>
-            <h3 class="text-lg font-bold mb-2">Always Free</h3>
-            <p class="text-neutral-600 text-sm">
+            <h3 class="text-base sm:text-lg font-bold mb-2">Always Free</h3>
+            <p class="text-neutral-600 text-xs sm:text-sm">
               Essential security information should be accessible to everyone, always.
             </p>
           </div>
@@ -85,11 +85,11 @@ import { Info, Heart, Shield, Users, Target, CheckCircle2, ArrowRight } from 'lu
       </section>
       
       <!-- Why We Exist -->
-      <section class="bg-white rounded-2xl shadow-md overflow-hidden border border-neutral-100 mb-8">
+      <section class="bg-white rounded-lg sm:rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-neutral-100 mb-6 sm:mb-8">
         <div class="h-2 bg-gradient-to-r from-red-500 to-orange-500"></div>
-        <div class="p-6 md:p-8">
-          <h2 class="text-xl font-bold mb-4">Why We Exist</h2>
-          <p class="text-neutral-700 mb-4">
+        <div class="p-4 sm:p-6 md:p-8">
+          <h2 class="text-base sm:text-lg md:text-xl font-bold mb-4">Why We Exist</h2>
+          <p class="text-neutral-700 mb-4 text-xs sm:text-sm md:text-base">
             With over 200,000 mobile phones stolen in the UK every year, the impact on victims is significant:
           </p>
           <ul class="space-y-3 mb-4">
@@ -101,24 +101,24 @@ import { Info, Heart, Shield, Users, Target, CheckCircle2, ArrowRight } from 'lu
             ].map(item => (
               <li class="flex items-start gap-3">
                 <CheckCircle2 class="h-5 w-5 text-red-500 mt-0.5 flex-shrink-0" />
-                <span class="text-neutral-700">{item}</span>
+                <span class="text-neutral-700 text-xs sm:text-sm md:text-base">{item}</span>
               </li>
             ))}
           </ul>
-          <p class="text-neutral-600 text-sm">
+          <p class="text-neutral-600 text-xs sm:text-sm">
             ProtectMyMobile consolidates all the information you need in one place, making it easier to stay safe and act quickly.
           </p>
         </div>
       </section>
 
       <!-- CTA -->
-      <section class="bg-gradient-to-r from-primary/10 to-blue-100 rounded-2xl p-6 border border-primary/20">
+      <section class="bg-gradient-to-r from-primary/10 to-blue-100 rounded-lg sm:rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-primary/20">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
-            <h3 class="text-lg font-bold mb-1">Learn about the theft epidemic</h3>
-            <p class="text-neutral-600 text-sm">Understand how phones are being stolen across the UK.</p>
+            <h3 class="text-base sm:text-lg font-bold mb-1">Learn about the theft epidemic</h3>
+            <p class="text-neutral-600 text-xs sm:text-sm">Understand how phones are being stolen across the UK.</p>
           </div>
-          <a href="/the-problem" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-white rounded-xl font-semibold text-sm hover:bg-primary/90 transition-colors">
+          <a href="/the-problem" class="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-primary text-white rounded-xl font-semibold text-xs sm:text-sm hover:bg-primary/90 transition-colors">
             The Problem
             <ArrowRight class="h-4 w-4" />
           </a>

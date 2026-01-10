@@ -57,67 +57,67 @@ import { AlertTriangle, Clock } from "lucide-react";
   <HeaderMobile client:load />
   
   <main class="bg-[#f3f2f1] min-h-screen">
-    <div class="container mx-auto px-4 py-6 max-w-4xl">
+    <div class="container mx-auto px-4 py-4 sm:py-6 max-w-4xl">
       <!-- Emergency Hero - Bold Red -->
-      <div class="bg-gradient-to-br from-red-600 to-red-700 text-white rounded-2xl p-6 md:p-10 mb-8 shadow-xl">
-        <div class="flex items-center gap-4 mb-4">
-          <div class="bg-white/20 p-4 rounded-2xl">
-            <AlertTriangle class="h-10 w-10" />
+      <div class="bg-gradient-to-br from-red-600 to-red-700 text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8 shadow-xl">
+        <div class="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+          <div class="bg-white/20 p-2.5 sm:p-4 rounded-xl sm:rounded-2xl">
+            <AlertTriangle class="h-7 w-7 sm:h-10 sm:w-10" />
           </div>
           <div>
-            <h1 class="text-2xl md:text-3xl font-bold text-shadow-danger">Phone Stolen?</h1>
-            <p class="text-red-100">Act immediately - every minute counts</p>
+            <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-shadow-danger">Phone Stolen?</h1>
+            <p class="text-red-100 text-xs sm:text-sm md:text-base">Act immediately - every minute counts</p>
           </div>
         </div>
-        <div class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-lg text-sm w-fit">
-          <Clock class="h-4 w-4" />
+        <div class="flex items-center gap-2 bg-white/10 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm w-fit">
+          <Clock class="h-3 w-3 sm:h-4 sm:w-4" />
           <span>Complete these 5 steps within 30 minutes</span>
         </div>
       </div>
 
       <!-- Progress indicator -->
-      <div class="mb-8 hidden md:block">
+      <div class="mb-6 sm:mb-8 hidden sm:block">
         <div class="flex items-center justify-between">
           {[1, 2, 3, 4, 5].map((num) => (
             <div class="flex items-center">
-              <div class="w-10 h-10 rounded-full bg-red-600 text-white flex items-center justify-center font-bold">{num}</div>
-              {num < 5 && <div class="w-16 lg:w-24 h-1 bg-red-200 mx-2" />}
+              <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-red-600 text-white flex items-center justify-center font-bold text-sm sm:text-base">{num}</div>
+              {num < 5 && <div class="w-8 sm:w-16 lg:w-24 h-1 bg-red-200 mx-1 sm:mx-2" />}
             </div>
           ))}
         </div>
       </div>
 
       <!-- Emergency Steps -->
-      <div class="space-y-6">
+      <div class="space-y-4 sm:space-y-6">
         <!-- Step 1: Lock Device -->
-        <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="bg-white rounded-lg sm:rounded-xl shadow-md p-4 sm:p-6">
           <div class="flex items-start">
-            <div class="bg-[#d4351c] text-white rounded-full w-10 h-10 flex items-center justify-center font-bold text-lg mr-4 flex-shrink-0">
+            <div class="bg-[#d4351c] text-white rounded-full w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center font-bold text-sm sm:text-lg mr-3 sm:mr-4 flex-shrink-0">
               1
             </div>
             <div class="flex-1">
-              <h3 class="flex items-center text-xl font-semibold mb-2">Remotely Lock Your Device</h3>
-              <p class="text-neutral-700 mb-4">Use another device to access your account and lock your mobile.</p>
-              
+              <h3 class="text-base sm:text-lg md:text-xl font-semibold mb-1.5 sm:mb-2">Remotely Lock Your Device</h3>
+              <p class="text-neutral-700 mb-3 sm:mb-4 text-sm sm:text-base">Use another device to access your account and lock your mobile.</p>
+
               <div class="space-y-2">
-                <a href="https://www.google.com/android/find" target="_blank" rel="noopener noreferrer" 
-                   class="block p-3 border border-green-500 rounded-md hover:bg-green-50 transition-colors">
+                <a href="https://www.google.com/android/find" target="_blank" rel="noopener noreferrer"
+                   class="block p-2.5 sm:p-3 border border-green-500 rounded-lg sm:rounded-xl hover:bg-green-50 transition-colors">
                   <div class="flex items-center">
-                    <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3 font-bold">A</div>
+                    <div class="w-7 h-7 sm:w-8 sm:h-8 bg-green-100 rounded-full flex items-center justify-center mr-2.5 sm:mr-3 font-bold text-sm sm:text-base">A</div>
                     <div>
-                      <p class="font-medium">Lock Android Device</p>
-                      <p class="text-sm text-neutral-600">Google Find My Device</p>
+                      <p class="font-medium text-sm sm:text-base">Lock Android Device</p>
+                      <p class="text-xs sm:text-sm text-neutral-600">Google Find My Device</p>
                     </div>
                   </div>
                 </a>
-                
+
                 <a href="https://www.icloud.com/find" target="_blank" rel="noopener noreferrer"
-                   class="block p-3 border border-gray-400 rounded-md hover:bg-gray-50 transition-colors">
+                   class="block p-2.5 sm:p-3 border border-gray-400 rounded-lg sm:rounded-xl hover:bg-gray-50 transition-colors">
                   <div class="flex items-center">
-                    <div class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center mr-3 font-bold">i</div>
+                    <div class="w-7 h-7 sm:w-8 sm:h-8 bg-gray-200 rounded-full flex items-center justify-center mr-2.5 sm:mr-3 font-bold text-sm sm:text-base">i</div>
                     <div>
-                      <p class="font-medium">Lock Apple Device</p>
-                      <p class="text-sm text-neutral-600">iCloud Find My iPhone</p>
+                      <p class="font-medium text-sm sm:text-base">Lock Apple Device</p>
+                      <p class="text-xs sm:text-sm text-neutral-600">iCloud Find My iPhone</p>
                     </div>
                   </div>
                 </a>
@@ -127,35 +127,35 @@ import { AlertTriangle, Clock } from "lucide-react";
         </div>
 
         <!-- Step 2: Change Passwords -->
-        <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="bg-white rounded-lg sm:rounded-xl shadow-md p-4 sm:p-6">
           <div class="flex items-start">
-            <div class="bg-[#d4351c] text-white rounded-full w-10 h-10 flex items-center justify-center font-bold text-lg mr-4 flex-shrink-0">
+            <div class="bg-[#d4351c] text-white rounded-full w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center font-bold text-sm sm:text-lg mr-3 sm:mr-4 flex-shrink-0">
               2
             </div>
             <div class="flex-1">
-              <h3 class="flex items-center text-xl font-semibold mb-2">Change Critical Passwords</h3>
-              <p class="text-neutral-700 mb-4">Immediately change passwords for:</p>
-              <ul class="list-disc pl-5 text-neutral-700 space-y-1 mb-3">
+              <h3 class="text-base sm:text-lg md:text-xl font-semibold mb-1.5 sm:mb-2">Change Critical Passwords</h3>
+              <p class="text-neutral-700 mb-2 sm:mb-4 text-sm sm:text-base">Immediately change passwords for:</p>
+              <ul class="list-disc pl-4 sm:pl-5 text-neutral-700 space-y-0.5 sm:space-y-1 mb-2 sm:mb-3 text-sm sm:text-base">
                 <li>Google/Apple account</li>
                 <li>Email accounts</li>
                 <li>Banking apps and payment services</li>
                 <li>Social media accounts</li>
               </ul>
-              <p class="text-sm text-neutral-600 italic">Use a different device and ensure you're on secure WiFi</p>
+              <p class="text-xs sm:text-sm text-neutral-600 italic">Use a different device and ensure you're on secure WiFi</p>
             </div>
           </div>
         </div>
 
         <!-- Step 3: Block SIM -->
-        <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="bg-white rounded-lg sm:rounded-xl shadow-md p-4 sm:p-6">
           <div class="flex items-start">
-            <div class="bg-[#d4351c] text-white rounded-full w-10 h-10 flex items-center justify-center font-bold text-lg mr-4 flex-shrink-0">
+            <div class="bg-[#d4351c] text-white rounded-full w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center font-bold text-sm sm:text-lg mr-3 sm:mr-4 flex-shrink-0">
               3
             </div>
             <div class="flex-1">
-              <h3 class="flex items-center text-xl font-semibold mb-2">Contact Your Mobile Provider</h3>
-              <p class="text-neutral-700 mb-4">Report the theft and block your SIM/number to prevent unauthorised use.</p>
-              <a href="/mobile-providers" class="inline-flex items-center justify-center rounded-md text-sm font-medium bg-primary text-white hover:bg-primary/90 h-10 px-4 py-2">
+              <h3 class="text-base sm:text-lg md:text-xl font-semibold mb-1.5 sm:mb-2">Contact Your Mobile Provider</h3>
+              <p class="text-neutral-700 mb-3 sm:mb-4 text-sm sm:text-base">Report the theft and block your SIM/number to prevent unauthorised use.</p>
+              <a href="/mobile-providers" class="inline-flex items-center justify-center rounded-lg text-xs sm:text-sm font-medium bg-primary text-white hover:bg-primary/90 h-9 sm:h-10 px-3 sm:px-4 py-2">
                 Find Your Provider
               </a>
             </div>
@@ -163,33 +163,33 @@ import { AlertTriangle, Clock } from "lucide-react";
         </div>
 
         <!-- Step 4: Report to Police -->
-        <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="bg-white rounded-lg sm:rounded-xl shadow-md p-4 sm:p-6">
           <div class="flex items-start">
-            <div class="bg-[#d4351c] text-white rounded-full w-10 h-10 flex items-center justify-center font-bold text-lg mr-4 flex-shrink-0">
+            <div class="bg-[#d4351c] text-white rounded-full w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center font-bold text-sm sm:text-lg mr-3 sm:mr-4 flex-shrink-0">
               4
             </div>
             <div class="flex-1">
-              <h3 class="flex items-center text-xl font-semibold mb-2">Report to the Police</h3>
-              <p class="text-neutral-700 mb-4">File a theft report with your local police and get a crime reference number.</p>
+              <h3 class="text-base sm:text-lg md:text-xl font-semibold mb-1.5 sm:mb-2">Report to the Police</h3>
+              <p class="text-neutral-700 mb-3 sm:mb-4 text-sm sm:text-base">File a theft report with your local police and get a crime reference number.</p>
               <a href="https://www.police.uk/pu/contact-the-police/report-a-crime-incident/" target="_blank" rel="noopener noreferrer"
-                 class="inline-flex items-center justify-center rounded-md text-sm font-medium bg-primary text-white hover:bg-primary/90 h-10 px-4 py-2 mr-3">
+                 class="inline-flex items-center justify-center rounded-lg text-xs sm:text-sm font-medium bg-primary text-white hover:bg-primary/90 h-9 sm:h-10 px-3 sm:px-4 py-2">
                 Report to UK Police Online
               </a>
-              <p class="text-sm text-neutral-600 mt-2">Or call 101 for non-emergency police assistance</p>
+              <p class="text-xs sm:text-sm text-neutral-600 mt-2">Or call 101 for non-emergency police assistance</p>
             </div>
           </div>
         </div>
 
         <!-- Step 5: Check Banks -->
-        <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="bg-white rounded-lg sm:rounded-xl shadow-md p-4 sm:p-6">
           <div class="flex items-start">
-            <div class="bg-[#d4351c] text-white rounded-full w-10 h-10 flex items-center justify-center font-bold text-lg mr-4 flex-shrink-0">
+            <div class="bg-[#d4351c] text-white rounded-full w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center font-bold text-sm sm:text-lg mr-3 sm:mr-4 flex-shrink-0">
               5
             </div>
             <div class="flex-1">
-              <h3 class="flex items-center text-xl font-semibold mb-2">Check Your Bank Accounts</h3>
-              <p class="text-neutral-700 mb-4">Monitor for unauthorised transactions and contact your bank immediately if you spot anything suspicious.</p>
-              <a href="/banks" class="inline-flex items-center justify-center rounded-md text-sm font-medium bg-primary text-white hover:bg-primary/90 h-10 px-4 py-2">
+              <h3 class="text-base sm:text-lg md:text-xl font-semibold mb-1.5 sm:mb-2">Check Your Bank Accounts</h3>
+              <p class="text-neutral-700 mb-3 sm:mb-4 text-sm sm:text-base">Monitor for unauthorised transactions and contact your bank immediately if you spot anything suspicious.</p>
+              <a href="/banks" class="inline-flex items-center justify-center rounded-lg text-xs sm:text-sm font-medium bg-primary text-white hover:bg-primary/90 h-9 sm:h-10 px-3 sm:px-4 py-2">
                 View UK Bank Emergency Contacts
               </a>
             </div>
@@ -198,27 +198,27 @@ import { AlertTriangle, Clock } from "lucide-react";
       </div>
 
       <!-- Additional Actions -->
-      <div class="bg-white rounded-lg shadow-md p-6 mt-8">
-        <h3 class="flex items-center text-xl font-semibold mb-4">After Immediate Steps</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div class="p-4 border border-primary rounded-md">
-            <h4 class="font-medium mb-2">Report IMEI to Police</h4>
-            <p class="text-neutral-700 text-sm">Provide your device's IMEI number when filing the police report (find by dialing *#06#).</p>
+      <div class="bg-white rounded-lg sm:rounded-xl shadow-md p-4 sm:p-6 mt-6 sm:mt-8">
+        <h3 class="text-base sm:text-lg md:text-xl font-semibold mb-3 sm:mb-4">After Immediate Steps</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+          <div class="p-3 sm:p-4 border border-primary rounded-lg sm:rounded-xl">
+            <h4 class="font-medium mb-1 sm:mb-2 text-sm sm:text-base">Report IMEI to Police</h4>
+            <p class="text-neutral-700 text-xs sm:text-sm">Provide your device's IMEI number when filing the police report (find by dialing *#06#).</p>
           </div>
-          
-          <div class="p-4 border border-primary rounded-md">
-            <h4 class="font-medium mb-2">Contact Insurance Provider</h4>
-            <p class="text-neutral-700 text-sm">If you have insurance, contact your provider with the police reference number.</p>
+
+          <div class="p-3 sm:p-4 border border-primary rounded-lg sm:rounded-xl">
+            <h4 class="font-medium mb-1 sm:mb-2 text-sm sm:text-base">Contact Insurance Provider</h4>
+            <p class="text-neutral-700 text-xs sm:text-sm">If you have insurance, contact your provider with the police reference number.</p>
           </div>
-          
-          <div class="p-4 border border-primary rounded-md">
-            <h4 class="font-medium mb-2">Monitor Bank Statements</h4>
-            <p class="text-neutral-700 text-sm">Check for suspicious activity over the next few weeks.</p>
+
+          <div class="p-3 sm:p-4 border border-primary rounded-lg sm:rounded-xl">
+            <h4 class="font-medium mb-1 sm:mb-2 text-sm sm:text-base">Monitor Bank Statements</h4>
+            <p class="text-neutral-700 text-xs sm:text-sm">Check for suspicious activity over the next few weeks.</p>
           </div>
-          
-          <div class="p-4 border border-primary rounded-md">
-            <h4 class="font-medium mb-2">Enable Theft Alerts</h4>
-            <p class="text-neutral-700 text-sm">Set up fraud alerts with your bank and credit reference agencies.</p>
+
+          <div class="p-3 sm:p-4 border border-primary rounded-lg sm:rounded-xl">
+            <h4 class="font-medium mb-1 sm:mb-2 text-sm sm:text-base">Enable Theft Alerts</h4>
+            <p class="text-neutral-700 text-xs sm:text-sm">Set up fraud alerts with your bank and credit reference agencies.</p>
           </div>
         </div>
       </div>

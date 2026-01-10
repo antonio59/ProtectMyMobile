@@ -1,0 +1,305 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HeaderMobile from '../components/HeaderMobile';
+import Footer from '../components/Footer.astro';
+import { HelpCircle, ChevronDown, Shield, AlertTriangle, Phone, Building2, Search } from "lucide-react";
+
+const faqCategories = [
+  {
+    id: "prevention",
+    title: "Prevention & Security",
+    icon: Shield,
+    questions: [
+      {
+        question: "How can I prevent my phone from being stolen?",
+        answer: "Enable multiple layers of security: set a SIM card PIN (Settings > Security > SIM card lock), use biometric authentication with a strong 6+ digit backup passcode, enable app-specific security for banking apps with additional PINs and 2FA, and know your IMEI number (dial *#06#). Stay aware of your surroundings, especially in crowded areas like public transport and busy streets."
+      },
+      {
+        question: "What is the best way to secure my phone in London?",
+        answer: "Use comprehensive security measures: enable SIM card lock, set up biometric authentication with a strong backup passcode, secure banking and payment apps with app-specific PINs, and store your IMEI number in a password manager. Be especially vigilant on the London Underground, at tourist attractions, and in crowded areas. Keep your phone out of sight when not needed, and hold it firmly when using it near train doors or busy streets."
+      },
+      {
+        question: "Should I use a phone lanyard to prevent theft?",
+        answer: "Phone lanyards can help prevent accidental drops and keep your phone accessible, but they should complement, not replace, proper security measures. Enable SIM card locks, biometric security, and app-specific passwords. Lanyards won't prevent theft if someone forcibly grabs your phone. The most effective prevention combines physical awareness with strong digital security settings."
+      },
+      {
+        question: "How do thieves steal phones on the tube?",
+        answer: "Thieves on the London Underground typically use distraction techniques and target people using phones near doors. Common tactics include snatching phones as train doors close, targeting distracted passengers with phones visible in pockets, and working in teams to create diversions. Protect yourself by keeping your phone secured when not in use, being extra vigilant near doors, avoiding displaying expensive devices, and positioning yourself away from doors when using your phone."
+      },
+      {
+        question: "What security features should I enable on my phone?",
+        answer: "Enable these essential security features: SIM card PIN lock to prevent unauthorized use if the SIM is removed, biometric authentication (Face ID or fingerprint) with a strong alphanumeric backup passcode, Find My iPhone (iOS) or Find My Device (Android) for remote tracking and locking, app-specific PINs for banking and payment apps, automatic screen lock after 30 seconds of inactivity, and two-factor authentication on all important accounts."
+      },
+      {
+        question: "Should I keep my phone in my pocket or bag?",
+        answer: "Both have risks. Front pockets are safer than back pockets, which are easy targets for pickpockets. Bags should have zippers and be worn across your body with the opening facing inward. Never place your phone in an outside pocket of a bag. In very crowded areas, consider keeping your phone in an inner jacket pocket or front trouser pocket with your hand over it."
+      }
+    ]
+  },
+  {
+    id: "emergency",
+    title: "Emergency Response",
+    icon: AlertTriangle,
+    questions: [
+      {
+        question: "What should I do immediately if my phone is stolen?",
+        answer: "Act within 30 minutes: 1) Remotely lock your device using Find My iPhone (icloud.com/find) or Google Find My Device (google.com/android/find), 2) Change passwords for Google/Apple account, email, banking, and social media from a secure device, 3) Contact your mobile provider to block your SIM card, 4) Report to police online at police.uk or call 101 for a crime reference number, 5) Check your bank accounts for unauthorized transactions and notify your bank."
+      },
+      {
+        question: "How do I remotely lock my stolen phone?",
+        answer: "For iPhone: Go to icloud.com/find on another device, sign in with your Apple ID, select your device, and tap 'Lost Mode' to lock it and display a custom message. For Android: Go to google.com/android/find, sign in with your Google account, select your device, and click 'Secure device' to lock it with a new password and display a message. Both services also show your phone's last known location."
+      },
+      {
+        question: "Can I track my phone after it's been stolen?",
+        answer: "Yes, if you enabled Find My iPhone or Find My Device before the theft. Visit icloud.com/find (iPhone) or google.com/android/find (Android) to see your phone's location. However, thieves often turn phones off immediately or disable location services. Check the location as soon as possible and share it with police. Never try to recover the phone yourself - always involve law enforcement."
+      },
+      {
+        question: "Should I try to recover my phone myself?",
+        answer: "No, never attempt to recover your stolen phone yourself. This can be dangerous as thieves may be armed or violent. Instead, provide the location information from Find My iPhone/Android to the police with your crime reference number. Let law enforcement handle the recovery. Your safety is more important than your device."
+      },
+      {
+        question: "What if I can't access Find My iPhone or Find My Device?",
+        answer: "If you didn't enable these services before the theft, you won't be able to track or remotely lock your device. Instead, immediately: change all account passwords from another device, contact your mobile provider to block your SIM and IMEI, notify your bank about potential fraud, report to police with your IMEI number (found on your phone box or purchase receipt), and monitor your accounts for suspicious activity."
+      }
+    ]
+  },
+  {
+    id: "reporting",
+    title: "Reporting to Police",
+    icon: Building2,
+    questions: [
+      {
+        question: "How do I report phone theft to UK police?",
+        answer: "Report online at police.uk/pu/contact-the-police/report-a-crime-incident/ or call 101 (non-emergency). You'll need to provide: details of when and where the theft occurred, your phone's make and model, IMEI number (dial *#06# or check phone box), serial number if available, and any tracking information from Find My. You'll receive a crime reference number - keep this for insurance claims and provider notifications."
+      },
+      {
+        question: "Do I need a crime reference number?",
+        answer: "Yes, a crime reference number is essential for: making insurance claims for device replacement, providing proof of theft to your mobile provider when blocking your device, potentially recovering your phone if police find it, and protecting yourself legally if your phone is used for criminal activity. Always obtain and save this number when reporting theft."
+      },
+      {
+        question: "What information do police need when I report theft?",
+        answer: "Prepare this information: exact date, time, and location of theft, description of circumstances (how it was stolen), phone make, model, and color, IMEI number (dial *#06# or check phone box/receipt), serial number if available, phone number and network provider, current location if tracking shows it, description of suspect if you saw them, and any witnesses' contact details."
+      },
+      {
+        question: "Will police actually investigate phone theft?",
+        answer: "Most phone thefts are not individually investigated due to resource constraints and the high volume of cases. However, reporting is still crucial for: obtaining a crime reference number for insurance, contributing to crime statistics that inform police strategy, potentially recovering your phone if found in a larger operation, and protecting yourself if the phone is used criminally. Some police forces run targeted operations against organized phone theft gangs."
+      },
+      {
+        question: "Can I report phone theft if I'm a tourist?",
+        answer: "Yes, tourists can and should report phone theft to UK police. Use the online reporting system at police.uk or call 101. You'll receive a crime reference number needed for insurance claims. If you need to leave the UK before the investigation concludes, ensure you have: the crime reference number, contact details for the investigating police force, a copy of your report, and all relevant documentation for your insurance company."
+      }
+    ]
+  },
+  {
+    id: "providers",
+    title: "Mobile Providers & Networks",
+    icon: Phone,
+    questions: [
+      {
+        question: "How quickly should I contact my mobile provider?",
+        answer: "Contact your mobile provider immediately after securing your device remotely - ideally within the first 30 minutes. They can block your SIM card to prevent unauthorized calls, texts, and data usage. This is crucial as thieves may attempt to rack up charges or use your number for fraud. Most providers offer 24/7 support lines for theft reporting."
+      },
+      {
+        question: "What will my mobile provider do when I report theft?",
+        answer: "Your provider will: block your SIM card immediately to prevent unauthorized use, add your phone's IMEI to a national blacklist preventing it from being used on any UK network, discuss replacement SIM options (often free for theft), review your account for suspicious activity, provide advice on next steps, and may offer insurance claim support if you have device coverage through them."
+      },
+      {
+        question: "Can I keep my phone number after theft?",
+        answer: "Yes, your phone number can be transferred to a new SIM card. Contact your mobile provider - they'll block the stolen SIM while preserving your number. You can usually get a replacement SIM posted to you or collect one from a store. Your number will be activated on the new SIM once you receive it. Keep your account details and proof of identity ready when requesting this."
+      },
+      {
+        question: "What is IMEI blacklisting?",
+        answer: "IMEI blacklisting adds your phone's unique 15-digit identifier to a national database of stolen devices. Once blacklisted, the phone cannot be used on any UK network, making it worthless to thieves. Your provider does this when you report theft. The IMEI blacklist is shared across all UK carriers. Find your IMEI by dialing *#06# or checking your phone box/purchase receipt."
+      },
+      {
+        question: "Will I still be charged if someone uses my stolen phone?",
+        answer: "Contact your provider immediately to block services and avoid charges. Most UK providers have a policy that you're not liable for unauthorized usage after reporting theft, but this varies by provider. Report the theft as soon as possible and keep your crime reference number. Review your next bill carefully and dispute any fraudulent charges with your provider."
+      }
+    ]
+  },
+  {
+    id: "recovery",
+    title: "Recovery & Insurance",
+    icon: Search,
+    questions: [
+      {
+        question: "What are the chances of recovering my stolen phone?",
+        answer: "Unfortunately, the recovery rate for stolen phones in the UK is approximately 6%. Most phones are never recovered, especially in London where organized theft operations quickly move devices. This is why prevention and immediate action (remote locking, SIM blocking, IMEI blacklisting) are crucial. If you have tracking information, provide it to police, but don't attempt recovery yourself."
+      },
+      {
+        question: "Does phone insurance cover theft?",
+        answer: "This depends on your specific insurance policy. Check if you have: device insurance through your mobile provider, coverage through home contents insurance, travel insurance (for tourists), or credit card purchase protection. Review your policy for theft coverage, excess fees, claim procedures, and proof requirements. You'll typically need a crime reference number to make a claim."
+      },
+      {
+        question: "How do I make an insurance claim for a stolen phone?",
+        answer: "To claim: 1) Report theft to police and obtain a crime reference number, 2) Contact your insurance provider as soon as possible (many have time limits), 3) Provide required documentation: crime reference number, proof of purchase, IMEI number, phone details, and your insurance policy number, 4) Complete claim forms accurately, 5) Pay any excess fee, 6) Keep copies of all correspondence and documentation."
+      },
+      {
+        question: "What if I don't have insurance?",
+        answer: "Without insurance, you'll need to: purchase a replacement phone yourself (consider refurbished or budget options), transfer your number to a new SIM card (usually free), review your contract - you may still owe payments on the stolen phone, consider switching to a SIM-only contract for savings, and ensure your new phone has Find My enabled and all security features activated to prevent repeat theft."
+      },
+      {
+        question: "Can I buy a phone that was previously reported stolen?",
+        answer: "Avoid buying second-hand phones without checking their status. Use free IMEI checking services to verify a phone isn't blacklisted before purchase. Buying a stolen phone is illegal and it won't work on UK networks if the IMEI is blacklisted. Always buy from reputable retailers, ask for proof of purchase, and check the IMEI (dial *#06#) against online blacklist databases."
+      }
+    ]
+  }
+];
+
+// Build comprehensive FAQ schema for SEO
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqCategories.flatMap(category =>
+    category.questions.map(q => ({
+      "@type": "Question",
+      "name": q.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": q.answer
+      }
+    }))
+  )
+};
+---
+
+<Layout
+  title="FAQ - Mobile Phone Theft UK | Common Questions Answered"
+  description="Frequently asked questions about phone theft prevention, emergency response, reporting to police, and recovery in the UK. Get expert answers to protect your mobile."
+  canonicalPath="/faq"
+  schema={faqSchema}
+>
+  <HeaderMobile client:load />
+
+  <main class="bg-[#f3f2f1] min-h-screen">
+    <div class="container mx-auto px-4 py-4 sm:py-6 max-w-5xl">
+
+      <!-- Hero Section -->
+      <div class="bg-gradient-to-br from-primary to-blue-700 text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 lg:p-12 mb-6 sm:mb-8 md:mb-10 shadow-xl">
+        <div class="flex items-center gap-2 sm:gap-3 mb-3">
+          <div class="bg-white/20 p-2 sm:p-3 rounded-xl">
+            <HelpCircle class="h-6 w-6 sm:h-8 sm:w-8" />
+          </div>
+          <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-shadow-glow">
+            Frequently Asked Questions
+          </h1>
+        </div>
+        <p class="text-blue-100 text-xs sm:text-sm md:text-base">
+          Everything you need to know about phone theft prevention, emergency response, and recovery in the UK.
+        </p>
+      </div>
+
+      <!-- FAQ Categories -->
+      <div class="space-y-4 sm:space-y-6">
+        {faqCategories.map((category) => {
+          const IconComponent = category.icon;
+          return (
+            <section class="bg-white rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-neutral-100">
+              {/* Category Header */}
+              <div class="bg-gradient-to-r from-primary/5 to-blue-50 p-4 sm:p-6 border-b border-neutral-200">
+                <div class="flex items-center gap-2 sm:gap-3">
+                  <div class="bg-primary/10 p-2 sm:p-2.5 rounded-lg">
+                    <IconComponent class="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+                  </div>
+                  <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-neutral-900">
+                    {category.title}
+                  </h2>
+                </div>
+              </div>
+
+              {/* Questions */}
+              <div class="divide-y divide-neutral-100">
+                {category.questions.map((item, index) => (
+                  <details class="group" id={`${category.id}-${index}`}>
+                    <summary class="cursor-pointer list-none p-4 sm:p-6 hover:bg-neutral-50 transition-colors">
+                      <div class="flex items-start gap-3 sm:gap-4">
+                        <ChevronDown class="h-5 w-5 text-primary flex-shrink-0 mt-0.5 transition-transform group-open:rotate-180" />
+                        <h3 class="text-sm sm:text-base md:text-lg font-semibold text-neutral-900 flex-1 pr-2">
+                          {item.question}
+                        </h3>
+                      </div>
+                    </summary>
+                    <div class="px-4 sm:px-6 pb-4 sm:pb-6 pl-11 sm:pl-14">
+                      <p class="text-neutral-700 text-xs sm:text-sm md:text-base leading-relaxed">
+                        {item.answer}
+                      </p>
+                    </div>
+                  </details>
+                ))}
+              </div>
+            </section>
+          );
+        })}
+      </div>
+
+      {/* Additional Help Section */}
+      <div class="mt-6 sm:mt-8 bg-gradient-to-r from-primary/10 to-blue-100 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 border border-primary/20">
+        <h2 class="text-lg sm:text-xl md:text-2xl font-bold mb-3 sm:mb-4 text-neutral-900">
+          Still have questions?
+        </h2>
+        <p class="text-neutral-700 text-xs sm:text-sm md:text-base mb-4 sm:mb-6">
+          Explore our comprehensive guides and resources for more detailed information about protecting your mobile phone.
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+          <a
+            href="/prevention"
+            class="flex items-center gap-2 sm:gap-3 p-3 sm:p-4 bg-white rounded-lg sm:rounded-xl hover:shadow-md transition-all text-xs sm:text-sm md:text-base font-medium text-neutral-900 border border-neutral-200"
+          >
+            <Shield class="h-4 w-4 sm:h-5 sm:w-5 text-primary flex-shrink-0" />
+            <span>Prevention Guides</span>
+          </a>
+          <a
+            href="/emergency"
+            class="flex items-center gap-2 sm:gap-3 p-3 sm:p-4 bg-white rounded-lg sm:rounded-xl hover:shadow-md transition-all text-xs sm:text-sm md:text-base font-medium text-neutral-900 border border-neutral-200"
+          >
+            <AlertTriangle class="h-4 w-4 sm:h-5 sm:w-5 text-red-600 flex-shrink-0" />
+            <span>Emergency Steps</span>
+          </a>
+          <a
+            href="/mobile-providers"
+            class="flex items-center gap-2 sm:gap-3 p-3 sm:p-4 bg-white rounded-lg sm:rounded-xl hover:shadow-md transition-all text-xs sm:text-sm md:text-base font-medium text-neutral-900 border border-neutral-200"
+          >
+            <Phone class="h-4 w-4 sm:h-5 sm:w-5 text-primary flex-shrink-0" />
+            <span>Mobile Providers</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  /* Smooth accordion animation */
+  details summary::-webkit-details-marker {
+    display: none;
+  }
+
+  details[open] > summary {
+    border-bottom: 1px solid #f3f4f6;
+  }
+
+  /* Smooth content reveal */
+  details > div {
+    animation: fadeIn 0.2s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Mobile touch optimization */
+  @media (max-width: 640px) {
+    details summary {
+      -webkit-tap-highlight-color: transparent;
+    }
+  }
+</style>

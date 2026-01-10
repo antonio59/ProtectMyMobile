@@ -81,47 +81,47 @@ function slideUrls(folder: string, count: number) {
   <HeaderMobile client:load />
 
   <main class="bg-[#f3f2f1] min-h-screen">
-    <div class="container mx-auto px-4 py-8 max-w-6xl">
-      <div class="bg-gradient-to-br from-primary to-blue-700 text-white rounded-2xl p-6 md:p-10 mb-8 shadow-xl">
+    <div class="container mx-auto px-4 py-4 sm:py-6 md:py-8 max-w-6xl">
+      <div class="bg-gradient-to-br from-primary to-blue-700 text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8 shadow-xl">
         <div class="flex items-center gap-3 mb-3">
-          <div class="bg-white/20 p-3 rounded-xl">
-            <Shield class="h-8 w-8" />
+          <div class="bg-white/20 p-2 sm:p-3 rounded-xl">
+            <Shield class="h-6 w-6 sm:h-8 sm:w-8" />
           </div>
           <div>
             <p class="text-xs uppercase tracking-wide text-blue-100 font-semibold">Scenarios</p>
-            <h1 class="text-2xl md:text-3xl font-bold text-shadow-glow">Real-world phone theft scenarios</h1>
+            <h1 class="text-xl sm:text-2xl md:text-3xl font-bold text-shadow-glow">Real-world phone theft scenarios</h1>
           </div>
         </div>
-        <p class="text-blue-100 text-sm md:text-base max-w-3xl">
+        <p class="text-blue-100 text-xs sm:text-sm md:text-base max-w-3xl">
           Visual slides for London/UK risk situations: what thieves do, how to prevent it, and the first steps if targeted.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
         {scenarios.map((scenario, index) => (
-          <article 
+          <article
             id={scenario.id}
-            class="bg-white rounded-2xl shadow-md border border-neutral-100 p-5 flex flex-col gap-4 card-lift entrance-slide-up scroll-mt-24" 
+            class="bg-white rounded-xl sm:rounded-2xl shadow-md border border-neutral-100 p-4 sm:p-5 flex flex-col gap-4 card-lift entrance-slide-up scroll-mt-24"
             style={`animation-delay: ${index * 0.1}s`}
           >
             <div class="flex items-start gap-3">
-              <div class="bg-primary/10 text-primary rounded-lg p-2">
-                <MapPin class="h-5 w-5" />
+              <div class="bg-primary/10 text-primary rounded-lg p-2 sm:p-3">
+                <MapPin class="h-4 w-4 sm:h-5 sm:w-5" />
               </div>
               <div>
-                <h2 class="text-lg font-bold text-neutral-900 leading-tight">{scenario.title}</h2>
-                <p class="text-sm text-neutral-600 mt-1">{scenario.summary}</p>
+                <h2 class="text-base sm:text-lg font-bold text-neutral-900 leading-tight">{scenario.title}</h2>
+                <p class="text-xs sm:text-sm text-neutral-600 mt-1">{scenario.summary}</p>
               </div>
             </div>
-            <ScenarioCarousel 
-              client:load 
-              images={slideUrls(scenario.folder, scenario.slides)} 
+            <ScenarioCarousel
+              client:load
+              images={slideUrls(scenario.folder, scenario.slides)}
               title={scenario.title}
               summary={scenario.summary}
               scenarioId={scenario.id}
             />
-            <div class="flex items-center gap-2 text-sm text-neutral-500">
-              <AlertTriangle class="h-4 w-4 text-amber-500" />
+            <div class="flex items-center gap-2 text-xs sm:text-sm text-neutral-500">
+              <AlertTriangle class="h-4 w-4 sm:h-5 sm:w-5" />
               <span>{scenario.slides} slides</span>
             </div>
           </article>

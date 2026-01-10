@@ -176,17 +176,17 @@ const colorClasses: Record<string, { bg: string; border: string; icon: string; l
   <HeaderMobile client:load />
   
   <main class="bg-[#f3f2f1] min-h-screen">
-    <div class="container mx-auto px-4 py-6 max-w-6xl">
+    <div class="container mx-auto px-4 py-4 sm:py-6 max-w-6xl">
       
       <!-- Hero Section -->
-      <div class="bg-gradient-to-br from-teal-600 to-cyan-700 text-white rounded-2xl p-6 md:p-10 mb-8 shadow-xl">
+      <div class="bg-gradient-to-br from-teal-600 to-cyan-700 text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8 shadow-xl">
         <div class="flex items-center gap-3 mb-3">
-          <div class="bg-white/20 p-3 rounded-xl">
-            <ShoppingBag class="h-8 w-8" />
+          <div class="bg-white/20 p-2 sm:p-3 rounded-xl">
+            <ShoppingBag class="h-6 w-6 sm:h-8 sm:w-8" />
           </div>
-          <h1 class="text-2xl md:text-3xl font-bold">Product Recommendations</h1>
+          <h1 class="text-xl sm:text-2xl md:text-3xl font-bold">Product Recommendations</h1>
         </div>
-        <p class="text-teal-100 text-sm md:text-base mb-4">
+        <p class="text-teal-100 text-xs sm:text-sm md:text-base mb-4">
           Products and accessories that can help protect your phone from theft. Click through to browse options and read reviews.
         </p>
         <div class="flex items-start gap-2 bg-white/10 rounded-xl p-4 text-sm">
@@ -202,36 +202,36 @@ const colorClasses: Record<string, { bg: string; border: string; icon: string; l
         {productCategories.map((product) => {
           const colors = colorClasses[product.color];
           return (
-            <div class={`bg-white rounded-2xl shadow-md overflow-hidden border ${colors.border}`}>
+            <div class={`bg-white rounded-lg sm:rounded-2xl shadow-md overflow-hidden border ${colors.border}`}>
               <div class={`h-2 ${colors.bg}`}></div>
-              <div class="p-6">
-                <div class="flex flex-col md:flex-row md:items-start gap-6">
+              <div class="p-4 sm:p-6">
+                <div class="flex flex-col md:flex-row md:items-start gap-4 sm:gap-6">
                   <!-- Icon and Title -->
                   <div class="flex items-start gap-4 md:w-1/3">
-                    <div class={`${colors.light} rounded-xl p-3 flex-shrink-0`}>
-                      <product.icon class={`h-6 w-6 ${colors.icon}`} />
+                    <div class={`${colors.light} rounded-xl p-2 sm:p-3 flex-shrink-0`}>
+                      <product.icon class={`h-5 w-5 sm:h-6 sm:w-6 ${colors.icon}`} />
                     </div>
                     <div>
-                      <h2 class="text-lg font-bold text-neutral-900">{product.title}</h2>
+                      <h2 class="text-base sm:text-lg font-bold text-neutral-900">{product.title}</h2>
                       <p class="text-sm text-neutral-600 mt-1 mb-3">{product.description}</p>
                       {product.affiliateLink && (
-                        <a 
-                          href={product.affiliateLink} 
-                          target="_blank" 
+                        <a
+                          href={product.affiliateLink}
+                          target="_blank"
                           rel="noopener noreferrer sponsored"
-                          class={`inline-flex items-center gap-2 px-4 py-2 ${colors.bg} text-white text-sm font-semibold rounded-lg hover:opacity-90 transition-opacity`}
+                          class={`inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 ${colors.bg} text-white text-xs sm:text-sm font-semibold rounded-lg hover:opacity-90 transition-opacity`}
                         >
                           {product.title}
-                          <ExternalLink class="h-4 w-4" />
+                          <ExternalLink class="h-3 w-3 sm:h-4 sm:w-4" />
                         </a>
                       )}
                     </div>
                   </div>
-                  
+
                   <!-- Benefits and What to Look For -->
-                  <div class="flex-1 grid sm:grid-cols-2 gap-4">
+                  <div class="flex-1 grid sm:grid-cols-2 gap-3 sm:gap-4">
                     <!-- Benefits -->
-                    <div class={`${colors.light} rounded-xl p-4`}>
+                    <div class={`${colors.light} rounded-lg sm:rounded-xl p-3 sm:p-4`}>
                       <h3 class="font-semibold text-sm text-neutral-900 mb-2">Benefits</h3>
                       <ul class="space-y-1.5">
                         {product.benefits.map((benefit) => (
@@ -242,9 +242,9 @@ const colorClasses: Record<string, { bg: string; border: string; icon: string; l
                         ))}
                       </ul>
                     </div>
-                    
+
                     <!-- What to Look For -->
-                    <div class="bg-neutral-50 rounded-xl p-4">
+                    <div class="bg-neutral-50 rounded-lg sm:rounded-xl p-3 sm:p-4">
                       <h3 class="font-semibold text-sm text-neutral-900 mb-2">What to Look For</h3>
                       <ul class="space-y-1.5">
                         {product.lookFor.map((item) => (
@@ -264,13 +264,13 @@ const colorClasses: Record<string, { bg: string; border: string; icon: string; l
       </div>
       
       <!-- Tips Section -->
-      <section class="mt-10 bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl p-6 md:p-8 border border-amber-200">
-        <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
-          <Shield class="h-5 w-5 text-amber-600" />
+      <section class="mt-6 sm:mt-8 md:mt-10 bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl p-4 sm:p-6 md:p-8 border border-amber-200">
+        <h2 class="text-lg sm:text-xl font-bold mb-4 flex items-center gap-2">
+          <Shield class="h-4 w-4 sm:h-5 sm:w-5 text-amber-600" />
           General Buying Tips
         </h2>
         <div class="grid md:grid-cols-2 gap-4">
-          <div class="bg-white rounded-xl p-4 shadow-sm">
+          <div class="bg-white rounded-xl p-3 sm:p-4 shadow-sm">
             <h3 class="font-semibold mb-2">Before You Buy</h3>
             <ul class="text-sm text-neutral-700 space-y-2">
               <li>• Read multiple reviews from verified purchasers</li>
@@ -279,7 +279,7 @@ const colorClasses: Record<string, { bg: string; border: string; icon: string; l
               <li>• Look for products with warranties or guarantees</li>
             </ul>
           </div>
-          <div class="bg-white rounded-xl p-4 shadow-sm">
+          <div class="bg-white rounded-xl p-3 sm:p-4 shadow-sm">
             <h3 class="font-semibold mb-2">Remember</h3>
             <ul class="text-sm text-neutral-700 space-y-2">
               <li>• No product guarantees complete protection</li>
@@ -292,20 +292,20 @@ const colorClasses: Record<string, { bg: string; border: string; icon: string; l
       </section>
       
       <!-- CTA -->
-      <section class="mt-10 bg-gradient-to-r from-primary to-blue-700 rounded-2xl p-6 md:p-8 text-white">
+      <section class="mt-6 sm:mt-8 md:mt-10 bg-gradient-to-r from-primary to-blue-700 rounded-2xl p-4 sm:p-6 md:p-8 text-white">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
-            <h2 class="text-xl font-bold mb-2">Products are just one part of protection</h2>
+            <h2 class="text-lg sm:text-xl font-bold mb-2">Products are just one part of protection</h2>
             <p class="text-blue-100 text-sm">
               Learn essential security practices and what to do if the worst happens.
             </p>
           </div>
           <div class="flex flex-col sm:flex-row gap-3">
-            <a href="/prevention" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-primary rounded-xl font-semibold text-sm hover:bg-blue-50 transition-colors">
-              <Shield class="h-4 w-4" />
+            <a href="/prevention" class="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-white text-primary rounded-xl font-semibold text-xs sm:text-sm hover:bg-blue-50 transition-colors">
+              <Shield class="h-3 w-3 sm:h-4 sm:w-4" />
               Prevention Guide
             </a>
-            <a href="/security-checkup" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white/20 text-white rounded-xl font-semibold text-sm hover:bg-white/30 transition-colors">
+            <a href="/security-checkup" class="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-white/20 text-white rounded-xl font-semibold text-xs sm:text-sm hover:bg-white/30 transition-colors">
               Security Checkup
             </a>
           </div>

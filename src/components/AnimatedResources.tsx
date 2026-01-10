@@ -55,9 +55,9 @@ const resources: Resource[] = [
 
 export default function AnimatedResources() {
   return (
-    <section className="mb-12">
-      <motion.h2 
-        className="text-2xl md:text-3xl font-bold text-neutral-900 mb-6"
+    <section className="mb-8 sm:mb-12">
+      <motion.h2
+        className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-neutral-900 mb-4 sm:mb-6 lg:mb-8"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -65,37 +65,39 @@ export default function AnimatedResources() {
       >
         Essential Resources
       </motion.h2>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-6 lg:gap-8">
         {resources.map((resource, index) => (
           <motion.a
             key={resource.title}
             href={resource.href}
-            className="group bg-white rounded-2xl shadow-md p-6 md:p-8 hover:shadow-xl transition-all"
+            className="group bg-white rounded-xl sm:rounded-2xl shadow-md p-4 sm:p-6 md:p-8 lg:p-10 hover:shadow-xl transition-all border border-transparent hover:border-primary/10"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-50px' }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
             whileHover={{ y: -4, scale: 1.01 }}
           >
-            <div className="flex items-start gap-4">
-              <motion.div 
-                className={`${resource.iconBg} rounded-xl p-3 flex-shrink-0`}
+            <div className="flex items-start gap-3 sm:gap-4 lg:gap-5">
+              <motion.div
+                className={`${resource.iconBg} rounded-lg sm:rounded-xl lg:rounded-2xl p-2 sm:p-3 lg:p-4 flex-shrink-0`}
                 whileHover={{ scale: 1.1, rotate: 5 }}
                 transition={{ type: 'spring', stiffness: 300 }}
               >
-                {resource.icon}
+                <div className="[&>svg]:h-6 [&>svg]:w-6 sm:[&>svg]:h-8 sm:[&>svg]:w-8 lg:[&>svg]:h-10 lg:[&>svg]:w-10">
+                  {resource.icon}
+                </div>
               </motion.div>
               <div className="flex-1 min-w-0">
-                <h3 className="text-xl md:text-2xl font-semibold mb-2 group-hover:text-primary transition-colors">
+                <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold mb-1 sm:mb-2 lg:mb-3 group-hover:text-primary transition-colors">
                   {resource.title}
                 </h3>
-                <p className="text-neutral-600 mb-4 text-sm md:text-base">
+                <p className="text-neutral-600 mb-2 sm:mb-4 text-xs sm:text-sm md:text-base lg:text-lg line-clamp-2 sm:line-clamp-none">
                   {resource.description}
                 </p>
-                <span className={`${resource.linkColor} font-medium flex items-center gap-1 text-sm md:text-base`}>
-                  {resource.linkText} 
-                  <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                <span className={`${resource.linkColor} font-medium flex items-center gap-1 sm:gap-2 text-xs sm:text-sm md:text-base lg:text-lg`}>
+                  {resource.linkText}
+                  <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 lg:h-5 lg:w-5 group-hover:translate-x-2 transition-transform" />
                 </span>
               </div>
             </div>

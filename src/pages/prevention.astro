@@ -5,35 +5,75 @@ import Footer from '../components/Footer.astro';
 import { Shield, IdCard, Fingerprint, Lock, ShieldCheck, ArrowRight, CheckCircle2, Hash } from "lucide-react";
 ---
 
-<Layout 
+<Layout
   title="How To Prevent Phone Theft UK | Mobile Security Guide"
   description="Protect your phone from theft in London and UK. Expert tips on PIN locks, biometric security, tracking apps, and street-smart habits to keep your device safe."
   canonicalPath="/prevention"
-  schema={{
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": "How To Prevent Phone Theft in the UK",
-    "description": "Complete guide to protecting your mobile phone from theft in the UK with security settings, tracking apps, and street-smart habits.",
-    "author": { "@type": "Organization", "name": "ProtectMyMobile" },
-    "publisher": { "@type": "Organization", "name": "ProtectMyMobile" }
-  }}
+  schema={[
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "How To Prevent Phone Theft in the UK",
+      "description": "Complete guide to protecting your mobile phone from theft in the UK with security settings, tracking apps, and street-smart habits.",
+      "author": { "@type": "Organization", "name": "ProtectMyMobile" },
+      "publisher": { "@type": "Organization", "name": "ProtectMyMobile" }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How can I prevent my phone from being stolen?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "To prevent phone theft, enable strong security measures: set a SIM card PIN to prevent unauthorized use, use biometric authentication (fingerprint or face ID) alongside a 6+ digit passcode, enable app-specific security for banking apps with additional PINs and 2FA, and know your IMEI number by dialing *#06#. Keep your phone secure by being aware of your surroundings, especially in crowded areas."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the best way to secure my phone in London?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The best way to secure your phone in London is to use multiple layers of security: enable SIM card lock from Settings > Security, set up biometric authentication with a strong backup passcode, secure your banking and payment apps with app-specific PINs, and store your IMEI number safely in a password manager. Be especially vigilant in busy areas like the London Underground, tourist attractions, and crowded streets."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Should I use a phone lanyard to prevent theft?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Phone lanyards can be helpful for preventing accidental drops and keeping your phone accessible, but they should be used alongside proper security measures. Enable SIM card locks, biometric security, and app-specific passwords. Be aware that lanyards alone won't prevent theft if someone forcibly grabs your phone. The most effective prevention combines physical awareness with strong digital security settings."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do thieves steal phones on the tube?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Thieves on the London Underground typically use distraction techniques and target people using their phones near doors. Common methods include snatching phones as train doors close, targeting passengers who are distracted or have phones visible in pockets, and working in teams to create diversions. Protect yourself by keeping your phone secured when not in use, being extra vigilant near doors, and avoiding displaying expensive devices. If you must use your phone, position yourself away from doors and keep a firm grip."
+          }
+        }
+      ]
+    }
+  ]}
 >
   <HeaderMobile client:load />
   
   <main class="bg-[#f3f2f1] min-h-screen">
-    <div class="container mx-auto px-4 py-6 max-w-6xl">
+    <div class="container mx-auto px-4 py-4 sm:py-6 max-w-6xl">
       <!-- Hero Section -->
-      <div class="bg-gradient-to-br from-primary to-blue-700 text-white rounded-2xl p-6 md:p-10 mb-8 shadow-xl">
-        <div class="flex items-center gap-3 mb-3">
-          <div class="bg-white/20 p-3 rounded-xl">
-            <Shield class="h-8 w-8" />
+      <div class="bg-gradient-to-br from-primary to-blue-700 text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 lg:p-12 mb-6 sm:mb-8 md:mb-10 shadow-xl">
+        <div class="flex items-center gap-2 sm:gap-3 mb-3">
+          <div class="bg-white/20 p-2 sm:p-3 rounded-xl">
+            <Shield class="h-6 w-6 sm:h-8 sm:w-8" />
           </div>
-          <h1 class="text-2xl md:text-3xl font-bold text-shadow-glow">Prevention Guides</h1>
+          <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-shadow-glow">Prevention Guides</h1>
         </div>
-        <p class="text-blue-100 text-sm md:text-base mb-6">
+        <p class="text-blue-100 text-xs sm:text-sm md:text-base mb-4 sm:mb-6">
           Take these preventative measures to secure your phone and minimise risk in case of theft.
         </p>
-        <a href="/security-checkup" class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-primary rounded-xl font-semibold text-sm hover:bg-blue-50 transition-colors shadow-lg">
+        <a href="/security-checkup" class="inline-flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-white text-primary rounded-xl font-semibold text-xs sm:text-sm hover:bg-blue-50 transition-colors shadow-lg">
           <ShieldCheck class="h-4 w-4" />
           Take Security Checkup
           <ArrowRight class="h-4 w-4" />
@@ -41,52 +81,52 @@ import { Shield, IdCard, Fingerprint, Lock, ShieldCheck, ArrowRight, CheckCircle
       </div>
 
       <!-- Essential Security Measures -->
-      <section class="mb-10">
-        <h2 class="text-xl md:text-2xl font-bold mb-6 flex items-center gap-2">
-          <CheckCircle2 class="h-6 w-6 text-primary" />
+      <section class="mb-6 sm:mb-8 md:mb-10">
+        <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 flex items-center gap-2">
+          <CheckCircle2 class="h-6 w-6 sm:h-8 sm:w-8 text-primary" />
           Essential Security Measures
         </h2>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
           <!-- Secure SIM Card -->
-          <div class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-neutral-100">
+          <div class="bg-white rounded-xl sm:rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-neutral-100">
             <div class="h-2 bg-gradient-to-r from-primary to-blue-600"></div>
-            <div class="p-6">
-              <div class="flex items-center gap-3 mb-4">
-                <div class="bg-primary/10 rounded-xl p-3">
-                  <IdCard class="h-6 w-6 text-primary" />
+            <div class="p-4 sm:p-6">
+              <div class="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+                <div class="bg-primary/10 rounded-xl p-2 sm:p-3">
+                  <IdCard class="h-6 w-6 sm:h-8 sm:w-8 text-primary" />
                 </div>
-                <h3 class="text-lg font-bold">Secure Your SIM</h3>
+                <h3 class="text-base sm:text-lg md:text-xl font-bold">Secure Your SIM</h3>
               </div>
-              <p class="text-neutral-600 text-sm mb-4">
+              <p class="text-neutral-600 text-xs sm:text-sm md:text-base mb-3 sm:mb-4">
                 Set a PIN for your SIM card to prevent unauthorised use if stolen.
               </p>
-              <ol class="list-decimal pl-5 text-neutral-700 space-y-1 text-sm mb-4">
+              <ol class="list-decimal pl-5 text-neutral-700 space-y-1 text-xs sm:text-sm md:text-base mb-3 sm:mb-4">
                 <li>Go to Settings → Security</li>
                 <li>Find "SIM card lock"</li>
                 <li>Enable and set a unique PIN</li>
                 <li>Store PIN securely offline</li>
               </ol>
-              <div class="p-3 bg-yellow-50 border border-yellow-200 rounded-xl text-xs">
+              <div class="p-2 sm:p-3 bg-yellow-50 border border-yellow-200 rounded-xl text-xs">
                 <p class="text-yellow-800"><strong>Note:</strong> You'll need this PIN when restarting your phone.</p>
               </div>
             </div>
           </div>
           
           <!-- Biometric Authentication -->
-          <div class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-neutral-100">
+          <div class="bg-white rounded-xl sm:rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-neutral-100">
             <div class="h-2 bg-gradient-to-r from-green-500 to-emerald-600"></div>
-            <div class="p-6">
-              <div class="flex items-center gap-3 mb-4">
-                <div class="bg-green-100 rounded-xl p-3">
-                  <Fingerprint class="h-6 w-6 text-green-600" />
+            <div class="p-4 sm:p-6">
+              <div class="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+                <div class="bg-green-100 rounded-xl p-2 sm:p-3">
+                  <Fingerprint class="h-6 w-6 sm:h-8 sm:w-8 text-green-600" />
                 </div>
-                <h3 class="text-lg font-bold">Biometric Auth</h3>
+                <h3 class="text-base sm:text-lg md:text-xl font-bold">Biometric Auth</h3>
               </div>
-              <p class="text-neutral-600 text-sm mb-4">
+              <p class="text-neutral-600 text-xs sm:text-sm md:text-base mb-3 sm:mb-4">
                 Set up fingerprint or face recognition alongside a strong passcode.
               </p>
-              <ol class="list-decimal pl-5 text-neutral-700 space-y-1 text-sm">
+              <ol class="list-decimal pl-5 text-neutral-700 space-y-1 text-xs sm:text-sm md:text-base">
                 <li>Go to Settings → Security</li>
                 <li>Select Face ID or Fingerprint</li>
                 <li>Register your biometrics</li>
@@ -96,19 +136,19 @@ import { Shield, IdCard, Fingerprint, Lock, ShieldCheck, ArrowRight, CheckCircle
           </div>
           
           <!-- App-Specific Security -->
-          <div class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-neutral-100">
+          <div class="bg-white rounded-xl sm:rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-neutral-100">
             <div class="h-2 bg-gradient-to-r from-orange-500 to-red-500"></div>
-            <div class="p-6">
-              <div class="flex items-center gap-3 mb-4">
-                <div class="bg-orange-100 rounded-xl p-3">
-                  <Lock class="h-6 w-6 text-orange-600" />
+            <div class="p-4 sm:p-6">
+              <div class="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+                <div class="bg-orange-100 rounded-xl p-2 sm:p-3">
+                  <Lock class="h-6 w-6 sm:h-8 sm:w-8 text-orange-600" />
                 </div>
-                <h3 class="text-lg font-bold">App Security</h3>
+                <h3 class="text-base sm:text-lg md:text-xl font-bold">App Security</h3>
               </div>
-              <p class="text-neutral-600 text-sm mb-4">
+              <p class="text-neutral-600 text-xs sm:text-sm md:text-base mb-3 sm:mb-4">
                 Enable additional security for banking and payment apps.
               </p>
-              <ol class="list-decimal pl-5 text-neutral-700 space-y-1 text-sm">
+              <ol class="list-decimal pl-5 text-neutral-700 space-y-1 text-xs sm:text-sm md:text-base">
                 <li>Open banking app settings</li>
                 <li>Enable app-specific PIN</li>
                 <li>Turn on 2FA if available</li>
@@ -120,25 +160,25 @@ import { Shield, IdCard, Fingerprint, Lock, ShieldCheck, ArrowRight, CheckCircle
       </section>
       
       <!-- IMEI Information -->
-      <section class="mb-10">
-        <div class="bg-white rounded-2xl shadow-md overflow-hidden border border-neutral-100">
+      <section class="mb-6 sm:mb-8 md:mb-10">
+        <div class="bg-white rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-neutral-100">
           <div class="h-2 bg-gradient-to-r from-teal-500 to-cyan-500"></div>
-          <div class="p-6 md:p-8">
-            <div class="flex items-center gap-3 mb-4">
-              <div class="bg-teal-100 rounded-xl p-3">
-                <Hash class="h-6 w-6 text-teal-600" />
+          <div class="p-4 sm:p-6 md:p-10 lg:p-12">
+            <div class="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+              <div class="bg-teal-100 rounded-xl p-2 sm:p-3">
+                <Hash class="h-6 w-6 sm:h-8 sm:w-8 text-teal-600" />
               </div>
-              <h3 class="text-xl font-bold">Know Your IMEI Number</h3>
+              <h3 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">Know Your IMEI Number</h3>
             </div>
-            
-            <p class="text-neutral-700 mb-6">
+
+            <p class="text-neutral-700 text-xs sm:text-sm md:text-base mb-4 sm:mb-6">
               Your IMEI is your phone's unique 15-digit identifier. You'll need this to report theft to police and your network.
             </p>
-            
-            <div class="grid md:grid-cols-2 gap-6">
-              <div class="p-4 bg-blue-50 border border-blue-200 rounded-xl">
-                <h4 class="font-semibold text-blue-900 mb-3">How to find your IMEI:</h4>
-                <ul class="space-y-2 text-sm text-blue-800">
+
+            <div class="grid md:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
+              <div class="p-4 sm:p-6 bg-blue-50 border border-blue-200 rounded-xl sm:rounded-2xl">
+                <h4 class="font-semibold text-blue-900 mb-2 sm:mb-3 text-sm sm:text-base">How to find your IMEI:</h4>
+                <ul class="space-y-2 text-xs sm:text-sm md:text-base text-blue-800">
                   <li class="flex items-start gap-2">
                     <CheckCircle2 class="h-4 w-4 mt-0.5 flex-shrink-0" />
                     <span>Dial <code class="bg-blue-100 px-2 py-0.5 rounded font-mono">*#06#</code></span>
@@ -153,10 +193,10 @@ import { Shield, IdCard, Fingerprint, Lock, ShieldCheck, ArrowRight, CheckCircle
                   </li>
                 </ul>
               </div>
-              
-              <div class="p-4 bg-neutral-100 rounded-xl">
-                <h4 class="font-semibold text-neutral-900 mb-3">Where to store it safely:</h4>
-                <ul class="space-y-2 text-sm text-neutral-700">
+
+              <div class="p-4 sm:p-6 bg-neutral-100 rounded-xl sm:rounded-2xl">
+                <h4 class="font-semibold text-neutral-900 mb-2 sm:mb-3 text-sm sm:text-base">Where to store it safely:</h4>
+                <ul class="space-y-2 text-xs sm:text-sm md:text-base text-neutral-700">
                   <li class="flex items-start gap-2">
                     <CheckCircle2 class="h-4 w-4 mt-0.5 flex-shrink-0 text-green-600" />
                     <span>Password manager (most secure)</span>
@@ -172,12 +212,12 @@ import { Shield, IdCard, Fingerprint, Lock, ShieldCheck, ArrowRight, CheckCircle
                 </ul>
               </div>
             </div>
-            
-            <div class="mt-6 p-4 bg-green-50 border border-green-200 rounded-xl flex items-start gap-3">
+
+            <div class="mt-4 sm:mt-6 p-4 sm:p-6 bg-green-50 border border-green-200 rounded-xl sm:rounded-2xl flex items-start gap-2 sm:gap-3">
               <ShieldCheck class="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
               <div>
-                <p class="font-medium text-green-800">We protect your privacy</p>
-                <p class="text-green-700 text-sm">We never ask for or store your IMEI. Keep it private and secure.</p>
+                <p class="font-medium text-green-800 text-xs sm:text-sm md:text-base">We protect your privacy</p>
+                <p class="text-green-700 text-xs sm:text-sm">We never ask for or store your IMEI. Keep it private and secure.</p>
               </div>
             </div>
           </div>
@@ -185,13 +225,13 @@ import { Shield, IdCard, Fingerprint, Lock, ShieldCheck, ArrowRight, CheckCircle
       </section>
 
       <!-- CTA -->
-      <section class="bg-gradient-to-r from-primary/10 to-blue-100 rounded-2xl p-6 md:p-8 border border-primary/20">
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <section class="bg-gradient-to-r from-primary/10 to-blue-100 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 lg:p-12 border border-primary/20">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 sm:gap-4">
           <div>
-            <h3 class="text-xl font-bold mb-2">How secure is your phone?</h3>
-            <p class="text-neutral-700">Complete our quick assessment to identify security gaps.</p>
+            <h3 class="text-lg sm:text-xl md:text-2xl font-bold mb-2">How secure is your phone?</h3>
+            <p class="text-neutral-700 text-xs sm:text-sm md:text-base">Complete our quick assessment to identify security gaps.</p>
           </div>
-          <a href="/security-checkup" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-white rounded-xl font-semibold hover:bg-primary/90 transition-colors shadow-lg">
+          <a href="/security-checkup" class="inline-flex items-center justify-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-primary text-white rounded-xl font-semibold text-xs sm:text-sm hover:bg-primary/90 transition-colors shadow-lg whitespace-nowrap">
             Start Security Checkup
             <ArrowRight class="h-4 w-4" />
           </a>

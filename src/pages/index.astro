@@ -83,77 +83,81 @@ try {
         <div class="bg-gradient-to-br from-neutral-900 to-neutral-800 rounded-3xl shadow-2xl overflow-hidden">
           <!-- Video takes prominence -->
           <div class="relative">
-            <video 
+            <video
               id="hero-video"
-              autoplay 
-              muted 
+              autoplay
+              muted
               playsinline
-              class="w-full aspect-[16/9] md:aspect-[21/9] object-cover object-[70%_center]"
+              class="w-full aspect-[4/5] sm:aspect-[16/9] md:aspect-[21/9] object-cover object-[70%_center]"
             >
               <source src="/videos/phone-theft-animation.mp4" type="video/mp4" />
             </video>
-            <div class="absolute inset-0 bg-gradient-to-t from-neutral-900 via-neutral-900/60 to-transparent"></div>
-            
+            <div class="absolute inset-0 bg-gradient-to-t from-neutral-900 via-neutral-900/40 to-transparent"></div>
+
             <!-- Overlay Content -->
-            <div class="absolute inset-0 flex flex-col justify-end p-6 md:p-10 lg:p-12">
+            <div class="absolute inset-0 flex flex-col justify-end p-4 sm:p-6 md:p-10 lg:p-12">
               <div class="max-w-5xl">
-                <div class="inline-flex items-center gap-2 bg-red-500/30 text-red-300 rounded-full px-4 py-1.5 text-sm font-medium w-fit mb-4">
-                  <AlertTriangle class="h-4 w-4" />
+                <div class="inline-flex items-center gap-2 bg-red-500/30 text-red-300 rounded-full px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-medium w-fit mb-2 sm:mb-4">
+                  <AlertTriangle class="h-3 w-3 sm:h-4 sm:w-4" />
                   UK Theft Crisis
                 </div>
-                
-                <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 text-shadow-hero">
+
+                <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2 sm:mb-3 text-shadow-hero">
                   Blink and it's gone.
                 </h1>
-                <p class="text-lg md:text-xl text-neutral-200 mb-6 max-w-2xl">
+                <p class="text-sm sm:text-lg md:text-xl text-neutral-200 mb-4 sm:mb-6 max-w-2xl">
                   Over 80,000 phones stolen in London every year. Organised gangs use bikes, mopeds, and distraction tactics to snatch phones in seconds.
                 </p>
-                
+
                 <!-- CTAs -->
-                <div class="flex flex-col sm:flex-row gap-4 mb-8">
-                  <a 
-                    href="/prevention" 
-                    class="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base bg-white text-neutral-900 rounded-xl font-semibold hover:bg-neutral-100 transition-all shadow-lg shadow-glow-blue hover-lift touch-target"
+                <div class="flex flex-col sm:flex-row gap-2 sm:gap-4 mb-4 sm:mb-8">
+                  <a
+                    href="/prevention"
+                    class="inline-flex items-center justify-center gap-2 px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 text-sm sm:text-base bg-white text-neutral-900 rounded-xl font-semibold hover:bg-neutral-100 transition-all shadow-lg shadow-glow-blue hover-lift touch-target"
                   >
-                    <Shield class="h-5 w-5" />
+                    <Shield class="h-4 w-4 sm:h-5 sm:w-5" />
                     <span>Protect Your Phone</span>
                   </a>
-                  <a 
-                    href="/emergency" 
-                    class="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base bg-red-600 text-white rounded-xl font-semibold hover:bg-red-700 transition-all shadow-glow-red animate-pulse-glow hover-lift touch-target"
+                  <a
+                    href="/emergency"
+                    class="inline-flex items-center justify-center gap-2 px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 text-sm sm:text-base bg-red-600 text-white rounded-xl font-semibold hover:bg-red-700 transition-all shadow-glow-red animate-pulse-glow hover-lift touch-target"
                   >
-                    <AlertTriangle class="h-5 w-5" />
+                    <AlertTriangle class="h-4 w-4 sm:h-5 sm:w-5" />
                     <span>Phone Stolen? Act Now</span>
                   </a>
-                  <a 
-                    href="/the-problem" 
-                    class="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base bg-white/10 text-white border border-white/20 rounded-xl font-semibold hover:bg-white/20 transition-all hover-lift touch-target"
+                  <a
+                    href="/the-problem"
+                    class="hidden sm:inline-flex items-center justify-center gap-2 px-6 md:px-8 py-3 md:py-4 text-sm sm:text-base bg-white/10 text-white border border-white/20 rounded-xl font-semibold hover:bg-white/20 transition-all hover-lift touch-target"
                   >
                     <span>Learn How Thieves Operate</span>
                     <ArrowRight class="h-4 w-4" />
                   </a>
                 </div>
-                
+
                 <!-- Stats Row -->
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-                  <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4">
-                    <div class="text-2xl md:text-3xl font-bold text-red-300">78,000+</div>
-                    <div class="text-xs text-neutral-300">Stolen in London (2023)</div>
-                  </div>
-                  <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4">
-                    <div class="text-2xl md:text-3xl font-bold text-orange-300">44%</div>
-                    <div class="text-xs text-neutral-300">Increase since 2022</div>
-                  </div>
-                  <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4">
-                    <div class="flex items-center gap-1 text-2xl md:text-3xl font-bold text-yellow-300">
-                      <Clock class="h-5 w-5" />
-                      3 min
+                <div class="grid grid-cols-4 gap-2 sm:gap-3 md:gap-4 lg:gap-6">
+                  <div class="bg-white/10 backdrop-blur-sm rounded-lg sm:rounded-xl lg:rounded-2xl p-2 sm:p-4 lg:p-5">
+                    <div class="text-base sm:text-2xl md:text-3xl lg:text-4xl font-bold text-red-300">
+                      <span class="md:hidden">78K+</span>
+                      <span class="hidden md:inline">78,000+</span>
                     </div>
-                    <div class="text-xs text-neutral-300">One stolen every</div>
+                    <div class="text-[10px] sm:text-xs lg:text-sm text-neutral-300 hidden sm:block">Stolen in London (2023)</div>
+                    <div class="text-[10px] text-neutral-300 sm:hidden">Stolen</div>
                   </div>
-                  <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4">
-                    <div class="text-2xl md:text-3xl font-bold text-teal-300">6%</div>
-                    <div class="text-xs text-neutral-300">Recovery rate</div>
+                  <div class="bg-white/10 backdrop-blur-sm rounded-lg sm:rounded-xl lg:rounded-2xl p-2 sm:p-4 lg:p-5">
+                    <div class="text-base sm:text-2xl md:text-3xl lg:text-4xl font-bold text-orange-300">44%</div>
+                    <div class="text-[10px] sm:text-xs lg:text-sm text-neutral-300 hidden sm:block">Increase since 2022</div>
+                    <div class="text-[10px] text-neutral-300 sm:hidden">Increase</div>
+                  </div>
+                  <div class="bg-white/10 backdrop-blur-sm rounded-lg sm:rounded-xl lg:rounded-2xl p-2 sm:p-4 lg:p-5">
+                    <div class="text-base sm:text-2xl md:text-3xl lg:text-4xl font-bold text-yellow-300">3 min</div>
+                    <div class="text-[10px] sm:text-xs lg:text-sm text-neutral-300 hidden sm:block">One stolen every</div>
+                    <div class="text-[10px] text-neutral-300 sm:hidden">Frequency</div>
+                  </div>
+                  <div class="bg-white/10 backdrop-blur-sm rounded-lg sm:rounded-xl lg:rounded-2xl p-2 sm:p-4 lg:p-5">
+                    <div class="text-base sm:text-2xl md:text-3xl lg:text-4xl font-bold text-teal-300">6%</div>
+                    <div class="text-[10px] sm:text-xs lg:text-sm text-neutral-300 hidden sm:block">Recovery rate</div>
+                    <div class="text-[10px] text-neutral-300 sm:hidden">Recovered</div>
                   </div>
                 </div>
               </div>
@@ -179,38 +183,40 @@ try {
       </script>
 
       <!-- Visitor Safety Section (moved below "Blink and it's gone") -->
-      <section class="mb-12">
-        <div class="bg-white rounded-2xl shadow-md border border-neutral-100 p-6 md:p-8">
-          <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
-            <div>
+      <section class="mb-8 sm:mb-12">
+        <div class="bg-white rounded-2xl shadow-md border border-neutral-100 p-4 sm:p-6 md:p-8 lg:p-10">
+          <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 lg:gap-8 mb-4 lg:mb-6">
+            <div class="lg:max-w-2xl">
               <p class="text-xs uppercase tracking-wide text-primary font-semibold mb-1">London visitors</p>
-              <h2 class="text-xl md:text-2xl font-bold text-neutral-900">Tourist safety: keep your phone secure in London</h2>
-              <p class="text-neutral-600 text-sm md:text-base mt-2">Fast tips for travellers and students: avoid kerbside scrolling, use cross-body bags, pre-save Find My links, and know who to contact if you’re targeted.</p>
+              <h2 class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-neutral-900">Tourist safety: keep your phone secure in London</h2>
+              <p class="text-neutral-600 text-xs sm:text-sm md:text-base lg:text-lg mt-2">Fast tips for travellers and students: avoid kerbside scrolling, use cross-body bags, pre-save Find My links, and know who to contact if you're targeted.</p>
             </div>
-            <div class="flex flex-col sm:flex-row gap-3 shrink-0 mt-4 md:mt-0">
-              <a href="/london-visitor-safety" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-white rounded-xl font-semibold shadow-md hover:bg-primary/90 transition whitespace-nowrap">
-                <Shield class="h-5 w-5" />
-                Visitor Safety Guide
+            <div class="grid grid-cols-2 sm:flex sm:flex-row gap-2 sm:gap-3 shrink-0 mt-2 lg:mt-0">
+              <a href="/london-visitor-safety" class="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3 lg:py-4 bg-primary text-white rounded-xl font-semibold shadow-md hover:bg-primary/90 hover:scale-[1.02] transition-all text-xs sm:text-sm md:text-base">
+                <Shield class="h-4 w-4 sm:h-5 sm:w-5" />
+                <span class="sm:hidden">Safety</span>
+                <span class="hidden sm:inline">Visitor Safety Guide</span>
               </a>
-              <a href="/emergency" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-red-600 text-white rounded-xl font-semibold shadow-md hover:bg-red-700 transition whitespace-nowrap">
-                <AlertTriangle class="h-5 w-5" />
-                Emergency Steps
-                <ArrowRight class="h-4 w-4" />
+              <a href="/emergency" class="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3 lg:py-4 bg-red-600 text-white rounded-xl font-semibold shadow-md hover:bg-red-700 hover:scale-[1.02] transition-all text-xs sm:text-sm md:text-base">
+                <AlertTriangle class="h-4 w-4 sm:h-5 sm:w-5" />
+                <span class="sm:hidden">Emergency</span>
+                <span class="hidden sm:inline">Emergency Steps</span>
+                <ArrowRight class="h-3 w-3 sm:h-4 sm:w-4 hidden sm:block" />
               </a>
             </div>
           </div>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div class="p-4 rounded-xl bg-neutral-50 border border-neutral-100">
-              <p class="text-sm font-semibold text-neutral-900 mb-1">Before you arrive</p>
-              <p class="text-sm text-neutral-600">Enable Find My, turn on device passcodes and Face ID/biometrics, and store IMEI + carrier contact numbers.</p>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
+            <div class="p-3 sm:p-4 lg:p-5 rounded-xl bg-neutral-50 border border-neutral-100 hover:border-primary/20 hover:bg-primary/5 transition-colors">
+              <p class="text-xs sm:text-sm lg:text-base font-semibold text-neutral-900 mb-1">Before you arrive</p>
+              <p class="text-xs sm:text-sm lg:text-base text-neutral-600">Enable Find My, turn on device passcodes and Face ID/biometrics, and store IMEI + carrier contact numbers.</p>
             </div>
-            <div class="p-4 rounded-xl bg-neutral-50 border border-neutral-100">
-              <p class="text-sm font-semibold text-neutral-900 mb-1">While in the city</p>
-              <p class="text-sm text-neutral-600">Keep devices away from kerbs and train doors, use cross-body straps, and avoid flashing phones in crowded tourist hotspots.</p>
+            <div class="p-3 sm:p-4 lg:p-5 rounded-xl bg-neutral-50 border border-neutral-100 hover:border-primary/20 hover:bg-primary/5 transition-colors">
+              <p class="text-xs sm:text-sm lg:text-base font-semibold text-neutral-900 mb-1">While in the city</p>
+              <p class="text-xs sm:text-sm lg:text-base text-neutral-600">Keep devices away from kerbs and train doors, use cross-body straps, and avoid flashing phones in crowded tourist hotspots.</p>
             </div>
-            <div class="p-4 rounded-xl bg-neutral-50 border border-neutral-100">
-              <p class="text-sm font-semibold text-neutral-900 mb-1">If it’s stolen</p>
-              <p class="text-sm text-neutral-600">Lock the device remotely, block the SIM, call your bank, and file a report with police—follow our 5-step emergency guide.</p>
+            <div class="p-3 sm:p-4 lg:p-5 rounded-xl bg-neutral-50 border border-neutral-100 hover:border-primary/20 hover:bg-primary/5 transition-colors">
+              <p class="text-xs sm:text-sm lg:text-base font-semibold text-neutral-900 mb-1">If it's stolen</p>
+              <p class="text-xs sm:text-sm lg:text-base text-neutral-600">Lock the device remotely, block the SIM, call your bank, and file a report with police—follow our 5-step emergency guide.</p>
             </div>
           </div>
         </div>
@@ -220,27 +226,27 @@ try {
       <AnimatedNewsSection client:load news={latestNews} />
 
       <!-- Scenarios CTA -->
-      <section class="mb-12">
+      <section class="mb-8 sm:mb-12">
         <a href="/scenarios" class="block bg-gradient-to-r from-amber-500 to-orange-500 rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow group">
-          <div class="p-8 md:p-12 text-white">
-            <div class="flex items-start justify-between">
-              <div class="flex-1 space-y-4">
-                <div class="inline-flex items-center gap-2 bg-white/15 rounded-full px-4 py-2 text-sm font-semibold">
-                  <AlertTriangle class="h-4 w-4" />
+          <div class="p-5 sm:p-8 md:p-12 text-white">
+            <div class="flex items-start justify-between gap-4">
+              <div class="flex-1 space-y-2 sm:space-y-4">
+                <div class="inline-flex items-center gap-1.5 sm:gap-2 bg-white/15 rounded-full px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold">
+                  <AlertTriangle class="h-3 w-3 sm:h-4 sm:w-4" />
                   Real-world scenarios
                 </div>
-                <h2 class="text-3xl md:text-4xl font-bold leading-tight">See how theft happens—and how to stop it</h2>
-                <p class="text-lg text-white/85 max-w-2xl">
-                  Slide-by-slide guides for moped snatches, public transport grabs, nightlife thefts, and more. Learn positioning, habits, and rapid response.
+                <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight">See how theft happens—and how to stop it</h2>
+                <p class="text-sm sm:text-base md:text-lg text-white/85 max-w-2xl">
+                  Slide-by-slide guides for moped snatches, public transport grabs, nightlife thefts, and more.
                 </p>
-                <div class="inline-flex items-center gap-2 text-lg font-semibold group-hover:gap-4 transition-all">
-                  View scenario slides <ArrowRight class="h-5 w-5" />
+                <div class="inline-flex items-center gap-2 text-sm sm:text-base md:text-lg font-semibold group-hover:gap-3 sm:group-hover:gap-4 transition-all">
+                  View scenario slides <ArrowRight class="h-4 w-4 sm:h-5 sm:w-5" />
                 </div>
               </div>
-              <div class="hidden md:flex items-center justify-center">
-                <div class="bg-white/10 rounded-2xl px-6 py-4 text-center min-w-[200px]">
-                  <p class="text-4xl font-extrabold">8</p>
-                  <p class="text-white/80 text-sm">visual playbooks</p>
+              <div class="hidden sm:flex items-center justify-center shrink-0">
+                <div class="bg-white/10 rounded-xl sm:rounded-2xl px-4 sm:px-6 py-3 sm:py-4 text-center">
+                  <p class="text-2xl sm:text-3xl md:text-4xl font-extrabold">8</p>
+                  <p class="text-white/80 text-xs sm:text-sm">visual playbooks</p>
                 </div>
               </div>
             </div>
@@ -249,27 +255,27 @@ try {
       </section>
 
       <!-- Statistics CTA -->
-      <section class="mb-12">
+      <section class="mb-8 sm:mb-12">
         <a href="/statistics" class="block bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow group">
-          <div class="p-8 md:p-12 text-white">
-            <div class="flex items-start justify-between">
+          <div class="p-5 sm:p-8 md:p-12 text-white">
+            <div class="flex items-start justify-between gap-4">
               <div class="flex-1">
-                <div class="inline-flex items-center gap-2 bg-white/20 rounded-full px-4 py-2 mb-4">
-                  <TrendingUp class="h-5 w-5" />
+                <div class="inline-flex items-center gap-1.5 sm:gap-2 bg-white/20 rounded-full px-3 sm:px-4 py-1.5 sm:py-2 mb-2 sm:mb-4 text-xs sm:text-sm">
+                  <TrendingUp class="h-4 w-4 sm:h-5 sm:w-5" />
                   <span class="font-medium">UK DATA</span>
                 </div>
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-4">
                   Theft Hotspots & Statistics
                 </h2>
-                <p class="text-xl text-purple-100 mb-6 max-w-2xl">
+                <p class="text-sm sm:text-base md:text-xl text-purple-100 mb-4 sm:mb-6 max-w-2xl">
                   See where thefts happen most, when you're at highest risk, and how the epidemic is growing across UK cities.
                 </p>
-                <div class="inline-flex items-center gap-2 text-lg font-semibold group-hover:gap-4 transition-all">
-                  View Statistics <ArrowRight class="h-5 w-5" />
+                <div class="inline-flex items-center gap-2 text-sm sm:text-base md:text-lg font-semibold group-hover:gap-3 sm:group-hover:gap-4 transition-all">
+                  View Statistics <ArrowRight class="h-4 w-4 sm:h-5 sm:w-5" />
                 </div>
               </div>
-              <div class="hidden md:block">
-                <MapPin class="h-32 w-32 text-white/30" />
+              <div class="hidden sm:block shrink-0">
+                <MapPin class="h-16 w-16 sm:h-20 sm:w-20 md:h-32 md:w-32 text-white/30" />
               </div>
             </div>
           </div>
@@ -283,16 +289,17 @@ try {
       <AnimatedResources client:visible />
 
       <!-- More Resources CTA -->
-      <section class="bg-white rounded-xl shadow-md p-8 text-center">
-        <h3 class="flex items-center text-2xl font-semibold mb-3">Looking for More Resources?</h3>
-        <p class="text-neutral-600 mb-6 max-w-2xl mx-auto">
+      <section class="bg-gradient-to-br from-white to-neutral-50 rounded-2xl shadow-md border border-neutral-100 p-5 sm:p-8 lg:p-12 text-center">
+        <h3 class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mb-2 sm:mb-3 text-neutral-900">Looking for More Resources?</h3>
+        <p class="text-neutral-600 mb-4 sm:mb-6 lg:mb-8 max-w-2xl mx-auto text-sm sm:text-base lg:text-lg">
           Access our complete library of guides, tools, community stories, and expert advice.
         </p>
-        <a 
-          href="/resources" 
-          class="inline-flex items-center justify-center px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary/90 transition-colors"
+        <a
+          href="/resources"
+          class="inline-flex items-center justify-center gap-2 px-5 sm:px-6 lg:px-8 py-2.5 sm:py-3 lg:py-4 bg-primary text-white rounded-xl font-semibold hover:bg-primary/90 hover:scale-[1.02] transition-all text-sm sm:text-base lg:text-lg shadow-lg shadow-primary/20"
         >
           Browse All Resources
+          <ArrowRight class="h-4 w-4 lg:h-5 lg:w-5" />
         </a>
       </section>
 

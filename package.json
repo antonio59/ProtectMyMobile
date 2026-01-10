@@ -22,7 +22,6 @@
     "health:check": "bun run scripts/health-check.ts"
   },
   "dependencies": {
-    "convex": "^1.30.0",
     "@astrojs/netlify": "^6.0.0",
     "@astrojs/react": "^4.4.2",
     "@astrojs/rss": "^4.0.14",
@@ -85,8 +84,8 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.3",
-    "@esbuild/darwin-arm64": "0.27.1",
-    "@esbuild/linux-x64": "0.27.1",
+    "@esbuild/darwin-arm64": "0.25.12",
+    "@esbuild/linux-x64": "0.25.12",
     "@netlify/functions": "^5.1.0",
     "@resvg/resvg-js": "2.6.2",
     "@rollup/rollup-darwin-arm64": "^4.53.3",

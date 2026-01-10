@@ -33,10 +33,14 @@ export const GET: APIRoute = async () => {
       { status: 200 },
     );
   } catch (error) {
+    // Log the full error internally for debugging
+    console.error("Health check failed:", error);
+
+    // Return a generic error message to avoid exposing internal details
     return new Response(
       JSON.stringify({
         status: "unhealthy",
-        error: error instanceof Error ? error.message : String(error),
+        error: "Service temporarily unavailable",
         timestamp: new Date().toISOString(),
       }),
       { status: 500 },

@@ -8,3 +8,19 @@
 
 [functions]
   directory = "netlify/functions"
+
+# ============================================
+# Scheduled Functions
+# ============================================
+
+# Daily news fetch - runs at 6am and 6pm UTC
+[functions."scheduled-news"]
+  schedule = "0 6,18 * * *"
+
+# Daily WDTK monitor - runs at 8am UTC
+[functions."scheduled-wdtk"]
+  schedule = "0 8 * * *"
+
+# Weekly police.uk data refresh - Sundays at 3am UTC
+[functions."scheduled-police-data"]
+  schedule = "0 3 * * 0"

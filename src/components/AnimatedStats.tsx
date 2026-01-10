@@ -80,20 +80,20 @@ function AnimatedNumber({ value, suffix = '' }: { value: number; suffix?: string
 
 export default function AnimatedStats() {
   return (
-    <section className="mb-12">
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <section className="mb-8 sm:mb-12">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-4 lg:gap-6">
         {stats.map((stat, index) => (
           <motion.div
             key={stat.label}
-            className="bg-white rounded-2xl shadow-md p-6 text-center hover:shadow-lg transition-all group"
+            className="bg-white rounded-xl sm:rounded-2xl shadow-md p-3 sm:p-6 lg:p-8 text-center hover:shadow-xl transition-all group"
             initial={{ opacity: 0, y: 30, scale: 0.9 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true, margin: '-50px' }}
             transition={{ duration: 0.4, delay: index * 0.1 }}
             whileHover={{ y: -4 }}
           >
-            <motion.div 
-              className={`text-3xl md:text-4xl font-bold mb-2 ${stat.color}`}
+            <motion.div
+              className={`text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-1 sm:mb-2 lg:mb-3 ${stat.color}`}
               initial={{ scale: 0.5 }}
               whileInView={{ scale: 1 }}
               viewport={{ once: true }}
@@ -105,27 +105,27 @@ export default function AnimatedStats() {
                 stat.value
               )}
             </motion.div>
-            <div className="text-sm md:text-base text-neutral-600 leading-tight">
+            <div className="text-xs sm:text-sm md:text-base lg:text-lg text-neutral-600 leading-tight">
               {stat.label}<br/>{stat.sublabel}
             </div>
-            <div className="mt-2 text-xs text-neutral-400">Met Police data</div>
+            <div className="mt-1 sm:mt-2 lg:mt-3 text-[10px] sm:text-xs lg:text-sm text-neutral-400">Met Police data</div>
           </motion.div>
         ))}
       </div>
-      
-      <motion.div 
-        className="text-center mt-6"
+
+      <motion.div
+        className="text-center mt-4 sm:mt-6 lg:mt-8"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ delay: 0.5 }}
       >
-        <motion.a 
-          href="/statistics" 
-          className="inline-flex items-center gap-2 text-primary hover:text-primary/80 font-medium"
+        <motion.a
+          href="/statistics"
+          className="inline-flex items-center gap-2 text-primary hover:text-primary/80 font-medium text-sm sm:text-base lg:text-lg"
           whileHover={{ scale: 1.05 }}
         >
-          <TrendingUp className="h-4 w-4" />
+          <TrendingUp className="h-4 w-4 lg:h-5 lg:w-5" />
           View Detailed Statistics
         </motion.a>
       </motion.div>
