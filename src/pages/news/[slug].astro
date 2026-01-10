@@ -5,7 +5,7 @@ import Layout from '../../layouts/Layout.astro';
 import HeaderMobile from '../../components/HeaderMobile';
 import Footer from '../../components/Footer.astro';
 import { getNewsPosts, getNewsPostBySlug } from '../../lib/convexData';
-import { Calendar, ExternalLink, ArrowLeft, User, Tag, Share2 } from 'lucide-react';
+import { Calendar, ExternalLink, ArrowLeft, Tag, Share2 } from 'lucide-react';
 import { marked } from 'marked';
 import sanitizeHtml from 'sanitize-html';
 
@@ -203,21 +203,15 @@ const encodedTitle = encodeURIComponent(post.title);
           </h1>
 
           <!-- Meta Info -->
-          <div class="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm text-neutral-500">
-            <div class="flex items-center gap-1 sm:gap-1.5">
-              <Calendar class="h-3 w-3 sm:h-4 sm:w-4" />
+          <div class="flex flex-wrap items-center gap-3 sm:gap-4 text-xs sm:text-sm text-neutral-500">
+            <div class="flex items-center gap-1.5">
+              <Calendar class="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               <span>{formatDate(post.publishedAt || post._creationTime)}</span>
             </div>
-            {post.authorName && (
-              <div class="flex items-center gap-1 sm:gap-1.5">
-                <User class="h-3 w-3 sm:h-4 sm:w-4" />
-                <span>{post.authorName}</span>
-              </div>
-            )}
             {post.sourceUrl && (
-              <a href={post.sourceUrl} target="_blank" rel="noopener noreferrer" class="flex items-center gap-1 sm:gap-1.5 text-primary hover:underline">
-                <ExternalLink class="h-3 w-3 sm:h-4 sm:w-4" />
-                <span>{post.sourceName || 'Source'}</span>
+              <a href={post.sourceUrl} target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 text-primary hover:underline">
+                <ExternalLink class="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                <span>{post.sourceName || 'View source'}</span>
               </a>
             )}
           </div>
