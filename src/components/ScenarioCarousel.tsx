@@ -55,19 +55,9 @@ export function ScenarioCarousel({ images, title, summary, scenarioId }: Props) 
         setCopied(false);
         setShowShareMenu(false);
       }, 2000);
-    } catch (err) {
-      // Fallback for older browsers
-      const textArea = document.createElement('textarea');
-      textArea.value = getShareUrl();
-      document.body.appendChild(textArea);
-      textArea.select();
-      document.execCommand('copy');
-      document.body.removeChild(textArea);
-      setCopied(true);
-      setTimeout(() => {
-        setCopied(false);
-        setShowShareMenu(false);
-      }, 2000);
+    } catch {
+      // Fallback: show alert if clipboard API unavailable
+      alert(`Copy this link: ${getShareUrl()}`);
     }
   };
 

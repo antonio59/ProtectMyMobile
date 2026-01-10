@@ -300,10 +300,10 @@ function stripHtml(html: string): string {
   }
 
   // Decode numeric entities
-  text = text.replace(/&#(\d+);/g, (match, dec) =>
+  text = text.replace(/&#(\d+);/g, (_match, dec) =>
     String.fromCharCode(Number(dec)),
   );
-  text = text.replace(/&#x([0-9a-f]+);/gi, (match, hex) =>
+  text = text.replace(/&#x([0-9a-f]+);/gi, (_match, hex) =>
     String.fromCharCode(parseInt(hex, 16)),
   );
 

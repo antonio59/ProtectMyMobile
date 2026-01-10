@@ -370,7 +370,7 @@ const schema = [
             </p>
 
             <div class="space-y-3">
-              {location.hotspots.map((hotspot, index) => (
+              {location.hotspots.map((hotspot) => (
                 <div class="flex items-start gap-3 sm:gap-4 p-3 sm:p-4 bg-neutral-50 rounded-xl border border-neutral-100">
                   <div class={`px-2.5 py-1 rounded-lg text-xs font-bold flex-shrink-0 ${
                     hotspot.risk === 'Extreme' ? 'bg-red-600 text-white' :
