@@ -82,10 +82,16 @@
     "tailwind-merge": "^3.4.0",
     "vaul": "^1.1.2"
   },
+  "overrides": {
+    "esbuild": "0.25.4",
+    "@esbuild/darwin-arm64": "0.25.4",
+    "@esbuild/linux-x64": "0.25.4"
+  },
   "devDependencies": {
     "@astrojs/check": "^0.9.3",
-    "@esbuild/darwin-arm64": "0.25.12",
-    "@esbuild/linux-x64": "0.25.12",
+    "@esbuild/darwin-arm64": "0.25.4",
+    "@esbuild/linux-x64": "0.25.4",
+    "esbuild": "0.25.4",
     "@netlify/functions": "^5.1.0",
     "@resvg/resvg-js": "2.6.2",
     "@rollup/rollup-darwin-arm64": "^4.53.3",

@@ -9,11 +9,13 @@
  */
 
 import type * as adminActionHistory from "../adminActionHistory.js";
+import type * as auth from "../auth.js";
 import type * as banks from "../banks.js";
 import type * as communityResponses from "../communityResponses.js";
 import type * as contactSubmissions from "../contactSubmissions.js";
 import type * as experienceReports from "../experienceReports.js";
 import type * as foiRequests from "../foiRequests.js";
+import type * as importLogs from "../importLogs.js";
 import type * as mobileProviders from "../mobileProviders.js";
 import type * as newsPosts from "../newsPosts.js";
 import type * as pageViews from "../pageViews.js";
@@ -30,11 +32,13 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   adminActionHistory: typeof adminActionHistory;
+  auth: typeof auth;
   banks: typeof banks;
   communityResponses: typeof communityResponses;
   contactSubmissions: typeof contactSubmissions;
   experienceReports: typeof experienceReports;
   foiRequests: typeof foiRequests;
+  importLogs: typeof importLogs;
   mobileProviders: typeof mobileProviders;
   newsPosts: typeof newsPosts;
   pageViews: typeof pageViews;
