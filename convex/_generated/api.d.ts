@@ -9,6 +9,7 @@
  */
 
 import type * as adminActionHistory from "../adminActionHistory.js";
+import type * as analytics from "../analytics.js";
 import type * as auth from "../auth.js";
 import type * as banks from "../banks.js";
 import type * as communityResponses from "../communityResponses.js";
@@ -32,6 +33,7 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   adminActionHistory: typeof adminActionHistory;
+  analytics: typeof analytics;
   auth: typeof auth;
   banks: typeof banks;
   communityResponses: typeof communityResponses;

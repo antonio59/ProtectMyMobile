@@ -298,8 +298,7 @@ export default defineSchema({
     userAgent: v.optional(v.string()),
     referrer: v.optional(v.string()),
   })
-    .index("by_event_type", ["eventType"])
-    .index("by_creation_time", ["_creationTime"]),
+    .index("by_event_type", ["eventType"]),
 
   // Import Logs (tracking data imports from various sources)
   importLogs: defineTable({
