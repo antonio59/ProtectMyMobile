@@ -3,18 +3,52 @@ import { checkRateLimit, getClientIp } from './lib/security';
 
 const ADMIN_PASSWORD = import.meta.env.ADMIN_PASSWORD || process.env.ADMIN_PASSWORD;
 
+// Generate a cryptographically secure session token
+function generateSessionToken(): string {
+  const array = new Uint8Array(32);
+  crypto.getRandomValues(array);
+  return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
+}
+
+// In-memory session store (valid tokens with expiry)
+// In production, consider using Redis or a database for session storage
+const sessionStore = new Map<string, { expiresAt: number }>();
+
+// Clean up expired sessions periodically
+function cleanupExpiredSessions() {
+  const now = Date.now();
+  for (const [token, session] of sessionStore.entries()) {
+    if (session.expiresAt < now) {
+      sessionStore.delete(token);
+    }
+  }
+}
+
+// Run cleanup every 10 minutes
+setInterval(cleanupExpiredSessions, 10 * 60 * 1000);
+
+// Export function to invalidate a session (used by logout)
+export function invalidateSession(token: string): void {
+  sessionStore.delete(token);
+}
+
 export const onRequest = defineMiddleware(async (context, next) => {
   const { pathname } = context.url;
-  
+
   // Only protect /admin routes
   if (!pathname.startsWith('/admin')) {
     return next();
   }
 
-  // Check for auth cookie
+  // Check for valid session token in cookie
   const authCookie = context.cookies.get('admin_auth');
-  if (authCookie?.value === 'authenticated') {
-    return next();
+  if (authCookie?.value) {
+    const session = sessionStore.get(authCookie.value);
+    if (session && session.expiresAt > Date.now()) {
+      return next();
+    }
+    // Invalid or expired session - clear the cookie
+    sessionStore.delete(authCookie.value);
   }
 
   // Check for login form submission
@@ -24,17 +58,24 @@ export const onRequest = defineMiddleware(async (context, next) => {
     if (rateLimited) return rateLimited;
     const formData = await context.request.formData();
     const password = formData.get('password');
-    
+
     if (password === ADMIN_PASSWORD) {
-      // Set auth cookie (expires in 24 hours)
-      context.cookies.set('admin_auth', 'authenticated', {
+      // Generate secure session token
+      const sessionToken = generateSessionToken();
+      const expiresAt = Date.now() + (24 * 60 * 60 * 1000); // 24 hours
+
+      // Store session
+      sessionStore.set(sessionToken, { expiresAt });
+
+      // Set auth cookie with secure token (expires in 24 hours)
+      context.cookies.set('admin_auth', sessionToken, {
         path: '/admin',
         maxAge: 60 * 60 * 24, // 24 hours
         httpOnly: true,
         secure: import.meta.env.PROD,
         sameSite: 'strict',
       });
-      
+
       // Redirect to requested page
       return context.redirect(pathname);
     }

@@ -2,7 +2,7 @@
 import { Heart, Shield, Smartphone, ChevronRight, Mail } from "lucide-react";
 ---
 
-<footer class="bg-gradient-to-b from-neutral-800 to-neutral-900 text-white pt-8 sm:pt-12 pb-6">
+<footer class="bg-gradient-to-b from-neutral-800 to-neutral-900 text-white pt-8 sm:pt-12 pb-6" role="contentinfo">
   <div class="container mx-auto px-4">
     <!-- Top section with logo and description -->
     <div class="flex flex-col sm:flex-row justify-between items-center mb-6 sm:mb-10 gap-4">
@@ -54,7 +54,7 @@ import { Heart, Shield, Smartphone, ChevronRight, Mail } from "lucide-react";
     </div>
 
     <!-- Main footer content grid -->
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 py-6 sm:py-8 border-t border-b border-neutral-700">
+    <nav class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 py-6 sm:py-8 border-t border-b border-neutral-700" aria-label="Footer navigation">
       <div>
         <h4 class="font-bold text-base md:text-lg mb-3 flex items-center">
           <Shield className="mr-2 h-4 w-4 md:h-5 md:w-5 text-primary" />
@@ -186,8 +186,8 @@ import { Heart, Shield, Smartphone, ChevronRight, Mail } from "lucide-react";
           </li>
         </ul>
       </div>
-    </div>
-    
+    </nav>
+
     <!-- Bottom section with copyright -->
     <div class="mt-8 text-center text-neutral-400 text-sm">
       <p>&copy; {new Date().getFullYear()} ProtectMyMobile. All rights reserved.</p>

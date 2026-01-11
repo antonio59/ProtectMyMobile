@@ -45,9 +45,9 @@ const schema = {
   ogImage="/og-image.png"
   schema={schema}
 >
-  <HeaderMobile client:load />
+  <HeaderMobile client:idle />
 
-  <main class="bg-[#f3f2f1] min-h-screen">
+  <main id="main-content" class="bg-[#f3f2f1] min-h-screen">
     <div class="container mx-auto px-4 py-4 sm:py-6 md:py-8 max-w-6xl">
       <div class="bg-gradient-to-br from-primary to-blue-700 text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8 shadow-xl">
         <div class="flex items-center gap-3 mb-3">

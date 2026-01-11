@@ -175,9 +175,9 @@ const encodedTitle = encodeURIComponent(post.title);
   canonicalPath={`/news/${slug}`}
   schema={[articleSchema, breadcrumbSchema]}
 >
-  <HeaderMobile client:load />
+  <HeaderMobile client:idle />
   
-  <main class="bg-[#f3f2f1] min-h-screen">
+  <main id="main-content" class="bg-[#f3f2f1] min-h-screen">
     <div class="container mx-auto px-4 py-4 sm:py-6 max-w-4xl">
       <!-- Back Link -->
       <a href="/news" class="inline-flex items-center gap-1.5 sm:gap-2 text-neutral-600 hover:text-primary transition-colors mb-4 sm:mb-6 text-xs sm:text-sm font-medium">

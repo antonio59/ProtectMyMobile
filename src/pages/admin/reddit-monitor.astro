@@ -259,6 +259,17 @@ Hope this helps!</div>
 </AdminLayout>
 
 <script>
+  // HTML escape function to prevent XSS from external Reddit data
+  function escapeHtml(str: string | null | undefined): string {
+    if (!str) return '';
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#x27;');
+  }
+
   // Toast notification function
   function showToast() {
     const toast = document.getElementById('toast');
@@ -328,20 +339,26 @@ Hope this helps!</div>
           day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit'
         });
 
-        // Highlight keywords
-        const title = post.title.replace(/(stolen|theft|robbed|mugged|lost)/gi, '<span class="bg-red-100 text-red-800 px-1 rounded">$1</span>');
+        // Escape user content first, then highlight keywords (safe because we escape first)
+        const escapedTitle = escapeHtml(post.title);
+        const title = escapedTitle.replace(/(stolen|theft|robbed|mugged|lost)/gi, '<span class="bg-red-100 text-red-800 px-1 rounded">$1</span>');
+        const escapedSubreddit = escapeHtml(post.subreddit);
+        const escapedPermalink = escapeHtml(post.permalink);
+        const escapedSelftext = escapeHtml(post.selftext) || '(No text content)';
+        const escapedAuthor = escapeHtml(post.author);
+        const numComments = typeof post.num_comments === 'number' ? post.num_comments : 0;
 
         return `
           <div class="bg-white rounded-xl shadow-sm p-4 sm:p-6 hover:shadow-md transition-shadow border border-neutral-200">
             <div class="flex flex-wrap justify-between items-start gap-2 mb-2">
               <span class="text-xs font-bold bg-neutral-100 text-neutral-600 px-2 py-1 rounded-full">
-                r/${post.subreddit}
+                r/${escapedSubreddit}
               </span>
               <span class="text-xs text-neutral-500">${date}</span>
             </div>
 
             <h3 class="text-base sm:text-lg font-bold text-neutral-900 mb-2">
-              <a href="https://reddit.com${post.permalink}" target="_blank" class="hover:text-primary hover:underline flex items-start gap-2">
+              <a href="https://reddit.com${escapedPermalink}" target="_blank" rel="noopener noreferrer" class="hover:text-primary hover:underline flex items-start gap-2">
                 <span class="flex-1">${title}</span>
                 <svg class="h-4 w-4 flex-shrink-0 mt-1 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
@@ -350,16 +367,17 @@ Hope this helps!</div>
             </h3>
 
             <p class="text-neutral-600 text-xs sm:text-sm mb-4 line-clamp-3">
-              ${post.selftext || '(No text content)'}
+              ${escapedSelftext}
             </p>
 
             <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-neutral-100">
               <div class="text-xs text-neutral-500">
-                By u/${post.author} &bull; ${post.num_comments} comments
+                By u/${escapedAuthor} &bull; ${numComments} comments
               </div>
               <a
-                href="https://reddit.com${post.permalink}"
+                href="https://reddit.com${escapedPermalink}"
                 target="_blank"
+                rel="noopener noreferrer"
                 class="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-primary text-white text-xs sm:text-sm font-medium rounded-lg hover:bg-primary/90 transition-colors"
               >
                 <svg class="h-3.5 w-3.5 sm:h-4 sm:w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

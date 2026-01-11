@@ -15,9 +15,9 @@ const initialStats = await getCommunityStats();
   title="Community Insights - Anonymous Theft Analytics | ProtectMyMobile"
   description="Share your experience anonymously and see real-time analytics on phone theft patterns, recovery rates, and security measures."
 >
-  <HeaderMobile client:load />
+  <HeaderMobile client:idle />
   
-  <main class="bg-[#f3f2f1]">
+  <main id="main-content" class="bg-[#f3f2f1]">
     <div class="container mx-auto px-4 py-4 sm:py-6 md:py-8">
       <div class="max-w-7xl mx-auto">
         
@@ -34,7 +34,7 @@ const initialStats = await getCommunityStats();
 
         <!-- Stats Section -->
         <section class="mb-6 sm:mb-8 md:mb-12">
-          <CommunityStatsDisplay initialStats={initialStats} client:load />
+          <CommunityStatsDisplay initialStats={initialStats} client:visible />
         </section>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
@@ -52,7 +52,7 @@ const initialStats = await getCommunityStats();
                 <span class="font-semibold text-primary">No personal information required.</span>
               </p>
 
-              <CommunityVoting initialStats={initialStats} client:load />
+              <CommunityVoting initialStats={initialStats} client:visible />
             </div>
           </section>
 

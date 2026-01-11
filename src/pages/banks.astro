@@ -63,9 +63,9 @@ const categories = {
   title="UK Bank Directory - Emergency Contact Information | ProtectMyMobile"
   description="Complete directory of UK banks with emergency contact information and step-by-step procedures for securing your accounts if your mobile phone is stolen."
 >
-  <HeaderMobile client:load />
+  <HeaderMobile client:idle />
   
-  <main class="bg-[#f3f2f1] min-h-screen">
+  <main id="main-content" class="bg-[#f3f2f1] min-h-screen">
     <div class="container mx-auto px-4 py-4 sm:py-6 max-w-6xl">
       <!-- Hero Section -->
       <div class="bg-gradient-to-br from-blue-600 to-indigo-700 text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-8 shadow-xl">
@@ -100,11 +100,16 @@ const categories = {
         <div class="mb-6">
           <div class="relative">
             <Search class="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 h-5 w-5" />
+            <label for="bank-search" class="sr-only">Search for your bank</label>
             <input
-              type="text"
+              type="search"
               id="bank-search"
               placeholder="Search for your bank..."
               class="w-full pl-10 pr-4 py-2 sm:py-3 text-sm sm:text-base border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+              autocomplete="off"
+              autocorrect="off"
+              autocapitalize="off"
+              spellcheck="false"
             />
           </div>
         </div>
@@ -173,10 +178,10 @@ const categories = {
                       {bank.emergencyContact.uk.startsWith('In-app') ? (
                         <p class="text-red-700 font-medium text-xs sm:text-sm">{bank.emergencyContact.uk}</p>
                       ) : (
-                        <a href={`tel:${bank.emergencyContact.uk}`} class="text-red-700 font-bold text-base sm:text-lg hover:underline block">{bank.emergencyContact.uk}</a>
+                        <a href={`tel:${bank.emergencyContact.uk}`} class="text-red-700 font-bold text-base sm:text-lg hover:underline block break-all">{bank.emergencyContact.uk}</a>
                       )}
                       {bank.emergencyContact.abroad && (
-                        <p class="text-xs text-neutral-600 mt-1">
+                        <p class="text-xs text-neutral-600 mt-1 break-all">
                           Abroad: <a href={`tel:${bank.emergencyContact.abroad}`} class="text-red-700 hover:underline">{bank.emergencyContact.abroad}</a>
                         </p>
                       )}
@@ -252,20 +257,45 @@ const categories = {
 
     function filterBanks(searchQuery: string, category: string) {
       const bankCards = document.querySelectorAll('.bank-card');
-      
+      let visibleCount = 0;
+
       bankCards.forEach((card) => {
         const bankName = card.textContent?.toLowerCase() || '';
         const bankCategory = (card as HTMLElement).dataset.category || '';
-        
+
         const matchesSearch = bankName.includes(searchQuery);
         const matchesCategory = category === 'all' || bankCategory === category;
-        
+
         if (matchesSearch && matchesCategory) {
           (card as HTMLElement).style.display = '';
+          visibleCount++;
         } else {
           (card as HTMLElement).style.display = 'none';
         }
       });
+
+      // Show/hide no results message
+      let noResultsEl = document.getElementById('no-results-message');
+      if (visibleCount === 0) {
+        if (!noResultsEl) {
+          noResultsEl = document.createElement('div');
+          noResultsEl.id = 'no-results-message';
+          noResultsEl.className = 'col-span-full text-center py-12';
+          noResultsEl.innerHTML = `
+            <div class="text-neutral-400 mb-2">
+              <svg class="h-12 w-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+              </svg>
+            </div>
+            <p class="text-neutral-600 font-medium">No banks found</p>
+            <p class="text-neutral-500 text-sm">Try different search terms or clear your filters</p>
+          `;
+          bankList?.appendChild(noResultsEl);
+        }
+        noResultsEl.style.display = '';
+      } else if (noResultsEl) {
+        noResultsEl.style.display = 'none';
+      }
     }
   </script>
 </Layout>

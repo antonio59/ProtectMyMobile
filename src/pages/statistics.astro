@@ -48,9 +48,9 @@ const keyStats = [
   canonicalPath="/statistics"
   schema={statisticsSchema}
 >
-  <HeaderMobile client:load />
+  <HeaderMobile client:idle />
   
-  <main class="bg-[#f3f2f1] min-h-screen">
+  <main id="main-content" class="bg-[#f3f2f1] min-h-screen">
     <div class="container mx-auto px-4 py-4 sm:py-6 max-w-6xl">
 
       <!-- Hero Section -->
@@ -164,11 +164,14 @@ const keyStats = [
             <p class="text-neutral-600 text-xs sm:text-sm md:text-base mb-6">Time-of-day breakdown showing peak risk periods</p>
 
             <div class="space-y-5">
-              <div>
+              <div role="img" aria-label="Evening Rush 5pm to 7pm: 32% of thefts, Highest Risk">
                 <div class="flex justify-between items-center mb-2">
-                  <div>
+                  <div class="flex items-center gap-2">
+                    <span class="inline-flex items-center justify-center w-6 h-6 bg-red-100 rounded-full" aria-hidden="true">
+                      <svg class="w-4 h-4 text-red-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+                    </span>
                     <span class="font-bold text-neutral-900 text-xs sm:text-sm md:text-base">Evening Rush</span>
-                    <span class="text-xs sm:text-sm text-neutral-500 ml-2">5pm - 7pm</span>
+                    <span class="text-xs sm:text-sm text-neutral-500">5pm - 7pm</span>
                   </div>
                   <span class="text-lg sm:text-xl font-bold text-red-600">32%</span>
                 </div>
@@ -179,11 +182,14 @@ const keyStats = [
                 </div>
               </div>
 
-              <div>
+              <div role="img" aria-label="Late Night 10pm to 2am: 28% of thefts, High Risk">
                 <div class="flex justify-between items-center mb-2">
-                  <div>
+                  <div class="flex items-center gap-2">
+                    <span class="inline-flex items-center justify-center w-6 h-6 bg-orange-100 rounded-full" aria-hidden="true">
+                      <svg class="w-4 h-4 text-orange-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+                    </span>
                     <span class="font-bold text-neutral-900 text-xs sm:text-sm md:text-base">Late Night</span>
-                    <span class="text-xs sm:text-sm text-neutral-500 ml-2">10pm - 2am</span>
+                    <span class="text-xs sm:text-sm text-neutral-500">10pm - 2am</span>
                   </div>
                   <span class="text-lg sm:text-xl font-bold text-orange-600">28%</span>
                 </div>
@@ -192,11 +198,14 @@ const keyStats = [
                 </div>
               </div>
 
-              <div>
+              <div role="img" aria-label="Morning Rush 7am to 9am: 18% of thefts, Moderate Risk">
                 <div class="flex justify-between items-center mb-2">
-                  <div>
+                  <div class="flex items-center gap-2">
+                    <span class="inline-flex items-center justify-center w-6 h-6 bg-yellow-100 rounded-full" aria-hidden="true">
+                      <svg class="w-4 h-4 text-yellow-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+                    </span>
                     <span class="font-bold text-neutral-900 text-xs sm:text-sm md:text-base">Morning Rush</span>
-                    <span class="text-xs sm:text-sm text-neutral-500 ml-2">7am - 9am</span>
+                    <span class="text-xs sm:text-sm text-neutral-500">7am - 9am</span>
                   </div>
                   <span class="text-lg sm:text-xl font-bold text-yellow-600">18%</span>
                 </div>
@@ -205,11 +214,14 @@ const keyStats = [
                 </div>
               </div>
 
-              <div>
+              <div role="img" aria-label="Afternoon 12pm to 5pm: 15% of thefts, Lower Risk">
                 <div class="flex justify-between items-center mb-2">
-                  <div>
+                  <div class="flex items-center gap-2">
+                    <span class="inline-flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full" aria-hidden="true">
+                      <svg class="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                    </span>
                     <span class="font-bold text-neutral-900 text-xs sm:text-sm md:text-base">Afternoon</span>
-                    <span class="text-xs sm:text-sm text-neutral-500 ml-2">12pm - 5pm</span>
+                    <span class="text-xs sm:text-sm text-neutral-500">12pm - 5pm</span>
                   </div>
                   <span class="text-lg sm:text-xl font-bold text-blue-600">15%</span>
                 </div>
@@ -218,11 +230,14 @@ const keyStats = [
                 </div>
               </div>
 
-              <div>
+              <div role="img" aria-label="Other Times 2am to 7am and 9am to 12pm: 7% of thefts, Lowest Risk">
                 <div class="flex justify-between items-center mb-2">
-                  <div>
+                  <div class="flex items-center gap-2">
+                    <span class="inline-flex items-center justify-center w-6 h-6 bg-neutral-100 rounded-full" aria-hidden="true">
+                      <svg class="w-4 h-4 text-neutral-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                    </span>
                     <span class="font-bold text-neutral-900 text-xs sm:text-sm md:text-base">Other Times</span>
-                    <span class="text-xs sm:text-sm text-neutral-500 ml-2">2am - 7am, 9am - 12pm</span>
+                    <span class="text-xs sm:text-sm text-neutral-500">2am - 7am, 9am - 12pm</span>
                   </div>
                   <span class="text-lg sm:text-xl font-bold text-neutral-500">7%</span>
                 </div>

@@ -173,9 +173,9 @@ const colorClasses: Record<string, { bg: string; border: string; icon: string; l
   title="Product Recommendations - Protect Your Phone | ProtectMyMobile"
   description="Discover products that can help protect your mobile phone from theft, including lanyards, anti-theft bags, tracking devices, and more."
 >
-  <HeaderMobile client:load />
+  <HeaderMobile client:idle />
   
-  <main class="bg-[#f3f2f1] min-h-screen">
+  <main id="main-content" class="bg-[#f3f2f1] min-h-screen">
     <div class="container mx-auto px-4 py-4 sm:py-6 max-w-6xl">
       
       <!-- Hero Section -->

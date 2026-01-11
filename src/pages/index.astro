@@ -28,53 +28,73 @@ try {
   title="Phone Stolen UK? Mobile Theft Prevention & Recovery | ProtectMyMobile"
   description="Phone stolen in London or UK? Get immediate help with our emergency guide, report theft, contact banks & providers. UK + London travel safety for tourists and locals."
   canonicalPath="/"
-  schema={{
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": "ProtectMyMobile - UK Mobile Theft Prevention",
-    "description": "Phone stolen in London or UK? Get immediate help with our emergency guide, report theft, contact banks & providers.",
-    "mainEntity": {
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "What should I do if my phone is stolen in the UK?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "1. Stay calm and ensure your safety. 2. Use Find My iPhone/Android to locate or lock your device. 3. Report to police via 101 or online. 4. Contact your mobile provider to block the SIM. 5. Notify your bank to secure banking apps."
+  schema={[
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "ProtectMyMobile - UK Mobile Theft Prevention",
+      "description": "Phone stolen in London or UK? Get immediate help with our emergency guide, report theft, contact banks & providers.",
+      "mainEntity": {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What should I do if my phone is stolen in the UK?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "1. Stay calm and ensure your safety. 2. Use Find My iPhone/Android to locate or lock your device. 3. Report to police via 101 or online. 4. Contact your mobile provider to block the SIM. 5. Notify your bank to secure banking apps."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How many phones are stolen in London each year?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Over 78,000 phones were stolen in London in 2023, a 44% increase from 2022. That's approximately one phone stolen every 3 minutes."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the recovery rate for stolen phones in the UK?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The recovery rate for stolen phones in the UK is approximately 6%, making prevention and immediate action after theft crucial."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How can tourists keep their phones safe while visiting London?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Use cross-body bags, avoid using phones near kerbs or open train doors, enable Face ID/biometrics, turn on Find My, and save local emergency and carrier contact numbers before you arrive."
+            }
           }
-        },
-        {
-          "@type": "Question",
-          "name": "How many phones are stolen in London each year?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Over 78,000 phones were stolen in London in 2023, a 44% increase from 2022. That's approximately one phone stolen every 3 minutes."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What is the recovery rate for stolen phones in the UK?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "The recovery rate for stolen phones in the UK is approximately 6%, making prevention and immediate action after theft crucial."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How can tourists keep their phones safe while visiting London?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Use cross-body bags, avoid using phones near kerbs or open train doors, enable Face ID/biometrics, turn on Find My, and save local emergency and carrier contact numbers before you arrive."
-          }
+        ]
+      }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "VideoObject",
+      "name": "Phone Theft in the UK - Stay Alert",
+      "description": "Animation demonstrating how quickly phone theft can occur in London and UK cities, highlighting the importance of mobile security awareness.",
+      "thumbnailUrl": "https://protectmymobile.xyz/og-image.png",
+      "uploadDate": "2024-12-01",
+      "contentUrl": "https://protectmymobile.xyz/videos/phone-theft-animation.mp4",
+      "duration": "PT30S",
+      "publisher": {
+        "@type": "Organization",
+        "name": "ProtectMyMobile",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://protectmymobile.xyz/favicon.svg"
         }
-      ]
+      }
     }
-  }}
+  ]}
 >
-  <HeaderMobile client:load />
+  <HeaderMobile client:idle />
   
-  <main class="bg-[#f3f2f1]">
+  <main id="main-content" class="bg-[#f3f2f1]">
     <div class="container mx-auto px-4 py-8 max-w-7xl">
       
       <!-- Hero Section with Prominent Video -->
@@ -96,9 +116,9 @@ try {
             <!-- Overlay Content -->
             <div class="absolute inset-0 flex flex-col justify-end p-4 sm:p-6 md:p-10 lg:p-12">
               <div class="max-w-5xl">
-                <div class="inline-flex items-center gap-2 bg-red-500/30 text-red-300 rounded-full px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-medium w-fit mb-2 sm:mb-4">
-                  <AlertTriangle class="h-3 w-3 sm:h-4 sm:w-4" />
-                  UK Theft Crisis
+                <div class="inline-flex items-center gap-2 bg-red-600/50 text-white rounded-full px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-semibold w-fit mb-2 sm:mb-4 shadow-sm">
+                  <AlertTriangle class="h-3 w-3 sm:h-4 sm:w-4" aria-hidden="true" />
+                  <span>UK Theft Crisis</span>
                 </div>
 
                 <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2 sm:mb-3 text-shadow-hero">
@@ -222,7 +242,7 @@ try {
       </section>
 
       <!-- Animated News Section -->
-      <AnimatedNewsSection client:load news={latestNews} />
+      <AnimatedNewsSection client:visible news={latestNews} />
 
       <!-- Scenarios CTA -->
       <section class="mb-8 sm:mb-12">

@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
 import { createContactSubmission } from '../../../lib/convexMutations';
 import { Resend } from 'resend';
-import { checkRateLimit, getClientIp } from '../../../lib/security';
+import { checkRateLimit, getClientIp, escapeHtml } from '../../../lib/security';
 
 export const POST: APIRoute = async ({ request }) => {
   try {
@@ -50,18 +50,18 @@ export const POST: APIRoute = async ({ request }) => {
       try {
         const resend = new Resend(resendApiKey);
         
-        // Send notification to admin
+        // Send notification to admin (escape HTML to prevent injection)
         await resend.emails.send({
           from: 'ProtectMyMobile <onboarding@resend.dev>', // Using default domain for testing
           to: ['protectmymobile.xyz.overlabor129@passmail.com'], // Send to the verified email usually, or your own
-          subject: `New Contact: ${subject}`,
+          subject: `New Contact: ${escapeHtml(subject).slice(0, 100)}`, // Also limit subject length
           html: `
             <h2>New Contact Submission</h2>
-            <p><strong>From:</strong> ${name} (${email})</p>
-            <p><strong>Subject:</strong> ${subject}</p>
+            <p><strong>From:</strong> ${escapeHtml(name)} (${escapeHtml(email)})</p>
+            <p><strong>Subject:</strong> ${escapeHtml(subject)}</p>
             <p><strong>Message:</strong></p>
             <blockquote style="border-left: 4px solid #eee; padding-left: 1em; margin-left: 0;">
-              ${message.replace(/\n/g, '<br>')}
+              ${escapeHtml(message).replace(/\n/g, '<br>')}
             </blockquote>
           `
         });

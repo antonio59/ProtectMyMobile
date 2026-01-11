@@ -176,6 +176,17 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 <script>
   const CONVEX_URL = import.meta.env.PUBLIC_CONVEX_URL || '';
 
+  // HTML escape function to prevent XSS
+  function escapeHtml(str: string | null | undefined): string {
+    if (!str) return '';
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#x27;');
+  }
+
   async function convexQuery(path: string, args: Record<string, unknown> = {}) {
     const res = await fetch(`${CONVEX_URL}/api/query`, {
       method: 'POST',
@@ -220,7 +231,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
         recentContainer.innerHTML = recentNews.map((post: any) => `
           <a href="/admin/news" class="flex items-center justify-between p-3 bg-neutral-50 rounded-lg hover:bg-neutral-100 transition-colors">
             <div class="flex-1 min-w-0 mr-3">
-              <p class="text-sm font-medium text-neutral-900 truncate">${post.title}</p>
+              <p class="text-sm font-medium text-neutral-900 truncate">${escapeHtml(post.title)}</p>
               <p class="text-xs text-neutral-500">${formatDate(post.publishedAt || post._creationTime)}</p>
             </div>
             <span class="px-2 py-1 rounded-full text-xs font-medium ${post.published ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}">

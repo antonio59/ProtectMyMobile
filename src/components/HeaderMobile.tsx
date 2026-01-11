@@ -18,15 +18,42 @@ import {
   ShoppingBag,
   MapPin
 } from 'lucide-react';
-import { slideInRight, overlayVariants, staggerContainer, staggerItem } from './ui/motion';
+import type { Variants } from 'framer-motion';
 
-// Desktop nav links (shown in header)
+// Animation variants for mobile menu
+const slideInRight: Variants = {
+  hidden: { x: '100%', opacity: 0 },
+  visible: { x: 0, opacity: 1, transition: { type: 'spring', damping: 25, stiffness: 200 } },
+  exit: { x: '100%', opacity: 0, transition: { duration: 0.2 } },
+};
+
+const overlayVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.2 } },
+  exit: { opacity: 0, transition: { duration: 0.2 } },
+};
+
+const staggerContainer: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1, delayChildren: 0.1 },
+  },
+};
+
+const staggerItem: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
+};
+
+// Desktop nav links (shown in header) - expanded to show more key pages
 const desktopNavLinks = [
   { href: '/the-problem', label: 'The Problem', icon: AlertTriangle },
   { href: '/statistics', label: 'Statistics', icon: BarChart3 },
-  { href: '/products', label: 'Products', icon: ShoppingBag },
-  { href: '/london-visitor-safety', label: 'Visitor Safety', icon: MapPin },
+  { href: '/banks', label: 'Banks', icon: Building2 },
+  { href: '/prevention', label: 'Prevention', icon: BookOpen },
   { href: '/scenarios', label: 'Scenarios', icon: AlertTriangle },
+  { href: '/products', label: 'Products', icon: ShoppingBag },
   { href: '/news', label: 'News', icon: Newspaper },
 ];
 
@@ -49,35 +76,44 @@ export default function HeaderMobile() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="bg-white/95 backdrop-blur-md shadow-md sticky top-0 z-50 border-b border-neutral-100">
-      <div className="container mx-auto px-4 py-3">
-        <div className="flex items-center justify-between">
-          {/* Logo */}
-          <a href="/" className="flex items-center gap-2 group">
-            <motion.div 
-              className="bg-primary/10 p-2 rounded-xl group-hover:bg-primary/20 transition-colors"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <img src="/logo-icon.svg" alt="ProtectMyMobile shield" className="h-7 w-7" />
-            </motion.div>
-            <span className="text-xl font-bold text-primary tracking-tight">
-              ProtectMyMobile
-            </span>
-          </a>
+    <>
+      {/* Skip to main content link for keyboard users */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-primary focus:text-white focus:rounded-lg focus:font-medium"
+      >
+        Skip to main content
+      </a>
 
-          {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center gap-1">
-            {desktopNavLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="px-3 py-2 text-sm font-medium text-neutral-600 hover:text-primary hover:bg-primary/5 rounded-lg transition-colors"
+      <header className="bg-white/95 backdrop-blur-md shadow-md sticky top-0 z-50 border-b border-neutral-100">
+        <div className="container mx-auto px-4 py-3">
+          <div className="flex items-center justify-between">
+            {/* Logo */}
+            <a href="/" className="flex items-center gap-2 group" aria-label="ProtectMyMobile - Go to homepage">
+              <motion.div
+                className="bg-primary/10 p-2 rounded-xl group-hover:bg-primary/20 transition-colors"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                {link.label}
-              </a>
-            ))}
-          </nav>
+                <img src="/logo-icon.svg" alt="" className="h-7 w-7" aria-hidden="true" />
+              </motion.div>
+              <span className="text-xl font-bold text-primary tracking-tight">
+                ProtectMyMobile
+              </span>
+            </a>
+
+            {/* Desktop Nav */}
+            <nav className="hidden lg:flex items-center gap-1" aria-label="Main navigation">
+              {desktopNavLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="px-3 py-2 text-sm font-medium text-neutral-600 hover:text-primary hover:bg-primary/5 rounded-lg transition-colors"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </nav>
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-3">
@@ -178,6 +214,7 @@ export default function HeaderMobile() {
                 variants={staggerContainer}
                 initial="hidden"
                 animate="visible"
+                aria-label="Mobile navigation"
               >
                 <ul className="space-y-1">
                   {navLinks.map((link) => (
@@ -207,5 +244,6 @@ export default function HeaderMobile() {
         )}
       </AnimatePresence>
     </header>
+    </>
   );
 }

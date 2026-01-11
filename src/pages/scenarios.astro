@@ -68,7 +68,8 @@ const scenarios = [
 ];
 
 function slideUrls(folder: string, count: number) {
-  return Array.from({ length: count }, (_, i) => encodeURI(`/Scenarios/${folder}/${i + 1}.png`));
+  // Use WebP format for better compression (fallback to PNG handled in ScenarioCarousel)
+  return Array.from({ length: count }, (_, i) => encodeURI(`/Scenarios/${folder}/${i + 1}.webp`));
 }
 ---
 
@@ -78,9 +79,9 @@ function slideUrls(folder: string, count: number) {
   canonicalPath="/scenarios"
   ogImage="/og-image.png"
 >
-  <HeaderMobile client:load />
+  <HeaderMobile client:idle />
 
-  <main class="bg-[#f3f2f1] min-h-screen">
+  <main id="main-content" class="bg-[#f3f2f1] min-h-screen">
     <div class="container mx-auto px-4 py-4 sm:py-6 md:py-8 max-w-6xl">
       <div class="bg-gradient-to-br from-primary to-blue-700 text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8 shadow-xl">
         <div class="flex items-center gap-3 mb-3">
@@ -114,7 +115,7 @@ function slideUrls(folder: string, count: number) {
               </div>
             </div>
             <ScenarioCarousel
-              client:load
+              client:visible
               images={slideUrls(scenario.folder, scenario.slides)}
               title={scenario.title}
               summary={scenario.summary}
