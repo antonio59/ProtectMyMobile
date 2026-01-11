@@ -224,6 +224,37 @@ import { AlertTriangle, Clock } from "lucide-react";
       </div>
     </div>
   </main>
-  
+
   <Footer />
 </Layout>
+
+<script>
+  // Track emergency guide view
+  function trackEmergencyView() {
+    const CONVEX_URL = (window as any).__CONVEX_URL || '';
+    if (!CONVEX_URL) return;
+
+    let sessionId = sessionStorage.getItem('pmm_session');
+    if (!sessionId) {
+      sessionId = Math.random().toString(36).substring(2) + Date.now().toString(36);
+      sessionStorage.setItem('pmm_session', sessionId);
+    }
+
+    fetch(`${CONVEX_URL}/api/mutation`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        path: 'analytics:trackEvent',
+        args: {
+          eventType: 'emergency_guide_viewed',
+          sessionId,
+          userAgent: navigator.userAgent,
+          referrer: document.referrer || undefined,
+        },
+      }),
+    }).catch(() => {});
+  }
+
+  // Track on page load
+  trackEmergencyView();
+</script>

@@ -178,7 +178,7 @@ const categories = {
                       {bank.emergencyContact.uk.startsWith('In-app') ? (
                         <p class="text-red-700 font-medium text-xs sm:text-sm">{bank.emergencyContact.uk}</p>
                       ) : (
-                        <a href={`tel:${bank.emergencyContact.uk}`} class="text-red-700 font-bold text-base sm:text-lg hover:underline block break-all">{bank.emergencyContact.uk}</a>
+                        <a href={`tel:${bank.emergencyContact.uk}`} data-bank-name={bank.name} class="text-red-700 font-bold text-base sm:text-lg hover:underline block break-all">{bank.emergencyContact.uk}</a>
                       )}
                       {bank.emergencyContact.abroad && (
                         <p class="text-xs text-neutral-600 mt-1 break-all">
@@ -297,5 +297,38 @@ const categories = {
         noResultsEl.style.display = 'none';
       }
     }
+
+    // Track bank contact clicks
+    function trackBankClick(bankName: string) {
+      const CONVEX_URL = (window as any).__CONVEX_URL || '';
+      if (!CONVEX_URL) return;
+
+      let sessionId = sessionStorage.getItem('pmm_session');
+      if (!sessionId) {
+        sessionId = Math.random().toString(36).substring(2) + Date.now().toString(36);
+        sessionStorage.setItem('pmm_session', sessionId);
+      }
+
+      fetch(`${CONVEX_URL}/api/mutation`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          path: 'analytics:trackEvent',
+          args: {
+            eventType: 'bank_contact_clicked',
+            metadata: { bankName },
+            sessionId,
+          },
+        }),
+      }).catch(() => {});
+    }
+
+    // Add click listeners to bank phone links
+    document.querySelectorAll('[data-bank-name]').forEach(el => {
+      el.addEventListener('click', () => {
+        const bankName = el.getAttribute('data-bank-name');
+        if (bankName) trackBankClick(bankName);
+      });
+    });
   </script>
 </Layout>

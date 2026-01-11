@@ -1,5 +1,41 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Check, X, Shield, AlertTriangle, CheckCircle2, Share2 } from 'lucide-react';
+
+// Generate a simple session ID for analytics
+function getSessionId(): string {
+  let sessionId = sessionStorage.getItem('pmm_session');
+  if (!sessionId) {
+    sessionId = Math.random().toString(36).substring(2) + Date.now().toString(36);
+    sessionStorage.setItem('pmm_session', sessionId);
+  }
+  return sessionId;
+}
+
+// Track analytics event via API
+async function trackAnalytics(eventType: string, metadata?: Record<string, unknown>) {
+  try {
+    const CONVEX_URL = (import.meta as any).env?.PUBLIC_CONVEX_URL || '';
+    if (!CONVEX_URL) return;
+
+    await fetch(`${CONVEX_URL}/api/mutation`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        path: 'analytics:trackEvent',
+        args: {
+          eventType,
+          metadata,
+          sessionId: getSessionId(),
+          userAgent: navigator.userAgent,
+          referrer: document.referrer || undefined,
+        },
+      }),
+    });
+  } catch (err) {
+    // Silently fail - analytics shouldn't break the app
+    console.debug('Analytics tracking failed:', err);
+  }
+}
 
 interface Question {
   id: string;
@@ -43,8 +79,14 @@ const categoryNames = {
 export default function SecurityCheckup() {
   const [answers, setAnswers] = useState<Record<string, boolean | null>>({});
   const [showResults, setShowResults] = useState(false);
+  const [hasTrackedStart, setHasTrackedStart] = useState(false);
 
+  // Track when user starts the checkup (first answer)
   const handleAnswer = (questionId: string, answer: boolean) => {
+    if (!hasTrackedStart) {
+      trackAnalytics('security_checkup_started');
+      setHasTrackedStart(true);
+    }
     setAnswers(prev => ({ ...prev, [questionId]: answer }));
   };
 
@@ -97,6 +139,26 @@ export default function SecurityCheckup() {
 
   const handleSubmit = () => {
     if (allAnswered) {
+      // Calculate scores for tracking
+      const score = calculateScore();
+      const scoreLevel = getScoreLevel(score.percentage);
+
+      // Calculate category breakdown for analytics
+      const categoryBreakdown: Record<string, number> = {};
+      Object.keys(categoryNames).forEach(key => {
+        const categoryQuestions = questions.filter(q => q.category === key);
+        const categoryTotal = categoryQuestions.reduce((sum, q) => sum + q.points, 0);
+        const categoryEarned = categoryQuestions.reduce((sum, q) => sum + (answers[q.id] ? q.points : 0), 0);
+        categoryBreakdown[key] = Math.round((categoryEarned / categoryTotal) * 100);
+      });
+
+      // Track completion with detailed analytics
+      trackAnalytics('security_checkup_completed', {
+        score: score.percentage,
+        scoreLevel: scoreLevel.level,
+        categoryBreakdown: JSON.stringify(categoryBreakdown),
+      });
+
       setShowResults(true);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -105,6 +167,7 @@ export default function SecurityCheckup() {
   const handleReset = () => {
     setAnswers({});
     setShowResults(false);
+    setHasTrackedStart(false); // Allow tracking start again on retake
   };
 
   if (showResults) {

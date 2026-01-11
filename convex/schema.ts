@@ -271,6 +271,36 @@ export default defineSchema({
     .index("by_active", ["active"])
     .index("by_network", ["network"]),
 
+  // Analytics Events (tracking user interactions)
+  analyticsEvents: defineTable({
+    eventType: v.union(
+      v.literal("security_checkup_started"),
+      v.literal("security_checkup_completed"),
+      v.literal("emergency_guide_viewed"),
+      v.literal("bank_contact_clicked"),
+      v.literal("provider_contact_clicked"),
+      v.literal("community_survey_completed"),
+      v.literal("scenario_viewed"),
+      v.literal("news_article_viewed"),
+    ),
+    // Event-specific data
+    metadata: v.optional(v.object({
+      score: v.optional(v.number()),
+      scoreLevel: v.optional(v.string()),
+      bankName: v.optional(v.string()),
+      providerName: v.optional(v.string()),
+      scenarioId: v.optional(v.string()),
+      articleSlug: v.optional(v.string()),
+      categoryBreakdown: v.optional(v.string()),
+    })),
+    // Session/user info (anonymized)
+    sessionId: v.optional(v.string()),
+    userAgent: v.optional(v.string()),
+    referrer: v.optional(v.string()),
+  })
+    .index("by_event_type", ["eventType"])
+    .index("by_creation_time", ["_creationTime"]),
+
   // Import Logs (tracking data imports from various sources)
   importLogs: defineTable({
     timestamp: v.number(),

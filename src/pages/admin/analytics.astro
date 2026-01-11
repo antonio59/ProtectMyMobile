@@ -1,0 +1,374 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+---
+
+<AdminLayout
+  title="Analytics | ProtectMyMobile Admin"
+  description="User engagement analytics and insights."
+  currentPage="analytics"
+>
+  <div class="p-3 sm:p-4 lg:p-8">
+    <!-- Header -->
+    <div class="mb-6 sm:mb-8">
+      <h1 class="text-xl sm:text-2xl font-bold text-neutral-900">Analytics Dashboard</h1>
+      <p class="text-neutral-600 text-xs sm:text-sm mt-1">Track user engagement with security features and content.</p>
+    </div>
+
+    <!-- Time Period Selector -->
+    <div class="mb-6 flex gap-2">
+      <button id="period-7" class="px-3 py-1.5 text-sm font-medium rounded-lg bg-primary text-white">7 Days</button>
+      <button id="period-30" class="px-3 py-1.5 text-sm font-medium rounded-lg bg-neutral-200 text-neutral-700 hover:bg-neutral-300">30 Days</button>
+      <button id="period-90" class="px-3 py-1.5 text-sm font-medium rounded-lg bg-neutral-200 text-neutral-700 hover:bg-neutral-300">90 Days</button>
+    </div>
+
+    <!-- Key Metrics Grid -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
+      <div class="bg-white rounded-xl p-4 sm:p-5 shadow-sm border border-neutral-200">
+        <div class="flex items-center justify-between mb-3">
+          <div class="w-10 h-10 bg-teal-100 rounded-lg flex items-center justify-center">
+            <svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+          </div>
+        </div>
+        <div class="text-2xl font-bold text-neutral-900" id="stat-checkups">-</div>
+        <div class="text-xs text-neutral-500">Security Checkups</div>
+      </div>
+
+      <div class="bg-white rounded-xl p-4 sm:p-5 shadow-sm border border-neutral-200">
+        <div class="flex items-center justify-between mb-3">
+          <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+            <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+            </svg>
+          </div>
+        </div>
+        <div class="text-2xl font-bold text-neutral-900" id="stat-avg-score">-</div>
+        <div class="text-xs text-neutral-500">Avg Security Score</div>
+      </div>
+
+      <div class="bg-white rounded-xl p-4 sm:p-5 shadow-sm border border-neutral-200">
+        <div class="flex items-center justify-between mb-3">
+          <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
+            <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+            </svg>
+          </div>
+        </div>
+        <div class="text-2xl font-bold text-neutral-900" id="stat-emergency">-</div>
+        <div class="text-xs text-neutral-500">Emergency Views</div>
+      </div>
+
+      <div class="bg-white rounded-xl p-4 sm:p-5 shadow-sm border border-neutral-200">
+        <div class="flex items-center justify-between mb-3">
+          <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+            </svg>
+          </div>
+        </div>
+        <div class="text-2xl font-bold text-neutral-900" id="stat-bank-clicks">-</div>
+        <div class="text-xs text-neutral-500">Bank Contacts</div>
+      </div>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8">
+      <!-- Security Checkup Stats -->
+      <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-4 sm:p-6">
+        <h2 class="font-bold text-neutral-900 mb-4 text-sm sm:text-base">Security Checkup Performance</h2>
+
+        <!-- Completion Rate -->
+        <div class="mb-6">
+          <div class="flex justify-between mb-2">
+            <span class="text-sm text-neutral-600">Completion Rate</span>
+            <span class="text-sm font-bold" id="completion-rate">-</span>
+          </div>
+          <div class="w-full bg-neutral-200 rounded-full h-3">
+            <div id="completion-bar" class="h-3 rounded-full bg-primary transition-all duration-500" style="width: 0%"></div>
+          </div>
+          <p class="text-xs text-neutral-500 mt-1"><span id="started-count">-</span> started, <span id="completed-count">-</span> completed</p>
+        </div>
+
+        <!-- Score Distribution -->
+        <div>
+          <h3 class="text-sm font-medium text-neutral-700 mb-3">Score Distribution</h3>
+          <div class="space-y-2">
+            <div class="flex items-center gap-3">
+              <span class="text-xs w-28 text-neutral-600">Excellent (90%+)</span>
+              <div class="flex-1 bg-neutral-100 rounded-full h-2">
+                <div id="dist-excellent" class="h-2 rounded-full bg-green-500 transition-all" style="width: 0%"></div>
+              </div>
+              <span class="text-xs w-8 text-right font-medium" id="dist-excellent-count">-</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-xs w-28 text-neutral-600">Good (70-89%)</span>
+              <div class="flex-1 bg-neutral-100 rounded-full h-2">
+                <div id="dist-good" class="h-2 rounded-full bg-blue-500 transition-all" style="width: 0%"></div>
+              </div>
+              <span class="text-xs w-8 text-right font-medium" id="dist-good-count">-</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-xs w-28 text-neutral-600">Fair (50-69%)</span>
+              <div class="flex-1 bg-neutral-100 rounded-full h-2">
+                <div id="dist-fair" class="h-2 rounded-full bg-yellow-500 transition-all" style="width: 0%"></div>
+              </div>
+              <span class="text-xs w-8 text-right font-medium" id="dist-fair-count">-</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-xs w-28 text-neutral-600">Needs Work (&lt;50%)</span>
+              <div class="flex-1 bg-neutral-100 rounded-full h-2">
+                <div id="dist-needs" class="h-2 rounded-full bg-red-500 transition-all" style="width: 0%"></div>
+              </div>
+              <span class="text-xs w-8 text-right font-medium" id="dist-needs-count">-</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Daily Activity -->
+      <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-4 sm:p-6">
+        <h2 class="font-bold text-neutral-900 mb-4 text-sm sm:text-base">Daily Activity (Last 7 Days)</h2>
+        <div id="daily-chart" class="h-48 flex items-end gap-2 justify-between">
+          <!-- Chart bars will be inserted here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Top Content Row -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8">
+      <!-- Top Banks -->
+      <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-4 sm:p-6">
+        <h2 class="font-bold text-neutral-900 mb-4 text-sm sm:text-base">Top Bank Contacts</h2>
+        <div id="top-banks" class="space-y-3">
+          <div class="animate-pulse space-y-3">
+            <div class="h-8 bg-neutral-100 rounded"></div>
+            <div class="h-8 bg-neutral-100 rounded"></div>
+            <div class="h-8 bg-neutral-100 rounded"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Activity -->
+      <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-4 sm:p-6">
+        <h2 class="font-bold text-neutral-900 mb-4 text-sm sm:text-base">Recent Activity</h2>
+        <div id="recent-activity" class="space-y-2 max-h-64 overflow-y-auto">
+          <div class="animate-pulse space-y-2">
+            <div class="h-10 bg-neutral-100 rounded"></div>
+            <div class="h-10 bg-neutral-100 rounded"></div>
+            <div class="h-10 bg-neutral-100 rounded"></div>
+            <div class="h-10 bg-neutral-100 rounded"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Event Type Breakdown -->
+    <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-4 sm:p-6">
+      <h2 class="font-bold text-neutral-900 mb-4 text-sm sm:text-base">All Events by Type</h2>
+      <div id="event-breakdown" class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div class="animate-pulse space-y-3">
+          <div class="h-20 bg-neutral-100 rounded-lg"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</AdminLayout>
+
+<script>
+  const CONVEX_URL = import.meta.env.PUBLIC_CONVEX_URL || '';
+  let currentDays = 7;
+
+  async function convexQuery(path: string, args: Record<string, unknown> = {}) {
+    const res = await fetch(`${CONVEX_URL}/api/query`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ path, args }),
+    });
+    return (await res.json()).value;
+  }
+
+  function escapeHtml(str: string): string {
+    if (!str) return '';
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  function formatEventType(type: string): string {
+    const labels: Record<string, string> = {
+      'security_checkup_started': 'Checkup Started',
+      'security_checkup_completed': 'Checkup Completed',
+      'emergency_guide_viewed': 'Emergency Viewed',
+      'bank_contact_clicked': 'Bank Contact',
+      'provider_contact_clicked': 'Provider Contact',
+      'community_survey_completed': 'Survey Completed',
+      'scenario_viewed': 'Scenario Viewed',
+      'news_article_viewed': 'News Viewed',
+    };
+    return labels[type] || type;
+  }
+
+  function formatTimeAgo(timestamp: number): string {
+    const seconds = Math.floor((Date.now() - timestamp) / 1000);
+    if (seconds < 60) return 'Just now';
+    if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
+    if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`;
+    return `${Math.floor(seconds / 86400)}d ago`;
+  }
+
+  async function loadAnalytics() {
+    try {
+      const [summary, recentEvents] = await Promise.all([
+        convexQuery('analytics:getSummary', { days: currentDays }),
+        convexQuery('analytics:getRecentEvents', { limit: 20 }),
+      ]);
+
+      // Update key metrics
+      document.getElementById('stat-checkups')!.textContent =
+        (summary.securityCheckup?.completed || 0).toString();
+      document.getElementById('stat-avg-score')!.textContent =
+        summary.securityCheckup?.avgScore ? `${summary.securityCheckup.avgScore}%` : '-';
+      document.getElementById('stat-emergency')!.textContent =
+        (summary.eventCounts?.emergency_guide_viewed || 0).toString();
+      document.getElementById('stat-bank-clicks')!.textContent =
+        (summary.eventCounts?.bank_contact_clicked || 0).toString();
+
+      // Update completion rate
+      const { started, completed, completionRate, scoreDistribution } = summary.securityCheckup || {};
+      document.getElementById('completion-rate')!.textContent = `${completionRate || 0}%`;
+      document.getElementById('completion-bar')!.style.width = `${completionRate || 0}%`;
+      document.getElementById('started-count')!.textContent = (started || 0).toString();
+      document.getElementById('completed-count')!.textContent = (completed || 0).toString();
+
+      // Update score distribution
+      const total = completed || 1;
+      const dist = scoreDistribution || { excellent: 0, good: 0, fair: 0, needsImprovement: 0 };
+
+      document.getElementById('dist-excellent')!.style.width = `${(dist.excellent / total) * 100}%`;
+      document.getElementById('dist-excellent-count')!.textContent = dist.excellent.toString();
+
+      document.getElementById('dist-good')!.style.width = `${(dist.good / total) * 100}%`;
+      document.getElementById('dist-good-count')!.textContent = dist.good.toString();
+
+      document.getElementById('dist-fair')!.style.width = `${(dist.fair / total) * 100}%`;
+      document.getElementById('dist-fair-count')!.textContent = dist.fair.toString();
+
+      document.getElementById('dist-needs')!.style.width = `${(dist.needsImprovement / total) * 100}%`;
+      document.getElementById('dist-needs-count')!.textContent = dist.needsImprovement.toString();
+
+      // Daily chart
+      const dailyChart = document.getElementById('daily-chart')!;
+      const dailyData = summary.dailyBreakdown || [];
+      const maxEvents = Math.max(...dailyData.map((d: any) => d.events), 1);
+
+      dailyChart.innerHTML = dailyData.map((day: any) => `
+        <div class="flex-1 flex flex-col items-center">
+          <div class="w-full bg-primary/20 rounded-t relative" style="height: ${(day.events / maxEvents) * 150}px; min-height: 4px;">
+            <div class="absolute bottom-0 w-full bg-primary rounded-t" style="height: ${(day.checkups / maxEvents) * 150}px; min-height: 2px;"></div>
+          </div>
+          <span class="text-xs text-neutral-500 mt-2">${escapeHtml(day.date)}</span>
+          <span class="text-xs font-medium">${day.events}</span>
+        </div>
+      `).join('');
+
+      // Top banks
+      const topBanks = document.getElementById('top-banks')!;
+      const banks = summary.topBanks || [];
+      if (banks.length === 0) {
+        topBanks.innerHTML = '<p class="text-sm text-neutral-500 text-center py-4">No bank contact data yet</p>';
+      } else {
+        const maxBankClicks = banks[0]?.[1] || 1;
+        topBanks.innerHTML = banks.map(([name, count]: [string, number]) => `
+          <div class="flex items-center gap-3">
+            <span class="text-sm flex-1 truncate">${escapeHtml(name)}</span>
+            <div class="w-24 bg-neutral-100 rounded-full h-2">
+              <div class="h-2 rounded-full bg-blue-500" style="width: ${(count / maxBankClicks) * 100}%"></div>
+            </div>
+            <span class="text-sm font-medium w-8 text-right">${count}</span>
+          </div>
+        `).join('');
+      }
+
+      // Recent activity
+      const recentActivity = document.getElementById('recent-activity')!;
+      if (!recentEvents || recentEvents.length === 0) {
+        recentActivity.innerHTML = '<p class="text-sm text-neutral-500 text-center py-4">No recent activity</p>';
+      } else {
+        recentActivity.innerHTML = recentEvents.map((event: any) => {
+          const meta = event.metadata;
+          let detail = '';
+          if (meta?.score !== undefined) detail = `Score: ${meta.score}%`;
+          else if (meta?.bankName) detail = meta.bankName;
+          else if (meta?.scenarioId) detail = meta.scenarioId;
+
+          return `
+            <div class="flex items-center gap-3 p-2 bg-neutral-50 rounded-lg">
+              <div class="w-2 h-2 rounded-full bg-primary flex-shrink-0"></div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium truncate">${formatEventType(event.eventType)}</p>
+                ${detail ? `<p class="text-xs text-neutral-500 truncate">${escapeHtml(detail)}</p>` : ''}
+              </div>
+              <span class="text-xs text-neutral-400 flex-shrink-0">${formatTimeAgo(event.timestamp)}</span>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Event breakdown
+      const eventBreakdown = document.getElementById('event-breakdown')!;
+      const counts = summary.eventCounts || {};
+      const eventTypes = [
+        { key: 'security_checkup_completed', label: 'Checkups', color: 'teal' },
+        { key: 'emergency_guide_viewed', label: 'Emergency Views', color: 'red' },
+        { key: 'bank_contact_clicked', label: 'Bank Contacts', color: 'blue' },
+        { key: 'scenario_viewed', label: 'Scenarios', color: 'purple' },
+        { key: 'news_article_viewed', label: 'News Views', color: 'orange' },
+        { key: 'community_survey_completed', label: 'Surveys', color: 'green' },
+      ];
+
+      eventBreakdown.innerHTML = eventTypes.map(({ key, label, color }) => `
+        <div class="p-3 bg-${color}-50 rounded-lg border border-${color}-100">
+          <div class="text-2xl font-bold text-${color}-700">${counts[key] || 0}</div>
+          <div class="text-xs text-${color}-600">${label}</div>
+        </div>
+      `).join('');
+
+    } catch (err) {
+      console.error('Failed to load analytics:', err);
+    }
+  }
+
+  // Period button handlers
+  document.getElementById('period-7')?.addEventListener('click', () => {
+    currentDays = 7;
+    updatePeriodButtons();
+    loadAnalytics();
+  });
+
+  document.getElementById('period-30')?.addEventListener('click', () => {
+    currentDays = 30;
+    updatePeriodButtons();
+    loadAnalytics();
+  });
+
+  document.getElementById('period-90')?.addEventListener('click', () => {
+    currentDays = 90;
+    updatePeriodButtons();
+    loadAnalytics();
+  });
+
+  function updatePeriodButtons() {
+    ['7', '30', '90'].forEach(d => {
+      const btn = document.getElementById(`period-${d}`);
+      if (btn) {
+        if (parseInt(d) === currentDays) {
+          btn.className = 'px-3 py-1.5 text-sm font-medium rounded-lg bg-primary text-white';
+        } else {
+          btn.className = 'px-3 py-1.5 text-sm font-medium rounded-lg bg-neutral-200 text-neutral-700 hover:bg-neutral-300';
+        }
+      }
+    });
+  }
+
+  // Initial load
+  loadAnalytics();
+</script>
