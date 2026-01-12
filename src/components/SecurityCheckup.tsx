@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Check, X, Shield, AlertTriangle, CheckCircle2, Share2 } from 'lucide-react';
 
 // Generate a cryptographically secure session ID for analytics
