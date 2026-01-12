@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
 import { getNewsPosts } from '../lib/convexData';
-import { Newspaper, Filter, AlertTriangle, ArrowRight } from 'lucide-react';
+import { Newspaper, Filter, AlertTriangle, ArrowRight, Calendar, Gavel, Siren, ShieldAlert, TrendingUp, Lightbulb, FileText } from 'lucide-react';
 
 let posts: any[] = [];
 let error = null;
@@ -14,6 +14,51 @@ try {
   error = e;
   console.error('Error fetching news posts:', e);
 }
+
+const categoryConfig: Record<string, { color: string; bg: string; icon: any; gradient: string }> = {
+  arrest: {
+    color: "text-red-700",
+    bg: "bg-red-50",
+    icon: Siren,
+    gradient: "from-red-500 to-red-600",
+  },
+  seizure: {
+    color: "text-orange-700",
+    bg: "bg-orange-50",
+    icon: ShieldAlert,
+    gradient: "from-orange-500 to-orange-600",
+  },
+  law_change: {
+    color: "text-teal-700",
+    bg: "bg-teal-50",
+    icon: Gavel,
+    gradient: "from-teal-500 to-teal-600",
+  },
+  law_changes: {
+    color: "text-teal-700",
+    bg: "bg-teal-50",
+    icon: Gavel,
+    gradient: "from-teal-500 to-teal-600",
+  },
+  statistics: {
+    color: "text-blue-700",
+    bg: "bg-blue-50",
+    icon: TrendingUp,
+    gradient: "from-blue-500 to-blue-600",
+  },
+  prevention_tip: {
+    color: "text-green-700",
+    bg: "bg-green-50",
+    icon: Lightbulb,
+    gradient: "from-green-500 to-green-600",
+  },
+  other: {
+    color: "text-neutral-700",
+    bg: "bg-neutral-50",
+    icon: FileText,
+    gradient: "from-neutral-500 to-neutral-600",
+  },
+};
 
 const categoryColors: Record<string, string> = {
   arrest: 'bg-red-100 text-red-800',
@@ -130,63 +175,67 @@ function formatDate(dateValue: string | number) {
           <p class="text-xs sm:text-sm text-neutral-500">In the meantime, explore our prevention guides and resources.</p>
         </div>
       ) : (
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8" id="news-grid">
-          {posts.map((post: any) => (
-            <a
-              href={`/news/${post.slug}`}
-              class="news-card group flex flex-col bg-white rounded-2xl shadow-lg hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 overflow-hidden ring-1 ring-neutral-100 h-full relative"
-              data-category={post.category}
-            >
-              {/* Image / Banner Area */}
-              <div class="h-48 sm:h-52 overflow-hidden relative bg-neutral-100">
-                {post.featuredImageUrl ? (
-                  <img 
-                    src={post.featuredImageUrl} 
-                    alt={post.title}
-                    class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
-                  />
-                ) : (
-                  <div class={`w-full h-full bg-gradient-to-br ${categoryGradients[post.category] || categoryGradients.other} opacity-10 group-hover:opacity-15 transition-opacity flex items-center justify-center`}>
-                     <Newspaper class={`h-16 w-16 opacity-20 ${categoryColors[post.category]?.split(' ')[1]}`} />
-                  </div>
-                )}
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6" id="news-grid">
+          {posts.map((post: any) => {
+            // Determine styling based on category
+            const config = categoryConfig[post.category] || categoryConfig.other;
+            // Since we can't easily dynamic import React components in Astro loop without hydration issues or mdx, 
+            // we will use a helper map or inline SVG for icons if needed, 
+            // BUT simpler approach for Astro: just use a generic icon or map manually if possible.
+            // Actually, we can just use the lucide-react imports if we treat them as standard astro components or react.
+            // However, inside map like this in Astro file... standard <Icon /> might not work if it's a React component unless we client:load it?
+            // "lucide-react" exports React components.
+            // We can just use basic SVGs or rely on the React icons being rendered? 
+            // Actually, Astro supports using React components in .astro files.
+            
+            // Simpler: Just rely on CSS/HTML structure and maybe a simple icon or just text if icon is hard.
+            // Let's try to map the icon name to a class or use a switch for SVG content if we want strictly static.
+            // For now, let's just render the React component? No, that requires client directive usually? 
+            // Only if interactive. SSR is fine.
+            
+            const Icon = config.icon;
+
+            return (
+              <a
+                href={`/news/${post.slug}`}
+                class="news-card group flex flex-col bg-white rounded-xl shadow-sm hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 border border-neutral-200 hover:border-primary/20 h-full relative overflow-hidden"
+                data-category={post.category}
+              >
+                {/* Top Accent Line */}
+                <div class={`h-1.5 w-full bg-gradient-to-r ${config.gradient}`} />
                 
-                {/* Floating Category Badge */}
-                <div class="absolute top-4 left-4">
-                  <span
-                    class={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold shadow-sm backdrop-blur-md bg-white/90 ring-1 ${categoryBadgeColors[post.category]?.replace('bg-', 'ring-') || 'ring-neutral-200'} ${categoryBadgeColors[post.category]?.match(/text-\w+-\d+/)?.[0] || 'text-neutral-700'}`}
-                  >
-                    {/* Tag icon would need to be imported or inline SVG, defaulting to text only for now or stick to CSS only */}
-                    {post.category.replace('_', ' ')}
-                  </span>
-                </div>
-              </div>
+                <div class="p-5 sm:p-6 flex flex-col flex-grow">
+                  {/* Meta Header */}
+                  <div class="flex items-center justify-between mb-4">
+                    <span class={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold ${config.bg} ${config.color}`}>
+                      <Icon className="h-3.5 w-3.5" />
+                      {post.category.replace('_', ' ')}
+                    </span>
+                    <div class="flex items-center gap-1.5 text-xs text-neutral-400 font-medium">
+                       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                      {formatDate(post.publishedAt || post._creationTime)}
+                    </div>
+                  </div>
 
-               {/* Content Area */}
-              <div class="p-6 flex flex-col flex-grow relative">
-                <div class="flex items-center gap-2 mb-3 text-xs font-medium text-neutral-400">
-                   {/* Calendar Icon */}
-                   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
-                  <span>{formatDate(post.publishedAt || post._creationTime)}</span>
-                </div>
+                  {/* Title */}
+                  <h3 class="text-lg sm:text-xl font-bold text-neutral-900 mb-3 group-hover:text-primary transition-colors leading-snug">
+                    {post.title}
+                  </h3>
 
-                <h2 class="text-xl font-bold text-neutral-900 mb-3 group-hover:text-primary transition-colors line-clamp-2 leading-tight">
-                  {post.title}
-                </h2>
+                  {/* Excerpt */}
+                  <p class="text-neutral-600 text-sm leading-relaxed mb-6 flex-grow">
+                    {post.excerpt}
+                  </p>
 
-                <p class="text-neutral-500 text-sm line-clamp-3 mb-6 leading-relaxed flex-grow">
-                  {post.excerpt}
-                </p>
-
-                <div class="mt-auto pt-4 border-t border-dashed border-neutral-100 flex items-center justify-between text-sm font-semibold">
-                  <span class="text-primary group-hover:text-primary/80 transition-colors">Read Article</span>
-                  <div class="h-8 w-8 rounded-full bg-primary/5 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all">
-                   <ArrowRight class="h-4 w-4" />
+                  {/* Footer */}
+                  <div class="flex items-center text-sm font-semibold text-primary group-hover:gap-2 transition-all mt-auto">
+                    Read article
+                    <ArrowRight class="h-4 w-4 ml-1 transition-transform" />
                   </div>
                 </div>
-              </div>
-            </a>
-          ))}
+              </a>
+            );
+          })}
         </div>
       )}
     </div>
