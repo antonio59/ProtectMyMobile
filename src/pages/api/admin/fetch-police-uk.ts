@@ -266,11 +266,12 @@ export const GET: APIRoute = async ({ request }) => {
       headers: { 'Content-Type': 'application/json' },
     });
 
-  } catch (error: any) {
-    console.error('Police.uk fetch error:', error);
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : 'An unexpected error occurred';
+    console.error('Police.uk fetch error:', message);
     return new Response(JSON.stringify({
-      error: error.message,
-      stack: process.env.NODE_ENV === 'development' ? error.stack : undefined,
+      error: 'Failed to fetch police data',
+      message,
     }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },

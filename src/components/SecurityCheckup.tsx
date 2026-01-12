@@ -1,11 +1,16 @@
 import { useState, useEffect } from 'react';
 import { Check, X, Shield, AlertTriangle, CheckCircle2, Share2 } from 'lucide-react';
 
-// Generate a simple session ID for analytics
+// Generate a cryptographically secure session ID for analytics
 function getSessionId(): string {
   let sessionId = sessionStorage.getItem('pmm_session');
   if (!sessionId) {
-    sessionId = Math.random().toString(36).substring(2) + Date.now().toString(36);
+    // Use crypto.randomUUID() for secure random ID generation
+    sessionId = typeof crypto !== 'undefined' && crypto.randomUUID
+      ? crypto.randomUUID()
+      : Array.from(crypto.getRandomValues(new Uint8Array(16)))
+          .map(b => b.toString(16).padStart(2, '0'))
+          .join('');
     sessionStorage.setItem('pmm_session', sessionId);
   }
   return sessionId;
