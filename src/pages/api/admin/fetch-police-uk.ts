@@ -40,30 +40,11 @@ const UK_LOCATIONS = [
 // Police.uk API rate limit: 15 requests per second, but we'll be conservative
 const RATE_LIMIT_MS = 100; // 10 requests per second to be safe
 
-interface PoliceUKCrime {
-  category: string;
-  location_type: string;
-  location: {
-    latitude: string;
-    longitude: string;
-    street: {
-      id: number;
-      name: string;
-    };
-  };
-  context: string;
-  outcome_status: any;
-  persistent_id: string;
-  id: number;
-  location_subtype: string;
-  month: string;
-}
-
 async function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function fetchPoliceUKData(lat: number, lng: number, yearMonth: string): Promise<PoliceUKCrime[]> {
+async function fetchPoliceUKData(lat: number, lng: number, yearMonth: string): Promise<unknown[]> {
   const url = `https://data.police.uk/api/crimes-street/theft-from-the-person?lat=${lat}&lng=${lng}&date=${yearMonth}`;
 
   try {
