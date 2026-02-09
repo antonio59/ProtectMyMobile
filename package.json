@@ -59,9 +59,9 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.3",
-    "@esbuild/darwin-arm64": "0.27.2",
-    "@esbuild/linux-x64": "0.27.2",
-    "esbuild": "0.27.2",
+    "@esbuild/darwin-arm64": "0.27.3",
+    "@esbuild/linux-x64": "0.27.3",
+    "esbuild": "0.27.3",
     "@netlify/functions": "^5.1.0",
     "@resvg/resvg-js": "2.6.2",
     "@rollup/rollup-darwin-arm64": "^4.53.3",
