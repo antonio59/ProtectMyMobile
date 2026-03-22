@@ -18,7 +18,7 @@ import TheftTrendsChart from '../components/TheftTrendsChart';
 
 // Fetch latest news posts
 let latestNews: any[] = [];
-let trendsData = null;
+let trendsData: { months: string[]; locations: string[]; data: any[] } | null = null;
 try {
   const posts = await getNewsPosts(true);
   latestNews = posts.slice(0, 3);
