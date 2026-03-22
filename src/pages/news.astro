@@ -7,14 +7,19 @@ import { getNewsPosts } from '../lib/convexData';
 import { Newspaper, Filter, AlertTriangle, ArrowRight, Calendar, Gavel, Siren, ShieldAlert, TrendingUp, Lightbulb, FileText, Rss, Clock, ExternalLink } from 'lucide-react';
 
 interface NewsPost {
+  _id: string;
+  _creationTime: number;
   title: string;
   slug: string;
   excerpt?: string;
   content?: string;
   publishedAt?: number;
-  category?: string;
+  category: string;
   sourceUrl?: string;
+  sourceName?: string;
   imageUrl?: string;
+  featuredImageUrl?: string;
+  authorName?: string;
 }
 
 let posts: NewsPost[] = [];

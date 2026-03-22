@@ -38,7 +38,7 @@ export default function TheftTrendsChart() {
   const [error, setError] = useState<string | null>(null);
   const [viewMode, setViewMode] = useState<'stacked' | 'lines'>('stacked');
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const chartRef = useRef<any>(null);
+  const chartRef = useRef<unknown>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -64,7 +64,7 @@ export default function TheftTrendsChart() {
   useEffect(() => {
     if (!data || !canvasRef.current || loading) return;
 
-    let chartInstance: any;
+    let chartInstance: unknown;
 
     async function initChart() {
       const { default: Chart } = await import('chart.js/auto');
@@ -74,16 +74,16 @@ export default function TheftTrendsChart() {
 
       // Destroy existing chart
       if (chartRef.current) {
-        chartRef.current.destroy();
+        (chartRef.current as { destroy: () => void }).destroy();
       }
 
       const { locations, data: chartData } = data;
-      const labels = chartData.map(d => d.label);
+      const labels = chartData.map((d: TrendPoint) => d.label);
 
       // Create datasets
-      const datasets = locations.map((loc, i) => ({
+      const datasets = locations.map((loc: string, i: number) => ({
         label: loc,
-        data: chartData.map(d => typeof d[loc] === 'number' ? d[loc] : 0),
+        data: chartData.map((d: TrendPoint) => typeof d[loc] === 'number' ? d[loc] : 0),
         backgroundColor: viewMode === 'stacked' 
           ? COLORS[i % COLORS.length] + '99' // 60% opacity
           : COLORS[i % COLORS.length] + '1A', // 10% opacity for lines
@@ -149,7 +149,7 @@ export default function TheftTrendsChart() {
               beginAtZero: true,
               grid: {
                 color: '#e5e7eb',
-                borderDash: [3, 3],
+                tickBorderDash: [3, 3],
               },
               ticks: {
                 font: {
@@ -169,7 +169,7 @@ export default function TheftTrendsChart() {
 
     return () => {
       if (chartInstance) {
-        chartInstance.destroy();
+        (chartInstance as { destroy: () => void }).destroy();
       }
     };
   }, [data, viewMode, loading]);
@@ -265,7 +265,7 @@ export default function TheftTrendsChart() {
         </div>
         <div className="bg-neutral-50 rounded-lg p-3">
           <div className="text-lg sm:text-xl font-bold text-neutral-700">
-            {data.data.reduce((s, d) => s + d.total, 0).toLocaleString()}
+            {data.data.reduce((s: number, d: TrendPoint) => s + d.total, 0).toLocaleString()}
           </div>
           <div className="text-xs text-neutral-500">All-time total</div>
         </div>

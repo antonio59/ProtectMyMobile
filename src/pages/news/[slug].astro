@@ -36,14 +36,19 @@ if (!slug) {
 }
 
 interface NewsPost {
+  _id: string;
+  _creationTime: number;
   title: string;
   slug: string;
   excerpt?: string;
   content?: string;
   publishedAt?: number;
-  category?: string;
+  category: string;
   sourceUrl?: string;
+  sourceName?: string;
   imageUrl?: string;
+  featuredImageUrl?: string;
+  authorName?: string;
 }
 
 let post: NewsPost | null = null;
@@ -53,8 +58,9 @@ try {
   if (post) {
     // Get related posts (same category, excluding current)
     const allPosts = await getNewsPosts(true);
+    const currentCategory = post.category;
     relatedPosts = allPosts
-      .filter((p: NewsPost) => p.category === post?.category && p.slug !== slug)
+      .filter((p: NewsPost) => p.category === currentCategory && p.slug !== slug)
       .slice(0, 3);
   }
 } catch (e: unknown) {
