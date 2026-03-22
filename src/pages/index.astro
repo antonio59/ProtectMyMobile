@@ -2,7 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
-import { getNewsPosts } from '../lib/convexData';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import { getNewsPosts, getMonthlyTrends } from '../lib/convexData';
 import {
   AlertTriangle,
   MapPin,
@@ -13,14 +14,23 @@ import {
 import AnimatedNewsSection from '../components/AnimatedNewsSection';
 import AnimatedStats from '../components/AnimatedStats';
 import AnimatedResources from '../components/AnimatedResources';
+import TheftTrendsChart from '../components/TheftTrendsChart';
 
 // Fetch latest news posts
 let latestNews: any[] = [];
+let trendsData = null;
 try {
   const posts = await getNewsPosts(true);
-  latestNews = posts.slice(0, 3); // Get 3 most recent
+  latestNews = posts.slice(0, 3);
 } catch (e) {
   console.error('Error fetching news:', e);
+}
+
+// Fetch trends data
+try {
+  trendsData = await getMonthlyTrends(6);
+} catch (e) {
+  console.error('Error fetching trends:', e);
 }
 ---
 
@@ -93,6 +103,7 @@ try {
   ]}
 >
   <HeaderMobile client:idle />
+  <Breadcrumb />
   
   <main id="main-content" class="bg-[#f3f2f1]">
     <div class="container mx-auto px-4 py-8 max-w-7xl">
@@ -300,6 +311,15 @@ try {
           </div>
         </a>
       </section>
+
+      {/* Theft Trends Chart */}
+      {trendsData && trendsData.data.length > 0 && (
+        <section class="mb-8 sm:mb-12">
+          <div class="bg-white rounded-2xl shadow-xl border border-neutral-100 p-4 sm:p-6 md:p-8">
+            <TheftTrendsChart client:visible />
+          </div>
+        </section>
+      )}
 
       <!-- Animated Quick Stats -->
       <AnimatedStats client:visible />

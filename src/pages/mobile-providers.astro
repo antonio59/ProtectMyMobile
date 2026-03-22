@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
 import { getMobileProviders, getDirectoryLastVerified } from '../lib/convexData';
 import { mobileProviders as staticProviders } from '../data/mobileProviders';
 import { Phone, Search, AlertCircle, Clock, CheckCircle2, ExternalLink } from 'lucide-react';
@@ -59,6 +60,7 @@ const networks = ['All', 'EE', 'O2', 'Three', 'Vodafone'];
   description="Complete directory of UK mobile network providers with emergency contact numbers to report stolen phones and block SIM cards."
 >
   <HeaderMobile client:idle />
+  <Breadcrumb />
   
   <main id="main-content" class="bg-[#f3f2f1] min-h-screen">
     <div class="container mx-auto px-4 py-4 sm:py-6 max-w-6xl">

@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
 import { AlertTriangle, TrendingUp, MapPin, Clock, Shield, ArrowRight, ExternalLink, Bike, Users, Coffee, Camera, Train, Moon, Briefcase, Map, TreePine } from 'lucide-react';
 
 const theftMethods = [
@@ -121,6 +122,7 @@ const hotspots = [
   }}
 >
   <HeaderMobile client:idle />
+  <Breadcrumb />
   
   <main id="main-content" class="bg-[#f3f2f1] min-h-screen">
     <div class="container mx-auto px-4 py-4 sm:py-6 max-w-6xl">

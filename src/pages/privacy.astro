@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
 import { Shield, Eye, Lock, Database, Mail, Cookie } from 'lucide-react';
 ---
 
@@ -10,6 +11,7 @@ import { Shield, Eye, Lock, Database, Mail, Cookie } from 'lucide-react';
   description="Learn how ProtectMyMobile protects your privacy and handles your data."
 >
   <HeaderMobile client:idle />
+  <Breadcrumb />
   
   <main id="main-content" class="bg-[#f3f2f1] min-h-screen">
     <div class="container mx-auto px-4 py-4 sm:py-6 max-w-4xl">

@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
 import { ShieldCheck, MapPin, Lock, PhoneOff, AlertTriangle, CheckCircle2, ArrowRight } from 'lucide-react';
 
 const pageTitle = "London Visitor Safety: Protect Your Phone While Travelling";
@@ -46,6 +47,7 @@ const schema = {
   schema={schema}
 >
   <HeaderMobile client:idle />
+  <Breadcrumb />
 
   <main id="main-content" class="bg-[#f3f2f1] min-h-screen">
     <div class="container mx-auto px-4 py-4 sm:py-6 md:py-8 max-w-6xl">
