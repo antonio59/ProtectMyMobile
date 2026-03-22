@@ -57,7 +57,8 @@
   },
   "overrides": {
     "rollup": "^4.59.0",
-    "devalue": "^5.6.4"
+    "devalue": "^5.6.4",
+    "fast-xml-parser": "^5.2.0"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.3",
