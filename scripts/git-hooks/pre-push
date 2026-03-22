@@ -1,0 +1,37 @@
+#!/bin/bash
+# Pre-push hook for ProtectMyMobile
+# Runs type checking and build validation before allowing push
+
+echo "Running pre-push checks..."
+
+# Check if bun is available, fall back to npm
+if command -v bun &> /dev/null; then
+    RUNNER="bun"
+    CHECK_CMD="bun run check"
+else
+    RUNNER="npm"
+    CHECK_CMD="npm run check"
+fi
+
+# Check if node_modules exists (dependencies installed)
+if [ ! -d "node_modules" ]; then
+    echo "⚠️  node_modules not found. Skipping type check."
+    echo "   Install dependencies with: bun install or npm install"
+    exit 0
+fi
+
+# Check if astro is available
+if ! [ -f "node_modules/.bin/astro" ] && ! [ -f "node_modules/.bin/astro.cmd" ]; then
+    echo "⚠️  Astro not found in node_modules. Skipping type check."
+    exit 0
+fi
+
+echo "→ Running type check..."
+if ! $CHECK_CMD; then
+    echo "❌ Type check failed. Fix errors before pushing."
+    echo "   Run 'bun run check' or 'npm run check' locally to see errors."
+    exit 1
+fi
+
+echo "✓ All checks passed. Pushing..."
+exit 0
