@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
 import { MapPin, AlertTriangle, Shield, TrendingUp, ArrowRight, Phone, Building2, Train, Navigation, CheckCircle2 } from 'lucide-react';
 
 export const prerender = true;
@@ -187,6 +188,294 @@ export function getStaticPaths() {
       reportingUrl: 'https://www.west-midlands.police.uk/ro/report/theft/',
       description: 'Birmingham sees 6,200+ phone thefts annually. New Street station and the city centre shopping district are the highest risk areas.',
       residents: true
+    },
+    {
+      slug: 'liverpool',
+      name: 'Liverpool',
+      fullName: 'Liverpool, Merseyside',
+      thefts: 3200,
+      year: 2023,
+      change: '+23% since 2019',
+      rank: 5,
+      hotspots: [
+        { area: 'City Centre', description: 'Church Street, Liverpool ONE shopping, Lime Street', risk: 'Very High' },
+        { area: 'Concert Square', description: 'Nightlife hub, bars, late-night venues', risk: 'High' },
+        { area: 'Baltic Triangle', description: 'Trendy bars, restaurants, arts venues', risk: 'High' },
+        { area: 'Albert Dock', description: 'Waterfront tourist area, museums', risk: 'Medium' },
+        { area: 'Ropewalks', description: 'Seel Street nightlife, restaurants', risk: 'High' }
+      ],
+      transport: {
+        type: 'Merseyrail & Bus',
+        icon: 'Train',
+        risks: [
+          'Lime Street station concourse during rush hour',
+          'Busy bus stops on Lord Street and Renshaw Street',
+          'Grab-and-run at Liverpool ONE bus interchange'
+        ],
+        tips: [
+          'Keep phone secure at Lime Street station',
+          'Stay alert around Concert Square late at night',
+          'Avoid displaying phone on Church Street during shopping hours'
+        ]
+      },
+      policeForce: 'Merseyside Police',
+      policePhone: '101',
+      emergencyPhone: '999',
+      reportingUrl: 'https://www.merseyside.police.uk/ro/report/',
+      description: 'Liverpool sees around 3,200 phone thefts annually. The city centre nightlife areas and shopping district are the primary hotspots.',
+      residents: true
+    },
+    {
+      slug: 'leeds',
+      name: 'Leeds',
+      fullName: 'Leeds, West Yorkshire',
+      thefts: 4100,
+      year: 2023,
+      change: '+28% since 2019',
+      rank: 4,
+      hotspots: [
+        { area: 'City Centre', description: 'Briggate, Trinity Leeds, Commercial Street', risk: 'Very High' },
+        { area: 'Headingley', description: 'Student area, bars, Otley Run pub crawl route', risk: 'High' },
+        { area: 'Call Lane', description: 'Nightlife district, late bars', risk: 'High' },
+        { area: 'Trinity Leeds', description: 'Major shopping centre', risk: 'High' },
+        { area: 'The Calls', description: 'Riverside bars and restaurants', risk: 'Medium' }
+      ],
+      transport: {
+        type: 'Bus & Rail',
+        icon: 'Train',
+        risks: [
+          'Leeds station and bus interchange area',
+          'Busy bus stops along the Headingley corridor',
+          'Crowded buses between city centre and universities'
+        ],
+        tips: [
+          'Keep phone hidden at Leeds station platforms',
+          'Stay alert on the A660 bus route through Headingley',
+          'Avoid phone use on Call Lane during evenings'
+        ]
+      },
+      policeForce: 'West Yorkshire Police',
+      policePhone: '101',
+      emergencyPhone: '999',
+      reportingUrl: 'https://www.westyorkshire.police.uk/ro/report/',
+      description: 'Leeds experiences around 4,100 phone thefts a year. The student-heavy Headingley area and busy nightlife on Call Lane are particular risk zones.',
+      residents: true
+    },
+    {
+      slug: 'edinburgh',
+      name: 'Edinburgh',
+      fullName: 'City of Edinburgh',
+      thefts: 2800,
+      year: 2023,
+      change: '+19% since 2019',
+      rank: 7,
+      hotspots: [
+        { area: 'Royal Mile', description: 'Tourist heart of the city, heavy foot traffic', risk: 'Very High' },
+        { area: 'Princes Street', description: 'Main shopping street, transport hub', risk: 'High' },
+        { area: 'Grassmarket', description: 'Pub district, busy evenings', risk: 'High' },
+        { area: 'Cowgate', description: 'Nightlife, late bars and clubs', risk: 'High' },
+        { area: 'Waverley Bridge', description: 'Station area, tourist buses', risk: 'Medium' }
+      ],
+      transport: {
+        type: 'Bus & Tram',
+        icon: 'Train',
+        risks: [
+          'Waverley station and Princes Street tram stop',
+          'Crowded tourist buses during festival season',
+          'Busy bus stops on Princes Street and George Street'
+        ],
+        tips: [
+          'Extra vigilant during Edinburgh Festival (August)',
+          'Keep phone secure on the Royal Mile during summer',
+          'Stay alert at Princes Street Gardens and station area'
+        ]
+      },
+      policeForce: 'Police Scotland',
+      policePhone: '101',
+      emergencyPhone: '999',
+      reportingUrl: 'https://www.scotland.police.uk/contact-us/report-a-crime/',
+      description: 'Edinburgh sees around 2,800 phone thefts yearly. The Royal Mile and Princes Street are the highest risk areas, especially during the Edinburgh Festival in August.',
+      residents: true
+    },
+    {
+      slug: 'glasgow',
+      name: 'Glasgow',
+      fullName: 'Glasgow, Scotland',
+      thefts: 3100,
+      year: 2023,
+      change: '+21% since 2019',
+      rank: 6,
+      hotspots: [
+        { area: 'Sauchiehall Street', description: 'Nightlife, bars, clubs', risk: 'Very High' },
+        { area: 'Buchanan Street', description: 'Main shopping street, bus station', risk: 'High' },
+        { area: 'Argyle Street', description: 'Shopping, restaurants, student area', risk: 'High' },
+        { area: 'Merchant City', description: 'Bars, restaurants, nightlife', risk: 'High' },
+        { area: 'Central Station', description: 'Major transport hub', risk: 'Medium' }
+      ],
+      transport: {
+        type: 'Subway & Bus',
+        icon: 'Train',
+        risks: [
+          'Central and Queen Street stations during rush hour',
+          'Buchanan Street bus station and subway',
+          'Crowded buses on Sauchiehall Street'
+        ],
+        tips: [
+          'Keep phone away from doors on the Subway',
+          'Stay alert around Buchanan Street bus station',
+          'Avoid phone use on Sauchiehall Street late at night'
+        ]
+      },
+      policeForce: 'Police Scotland',
+      policePhone: '101',
+      emergencyPhone: '999',
+      reportingUrl: 'https://www.scotland.police.uk/contact-us/report-a-crime/',
+      description: 'Glasgow sees around 3,100 phone thefts annually. Sauchiehall Street nightlife and Buchanan Street shopping area are the primary hotspots.',
+      residents: true
+    },
+    {
+      slug: 'bristol',
+      name: 'Bristol',
+      fullName: 'Bristol, South West England',
+      thefts: 2400,
+      year: 2023,
+      change: '+22% since 2019',
+      rank: 8,
+      hotspots: [
+        { area: 'Broadmead', description: 'Cabot Circus shopping, city centre', risk: 'High' },
+        { area: 'Harbourside', description: 'Waterfront bars, restaurants, tourist area', risk: 'High' },
+        { area: 'Clifton Triangle', description: 'University area, busy bars', risk: 'Medium' },
+        { area: 'Park Street', description: 'Nightlife, student area, steep hill', risk: 'High' },
+        { area: 'Gloucester Road', description: 'Independent shops, busy high street', risk: 'Medium' }
+      ],
+      transport: {
+        type: 'Bus & Rail',
+        icon: 'Train',
+        risks: [
+          'Temple Meads station during commuter hours',
+          'Broadmead bus stops and central area',
+          'Busy buses between city centre and Clifton'
+        ],
+        tips: [
+          'Keep phone secure at Temple Meads station',
+          'Stay alert around Harbourside on weekend evenings',
+          'Avoid using phone near bus stops on Park Street'
+        ]
+      },
+      policeForce: 'Avon and Somerset Police',
+      policePhone: '101',
+      emergencyPhone: '999',
+      reportingUrl: 'https://www.avonandsomerset.police.uk/report/',
+      description: 'Bristol has around 2,400 phone thefts per year. The Harbourside area and Broadmead shopping district see the most incidents, with spikes during summer events.',
+      residents: true
+    },
+    {
+      slug: 'brighton',
+      name: 'Brighton',
+      fullName: 'Brighton and Hove',
+      thefts: 1800,
+      year: 2023,
+      change: '+27% since 2019',
+      rank: 9,
+      hotspots: [
+        { area: 'The Lanes', description: 'Narrow shopping streets, tourist crowds', risk: 'High' },
+        { area: 'North Laine', description: 'Independent shops, busy pedestrian area', risk: 'High' },
+        { area: 'Brighton Palace Pier', description: 'Seafront tourist attraction', risk: 'High' },
+        { area: 'West Street', description: 'Nightlife district, clubs', risk: 'Very High' },
+        { area: 'East Street', description: 'Shopping, restaurants', risk: 'Medium' }
+      ],
+      transport: {
+        type: 'Bus & Rail',
+        icon: 'Train',
+        risks: [
+          'Brighton station concourse and taxi rank',
+          'Crowded buses along the seafront',
+          'Busy bus stops on Western Road during summer'
+        ],
+        tips: [
+          'Extra vigilant during Brighton Pride (August) and summer weekends',
+          'Keep phone secure in The Lanes narrow passages',
+          'Avoid phone use near the pier in heavy tourist crowds'
+        ]
+      },
+      policeForce: 'Sussex Police',
+      policePhone: '101',
+      emergencyPhone: '999',
+      reportingUrl: 'https://www.sussex.police.uk/contact/',
+      description: 'Brighton sees around 1,800 phone thefts per year. The compact city centre and busy seafront create ideal conditions for opportunistic thieves, especially during summer.',
+      residents: true
+    },
+    {
+      slug: 'tower-hamlets',
+      name: 'Tower Hamlets',
+      fullName: 'London Borough of Tower Hamlets',
+      thefts: 6200,
+      year: 2024,
+      change: '+55% since 2023',
+      rank: 3,
+      hotspots: [
+        { area: 'Shoreditch', description: 'Nightlife, street art, Boxpark', risk: 'Extreme' },
+        { area: 'Brick Lane', description: 'Restaurants, markets, weekend crowds', risk: 'Very High' },
+        { area: 'Spitalfields Market', description: 'Tourist market, food stalls', risk: 'Very High' },
+        { area: 'Canary Wharf', description: 'Business district, commuters', risk: 'High' },
+        { area: 'Whitechapel Road', description: 'Busy high street, market', risk: 'High' }
+      ],
+      transport: {
+        type: 'Tube, DLR & Bus',
+        icon: 'Train',
+        risks: [
+          'Shoreditch High Street Overground station',
+          'Canary Wharf and Liverpool Street stations during rush hour',
+          'Busy bus routes along Whitechapel Road and Commercial Road'
+        ],
+        tips: [
+          'Avoid phone use on Brick Lane during weekend market hours',
+          'Stay alert at Shoreditch bars and clubs at night',
+          'Keep devices secure at Canary Wharf during commuter rush'
+        ]
+      },
+      policeForce: 'Metropolitan Police (Tower Hamlets)',
+      policePhone: '101',
+      emergencyPhone: '999',
+      reportingUrl: 'https://www.met.police.uk/ro/report/theft/',
+      description: 'Tower Hamlets has seen a 55% surge in phone theft, with 6,200+ incidents in 2024. Shoreditch nightlife and Brick Lane markets are the worst-affected areas.',
+      residents: true
+    },
+    {
+      slug: 'hackney',
+      name: 'Hackney',
+      fullName: 'London Borough of Hackney',
+      thefts: 5800,
+      year: 2024,
+      change: '+48% since 2023',
+      rank: 4,
+      hotspots: [
+        { area: 'Dalston', description: 'Nightlife, Dalston Junction, busy bars', risk: 'Very High' },
+        { area: 'Hackney Central', description: 'Broadway Market, Mare Street', risk: 'High' },
+        { area: 'London Fields', description: 'Park, weekend crowds, bars', risk: 'High' },
+        { area: 'Stoke Newington', description: 'High street, cafes, restaurants', risk: 'Medium' },
+        { area: 'Clapton', description: 'Nightlife venues, busy streets', risk: 'Medium' }
+      ],
+      transport: {
+        type: 'Overground & Bus',
+        icon: 'Train',
+        risks: [
+          'Dalston Kingsland and Dalston Junction stations',
+          'Busy buses on Mare Street and Kingsland Road',
+          'Hackney Central Overground during evening hours'
+        ],
+        tips: [
+          'Keep phone away from doors at Dalston stations',
+          'Stay alert on Kingsland Road at night',
+          'Avoid phone use near London Fields on busy summer days'
+        ]
+      },
+      policeForce: 'Metropolitan Police (Hackney)',
+      policePhone: '101',
+      emergencyPhone: '999',
+      reportingUrl: 'https://www.met.police.uk/ro/report/theft/',
+      description: 'Hackney saw 5,800+ phone thefts in 2024, a 48% increase. Dalston nightlife and the London Fields area are the main hotspots.',
+      residents: true
     }
   ];
 
@@ -274,6 +563,11 @@ const schema = [
 
   <main id="main-content" class="bg-[#f3f2f1] min-h-screen">
     <div class="container mx-auto px-4 py-4 sm:py-6 md:py-8 max-w-6xl">
+      
+      <Breadcrumb items={[
+        { label: 'Statistics', href: '/statistics' },
+        { label: location.name }
+      ]} />
 
       <!-- Hero Section with Location Stats -->
       <div class="bg-gradient-to-br from-red-600 to-red-800 text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8 shadow-xl">

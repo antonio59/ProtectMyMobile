@@ -2,9 +2,10 @@
 import Layout from '../layouts/Layout.astro';
 import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
 import { getBanks, getDirectoryLastVerified } from '../lib/convexData';
 import { banks as staticBanks } from '../data/banks';
-import { Building2, Search, Phone, AlertCircle, Clock, CheckCircle2, ExternalLink } from 'lucide-react';
+import { Building2, Search, Phone, AlertCircle, Clock, CheckCircle2, ExternalLink, Shield, ArrowRight } from 'lucide-react';
 
 // Get last verified date from Convex (automatically updated when cron runs)
 const verifiedDates = await getDirectoryLastVerified();
@@ -67,30 +68,58 @@ const categories = {
   
   <main id="main-content" class="bg-[#f3f2f1] min-h-screen">
     <div class="container mx-auto px-4 py-4 sm:py-6 max-w-6xl">
+      
+      <Breadcrumb items={[{ label: 'Bank Directory' }]} />
+
       <!-- Hero Section -->
-      <div class="bg-gradient-to-br from-blue-600 to-indigo-700 text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-8 shadow-xl">
+      <div class="bg-gradient-to-br from-blue-600 to-indigo-700 text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 mb-6 shadow-xl">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <div>
-            <div class="flex items-center gap-3 mb-3">
-              <div class="bg-white/20 p-2 sm:p-3 rounded-xl">
-                <Building2 class="h-6 w-6 sm:h-8 sm:w-8" />
-              </div>
-              <h1 class="text-xl sm:text-2xl md:text-3xl font-bold">UK Bank Directory</h1>
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-2">
+              <Building2 class="h-6 w-6 sm:h-8 sm:w-8" />
+              <h1 class="text-xl sm:text-2xl md:text-3xl font-bold">Bank Directory</h1>
             </div>
-            <p class="text-blue-100 text-xs sm:text-sm md:text-base">
-              Emergency contact information for {sortedBanks.length} UK banks. Secure your accounts and report fraud immediately if your phone is stolen.
+            <p class="text-blue-100 text-sm max-w-2xl">
+              Emergency contact numbers for {sortedBanks.length} UK banks and building societies. 
+              Use these to report fraud and secure your accounts if your phone is stolen.
             </p>
           </div>
-          <div class="flex flex-col items-start md:items-end gap-2">
-            <div class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-lg text-xs sm:text-sm">
-              <Clock class="h-4 w-4" />
-              <span>Last verified: {lastUpdated}</span>
-            </div>
-            <div class="flex items-center gap-2 text-blue-200 text-xs">
-              <CheckCircle2 class="h-4 w-4" />
-              <span>All contacts independently verified</span>
-            </div>
+          <div class="flex items-center gap-2 bg-white/10 px-3 py-1.5 rounded-lg text-xs shrink-0">
+            <Clock class="h-3.5 w-3.5" />
+            <span>Verified {lastUpdated}</span>
           </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="mt-5 pt-5 border-t border-white/20 grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div class="text-center">
+            <div class="text-2xl sm:text-3xl font-bold">{sortedBanks.length}</div>
+            <div class="text-xs text-blue-200">Banks Listed</div>
+          </div>
+          <div class="text-center">
+            <div class="text-2xl sm:text-3xl font-bold">24/7</div>
+            <div class="text-xs text-blue-200">Emergency Lines</div>
+          </div>
+          <div class="text-center">
+            <div class="text-2xl sm:text-3xl font-bold">{categories.high_street.length}</div>
+            <div class="text-xs text-blue-200">High Street</div>
+          </div>
+          <div class="text-center">
+            <div class="text-2xl sm:text-3xl font-bold">{categories.online.length + categories.challenger.length}</div>
+            <div class="text-xs text-blue-200">Digital Banks</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Emergency Notice -->
+      <div class="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl flex items-start gap-3">
+        <AlertCircle class="h-5 w-5 text-red-600 mt-0.5 flex-shrink-0" />
+        <div>
+          <p class="text-sm text-red-800 font-medium">Phone stolen? Act immediately</p>
+          <p class="text-xs text-red-700 mt-1">
+            Call your bank's emergency number below to freeze your accounts. Then follow our 
+            <a href="/emergency" class="underline hover:no-underline">emergency guide</a>.
+          </p>
         </div>
       </div>
 

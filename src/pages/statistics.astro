@@ -2,20 +2,36 @@
 import Layout from '../layouts/Layout.astro';
 import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import TheftTrendsChart from '../components/TheftTrendsChart';
+import { getTheftStats } from '../lib/convexData';
 import { BarChart3, TrendingUp, MapPin, AlertTriangle, Clock, Shield, ArrowRight, Calendar, Sun, Snowflake, Leaf } from 'lucide-react';
 
 const statisticsSchema = {
   "@context": "https://schema.org",
   "@type": "Dataset",
-  "name": "UK Mobile Phone Theft Statistics 2024",
-  "description": "Comprehensive data on mobile phone thefts across UK cities including London, Manchester, Birmingham. Updated 2024 figures from Met Police and ONS.",
+  "name": "UK Mobile Phone Theft Statistics",
+  "description": "Comprehensive data on mobile phone thefts across UK cities including London, Manchester, Birmingham. Live data from police.uk API.",
   "keywords": ["phone theft statistics UK", "London phone theft", "mobile crime UK", "snatch theft data"],
   "creator": { "@type": "Organization", "name": "ProtectMyMobile" },
-  "temporalCoverage": "2017/2024",
-  "spatialCoverage": { "@type": "Place", "name": "United Kingdom" }
+  "temporalCoverage": "2017/2026",
+  "spatialCoverage": { "@type": "Place", "name": "United Kingdom" },
+  "url": "https://protectmymobile.xyz/statistics"
 };
 
-// Top 5 London hotspots (simplified)
+// Try to fetch live data from Convex
+let liveStats = null;
+let hasLiveData = false;
+try {
+  liveStats = await getTheftStats();
+  if (liveStats && liveStats.totalRecords > 0) {
+    hasLiveData = true;
+  }
+} catch (e) {
+  console.warn('Could not fetch live stats, using baseline data');
+}
+
+// Top 5 London hotspots
 const londonHotspots = [
   { rank: 1, area: 'Westminster', thefts: '34,000+', description: 'Tourist areas, West End, transport hubs' },
   { rank: 2, area: 'Camden', thefts: '8,500+', description: 'Markets, nightlife, busy high streets' },
@@ -33,7 +49,7 @@ const cityComparison = [
   { city: 'Liverpool', thefts: 3200, year: '2023', change: '+23%' },
 ];
 
-// Key stats - updated with accurate 2024 data
+// Key stats
 const keyStats = [
   { value: '78,000', label: 'Snatch thefts UK (2024)', icon: AlertTriangle, color: 'red' },
   { value: '116,000+', label: 'London alone (2024)', icon: MapPin, color: 'orange' },
@@ -42,16 +58,18 @@ const keyStats = [
 ];
 ---
 
-<Layout 
-  title="UK Phone Theft Statistics 2024 | London Crime Hotspots & Data"
-  description="78,000+ phones stolen in UK (2024). See London theft hotspots, borough data, seasonal trends. Real statistics from Met Police and ONS."
+<Layout
+  title="UK Phone Theft Statistics | Live Data, London Crime Hotspots & Trends"
+  description="78,000+ phones stolen in UK. See live theft trends, London hotspots, borough data, seasonal patterns. Updated monthly from police.uk data."
   canonicalPath="/statistics"
   schema={statisticsSchema}
 >
   <HeaderMobile client:idle />
-  
+
   <main id="main-content" class="bg-[#f3f2f1] min-h-screen">
     <div class="container mx-auto px-4 py-4 sm:py-6 max-w-6xl">
+      
+      <Breadcrumb items={[{ label: 'Statistics' }]} />
 
       <!-- Hero Section -->
       <div class="bg-gradient-to-br from-purple-600 to-indigo-700 text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8 shadow-xl">
@@ -62,7 +80,8 @@ const keyStats = [
           <h1 class="text-xl sm:text-2xl md:text-3xl font-bold">UK Mobile Theft Statistics</h1>
         </div>
         <p class="text-purple-100 text-xs sm:text-sm md:text-base mb-6">
-          Real data on where, when, and how often phones are stolen across the UK. Updated with latest police and ONS data.
+          Real data on where, when, and how often phones are stolen across the UK.
+          {hasLiveData ? ' Live data from police.uk, updated weekly.' : ' Based on Met Police, ONS, and Home Office data.'}
         </p>
 
         <!-- Key Stats -->
@@ -76,7 +95,17 @@ const keyStats = [
         </div>
       </div>
 
-      <!-- London Hotspots - Simplified -->
+      <!-- Live Trends Chart (from Convex) -->
+      <section class="mb-6 sm:mb-8 md:mb-10">
+        <div class="bg-white rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-neutral-100">
+          <div class="h-2 bg-gradient-to-r from-blue-500 to-indigo-500"></div>
+          <div class="p-4 sm:p-6 md:p-8">
+            <TheftTrendsChart client:load />
+          </div>
+        </div>
+      </section>
+
+      <!-- London Hotspots -->
       <section class="mb-6 sm:mb-8 md:mb-10">
         <div class="bg-white rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-neutral-100">
           <div class="h-2 bg-gradient-to-r from-red-500 to-orange-500"></div>
@@ -85,7 +114,10 @@ const keyStats = [
               <MapPin class="h-6 w-6 sm:h-8 sm:w-8 text-red-500" />
               <h2 class="text-lg sm:text-xl font-bold">London Theft Hotspots (2024)</h2>
             </div>
-            <p class="text-neutral-600 text-xs sm:text-sm md:text-base mb-6">London accounts for 75% of all UK phone thefts. These are the worst-affected boroughs.</p>
+            <p class="text-neutral-600 text-xs sm:text-sm md:text-base mb-6">
+              London accounts for 75% of all UK phone thefts. These are the worst-affected boroughs.
+              Westminster alone sees more thefts than any other city in the UK.
+            </p>
 
             <div class="space-y-3">
               {londonHotspots.map((spot) => (
@@ -114,13 +146,15 @@ const keyStats = [
       <!-- City Comparison -->
       <section class="mb-6 sm:mb-8 md:mb-10">
         <div class="bg-white rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-neutral-100">
-          <div class="h-2 bg-gradient-to-r from-blue-500 to-indigo-500"></div>
+          <div class="h-2 bg-gradient-to-r from-purple-500 to-indigo-500"></div>
           <div class="p-4 sm:p-6 md:p-8">
             <div class="flex items-center gap-3 mb-2">
-              <BarChart3 class="h-6 w-6 sm:h-8 sm:w-8 text-blue-500" />
+              <BarChart3 class="h-6 w-6 sm:h-8 sm:w-8 text-purple-500" />
               <h2 class="text-lg sm:text-xl font-bold">Major Cities Comparison</h2>
             </div>
-            <p class="text-neutral-600 text-xs sm:text-sm md:text-base mb-6">Annual mobile phone theft figures by city</p>
+            <p class="text-neutral-600 text-xs sm:text-sm md:text-base mb-6">
+              Annual mobile phone theft figures by city. London dominates, but theft is rising across all major UK cities.
+            </p>
 
             <div class="space-y-4">
               {cityComparison.map((city, i) => {
@@ -161,7 +195,9 @@ const keyStats = [
               <Clock class="h-6 w-6 sm:h-8 sm:w-8 text-orange-500" />
               <h2 class="text-lg sm:text-xl font-bold">When Do Thefts Happen?</h2>
             </div>
-            <p class="text-neutral-600 text-xs sm:text-sm md:text-base mb-6">Time-of-day breakdown showing peak risk periods</p>
+            <p class="text-neutral-600 text-xs sm:text-sm md:text-base mb-6">
+              Time-of-day breakdown showing peak risk periods. Knowing when you're most vulnerable helps you stay alert.
+            </p>
 
             <div class="space-y-5">
               <div role="img" aria-label="Evening Rush 5pm to 7pm: 32% of thefts, Highest Risk">
@@ -265,7 +301,9 @@ const keyStats = [
               <Calendar class="h-6 w-6 sm:h-8 sm:w-8 text-green-500" />
               <h2 class="text-lg sm:text-xl font-bold">Seasonal Patterns</h2>
             </div>
-            <p class="text-neutral-600 text-xs sm:text-sm md:text-base mb-6">How theft rates change throughout the year</p>
+            <p class="text-neutral-600 text-xs sm:text-sm md:text-base mb-6">
+              How theft rates change throughout the year. Understanding seasonal patterns helps you prepare.
+            </p>
 
             <div class="grid md:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
               <div class="bg-orange-50 border border-orange-200 rounded-xl p-4 sm:p-5">
@@ -323,7 +361,7 @@ const keyStats = [
               <strong>Recovery is rare:</strong> Only 6% of stolen phones are recovered. Prevention is crucial.
             </p>
             <p>
-              <strong>Growing problem:</strong> The 44% increase shows this is an escalating crisis requiring better awareness.
+              <strong>Growing problem:</strong> The 150% year-on-year increase shows this is an escalating crisis requiring better awareness.
             </p>
           </div>
         </div>
@@ -356,8 +394,29 @@ const keyStats = [
         </div>
       </section>
 
+      <!-- Data Sources -->
+      <section class="mb-6 sm:mb-8 md:mb-10">
+        <div class="bg-white rounded-xl sm:rounded-2xl shadow-md p-4 sm:p-6 border border-neutral-100">
+          <h3 class="text-sm font-semibold text-neutral-500 uppercase tracking-wide mb-3">Data Sources</h3>
+          <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-3 text-xs text-neutral-600">
+            <div class="flex items-start gap-2">
+              <Shield class="h-4 w-4 text-neutral-400 mt-0.5 flex-shrink-0" />
+              <span>Police.uk API - Official recorded crime data, updated monthly</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <BarChart3 class="h-4 w-4 text-neutral-400 mt-0.5 flex-shrink-0" />
+              <span>ONS Crime Survey - Annual estimates of phone theft prevalence</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <TrendingUp class="h-4 w-4 text-neutral-400 mt-0.5 flex-shrink-0" />
+              <span>Met Police recorded crime statistics and FOI responses</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
     </div>
   </main>
-  
+
   <Footer />
 </Layout>

@@ -154,3 +154,77 @@ export const listByYear = query({
     return all.filter(p => p.date.startsWith(args.year));
   },
 });
+
+/**
+ * Get monthly theft trends for charting.
+ * Returns data grouped by month with per-location breakdowns for top N locations.
+ */
+export const getMonthlyTrends = query({
+  args: {
+    topN: v.optional(v.number()),
+    startYear: v.optional(v.string()),
+    endYear: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    const all = await ctx.db.query("theftDataPoints").collect();
+
+    if (all.length === 0) {
+      return { months: [], locations: [], data: [] };
+    }
+
+    // Determine year range
+    const years = [...new Set(all.map(p => p.date.substring(0, 4)))].sort();
+    const startYear = args.startYear || years[0];
+    const endYear = args.endYear || years[years.length - 1];
+
+    const filtered = all.filter(
+      p => p.date >= `${startYear}-01` && p.date <= `${endYear}-12`
+    );
+
+    // Get top locations by total theft count
+    const locationTotals: Record<string, number> = {};
+    for (const p of filtered) {
+      locationTotals[p.locationName] = (locationTotals[p.locationName] || 0) + p.theftCount;
+    }
+    const topN = args.topN || 8;
+    const topLocations = Object.entries(locationTotals)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, topN)
+      .map(([name]) => name);
+
+    // Build month keys in range
+    const months: string[] = [];
+    let [y, m] = startYear.split("-").map(Number);
+    const [endY, endM] = endYear.split("-").map(Number);
+    while (y < endY || (y === endY && m <= endM)) {
+      months.push(`${y}-${String(m).padStart(2, "0")}`);
+      m++;
+      if (m > 12) { m = 1; y++; }
+    }
+
+    // Aggregate: { month: { location: count } }
+    const monthData: Record<string, Record<string, number>> = {};
+    for (const month of months) {
+      monthData[month] = {};
+      for (const loc of topLocations) {
+        monthData[month][loc] = 0;
+      }
+    }
+    for (const p of filtered) {
+      const month = p.date.substring(0, 7);
+      if (monthData[month] && topLocations.includes(p.locationName)) {
+        monthData[month][p.locationName] = (monthData[month][p.locationName] || 0) + p.theftCount;
+      }
+    }
+
+    // Flatten for chart consumption
+    const data = months.map(month => ({
+      month,
+      label: new Date(month + "-01").toLocaleDateString("en-GB", { month: "short", year: "2-digit" }),
+      ...monthData[month],
+      total: Object.values(monthData[month]).reduce((s, v) => s + v, 0),
+    }));
+
+    return { months, locations: topLocations, data };
+  },
+});

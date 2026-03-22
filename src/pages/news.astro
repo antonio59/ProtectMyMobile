@@ -2,165 +2,153 @@
 import Layout from '../layouts/Layout.astro';
 import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
 import { getNewsPosts } from '../lib/convexData';
-import { Newspaper, Filter, AlertTriangle, ArrowRight, Calendar, Gavel, Siren, ShieldAlert, TrendingUp, Lightbulb, FileText } from 'lucide-react';
+import { Newspaper, Filter, AlertTriangle, ArrowRight, Calendar, Gavel, Siren, ShieldAlert, TrendingUp, Lightbulb, FileText, Rss, Clock, ExternalLink } from 'lucide-react';
 
 let posts: any[] = [];
 let error = null;
+let lastUpdated: string | null = null;
 
 try {
   posts = await getNewsPosts(true);
+  if (posts.length > 0 && posts[0].publishedAt) {
+    lastUpdated = new Date(posts[0].publishedAt).toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+  }
 } catch (e) {
   error = e;
   console.error('Error fetching news posts:', e);
 }
 
-const categoryConfig: Record<string, { color: string; bg: string; icon: any; gradient: string }> = {
+// Get featured post (most recent)
+const featuredPost = posts[0];
+const remainingPosts = posts.slice(1);
+
+// Count by category for stats
+const categoryCounts: Record<string, number> = {};
+for (const post of posts) {
+  categoryCounts[post.category] = (categoryCounts[post.category] || 0) + 1;
+}
+
+const categoryConfig: Record<string, { color: string; bg: string; icon: any; gradient: string; label: string }> = {
   arrest: {
     color: "text-red-700",
     bg: "bg-red-50",
     icon: Siren,
     gradient: "from-red-500 to-red-600",
+    label: "Arrests"
   },
   seizure: {
     color: "text-orange-700",
     bg: "bg-orange-50",
     icon: ShieldAlert,
     gradient: "from-orange-500 to-orange-600",
+    label: "Seizures"
   },
   law_change: {
     color: "text-teal-700",
     bg: "bg-teal-50",
     icon: Gavel,
     gradient: "from-teal-500 to-teal-600",
-  },
-  law_changes: {
-    color: "text-teal-700",
-    bg: "bg-teal-50",
-    icon: Gavel,
-    gradient: "from-teal-500 to-teal-600",
+    label: "Law Changes"
   },
   statistics: {
     color: "text-blue-700",
     bg: "bg-blue-50",
     icon: TrendingUp,
     gradient: "from-blue-500 to-blue-600",
+    label: "Statistics"
   },
   prevention_tip: {
     color: "text-green-700",
     bg: "bg-green-50",
     icon: Lightbulb,
     gradient: "from-green-500 to-green-600",
+    label: "Tips"
   },
   other: {
     color: "text-neutral-700",
     bg: "bg-neutral-50",
     icon: FileText,
     gradient: "from-neutral-500 to-neutral-600",
+    label: "News"
   },
-};
-
-const categoryColors: Record<string, string> = {
-  arrest: 'bg-red-100 text-red-800',
-  seizure: 'bg-blue-100 text-blue-800',
-  law_change: 'bg-teal-100 text-teal-800',
-  statistics: 'bg-green-100 text-green-800',
-  prevention_tip: 'bg-yellow-100 text-yellow-800',
-  other: 'bg-gray-100 text-gray-800',
-};
-
-const categoryBadgeColors: Record<string, string> = {
-  arrest: "bg-red-100 text-red-700 ring-red-600/20",
-  seizure: "bg-orange-100 text-orange-700 ring-orange-600/20",
-  law_change: "bg-teal-100 text-teal-700 ring-teal-600/20",
-  statistics: "bg-blue-100 text-blue-700 ring-blue-600/20",
-  prevention_tip: "bg-green-100 text-green-700 ring-green-600/20",
-  other: "bg-neutral-100 text-neutral-700 ring-neutral-600/20",
-};
-
-const categoryGradients: Record<string, string> = {
-  arrest: "from-red-500 to-red-600",
-  seizure: "from-orange-500 to-orange-600",
-  law_change: "from-teal-500 to-teal-600",
-  law_changes: "from-teal-500 to-teal-600",
-  statistics: "from-blue-500 to-blue-600",
-  prevention_tip: "from-green-500 to-green-600",
-  other: "from-neutral-500 to-neutral-600",
-  news: "from-blue-500 to-blue-600",
 };
 
 function formatDate(dateValue: string | number) {
   const date = typeof dateValue === 'number' ? new Date(dateValue) : new Date(dateValue);
+  const now = new Date();
+  const diffDays = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60 * 24));
+  
+  if (diffDays === 0) return 'Today';
+  if (diffDays === 1) return 'Yesterday';
+  if (diffDays < 7) return `${diffDays} days ago`;
+  
   return date.toLocaleDateString('en-GB', {
     day: 'numeric',
-    month: 'long',
-    year: 'numeric'
+    month: 'short'
   });
 }
+
+const newsSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "UK Mobile Theft News",
+  "description": "Latest news on phone theft arrests, seizures, law changes, and prevention tips across the UK.",
+  "url": "https://protectmymobile.xyz/news",
+  "mainEntity": {
+    "@type": "ItemList",
+    "numberOfItems": posts.length,
+    "itemListElement": posts.slice(0, 10).map((post, i) => ({
+      "@type": "ListItem",
+      "position": i + 1,
+      "url": `https://protectmymobile.xyz/news/${post.slug}`,
+      "name": post.title,
+    }))
+  }
+};
 ---
 
-<Layout 
+<Layout
   title="Latest News & Updates - UK Mobile Theft | ProtectMyMobile"
-  description="Stay informed about the latest mobile theft news in the UK including arrests, seizures, law changes, and prevention tips."
+  description={`Stay informed about mobile theft arrests, seizures, law changes, and prevention tips across the UK. ${posts.length} articles tracked.`}
+  schema={newsSchema}
 >
   <HeaderMobile client:idle />
-  
+
   <main id="main-content" class="bg-[#f3f2f1] min-h-screen">
     <div class="container mx-auto px-4 py-4 sm:py-6 max-w-6xl">
+      
+      <Breadcrumb items={[{ label: 'News' }]} />
+
       <!-- Hero Section -->
-      <div class="bg-gradient-to-br from-primary to-blue-700 text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 lg:p-12 mb-6 sm:mb-8 shadow-xl">
-        <div class="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
-          <div class="bg-white/20 p-2 sm:p-3 rounded-lg sm:rounded-xl">
-            <Newspaper class="h-6 w-6 sm:h-8 sm:w-8" />
-          </div>
-          <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">Latest News & Updates</h1>
-        </div>
-        <p class="text-blue-100 text-xs sm:text-sm md:text-base lg:text-lg max-w-2xl">
-          Stay informed about mobile theft arrests, policy changes, security updates, and prevention tips across the UK.
-        </p>
-      </div>
-
-      <!-- Filter + Sidebar CTA -->
-      <div class="flex flex-col lg:flex-row gap-3 sm:gap-4 mb-4 sm:mb-6">
-        <div class="bg-white rounded-xl sm:rounded-2xl shadow-md p-3 sm:p-4 flex-1">
-          <div class="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
-            <div class="flex items-center gap-2 text-xs sm:text-sm text-neutral-600">
-              <Filter class="h-4 w-4" />
-              <span class="font-medium">Filter:</span>
+      <div class="bg-gradient-to-br from-primary to-blue-700 text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 mb-6 sm:mb-8 shadow-xl">
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2 mb-2">
+              <Newspaper class="h-5 w-5 sm:h-6 sm:w-6" />
+              <h1 class="text-xl sm:text-2xl md:text-3xl font-bold">News & Updates</h1>
             </div>
-            <div class="flex gap-1.5 sm:gap-2 overflow-x-auto pb-1 sm:pb-0 sm:flex-wrap -mx-1 px-1 sm:mx-0 sm:px-0">
-              <button class="category-btn px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl bg-primary text-white text-xs sm:text-sm font-medium transition-all whitespace-nowrap flex-shrink-0" data-category="all">
-                All
-              </button>
-              <button class="category-btn px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl bg-neutral-100 text-neutral-700 text-xs sm:text-sm font-medium hover:bg-neutral-200 transition-all whitespace-nowrap flex-shrink-0" data-category="arrest">
-                Arrests
-              </button>
-              <button class="category-btn px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl bg-neutral-100 text-neutral-700 text-xs sm:text-sm font-medium hover:bg-neutral-200 transition-all whitespace-nowrap flex-shrink-0" data-category="seizure">
-                Seizures
-              </button>
-              <button class="category-btn px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl bg-neutral-100 text-neutral-700 text-xs sm:text-sm font-medium hover:bg-neutral-200 transition-all whitespace-nowrap flex-shrink-0" data-category="law_change">
-                Law Changes
-              </button>
-              <button class="category-btn px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl bg-neutral-100 text-neutral-700 text-xs sm:text-sm font-medium hover:bg-neutral-200 transition-all whitespace-nowrap flex-shrink-0" data-category="statistics">
-                Statistics
-              </button>
-              <button class="category-btn px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl bg-neutral-100 text-neutral-700 text-xs sm:text-sm font-medium hover:bg-neutral-200 transition-all whitespace-nowrap flex-shrink-0" data-category="prevention_tip">
-                Tips
-              </button>
-            </div>
+            <p class="text-blue-100 text-sm max-w-xl">
+              The latest on mobile theft arrests, seizures, policy changes, and prevention tips from across the UK.
+            </p>
           </div>
+          <a href="/rss.xml" class="flex items-center gap-1.5 text-xs bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-full transition-colors shrink-0">
+            <Rss class="h-3.5 w-3.5" />
+            <span class="hidden sm:inline">RSS</span>
+          </a>
         </div>
-
-        <a href="/scenarios" class="lg:w-80 bg-gradient-to-br from-amber-500 to-orange-500 text-white rounded-xl sm:rounded-2xl shadow-md p-3 sm:p-4 lg:p-5 flex flex-col gap-1.5 sm:gap-2 hover:shadow-lg hover:scale-[1.01] transition-all">
-          <div class="inline-flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs font-semibold bg-white/20 px-2 sm:px-3 py-0.5 sm:py-1 rounded-full w-fit">
-            <AlertTriangle class="h-3 w-3 sm:h-4 sm:w-4" /> Scenarios
+        
+        {lastUpdated && (
+          <div class="mt-4 pt-4 border-t border-white/20 flex items-center gap-2 text-xs text-blue-200">
+            <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+            Last updated {lastUpdated}
           </div>
-          <p class="text-sm sm:text-base lg:text-lg font-bold leading-snug">Visual guides for real-world theft setups</p>
-          <p class="text-xs sm:text-sm text-white/80 hidden sm:block">See moped snatches, transport grabs, nightlife thefts—and how to avoid them.</p>
-          <div class="inline-flex items-center gap-1 text-xs sm:text-sm font-semibold">
-            View slides <ArrowRight class="h-3 w-3 sm:h-4 sm:w-4" />
-          </div>
-        </a>
+        )}
       </div>
 
       {error ? (
@@ -169,106 +157,199 @@ function formatDate(dateValue: string | number) {
         </div>
       ) : posts.length === 0 ? (
         <div class="bg-white rounded-xl sm:rounded-2xl shadow-md p-8 sm:p-12 text-center">
-          <Newspaper class="h-12 w-12 sm:h-16 sm:w-16 mx-auto mb-3 sm:mb-4 text-neutral-400" />
-          <h3 class="text-lg sm:text-xl font-semibold mb-2">No News Posts Yet</h3>
-          <p class="text-neutral-600 mb-3 sm:mb-4 text-sm sm:text-base">Check back soon for the latest updates on mobile theft news in the UK.</p>
-          <p class="text-xs sm:text-sm text-neutral-500">In the meantime, explore our prevention guides and resources.</p>
+          <Newspaper class="h-12 w-12 mx-auto mb-3 text-neutral-400" />
+          <h3 class="text-lg font-semibold mb-2">No News Posts Yet</h3>
+          <p class="text-neutral-600 text-sm">
+            Check back soon or subscribe to our <a href="/rss.xml" class="text-primary hover:underline">RSS feed</a>.
+          </p>
         </div>
       ) : (
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6" id="news-grid">
-          {posts.map((post: any) => {
-            // Determine styling based on category
-            const config = categoryConfig[post.category] || categoryConfig.other;
-            // Since we can't easily dynamic import React components in Astro loop without hydration issues or mdx, 
-            // we will use a helper map or inline SVG for icons if needed, 
-            // BUT simpler approach for Astro: just use a generic icon or map manually if possible.
-            // Actually, we can just use the lucide-react imports if we treat them as standard astro components or react.
-            // However, inside map like this in Astro file... standard <Icon /> might not work if it's a React component unless we client:load it?
-            // "lucide-react" exports React components.
-            // We can just use basic SVGs or rely on the React icons being rendered? 
-            // Actually, Astro supports using React components in .astro files.
-            
-            // Simpler: Just rely on CSS/HTML structure and maybe a simple icon or just text if icon is hard.
-            // Let's try to map the icon name to a class or use a switch for SVG content if we want strictly static.
-            // For now, let's just render the React component? No, that requires client directive usually? 
-            // Only if interactive. SSR is fine.
-            
-            const Icon = config.icon;
-
-            return (
+        <>
+          {/* Featured Article */}
+          {featuredPost && (
+            <section class="mb-6 sm:mb-8">
+              <h2 class="text-sm font-semibold text-neutral-500 uppercase tracking-wide mb-3">Featured</h2>
               <a
-                href={`/news/${post.slug}`}
-                class="news-card group flex flex-col bg-white rounded-xl shadow-sm hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 border border-neutral-200 hover:border-primary/20 h-full relative overflow-hidden"
-                data-category={post.category}
+                href={featuredPost.sourceUrl || `/news/${featuredPost.slug}`}
+                target={featuredPost.sourceUrl ? "_blank" : undefined}
+                rel={featuredPost.sourceUrl ? "noopener noreferrer" : undefined}
+                class="group block bg-white rounded-xl sm:rounded-2xl shadow-lg overflow-hidden border border-neutral-200 hover:border-primary/30 transition-all"
               >
-                {/* Top Accent Line */}
-                <div class={`h-1.5 w-full bg-gradient-to-r ${config.gradient}`} />
-                
-                <div class="p-5 sm:p-6 flex flex-col flex-grow">
-                  {/* Meta Header */}
-                  <div class="flex items-center justify-between mb-4">
-                    <span class={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold ${config.bg} ${config.color}`}>
-                      <Icon className="h-3.5 w-3.5" />
-                      {post.category.replace('_', ' ')}
-                    </span>
-                    <div class="flex items-center gap-1.5 text-xs text-neutral-400 font-medium">
-                       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
-                      {formatDate(post.publishedAt || post._creationTime)}
+                <div class={`h-1.5 w-full bg-gradient-to-r ${categoryConfig[featuredPost.category]?.gradient || 'from-primary to-blue-600'}`} />
+                <div class="p-4 sm:p-6">
+                  <div class="flex flex-col lg:flex-row lg:items-start gap-4 lg:gap-6">
+                    <div class="flex-1">
+                      <div class="flex items-center gap-2 mb-2">
+                        <span class={`inline-flex items-center gap-1 text-[10px] sm:text-xs px-2 py-0.5 rounded-full font-medium ${categoryConfig[featuredPost.category]?.bg || 'bg-neutral-100'} ${categoryConfig[featuredPost.category]?.color || 'text-neutral-700'}`}>
+                          {(categoryConfig[featuredPost.category]?.icon && <categoryConfig[featuredPost.category].icon className="h-3 w-3" />)}
+                          {featuredPost.category.replace('_', ' ')}
+                        </span>
+                        <span class="text-xs text-neutral-400">{formatDate(featuredPost.publishedAt || featuredPost._creationTime)}</span>
+                        {featuredPost.sourceName && (
+                          <span class="text-xs text-neutral-400 flex items-center gap-1">
+                            <ExternalLink class="h-3 w-3" />
+                            {featuredPost.sourceName}
+                          </span>
+                        )}
+                      </div>
+                      <h3 class="text-lg sm:text-xl lg:text-2xl font-bold text-neutral-900 group-hover:text-primary transition-colors leading-tight mb-2">
+                        {featuredPost.title}
+                      </h3>
+                      <p class="text-neutral-600 text-sm leading-relaxed line-clamp-2">
+                        {featuredPost.excerpt}
+                      </p>
                     </div>
-                  </div>
-
-                  {/* Title */}
-                  <h3 class="text-lg sm:text-xl font-bold text-neutral-900 mb-3 group-hover:text-primary transition-colors leading-snug">
-                    {post.title}
-                  </h3>
-
-                  {/* Excerpt */}
-                  <p class="text-neutral-600 text-sm leading-relaxed mb-6 flex-grow">
-                    {post.excerpt}
-                  </p>
-
-                  {/* Footer */}
-                  <div class="flex items-center text-sm font-semibold text-primary group-hover:gap-2 transition-all mt-auto">
-                    Read article
-                    <ArrowRight class="h-4 w-4 ml-1 transition-transform" />
+                    <div class="flex items-center gap-1 text-sm font-semibold text-primary shrink-0 lg:pt-8">
+                      {featuredPost.sourceUrl ? 'Read article' : 'Read more'}
+                      <ArrowRight class="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </div>
                   </div>
                 </div>
               </a>
-            );
-          })}
-        </div>
+            </section>
+          )}
+
+          {/* Category Quick Filters */}
+          <section class="mb-6">
+            <div class="flex items-center gap-2 overflow-x-auto pb-2 -mx-1 px-1 sm:mx-0 sm:px-0 sm:flex-wrap scrollbar-hide">
+              <button class="category-btn active px-3 py-1.5 rounded-full bg-primary text-white text-xs sm:text-sm font-medium transition-all whitespace-nowrap flex items-center gap-1.5" data-category="all">
+                All <span class="bg-white/20 px-1.5 py-0.5 rounded-full text-[10px]">{posts.length}</span>
+              </button>
+              {Object.entries(categoryConfig).map(([key, config]) => {
+                if (!categoryCounts[key]) return null;
+                const Icon = config.icon;
+                return (
+                  <button 
+                    class="category-btn px-3 py-1.5 rounded-full bg-white text-neutral-600 border border-neutral-200 text-xs sm:text-sm font-medium hover:border-primary/30 hover:text-primary transition-all whitespace-nowrap flex items-center gap-1.5" 
+                    data-category={key}
+                  >
+                    <Icon className="h-3.5 w-3.5" />
+                    {config.label}
+                    <span class="bg-neutral-100 px-1.5 py-0.5 rounded-full text-[10px] text-neutral-500">{categoryCounts[key]}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </section>
+
+          {/* Article Grid */}
+          <section>
+            <div class="flex items-center justify-between mb-4">
+              <h2 class="text-sm font-semibold text-neutral-500 uppercase tracking-wide">Latest Articles</h2>
+              <span class="text-xs text-neutral-400" id="article-count">Showing {remainingPosts.length} articles</span>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="news-grid">
+              {remainingPosts.map((post) => {
+                const config = categoryConfig[post.category] || categoryConfig.other;
+                const Icon = config.icon;
+                const isExternal = !!post.sourceUrl;
+
+                return (
+                  <a
+                    href={post.sourceUrl || `/news/${post.slug}`}
+                    target={isExternal ? "_blank" : undefined}
+                    rel={isExternal ? "noopener noreferrer" : undefined}
+                    class="news-card group flex flex-col bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-200 border border-neutral-200 hover:border-primary/20 h-full"
+                    data-category={post.category}
+                  >
+                    <div class="p-4 sm:p-5">
+                      <div class="flex items-start justify-between gap-3 mb-2">
+                        <span class={`inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-full font-medium ${config.bg} ${config.color}`}>
+                          <Icon className="h-3 w-3" />
+                          {config.label}
+                        </span>
+                        <div class="flex items-center gap-1 text-[10px] text-neutral-400">
+                          <Clock class="h-3 w-3" />
+                          {formatDate(post.publishedAt || post._creationTime)}
+                        </div>
+                      </div>
+
+                      <h3 class="text-base sm:text-lg font-semibold text-neutral-900 group-hover:text-primary transition-colors leading-snug mb-2 line-clamp-2">
+                        {post.title}
+                      </h3>
+
+                      <p class="text-neutral-600 text-sm leading-relaxed line-clamp-2 mb-3">
+                        {post.excerpt}
+                      </p>
+
+                      <div class="flex items-center justify-between mt-auto pt-3 border-t border-neutral-100">
+                        {post.sourceName ? (
+                          <span class="text-xs text-neutral-400 flex items-center gap-1">
+                            <ExternalLink class="h-3 w-3" />
+                            {post.sourceName}
+                          </span>
+                        ) : (
+                          <span class="text-xs text-primary font-medium">ProtectMyMobile</span>
+                        )}
+                        <ArrowRight class="h-4 w-4 text-neutral-300 group-hover:text-primary transition-colors" />
+                      </div>
+                    </div>
+                  </a>
+                );
+              })}
+            </div>
+          </section>
+
+          {/* About Feed */}
+          <section class="mt-8 sm:mt-10 bg-white rounded-xl shadow-sm p-4 sm:p-6 border border-neutral-200">
+            <div class="flex items-center gap-2 mb-3">
+              <Filter class="h-4 w-4 text-neutral-400" />
+              <h3 class="text-sm font-semibold text-neutral-700">About This Feed</h3>
+            </div>
+            <p class="text-sm text-neutral-600 leading-relaxed">
+              Articles are automatically collected twice daily from 12+ UK news sources including BBC, Guardian, Sky News, and local police reports. 
+              Each article is filtered for relevance and categorized by type. External articles link to their original source.
+            </p>
+            <div class="mt-4 flex items-center gap-4 text-xs text-neutral-500">
+              <a href="/rss.xml" class="flex items-center gap-1.5 hover:text-primary transition-colors">
+                <Rss class="h-3.5 w-3.5" />
+                Subscribe via RSS
+              </a>
+              <span>&bull;</span>
+              <span>{posts.length} total articles</span>
+            </div>
+          </section>
+        </>
       )}
     </div>
   </main>
-  
+
   <Footer />
 
   <script>
     // Category filter functionality
     const categoryBtns = document.querySelectorAll('.category-btn');
     const newsCards = document.querySelectorAll('.news-card');
-    
+    const articleCount = document.getElementById('article-count');
+
     categoryBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         const category = btn.getAttribute('data-category');
-        
+
         // Update button styles
         categoryBtns.forEach(b => {
-          b.classList.remove('bg-primary', 'text-white');
-          b.classList.add('bg-neutral-100', 'text-neutral-700');
+          b.classList.remove('active', 'bg-primary', 'text-white');
+          b.classList.add('bg-white', 'text-neutral-600', 'border-neutral-200');
         });
-        btn.classList.remove('bg-neutral-100', 'text-neutral-700');
-        btn.classList.add('bg-primary', 'text-white');
-        
+        btn.classList.remove('bg-white', 'text-neutral-600', 'border-neutral-200');
+        btn.classList.add('active', 'bg-primary', 'text-white');
+
         // Filter cards
+        let visibleCount = 0;
         newsCards.forEach(card => {
           const cardCategory = card.getAttribute('data-category');
           if (category === 'all' || cardCategory === category) {
             (card as HTMLElement).style.display = '';
+            visibleCount++;
           } else {
             (card as HTMLElement).style.display = 'none';
           }
         });
+
+        if (articleCount) {
+          articleCount.textContent = `Showing ${visibleCount} article${visibleCount !== 1 ? 's' : ''}`;
+        }
       });
     });
   </script>

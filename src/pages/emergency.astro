@@ -9,50 +9,90 @@ import { AlertTriangle, Clock } from "lucide-react";
   title="Phone Stolen? 5 Steps To Take Immediately | UK Emergency Guide"
   description="Phone stolen in London or UK? Follow these 5 emergency steps NOW: lock device, block SIM, report to police, secure bank accounts. Act within 30 minutes."
   canonicalPath="/emergency"
-  schema={{
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    "name": "What To Do If Your Phone Is Stolen in the UK",
-    "description": "Emergency step-by-step guide for when your mobile phone is stolen in the UK. Complete these 5 steps within 30 minutes.",
-    "totalTime": "PT30M",
-    "step": [
-      {
-        "@type": "HowToStep",
-        "position": 1,
-        "name": "Remotely Lock Your Device",
-        "text": "Use Find My iPhone (icloud.com/find) or Google Find My Device (google.com/android/find) to remotely lock your phone and display a message.",
-        "url": "https://protectmymobile.xyz/emergency#step-1"
-      },
-      {
-        "@type": "HowToStep",
-        "position": 2,
-        "name": "Change Critical Passwords",
-        "text": "Immediately change passwords for your Google/Apple account, email, banking apps, and social media from a secure device.",
-        "url": "https://protectmymobile.xyz/emergency#step-2"
-      },
-      {
-        "@type": "HowToStep",
-        "position": 3,
-        "name": "Contact Your Mobile Provider",
-        "text": "Call your mobile provider to report the theft and block your SIM card to prevent unauthorised calls and texts.",
-        "url": "https://protectmymobile.xyz/emergency#step-3"
-      },
-      {
-        "@type": "HowToStep",
-        "position": 4,
-        "name": "Report to Police",
-        "text": "File a theft report at police.uk or call 101. Get a crime reference number for insurance claims.",
-        "url": "https://protectmymobile.xyz/emergency#step-4"
-      },
-      {
-        "@type": "HowToStep",
-        "position": 5,
-        "name": "Check Bank Accounts",
-        "text": "Monitor your bank accounts for unauthorised transactions and contact your bank to flag potential fraud.",
-        "url": "https://protectmymobile.xyz/emergency#step-5"
-      }
-    ]
-  }}
+  schema={[
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "What To Do If Your Phone Is Stolen in the UK",
+      "description": "Emergency step-by-step guide for when your mobile phone is stolen in the UK. Complete these 5 steps within 30 minutes.",
+      "totalTime": "PT30M",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Remotely Lock Your Device",
+          "text": "Use Find My iPhone (icloud.com/find) or Google Find My Device (google.com/android/find) to remotely lock your phone and display a message.",
+          "url": "https://protectmymobile.xyz/emergency#step-1"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Change Critical Passwords",
+          "text": "Immediately change passwords for your Google/Apple account, email, banking apps, and social media from a secure device.",
+          "url": "https://protectmymobile.xyz/emergency#step-2"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Contact Your Mobile Provider",
+          "text": "Call your mobile provider to report the theft and block your SIM card to prevent unauthorised calls and texts.",
+          "url": "https://protectmymobile.xyz/emergency#step-3"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "Report to Police",
+          "text": "File a theft report at police.uk or call 101. Get a crime reference number for insurance claims.",
+          "url": "https://protectmymobile.xyz/emergency#step-4"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 5,
+          "name": "Check Bank Accounts",
+          "text": "Monitor your bank accounts for unauthorised transactions and contact your bank to flag potential fraud.",
+          "url": "https://protectmymobile.xyz/emergency#step-5"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What should I do first if my phone is stolen in the UK?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Act within 30 minutes: 1) Remotely lock your device via Find My iPhone or Google Find My Device, 2) Change passwords for your email and banking apps, 3) Contact your mobile provider to block the SIM, 4) Report to police at police.uk or call 101 for a crime reference number, 5) Check bank accounts for unauthorised transactions."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I track my stolen phone?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, if you enabled Find My iPhone (icloud.com/find) or Find My Device (google.com/android/find) before the theft. Thieves often turn phones off immediately, so check the location as soon as possible. Share the tracking information with police - never attempt to recover the phone yourself."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I report a stolen phone to UK police?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Report online at police.uk or call 101 for non-emergencies. You will need your phone's make, model, IMEI number (dial *#06#), time and location of theft, and any tracking data. You will receive a crime reference number needed for insurance claims."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need a crime reference number for a stolen phone?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. The crime reference number is essential for insurance claims, blocking your device with your provider, and protecting yourself legally if the phone is used for criminal activity. Always obtain and save this number when reporting theft."
+          }
+        }
+      ]
+    }
+  ]}
 >
   <HeaderMobile client:idle />
   

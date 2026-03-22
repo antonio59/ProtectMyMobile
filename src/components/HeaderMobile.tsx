@@ -19,6 +19,7 @@ import {
   MapPin
 } from 'lucide-react';
 import type { Variants } from 'framer-motion';
+import SiteSearch from './SiteSearch';
 
 // Animation variants for mobile menu
 const slideInRight: Variants = {
@@ -115,8 +116,9 @@ export default function HeaderMobile() {
               ))}
             </nav>
 
-          {/* Desktop CTA */}
+          {/* Search + Desktop CTA */}
           <div className="hidden md:flex items-center gap-3">
+            <SiteSearch />
             <motion.a
               href="/security-checkup"
               className="inline-flex items-center gap-2 px-4 py-2.5 border-2 border-primary text-primary rounded-xl font-semibold hover:bg-primary hover:text-white transition-all text-sm"
@@ -137,15 +139,26 @@ export default function HeaderMobile() {
             </motion.a>
           </div>
 
-          {/* Mobile Menu Button */}
-          <motion.button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 rounded-xl bg-neutral-100 hover:bg-neutral-200 transition-colors"
-            whileTap={{ scale: 0.9 }}
-            aria-label="Toggle menu"
-          >
-            {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </motion.button>
+          {/* Mobile Search + Emergency + Menu */}
+          <div className="md:hidden flex items-center gap-2">
+            <SiteSearch />
+            <motion.a
+              href="/emergency"
+              className="p-2 bg-red-600 text-white rounded-xl"
+              whileTap={{ scale: 0.9 }}
+              aria-label="Emergency - Phone stolen?"
+            >
+              <AlertTriangle className="h-5 w-5" />
+            </motion.a>
+            <motion.button
+              onClick={() => setIsOpen(!isOpen)}
+              className="p-2 rounded-xl bg-neutral-100 hover:bg-neutral-200 transition-colors"
+              whileTap={{ scale: 0.9 }}
+              aria-label="Toggle menu"
+            >
+              {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </motion.button>
+          </div>
         </div>
       </div>
 

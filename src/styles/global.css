@@ -803,3 +803,153 @@ img {
 .stagger-3 { animation-delay: 0.3s; }
 .stagger-4 { animation-delay: 0.4s; }
 .stagger-5 { animation-delay: 0.5s; }
+
+/* =====================================================
+   PRINT STYLES
+   Optimized for emergency/prevention guide printing
+   ===================================================== */
+
+@media print {
+  /* Hide non-essential elements */
+  header,
+  footer,
+  .site-search,
+  nav,
+  .mobile-menu,
+  .breadcrumb,
+  video,
+  iframe,
+  .animate-pulse,
+  .animate-pulse-glow,
+  [class*="animate-"],
+  /* Hide CTA buttons that don't make sense printed */
+  a[href="/security-checkup"],
+  a[href="/emergency"] {
+    display: none !important;
+  }
+
+  /* Reset backgrounds and colors for print */
+  * {
+    background: white !important;
+    color: black !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  /* Ensure good contrast */
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 12pt;
+    line-height: 1.5;
+  }
+
+  /* Remove container backgrounds */
+  .bg-\[\#f3f2f1\],
+  .bg-gradient-to-br,
+  .bg-gradient-to-r,
+  .bg-white,
+  .bg-neutral-50,
+  .bg-neutral-100,
+  .bg-neutral-800,
+  .bg-neutral-900 {
+    background: white !important;
+  }
+
+  /* Keep borders visible but subtle */
+  .border,
+  .border-neutral-100,
+  .border-neutral-200 {
+    border: 1pt solid #ccc !important;
+  }
+
+  /* Make headings stand out */
+  h1 {
+    font-size: 18pt;
+    font-weight: bold;
+    margin-bottom: 12pt;
+    page-break-after: avoid;
+  }
+
+  h2 {
+    font-size: 14pt;
+    font-weight: bold;
+    margin-top: 12pt;
+    margin-bottom: 6pt;
+    page-break-after: avoid;
+  }
+
+  h3 {
+    font-size: 12pt;
+    font-weight: bold;
+    margin-top: 10pt;
+    margin-bottom: 4pt;
+    page-break-after: avoid;
+  }
+
+  /* Ensure lists print well */
+  ul, ol {
+    margin-left: 20pt;
+    margin-bottom: 10pt;
+  }
+
+  li {
+    margin-bottom: 4pt;
+  }
+
+  /* Links - show URL for external links */
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 9pt;
+    color: #666;
+  }
+
+  /* Links - don't show URL for internal links */
+  a[href^="/"]::after,
+  a[href^="#"]::after {
+    content: "";
+  }
+
+  /* Make sure images don't break layout */
+  img {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  /* Page breaks */
+  section {
+    page-break-inside: avoid;
+  }
+
+  /* Emergency contacts should be prominent */
+  a[href^="tel:"] {
+    font-weight: bold;
+    font-size: 14pt;
+  }
+
+  /* Show important phone numbers */
+  .emergency-contacts,
+  [class*="police"],
+  [class*="emergency"] {
+    border: 2pt solid black !important;
+    padding: 10pt !important;
+    margin: 10pt 0 !important;
+  }
+
+  /* Ensure checklists and steps print well */
+  .step,
+  [class*="step"],
+  [class*="checklist"] {
+    page-break-inside: avoid;
+    margin-bottom: 8pt;
+  }
+
+  /* Print URLs for key resources at the bottom */
+  @page {
+    margin: 2cm;
+  }
+
+  @page :first {
+    margin-top: 1cm;
+  }
+}

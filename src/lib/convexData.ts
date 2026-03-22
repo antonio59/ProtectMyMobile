@@ -64,6 +64,18 @@ export async function checkHasVoted(sessionId: string) {
   return await convexClient.query(api.communityResponses.hasVoted, { sessionId });
 }
 
+// Monthly Trends for charts
+export async function getMonthlyTrends(topN?: number, startYear?: string, endYear?: string) {
+  if (!convexClient) return { months: [], locations: [], data: [] };
+  return await convexClient.query(api.theftDataPoints.getMonthlyTrends, { topN, startYear, endYear });
+}
+
+// Theft stats summary
+export async function getTheftStats(year?: string) {
+  if (!convexClient) return null;
+  return await convexClient.query(api.theftDataPoints.getStats, { year });
+}
+
 // Get site metadata
 export async function getSiteMetadata(key: string) {
   if (!convexClient) return null;
