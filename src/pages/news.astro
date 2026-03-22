@@ -197,7 +197,14 @@ const newsSchema = {
                     <div class="flex-1">
                       <div class="flex items-center gap-2 mb-2">
                         <span class={`inline-flex items-center gap-1 text-[10px] sm:text-xs px-2 py-0.5 rounded-full font-medium ${categoryConfig[featuredPost.category]?.bg || 'bg-neutral-100'} ${categoryConfig[featuredPost.category]?.color || 'text-neutral-700'}`}>
-                          {(categoryConfig[featuredPost.category]?.icon && <categoryConfig[featuredPost.category].icon className="h-3 w-3" />)}
+                          {categoryConfig[featuredPost.category]?.icon && (
+                            <span class="flex items-center">
+                              {(() => {
+                                const IconComponent = categoryConfig[featuredPost.category].icon;
+                                return <IconComponent class="h-3 w-3" />;
+                              })()}
+                            </span>
+                          )}
                           {featuredPost.category.replace('_', ' ')}
                         </span>
                         <span class="text-xs text-neutral-400">{formatDate(featuredPost.publishedAt || featuredPost._creationTime)}</span>

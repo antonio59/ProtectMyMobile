@@ -77,6 +77,7 @@ export default function TheftTrendsChart() {
         (chartRef.current as { destroy: () => void }).destroy();
       }
 
+      if (!data) return;
       const { locations, data: chartData } = data;
       const labels = chartData.map((d: TrendPoint) => d.label);
 
