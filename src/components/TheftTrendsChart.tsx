@@ -1,20 +1,10 @@
+'use client';
+
 import { useState, useEffect } from 'react';
 import { useConvex } from 'convex/react';
 import { api } from '../../convex/_generated/api';
 import { TrendingUp, MapPin, BarChart3, RefreshCw } from 'lucide-react';
 import { ChartSkeleton } from './ui/Skeleton';
-
-// Lazy-load Recharts to keep initial bundle small
-import {
-  AreaChart,
-  Area,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  Legend,
-} from 'recharts';
 
 const COLORS = [
   '#ef4444', // red
@@ -40,12 +30,32 @@ interface TrendsData {
   data: TrendPoint[];
 }
 
+// Recharts components type
+interface RechartsLib {
+  AreaChart: any;
+  Area: any;
+  XAxis: any;
+  YAxis: any;
+  CartesianGrid: any;
+  Tooltip: any;
+  ResponsiveContainer: any;
+  Legend: any;
+}
+
 export default function TheftTrendsChart() {
   const convex = useConvex();
   const [data, setData] = useState<TrendsData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [viewMode, setViewMode] = useState<'stacked' | 'lines'>('stacked');
+  const [recharts, setRecharts] = useState<RechartsLib | null>(null);
+
+  // Dynamic import recharts on client only
+  useEffect(() => {
+    import('recharts').then((mod) => {
+      setRecharts(mod);
+    });
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -67,14 +77,13 @@ export default function TheftTrendsChart() {
     return () => { cancelled = true; };
   }, [convex]);
 
-  if (loading) {
+  if (loading || !recharts) {
     return <ChartSkeleton />;
   }
 
   const handleRetry = () => {
     setLoading(true);
     setError(null);
-    // Re-fetch will happen via useEffect
   };
 
   if (error || !data || data.data.length === 0) {
@@ -104,6 +113,7 @@ export default function TheftTrendsChart() {
   }
 
   const { locations } = data;
+  const { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } = recharts;
 
   // Compute summary stats from the data
   const latestMonth = data.data[data.data.length - 1];
