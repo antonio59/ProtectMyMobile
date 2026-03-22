@@ -34,9 +34,9 @@
 # Scheduled Functions
 # ============================================
 
-# Daily news fetch - runs at 6am and 6pm UTC
+# Daily news fetch - runs at 8am UTC
 [functions."scheduled-news"]
-  schedule = "0 6,18 * * *"
+  schedule = "0 8 * * *"
 
 # Daily WDTK monitor - runs at 8am UTC
 [functions."scheduled-wdtk"]
