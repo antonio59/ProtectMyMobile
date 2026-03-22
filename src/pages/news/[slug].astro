@@ -35,18 +35,29 @@ if (!slug) {
   return Astro.redirect('/news');
 }
 
-let post;
-let relatedPosts: any[] = [];
+interface NewsPost {
+  title: string;
+  slug: string;
+  excerpt?: string;
+  content?: string;
+  publishedAt?: number;
+  category?: string;
+  sourceUrl?: string;
+  imageUrl?: string;
+}
+
+let post: NewsPost | null = null;
+let relatedPosts: NewsPost[] = [];
 try {
   post = await getNewsPostBySlug(slug);
   if (post) {
     // Get related posts (same category, excluding current)
     const allPosts = await getNewsPosts(true);
     relatedPosts = allPosts
-      .filter(p => p.category === post.category && p.slug !== slug)
+      .filter((p: NewsPost) => p.category === post?.category && p.slug !== slug)
       .slice(0, 3);
   }
-} catch (e) {
+} catch (e: unknown) {
   console.error('Error fetching news post:', e);
 }
 

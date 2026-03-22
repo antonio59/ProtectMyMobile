@@ -17,19 +17,19 @@ import AnimatedResources from '../components/AnimatedResources';
 import TheftTrendsChart from '../components/TheftTrendsChart';
 
 // Fetch latest news posts
-let latestNews: any[] = [];
-let trendsData: { months: string[]; locations: string[]; data: any[] } | null = null;
+let latestNews: Array<{ title: string; slug: string; excerpt?: string; publishedAt?: number; category?: string }> = [];
+let trendsData: { months: string[]; locations: string[]; data: Array<{ month: string; label: string; total: number; [key: string]: string | number }> } | null = null;
 try {
   const posts = await getNewsPosts(true);
   latestNews = posts.slice(0, 3);
-} catch (e) {
+} catch (e: unknown) {
   console.error('Error fetching news:', e);
 }
 
 // Fetch trends data
 try {
   trendsData = await getMonthlyTrends(6);
-} catch (e) {
+} catch (e: unknown) {
   console.error('Error fetching trends:', e);
 }
 ---
