@@ -7,10 +7,10 @@ interface BreadcrumbItem {
 }
 
 interface Props {
-  items: BreadcrumbItem[];
+  items?: BreadcrumbItem[];
 }
 
-const { items } = Astro.props;
+const { items = [] } = Astro.props;
 ---
 
 <nav aria-label="Breadcrumb" class="mb-4 sm:mb-6">
@@ -45,23 +45,24 @@ const { items } = Astro.props;
   </ol>
 </nav>
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://protectmymobile.xyz/"
-    },
-    {items.map((item, index) => `{
-      "@type": "ListItem",
-      "position": ${index + 2},
-      "name": "${item.label}",
-      "item": "https://protectmymobile.xyz${item.href || Astro.url.pathname}"
-    }`).join(',')}
-  ]
-}
-</script>
+{items.length > 0 && (
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://protectmymobile.xyz/"
+      }{items.map((item, index) => `,{
+        "@type": "ListItem",
+        "position": ${index + 2},
+        "name": "${item.label}",
+        "item": "https://protectmymobile.xyz${item.href || Astro.url.pathname}"
+      }`).join('')}
+    ]
+  }
+  </script>
+)}
