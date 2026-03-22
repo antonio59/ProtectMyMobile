@@ -79,12 +79,12 @@ export default function TheftTrendsChart() {
 
   if (error || !data || data.data.length === 0) {
     return (
-      <div class="bg-neutral-50 rounded-xl p-8 text-center">
-        <BarChart3 class="h-12 w-12 mx-auto mb-3 text-neutral-300" />
-        <h3 class="text-lg font-semibold text-neutral-700 mb-2">
+      <div className="bg-neutral-50 rounded-xl p-8 text-center">
+        <BarChart3 className="h-12 w-12 mx-auto mb-3 text-neutral-300" />
+        <h3 className="text-lg font-semibold text-neutral-700 mb-2">
           {error ? 'Unable to Load Trends' : 'Trends Coming Soon'}
         </h3>
-        <p class="text-sm text-neutral-500 max-w-md mx-auto mb-4">
+        <p className="text-sm text-neutral-500 max-w-md mx-auto mb-4">
           {error 
             ? 'There was a problem loading the theft trends data. Please try again.'
             : 'Monthly theft trends will appear here once data has been imported from police.uk. The data is automatically refreshed weekly.'
@@ -93,9 +93,9 @@ export default function TheftTrendsChart() {
         {error && (
           <button
             onClick={handleRetry}
-            class="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-colors"
           >
-            <RefreshCw class="h-4 w-4" />
+            <RefreshCw className="h-4 w-4" />
             Try Again
           </button>
         )}
@@ -115,20 +115,20 @@ export default function TheftTrendsChart() {
   return (
     <div>
       {/* Header with toggle */}
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
         <div>
-          <h2 class="text-lg sm:text-xl font-bold text-neutral-900 flex items-center gap-2">
-            <TrendingUp class="h-5 w-5 text-blue-500" />
+          <h2 className="text-lg sm:text-xl font-bold text-neutral-900 flex items-center gap-2">
+            <TrendingUp className="h-5 w-5 text-blue-500" />
             Monthly Theft Trends
           </h2>
-          <p class="text-xs sm:text-sm text-neutral-500 mt-1">
+          <p className="text-xs sm:text-sm text-neutral-500 mt-1">
             {locations.length} locations tracked &middot; {data.data.length} months of data
           </p>
         </div>
-        <div class="flex gap-1 bg-neutral-100 rounded-lg p-1">
+        <div className="flex gap-1 bg-neutral-100 rounded-lg p-1">
           <button
             onClick={() => setViewMode('stacked')}
-            class={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
+            className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
               viewMode === 'stacked'
                 ? 'bg-white text-neutral-900 shadow-sm'
                 : 'text-neutral-600 hover:text-neutral-900'
@@ -138,7 +138,7 @@ export default function TheftTrendsChart() {
           </button>
           <button
             onClick={() => setViewMode('lines')}
-            class={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
+            className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
               viewMode === 'lines'
                 ? 'bg-white text-neutral-900 shadow-sm'
                 : 'text-neutral-600 hover:text-neutral-900'
@@ -150,36 +150,36 @@ export default function TheftTrendsChart() {
       </div>
 
       {/* Summary strip */}
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 mb-6">
-        <div class="bg-blue-50 rounded-lg p-3">
-          <div class="text-lg sm:text-xl font-bold text-blue-700">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 mb-6">
+        <div className="bg-blue-50 rounded-lg p-3">
+          <div className="text-lg sm:text-xl font-bold text-blue-700">
             {latestMonth.total.toLocaleString()}
           </div>
-          <div class="text-xs text-blue-600">Latest month total</div>
+          <div className="text-xs text-blue-600">Latest month total</div>
         </div>
-        <div class="bg-neutral-50 rounded-lg p-3">
-          <div class="text-lg sm:text-xl font-bold text-neutral-700">
+        <div className="bg-neutral-50 rounded-lg p-3">
+          <div className="text-lg sm:text-xl font-bold text-neutral-700">
             {data.data.reduce((s, d) => s + d.total, 0).toLocaleString()}
           </div>
-          <div class="text-xs text-neutral-500">All-time total</div>
+          <div className="text-xs text-neutral-500">All-time total</div>
         </div>
-        <div class={`rounded-lg p-3 ${monthChange && Number(monthChange) > 0 ? 'bg-red-50' : 'bg-green-50'}`}>
-          <div class={`text-lg sm:text-xl font-bold ${monthChange && Number(monthChange) > 0 ? 'text-red-700' : 'text-green-700'}`}>
+        <div className={`rounded-lg p-3 ${monthChange && Number(monthChange) > 0 ? 'bg-red-50' : 'bg-green-50'}`}>
+          <div className={`text-lg sm:text-xl font-bold ${monthChange && Number(monthChange) > 0 ? 'text-red-700' : 'text-green-700'}`}>
             {monthChange ? `${Number(monthChange) > 0 ? '+' : ''}${monthChange}%` : '—'}
           </div>
-          <div class="text-xs text-neutral-500">Month-on-month</div>
+          <div className="text-xs text-neutral-500">Month-on-month</div>
         </div>
-        <div class="bg-neutral-50 rounded-lg p-3">
-          <div class="text-lg sm:text-xl font-bold text-neutral-700 flex items-center gap-1">
-            <MapPin class="h-4 w-4" />
+        <div className="bg-neutral-50 rounded-lg p-3">
+          <div className="text-lg sm:text-xl font-bold text-neutral-700 flex items-center gap-1">
+            <MapPin className="h-4 w-4" />
             {locations.length}
           </div>
-          <div class="text-xs text-neutral-500">Locations tracked</div>
+          <div className="text-xs text-neutral-500">Locations tracked</div>
         </div>
       </div>
 
       {/* Chart */}
-      <div class="w-full h-[350px] sm:h-[400px]">
+      <div className="w-full h-[350px] sm:h-[400px]">
         <ResponsiveContainer width="100%" height="100%">
           {viewMode === 'stacked' ? (
             <AreaChart data={data.data} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
