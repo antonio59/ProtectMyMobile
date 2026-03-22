@@ -1,11 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useConvex } from 'convex/react';
 import { api } from '../../convex/_generated/api';
 import { TrendingUp, MapPin, BarChart3, RefreshCw } from 'lucide-react';
 import { ChartSkeleton } from './ui/Skeleton';
 
+// Chart.js colors
 const COLORS = [
   '#ef4444', // red
   '#f97316', // orange
@@ -30,32 +31,14 @@ interface TrendsData {
   data: TrendPoint[];
 }
 
-// Recharts components type
-interface RechartsLib {
-  AreaChart: any;
-  Area: any;
-  XAxis: any;
-  YAxis: any;
-  CartesianGrid: any;
-  Tooltip: any;
-  ResponsiveContainer: any;
-  Legend: any;
-}
-
 export default function TheftTrendsChart() {
   const convex = useConvex();
   const [data, setData] = useState<TrendsData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [viewMode, setViewMode] = useState<'stacked' | 'lines'>('stacked');
-  const [recharts, setRecharts] = useState<RechartsLib | null>(null);
-
-  // Dynamic import recharts on client only
-  useEffect(() => {
-    import('recharts').then((mod) => {
-      setRecharts(mod);
-    });
-  }, []);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const chartRef = useRef<any>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -77,7 +60,121 @@ export default function TheftTrendsChart() {
     return () => { cancelled = true; };
   }, [convex]);
 
-  if (loading || !recharts) {
+  // Initialize Chart.js
+  useEffect(() => {
+    if (!data || !canvasRef.current || loading) return;
+
+    let chartInstance: any;
+
+    async function initChart() {
+      const { default: Chart } = await import('chart.js/auto');
+      
+      const ctx = canvasRef.current?.getContext('2d');
+      if (!ctx) return;
+
+      // Destroy existing chart
+      if (chartRef.current) {
+        chartRef.current.destroy();
+      }
+
+      const { locations, data: chartData } = data;
+      const labels = chartData.map(d => d.label);
+
+      // Create datasets
+      const datasets = locations.map((loc, i) => ({
+        label: loc,
+        data: chartData.map(d => typeof d[loc] === 'number' ? d[loc] : 0),
+        backgroundColor: viewMode === 'stacked' 
+          ? COLORS[i % COLORS.length] + '99' // 60% opacity
+          : COLORS[i % COLORS.length] + '1A', // 10% opacity for lines
+        borderColor: COLORS[i % COLORS.length],
+        borderWidth: 2,
+        fill: true,
+        tension: 0.4,
+      }));
+
+      chartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels,
+          datasets,
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: {
+            mode: 'index',
+            intersect: false,
+          },
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: {
+                boxWidth: 12,
+                padding: 15,
+                font: {
+                  size: 11,
+                },
+              },
+            },
+            tooltip: {
+              backgroundColor: 'rgba(255, 255, 255, 0.95)',
+              titleColor: '#1f2937',
+              bodyColor: '#4b5563',
+              borderColor: '#e5e7eb',
+              borderWidth: 1,
+              padding: 12,
+              titleFont: {
+                size: 13,
+                weight: 'bold',
+              },
+              bodyFont: {
+                size: 12,
+              },
+            },
+          },
+          scales: {
+            x: {
+              grid: {
+                display: false,
+              },
+              ticks: {
+                font: {
+                  size: 11,
+                },
+                color: '#6b7280',
+              },
+            },
+            y: {
+              beginAtZero: true,
+              grid: {
+                color: '#e5e7eb',
+                borderDash: [3, 3],
+              },
+              ticks: {
+                font: {
+                  size: 11,
+                },
+                color: '#6b7280',
+              },
+            },
+          },
+        },
+      });
+
+      chartRef.current = chartInstance;
+    }
+
+    initChart();
+
+    return () => {
+      if (chartInstance) {
+        chartInstance.destroy();
+      }
+    };
+  }, [data, viewMode, loading]);
+
+  if (loading) {
     return <ChartSkeleton />;
   }
 
@@ -113,7 +210,6 @@ export default function TheftTrendsChart() {
   }
 
   const { locations } = data;
-  const { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } = recharts;
 
   // Compute summary stats from the data
   const latestMonth = data.data[data.data.length - 1];
@@ -190,72 +286,7 @@ export default function TheftTrendsChart() {
 
       {/* Chart */}
       <div className="w-full h-[350px] sm:h-[400px]">
-        <ResponsiveContainer width="100%" height="100%">
-          {viewMode === 'stacked' ? (
-            <AreaChart data={data.data} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-              <XAxis
-                dataKey="label"
-                tick={{ fontSize: 11, fill: '#6b7280' }}
-                interval="preserveStartEnd"
-              />
-              <YAxis tick={{ fontSize: 11, fill: '#6b7280' }} />
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: '#fff',
-                  border: '1px solid #e5e7eb',
-                  borderRadius: '8px',
-                  fontSize: '12px',
-                }}
-              />
-              <Legend
-                wrapperStyle={{ fontSize: '11px', paddingTop: '8px' }}
-              />
-              {locations.map((loc, i) => (
-                <Area
-                  key={loc}
-                  type="monotone"
-                  dataKey={loc}
-                  stackId="1"
-                  stroke={COLORS[i % COLORS.length]}
-                  fill={COLORS[i % COLORS.length]}
-                  fillOpacity={0.6}
-                />
-              ))}
-            </AreaChart>
-          ) : (
-            <AreaChart data={data.data} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-              <XAxis
-                dataKey="label"
-                tick={{ fontSize: 11, fill: '#6b7280' }}
-                interval="preserveStartEnd"
-              />
-              <YAxis tick={{ fontSize: 11, fill: '#6b7280' }} />
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: '#fff',
-                  border: '1px solid #e5e7eb',
-                  borderRadius: '8px',
-                  fontSize: '12px',
-                }}
-              />
-              <Legend
-                wrapperStyle={{ fontSize: '11px', paddingTop: '8px' }}
-              />
-              {locations.map((loc, i) => (
-                <Area
-                  key={loc}
-                  type="monotone"
-                  dataKey={loc}
-                  stroke={COLORS[i % COLORS.length]}
-                  fill={COLORS[i % COLORS.length]}
-                  fillOpacity={0.1}
-                />
-              ))}
-            </AreaChart>
-          )}
-        </ResponsiveContainer>
+        <canvas ref={canvasRef} />
       </div>
     </div>
   );

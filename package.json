@@ -50,7 +50,7 @@
     "nanostores": "^1.0.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "recharts": "^2.15.0",
+    "chart.js": "^4.4.8",
     "resend": "^6.5.0",
     "rss-parser": "^3.13.0",
     "sanitize-html": "^2.14.0",
