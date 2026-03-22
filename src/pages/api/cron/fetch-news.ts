@@ -9,7 +9,7 @@ const parser = new Parser({
   customFields: {
     item: ["media:content", "media:thumbnail"],
   },
-  timeout: 30000,
+  timeout: 5000, // 5 second timeout per feed
 });
 
 interface NewsSource {
@@ -546,8 +546,6 @@ export const GET: APIRoute = async ({ request }) => {
             `Successfully fetched ${feed.items.length} items from ${source.name}`,
           );
         }
-
-        await new Promise((resolve) => setTimeout(resolve, 3000));
       } catch (err: any) {
         sourcesFailed.push({ name: source.name, error: err.message });
         logMessage("error", `Failed to fetch from ${source.name}`, err.message);
