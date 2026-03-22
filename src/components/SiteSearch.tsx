@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, X, Command, ArrowRight, Phone, Shield, AlertTriangle, Building2, BarChart3, BookOpen, Newspaper, MapPin, HelpCircle, ShoppingBag, ChevronRight } from 'lucide-react';
+import { Search, X, Command, Phone, Shield, AlertTriangle, Building2, BarChart3, BookOpen, Newspaper, MapPin, HelpCircle, ShoppingBag, ChevronRight } from 'lucide-react';
 
 interface SearchResult {
   title: string;
