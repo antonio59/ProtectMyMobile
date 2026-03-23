@@ -2,7 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
-import Breadcrumb from '../components/Breadcrumb.astro';
 import { Shield, Home, Search } from 'lucide-react';
 ---
 
@@ -11,7 +10,6 @@ import { Shield, Home, Search } from 'lucide-react';
   description="The page you are looking for does not exist. Return to ProtectMyMobile homepage."
 >
   <HeaderMobile client:idle />
-  <Breadcrumb />
   
   <main id="main-content" class="bg-[#f3f2f1] min-h-[70vh] flex items-center justify-center">
     <div class="container mx-auto px-4 py-6 sm:py-8 md:py-12 text-center">
