@@ -1,4 +1,4 @@
-import type { Context } from "@netlify/functions";
+import type { Config, Context } from "@netlify/functions";
 
 /**
  * Scheduled function to monitor WhatDoTheyKnow for FOI responses.
@@ -101,3 +101,10 @@ export default async function handler(
     );
   }
 }
+
+// Required for Netlify Functions v2 scheduled functions.
+// The netlify.toml [functions."scheduled-wdtk"] schedule entry is ignored in v2;
+// the schedule must be declared here via export const config.
+export const config: Config = {
+  schedule: "0 8 * * *",
+};

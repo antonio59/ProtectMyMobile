@@ -1,8 +1,8 @@
-import type { Context } from "@netlify/functions";
+import type { Config, Context } from "@netlify/functions";
 
 /**
  * Scheduled function to fetch news articles.
- * Runs daily at 6am and 6pm UTC.
+ * Runs daily at 8am UTC.
  * Calls the /api/cron/fetch-news endpoint with CRON_SECRET authentication.
  */
 export default async function handler(
@@ -100,3 +100,10 @@ export default async function handler(
     );
   }
 }
+
+// Required for Netlify Functions v2 scheduled functions.
+// The netlify.toml [functions."scheduled-news"] schedule entry is ignored in v2;
+// the schedule must be declared here via export const config.
+export const config: Config = {
+  schedule: "0 8 * * *",
+};
