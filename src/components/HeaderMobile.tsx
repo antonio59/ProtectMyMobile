@@ -2,12 +2,11 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Shield, 
-  AlertTriangle, 
-  Menu, 
-  X, 
-  Home,
+import {
+  Shield,
+  AlertTriangle,
+  Menu,
+  X,
   Newspaper,
   BarChart3,
   Building2,
@@ -60,7 +59,6 @@ const desktopNavLinks = [
 
 // Mobile menu links (full navigation)
 const navLinks = [
-  { href: '/', label: 'Home', icon: Home },
   { href: '/the-problem', label: 'The Problem', icon: AlertTriangle },
   { href: '/statistics', label: 'Statistics', icon: BarChart3 },
   { href: '/news', label: 'News', icon: Newspaper },
