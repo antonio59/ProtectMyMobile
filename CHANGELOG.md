@@ -40,6 +40,7 @@ All notable changes to this project will be documented in this file.
 ### CI/CD
 
 - Add automatic changelog workflow
+- Add automatic changelog workflow
 - Bump actions/upload-artifact from 6 to 7
 - Bump actions/upload-artifact from 5 to 6
 - Bump actions/upload-artifact from 5 to 6 (#23)
@@ -1044,6 +1045,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 ### Chores
 
 - Add git-cliff config for changelog generation
+- Add git-cliff config for changelog generation
 - Change news fetch schedule to once daily at 8am UTC
 - Switch from bun to npm for build reliability
 - Add git hooks for pre-push type checking
@@ -1051,6 +1053,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Add UI/UX review documentation and misc updates
 
 ### Features
