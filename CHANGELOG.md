@@ -39,6 +39,7 @@ All notable changes to this project will be documented in this file.
 
 ### CI/CD
 
+- Bump actions/checkout from 4 to 6 (#39)
 - Add automatic changelog workflow
 - Add automatic changelog workflow
 - Add automatic changelog workflow
@@ -1055,6 +1056,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Add UI/UX review documentation and misc updates
