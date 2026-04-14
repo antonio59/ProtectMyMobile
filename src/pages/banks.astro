@@ -58,11 +58,43 @@ const categories = {
   building_society: sortedBanks.filter(b => b.category === 'building_society'),
   challenger: sortedBanks.filter(b => b.category === 'challenger'),
 };
+
+const banksFaqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What should I do if my phone is stolen and I have banking apps?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Immediately call your bank's emergency fraud line (listed in our directory) to freeze your accounts. Then change your online banking password from a secure device, log out of all banking apps on the stolen phone, and monitor your accounts for unauthorised transactions."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are UK bank fraud lines open 24/7?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, all major UK banks operate 24/7 emergency fraud and lost/stolen card lines. Challenger and digital banks also provide 24/7 in-app support or dedicated emergency numbers. Our directory lists the current emergency contact numbers for over 25 UK banks and building societies."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can thieves access my bank account if my phone is stolen?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "If your phone lacks strong security, thieves may bypass the lock screen or use notification previews to access 2FA codes. Prevent this by enabling biometric authentication, using different PINs for banking apps, turning off notification previews on the lock screen, and contacting your bank immediately to flag the theft."
+      }
+    }
+  ]
+};
 ---
 
 <Layout 
   title="UK Bank Directory - Emergency Contact Information | ProtectMyMobile"
   description="Complete directory of UK banks with emergency contact information and step-by-step procedures for securing your accounts if your mobile phone is stolen."
+  schema={banksFaqSchema}
 >
   <HeaderMobile client:idle />
   
@@ -145,19 +177,19 @@ const categories = {
 
         <!-- Category Filter -->
         <div class="mb-6 flex gap-2 overflow-x-auto whitespace-nowrap">
-          <button class="category-filter px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm rounded-lg bg-primary text-white" data-category="all">
+          <button type="button" class="category-filter px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm rounded-lg bg-primary text-white" data-category="all">
             All Banks ({sortedBanks.length})
           </button>
-          <button class="category-filter px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm rounded-lg bg-neutral-200 text-neutral-700 hover:bg-neutral-300" data-category="high_street">
+          <button type="button" class="category-filter px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm rounded-lg bg-neutral-200 text-neutral-700 hover:bg-neutral-300" data-category="high_street">
             High Street ({categories.high_street.length})
           </button>
-          <button class="category-filter px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm rounded-lg bg-neutral-200 text-neutral-700 hover:bg-neutral-300" data-category="online">
+          <button type="button" class="category-filter px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm rounded-lg bg-neutral-200 text-neutral-700 hover:bg-neutral-300" data-category="online">
             Online Banks ({categories.online.length})
           </button>
-          <button class="category-filter px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm rounded-lg bg-neutral-200 text-neutral-700 hover:bg-neutral-300" data-category="building_society">
+          <button type="button" class="category-filter px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm rounded-lg bg-neutral-200 text-neutral-700 hover:bg-neutral-300" data-category="building_society">
             Building Societies ({categories.building_society.length})
           </button>
-          <button class="category-filter px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm rounded-lg bg-neutral-200 text-neutral-700 hover:bg-neutral-300" data-category="challenger">
+          <button type="button" class="category-filter px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm rounded-lg bg-neutral-200 text-neutral-700 hover:bg-neutral-300" data-category="challenger">
             Challenger Banks ({categories.challenger.length})
           </button>
         </div>
@@ -267,7 +299,8 @@ const categories = {
     // Category filter
     categoryButtons.forEach(button => {
       button.addEventListener('click', (e) => {
-        const category = (e.target as HTMLButtonElement).dataset.category || 'all';
+        const target = e.currentTarget as HTMLButtonElement;
+        const category = target.dataset.category || 'all';
         currentCategory = category;
         
         // Update button styles
@@ -275,8 +308,8 @@ const categories = {
           btn.classList.remove('bg-primary', 'text-white');
           btn.classList.add('bg-neutral-200', 'text-neutral-700');
         });
-        (e.target as HTMLButtonElement).classList.remove('bg-neutral-200', 'text-neutral-700');
-        (e.target as HTMLButtonElement).classList.add('bg-primary', 'text-white');
+        target.classList.remove('bg-neutral-200', 'text-neutral-700');
+        target.classList.add('bg-primary', 'text-white');
         
         // Filter banks
         const searchQuery = searchInput?.value.toLowerCase() || '';

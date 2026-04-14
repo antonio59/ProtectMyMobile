@@ -11,25 +11,46 @@ interface Props {
 }
 
 const { items = [] } = Astro.props;
+const siteUrl = "https://protectmymobile.xyz";
+
+// Build BreadcrumbList schema
+const breadcrumbSchema = items.length > 0 ? {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": siteUrl + "/"
+    },
+    ...items.map((item, index) => ({
+      "@type": "ListItem",
+      "position": index + 2,
+      "name": item.label,
+      "item": item.href ? siteUrl + item.href : siteUrl + Astro.url.pathname
+    }))
+  ]
+} : null;
 ---
 
 <nav aria-label="Breadcrumb" class="mb-4 sm:mb-6">
   <ol class="flex flex-wrap items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-neutral-500">
     <li>
-      <a 
-        href="/" 
+      <a
+        href="/"
         class="flex items-center gap-1 hover:text-primary transition-colors"
       >
         <Home class="h-3.5 w-3.5 sm:h-4 sm:w-4" />
         <span class="hidden sm:inline">Home</span>
       </a>
     </li>
-    
+
     {items.map((item, index) => (
       <li class="flex items-center gap-1.5 sm:gap-2">
         <ChevronRight class="h-3.5 w-3.5 sm:h-4 sm:w-4 text-neutral-300" />
         {item.href && index < items.length - 1 ? (
-          <a 
+          <a
             href={item.href}
             class="hover:text-primary transition-colors"
           >
@@ -45,24 +66,6 @@ const { items = [] } = Astro.props;
   </ol>
 </nav>
 
-{items.length > 0 && (
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://protectmymobile.xyz/"
-      }{items.map((item, index) => `,{
-        "@type": "ListItem",
-        "position": ${index + 2},
-        "name": "${item.label}",
-        "item": "https://protectmymobile.xyz${item.href || Astro.url.pathname}"
-      }`).join('')}
-    ]
-  }
-  </script>
+{breadcrumbSchema && (
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbSchema)} />
 )}

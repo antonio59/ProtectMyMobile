@@ -6,7 +6,7 @@ import HeaderMobile from '../../components/HeaderMobile';
 import Footer from '../../components/Footer.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import { getNewsPosts, getNewsPostBySlug } from '../../lib/convexData';
-import { Calendar, ExternalLink, ArrowLeft, Tag, Share2, Twitter, Facebook, Clock, User, ChevronRight } from 'lucide-react';
+import { Calendar, ExternalLink, ArrowLeft, Tag, ChevronRight } from 'lucide-react';
 import { marked } from 'marked';
 import sanitizeHtml from 'sanitize-html';
 
@@ -98,10 +98,6 @@ const contentHtml = sanitizedHtml.replace(
   }
 );
 
-// Estimate reading time
-const wordCount = (post.content || '').split(/\s+/).length;
-const readingTime = Math.ceil(wordCount / 200);
-
 const categoryConfig: Record<string, { color: string; bg: string; border: string; label: string }> = {
   arrest: { color: 'text-red-700', bg: 'bg-red-50', border: 'border-red-200', label: 'Arrest' },
   seizure: { color: 'text-orange-700', bg: 'bg-orange-50', border: 'border-orange-200', label: 'Seizure' },
@@ -164,6 +160,10 @@ const articleSchema = {
   title={`${post.title} | ProtectMyMobile News`}
   description={post.excerpt}
   canonicalPath={`/news/${slug}`}
+  ogType="article"
+  ogImage={post.featuredImageUrl || "/og-image.png"}
+  publishedTime={toISODate(post.publishedAt || post._creationTime)}
+  modifiedTime={toISODate(post._creationTime)}
   schema={articleSchema}
 >
   <HeaderMobile client:idle />
@@ -177,9 +177,21 @@ const articleSchema = {
       ]} />
 
       <article class="bg-white rounded-xl sm:rounded-2xl shadow-lg overflow-hidden border border-neutral-200">
+        {/* Featured Image */}
+        {post.featuredImageUrl && (
+          <div class="w-full aspect-[16/9] sm:aspect-[21/9] overflow-hidden bg-neutral-100">
+            <img 
+              src={post.featuredImageUrl} 
+              alt={post.title}
+              class="w-full h-full object-cover"
+              loading="eager"
+            />
+          </div>
+        )}
+
         {/* Article Header */}
         <header class={`px-4 sm:px-6 lg:px-8 py-5 sm:py-6 border-b ${config.border} ${config.bg}`}>
-          <div class="flex items-center gap-2 mb-3">
+          <div class="flex items-center gap-2 mb-3 flex-wrap">
             <span class={`inline-flex items-center gap-1.5 text-[10px] sm:text-xs px-2.5 py-1 rounded-full font-medium bg-white border ${config.border} ${config.color}`}>
               <Tag class="h-3 w-3" />
               {config.label}
@@ -189,11 +201,12 @@ const articleSchema = {
               <Calendar class="h-3 w-3" />
               {formatDate(post.publishedAt || post._creationTime)}
             </span>
-            <span class="text-neutral-400">&bull;</span>
-            <span class="text-xs text-neutral-500 flex items-center gap-1">
-              <Clock class="h-3 w-3" />
-              {readingTime} min read
-            </span>
+            {isExternal && (
+              <>
+                <span class="text-neutral-400">&bull;</span>
+                <span class="text-xs text-neutral-500">External source</span>
+              </>
+            )}
           </div>
 
           <h1 class="text-xl sm:text-2xl lg:text-3xl font-bold text-neutral-900 leading-tight">
@@ -202,7 +215,7 @@ const articleSchema = {
 
           {post.sourceName && (
             <div class="mt-3 flex items-center gap-2">
-              <span class="text-xs text-neutral-500">Source:</span>
+              <span class="text-xs text-neutral-500">Originally published by</span>
               <a 
                 href={post.sourceUrl} 
                 target="_blank" 
@@ -226,21 +239,28 @@ const articleSchema = {
             )}
           </div>
 
-          {/* External Link CTA */}
+          {/* Prominent External Link CTA */}
           {isExternal && post.sourceUrl && (
-            <div class="mt-8 p-4 bg-neutral-50 rounded-xl border border-neutral-200">
-              <p class="text-sm text-neutral-600 mb-3">
-                This article was originally published by {post.sourceName}.
-              </p>
-              <a 
-                href={post.sourceUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors"
-              >
-                Read full article on {post.sourceName}
-                <ExternalLink class="h-4 w-4" />
-              </a>
+            <div class="mt-8 p-5 sm:p-6 bg-gradient-to-br from-primary/5 to-blue-50 rounded-xl border border-primary/20">
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div>
+                  <p class="text-sm font-medium text-neutral-900">
+                    Read the full story on {post.sourceName}
+                  </p>
+                  <p class="text-xs text-neutral-500 mt-1">
+                    This is a summary — the complete article is available at the original publisher.
+                  </p>
+                </div>
+                <a 
+                  href={post.sourceUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-primary text-white rounded-lg text-sm font-semibold hover:bg-primary/90 transition-colors whitespace-nowrap"
+                >
+                  Read full article
+                  <ExternalLink class="h-4 w-4" />
+                </a>
+              </div>
             </div>
           )}
         </div>

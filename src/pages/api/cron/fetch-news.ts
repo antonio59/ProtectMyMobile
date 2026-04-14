@@ -7,7 +7,7 @@ import { requireApiKey } from "../../../lib/security";
 
 const parser = new Parser({
   customFields: {
-    item: ["media:content", "media:thumbnail"],
+    item: ["media:content", "media:thumbnail", "content:encoded"],
   },
   timeout: 5000, // 5 second timeout per feed
 });
@@ -339,6 +339,133 @@ function extractExcerpt(
   return truncated + "...";
 }
 
+/**
+ * Extract featured image URL from HTML meta tags
+ */
+function extractFeaturedImage(html: string, baseUrl: string): string | null {
+  const ogImageMatch = html.match(
+    /<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["'][^>]*>/i,
+  );
+  const twitterImageMatch = html.match(
+    /<meta[^>]+name=["']twitter:image["'][^>]+content=["']([^"']+)["'][^>]*>/i,
+  );
+
+  const imageUrl = ogImageMatch?.[1] || twitterImageMatch?.[1];
+  if (!imageUrl) return null;
+
+  // Make relative URLs absolute
+  if (imageUrl.startsWith("http")) return imageUrl;
+  try {
+    return new URL(imageUrl, baseUrl).href;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Scrape article content from a URL without AI.
+ * Tries multiple strategies: direct HTML scrape, r.jina.ai extraction.
+ */
+async function scrapeArticleContent(
+  url: string,
+): Promise<{ content: string; featuredImageUrl: string | null }> {
+  let featuredImageUrl: string | null = null;
+
+  // Strategy 1: Direct HTML scrape for image + content
+  try {
+    const response = await fetchWithRetry(url);
+    const html = await response.text();
+    featuredImageUrl = extractFeaturedImage(html, url);
+
+    // Only use direct HTML if it looks like real content (not a bot block page)
+    if (!html.includes("Access Denied") && !html.includes("403 Forbidden") && html.length > 5000) {
+      // Remove scripts, styles, and common non-content elements
+      let cleaned = html
+        .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, "")
+        .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, "")
+        .replace(/<nav[^>]*>[\s\S]*?<\/nav>/gi, "")
+        .replace(/<header[^>]*>[\s\S]*?<\/header>/gi, "")
+        .replace(/<footer[^>]*>[\s\S]*?<\/footer>/gi, "")
+        .replace(/<aside[^>]*>[\s\S]*?<\/aside>/gi, "")
+        .replace(/<noscript[^>]*>[\s\S]*?<\/noscript>/gi, "")
+        .replace(/<!--[\s\S]*?-->/g, "");
+
+      // Try to extract the main article body via common selectors
+      let articleHtml = "";
+      const articleMatch = cleaned.match(/<article[^>]*>([\s\S]*?)<\/article>/i);
+      if (articleMatch) {
+        articleHtml = articleMatch[1];
+      } else {
+        const containerPatterns = [
+          /<div[^>]+class=["'][^"']*article-body[^"']*["'][^>]*>([\s\S]*?)<\/div>/i,
+          /<div[^>]+class=["'][^"']*article__body[^"']*["'][^>]*>([\s\S]*?)<\/div>/i,
+          /<div[^>]+class=["'][^"']*content-body[^"']*["'][^>]*>([\s\S]*?)<\/div>/i,
+          /<div[^>]+class=["'][^"']*story-body[^"']*["'][^>]*>([\s\S]*?)<\/div>/i,
+          /<div[^>]+class=["'][^"']*main-content[^"']*["'][^>]*>([\s\S]*?)<\/div>/i,
+          /<div[^>]+class=["'][^"']*post-content[^"']*["'][^>]*>([\s\S]*?)<\/div>/i,
+          /<main[^>]*>([\s\S]*?)<\/main>/i,
+        ];
+
+        for (const pattern of containerPatterns) {
+          const match = cleaned.match(pattern);
+          if (match) {
+            articleHtml = match[1];
+            break;
+          }
+        }
+      }
+
+      if (!articleHtml) {
+        const bodyMatch = cleaned.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
+        articleHtml = bodyMatch ? bodyMatch[1] : cleaned;
+      }
+
+      const paragraphMatches = articleHtml.match(/<p[^>]*>([\s\S]*?)<\/p>/gi) || [];
+      let paragraphs = paragraphMatches
+        .map((p) => stripHtml(p).trim())
+        .filter((p) => p.length > 30);
+
+      if (paragraphs.length === 0) {
+        const fallbackText = stripHtml(articleHtml).trim();
+        if (fallbackText.length > 50) paragraphs = [fallbackText];
+      }
+
+      let content = paragraphs.join("\n\n").trim();
+      if (content.length > 3000) {
+        content = content.substring(0, 3000).trim() + "...";
+      }
+
+      if (content.length > 200) {
+        return { content, featuredImageUrl };
+      }
+    }
+  } catch (err: any) {
+    logMessage("warning", `Direct scrape failed for ${url}`, err.message);
+  }
+
+  // Strategy 2: r.jina.ai extraction (free, no-auth fallback)
+  try {
+    const jinaResponse = await fetch(`https://r.jina.ai/http://${url.replace(/^https?:\/\//, "")}`, {
+      headers: { "User-Agent": "ProtectMyMobile-Bot/1.0" },
+    });
+    if (jinaResponse.ok) {
+      const jinaText = await jinaResponse.text();
+      if (jinaText && !jinaText.includes("Access Denied") && !jinaText.includes("403 Forbidden") && jinaText.length > 200) {
+        // Limit length
+        let content = jinaText.trim();
+        if (content.length > 3000) {
+          content = content.substring(0, 3000).trim() + "...";
+        }
+        return { content, featuredImageUrl };
+      }
+    }
+  } catch (err: any) {
+    logMessage("warning", `r.jina.ai failed for ${url}`, err.message);
+  }
+
+  return { content: "Content to be curated.", featuredImageUrl };
+}
+
 const convexUrl = import.meta.env.PUBLIC_CONVEX_URL;
 const convex = convexUrl ? new ConvexHttpClient(convexUrl) : null;
 
@@ -632,19 +759,38 @@ export const GET: APIRoute = async ({ request }) => {
         const excerpt = extractExcerpt(cleanSnippet, 150);
         const category = categorizeArticle(article.title!, cleanSnippet);
 
+        // Try to get full content from RSS content:encoded first
+        const rssFullContent = (article as any)["content:encoded"];
+        let finalContent = "";
+        let featuredImageUrl: string | null = null;
+
+        if (rssFullContent && stripHtml(rssFullContent).trim().length > 200) {
+          finalContent = stripHtml(rssFullContent).trim();
+          if (finalContent.length > 3000) {
+            finalContent = finalContent.substring(0, 3000).trim() + "...";
+          }
+          logMessage("info", `Using RSS full content for ${article.title!.substring(0, 40)}`);
+        } else {
+          // Scrape full article content and featured image from source
+          const scraped = await scrapeArticleContent(article.link!);
+          finalContent =
+            scraped.content !== "Content to be curated."
+              ? scraped.content
+              : article.content || article.contentSnippet || "Content to be curated.";
+          featuredImageUrl = scraped.featuredImageUrl;
+        }
+
         const newPostId = await convex.mutation(api.newsPosts.create, {
           adminToken: import.meta.env.CRON_SECRET || process.env.CRON_SECRET,
           title: article.title!,
           slug: slug,
           excerpt: excerpt,
-          content:
-            article.content ||
-            article.contentSnippet ||
-            "Content to be curated.",
+          content: finalContent,
           authorName: "Automated News Bot",
           category: category,
           sourceUrl: article.link,
           sourceName: article.source?.trim() || "News Feed",
+          featuredImageUrl: featuredImageUrl || undefined,
           published: true,
         });
 
@@ -731,6 +877,31 @@ export const GET: APIRoute = async ({ request }) => {
             "Failed to send email notification",
             emailErr instanceof Error ? emailErr.message : String(emailErr),
           );
+        }
+      }
+
+      // Trigger a Netlify rebuild so new articles are included in sitemap/static generation
+      const buildHookUrl =
+        import.meta.env.NETLIFY_BUILD_HOOK_URL || process.env.NETLIFY_BUILD_HOOK_URL;
+      if (buildHookUrl) {
+        try {
+          fetch(buildHookUrl, { method: "POST" })
+            .then((res) => {
+              logMessage(
+                "info",
+                `Build hook triggered`,
+                `Status: ${res.status}`,
+              );
+            })
+            .catch((err) => {
+              logMessage(
+                "warning",
+                `Build hook request failed`,
+                err.message,
+              );
+            });
+        } catch (err: any) {
+          logMessage("warning", `Build hook trigger failed`, err.message);
         }
       }
     }

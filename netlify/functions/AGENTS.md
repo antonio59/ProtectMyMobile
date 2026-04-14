@@ -14,7 +14,8 @@
 - ❌ DON’T: Check in secrets or change schedules without coordinating Netlify config.
 
 ## Touch Points / Key Files
-- `fetch-news.mts`, `monitor-wdtk.mts`, `send-foi-requests.mts`, `verify-directory.mts`
+- `scheduled-news.ts`, `scheduled-wdtk.ts`, `scheduled-police-data.ts`
+- `send-foi-requests.mts`, `verify-directory.mts`
 
 ## JIT Index Hints
 - Find headers: `rg -n "x-api-key" netlify/functions`

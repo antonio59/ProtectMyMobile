@@ -53,11 +53,43 @@ const sortedProviders = [...mobileProviders].sort((a, b) => a.name.localeCompare
 
 // Group by network for filter tabs
 const networks = ['All', 'EE', 'O2', 'Three', 'Vodafone'];
+
+const providersFaqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What should I do if my phone and SIM card are stolen?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Contact your mobile provider immediately using their emergency number (listed in our directory) to report the theft and block your SIM. This prevents unauthorised calls, texts, and access to accounts that use SMS two-factor authentication. Then change passwords for email and banking apps from a secure device."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can a thief use my stolen SIM card?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Thieves can remove your SIM and use it in another phone to make calls, send texts, or receive SMS verification codes for banking and email accounts. Requesting an immediate SIM block from your provider stops this. You should also contact your bank to flag the theft."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I get a replacement SIM after my phone is stolen?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "After blocking your stolen SIM, request a replacement from your mobile provider. Most UK networks can send a replacement SIM within 1-3 working days, or you can collect one from a retail store with ID. Your phone number will be transferred to the new SIM once activated."
+      }
+    }
+  ]
+};
 ---
 
 <Layout 
   title="UK Mobile Provider Directory - Emergency Contacts | ProtectMyMobile"
   description="Complete directory of UK mobile network providers with emergency contact numbers to report stolen phones and block SIM cards."
+  schema={providersFaqSchema}
 >
   <HeaderMobile client:idle />
   <Breadcrumb items={[{ label: 'Mobile Providers' }]} />
@@ -95,11 +127,12 @@ const networks = ['All', 'EE', 'O2', 'Three', 'Vodafone'];
         
         <!-- Search Box -->
         <div class="mb-4 sm:mb-6">
+          <label for="provider-search" class="sr-only">Search for your mobile provider</label>
           <div class="relative">
             <Search class="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 h-5 w-5" />
             <input
               id="provider-search"
-              type="text"
+              type="search"
               class="w-full pl-10 pr-3 py-2 sm:py-3 text-sm sm:text-base border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
               placeholder="Search for your mobile provider..."
             />
@@ -111,6 +144,7 @@ const networks = ['All', 'EE', 'O2', 'Three', 'Vodafone'];
           <div class="flex gap-2 whitespace-nowrap pb-2">
             {networks.map((network, index) => (
               <button
+                type="button"
                 class={`network-filter px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm rounded-lg transition-colors ${
                   index === 0
                     ? 'bg-primary text-white'
@@ -225,7 +259,8 @@ const networks = ['All', 'EE', 'O2', 'Three', 'Vodafone'];
     // Network filter
     networkButtons.forEach(button => {
       button.addEventListener('click', (e) => {
-        const network = (e.target as HTMLButtonElement).dataset.network || 'all';
+        const target = e.currentTarget as HTMLButtonElement;
+        const network = target.dataset.network || 'all';
         currentNetwork = network;
         
         // Update button styles
@@ -233,8 +268,8 @@ const networks = ['All', 'EE', 'O2', 'Three', 'Vodafone'];
           btn.classList.remove('bg-primary', 'text-white');
           btn.classList.add('bg-neutral-200', 'text-neutral-700');
         });
-        (e.target as HTMLButtonElement).classList.remove('bg-neutral-200', 'text-neutral-700');
-        (e.target as HTMLButtonElement).classList.add('bg-primary', 'text-white');
+        target.classList.remove('bg-neutral-200', 'text-neutral-700');
+        target.classList.add('bg-primary', 'text-white');
         
         // Filter providers
         const searchQuery = searchInput?.value.toLowerCase() || '';
@@ -244,6 +279,7 @@ const networks = ['All', 'EE', 'O2', 'Three', 'Vodafone'];
 
     function filterProviders(searchQuery: string, network: string) {
       const providerCards = document.querySelectorAll('.provider-card');
+      let visibleCount = 0;
       
       providerCards.forEach((card) => {
         const providerName = card.textContent?.toLowerCase() || '';
@@ -254,10 +290,34 @@ const networks = ['All', 'EE', 'O2', 'Three', 'Vodafone'];
         
         if (matchesSearch && matchesNetwork) {
           (card as HTMLElement).style.display = '';
+          visibleCount++;
         } else {
           (card as HTMLElement).style.display = 'none';
         }
       });
+
+      // Show/hide no results message
+      let noResultsEl = document.getElementById('no-provider-results');
+      if (visibleCount === 0) {
+        if (!noResultsEl) {
+          noResultsEl = document.createElement('div');
+          noResultsEl.id = 'no-provider-results';
+          noResultsEl.className = 'col-span-full text-center py-12';
+          noResultsEl.innerHTML = `
+            <div class="text-neutral-400 mb-2">
+              <svg class="h-12 w-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+              </svg>
+            </div>
+            <p class="text-neutral-600 font-medium">No providers found</p>
+            <p class="text-neutral-500 text-sm">Try different search terms or clear your filters</p>
+          `;
+          providerList?.appendChild(noResultsEl);
+        }
+        noResultsEl.style.display = '';
+      } else if (noResultsEl) {
+        noResultsEl.style.display = 'none';
+      }
     }
   </script>
 </Layout>

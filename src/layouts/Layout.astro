@@ -6,6 +6,9 @@ interface Props {
   description?: string;
   canonicalPath?: string;
   ogImage?: string;
+  ogType?: string;
+  publishedTime?: string;
+  modifiedTime?: string;
   schema?: object | object[];
 }
 
@@ -15,6 +18,9 @@ const {
   description = "ProtectMyMobile helps UK residents and visitors secure their mobile phones, provides step-by-step guidance if your phone is stolen, and offers comprehensive mobile security resources for London and UK travel.",
   canonicalPath = "",
   ogImage = "/og-image.png",
+  ogType = "website",
+  publishedTime,
+  modifiedTime,
   schema
 } = Astro.props;
 
@@ -58,6 +64,9 @@ const schemas = [defaultSchema, websiteSchema, ...additionalSchemas];
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    {import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION && (
+      <meta name="google-site-verification" content={import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION} />
+    )}
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="keywords" content="mobile theft UK, phone security, UK mobile providers, prevent phone theft, report stolen phone, secure banking apps, mobile security guide, phone stolen london, phone stolen UK, london travel safety, tourist safety london, visiting london phone theft, london trip security" />
@@ -67,7 +76,7 @@ const schemas = [defaultSchema, websiteSchema, ...additionalSchemas];
     <meta name="geo.placename" content="United Kingdom" />
     
     <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -77,14 +86,21 @@ const schemas = [defaultSchema, websiteSchema, ...additionalSchemas];
     <meta property="og:site_name" content="ProtectMyMobile" />
     <meta property="og:locale" content="en_GB" />
     
-    <!-- Twitter -->
+    <!-- Twitter/X -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@protectmymobile" />
     <meta name="twitter:url" content={canonicalUrl} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
     <meta name="twitter:image:alt" content={title} />
+    {ogType === "article" && publishedTime && (
+      <>
+        <meta property="article:published_time" content={publishedTime} />
+        {modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
+        <meta property="article:author" content="ProtectMyMobile" />
+        <meta property="article:publisher" content="ProtectMyMobile" />
+      </>
+    )}
     
     <!-- Canonical URL -->
     <link rel="canonical" href={canonicalUrl} />
@@ -95,6 +111,19 @@ const schemas = [defaultSchema, websiteSchema, ...additionalSchemas];
     <!-- Hreflang Tags for UK English content -->
     <link rel="alternate" hreflang="en-GB" href={canonicalUrl} />
     <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
+
+    <!-- Google Analytics 4 -->
+    {import.meta.env.PUBLIC_GA4_ID && (
+      <>
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${import.meta.env.PUBLIC_GA4_ID}`} />
+        <script is:inline define:vars={{ gaId: import.meta.env.PUBLIC_GA4_ID }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag() { window.dataLayer.push(arguments); }
+          gtag('js', new Date());
+          gtag('config', gaId);
+        </script>
+      </>
+    )}
     
     <!-- Schema.org JSON-LD -->
     {schemas.map((s) => (

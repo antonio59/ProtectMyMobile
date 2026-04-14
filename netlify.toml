@@ -33,15 +33,18 @@
 # ============================================
 # Scheduled Functions
 # ============================================
+# Note: For Netlify Functions v2, schedules are defined in each function file
+# via `export const config: Config = { schedule: "..." }`. The entries below
+# are kept for visibility but are ignored by the v2 runtime.
 
-# Daily news fetch - runs at 8am UTC
+# Daily news fetch - runs at 8am UTC (see scheduled-news.ts)
 [functions."scheduled-news"]
   schedule = "0 8 * * *"
 
-# Daily WDTK monitor - runs at 8am UTC
+# Daily WDTK monitor - runs at 8am UTC (see scheduled-wdtk.ts)
 [functions."scheduled-wdtk"]
   schedule = "0 8 * * *"
 
-# Weekly police.uk data refresh - Sundays at 3am UTC
+# Weekly police.uk data refresh - Sundays at 3am UTC (see scheduled-police-data.ts)
 [functions."scheduled-police-data"]
   schedule = "0 3 * * 0"

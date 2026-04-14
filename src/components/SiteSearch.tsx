@@ -75,6 +75,8 @@ export default function SiteSearch() {
   const [results, setResults] = useState<SearchResult[]>([]);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const triggerButtonRef = useRef<HTMLButtonElement>(null);
 
   // Handle keyboard shortcut (Cmd/Ctrl + K)
   useEffect(() => {
@@ -92,11 +94,18 @@ export default function SiteSearch() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // Focus input when modal opens
+  // Focus input when modal opens; restore focus on close
   useEffect(() => {
-    if (isOpen && inputRef.current) {
-      setTimeout(() => inputRef.current?.focus(), 100);
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => inputRef.current?.focus(), 50);
+    } else {
+      document.body.style.overflow = '';
+      triggerButtonRef.current?.focus();
     }
+    return () => {
+      document.body.style.overflow = '';
+    };
   }, [isOpen]);
 
   // Filter results
@@ -117,6 +126,41 @@ export default function SiteSearch() {
     setResults(filtered);
     setSelectedIndex(0);
   }, [query]);
+
+  // Focus trap
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const modal = modalRef.current;
+    if (!modal) return;
+
+    const focusableSelectors = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+
+    const handleTab = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab') return;
+      const focusables = Array.from(modal.querySelectorAll<HTMLElement>(focusableSelectors)).filter(
+        el => !el.hasAttribute('disabled') && !el.getAttribute('aria-hidden')
+      );
+      if (focusables.length === 0) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleTab);
+    return () => document.removeEventListener('keydown', handleTab);
+  }, [isOpen]);
 
   // Handle keyboard navigation
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
@@ -149,11 +193,12 @@ export default function SiteSearch() {
 
   return (
     <>
-      {/* Search Trigger Button */}
+      {/* Desktop Search Trigger */}
       <button
+        ref={triggerButtonRef}
         onClick={() => setIsOpen(true)}
         className="hidden md:flex items-center gap-2 px-3 py-2 bg-neutral-100 hover:bg-neutral-200 rounded-lg text-neutral-600 transition-colors text-sm"
-        aria-label="Search (Cmd+K)"
+        aria-label="Open search (Cmd+K)"
       >
         <Search className="h-4 w-4" />
         <span className="hidden lg:inline">Search...</span>
@@ -163,140 +208,142 @@ export default function SiteSearch() {
         </kbd>
       </button>
 
-      {/* Mobile Search Button */}
+      {/* Mobile Search Trigger */}
       <button
         onClick={() => setIsOpen(true)}
         className="md:hidden p-2 rounded-lg bg-neutral-100 hover:bg-neutral-200 text-neutral-600 transition-colors"
-        aria-label="Search"
+        aria-label="Open search"
       >
         <Search className="h-5 w-5" />
       </button>
 
-      {/* Modal Backdrop */}
-      <div
-        className={`fixed inset-0 bg-black/50 backdrop-blur-sm z-50 transition-opacity duration-150 ${
-          isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-        }`}
-        onClick={() => setIsOpen(false)}
-        aria-hidden={!isOpen}
-      />
-
-      {/* Search Modal */}
-      <div
-        className={`fixed inset-x-4 top-20 md:inset-x-auto md:left-1/2 md:-translate-x-1/2 md:w-full md:max-w-2xl bg-white rounded-2xl shadow-2xl z-50 overflow-hidden flex flex-col max-h-[80vh] transition-all duration-150 ${
-          isOpen
-            ? 'opacity-100 scale-100 translate-y-0 pointer-events-auto'
-            : 'opacity-0 scale-95 -translate-y-5 pointer-events-none'
-        }`}
-        aria-hidden={!isOpen}
-      >
-        {/* Search Input */}
-        <div className="flex items-center gap-3 px-4 py-4 border-b border-neutral-200">
-          <Search className="h-5 w-5 text-neutral-400 flex-shrink-0" />
-          <input
-            ref={inputRef}
-            type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            onKeyDown={handleKeyDown}
-            placeholder="Search pages, guides, locations..."
-            className="flex-1 bg-transparent border-none outline-none text-base placeholder:text-neutral-400"
-          />
-          {query && (
-            <button
-              onClick={() => setQuery('')}
-              className="p-1 rounded hover:bg-neutral-100 text-neutral-400"
-            >
-              <X className="h-4 w-4" />
-            </button>
-          )}
-          <button
+      {isOpen && (
+        <>
+          {/* Modal Backdrop */}
+          <div
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 transition-opacity duration-150 opacity-100"
             onClick={() => setIsOpen(false)}
-            className="hidden md:block px-2 py-1 text-xs text-neutral-400 border border-neutral-200 rounded"
+            aria-hidden="true"
+          />
+
+          {/* Search Modal */}
+          <div
+            ref={modalRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Site search"
+            className="fixed inset-x-4 top-20 md:inset-x-auto md:left-1/2 md:-translate-x-1/2 md:w-full md:max-w-2xl bg-white rounded-2xl shadow-2xl z-50 overflow-hidden flex flex-col max-h-[80vh] transition-all duration-150 opacity-100 scale-100 translate-y-0"
           >
-            ESC
-          </button>
-        </div>
+            {/* Search Input */}
+            <div className="flex items-center gap-3 px-4 py-4 border-b border-neutral-200">
+              <Search className="h-5 w-5 text-neutral-400 flex-shrink-0" />
+              <input
+                ref={inputRef}
+                type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                onKeyDown={handleKeyDown}
+                placeholder="Search pages, guides, locations..."
+                className="flex-1 bg-transparent border-none outline-none text-base placeholder:text-neutral-400"
+              />
+              {query && (
+                <button
+                  onClick={() => setQuery('')}
+                  className="p-1 rounded hover:bg-neutral-100 text-neutral-400"
+                  aria-label="Clear search"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              )}
+              <button
+                onClick={() => setIsOpen(false)}
+                className="hidden md:block px-2 py-1 text-xs text-neutral-400 border border-neutral-200 rounded"
+              >
+                ESC
+              </button>
+            </div>
 
-        {/* Results */}
-        <div className="overflow-y-auto flex-1 p-2">
-          {query.trim() === '' ? (
-            <div className="p-4 text-center text-neutral-500">
-              <p className="text-sm">Start typing to search...</p>
-              <p className="text-xs mt-2 text-neutral-400">
-                Try: "emergency", "banks", "London", "prevention"
-              </p>
-            </div>
-          ) : results.length === 0 ? (
-            <div className="p-8 text-center">
-              <div className="inline-flex items-center justify-center w-12 h-12 bg-neutral-100 rounded-full mb-3">
-                <Search className="h-5 w-5 text-neutral-400" />
-              </div>
-              <p className="text-neutral-600 font-medium">No results found</p>
-              <p className="text-sm text-neutral-400 mt-1">
-                Try different keywords or check spelling
-              </p>
-            </div>
-          ) : (
-            <div className="space-y-4">
-              {Object.entries(groupedResults).map(([category, items]) => (
-                <div key={category}>
-                  <h3 className="px-3 py-2 text-xs font-semibold text-neutral-400 uppercase tracking-wide">
-                    {category}
-                  </h3>
-                  <div className="space-y-1">
-                    {items.map((result) => {
-                      const globalIndex = results.indexOf(result);
-                      const Icon = result.icon;
-                      return (
-                        <a
-                          key={result.href}
-                          href={result.href}
-                          onClick={() => setIsOpen(false)}
-                          className={`flex items-center gap-3 px-3 py-3 rounded-xl transition-colors ${
-                            globalIndex === selectedIndex
-                              ? 'bg-primary/10 text-primary'
-                              : 'hover:bg-neutral-100'
-                          }`}
-                        >
-                          <div className={`p-2 rounded-lg ${categoryColors[category] || 'bg-neutral-100'}`}>
-                            <Icon className="h-4 w-4" />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <p className={`font-medium text-sm ${globalIndex === selectedIndex ? 'text-primary' : 'text-neutral-900'}`}>
-                              {result.title}
-                            </p>
-                            <p className="text-xs text-neutral-500 truncate">
-                              {result.description}
-                            </p>
-                          </div>
-                          <ChevronRight className={`h-4 w-4 flex-shrink-0 ${globalIndex === selectedIndex ? 'text-primary' : 'text-neutral-300'}`} />
-                        </a>
-                      );
-                    })}
-                  </div>
+            {/* Results */}
+            <div className="overflow-y-auto flex-1 p-2">
+              {query.trim() === '' ? (
+                <div className="p-4 text-center text-neutral-500">
+                  <p className="text-sm">Start typing to search...</p>
+                  <p className="text-xs mt-2 text-neutral-400">
+                    Try: "emergency", "banks", "London", "prevention"
+                  </p>
                 </div>
-              ))}
+              ) : results.length === 0 ? (
+                <div className="p-8 text-center">
+                  <div className="inline-flex items-center justify-center w-12 h-12 bg-neutral-100 rounded-full mb-3">
+                    <Search className="h-5 w-5 text-neutral-400" />
+                  </div>
+                  <p className="text-neutral-600 font-medium">No results found</p>
+                  <p className="text-sm text-neutral-400 mt-1">
+                    Try different keywords or check spelling
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {Object.entries(groupedResults).map(([category, items]) => (
+                    <div key={category}>
+                      <h3 className="px-3 py-2 text-xs font-semibold text-neutral-400 uppercase tracking-wide">
+                        {category}
+                      </h3>
+                      <div className="space-y-1">
+                        {items.map((result) => {
+                          const globalIndex = results.indexOf(result);
+                          const Icon = result.icon;
+                          return (
+                            <a
+                              key={result.href}
+                              href={result.href}
+                              onClick={() => setIsOpen(false)}
+                              className={`flex items-center gap-3 px-3 py-3 rounded-xl transition-colors ${
+                                globalIndex === selectedIndex
+                                  ? 'bg-primary/10 text-primary'
+                                  : 'hover:bg-neutral-100'
+                              }`}
+                            >
+                              <div className={`p-2 rounded-lg ${categoryColors[category] || 'bg-neutral-100'}`}>
+                                <Icon className="h-4 w-4" />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <p className={`font-medium text-sm ${globalIndex === selectedIndex ? 'text-primary' : 'text-neutral-900'}`}>
+                                  {result.title}
+                                </p>
+                                <p className="text-xs text-neutral-500 truncate">
+                                  {result.description}
+                                </p>
+                              </div>
+                              <ChevronRight className={`h-4 w-4 flex-shrink-0 ${globalIndex === selectedIndex ? 'text-primary' : 'text-neutral-300'}`} />
+                            </a>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
-          )}
-        </div>
 
-        {/* Footer */}
-        <div className="flex items-center justify-between px-4 py-3 border-t border-neutral-200 bg-neutral-50 text-xs text-neutral-400">
-          <div className="flex items-center gap-4">
-            <span className="flex items-center gap-1">
-              <kbd className="px-1.5 py-0.5 bg-white rounded border border-neutral-200 font-sans">↑</kbd>
-              <kbd className="px-1.5 py-0.5 bg-white rounded border border-neutral-200 font-sans">↓</kbd>
-              <span className="ml-1">to navigate</span>
-            </span>
-            <span className="flex items-center gap-1">
-              <kbd className="px-1.5 py-0.5 bg-white rounded border border-neutral-200 font-sans">↵</kbd>
-              <span className="ml-1">to select</span>
-            </span>
+            {/* Footer */}
+            <div className="flex items-center justify-between px-4 py-3 border-t border-neutral-200 bg-neutral-50 text-xs text-neutral-400">
+              <div className="flex items-center gap-4">
+                <span className="flex items-center gap-1">
+                  <kbd className="px-1.5 py-0.5 bg-white rounded border border-neutral-200 font-sans">↑</kbd>
+                  <kbd className="px-1.5 py-0.5 bg-white rounded border border-neutral-200 font-sans">↓</kbd>
+                  <span className="ml-1">to navigate</span>
+                </span>
+                <span className="flex items-center gap-1">
+                  <kbd className="px-1.5 py-0.5 bg-white rounded border border-neutral-200 font-sans">↵</kbd>
+                  <span className="ml-1">to select</span>
+                </span>
+              </div>
+              <span>{results.length} results</span>
+            </div>
           </div>
-          <span>{results.length} results</span>
-        </div>
-      </div>
+        </>
+      )}
     </>
   );
 }

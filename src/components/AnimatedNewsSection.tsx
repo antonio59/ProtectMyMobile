@@ -201,17 +201,17 @@ function EmptyState() {
         <Newspaper className="h-10 w-10 text-blue-500" />
       </div>
       <h3 className="text-2xl font-bold text-neutral-900 mb-3">
-        News Coming Soon
+        Latest News
       </h3>
       <p className="text-neutral-500 mb-8 max-w-md mx-auto">
-        We're preparing the latest updates on UK mobile theft trends,
-        arrests, and policy changes. Stay tuned.
+        Visit our news page for the latest updates on UK mobile theft trends,
+        arrests, and policy changes.
       </p>
       <a
         href="/news"
         className="inline-flex items-center gap-2 px-6 py-3 bg-neutral-900 text-white rounded-xl font-semibold hover:bg-neutral-800 transition-colors"
       >
-        Check back soon <ArrowRight className="h-4 w-4" />
+        View all news <ArrowRight className="h-4 w-4" />
       </a>
     </div>
   );
