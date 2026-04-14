@@ -100,10 +100,17 @@ const HIGHLY_RELEVANT_KEYWORDS = [
   "smartphone theft",
   "phone stolen",
   "mobile stolen",
+  "stolen phones",
+  "stolen mobile",
+  "stolen smartphone",
   "iphone theft",
   "iphone stolen",
   "phone snatched",
   "mobile snatched",
+  "phones seized",
+  "mobile seized",
+  "phone raid",
+  "phones recovered",
   "pick-pocket",
   "pickpocket",
   "moped gang",
@@ -124,6 +131,13 @@ const RELEVANT_KEYWORDS = [
   "snatched",
   "grab",
   "grabbed",
+  "seized",
+  "seize",
+  "recovered",
+  "recovery",
+  "raid",
+  "arrested",
+  "arrest",
   "e-bike",
   "theft",
   "stolen",
@@ -251,23 +265,27 @@ function calculateRelevanceScore(
   const locationScore = locationMatches > 0 ? 15 : 0;
   score += locationScore;
 
-  // Bonus for phone-specific crime terms in title (10 points)
+  // Bonus for phone-specific crime terms in title (15 points)
   const titleLower = title.toLowerCase();
   if (
     (titleLower.includes("phone") || titleLower.includes("mobile")) &&
     (titleLower.includes("theft") ||
       titleLower.includes("stolen") ||
       titleLower.includes("snatch") ||
-      titleLower.includes("rob"))
+      titleLower.includes("rob") ||
+      titleLower.includes("seized") ||
+      titleLower.includes("recovered") ||
+      titleLower.includes("raid") ||
+      titleLower.includes("arrested"))
   ) {
-    score += 10;
+    score += 15;
     reasons.push("Phone crime in title");
   }
 
   // Cap score at 100
   score = Math.min(score, 100);
 
-  const shouldImport = score >= 60;
+  const shouldImport = score >= 45;
   const reason = reasons.length > 0 ? reasons.join(", ") : "Low relevance";
 
   return { score, shouldImport, reason };
