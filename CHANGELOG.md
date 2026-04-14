@@ -1126,10 +1126,12 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
+- Update changelog [skip ci]
 - Add UI/UX review documentation and misc updates
 
 ### Features
 
+- Redesign statistics dashboard with multi-chart visualizations and backfill 2024 police.uk data
 - Seo schema, news scraping, and ux improvements
 - Add breadcrumbs and theft trends chart to all pages
 - Add site search, theft trends chart, skeleton UI, and UX improvements
