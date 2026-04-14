@@ -3,33 +3,50 @@ import { checkRateLimit, getClientIp } from './lib/security';
 
 const ADMIN_PASSWORD = import.meta.env.ADMIN_PASSWORD || process.env.ADMIN_PASSWORD;
 
-// Generate a cryptographically secure session token
-function generateSessionToken(): string {
-  const array = new Uint8Array(32);
-  crypto.getRandomValues(array);
-  return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
+// JWT implementation using Web Crypto API (stateless, works on serverless)
+async function importKey(secret: string) {
+  return crypto.subtle.importKey(
+    'raw',
+    new TextEncoder().encode(secret),
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign', 'verify']
+  );
 }
 
-// In-memory session store (valid tokens with expiry)
-// In production, consider using Redis or a database for session storage
-const sessionStore = new Map<string, { expiresAt: number }>();
+async function signJWT(payload: object, secret: string): Promise<string> {
+  const key = await importKey(secret);
+  const header = btoa(JSON.stringify({ alg: 'HS256', typ: 'JWT' }));
+  const body = btoa(JSON.stringify(payload));
+  const signature = await crypto.subtle.sign(
+    'HMAC',
+    key,
+    new TextEncoder().encode(`${header}.${body}`)
+  );
+  const sigBase64 = btoa(String.fromCharCode(...new Uint8Array(signature)));
+  return `${header}.${body}.${sigBase64}`;
+}
 
-// Clean up expired sessions periodically
-function cleanupExpiredSessions() {
-  const now = Date.now();
-  for (const [token, session] of sessionStore.entries()) {
-    if (session.expiresAt < now) {
-      sessionStore.delete(token);
-    }
+async function verifyJWT(token: string, secret: string): Promise<any | null> {
+  const [header, body, sig] = token.split('.');
+  if (!header || !body || !sig) return null;
+  try {
+    const key = await importKey(secret);
+    const valid = await crypto.subtle.verify(
+      'HMAC',
+      key,
+      Uint8Array.from(atob(sig.replace(/-/g, '+').replace(/_/g, '/')), (c) => c.charCodeAt(0)),
+      new TextEncoder().encode(`${header}.${body}`)
+    );
+    if (!valid) return null;
+    return JSON.parse(atob(body));
+  } catch {
+    return null;
   }
 }
 
-// Run cleanup every 10 minutes
-setInterval(cleanupExpiredSessions, 10 * 60 * 1000);
-
-// Export function to invalidate a session (used by logout)
-export function invalidateSession(token: string): void {
-  sessionStore.delete(token);
+export function invalidateSession(_token: string): void {
+  // No-op: JWTs are stateless; logout clears the client cookie
 }
 
 export const onRequest = defineMiddleware(async (context, next) => {
@@ -40,15 +57,13 @@ export const onRequest = defineMiddleware(async (context, next) => {
     return next();
   }
 
-  // Check for valid session token in cookie
+  // Check for valid JWT in cookie
   const authCookie = context.cookies.get('admin_auth');
-  if (authCookie?.value) {
-    const session = sessionStore.get(authCookie.value);
-    if (session && session.expiresAt > Date.now()) {
+  if (authCookie?.value && ADMIN_PASSWORD) {
+    const payload = await verifyJWT(authCookie.value, ADMIN_PASSWORD);
+    if (payload && payload.exp > Date.now()) {
       return next();
     }
-    // Invalid or expired session - clear the cookie
-    sessionStore.delete(authCookie.value);
   }
 
   // Check for login form submission
@@ -60,30 +75,26 @@ export const onRequest = defineMiddleware(async (context, next) => {
     const password = formData.get('password');
 
     if (password === ADMIN_PASSWORD) {
-      // Generate secure session token
-      const sessionToken = generateSessionToken();
-      const expiresAt = Date.now() + (24 * 60 * 60 * 1000); // 24 hours
+      const token = await signJWT(
+        { exp: Date.now() + 24 * 60 * 60 * 1000 },
+        ADMIN_PASSWORD
+      );
 
-      // Store session
-      sessionStore.set(sessionToken, { expiresAt });
-
-      // Set auth cookie with secure token (expires in 24 hours)
-      context.cookies.set('admin_auth', sessionToken, {
+      context.cookies.set('admin_auth', token, {
         path: '/admin',
-        maxAge: 60 * 60 * 24, // 24 hours
+        maxAge: 60 * 60 * 24,
         httpOnly: true,
         secure: import.meta.env.PROD,
         sameSite: 'strict',
       });
 
-      // Redirect to requested page
       return context.redirect(pathname);
     }
   }
 
   // Show login page
   const isWrongPassword = context.request.method === 'POST';
-  
+
   return new Response(generateLoginPage(isWrongPassword), {
     status: 401,
     headers: {

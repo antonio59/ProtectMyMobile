@@ -131,24 +131,15 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 </AdminLayout>
 
 <script>
-  const CONVEX_URL = import.meta.env.PUBLIC_CONVEX_URL || '';
-
-  async function convexQuery(path: string, args: any = {}) {
-    const res = await fetch(`${CONVEX_URL}/api/query`, {
+  async function adminConvex(method: 'query' | 'mutation', path: string, args: any = {}) {
+    const res = await fetch('/api/admin/convex', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ path, args }),
+      body: JSON.stringify({ method, path, args }),
     });
-    return (await res.json()).value;
-  }
-
-  async function convexMutation(path: string, args: any = {}) {
-    const res = await fetch(`${CONVEX_URL}/api/mutation`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ path, args }),
-    });
-    return (await res.json()).value;
+    const json = await res.json();
+    if (!res.ok) throw new Error(json.error || 'Request failed');
+    return json.value;
   }
 
   let parsedData: any[] = [];
@@ -156,8 +147,8 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
   async function loadStats() {
     try {
       const [dataStats, wdtkStats] = await Promise.all([
-        convexQuery('theftDataPoints:getStats'),
-        convexQuery('wdtkEntries:getStats'),
+        adminConvex('query', 'theftDataPoints:getStats'),
+        adminConvex('query', 'wdtkEntries:getStats'),
       ]);
 
       document.getElementById('stat-total-records')!.textContent = dataStats?.totalRecords?.toLocaleString() || '0';
@@ -173,7 +164,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
   async function loadWdtkEntries() {
     const tbody = document.getElementById('wdtk-table')!;
     try {
-      const entries = await convexQuery('wdtkEntries:list', { hasData: true }) || [];
+      const entries = await adminConvex('query', 'wdtkEntries:list', { hasData: true }) || [];
 
       if (entries.length === 0) {
         tbody.innerHTML = '<tr><td colspan="5" class="text-center py-6 sm:py-8 text-neutral-500 text-xs sm:text-sm">No WDTK entries with data found. Click "Scan WhatDoTheyKnow" to fetch.</td></tr>';
@@ -289,7 +280,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
         dataSource: sourceName,
       }));
 
-      await convexMutation('theftDataPoints:createBatch', { dataPoints });
+      await adminConvex('mutation', 'theftDataPoints:createBatch', { dataPoints });
 
       alert(`Successfully imported ${dataPoints.length} records!`);
       parsedData = [];

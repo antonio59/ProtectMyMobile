@@ -169,8 +169,6 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 </AdminLayout>
 
 <script>
-  const CONVEX_URL = import.meta.env.PUBLIC_CONVEX_URL || '';
-
   interface FOIRequest {
     _id: string;
     referenceNumber: string;
@@ -187,29 +185,20 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 
   let allRequests: FOIRequest[] = [];
 
-  async function convexQuery(functionPath: string, args: any = {}) {
-    const response = await fetch(`${CONVEX_URL}/api/query`, {
+  async function adminConvex(method: 'query' | 'mutation', path: string, args: any = {}) {
+    const res = await fetch('/api/admin/convex', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ path: functionPath, args }),
+      body: JSON.stringify({ method, path, args }),
     });
-    const data = await response.json();
-    return data.value;
-  }
-
-  async function convexMutation(functionPath: string, args: any = {}) {
-    const response = await fetch(`${CONVEX_URL}/api/mutation`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ path: functionPath, args }),
-    });
-    const data = await response.json();
-    return data.value;
+    const json = await res.json();
+    if (!res.ok) throw new Error(json.error || 'Request failed');
+    return json.value;
   }
 
   async function loadStats() {
     try {
-      const stats = await convexQuery('foiRequests:getStats');
+      const stats = await adminConvex('query', 'foiRequests:getStats');
       if (stats) {
         document.getElementById('stat-total')!.textContent = stats.total;
         document.getElementById('stat-sent')!.textContent = stats.sent;
@@ -233,7 +222,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
       const args: any = {};
       if (statusFilter) args.status = statusFilter;
 
-      allRequests = await convexQuery('foiRequests:list', args) || [];
+      allRequests = await adminConvex('query', 'foiRequests:list', args) || [];
 
       if (allRequests.length === 0) {
         tbody.innerHTML = '<tr><td colspan="6" class="text-center py-6 sm:py-8 text-neutral-500 text-xs sm:text-sm">No FOI requests found. Send quarterly requests or seed police forces first.</td></tr>';
@@ -354,7 +343,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
           // Import records to theftDataPoints
           const request = allRequests.find(r => r._id === id);
           for (const record of records) {
-            await convexMutation('theftDataPoints:create', {
+            await adminConvex('mutation', 'theftDataPoints:create', {
               date: record.date,
               locationName: record.location_name,
               latitude: parseFloat(record.latitude),
@@ -369,7 +358,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
         }
       }
 
-      await convexMutation('foiRequests:update', updateArgs);
+      await adminConvex('mutation', 'foiRequests:update', updateArgs);
 
       closeUpdateModal();
       await loadRequests();
@@ -408,7 +397,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 
   async function seedPoliceForces() {
     try {
-      const result = await convexMutation('policeForces:seedUKForces');
+      const result = await adminConvex('mutation', 'policeForces:seedUKForces');
       alert(result.message + ` (${result.count} forces)`);
     } catch (err) {
       console.error('Seed failed:', err);

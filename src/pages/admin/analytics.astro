@@ -176,16 +176,17 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 </AdminLayout>
 
 <script>
-  const CONVEX_URL = import.meta.env.PUBLIC_CONVEX_URL || '';
   let currentDays = 7;
 
-  async function convexQuery(path: string, args: Record<string, unknown> = {}) {
-    const res = await fetch(`${CONVEX_URL}/api/query`, {
+  async function adminConvex(method: 'query' | 'mutation', path: string, args: Record<string, unknown> = {}) {
+    const res = await fetch('/api/admin/convex', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ path, args }),
+      body: JSON.stringify({ method, path, args }),
     });
-    return (await res.json()).value;
+    const json = await res.json();
+    if (!res.ok) throw new Error(json.error || 'Request failed');
+    return json.value;
   }
 
   function escapeHtml(str: string): string {
@@ -218,8 +219,8 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
   async function loadAnalytics() {
     try {
       const [summary, recentEvents] = await Promise.all([
-        convexQuery('analytics:getSummary', { days: currentDays }),
-        convexQuery('analytics:getRecentEvents', { limit: 20 }),
+        adminConvex('query', 'analytics:getSummary', { days: currentDays }),
+        adminConvex('query', 'analytics:getRecentEvents', { limit: 20 }),
       ]);
 
       // Update key metrics

@@ -1,0 +1,337 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+---
+
+<AdminLayout
+  title="Contact Submissions | ProtectMyMobile Admin"
+  description="View and respond to contact form submissions."
+  currentPage="contact-submissions"
+>
+  <div class="p-3 sm:p-4 lg:p-8">
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 mb-6 sm:mb-8">
+      <div>
+        <h1 class="text-xl sm:text-2xl font-bold text-neutral-900">Contact Submissions</h1>
+        <p class="text-neutral-600 text-xs sm:text-sm mt-1">View and respond to messages from visitors.</p>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6">
+      <div class="bg-white rounded-xl p-3 sm:p-4 shadow-sm border border-neutral-200">
+        <div class="text-xl sm:text-2xl font-bold text-neutral-900" id="stat-total">-</div>
+        <div class="text-xs text-neutral-500">Total Submissions</div>
+      </div>
+      <div class="bg-white rounded-xl p-3 sm:p-4 shadow-sm border border-neutral-200">
+        <div class="text-xl sm:text-2xl font-bold text-yellow-600" id="stat-pending">-</div>
+        <div class="text-xs text-neutral-500">Pending Response</div>
+      </div>
+      <div class="bg-white rounded-xl p-3 sm:p-4 shadow-sm border border-neutral-200">
+        <div class="text-xl sm:text-2xl font-bold text-green-600" id="stat-responded">-</div>
+        <div class="text-xs text-neutral-500">Responded</div>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-3 sm:p-4 mb-6">
+      <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
+        <div class="flex-1">
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Search by name, email, or subject..."
+            class="w-full px-3 sm:px-4 py-2 border border-neutral-300 rounded-lg text-xs sm:text-sm focus:ring-2 focus:ring-primary focus:border-primary"
+          />
+        </div>
+        <select id="status-filter" class="px-3 sm:px-4 py-2 border border-neutral-300 rounded-lg text-xs sm:text-sm bg-white">
+          <option value="all">All</option>
+          <option value="pending">Pending</option>
+          <option value="responded">Responded</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <div class="bg-white rounded-xl shadow-sm border border-neutral-200 overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead class="bg-neutral-50 border-b border-neutral-200">
+            <tr>
+              <th class="text-left px-2 sm:px-4 py-2 sm:py-3 text-xs font-semibold text-neutral-600 uppercase tracking-wider">Sender</th>
+              <th class="text-left px-2 sm:px-4 py-2 sm:py-3 text-xs font-semibold text-neutral-600 uppercase tracking-wider">Subject</th>
+              <th class="text-left px-2 sm:px-4 py-2 sm:py-3 text-xs font-semibold text-neutral-600 uppercase tracking-wider hidden md:table-cell">Date</th>
+              <th class="text-left px-2 sm:px-4 py-2 sm:py-3 text-xs font-semibold text-neutral-600 uppercase tracking-wider">Status</th>
+              <th class="text-right px-2 sm:px-4 py-2 sm:py-3 text-xs font-semibold text-neutral-600 uppercase tracking-wider">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="submissions-table">
+            <tr>
+              <td colspan="5" class="text-center py-12 text-neutral-500">
+                <svg class="w-8 h-8 mx-auto mb-2 animate-spin text-primary" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Loading submissions...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- View Modal -->
+  <div id="view-modal" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+      <div class="p-6 border-b border-neutral-200 flex items-center justify-between">
+        <h2 class="text-xl font-bold text-neutral-900">Message Details</h2>
+        <button id="close-modal" class="p-2 hover:bg-neutral-100 rounded-lg transition-colors">
+          <svg class="w-5 h-5 text-neutral-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      <div class="p-6 space-y-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-medium text-neutral-500 uppercase">From</label>
+            <p class="text-sm font-medium text-neutral-900" id="view-name"></p>
+            <p class="text-sm text-neutral-600" id="view-email"></p>
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-neutral-500 uppercase">Date</label>
+            <p class="text-sm text-neutral-900" id="view-date"></p>
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-neutral-500 uppercase">Subject</label>
+          <p class="text-sm font-medium text-neutral-900" id="view-subject"></p>
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-neutral-500 uppercase">Message</label>
+          <div class="text-sm text-neutral-700 bg-neutral-50 rounded-lg p-4 whitespace-pre-wrap" id="view-message"></div>
+        </div>
+        <div id="response-section" class="hidden border-t border-neutral-200 pt-4">
+          <label class="block text-xs font-medium text-neutral-500 uppercase">Previous Response</label>
+          <div class="text-sm text-neutral-700 bg-green-50 rounded-lg p-4 whitespace-pre-wrap" id="view-response"></div>
+          <p class="text-xs text-neutral-500 mt-1" id="view-responded-at"></p>
+        </div>
+        <form id="respond-form" class="pt-4 border-t border-neutral-200">
+          <input type="hidden" id="respond-id" />
+          <div>
+            <label class="block text-sm font-medium text-neutral-700 mb-1">Your Response</label>
+            <textarea id="respond-message" rows="4" class="w-full px-4 py-2 border border-neutral-300 rounded-lg text-sm" placeholder="Type your response here..." required></textarea>
+          </div>
+          <div class="flex gap-3 pt-4">
+            <button type="submit" class="flex-1 px-4 py-2.5 bg-primary text-white rounded-lg font-medium text-sm hover:bg-primary/90 transition-colors">
+              Mark as Responded
+            </button>
+            <button type="button" id="cancel-respond" class="px-4 py-2.5 bg-neutral-100 text-neutral-700 rounded-lg font-medium text-sm hover:bg-neutral-200 transition-colors">
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</AdminLayout>
+
+<script>
+  function escapeHtml(str: string | null | undefined): string {
+    if (!str) return '';
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#x27;');
+  }
+
+  interface Submission {
+    _id: string;
+    _creationTime: number;
+    name: string;
+    email: string;
+    subject: string;
+    message: string;
+    responded: boolean;
+    responseMessage?: string;
+    respondedAt?: number;
+  }
+
+  let allSubmissions: Submission[] = [];
+
+  async function adminConvex(method: 'query' | 'mutation', path: string, args: Record<string, unknown> = {}) {
+    const res = await fetch('/api/admin/convex', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ method, path, args }),
+    });
+    const json = await res.json();
+    if (!res.ok) throw new Error(json.error || 'Request failed');
+    return json.value;
+  }
+
+  function formatDate(timestamp: number): string {
+    return new Date(timestamp).toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+  }
+
+  function updateStats() {
+    const total = allSubmissions.length;
+    const pending = allSubmissions.filter((s) => !s.responded).length;
+    const responded = allSubmissions.filter((s) => s.responded).length;
+    document.getElementById('stat-total')!.textContent = total.toString();
+    document.getElementById('stat-pending')!.textContent = pending.toString();
+    document.getElementById('stat-responded')!.textContent = responded.toString();
+  }
+
+  function renderTable() {
+    const search = (document.getElementById('search-input') as HTMLInputElement).value.toLowerCase();
+    const status = (document.getElementById('status-filter') as HTMLSelectElement).value;
+
+    let filtered = allSubmissions;
+    if (search) {
+      filtered = filtered.filter(
+        (s) =>
+          s.name.toLowerCase().includes(search) ||
+          s.email.toLowerCase().includes(search) ||
+          s.subject.toLowerCase().includes(search)
+      );
+    }
+    if (status === 'pending') {
+      filtered = filtered.filter((s) => !s.responded);
+    } else if (status === 'responded') {
+      filtered = filtered.filter((s) => s.responded);
+    }
+
+    const tbody = document.getElementById('submissions-table')!;
+    if (filtered.length === 0) {
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="5" class="text-center py-12 text-neutral-500">
+            <p class="font-medium">No submissions found</p>
+            <p class="text-sm">Try adjusting your filters.</p>
+          </td>
+        </tr>
+      `;
+      return;
+    }
+
+    tbody.innerHTML = filtered
+      .map(
+        (s) => `
+        <tr class="border-b border-neutral-100 hover:bg-neutral-50 transition-colors">
+          <td class="px-2 sm:px-4 py-3 sm:py-4">
+            <p class="text-sm font-medium text-neutral-900">${escapeHtml(s.name)}</p>
+            <p class="text-xs text-neutral-500">${escapeHtml(s.email)}</p>
+          </td>
+          <td class="px-2 sm:px-4 py-3 sm:py-4">
+            <p class="text-sm text-neutral-900 line-clamp-1">${escapeHtml(s.subject)}</p>
+          </td>
+          <td class="px-2 sm:px-4 py-3 sm:py-4 hidden md:table-cell">
+            <span class="text-xs text-neutral-600">${formatDate(s._creationTime)}</span>
+          </td>
+          <td class="px-2 sm:px-4 py-3 sm:py-4">
+            <span class="px-2 py-1 rounded-full text-xs font-medium ${
+              s.responded ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'
+            }">
+              ${s.responded ? 'Responded' : 'Pending'}
+            </span>
+          </td>
+          <td class="px-2 sm:px-4 py-3 sm:py-4 text-right">
+            <button class="view-btn text-xs sm:text-sm text-primary hover:underline font-medium" data-id="${escapeHtml(
+              s._id
+            )}">View</button>
+          </td>
+        </tr>
+      `
+      )
+      .join('');
+
+    document.querySelectorAll('.view-btn').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        const id = (e.currentTarget as HTMLButtonElement).dataset.id!;
+        openModal(id);
+      });
+    });
+  }
+
+  function openModal(id: string) {
+    const s = allSubmissions.find((x) => x._id === id);
+    if (!s) return;
+
+    document.getElementById('view-name')!.textContent = s.name;
+    document.getElementById('view-email')!.textContent = s.email;
+    document.getElementById('view-date')!.textContent = formatDate(s._creationTime);
+    document.getElementById('view-subject')!.textContent = s.subject;
+    document.getElementById('view-message')!.textContent = s.message;
+    (document.getElementById('respond-id') as HTMLInputElement).value = s._id;
+
+    const respSection = document.getElementById('response-section')!;
+    if (s.responded && s.responseMessage) {
+      respSection.classList.remove('hidden');
+      document.getElementById('view-response')!.textContent = s.responseMessage;
+      document.getElementById('view-responded-at')!.textContent = `Responded on ${formatDate(s.respondedAt || s._creationTime)}`;
+      (document.getElementById('respond-message') as HTMLTextAreaElement).value = s.responseMessage;
+    } else {
+      respSection.classList.add('hidden');
+      document.getElementById('view-response')!.textContent = '';
+      document.getElementById('view-responded-at')!.textContent = '';
+      (document.getElementById('respond-message') as HTMLTextAreaElement).value = '';
+    }
+
+    const modal = document.getElementById('view-modal')!;
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  }
+
+  function closeModal() {
+    const modal = document.getElementById('view-modal')!;
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+  }
+
+  document.getElementById('close-modal')?.addEventListener('click', closeModal);
+  document.getElementById('cancel-respond')?.addEventListener('click', closeModal);
+
+  document.getElementById('respond-form')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const id = (document.getElementById('respond-id') as HTMLInputElement).value;
+    const responseMessage = (document.getElementById('respond-message') as HTMLTextAreaElement).value;
+    try {
+      await adminConvex('mutation', 'contactSubmissions:updateResponse', { id, responseMessage });
+      closeModal();
+      await loadSubmissions();
+    } catch (err: any) {
+      alert('Failed to save response: ' + err.message);
+    }
+  });
+
+  document.getElementById('view-modal')?.addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) closeModal();
+  });
+
+  document.getElementById('search-input')?.addEventListener('input', renderTable);
+  document.getElementById('status-filter')?.addEventListener('change', renderTable);
+
+  async function loadSubmissions() {
+    try {
+      allSubmissions = (await adminConvex('query', 'contactSubmissions:list')) || [];
+      updateStats();
+      renderTable();
+    } catch (err) {
+      console.error('Failed to load submissions:', err);
+      document.getElementById('submissions-table')!.innerHTML = `
+        <tr><td colspan="5" class="text-center py-12 text-red-500">Failed to load submissions</td></tr>
+      `;
+    }
+  }
+
+  loadSubmissions();
+</script>

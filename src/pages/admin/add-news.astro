@@ -99,8 +99,6 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 </AdminLayout>
 
 <script>
-  const CONVEX_URL = import.meta.env.PUBLIC_CONVEX_URL || '';
-
   function generateSlug(title: string): string {
     return title
       .toLowerCase()
@@ -109,13 +107,15 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
       .substring(0, 100);
   }
 
-  async function convexMutation(path: string, args: any) {
-    const res = await fetch(`${CONVEX_URL}/api/mutation`, {
+  async function adminConvex(method: 'query' | 'mutation', path: string, args: any = {}) {
+    const res = await fetch('/api/admin/convex', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ path, args }),
+      body: JSON.stringify({ method, path, args }),
     });
-    return (await res.json()).value;
+    const json = await res.json();
+    if (!res.ok) throw new Error(json.error || 'Request failed');
+    return json.value;
   }
 
   document.getElementById('add-news-form')?.addEventListener('submit', async (e) => {
@@ -136,7 +136,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     resultDiv.classList.remove('hidden');
 
     try {
-      await convexMutation('newsPosts:create', {
+      await adminConvex('mutation', 'newsPosts:create', {
         title,
         slug: generateSlug(title),
         excerpt: excerpt.substring(0, 200) + (excerpt.length > 200 ? '...' : ''),

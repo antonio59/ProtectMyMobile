@@ -1,0 +1,407 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+---
+
+<AdminLayout
+  title="Experience Reports | ProtectMyMobile Admin"
+  description="Moderate community experience reports."
+  currentPage="experiences"
+>
+  <div class="p-3 sm:p-4 lg:p-8">
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 mb-6 sm:mb-8">
+      <div>
+        <h1 class="text-xl sm:text-2xl font-bold text-neutral-900">Experience Reports</h1>
+        <p class="text-neutral-600 text-xs sm:text-sm mt-1">Review and approve community-submitted theft experiences.</p>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6">
+      <div class="bg-white rounded-xl p-3 sm:p-4 shadow-sm border border-neutral-200">
+        <div class="text-xl sm:text-2xl font-bold text-neutral-900" id="stat-total">-</div>
+        <div class="text-xs text-neutral-500">Total Reports</div>
+      </div>
+      <div class="bg-white rounded-xl p-3 sm:p-4 shadow-sm border border-neutral-200">
+        <div class="text-xl sm:text-2xl font-bold text-green-600" id="stat-approved">-</div>
+        <div class="text-xs text-neutral-500">Approved</div>
+      </div>
+      <div class="bg-white rounded-xl p-3 sm:p-4 shadow-sm border border-neutral-200">
+        <div class="text-xl sm:text-2xl font-bold text-yellow-600" id="stat-pending">-</div>
+        <div class="text-xs text-neutral-500">Pending</div>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-3 sm:p-4 mb-6">
+      <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
+        <div class="flex-1">
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Search by name, location, or story..."
+            class="w-full px-3 sm:px-4 py-2 border border-neutral-300 rounded-lg text-xs sm:text-sm focus:ring-2 focus:ring-primary focus:border-primary"
+          />
+        </div>
+        <select id="status-filter" class="px-3 sm:px-4 py-2 border border-neutral-300 rounded-lg text-xs sm:text-sm bg-white">
+          <option value="all">All</option>
+          <option value="pending">Pending</option>
+          <option value="approved">Approved</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <div class="bg-white rounded-xl shadow-sm border border-neutral-200 overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead class="bg-neutral-50 border-b border-neutral-200">
+            <tr>
+              <th class="text-left px-2 sm:px-4 py-2 sm:py-3 text-xs font-semibold text-neutral-600 uppercase tracking-wider">Reporter</th>
+              <th class="text-left px-2 sm:px-4 py-2 sm:py-3 text-xs font-semibold text-neutral-600 uppercase tracking-wider hidden md:table-cell">Location</th>
+              <th class="text-left px-2 sm:px-4 py-2 sm:py-3 text-xs font-semibold text-neutral-600 uppercase tracking-wider">Theft</th>
+              <th class="text-left px-2 sm:px-4 py-2 sm:py-3 text-xs font-semibold text-neutral-600 uppercase tracking-wider hidden sm:table-cell">Date</th>
+              <th class="text-left px-2 sm:px-4 py-2 sm:py-3 text-xs font-semibold text-neutral-600 uppercase tracking-wider">Status</th>
+              <th class="text-right px-2 sm:px-4 py-2 sm:py-3 text-xs font-semibold text-neutral-600 uppercase tracking-wider">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="reports-table">
+            <tr>
+              <td colspan="6" class="text-center py-12 text-neutral-500">
+                <svg class="w-8 h-8 mx-auto mb-2 animate-spin text-primary" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Loading reports...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- View Modal -->
+  <div id="view-modal" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+      <div class="p-6 border-b border-neutral-200 flex items-center justify-between">
+        <h2 class="text-xl font-bold text-neutral-900">Report Details</h2>
+        <button id="close-modal" class="p-2 hover:bg-neutral-100 rounded-lg transition-colors">
+          <svg class="w-5 h-5 text-neutral-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      <div class="p-6 space-y-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-medium text-neutral-500 uppercase">Name</label>
+            <p class="text-sm font-medium text-neutral-900" id="view-name"></p>
+            <p class="text-sm text-neutral-600" id="view-email"></p>
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-neutral-500 uppercase">Submitted</label>
+            <p class="text-sm text-neutral-900" id="view-date"></p>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-medium text-neutral-500 uppercase">Location</label>
+            <p class="text-sm text-neutral-900" id="view-where"></p>
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-neutral-500 uppercase">When</label>
+            <p class="text-sm text-neutral-900" id="view-when"></p>
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-neutral-500 uppercase">What Happened</label>
+          <div class="text-sm text-neutral-700 bg-neutral-50 rounded-lg p-4 whitespace-pre-wrap" id="view-what"></div>
+        </div>
+        <div id="doing-section" class="hidden">
+          <label class="block text-xs font-medium text-neutral-500 uppercase">Doing Differently</label>
+          <div class="text-sm text-neutral-700 bg-neutral-50 rounded-lg p-4 whitespace-pre-wrap" id="view-doing"></div>
+        </div>
+        <div class="flex gap-3 pt-4 border-t border-neutral-200">
+          <button id="approve-btn" class="flex-1 px-4 py-2.5 bg-green-600 text-white rounded-lg font-medium text-sm hover:bg-green-700 transition-colors">
+            Approve
+          </button>
+          <button id="unapprove-btn" class="flex-1 px-4 py-2.5 bg-yellow-600 text-white rounded-lg font-medium text-sm hover:bg-yellow-700 transition-colors">
+            Unapprove
+          </button>
+          <button id="delete-btn" class="px-4 py-2.5 bg-red-600 text-white rounded-lg font-medium text-sm hover:bg-red-700 transition-colors">
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Confirmation Modal -->
+  <div id="delete-modal" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6">
+      <div class="text-center">
+        <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+          </svg>
+        </div>
+        <h3 class="text-lg font-bold text-neutral-900 mb-2">Delete Report</h3>
+        <p class="text-neutral-600 text-sm mb-6">Are you sure? This action cannot be undone.</p>
+        <div class="flex gap-3">
+          <button id="cancel-delete" class="flex-1 px-4 py-2.5 bg-neutral-100 text-neutral-700 rounded-lg font-medium text-sm hover:bg-neutral-200 transition-colors">
+            Cancel
+          </button>
+          <button id="confirm-delete" class="flex-1 px-4 py-2.5 bg-red-600 text-white rounded-lg font-medium text-sm hover:bg-red-700 transition-colors">
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</AdminLayout>
+
+<script>
+  function escapeHtml(str: string | null | undefined): string {
+    if (!str) return '';
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#x27;');
+  }
+
+  interface Report {
+    _id: string;
+    _creationTime: number;
+    name: string;
+    email: string;
+    hasExperiencedTheft: boolean;
+    when: string;
+    where: string;
+    whatHappened: string;
+    doingDifferently?: string;
+    approved: boolean;
+    approvedAt?: number;
+  }
+
+  let allReports: Report[] = [];
+  let currentReportId: string | null = null;
+
+  async function adminConvex(method: 'query' | 'mutation', path: string, args: Record<string, unknown> = {}) {
+    const res = await fetch('/api/admin/convex', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ method, path, args }),
+    });
+    const json = await res.json();
+    if (!res.ok) throw new Error(json.error || 'Request failed');
+    return json.value;
+  }
+
+  function formatDate(timestamp: number): string {
+    return new Date(timestamp).toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
+    });
+  }
+
+  function updateStats() {
+    const total = allReports.length;
+    const approved = allReports.filter((r) => r.approved).length;
+    const pending = allReports.filter((r) => !r.approved).length;
+    document.getElementById('stat-total')!.textContent = total.toString();
+    document.getElementById('stat-approved')!.textContent = approved.toString();
+    document.getElementById('stat-pending')!.textContent = pending.toString();
+  }
+
+  function renderTable() {
+    const search = (document.getElementById('search-input') as HTMLInputElement).value.toLowerCase();
+    const status = (document.getElementById('status-filter') as HTMLSelectElement).value;
+
+    let filtered = allReports;
+    if (search) {
+      filtered = filtered.filter(
+        (r) =>
+          r.name.toLowerCase().includes(search) ||
+          r.where.toLowerCase().includes(search) ||
+          r.whatHappened.toLowerCase().includes(search)
+      );
+    }
+    if (status === 'pending') {
+      filtered = filtered.filter((r) => !r.approved);
+    } else if (status === 'approved') {
+      filtered = filtered.filter((r) => r.approved);
+    }
+
+    const tbody = document.getElementById('reports-table')!;
+    if (filtered.length === 0) {
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="6" class="text-center py-12 text-neutral-500">
+            <p class="font-medium">No reports found</p>
+            <p class="text-sm">Try adjusting your filters.</p>
+          </td>
+        </tr>
+      `;
+      return;
+    }
+
+    tbody.innerHTML = filtered
+      .map(
+        (r) => `
+        <tr class="border-b border-neutral-100 hover:bg-neutral-50 transition-colors">
+          <td class="px-2 sm:px-4 py-3 sm:py-4">
+            <p class="text-sm font-medium text-neutral-900">${escapeHtml(r.name)}</p>
+            <p class="text-xs text-neutral-500">${escapeHtml(r.email)}</p>
+          </td>
+          <td class="px-2 sm:px-4 py-3 sm:py-4 hidden md:table-cell">
+            <p class="text-sm text-neutral-900 line-clamp-1">${escapeHtml(r.where)}</p>
+          </td>
+          <td class="px-2 sm:px-4 py-3 sm:py-4">
+            <span class="px-2 py-1 rounded-full text-xs font-medium ${
+              r.hasExperiencedTheft ? 'bg-red-100 text-red-700' : 'bg-blue-100 text-blue-700'
+            }">
+              ${r.hasExperiencedTheft ? 'Yes' : 'No'}
+            </span>
+          </td>
+          <td class="px-2 sm:px-4 py-3 sm:py-4 hidden sm:table-cell">
+            <span class="text-xs text-neutral-600">${formatDate(r._creationTime)}</span>
+          </td>
+          <td class="px-2 sm:px-4 py-3 sm:py-4">
+            <span class="px-2 py-1 rounded-full text-xs font-medium ${
+              r.approved ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'
+            }">
+              ${r.approved ? 'Approved' : 'Pending'}
+            </span>
+          </td>
+          <td class="px-2 sm:px-4 py-3 sm:py-4 text-right">
+            <button class="view-btn text-xs sm:text-sm text-primary hover:underline font-medium" data-id="${escapeHtml(
+              r._id
+            )}">Review</button>
+          </td>
+        </tr>
+      `
+      )
+      .join('');
+
+    document.querySelectorAll('.view-btn').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        const id = (e.currentTarget as HTMLButtonElement).dataset.id!;
+        openModal(id);
+      });
+    });
+  }
+
+  function openModal(id: string) {
+    const r = allReports.find((x) => x._id === id);
+    if (!r) return;
+    currentReportId = id;
+
+    document.getElementById('view-name')!.textContent = r.name;
+    document.getElementById('view-email')!.textContent = r.email;
+    document.getElementById('view-date')!.textContent = formatDate(r._creationTime);
+    document.getElementById('view-where')!.textContent = r.where;
+    document.getElementById('view-when')!.textContent = r.when;
+    document.getElementById('view-what')!.textContent = r.whatHappened;
+
+    const doingSection = document.getElementById('doing-section')!;
+    if (r.doingDifferently) {
+      doingSection.classList.remove('hidden');
+      document.getElementById('view-doing')!.textContent = r.doingDifferently;
+    } else {
+      doingSection.classList.add('hidden');
+    }
+
+    const modal = document.getElementById('view-modal')!;
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  }
+
+  function closeModal() {
+    const modal = document.getElementById('view-modal')!;
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+    currentReportId = null;
+  }
+
+  document.getElementById('close-modal')?.addEventListener('click', closeModal);
+
+  document.getElementById('approve-btn')?.addEventListener('click', async () => {
+    if (!currentReportId) return;
+    try {
+      await adminConvex('mutation', 'experienceReports:updateApproval', { id: currentReportId, approved: true });
+      closeModal();
+      await loadReports();
+    } catch (err: any) {
+      alert('Failed to approve: ' + err.message);
+    }
+  });
+
+  document.getElementById('unapprove-btn')?.addEventListener('click', async () => {
+    if (!currentReportId) return;
+    try {
+      await adminConvex('mutation', 'experienceReports:updateApproval', { id: currentReportId, approved: false });
+      closeModal();
+      await loadReports();
+    } catch (err: any) {
+      alert('Failed to unapprove: ' + err.message);
+    }
+  });
+
+  document.getElementById('delete-btn')?.addEventListener('click', () => {
+    const modal = document.getElementById('delete-modal')!;
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  });
+
+  document.getElementById('cancel-delete')?.addEventListener('click', () => {
+    const modal = document.getElementById('delete-modal')!;
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+  });
+
+  document.getElementById('confirm-delete')?.addEventListener('click', async () => {
+    if (!currentReportId) return;
+    try {
+      await adminConvex('mutation', 'experienceReports:remove', { id: currentReportId });
+      document.getElementById('delete-modal')!.classList.add('hidden');
+      document.getElementById('delete-modal')!.classList.remove('flex');
+      closeModal();
+      await loadReports();
+    } catch (err: any) {
+      alert('Failed to delete: ' + err.message);
+    }
+  });
+
+  document.getElementById('view-modal')?.addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) closeModal();
+  });
+  document.getElementById('delete-modal')?.addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) {
+      const modal = document.getElementById('delete-modal')!;
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+  });
+
+  document.getElementById('search-input')?.addEventListener('input', renderTable);
+  document.getElementById('status-filter')?.addEventListener('change', renderTable);
+
+  async function loadReports() {
+    try {
+      allReports = (await adminConvex('query', 'experienceReports:list')) || [];
+      updateStats();
+      renderTable();
+    } catch (err) {
+      console.error('Failed to load reports:', err);
+      document.getElementById('reports-table')!.innerHTML = `
+        <tr><td colspan="6" class="text-center py-12 text-red-500">Failed to load reports</td></tr>
+      `;
+    }
+  }
+
+  loadReports();
+</script>

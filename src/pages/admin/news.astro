@@ -213,8 +213,6 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 </AdminLayout>
 
 <script>
-  const CONVEX_URL = import.meta.env.PUBLIC_CONVEX_URL || '';
-
   // HTML escape function to prevent XSS
   function escapeHtml(str: string | null | undefined): string {
     if (!str) return '';
@@ -244,22 +242,15 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 
   let allPosts: NewsPost[] = [];
 
-  async function convexQuery(path: string, args: Record<string, unknown> = {}) {
-    const res = await fetch(`${CONVEX_URL}/api/query`, {
+  async function adminConvex(method: 'query' | 'mutation', path: string, args: Record<string, unknown> = {}) {
+    const res = await fetch('/api/admin/convex', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ path, args }),
+      body: JSON.stringify({ method, path, args }),
     });
-    return (await res.json()).value;
-  }
-
-  async function convexMutation(path: string, args: Record<string, unknown> = {}) {
-    const res = await fetch(`${CONVEX_URL}/api/mutation`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ path, args }),
-    });
-    return (await res.json()).value;
+    const json = await res.json();
+    if (!res.ok) throw new Error(json.error || 'Request failed');
+    return json.value;
   }
 
   function formatDate(timestamp: number): string {
@@ -391,7 +382,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 
   async function loadPosts() {
     try {
-      allPosts = await convexQuery('newsPosts:list', { publishedOnly: false }) || [];
+      allPosts = await adminConvex('query', 'newsPosts:list', { publishedOnly: false }) || [];
       updateStats(allPosts);
       filterPosts();
     } catch (err) {
@@ -415,7 +406,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
         const currentlyPublished = target.dataset.published === 'true';
         
         try {
-          await convexMutation('newsPosts:update', { 
+          await adminConvex('mutation', 'newsPosts:update', { 
             id, 
             published: !currentlyPublished 
           });
@@ -493,7 +484,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     };
 
     try {
-      await convexMutation('newsPosts:update', updates);
+      await adminConvex('mutation', 'newsPosts:update', updates);
       closeEditModal();
       await loadPosts();
     } catch (err) {
@@ -524,7 +515,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     const id = (document.getElementById('delete-id') as HTMLInputElement).value;
     
     try {
-      await convexMutation('newsPosts:remove', { id });
+      await adminConvex('mutation', 'newsPosts:remove', { id });
       closeDeleteModal();
       await loadPosts();
     } catch (err) {
