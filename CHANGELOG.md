@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 
 ### Bug Fixes
 
+- Resolve infinite loop in getMonthlyTrends caused by year-only parsing
 - Lower news relevance threshold and expand keywords
 - Replace regex html parsing with node-html-parser in news scraper
 - Pin node-forge 1.4.0 and smol-toml 1.6.1 to resolve high severity vulnerabilities
@@ -1115,6 +1116,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
