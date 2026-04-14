@@ -75,6 +75,9 @@ export const onRequest = defineMiddleware(async (context, next) => {
     const password = formData.get('password');
 
     if (password === ADMIN_PASSWORD) {
+      // Clear any stale legacy cookie before setting the new one
+      context.cookies.delete('admin_auth', { path: '/admin' });
+
       const token = await signJWT(
         { exp: Date.now() + 24 * 60 * 60 * 1000 },
         ADMIN_PASSWORD

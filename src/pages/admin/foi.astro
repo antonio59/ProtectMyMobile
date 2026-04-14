@@ -409,7 +409,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     if (!confirm('This will send FOI requests to all active police forces. Continue?')) return;
 
     try {
-      const response = await fetch('/api/cron/send-foi-requests');
+      const response = await fetch('/api/admin/proxy?path=/api/cron/send-foi-requests');
       const data = await response.json();
 
       if (data.success) {

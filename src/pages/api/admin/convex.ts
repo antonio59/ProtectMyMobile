@@ -1,11 +1,10 @@
 import type { APIRoute } from 'astro';
-import { ConvexHttpClient } from 'convex/browser';
 
 const convexUrl = import.meta.env.PUBLIC_CONVEX_URL;
 const cronSecret = import.meta.env.CRON_SECRET || process.env.CRON_SECRET;
 
 export const POST: APIRoute = async ({ request, cookies }) => {
-  // Validate admin session cookie (middleware already protects this route, but double-check)
+  // Validate admin session cookie
   const authCookie = cookies.get('admin_auth');
   if (!authCookie?.value) {
     return new Response(JSON.stringify({ error: 'Unauthorized' }), {
@@ -40,18 +39,19 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     });
   }
 
-  const client = new ConvexHttpClient(convexUrl);
+  const endpoint = method === 'query' ? '/api/query' : '/api/mutation';
   const argsWithToken = { ...args, adminToken: cronSecret };
 
   try {
-    let value: unknown;
-    if (method === 'query') {
-      value = await client.query(path as any, argsWithToken as any);
-    } else {
-      value = await client.mutation(path as any, argsWithToken as any);
-    }
-    return new Response(JSON.stringify({ value }), {
-      status: 200,
+    const convexRes = await fetch(`${convexUrl}${endpoint}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ path, args: argsWithToken }),
+    });
+
+    const convexJson = await convexRes.json();
+    return new Response(JSON.stringify(convexJson), {
+      status: convexRes.status,
       headers: { 'Content-Type': 'application/json' },
     });
   } catch (error: any) {

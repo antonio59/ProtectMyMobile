@@ -297,7 +297,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     if (!confirm('This will seed the database with verified UK theft statistics. Continue?')) return;
 
     try {
-      const response = await fetch('/api/admin/seed-theft-data');
+      const response = await fetch('/api/admin/proxy?path=/api/admin/seed-theft-data');
       const data = await response.json();
 
       if (data.success) {
@@ -314,7 +314,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 
   async function scanWdtk() {
     try {
-      const response = await fetch('/api/cron/monitor-wdtk');
+      const response = await fetch('/api/admin/proxy?path=/api/cron/monitor-wdtk');
       const data = await response.json();
 
       if (data.success) {
@@ -334,7 +334,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     if (!confirm('This will scrape multiple pages of WDTK for FOI requests. This may take a minute. Continue?')) return;
 
     try {
-      const response = await fetch('/api/admin/scrape-wdtk?pages=10');
+      const response = await fetch('/api/admin/proxy?path=/api/admin/scrape-wdtk&pages=10');
       const data = await response.json();
 
       if (data.success) {
@@ -374,7 +374,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     btn.disabled = true;
 
     try {
-      const response = await fetch(`/api/admin/fetch-police-uk?startMonth=${startMonth}&endMonth=${endMonth}`);
+      const response = await fetch(`/api/admin/proxy?path=/api/admin/fetch-police-uk&startMonth=${startMonth}&endMonth=${endMonth}`);
       const data = await response.json();
 
       if (data.success) {
@@ -424,7 +424,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     if (!email) return;
 
     try {
-      const response = await fetch(`/api/admin/test-email?email=${encodeURIComponent(email)}`);
+      const response = await fetch(`/api/admin/proxy?path=/api/admin/test-email&email=${encodeURIComponent(email)}`);
       const data = await response.json();
 
       if (data.success) {
