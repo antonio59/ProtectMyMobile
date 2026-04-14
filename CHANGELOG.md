@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 
 ### Bug Fixes
 
+- **admin**: Repair proxy and route all internal API calls through it
 - **admin**: Send admin_auth cookie to /api/admin/convex proxy
 - **admin**: JWT sessions, authenticated proxy, new moderation pages
 - Replace useConvex with ConvexHttpClient and add mobile-web-app-capable meta
@@ -1119,6 +1120,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
