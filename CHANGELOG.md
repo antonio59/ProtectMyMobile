@@ -54,6 +54,28 @@ All notable changes to this project will be documented in this file.
 ### Changes
 
 - Merge branch 'main' of https://github.com/antonio59/ProtectMyMobile
+- Remove framer-motion to eliminate 122KB shared bundle chunk
+
+High-impact bundle optimizations for emergency-site performance:
+
+- Refactor HeaderMobile + SiteSearch to use CSS transitions instead of
+  framer-motion (removes library from critical path of every page)
+- Refactor AnimatedStats, AnimatedNewsSection, AnimatedResources to use
+  a lightweight IntersectionObserver hook + CSS keyframe animations
+- Add src/hooks/useInView.ts (~400 bytes) as drop-in replacement
+- Delete unused PageTransition.tsx and AnimatedHero.tsx
+- Remove framer-motion from package dependencies entirely
+- Change TheftTrendsChart hydration from client:only/client:load to
+  client:visible so Chart.js loads only when scrolled into view
+
+Results:
+- Eliminates 122KB raw / ~40KB gzipped shared proxy chunk entirely
+- Most pages (emergency, banks, prevention, etc.) no longer load any
+  animation library code on initial render
+- 397 fewer modules in build (2267 → 1870)
+- Build time ~1s faster
+- npm run check: 0 errors, 0 warnings
+- Merge branch 'main' of https://github.com/antonio59/ProtectMyMobile
 - Standardize on npm and clean up repository artifacts
 
 - Remove stale duplicate directories (ProtectMyMobile/, netlify/netlify/)
@@ -1088,6 +1110,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
