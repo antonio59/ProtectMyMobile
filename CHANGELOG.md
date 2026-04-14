@@ -39,6 +39,7 @@ All notable changes to this project will be documented in this file.
 
 ### CI/CD
 
+- Bump actions/upload-artifact from 6 to 7 (#40)
 - Bump actions/checkout from 4 to 6 (#39)
 - Add automatic changelog workflow
 - Add automatic changelog workflow
@@ -52,6 +53,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Bump resend from 6.9.4 to 6.10.0 (#42)
 - Merge pull request #33 from antonio59/dependabot/npm_and_yarn/lucide-react-0.577.0
 
 deps: bump lucide-react from 0.562.0 to 0.577.0
@@ -1046,6 +1048,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Chores
 
+- Fix npm vulnerabilities [skip ci]
 - Add git-cliff config for changelog generation
 - Add git-cliff config for changelog generation
 - Add git-cliff config for changelog generation
@@ -1056,6 +1059,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
