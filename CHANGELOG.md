@@ -53,6 +53,17 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Merge branch 'main' of https://github.com/antonio59/ProtectMyMobile
+- Standardize on npm and clean up repository artifacts
+
+- Remove stale duplicate directories (ProtectMyMobile/, netlify/netlify/)
+- Add .claude/worktrees/ and stray duplicates to .gitignore
+- Replace Bun references with npm across all AGENTS.md files
+- Update package.json scripts: bunx -> npx, bun run -> npx tsx for TS scripts
+- Install tsx as devDependency for TypeScript script execution with npm
+- Update README, TESTING_GUIDE, and IMPLEMENTATION_SUMMARY for npm
+- Fix shebangs in health-check.ts and test-news-fetch.ts
+- npm run check now passes cleanly (0 errors, 0 warnings)
 - Fix vite security vulnerabilities via npm audit fix
 
 - Vite Path Traversal in Optimized Deps .map Handling (GHSA-4w7w-66w2-5vf9)
@@ -1077,6 +1088,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
