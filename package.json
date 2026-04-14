@@ -9,12 +9,12 @@
     "preview": "astro preview",
     "astro": "astro",
     "check": "astro check",
-    "convex": "bunx convex",
-    "convex:dev": "bunx convex dev",
-    "convex:deploy": "bunx convex deploy",
-    "convex:deploy:prod": "bunx convex deploy",
-    "news:fetch": "bun run scripts/test-news-fetch.ts",
-    "health:check": "bun run scripts/health-check.ts"
+    "convex": "npx convex",
+    "convex:dev": "npx convex dev",
+    "convex:deploy": "npx convex deploy",
+    "convex:deploy:prod": "npx convex deploy",
+    "news:fetch": "npx tsx scripts/test-news-fetch.ts",
+    "health:check": "npx tsx scripts/health-check.ts"
   },
   "dependencies": {
     "@astrojs/netlify": "^6.6.2",
@@ -67,6 +67,7 @@
     "@types/sanitize-html": "^2.11.0",
     "postcss": "^8.5.9",
     "tailwindcss": "^4.1.17",
+    "tsx": "^4.21.0",
     "typescript": "^5.7.2"
   },
   "trustedDependencies": [

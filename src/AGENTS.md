@@ -4,9 +4,9 @@
 - Astro + React UI for the marketing/security site. Tailwind utility classes. Uses `@/` alias.
 
 ## Setup & Run
-- Dev: `bun run dev`
-- Typecheck: `bun run check`
-- Build: `bun run build`
+- Dev: `npm run dev`
+- Typecheck: `npm run check`
+- Build: `npm run build`
 - No dedicated test script.
 
 ## Patterns & Conventions
@@ -43,4 +43,4 @@
 - Use `@/` paths; ensure tsconfig path resolution.
 
 ## Pre-PR Checks
-- `bun run check && bun run build`
+- `npm run check && npm run build`

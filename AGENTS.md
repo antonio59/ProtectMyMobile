@@ -2,20 +2,20 @@
 
 ## Project Snapshot
 - Single Astro + React + TypeScript site with Convex backend and Netlify scheduled functions.
-- Package manager: Bun. Builds deploy to Netlify; Convex functions in `convex/`.
+- Package manager: npm. Builds deploy to Netlify; Convex functions in `convex/`.
 - Subdirectories have their own AGENTS.md (see JIT Index).
 
 ## Root Setup Commands
-- Install deps: `bun install`
-- Typecheck: `bun run check`
-- Build: `bun run build`
+- Install deps: `npm install`
+- Typecheck: `npm run check`
+- Build: `npm run build`
 - Convert OG image (optional): `node scripts/convert-og-image.mjs`
 
 ## Universal Conventions
 - TypeScript strict via Astro; use `@/` imports per `tsconfig.json`.
 - Prefer functional React components; follow existing Tailwind utility styling.
 - Commits: keep concise, imperative; include Co-authored-by when appropriate.
-- PRs: ensure `bun run check` and `bun run build` pass.
+- PRs: ensure `npm run check` and `npm run build` pass.
 
 ## Security & Secrets
 - Never commit secrets. Use `.env` / Netlify env vars / Convex env. Do not log secrets.
@@ -37,6 +37,6 @@
 - Find Netlify scheduled functions: `ls netlify/functions`
 
 ## Definition of Done
-- `bun run check` and `bun run build` succeed.
+- `npm run check` and `npm run build` succeed.
 - Secrets not exposed; admin/cron tokens handled via env.
 - Relevant docs/links updated if routing or env requirements change.

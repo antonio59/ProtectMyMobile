@@ -6,7 +6,7 @@
 
 ```bash
 cd /Users/antoniosmith/Projects/ProtectMyMobile
-bun run dev
+npm run dev
 ```
 
 The dev server will start on `http://localhost:4321`
@@ -80,7 +80,7 @@ The news scraper will work once:
 3. ✅ Convex is deployed with new schema:
 
    ```bash
-   bunx convex deploy --prod
+   npx convex deploy --prod
    ```
 
 4. ✅ Netlify is deployed with updated code
@@ -110,7 +110,7 @@ Google News RSS was blocking requests without User-Agent header, returning empty
 bunx convex deploy --prod
 
 # 2. Start dev server (new terminal)
-bun run dev
+npm run dev
 
 # 3. Test news fetch (another new terminal)
 ./scripts/test-news-fetch.ts

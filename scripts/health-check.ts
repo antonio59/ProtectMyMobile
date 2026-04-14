@@ -1,4 +1,4 @@
-#!/usr/bin/env bun
+#!/usr/bin/env node
 export {};
 
 const API_URL = process.env.SITE_URL || "https://protectmymobile.xyz";
@@ -68,7 +68,7 @@ try {
   console.error("\n❌ Error:", error.message);
   if (error.message.includes("Unable to connect")) {
     console.error("\nMake sure the site is accessible at:", API_URL);
-    console.error("For local testing, start dev server: bun run dev");
+    console.error("For local testing, start dev server: npm run dev");
     console.error("For production, set SITE_URL=https://protectmymobile.xyz");
   }
   process.exit(1);

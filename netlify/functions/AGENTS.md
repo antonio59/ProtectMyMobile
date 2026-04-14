@@ -20,4 +20,4 @@
 - Find headers: `rg -n "x-api-key" netlify/functions`
 
 ## Pre-PR Checks
-- `bun run build` (ensures functions bundle).
+- `npm run build` (ensures functions bundle).

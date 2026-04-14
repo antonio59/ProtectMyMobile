@@ -14,7 +14,7 @@
 - **Charts:** [Recharts](https://recharts.org)
 - **Hosting:** [Netlify](https://netlify.com)
 - **Icons:** [Lucide React](https://lucide.dev)
-- **Package Manager:** [Bun](https://bun.sh)
+- **Package Manager:** npm
 
 ## ✨ Key Features
 
@@ -65,7 +65,7 @@
 ## 🛠️ Development
 
 ### Prerequisites
-- [Bun](https://bun.sh) 1.3+
+- Node.js 20+
 - [Convex](https://convex.dev) account
 
 ### Setup
@@ -78,7 +78,7 @@
 
 2. **Install dependencies:**
    ```bash
-   bun install
+   npm install
    ```
 
 3. **Environment Variables:**
@@ -91,12 +91,12 @@
 
 4. **Start Convex development server:**
    ```bash
-   bunx convex dev
+   npx convex dev
    ```
 
 5. **Start Astro development server:**
    ```bash
-   bun run dev
+   npm run dev
    ```
    Visit `http://localhost:4321`
 
@@ -136,12 +136,12 @@
 The project is configured for deployment on **Netlify** with **Bun**.
 
 1. Connect your GitHub repository to Netlify
-2. Build command: `bun run build`
+2. Build command: `npm run build`
 3. Publish directory: `dist`
 4. Add environment variables in Netlify dashboard:
    - `PUBLIC_CONVEX_URL`
    - `CRON_SECRET`
-5. Deploy Convex to production: `bunx convex deploy --prod`
+5. Deploy Convex to production: `npx convex deploy --prod`
 
 ### Scheduled Functions
 

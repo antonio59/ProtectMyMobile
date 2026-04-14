@@ -23,3 +23,10 @@ pnpm-debug.log*
 .vscode/
 .idea/
 .netlify/
+
+# Claude worktrees
+.claude/worktrees/
+
+# stray duplicate directories
+ProtectMyMobile/
+netlify/netlify/

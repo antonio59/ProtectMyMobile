@@ -135,7 +135,7 @@ Complete overhaul of the news scraping system to improve reliability, monitoring
 
 - Created `scripts/test-news-fetch.ts` - Manually trigger news fetch
 - Created `scripts/health-check.ts` - Check system health
-- Added npm scripts: `bun run news:fetch`, `bun run health:check`
+- Added npm scripts: `npm run news:fetch`, `npm run health:check`
 
 **New Files:**
 
@@ -274,7 +274,7 @@ The following are suggested but not yet implemented:
 
 Before deploying to production:
 
-- [ ] Start dev server: `bun run dev`
+- [ ] Start dev server: `npm run dev`
 - [ ] Test news fetch manually: `./scripts/test-news-fetch.ts`
 - [ ] Verify health check: `./scripts/health-check.ts`
 - [ ] Check news page displays status correctly
@@ -282,7 +282,7 @@ Before deploying to production:
 - [ ] Test all 4 news sources return results
 - [ ] Verify irrelevant articles are filtered out
 - [ ] Check logs appear in Convex dashboard
-- [ ] Deploy Convex schema: `bunx convex deploy`
+- [ ] Deploy Convex schema: `npx convex deploy`
 - [ ] Deploy to Netlify
 
 ## Deployment Steps
@@ -295,13 +295,13 @@ Before deploying to production:
 2. Deploy Convex schema and functions:
 
    ```bash
-   bunx convex deploy --prod
+   npx convex deploy --prod
    ```
 
 3. Build and deploy to Netlify:
 
    ```bash
-   bun run build
+   npm run build
    # Deploy via Netlify dashboard or CLI
    ```
 
