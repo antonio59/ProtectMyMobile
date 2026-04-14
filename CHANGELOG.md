@@ -63,6 +63,8 @@ All notable changes to this project will be documented in this file.
 ### Changes
 
 - Merge branch 'main' of https://github.com/antonio59/ProtectMyMobile
+- **admin**: Add distinct 401 error messages to proxies
+- Merge branch 'main' of https://github.com/antonio59/ProtectMyMobile
 - Merge branch 'main' of https://github.com/antonio59/ProtectMyMobile
 - Merge branch 'main' of https://github.com/antonio59/ProtectMyMobile
 - Merge branch 'main' of https://github.com/antonio59/ProtectMyMobile
@@ -1124,6 +1126,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
