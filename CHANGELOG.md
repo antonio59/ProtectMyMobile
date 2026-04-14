@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 
 ### Bug Fixes
 
+- **admin**: Secure proxies, add missing WDTK scan, tailwind safelist
 - **admin**: Repair proxy and route all internal API calls through it
 - **admin**: Send admin_auth cookie to /api/admin/convex proxy
 - **admin**: JWT sessions, authenticated proxy, new moderation pages
@@ -60,6 +61,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Merge branch 'main' of https://github.com/antonio59/ProtectMyMobile
 - Merge branch 'main' of https://github.com/antonio59/ProtectMyMobile
 - Merge branch 'main' of https://github.com/antonio59/ProtectMyMobile
 - Merge branch 'main' of https://github.com/antonio59/ProtectMyMobile
@@ -1120,6 +1122,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
