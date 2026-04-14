@@ -53,6 +53,10 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Bump @tanstack/react-query from 5.95.0 to 5.99.0 (#48)
+- Bump convex from 1.34.1 to 1.35.1 in the convex group (#47)
+- Bump the dev-dependencies group across 1 directory with 3 updates (#46)
+- Bump marked from 17.0.5 to 17.0.6 (#43)
 - Bump resend from 6.9.4 to 6.10.0 (#42)
 - Merge pull request #33 from antonio59/dependabot/npm_and_yarn/lucide-react-0.577.0
 
@@ -1059,6 +1063,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
