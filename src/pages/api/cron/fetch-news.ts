@@ -1,5 +1,6 @@
 import type { APIRoute } from "astro";
 import Parser from "rss-parser";
+import { parse } from "node-html-parser";
 import { ConvexHttpClient } from "convex/browser";
 import { api } from "../../../../convex/_generated/api";
 import { Resend } from "resend";
@@ -379,58 +380,54 @@ async function scrapeArticleContent(
 
     // Only use direct HTML if it looks like real content (not a bot block page)
     if (!html.includes("Access Denied") && !html.includes("403 Forbidden") && html.length > 5000) {
-      // Remove scripts, styles, and common non-content elements
-      let cleaned = html
-        .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, "")
-        .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, "")
-        .replace(/<nav[^>]*>[\s\S]*?<\/nav>/gi, "")
-        .replace(/<header[^>]*>[\s\S]*?<\/header>/gi, "")
-        .replace(/<footer[^>]*>[\s\S]*?<\/footer>/gi, "")
-        .replace(/<aside[^>]*>[\s\S]*?<\/aside>/gi, "")
-        .replace(/<noscript[^>]*>[\s\S]*?<\/noscript>/gi, "")
-        .replace(/<!--[\s\S]*?-->/g, "");
+      const root = parse(html);
+
+      // Remove non-content elements entirely
+      const tagsToRemove = ["script", "style", "nav", "header", "footer", "aside", "noscript"];
+      tagsToRemove.forEach((tag) => {
+        root.querySelectorAll(tag).forEach((el) => el.remove());
+      });
+
+      // Remove HTML comments
+      root.childNodes.forEach((node) => {
+        if (node.nodeType === 8) {
+          node.remove();
+        }
+      });
 
       // Try to extract the main article body via common selectors
-      let articleHtml = "";
-      const articleMatch = cleaned.match(/<article[^>]*>([\s\S]*?)<\/article>/i);
-      if (articleMatch) {
-        articleHtml = articleMatch[1];
-      } else {
-        const containerPatterns = [
-          /<div[^>]+class=["'][^"']*article-body[^"']*["'][^>]*>([\s\S]*?)<\/div>/i,
-          /<div[^>]+class=["'][^"']*article__body[^"']*["'][^>]*>([\s\S]*?)<\/div>/i,
-          /<div[^>]+class=["'][^"']*content-body[^"']*["'][^>]*>([\s\S]*?)<\/div>/i,
-          /<div[^>]+class=["'][^"']*story-body[^"']*["'][^>]*>([\s\S]*?)<\/div>/i,
-          /<div[^>]+class=["'][^"']*main-content[^"']*["'][^>]*>([\s\S]*?)<\/div>/i,
-          /<div[^>]+class=["'][^"']*post-content[^"']*["'][^>]*>([\s\S]*?)<\/div>/i,
-          /<main[^>]*>([\s\S]*?)<\/main>/i,
+      let contentNode = root.querySelector("article");
+      if (!contentNode) {
+        const selectors = [
+          "[class*='article-body']",
+          "[class*='article__body']",
+          "[class*='content-body']",
+          "[class*='story-body']",
+          "[class*='main-content']",
+          "[class*='post-content']",
+          "main",
         ];
-
-        for (const pattern of containerPatterns) {
-          const match = cleaned.match(pattern);
-          if (match) {
-            articleHtml = match[1];
-            break;
-          }
+        for (const selector of selectors) {
+          contentNode = root.querySelector(selector);
+          if (contentNode) break;
         }
       }
 
-      if (!articleHtml) {
-        const bodyMatch = cleaned.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
-        articleHtml = bodyMatch ? bodyMatch[1] : cleaned;
+      // Fallback to body
+      if (!contentNode) {
+        contentNode = root.querySelector("body") || root;
       }
 
-      const paragraphMatches = articleHtml.match(/<p[^>]*>([\s\S]*?)<\/p>/gi) || [];
-      let paragraphs = paragraphMatches
-        .map((p) => stripHtml(p).trim())
-        .filter((p) => p.length > 30);
+      // Extract text from paragraphs, preferring longer ones
+      const paragraphs = contentNode
+        .querySelectorAll("p")
+        .map((p) => p.text.trim())
+        .filter((text) => text.length > 30);
 
-      if (paragraphs.length === 0) {
-        const fallbackText = stripHtml(articleHtml).trim();
-        if (fallbackText.length > 50) paragraphs = [fallbackText];
-      }
+      let content = paragraphs.length > 0
+        ? paragraphs.join("\n\n").trim()
+        : contentNode.text.trim();
 
-      let content = paragraphs.join("\n\n").trim();
       if (content.length > 3000) {
         content = content.substring(0, 3000).trim() + "...";
       }
@@ -451,7 +448,6 @@ async function scrapeArticleContent(
     if (jinaResponse.ok) {
       const jinaText = await jinaResponse.text();
       if (jinaText && !jinaText.includes("Access Denied") && !jinaText.includes("403 Forbidden") && jinaText.length > 200) {
-        // Limit length
         let content = jinaText.trim();
         if (content.length > 3000) {
           content = content.substring(0, 3000).trim() + "...";
