@@ -192,10 +192,12 @@ export const getMonthlyTrends = query({
       .slice(0, topN)
       .map(([name]) => name);
 
-    // Build month keys in range
+    // Build month keys in range (startYear/endYear are 4-digit years like "2024")
     const months: string[] = [];
-    let [y, m] = startYear.split("-").map(Number);
-    const [endY, endM] = endYear.split("-").map(Number);
+    let y = Number(startYear);
+    let m = 1;
+    const endY = Number(endYear);
+    const endM = 12;
     while (y < endY || (y === endY && m <= endM)) {
       months.push(`${y}-${String(m).padStart(2, "0")}`);
       m++;
