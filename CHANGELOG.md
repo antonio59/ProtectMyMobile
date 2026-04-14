@@ -54,6 +54,7 @@ All notable changes to this project will be documented in this file.
 ### Changes
 
 - Merge branch 'main' of https://github.com/antonio59/ProtectMyMobile
+- Merge branch 'main' of https://github.com/antonio59/ProtectMyMobile
 - Remove framer-motion to eliminate 122KB shared bundle chunk
 
 High-impact bundle optimizations for emergency-site performance:
@@ -1118,10 +1119,12 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
+- Update changelog [skip ci]
 - Add UI/UX review documentation and misc updates
 
 ### Features
 
+- Seo schema, news scraping, and ux improvements
 - Add breadcrumbs and theft trends chart to all pages
 - Add site search, theft trends chart, skeleton UI, and UX improvements
 - Add analytics tracking for user engagement
