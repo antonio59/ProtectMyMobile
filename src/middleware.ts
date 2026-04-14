@@ -81,7 +81,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
       );
 
       context.cookies.set('admin_auth', token, {
-        path: '/admin',
+        path: '/',
         maxAge: 60 * 60 * 24,
         httpOnly: true,
         secure: import.meta.env.PROD,

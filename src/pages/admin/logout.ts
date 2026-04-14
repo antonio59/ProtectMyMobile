@@ -11,7 +11,7 @@ export const GET: APIRoute = async ({ cookies, redirect }) => {
   }
 
   // Clear the auth cookie
-  cookies.delete('admin_auth', { path: '/admin' });
+  cookies.delete('admin_auth', { path: '/' });
 
   // Redirect to home page
   return redirect('/');
