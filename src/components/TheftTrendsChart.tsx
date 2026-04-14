@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { useConvex } from 'convex/react';
+import { ConvexHttpClient } from 'convex/browser';
 import { api } from '../../convex/_generated/api';
 import { TrendingUp, MapPin, BarChart3, RefreshCw } from 'lucide-react';
 import { ChartSkeleton } from './ui/Skeleton';
@@ -31,8 +31,14 @@ interface TrendsData {
   data: TrendPoint[];
 }
 
+function getConvexUrl() {
+  if (typeof window !== 'undefined') {
+    return (import.meta as any).env?.PUBLIC_CONVEX_URL || (window as any).__CONVEX_URL__;
+  }
+  return (import.meta as any).env?.PUBLIC_CONVEX_URL;
+}
+
 export default function TheftTrendsChart() {
-  const convex = useConvex();
   const [data, setData] = useState<TrendsData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -43,22 +49,31 @@ export default function TheftTrendsChart() {
   useEffect(() => {
     let cancelled = false;
     async function fetchTrends() {
+      const url = getConvexUrl();
+      if (!url) {
+        if (!cancelled) {
+          setError('Convex URL not configured');
+          setLoading(false);
+        }
+        return;
+      }
       try {
-        const result = await convex.query(api.theftDataPoints.getMonthlyTrends, { topN: 6 });
+        const client = new ConvexHttpClient(url);
+        const result = await client.query(api.theftDataPoints.getMonthlyTrends, { topN: 6 });
         if (!cancelled) {
           setData(result);
           setLoading(false);
         }
-      } catch (e) {
+      } catch (e: any) {
         if (!cancelled) {
-          setError('Unable to load trends data');
+          setError(e.message || 'Unable to load trends data');
           setLoading(false);
         }
       }
     }
     fetchTrends();
     return () => { cancelled = true; };
-  }, [convex]);
+  }, []);
 
   // Initialize Chart.js
   useEffect(() => {
@@ -197,7 +212,7 @@ export default function TheftTrendsChart() {
             : 'Monthly theft trends will appear here once data has been imported from police.uk. The data is automatically refreshed weekly.'
           }
         </p>
-        {error && (
+        {(error || data?.data.length === 0) && (
           <button
             onClick={handleRetry}
             className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-colors"

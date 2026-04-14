@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { useConvex } from 'convex/react';
+import { ConvexHttpClient } from 'convex/browser';
 import { api } from '../../convex/_generated/api';
 import {
   TrendingUp,
@@ -13,7 +13,7 @@ import {
   Layers,
   Sun,
 } from 'lucide-react';
-import { ChartSkeleton, Skeleton } from './ui/Skeleton';
+import { Skeleton } from './ui/Skeleton';
 
 const COLORS = [
   '#ef4444', // red
@@ -83,8 +83,14 @@ type DashboardData = {
   } | null;
 };
 
+function getConvexUrl() {
+  if (typeof window !== 'undefined') {
+    return (import.meta as any).env?.PUBLIC_CONVEX_URL || (window as any).__CONVEX_URL__;
+  }
+  return (import.meta as any).env?.PUBLIC_CONVEX_URL;
+}
+
 function useDashboardData() {
-  const convex = useConvex();
   const [data, setData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -92,14 +98,21 @@ function useDashboardData() {
   const fetchData = async () => {
     setLoading(true);
     setError(null);
+    const url = getConvexUrl();
+    if (!url) {
+      setError('Convex URL not configured');
+      setLoading(false);
+      return;
+    }
     try {
+      const client = new ConvexHttpClient(url);
       const [trends, rankings, yoy, seasonal, sources, stats] = await Promise.all([
-        convex.query(api.theftDataPoints.getMonthlyTrends, { topN: 8 }),
-        convex.query(api.theftDataPoints.getLocationRankings, { topN: 10, source: 'police.uk API' }),
-        convex.query(api.theftDataPoints.getYearOverYearComparison, { source: 'police.uk API' }),
-        convex.query(api.theftDataPoints.getSeasonalPatterns, { source: 'police.uk API' }),
-        convex.query(api.theftDataPoints.getSourceBreakdown, {}),
-        convex.query(api.theftDataPoints.getStats, {}),
+        client.query(api.theftDataPoints.getMonthlyTrends, { topN: 8 }),
+        client.query(api.theftDataPoints.getLocationRankings, { topN: 10, source: 'police.uk API' }),
+        client.query(api.theftDataPoints.getYearOverYearComparison, { source: 'police.uk API' }),
+        client.query(api.theftDataPoints.getSeasonalPatterns, { source: 'police.uk API' }),
+        client.query(api.theftDataPoints.getSourceBreakdown, {}),
+        client.query(api.theftDataPoints.getStats, {}),
       ]);
       setData({ trends, rankings, yoy, seasonal, sources, stats });
     } catch (e: any) {
@@ -111,7 +124,7 @@ function useDashboardData() {
 
   useEffect(() => {
     fetchData();
-  }, [convex]);
+  }, []);
 
   return { data, loading, error, refetch: fetchData };
 }
