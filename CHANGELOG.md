@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 
 ### Bug Fixes
 
+- **admin**: Send admin_auth cookie to /api/admin/convex proxy
 - **admin**: JWT sessions, authenticated proxy, new moderation pages
 - Replace useConvex with ConvexHttpClient and add mobile-web-app-capable meta
 - Resolve infinite loop in getMonthlyTrends caused by year-only parsing
@@ -1118,6 +1119,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
