@@ -9,15 +9,24 @@ export const POST: APIRoute = async ({ request, cookies }) => {
   // Validate admin session cookie
   const authCookie = cookies.get('admin_auth');
   if (!authCookie?.value || !ADMIN_PASSWORD) {
-    return new Response(JSON.stringify({ error: 'Unauthorized' }), {
+    console.error('[admin/convex] Missing cookie or ADMIN_PASSWORD env var');
+    return new Response(JSON.stringify({ error: 'Unauthorized: missing session' }), {
       status: 401,
       headers: { 'Content-Type': 'application/json' },
     });
   }
 
   const payload = await verifyJWT(authCookie.value, ADMIN_PASSWORD);
-  if (!payload || payload.exp < Date.now()) {
-    return new Response(JSON.stringify({ error: 'Unauthorized' }), {
+  if (!payload) {
+    console.error('[admin/convex] JWT verification failed');
+    return new Response(JSON.stringify({ error: 'Unauthorized: invalid session' }), {
+      status: 401,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+  if (payload.exp < Date.now()) {
+    console.error('[admin/convex] JWT expired', payload.exp, Date.now());
+    return new Response(JSON.stringify({ error: 'Unauthorized: session expired' }), {
       status: 401,
       headers: { 'Content-Type': 'application/json' },
     });
