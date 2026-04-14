@@ -27,7 +27,7 @@ async function signJWT(payload: object, secret: string): Promise<string> {
   return `${header}.${body}.${sigBase64}`;
 }
 
-async function verifyJWT(token: string, secret: string): Promise<any | null> {
+export async function verifyJWT(token: string, secret: string): Promise<any | null> {
   const [header, body, sig] = token.split('.');
   if (!header || !body || !sig) return null;
   try {

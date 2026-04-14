@@ -1,12 +1,22 @@
 import type { APIRoute } from 'astro';
+import { verifyJWT } from '../../../middleware';
 
 const convexUrl = import.meta.env.PUBLIC_CONVEX_URL;
 const cronSecret = import.meta.env.CRON_SECRET || process.env.CRON_SECRET;
+const ADMIN_PASSWORD = import.meta.env.ADMIN_PASSWORD || process.env.ADMIN_PASSWORD;
 
 export const POST: APIRoute = async ({ request, cookies }) => {
   // Validate admin session cookie
   const authCookie = cookies.get('admin_auth');
-  if (!authCookie?.value) {
+  if (!authCookie?.value || !ADMIN_PASSWORD) {
+    return new Response(JSON.stringify({ error: 'Unauthorized' }), {
+      status: 401,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  const payload = await verifyJWT(authCookie.value, ADMIN_PASSWORD);
+  if (!payload || payload.exp < Date.now()) {
     return new Response(JSON.stringify({ error: 'Unauthorized' }), {
       status: 401,
       headers: { 'Content-Type': 'application/json' },

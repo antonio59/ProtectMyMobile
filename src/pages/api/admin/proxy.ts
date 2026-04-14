@@ -1,4 +1,5 @@
 import type { APIRoute } from 'astro';
+import { verifyJWT } from '../../../middleware';
 
 const ALLOWED_PATHS = [
   '/api/admin/seed-theft-data',
@@ -9,10 +10,20 @@ const ALLOWED_PATHS = [
   '/api/cron/send-foi-requests',
 ];
 
+const ADMIN_PASSWORD = import.meta.env.ADMIN_PASSWORD || process.env.ADMIN_PASSWORD;
+
 export const GET: APIRoute = async ({ cookies, url }) => {
   // Validate admin session cookie
   const authCookie = cookies.get('admin_auth');
-  if (!authCookie?.value) {
+  if (!authCookie?.value || !ADMIN_PASSWORD) {
+    return new Response(JSON.stringify({ error: 'Unauthorized' }), {
+      status: 401,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  const payload = await verifyJWT(authCookie.value, ADMIN_PASSWORD);
+  if (!payload || payload.exp < Date.now()) {
     return new Response(JSON.stringify({ error: 'Unauthorized' }), {
       status: 401,
       headers: { 'Content-Type': 'application/json' },

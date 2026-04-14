@@ -405,6 +405,24 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     }
   }
 
+  async function scanWdtk() {
+    try {
+      const response = await fetch('/api/admin/proxy?path=/api/cron/monitor-wdtk');
+      const data = await response.json();
+
+      if (data.success) {
+        alert(`Scan complete!\n\nNew entries: ${data.new_entries}\nSuccessful responses: ${data.successful_responses}`);
+        await loadRequests();
+        await loadStats();
+      } else {
+        alert('Scan failed: ' + data.error);
+      }
+    } catch (err) {
+      console.error('Scan failed:', err);
+      alert('Scan failed. Check console for details.');
+    }
+  }
+
   async function sendQuarterlyRequests() {
     if (!confirm('This will send FOI requests to all active police forces. Continue?')) return;
 
@@ -445,6 +463,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     loadStats();
   });
 
+  document.getElementById('scan-wdtk-btn')?.addEventListener('click', scanWdtk);
   document.getElementById('seed-btn')?.addEventListener('click', seedPoliceForces);
   document.getElementById('send-btn')?.addEventListener('click', sendQuarterlyRequests);
   document.getElementById('cancel-update')?.addEventListener('click', closeUpdateModal);
