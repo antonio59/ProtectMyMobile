@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import {
   Newspaper,
   ArrowRight,
@@ -12,6 +11,7 @@ import {
   Lightbulb,
   FileText
 } from "lucide-react";
+import { useInView } from '../hooks/useInView';
 
 interface NewsPost {
   _id: string;
@@ -83,14 +83,13 @@ function formatDate(dateValue: string | number) {
 }
 
 export default function AnimatedNewsSection({ news }: Props) {
+  const { ref: headerRef, isInView: headerInView } = useInView<HTMLDivElement>({ threshold: 0.2 });
+
   return (
     <section className="mb-8 sm:mb-12">
-      <motion.div
-        className="flex items-center justify-between mb-6 sm:mb-8 gap-4"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
+      <div
+        ref={headerRef}
+        className={`flex items-center justify-between mb-6 sm:mb-8 gap-4 animate-on-scroll ${headerInView ? 'is-visible' : ''}`}
       >
         <div>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-neutral-900 leading-tight">
@@ -100,15 +99,13 @@ export default function AnimatedNewsSection({ news }: Props) {
             Updates on UK mobile theft trends, policy changes, and safety guides.
           </p>
         </div>
-        <motion.a
+        <a
           href="/news"
-          className="hidden sm:flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white border border-neutral-200 shadow-sm text-neutral-600 text-sm font-semibold hover:bg-neutral-50 hover:text-primary hover:border-primary/20 transition-all group whitespace-nowrap"
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
+          className="hidden sm:flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white border border-neutral-200 shadow-sm text-neutral-600 text-sm font-semibold hover:bg-neutral-50 hover:text-primary hover:border-primary/20 transition-all group whitespace-nowrap hover:scale-[1.02] active:scale-[0.98]"
         >
           View All <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
-        </motion.a>
-      </motion.div>
+        </a>
+      </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
         {news.length > 0 ? (
@@ -117,81 +114,17 @@ export default function AnimatedNewsSection({ news }: Props) {
             const Icon = config.icon;
 
             return (
-              <motion.a
+              <NewsCard
                 key={post._id}
-                href={`/news/${post.slug}`}
-                className="group flex flex-col bg-white rounded-xl shadow-sm hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 border border-neutral-200 hover:border-primary/20 h-full relative overflow-hidden"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.4, delay: index * 0.05 }}
-                whileHover={{ y: -4 }}
-              >
-                {/* Top Accent Line */}
-                <div className={`h-1.5 w-full bg-gradient-to-r ${config.gradient}`} />
-
-                <div className="p-5 sm:p-6 flex flex-col flex-grow">
-                  {/* Meta Header */}
-                  <div className="flex items-center justify-between mb-4">
-                    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold ${config.bg} ${config.color}`}>
-                      <Icon className="h-3.5 w-3.5" />
-                      {post.category.replace("_", " ")}
-                    </span>
-                    <div className="flex items-center gap-1.5 text-xs text-neutral-400 font-medium">
-                      <Calendar className="h-3.5 w-3.5" />
-                      {formatDate(post.publishedAt || post._creationTime)}
-                    </div>
-                  </div>
-
-                  {/* Title */}
-                  <h3 className="text-lg sm:text-xl font-bold text-neutral-900 mb-3 group-hover:text-primary transition-colors leading-snug">
-                    {post.title}
-                  </h3>
-
-                  {/* Excerpt */}
-                  <p className="text-neutral-600 text-sm leading-relaxed mb-6 flex-grow">
-                    {post.excerpt}
-                  </p>
-
-                  {/* Footer */}
-                  <div className="flex items-center text-sm font-semibold text-primary group-hover:gap-2 transition-all mt-auto">
-                    Read article
-                    <ArrowRight className="h-4 w-4 ml-1 transition-transform" />
-                  </div>
-                </div>
-              </motion.a>
+                post={post}
+                index={index}
+                config={config}
+                Icon={Icon}
+              />
             );
           })
         ) : (
-          <motion.div
-            className="col-span-full bg-white border border-dashed border-neutral-200 rounded-2xl p-16 text-center shadow-sm"
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-          >
-            <motion.div
-              initial={{ scale: 0 }}
-              whileInView={{ scale: 1 }}
-              transition={{ type: "spring", delay: 0.2 }}
-            >
-              <div className="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Newspaper className="h-10 w-10 text-blue-500" />
-              </div>
-            </motion.div>
-            <h3 className="text-2xl font-bold text-neutral-900 mb-3">
-              News Coming Soon
-            </h3>
-            <p className="text-neutral-500 mb-8 max-w-md mx-auto">
-              We're preparing the latest updates on UK mobile theft trends,
-              arrests, and policy changes. Stay tuned.
-            </p>
-            <a
-              href="/news"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-neutral-900 text-white rounded-xl font-semibold hover:bg-neutral-800 transition-colors"
-            >
-              Check back soon <ArrowRight className="h-4 w-4" />
-            </a>
-          </motion.div>
+          <EmptyState />
         )}
       </div>
 
@@ -204,5 +137,82 @@ export default function AnimatedNewsSection({ news }: Props) {
         </a>
       </div>
     </section>
+  );
+}
+
+function NewsCard({ post, index, config, Icon }: { post: NewsPost; index: number; config: any; Icon: any }) {
+  const { ref, isInView } = useInView<HTMLAnchorElement>({ rootMargin: '-50px', threshold: 0.1 });
+
+  return (
+    <a
+      ref={ref}
+      href={`/news/${post.slug}`}
+      className={`group flex flex-col bg-white rounded-xl shadow-sm hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 border border-neutral-200 hover:border-primary/20 h-full relative overflow-hidden hover:-translate-y-1 animate-on-scroll ${isInView ? 'is-visible' : ''}`}
+      style={{ animationDelay: `${index * 50}ms` }}
+    >
+      {/* Top Accent Line */}
+      <div className={`h-1.5 w-full bg-gradient-to-r ${config.gradient}`} />
+
+      <div className="p-5 sm:p-6 flex flex-col flex-grow">
+        {/* Meta Header */}
+        <div className="flex items-center justify-between mb-4">
+          <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold ${config.bg} ${config.color}`}>
+            <Icon className="h-3.5 w-3.5" />
+            {post.category.replace("_", " ")}
+          </span>
+          <div className="flex items-center gap-1.5 text-xs text-neutral-400 font-medium">
+            <Calendar className="h-3.5 w-3.5" />
+            {formatDate(post.publishedAt || post._creationTime)}
+          </div>
+        </div>
+
+        {/* Title */}
+        <h3 className="text-lg sm:text-xl font-bold text-neutral-900 mb-3 group-hover:text-primary transition-colors leading-snug">
+          {post.title}
+        </h3>
+
+        {/* Excerpt */}
+        <p className="text-neutral-600 text-sm leading-relaxed mb-6 flex-grow">
+          {post.excerpt}
+        </p>
+
+        {/* Footer */}
+        <div className="flex items-center text-sm font-semibold text-primary group-hover:gap-2 transition-all mt-auto">
+          Read article
+          <ArrowRight className="h-4 w-4 ml-1 transition-transform" />
+        </div>
+      </div>
+    </a>
+  );
+}
+
+function EmptyState() {
+  const { ref, isInView } = useInView<HTMLDivElement>({ threshold: 0.2 });
+
+  return (
+    <div
+      ref={ref}
+      className={`col-span-full bg-white border border-dashed border-neutral-200 rounded-2xl p-16 text-center shadow-sm animate-on-scroll-scale ${isInView ? 'is-visible' : ''}`}
+    >
+      <div
+        className={`w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-6 animate-pop-in ${isInView ? 'is-visible' : ''}`}
+        style={{ animationDelay: '200ms' }}
+      >
+        <Newspaper className="h-10 w-10 text-blue-500" />
+      </div>
+      <h3 className="text-2xl font-bold text-neutral-900 mb-3">
+        News Coming Soon
+      </h3>
+      <p className="text-neutral-500 mb-8 max-w-md mx-auto">
+        We're preparing the latest updates on UK mobile theft trends,
+        arrests, and policy changes. Stay tuned.
+      </p>
+      <a
+        href="/news"
+        className="inline-flex items-center gap-2 px-6 py-3 bg-neutral-900 text-white rounded-xl font-semibold hover:bg-neutral-800 transition-colors"
+      >
+        Check back soon <ArrowRight className="h-4 w-4" />
+      </a>
+    </div>
   );
 }

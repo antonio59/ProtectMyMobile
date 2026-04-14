@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Search, X, Command, Phone, Shield, AlertTriangle, Building2, BarChart3, BookOpen, Newspaper, MapPin, HelpCircle, ShoppingBag, ChevronRight } from 'lucide-react';
 
 interface SearchResult {
@@ -16,21 +15,21 @@ const searchData: SearchResult[] = [
   // Emergency
   { title: 'Emergency Steps', description: 'What to do immediately if your phone is stolen', href: '/emergency', category: 'Emergency', icon: AlertTriangle },
   { title: 'Security Checkup', description: 'Check if your phone is properly secured', href: '/security-checkup', category: 'Emergency', icon: Shield },
-  
+
   // Prevention
   { title: 'Prevention Guide', description: 'How to prevent phone theft and secure your device', href: '/prevention', category: 'Prevention', icon: Shield },
   { title: 'Scenarios Gallery', description: 'Visual guides showing how theft happens', href: '/scenarios', category: 'Prevention', icon: BookOpen },
   { title: 'Products', description: 'Protective gear and accessories', href: '/products', category: 'Prevention', icon: ShoppingBag },
-  
+
   // Information
   { title: 'Statistics', description: 'UK phone theft data and trends', href: '/statistics', category: 'Data', icon: BarChart3 },
   { title: 'The Problem', description: 'Understanding the phone theft epidemic', href: '/the-problem', category: 'Information', icon: AlertTriangle },
   { title: 'News', description: 'Latest phone theft news and updates', href: '/news', category: 'Information', icon: Newspaper },
-  
+
   // Directories
   { title: 'Bank Directory', description: 'Emergency contact numbers for all UK banks', href: '/banks', category: 'Directory', icon: Building2 },
   { title: 'Mobile Providers', description: 'Contact numbers for network providers', href: '/mobile-providers', category: 'Directory', icon: Phone },
-  
+
   // Locations
   { title: 'London Guide', description: 'Theft hotspots and safety tips for London', href: '/london', category: 'Locations', icon: MapPin },
   { title: 'Westminster', description: 'Theft hotspots in Westminster', href: '/westminster', category: 'Locations', icon: MapPin },
@@ -45,13 +44,13 @@ const searchData: SearchResult[] = [
   { title: 'Glasgow', description: 'City centre safety guide', href: '/glasgow', category: 'Locations', icon: MapPin },
   { title: 'Bristol', description: 'Harbourside and shopping safety', href: '/bristol', category: 'Locations', icon: MapPin },
   { title: 'Brighton', description: 'Seafront and Lanes safety', href: '/brighton', category: 'Locations', icon: MapPin },
-  
+
   // Help
   { title: 'FAQ', description: 'Frequently asked questions', href: '/faq', category: 'Help', icon: HelpCircle },
   { title: 'Visitor Safety', description: 'Safety tips for tourists in London', href: '/london-visitor-safety', category: 'Help', icon: MapPin },
   { title: 'Community Experiences', description: 'Stories and experiences from others', href: '/community-experiences', category: 'Help', icon: BookOpen },
   { title: 'All Resources', description: 'Complete resource library', href: '/resources', category: 'Help', icon: BookOpen },
-  
+
   // Contact
   { title: 'About Us', description: 'Learn about ProtectMyMobile', href: '/about-us', category: 'About', icon: HelpCircle },
   { title: 'Contact Us', description: 'Get in touch', href: '/contact-us', category: 'About', icon: HelpCircle },
@@ -173,137 +172,131 @@ export default function SiteSearch() {
         <Search className="h-5 w-5" />
       </button>
 
-      {/* Modal */}
-      <AnimatePresence>
-        {isOpen && (
-          <>
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setIsOpen(false)}
-              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50"
-            />
+      {/* Modal Backdrop */}
+      <div
+        className={`fixed inset-0 bg-black/50 backdrop-blur-sm z-50 transition-opacity duration-150 ${
+          isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}
+        onClick={() => setIsOpen(false)}
+        aria-hidden={!isOpen}
+      />
 
-            {/* Search Modal */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: -20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: -20 }}
-              transition={{ duration: 0.15 }}
-              className="fixed inset-x-4 top-20 md:inset-x-auto md:left-1/2 md:-translate-x-1/2 md:w-full md:max-w-2xl bg-white rounded-2xl shadow-2xl z-50 overflow-hidden flex flex-col max-h-[80vh]"
+      {/* Search Modal */}
+      <div
+        className={`fixed inset-x-4 top-20 md:inset-x-auto md:left-1/2 md:-translate-x-1/2 md:w-full md:max-w-2xl bg-white rounded-2xl shadow-2xl z-50 overflow-hidden flex flex-col max-h-[80vh] transition-all duration-150 ${
+          isOpen
+            ? 'opacity-100 scale-100 translate-y-0 pointer-events-auto'
+            : 'opacity-0 scale-95 -translate-y-5 pointer-events-none'
+        }`}
+        aria-hidden={!isOpen}
+      >
+        {/* Search Input */}
+        <div className="flex items-center gap-3 px-4 py-4 border-b border-neutral-200">
+          <Search className="h-5 w-5 text-neutral-400 flex-shrink-0" />
+          <input
+            ref={inputRef}
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder="Search pages, guides, locations..."
+            className="flex-1 bg-transparent border-none outline-none text-base placeholder:text-neutral-400"
+          />
+          {query && (
+            <button
+              onClick={() => setQuery('')}
+              className="p-1 rounded hover:bg-neutral-100 text-neutral-400"
             >
-              {/* Search Input */}
-              <div className="flex items-center gap-3 px-4 py-4 border-b border-neutral-200">
-                <Search className="h-5 w-5 text-neutral-400 flex-shrink-0" />
-                <input
-                  ref={inputRef}
-                  type="text"
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  onKeyDown={handleKeyDown}
-                  placeholder="Search pages, guides, locations..."
-                  className="flex-1 bg-transparent border-none outline-none text-base placeholder:text-neutral-400"
-                />
-                {query && (
-                  <button
-                    onClick={() => setQuery('')}
-                    className="p-1 rounded hover:bg-neutral-100 text-neutral-400"
-                  >
-                    <X className="h-4 w-4" />
-                  </button>
-                )}
-                <button
-                  onClick={() => setIsOpen(false)}
-                  className="hidden md:block px-2 py-1 text-xs text-neutral-400 border border-neutral-200 rounded"
-                >
-                  ESC
-                </button>
-              </div>
+              <X className="h-4 w-4" />
+            </button>
+          )}
+          <button
+            onClick={() => setIsOpen(false)}
+            className="hidden md:block px-2 py-1 text-xs text-neutral-400 border border-neutral-200 rounded"
+          >
+            ESC
+          </button>
+        </div>
 
-              {/* Results */}
-              <div className="overflow-y-auto flex-1 p-2">
-                {query.trim() === '' ? (
-                  <div className="p-4 text-center text-neutral-500">
-                    <p className="text-sm">Start typing to search...</p>
-                    <p className="text-xs mt-2 text-neutral-400">
-                      Try: "emergency", "banks", "London", "prevention"
-                    </p>
-                  </div>
-                ) : results.length === 0 ? (
-                  <div className="p-8 text-center">
-                    <div className="inline-flex items-center justify-center w-12 h-12 bg-neutral-100 rounded-full mb-3">
-                      <Search className="h-5 w-5 text-neutral-400" />
-                    </div>
-                    <p className="text-neutral-600 font-medium">No results found</p>
-                    <p className="text-sm text-neutral-400 mt-1">
-                      Try different keywords or check spelling
-                    </p>
-                  </div>
-                ) : (
-                  <div className="space-y-4">
-                    {Object.entries(groupedResults).map(([category, items]) => (
-                      <div key={category}>
-                        <h3 className="px-3 py-2 text-xs font-semibold text-neutral-400 uppercase tracking-wide">
-                          {category}
-                        </h3>
-                        <div className="space-y-1">
-                          {items.map((result, idx) => {
-                            const globalIndex = results.indexOf(result);
-                            const Icon = result.icon;
-                            return (
-                              <a
-                                key={result.href}
-                                href={result.href}
-                                onClick={() => setIsOpen(false)}
-                                className={`flex items-center gap-3 px-3 py-3 rounded-xl transition-colors ${
-                                  globalIndex === selectedIndex
-                                    ? 'bg-primary/10 text-primary'
-                                    : 'hover:bg-neutral-100'
-                                }`}
-                              >
-                                <div className={`p-2 rounded-lg ${categoryColors[category] || 'bg-neutral-100'}`}>
-                                  <Icon className="h-4 w-4" />
-                                </div>
-                                <div className="flex-1 min-w-0">
-                                  <p className={`font-medium text-sm ${globalIndex === selectedIndex ? 'text-primary' : 'text-neutral-900'}`}>
-                                    {result.title}
-                                  </p>
-                                  <p className="text-xs text-neutral-500 truncate">
-                                    {result.description}
-                                  </p>
-                                </div>
-                                <ChevronRight className={`h-4 w-4 flex-shrink-0 ${globalIndex === selectedIndex ? 'text-primary' : 'text-neutral-300'}`} />
-                              </a>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
+        {/* Results */}
+        <div className="overflow-y-auto flex-1 p-2">
+          {query.trim() === '' ? (
+            <div className="p-4 text-center text-neutral-500">
+              <p className="text-sm">Start typing to search...</p>
+              <p className="text-xs mt-2 text-neutral-400">
+                Try: "emergency", "banks", "London", "prevention"
+              </p>
+            </div>
+          ) : results.length === 0 ? (
+            <div className="p-8 text-center">
+              <div className="inline-flex items-center justify-center w-12 h-12 bg-neutral-100 rounded-full mb-3">
+                <Search className="h-5 w-5 text-neutral-400" />
               </div>
-
-              {/* Footer */}
-              <div className="flex items-center justify-between px-4 py-3 border-t border-neutral-200 bg-neutral-50 text-xs text-neutral-400">
-                <div className="flex items-center gap-4">
-                  <span className="flex items-center gap-1">
-                    <kbd className="px-1.5 py-0.5 bg-white rounded border border-neutral-200 font-sans">↑</kbd>
-                    <kbd className="px-1.5 py-0.5 bg-white rounded border border-neutral-200 font-sans">↓</kbd>
-                    <span className="ml-1">to navigate</span>
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <kbd className="px-1.5 py-0.5 bg-white rounded border border-neutral-200 font-sans">↵</kbd>
-                    <span className="ml-1">to select</span>
-                  </span>
+              <p className="text-neutral-600 font-medium">No results found</p>
+              <p className="text-sm text-neutral-400 mt-1">
+                Try different keywords or check spelling
+              </p>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {Object.entries(groupedResults).map(([category, items]) => (
+                <div key={category}>
+                  <h3 className="px-3 py-2 text-xs font-semibold text-neutral-400 uppercase tracking-wide">
+                    {category}
+                  </h3>
+                  <div className="space-y-1">
+                    {items.map((result) => {
+                      const globalIndex = results.indexOf(result);
+                      const Icon = result.icon;
+                      return (
+                        <a
+                          key={result.href}
+                          href={result.href}
+                          onClick={() => setIsOpen(false)}
+                          className={`flex items-center gap-3 px-3 py-3 rounded-xl transition-colors ${
+                            globalIndex === selectedIndex
+                              ? 'bg-primary/10 text-primary'
+                              : 'hover:bg-neutral-100'
+                          }`}
+                        >
+                          <div className={`p-2 rounded-lg ${categoryColors[category] || 'bg-neutral-100'}`}>
+                            <Icon className="h-4 w-4" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className={`font-medium text-sm ${globalIndex === selectedIndex ? 'text-primary' : 'text-neutral-900'}`}>
+                              {result.title}
+                            </p>
+                            <p className="text-xs text-neutral-500 truncate">
+                              {result.description}
+                            </p>
+                          </div>
+                          <ChevronRight className={`h-4 w-4 flex-shrink-0 ${globalIndex === selectedIndex ? 'text-primary' : 'text-neutral-300'}`} />
+                        </a>
+                      );
+                    })}
+                  </div>
                 </div>
-                <span>{results.length} results</span>
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Footer */}
+        <div className="flex items-center justify-between px-4 py-3 border-t border-neutral-200 bg-neutral-50 text-xs text-neutral-400">
+          <div className="flex items-center gap-4">
+            <span className="flex items-center gap-1">
+              <kbd className="px-1.5 py-0.5 bg-white rounded border border-neutral-200 font-sans">↑</kbd>
+              <kbd className="px-1.5 py-0.5 bg-white rounded border border-neutral-200 font-sans">↓</kbd>
+              <span className="ml-1">to navigate</span>
+            </span>
+            <span className="flex items-center gap-1">
+              <kbd className="px-1.5 py-0.5 bg-white rounded border border-neutral-200 font-sans">↵</kbd>
+              <span className="ml-1">to select</span>
+            </span>
+          </div>
+          <span>{results.length} results</span>
+        </div>
+      </div>
     </>
   );
 }
