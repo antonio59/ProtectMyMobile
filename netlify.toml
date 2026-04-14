@@ -26,7 +26,7 @@
     # Permissions Policy - restrict browser features
     Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=()"
     # Content Security Policy - restrict resource loading
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://giddy-civet-983.convex.cloud; style-src 'self' 'unsafe-inline'; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https://giddy-civet-983.convex.cloud https://www.reddit.com https://api.resend.com wss://giddy-civet-983.convex.cloud; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://giddy-civet-983.convex.cloud; style-src 'self' 'unsafe-inline'; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https://giddy-civet-983.convex.cloud https://api.resend.com wss://giddy-civet-983.convex.cloud; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
     # Strict Transport Security (HTTPS only)
     Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
 

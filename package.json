@@ -13,10 +13,7 @@
     "convex:dev": "bunx convex dev",
     "convex:deploy": "bunx convex deploy",
     "convex:deploy:prod": "bunx convex deploy",
-"reddit:stats": "bun run scripts/reddit-bot.ts --type=stats",
-    "reddit:tip": "bun run scripts/reddit-bot.ts --type=tip",
-    "reddit:emergency": "bun run scripts/reddit-bot.ts --type=emergency",
-    "news:fetch": "bun run scripts/test-news-fetch.ts",
+"news:fetch": "bun run scripts/test-news-fetch.ts",
     "health:check": "bun run scripts/health-check.ts"
   },
   "dependencies": {

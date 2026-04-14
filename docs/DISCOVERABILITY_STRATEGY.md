@@ -15,7 +15,7 @@ This document outlines a comprehensive discoverability strategy for ProtectMyMob
 **Success Metrics:**
 - 10,000+ monthly organic visitors by Q4 2026
 - Top 3 ranking for "phone stolen london" and "what to do phone stolen uk"
-- 500+ engaged Reddit community members
+- 500+ engaged community members across social channels
 - 25+ high-quality backlinks from authoritative UK sites
 
 ---
@@ -314,7 +314,7 @@ Schema: LocalBusiness + HowTo
 
 **FAQ Content Strategy:**
 - Create 10-15 core FAQs per page
-- Answer real questions from Reddit, forums
+- Answer real questions from forums, social media
 - Use natural language (how people actually search)
 - Include keywords naturally in questions
 - Keep answers concise (40-60 words)
@@ -571,265 +571,15 @@ Static pages: priority 0.5, changefreq yearly
 
 ---
 
-## 4. Reddit Strategy (Manual + Semi-Automated)
+## 4. Reddit Strategy
 
-**Golden Rule:** NEVER auto-post. Always be genuinely helpful. Personalize every response.
+> **Note:** Automated Reddit bot and monitoring infrastructure have been removed. Manual Reddit engagement is still possible but not a current priority channel.
 
-### 4.1 Monitoring Strategy
-
-#### Target Subreddits
-
-**Tier 1: UK City & General (Check Daily)**
-- r/london (2.5M members) - Highest phone theft discussion volume
-- r/AskUK (1.8M members) - General UK questions
-- r/unitedkingdom (1.5M members) - UK news and discussion
-- r/LegalAdviceUK (500K members) - Often has stolen phone questions
-
-**Tier 2: Device-Specific (Check 3x/week)**
-- r/iphone (5M members) - Find My iPhone questions
-- r/android (4M members) - Find My Device questions
-- r/GooglePixel (800K members)
-- r/Samsung (300K members)
-
-**Tier 3: Local UK Cities (Check 2x/week)**
-- r/manchester (150K)
-- r/birmingham (80K)
-- r/Liverpool (60K)
-- r/glasgow (50K)
-- r/bristol (45K)
-
-**Tier 4: Topic-Specific (Check weekly)**
-- r/personalfinance (UK posts)
-- r/UKPersonalFinance (insurance questions)
-- r/bicycling (phone theft while cycling)
-- r/motorbikes (phone theft from riders)
-
-#### Keywords to Monitor
-
-**Emergency Keywords (Immediate Response - Check 2x daily):**
-- "phone stolen"
-- "phone snatched"
-- "phone grabbed"
-- "mobile stolen"
-- "someone took my phone"
-- "phone theft"
-
-**Preventive Keywords (Daily check):**
-- "prevent phone theft"
-- "phone security"
-- "safe phone holder"
-- "phone insurance"
-- "mobile safety"
-
-**Location Keywords (London = daily, others = 2x/week):**
-- "stolen [London/Manchester/Birmingham]"
-- "[city] phone theft"
-- "[city] mobile crime"
-
-**Tech Implementation:**
-- Use existing Reddit monitoring feature
-- Set up alerts for keywords in target subreddits
-- Aggregate daily digest of matching posts
-- Flag "high urgency" posts (someone just had phone stolen)
-
-### 4.2 Response Strategy
-
-#### When to Respond
-
-**DO Respond:**
-- Someone just had phone stolen (within 24h of post)
-- Asking "what should I do?"
-- Discussing prevention after news of theft
-- Asking about statistics or trends
-- Requesting recommendations for phone security
-
-**DON'T Respond:**
-- Thread is > 48h old with many responses
-- OP already received comprehensive help
-- Discussion has gone off-topic
-- Subreddit has strict self-promotion rules (check first)
-
-#### Response Templates (Customize Each Time)
-
-**Template 1: Emergency Response (Phone Just Stolen)**
-
-```
-I'm really sorry this happened to you. Here's what you need to do right now:
-
-1. **Block your SIM:** Call [their network] on [number] from another phone
-2. **Lock & locate:** Use Find My iPhone/Find My Device immediately
-3. **Report to police:** Online at report.police.uk or call 101
-4. **Contact bank:** If you had banking apps, freeze your accounts
-5. **Insurance:** Check if you're covered (home, phone, bank account insurance)
-
-[IF THEY MENTION SPECIFIC LOCATION:]
-In [London/Manchester], mobile theft is unfortunately common. The police may not actively track it, but filing a report helps with insurance and crime statistics.
-
-[OPTIONAL - ONLY IF GENUINELY RELEVANT:]
-I actually built a resource for exactly this situation - protectmymobile.uk has a complete checklist and tracks UK theft statistics. Might be helpful for others reading this too.
-
-Hope you get sorted quickly. Let me know if you have questions about any of these steps.
-```
-
-**Template 2: Prevention Discussion**
-
-```
-Great question. Here are the most effective prevention methods based on UK police guidance and theft data:
-
-1. **Physical security:**
-   - Never use phone while walking in high-theft areas
-   - Use wrist straps or phone grip accessories
-   - Be aware of surroundings near tube/bus stations
-
-2. **Digital security:**
-   - Enable Find My [iPhone/Device] BEFORE theft
-   - Set strong passcode (not fingerprint in public)
-   - Register IMEI with your network
-
-3. **Insurance:**
-   - Check existing coverage (home insurance often includes phones)
-   - Dedicated phone insurance if high-value device
-
-[IF RELEVANT:]
-Mobile theft in [location] has [increased/decreased] [X]% recently according to police data. [Specific areas] are hotspots.
-
-[OPTIONAL:]
-I track UK theft statistics at protectmymobile.uk if you want to see trends in your area.
-
-Stay safe!
-```
-
-**Template 3: Insurance/Legal Question**
-
-```
-Re: insurance claims - here's what you typically need:
-
-- Police crime reference number (from 101 or online report)
-- Proof of ownership (receipt, bank statement)
-- IMEI number (check old packaging or network account)
-- Details of where/when stolen
-
-Most insurers require police report within 24-48h, so do that ASAP even if you think you might find it.
-
-[IF ABOUT SPECIFIC INSURER:]
-[Specific advice about that insurer's process]
-
-[RELEVANT CONTEXT:]
-Unfortunately [X]% of stolen phones in the UK are never recovered, so the insurance claim is usually your best path to replacement.
-
-Hope this helps - let me know if you need clarification on any of this.
-```
-
-#### Response Best Practices
-
-**DO:**
-- Lead with empathy (if emergency situation)
-- Provide actionable steps first
-- Mention ProtectMyMobile only if genuinely relevant (not every response)
-- Use natural language, not corporate speak
-- Follow up if OP asks questions
-- Upvote other helpful responses
-- Share specific data if relevant ("theft increased 30% in London")
-
-**DON'T:**
-- Copy-paste identical responses across threads
-- Lead with the website link
-- Respond to every single post (looks spammy)
-- Argue with other commenters
-- Make promises ("you'll definitely get it back")
-- Use marketing language
-- Respond from a brand account (use personal account that also contributes to other discussions)
-
-### 4.3 r/ProtectMyMobile Subreddit Strategy
-
-#### Subreddit Purpose
-- Community hub for UK mobile theft discussion
-- Share news, statistics, prevention tips
-- Allow victims to share stories and get help
-- Build authority and backlinks
-
-#### Content Calendar
-
-**Weekly Posts:**
-
-**Monday: Weekly News Roundup**
-- Title: "UK Mobile Theft News - Week of [Date]"
-- Format: 3-5 news stories with brief summary
-- Link to full articles
-- Encourage discussion
-
-**Wednesday: Prevention Tip**
-- Title: "Prevention Tip: [Topic]"
-- Examples: "Why Wrist Straps Actually Work", "The 3-Second Rule", "Best Anti-Theft Phone Cases"
-- Include images/infographics
-- Actionable advice
-
-**Friday: Statistics Update (if new data)**
-- Title: "[City] Mobile Theft Statistics - [Month]"
-- Share WDTK data visualizations
-- Compare to previous months
-- Open discussion about trends
-
-**Monthly Posts:**
-
-**First Monday: AMA or Discussion Thread**
-- Topics: "What's your near-miss story?", "How did you recover your phone?", "Best theft prevention you've used?"
-- Engage with every comment
-
-**Mid-Month: Featured Story**
-- Interview with theft victim (if consent obtained)
-- Share recovery success stories
-- Prevention case studies
-
-#### Community Guidelines
-
-**Subreddit Rules:**
-1. Be respectful and supportive
-2. UK-focused content only
-3. No buying/selling of phones
-4. No doxxing or vigilante justice
-5. Verify information before sharing
-6. Emergency posts get priority response
-
-**Moderation:**
-- Respond to every emergency post within 4 hours
-- Remove spam/self-promotion (unless genuinely helpful)
-- Pin weekly threads
-- Encourage cross-posts from r/london etc when relevant
-
-#### Growth Strategy
-
-**Year 1 Goals:**
-- 500 members by Q4 2026
-- 5-10 posts per week (including community posts)
-- 20+ comments per week
-
-**Promotion:**
-- Mention in responses to relevant posts on other subreddits
-- Add to website footer ("Join our Reddit community")
-- Cross-post major news to r/unitedkingdom
-- Engage with users who post in other UK subs
-
-### 4.4 Monitoring Tools Implementation
-
-**Technical Setup:**
-- Existing Reddit monitoring feature (keyword tracking)
-- Daily digest email with matching posts
-- Flag posts with keywords: "stolen", "snatched", "just happened", "right now"
-- Track response rate and engagement metrics
-
-**Metrics to Track:**
-- Posts responded to per week
-- Average response time to emergency posts
-- Engagement rate (OP replies)
-- Referral traffic from Reddit to site
-- r/ProtectMyMobile subscriber growth
-
-**Weekly Review:**
-- Which responses got most engagement?
-- Which subreddits had most relevant posts?
-- Any new subreddits to monitor?
-- Any negative sentiment to address?
+If engaging on Reddit in the future:
+- NEVER auto-post — always add genuine value
+- Personalize every response
+- Mention ProtectMyMobile only when genuinely relevant
+- Use a personal account with diverse contributions, not a brand account
 
 ---
 
@@ -1367,13 +1117,11 @@ For more statistics: [website URL]"
 
 | Day | Content Type | Topic | Channels | Owner |
 |-----|-------------|-------|----------|-------|
-| **Monday** | Blog Post | Weekly news roundup | Website, Reddit | Content |
+| **Monday** | Blog Post | Weekly news roundup | Website | Content |
 | **Monday** | Twitter Thread | "This Week in Mobile Theft" | Twitter | Social |
 | **Tuesday** | Social Post | Prevention tip | Twitter, Instagram | Social |
 | **Wednesday** | Infographic | Visual tip or stat | All social | Design |
 | **Thursday** | Social Post | Engagement (poll/question) | Twitter, Facebook | Social |
-| **Friday** | Reddit Post | r/ProtectMyMobile discussion | Reddit | Community |
-
 ### 8.2 Monthly Content
 
 **First Week of Month:**
@@ -1385,7 +1133,7 @@ For more statistics: [website URL]"
 **Mid-Month:**
 - [ ] Evergreen guide (one per month from list in Section 1.3)
 - [ ] Twitter thread summarizing guide
-- [ ] Reddit AMA or discussion thread
+- [ ] Community AMA or discussion thread (Twitter/X, etc.)
 
 **End of Month:**
 - [ ] Next month planning meeting
@@ -1527,7 +1275,7 @@ For more statistics: [website URL]"
 **Traffic Sources:**
 - Direct traffic (brand awareness)
 - Organic search (SEO efforts)
-- Referral traffic (backlinks, Reddit, social media)
+- Referral traffic (backlinks, social media, forums)
 - Social media (Twitter, Facebook, Instagram breakdown)
 
 **Top Pages:**
@@ -1602,10 +1350,6 @@ https://protectmymobile.uk?utm_source=[source]&utm_medium=[medium]&utm_campaign=
 ```
 
 **Examples:**
-
-**Reddit:**
-- `?utm_source=reddit&utm_medium=social&utm_campaign=emergency_response`
-- `?utm_source=reddit&utm_medium=social&utm_campaign=r_london_comment`
 
 **Twitter:**
 - `?utm_source=twitter&utm_medium=social&utm_campaign=prevention_tips`
@@ -1687,21 +1431,7 @@ https://protectmymobile.uk?utm_source=[source]&utm_medium=[medium]&utm_campaign=
 - Click-throughs to website
 - Cost per click (time invested / clicks)
 
-### 9.7 Reddit Analytics
-
-**Track:**
-- r/ProtectMyMobile subscribers
-- Posts per week
-- Comments per post
-- Top posts
-- Referral traffic from Reddit to site (via GA4/Umami)
-
-**Response Effectiveness:**
-- Track which types of responses get most upvotes
-- Track which subreddits drive most traffic
-- Monitor sentiment of responses to your comments
-
-### 9.8 Backlink Monitoring
+### 9.7 Backlink Monitoring
 
 **Tools:**
 - Google Search Console (free, shows backlinks)
@@ -1813,29 +1543,6 @@ https://protectmymobile.uk?utm_source=[source]&utm_medium=[medium]&utm_campaign=
 - Monitor when ProtectMyMobile is mentioned (respond, thank them)
 - Track trending theft news (create reactive content)
 - Find PR opportunities
-
-### 10.2 Reddit Keyword Monitoring (Existing Feature)
-
-**Current Implementation:** Already built into site
-
-**Optimization:**
-
-**Keywords to Monitor:**
-- "phone stolen"
-- "phone snatched"
-- "mobile stolen"
-- "someone stole my phone"
-- "phone theft"
-- "phone grabbed"
-- "lost my phone" (sometimes actually stolen)
-
-**Subreddits to Prioritize:**
-- r/london
-- r/AskUK
-- r/unitedkingdom
-- r/LegalAdviceUK
-- r/iphone
-- r/android
 
 **Daily Digest:**
 - Receive email summary of matching posts
@@ -1958,10 +1665,7 @@ https://protectmymobile.uk?utm_source=[source]&utm_medium=[medium]&utm_campaign=
 **Tab 1: Brand Mentions**
 - Date, Source, Link, Sentiment, Action Taken
 
-**Tab 2: Reddit Activity**
-- Date, Subreddit, Post Title, Response Given, Engagement
-
-**Tab 3: News Opportunities**
+**Tab 2: News Opportunities**
 - Date, News Story, Outlet, Action (Comment, Blog Post, etc.)
 
 **Tab 4: Backlink Outreach**
@@ -1999,14 +1703,14 @@ https://protectmymobile.uk?utm_source=[source]&utm_medium=[medium]&utm_campaign=
 - [ ] Create/optimize emergency action page for "what to do phone stolen uk"
 - [ ] Launch London city page
 - [ ] Create Twitter/X account and post first content
-- [ ] Create Reddit monitoring daily digest workflow
+- [ ] Set up Google Alerts for brand mentions and news opportunities
 
 **Week 3:**
 - [ ] Launch Manchester and Birmingham city pages
 - [ ] Publish first blog post (weekly news roundup)
 - [ ] Set up UTM parameter tracking
 - [ ] Create social media content templates (Canva)
-- [ ] Respond to first 5 Reddit posts
+- [ ] Engage with 3-5 relevant community posts on Twitter/X or forums
 
 **Week 4:**
 - [ ] Launch 3 more city pages (Liverpool, Leeds, Bristol)
@@ -2018,7 +1722,7 @@ https://protectmymobile.uk?utm_source=[source]&utm_medium=[medium]&utm_campaign=
 **Success Metrics for Phase 1:**
 - 6 city pages live
 - Google Search Console indexing all pages
-- 10+ Reddit responses posted
+- 5+ genuine community engagements posted
 - 500+ website visitors
 - Twitter account with 50+ followers
 
@@ -2031,7 +1735,7 @@ https://protectmymobile.uk?utm_source=[source]&utm_medium=[medium]&utm_campaign=
 - [ ] Publish 2 blog posts per week (news + evergreen)
 - [ ] Begin backlink outreach (20 emails sent)
 - [ ] Post daily on Twitter, 3x/week on Instagram
-- [ ] Launch r/ProtectMyMobile subreddit
+- [ ] Launch a community discussion space (e.g. Discord or forum)
 - [ ] Create first data visualization/infographic
 - [ ] Publish first evergreen guide (2,000+ words)
 
@@ -2041,7 +1745,7 @@ https://protectmymobile.uk?utm_source=[source]&utm_medium=[medium]&utm_campaign=
 - 5 backlinks acquired
 - 2,000+ website visitors/month
 - Twitter: 200+ followers
-- Reddit: 100+ subscribers to r/ProtectMyMobile
+- Community: 100+ members in discussion space
 
 ### Phase 3: Scale (Months 4-6, April-June 2026)
 
@@ -2061,7 +1765,7 @@ https://protectmymobile.uk?utm_source=[source]&utm_medium=[medium]&utm_campaign=
 - 10+ high-quality backlinks
 - 5,000+ website visitors/month
 - Twitter: 500+ followers
-- r/ProtectMyMobile: 250+ subscribers
+- Community: 250+ members in discussion space
 - 3 media mentions or backlinks from news sites
 
 ### Phase 4: Dominance (Months 7-12, July-Dec 2026)
@@ -2105,8 +1809,8 @@ https://protectmymobile.uk?utm_source=[source]&utm_medium=[medium]&utm_campaign=
 
 **Objective 3: Establish Social & Community Presence**
 - KR1: Twitter: 200+ followers
-- KR2: r/ProtectMyMobile: 100+ members
-- KR3: 50+ Reddit responses posted (high quality)
+- KR2: Community discussion space: 100+ members
+- KR3: 20+ genuine community engagements posted (high quality)
 
 **Q2 2026:**
 
@@ -2122,8 +1826,8 @@ https://protectmymobile.uk?utm_source=[source]&utm_medium=[medium]&utm_campaign=
 
 **Objective 3: Grow Community Engagement**
 - KR1: Twitter: 500+ followers, 5% engagement rate
-- KR2: r/ProtectMyMobile: 300+ members
-- KR3: 1,000+ referral visits from Reddit
+- KR2: Community discussion space: 300+ members
+- KR3: 1,000+ referral visits from community channels
 
 **Q3-Q4 2026:**
 
@@ -2139,7 +1843,7 @@ https://protectmymobile.uk?utm_source=[source]&utm_medium=[medium]&utm_campaign=
 
 **Objective 3: Sustainable Community**
 - KR1: Combined social following: 2,000+
-- KR2: r/ProtectMyMobile: 500+ members, 10+ organic posts/week
+- KR2: Community discussion space: 500+ members, 10+ organic posts/week
 - KR3: 2,000+ total referral visits from community channels
 
 ### 12.2 North Star Metric
@@ -2173,7 +1877,7 @@ Why: This indicates you're being discovered by people actively searching for pho
 
 **Community:**
 - [ ] Social followers growing?
-- [ ] Reddit community engaged?
+- [ ] Community engaged?
 - [ ] Response quality maintained?
 
 **Conversions:**
@@ -2204,12 +1908,6 @@ Why: This indicates you're being discovered by people actively searching for pho
 
 ### 13.2 Community Risks
 
-**Risk: Reddit Perceives as Spam**
-- Mitigation: NEVER auto-post, always add genuine value
-- Maintain high response quality
-- Contribute to discussions beyond own site
-- Build karma in target subreddits through other helpful comments
-
 **Risk: Negative Social Media Sentiment**
 - Mitigation: Respond quickly and empathetically
 - Acknowledge mistakes if made
@@ -2234,7 +1932,7 @@ Why: This indicates you're being discovered by people actively searching for pho
 - Mitigation: Set boundaries (don't respond 24/7)
 - Use monitoring tools to batch responses
 - Celebrate small wins
-- Consider volunteer moderators for r/ProtectMyMobile in future
+- Consider volunteer moderators for community space in future
 
 ---
 
@@ -2253,7 +1951,7 @@ Why: This indicates you're being discovered by people actively searching for pho
 - Canva Free (design)
 - Buffer Free or Later Free (social scheduling - limited posts)
 - Google Alerts (monitoring)
-- Reddit native features (monitoring)
+- Social media native features (monitoring)
 
 **Research:**
 - Google Trends (keyword trends)
@@ -2321,7 +2019,7 @@ Why: This indicates you're being discovered by people actively searching for pho
 **Thursday:**
 - [ ] Create London city page (optimized for "phone stolen london")
 - [ ] Post first 3 tweets
-- [ ] Respond to 2-3 Reddit posts
+- [ ] Engage with 2-3 relevant community posts on Twitter/X or forums
 
 **Friday:**
 - [ ] Review week 1 analytics (initial baseline)
