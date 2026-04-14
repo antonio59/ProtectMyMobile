@@ -53,11 +53,25 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Fix vite security vulnerabilities via npm audit fix
+
+- Vite Path Traversal in Optimized Deps .map Handling (GHSA-4w7w-66w2-5vf9)
+- Vite Arbitrary File Read via Dev Server WebSocket (GHSA-p9ff-h696-f583)
+- Updates vite from 6.4.1 to 6.4.2
+- Merge remote main and resolve package.json conflicts
 - Bump @tanstack/react-query from 5.95.0 to 5.99.0 (#48)
 - Bump convex from 1.34.1 to 1.35.1 in the convex group (#47)
 - Bump the dev-dependencies group across 1 directory with 3 updates (#46)
 - Bump marked from 17.0.5 to 17.0.6 (#43)
 - Bump resend from 6.9.4 to 6.10.0 (#42)
+- Remove Reddit bot infrastructure and monitoring
+
+- Delete reddit-bot.ts script and GitHub Actions workflow
+- Remove admin Reddit Monitor page and nav link
+- Remove Reddit social link from footer
+- Clean up Reddit env vars from types, examples, and .env
+- Remove Reddit from CSP connect-src
+- Update DISCOVERABILITY_STRATEGY.md to reflect removed automation
 - Merge pull request #33 from antonio59/dependabot/npm_and_yarn/lucide-react-0.577.0
 
 deps: bump lucide-react from 0.562.0 to 0.577.0
@@ -1063,6 +1077,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
