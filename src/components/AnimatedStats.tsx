@@ -8,6 +8,7 @@ interface Stat {
   value: string;
   numericValue?: number;
   suffix?: string;
+  decimals?: number;
   label: string;
   sublabel: string;
   color: string;
@@ -15,37 +16,38 @@ interface Stat {
 
 const stats: Stat[] = [
   {
-    value: '80,588',
-    numericValue: 80588,
+    value: '116,000+',
+    numericValue: 116000,
     label: 'Phones stolen',
     sublabel: 'in London (2024)',
     color: 'text-red-600'
   },
   {
-    value: '182%',
-    numericValue: 182,
+    value: '150%',
+    numericValue: 150,
     suffix: '%',
     label: 'Increase',
-    sublabel: 'since 2020',
+    sublabel: 'since 2023',
     color: 'text-orange-600'
   },
   {
-    value: '1%',
-    numericValue: 1,
+    value: '0.8%',
+    numericValue: 0.8,
     suffix: '%',
+    decimals: 1,
     label: 'Result in',
     sublabel: 'charges',
     color: 'text-blue-600'
   },
   {
-    value: '1 in 6',
-    label: 'Minutes',
+    value: 'Every 5 min',
+    label: 'One stolen',
     sublabel: '(theft rate)',
     color: 'text-teal-600'
   },
 ];
 
-function AnimatedNumber({ value, suffix = '' }: { value: number; suffix?: string }) {
+function AnimatedNumber({ value, suffix = '', decimals = 0 }: { value: number; suffix?: string; decimals?: number }) {
   const [displayValue, setDisplayValue] = useState(0);
   const { ref, isInView } = useInView<HTMLSpanElement>({ threshold: 0.5 });
 
@@ -63,7 +65,7 @@ function AnimatedNumber({ value, suffix = '' }: { value: number; suffix?: string
         setDisplayValue(value);
         clearInterval(timer);
       } else {
-        setDisplayValue(Math.floor(current));
+        setDisplayValue(Number(current.toFixed(decimals)));
       }
     }, duration / steps);
 
@@ -108,8 +110,8 @@ function StatCard({ stat, index }: { stat: Stat; index: number }) {
         className={`text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-1 sm:mb-2 lg:mb-3 ${stat.color} animate-pop-in ${isInView ? 'is-visible' : ''}`}
         style={{ animationDelay: `${index * 100 + 200}ms` }}
       >
-        {stat.numericValue ? (
-          <AnimatedNumber value={stat.numericValue} suffix={stat.suffix} />
+        {stat.numericValue !== undefined ? (
+          <AnimatedNumber value={stat.numericValue} suffix={stat.suffix} decimals={stat.decimals} />
         ) : (
           stat.value
         )}

@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
-import { getNewsPosts, getMonthlyTrends } from '../lib/convexData';
+import { getNewsPosts, getMonthlyTrends, getTheftStats } from '../lib/convexData';
 import {
   AlertTriangle,
   MapPin,
@@ -18,6 +18,7 @@ import TheftTrendsChart from '../components/TheftTrendsChart';
 // Fetch latest news posts
 let latestNews: any[] = [];
 let trendsData: { months: string[]; locations: string[]; data: Array<{ month: string; label: string; total: number; [key: string]: string | number }> } | null = null;
+let liveStats: { totalThefts: number; totalRecords: number; bySource: Record<string, number> } | null = null;
 try {
   const posts = await getNewsPosts(true);
   latestNews = posts.slice(0, 3);
@@ -25,11 +26,16 @@ try {
   console.error('Error fetching news:', e);
 }
 
-// Fetch trends data
+// Fetch trends and stats data
 try {
   trendsData = await getMonthlyTrends(6);
 } catch (e: unknown) {
   console.error('Error fetching trends:', e);
+}
+try {
+  liveStats = await getTheftStats();
+} catch (e: unknown) {
+  console.error('Error fetching stats:', e);
 }
 ---
 
@@ -61,7 +67,7 @@ try {
           "name": "How many phones are stolen in London each year?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Over 78,000 phones were stolen in London in 2023, a 44% increase from 2022. That's approximately one phone stolen every 3 minutes."
+            "text": "Over 116,000 phones were stolen in London in 2024, a 150% increase since 2023. That's approximately one phone stolen every 5 minutes."
           }
         },
         {
@@ -135,7 +141,12 @@ try {
                   Blink and it's gone.
                 </h1>
                 <p class="text-sm sm:text-lg md:text-xl text-neutral-200 mb-4 sm:mb-6 max-w-2xl">
-                  Over 80,000 phones stolen in London every year. Organised gangs use bikes, mopeds, and distraction tactics to snatch phones in seconds.
+                  Over 116,000 phones stolen in London every year — a 150% increase since 2023. Organised gangs use bikes, mopeds, and distraction tactics to snatch phones in seconds.
+                  {liveStats && liveStats.totalRecords > 0 && (
+                    <span class="block mt-1 text-neutral-300 text-xs sm:text-sm">
+                      Live police.uk data tracking {liveStats.totalRecords.toLocaleString()} monthly records across UK cities.
+                    </span>
+                  )}
                 </p>
 
                 <!-- CTAs -->
@@ -167,26 +178,26 @@ try {
                 <div class="grid grid-cols-4 gap-2 sm:gap-3 md:gap-4 lg:gap-6">
                   <div class="bg-white/10 backdrop-blur-sm rounded-lg sm:rounded-xl lg:rounded-2xl p-2 sm:p-4 lg:p-5">
                     <div class="text-base sm:text-2xl md:text-3xl lg:text-4xl font-bold text-red-300">
-                      <span class="md:hidden">78K+</span>
-                      <span class="hidden md:inline">78,000+</span>
+                      <span class="md:hidden">116K+</span>
+                      <span class="hidden md:inline">116,000+</span>
                     </div>
-                    <div class="text-[10px] sm:text-xs lg:text-sm text-neutral-300 hidden sm:block">Stolen in London (2023)</div>
+                    <div class="text-[10px] sm:text-xs lg:text-sm text-neutral-300 hidden sm:block">Stolen in London (2024)</div>
                     <div class="text-[10px] text-neutral-300 sm:hidden">Stolen</div>
                   </div>
                   <div class="bg-white/10 backdrop-blur-sm rounded-lg sm:rounded-xl lg:rounded-2xl p-2 sm:p-4 lg:p-5">
-                    <div class="text-base sm:text-2xl md:text-3xl lg:text-4xl font-bold text-orange-300">44%</div>
-                    <div class="text-[10px] sm:text-xs lg:text-sm text-neutral-300 hidden sm:block">Increase since 2022</div>
+                    <div class="text-base sm:text-2xl md:text-3xl lg:text-4xl font-bold text-orange-300">150%</div>
+                    <div class="text-[10px] sm:text-xs lg:text-sm text-neutral-300 hidden sm:block">Increase since 2023</div>
                     <div class="text-[10px] text-neutral-300 sm:hidden">Increase</div>
                   </div>
                   <div class="bg-white/10 backdrop-blur-sm rounded-lg sm:rounded-xl lg:rounded-2xl p-2 sm:p-4 lg:p-5">
-                    <div class="text-base sm:text-2xl md:text-3xl lg:text-4xl font-bold text-yellow-300">3 min</div>
+                    <div class="text-base sm:text-2xl md:text-3xl lg:text-4xl font-bold text-yellow-300">5 min</div>
                     <div class="text-[10px] sm:text-xs lg:text-sm text-neutral-300 hidden sm:block">One stolen every</div>
                     <div class="text-[10px] text-neutral-300 sm:hidden">Frequency</div>
                   </div>
                   <div class="bg-white/10 backdrop-blur-sm rounded-lg sm:rounded-xl lg:rounded-2xl p-2 sm:p-4 lg:p-5">
-                    <div class="text-base sm:text-2xl md:text-3xl lg:text-4xl font-bold text-teal-300">6%</div>
-                    <div class="text-[10px] sm:text-xs lg:text-sm text-neutral-300 hidden sm:block">Recovery rate</div>
-                    <div class="text-[10px] text-neutral-300 sm:hidden">Recovered</div>
+                    <div class="text-base sm:text-2xl md:text-3xl lg:text-4xl font-bold text-teal-300">0.8%</div>
+                    <div class="text-[10px] sm:text-xs lg:text-sm text-neutral-300 hidden sm:block">Result in charges</div>
+                    <div class="text-[10px] text-neutral-300 sm:hidden">Charges</div>
                   </div>
                 </div>
               </div>
