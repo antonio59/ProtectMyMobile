@@ -10,8 +10,9 @@ export const GET: APIRoute = async ({ cookies, redirect }) => {
     invalidateSession(sessionToken);
   }
 
-  // Clear the auth cookie
+  // Clear the auth cookie (both current path: '/' and legacy path: '/admin')
   cookies.delete('admin_auth', { path: '/' });
+  cookies.delete('admin_auth', { path: '/admin' });
 
   // Redirect to home page
   return redirect('/');
