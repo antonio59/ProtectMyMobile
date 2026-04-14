@@ -14,6 +14,7 @@ import type * as auth from "../auth.js";
 import type * as banks from "../banks.js";
 import type * as communityResponses from "../communityResponses.js";
 import type * as contactSubmissions from "../contactSubmissions.js";
+import type * as debug from "../debug.js";
 import type * as experienceReports from "../experienceReports.js";
 import type * as foiRequests from "../foiRequests.js";
 import type * as importLogs from "../importLogs.js";
@@ -38,6 +39,7 @@ declare const fullApi: ApiFromModules<{
   banks: typeof banks;
   communityResponses: typeof communityResponses;
   contactSubmissions: typeof contactSubmissions;
+  debug: typeof debug;
   experienceReports: typeof experienceReports;
   foiRequests: typeof foiRequests;
   importLogs: typeof importLogs;

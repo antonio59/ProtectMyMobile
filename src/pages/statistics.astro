@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
-import TheftTrendsChart from '../components/TheftTrendsChart';
+import StatisticsDashboard from '../components/StatisticsDashboard';
 import { getTheftStats } from '../lib/convexData';
 import { BarChart3, TrendingUp, MapPin, AlertTriangle, Clock, Shield, ArrowRight, Calendar, Sun, Snowflake, Leaf } from 'lucide-react';
 
@@ -49,7 +49,6 @@ const cityComparison = [
   { city: 'Liverpool', thefts: 3200, year: '2023', change: '+23%' },
 ];
 
-// Key stats
 const keyStats = [
   { value: '78,000', label: 'Snatch thefts UK (2024)', icon: AlertTriangle, color: 'red' },
   { value: '116,000+', label: 'London alone (2024)', icon: MapPin, color: 'orange' },
@@ -95,12 +94,12 @@ const keyStats = [
         </div>
       </div>
 
-      <!-- Live Trends Chart (from Convex) -->
+      <!-- Live Statistics Dashboard (from Convex) -->
       <section class="mb-6 sm:mb-8 md:mb-10">
         <div class="bg-white rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-neutral-100">
           <div class="h-2 bg-gradient-to-r from-blue-500 to-indigo-500"></div>
           <div class="p-4 sm:p-6 md:p-8">
-            <TheftTrendsChart client:visible />
+            <StatisticsDashboard client:visible />
           </div>
         </div>
       </section>

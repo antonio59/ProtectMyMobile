@@ -103,8 +103,25 @@ export const GET: APIRoute = async ({ request }) => {
   try {
     // Parse query parameters
     const url = new URL(request.url);
-    const startMonth = url.searchParams.get('startMonth') || '2024-01';
-    const endMonth = url.searchParams.get('endMonth') || '2024-12';
+    const mode = url.searchParams.get('mode') || 'explicit'; // 'recent' or 'explicit'
+    const recentMonths = parseInt(url.searchParams.get('months') || '3', 10);
+    let startMonth = url.searchParams.get('startMonth') || '';
+    let endMonth = url.searchParams.get('endMonth') || '';
+
+    if (mode === 'recent') {
+      // Compute last N months from current date
+      const now = new Date();
+      const endDate = new Date(now.getFullYear(), now.getMonth(), 1);
+      const startDate = new Date(now.getFullYear(), now.getMonth() - (recentMonths - 1), 1);
+      endMonth = `${endDate.getFullYear()}-${String(endDate.getMonth() + 1).padStart(2, '0')}`;
+      startMonth = `${startDate.getFullYear()}-${String(startDate.getMonth() + 1).padStart(2, '0')}`;
+    }
+
+    // Fallback defaults if still not set
+    if (!startMonth || !endMonth) {
+      startMonth = '2024-01';
+      endMonth = '2024-12';
+    }
 
     // Validate date format
     const dateRegex = /^\d{4}-\d{2}$/;

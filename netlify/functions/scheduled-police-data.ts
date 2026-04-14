@@ -37,11 +37,10 @@ export default async function handler(
   }
 
   try {
-    console.log(
-      `[${functionName}] Calling ${siteUrl}/api/admin/fetch-police-uk`
-    );
+    const fetchUrl = `${siteUrl}/api/admin/fetch-police-uk?mode=recent&months=3`;
+    console.log(`[${functionName}] Calling ${fetchUrl}`);
 
-    const response = await fetch(`${siteUrl}/api/admin/fetch-police-uk`, {
+    const response = await fetch(fetchUrl, {
       method: "GET",
       headers: {
         "x-api-key": cronSecret,

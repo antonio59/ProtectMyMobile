@@ -228,3 +228,160 @@ export const getMonthlyTrends = query({
     return { months, locations: topLocations, data };
   },
 });
+
+/**
+ * Get top locations ranked by theft count with optional year-over-year growth.
+ */
+export const getLocationRankings = query({
+  args: {
+    topN: v.optional(v.number()),
+    source: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    const all = await ctx.db.query("theftDataPoints").collect();
+    const filtered = args.source ? all.filter(p => p.dataSource === args.source) : all;
+
+    const locationTotals: Record<string, number> = {};
+    const locationByYear: Record<string, Record<string, number>> = {};
+
+    for (const p of filtered) {
+      const year = p.date.substring(0, 4);
+      locationTotals[p.locationName] = (locationTotals[p.locationName] || 0) + p.theftCount;
+      if (!locationByYear[p.locationName]) locationByYear[p.locationName] = {};
+      locationByYear[p.locationName][year] = (locationByYear[p.locationName][year] || 0) + p.theftCount;
+    }
+
+    const topN = args.topN || 10;
+    const rankings = Object.entries(locationTotals)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, topN)
+      .map(([name, total]) => {
+        const years = locationByYear[name];
+        const sortedYears = Object.keys(years).sort();
+        const latestYear = sortedYears[sortedYears.length - 1];
+        const previousYear = sortedYears[sortedYears.length - 2];
+        let yoyChange: number | null = null;
+        if (previousYear && years[previousYear] > 0) {
+          yoyChange = ((years[latestYear] - years[previousYear]) / years[previousYear]) * 100;
+        }
+        return {
+          name,
+          total,
+          years,
+          latestYear,
+          yoyChange: yoyChange !== null ? Number(yoyChange.toFixed(1)) : null,
+        };
+      });
+
+    return rankings;
+  },
+});
+
+/**
+ * Get year-over-year comparison data grouped by calendar month.
+ */
+export const getYearOverYearComparison = query({
+  args: {
+    locationName: v.optional(v.string()),
+    source: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    const all = await ctx.db.query("theftDataPoints").collect();
+    let filtered = args.source ? all.filter(p => p.dataSource === args.source) : all;
+    if (args.locationName) {
+      filtered = filtered.filter(p => p.locationName === args.locationName);
+    }
+
+    const years = [...new Set(filtered.map(p => p.date.substring(0, 4)))].sort();
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+    const data: Record<string, number[]> = {};
+    for (const year of years) {
+      data[year] = new Array(12).fill(0);
+    }
+
+    for (const p of filtered) {
+      const year = p.date.substring(0, 4);
+      const monthIndex = Number(p.date.substring(5, 7)) - 1;
+      if (data[year]) {
+        data[year][monthIndex] += p.theftCount;
+      }
+    }
+
+    return { years, months, data };
+  },
+});
+
+/**
+ * Get seasonal patterns: average thefts per month across all years.
+ */
+export const getSeasonalPatterns = query({
+  args: {
+    source: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    const all = await ctx.db.query("theftDataPoints").collect();
+    const filtered = args.source ? all.filter(p => p.dataSource === args.source) : all;
+
+    const monthTotals = new Array(12).fill(0);
+    const monthCounts = new Array(12).fill(0);
+
+    for (const p of filtered) {
+      const monthIndex = Number(p.date.substring(5, 7)) - 1;
+      monthTotals[monthIndex] += p.theftCount;
+      monthCounts[monthIndex] += 1;
+    }
+
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const averages = monthTotals.map((total, i) =>
+      monthCounts[i] > 0 ? Number((total / monthCounts[i]).toFixed(1)) : 0
+    );
+
+    return { months, averages, totals: monthTotals };
+  },
+});
+
+/**
+ * Get data source breakdown for doughnut/pie charts.
+ */
+export const getSourceBreakdown = query({
+  args: {},
+  handler: async (ctx) => {
+    const all = await ctx.db.query("theftDataPoints").collect();
+    const bySource: Record<string, { records: number; thefts: number }> = {};
+    for (const p of all) {
+      if (!bySource[p.dataSource]) {
+        bySource[p.dataSource] = { records: 0, thefts: 0 };
+      }
+      bySource[p.dataSource].records += 1;
+      bySource[p.dataSource].thefts += p.theftCount;
+    }
+    return Object.entries(bySource).map(([name, stats]) => ({ name, ...stats }));
+  },
+});
+
+export const debugEnv = query({
+  args: {},
+  handler: async () => {
+    return {
+      hasCronSecret: !!process.env.CRON_SECRET,
+      hasAdminToken: !!process.env.CONVEX_ADMIN_TOKEN,
+      adminTokenLength: (process.env.CONVEX_ADMIN_TOKEN || process.env.CRON_SECRET || '').length,
+    };
+  },
+});
+
+export const ping = mutation({
+  args: {},
+  handler: async () => {
+    return "pong";
+  },
+});
+
+export const adminPing = mutation({
+  args: { adminToken: v.optional(v.string()) },
+  handler: async (ctx, args) => {
+    requireAdmin(ctx, args.adminToken);
+    return "pong";
+  },
+});
