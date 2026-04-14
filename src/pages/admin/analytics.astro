@@ -187,6 +187,10 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     });
     const json = await res.json();
     if (!res.ok) throw new Error(json.error || 'Request failed');
+    if (!('value' in json)) {
+      console.error(`[adminConvex] Missing 'value' in response for ${path}:`, json);
+      throw new Error(`Missing value in response for ${path}`);
+    }
     return json.value;
   }
 

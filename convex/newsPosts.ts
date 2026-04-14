@@ -3,7 +3,7 @@ import { query, mutation } from "./_generated/server";
 import { requireAdmin } from "./auth";
 
 export const list = query({
-  args: { publishedOnly: v.optional(v.boolean()) },
+  args: { publishedOnly: v.optional(v.boolean()), adminToken: v.optional(v.string()) },
   handler: async (ctx, args) => {
     if (args.publishedOnly) {
       const posts = await ctx.db

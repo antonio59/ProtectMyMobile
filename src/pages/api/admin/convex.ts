@@ -69,11 +69,15 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     });
 
     const convexJson = await convexRes.json();
+    if (convexJson && 'error' in convexJson) {
+      console.error('[admin/convex] Convex error:', path, convexJson.error);
+    }
     return new Response(JSON.stringify(convexJson), {
       status: convexRes.status,
       headers: { 'Content-Type': 'application/json' },
     });
   } catch (error: any) {
+    console.error('[admin/convex] Fetch/parse error:', path, error?.message);
     return new Response(JSON.stringify({ error: error.message || 'Convex request failed' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },

@@ -123,8 +123,8 @@ export const markAsImported = mutation({
 });
 
 export const getStats = query({
-  args: {},
-  handler: async (ctx) => {
+  args: { adminToken: v.optional(v.string()) },
+  handler: async (ctx, _args) => {
     const all = await ctx.db.query("wdtkEntries").collect();
     
     return {

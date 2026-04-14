@@ -101,7 +101,7 @@ export const create = mutation({
 });
 
 export const getStats = query({
-  args: { year: v.optional(v.string()) },
+  args: { year: v.optional(v.string()), adminToken: v.optional(v.string()) },
   handler: async (ctx, args) => {
     let all = await ctx.db.query("theftDataPoints").collect();
     

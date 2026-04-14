@@ -42,6 +42,7 @@ export const trackEvent = mutation({
 export const getSummary = query({
   args: {
     days: v.optional(v.number()), // Default to 30 days
+    adminToken: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const days = args.days || 30;
@@ -145,6 +146,7 @@ export const getSummary = query({
 export const getRecentEvents = query({
   args: {
     limit: v.optional(v.number()),
+    adminToken: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const limit = args.limit || 50;
@@ -167,6 +169,7 @@ export const getRecentEvents = query({
 export const getCheckupAnalytics = query({
   args: {
     days: v.optional(v.number()),
+    adminToken: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const days = args.days || 30;
