@@ -178,6 +178,24 @@ async function fetchBoEBuildingSocieties(): Promise<string[]> {
   return results;
 }
 
+function stripHtmlTags(str: string): string {
+  let prev;
+  do {
+    prev = str;
+    str = str.replace(/<[^>]*>/g, '');
+  } while (str !== prev);
+  return str;
+}
+
+function stripWikiRefs(str: string): string {
+  let prev;
+  do {
+    prev = str;
+    str = str.replace(/\[.*?\]/g, '');
+  } while (str !== prev);
+  return str;
+}
+
 async function fetchWikipediaMvno(): Promise<{ name: string; network: string }[]> {
   const url = 'https://en.wikipedia.org/wiki/List_of_mobile_virtual_network_operators_in_the_United_Kingdom';
   const res = await fetch(url, { headers: { 'User-Agent': 'ProtectMyMobile/1.0 DirectoryBot' } });
@@ -194,8 +212,8 @@ async function fetchWikipediaMvno(): Promise<{ name: string; network: string }[]
   for (const row of rows) {
     const cells = row.match(/<t[dh][^>]*>(.*?)<\/t[dh]>/gis) || [];
     if (cells.length >= 15) {
-      const brand = cells[0]?.replace(/<.*?>/g, '').trim().replace(/\[.*?\]/g, '').trim() ?? '';
-      const host = cells[1]?.replace(/<.*?>/g, '').trim() ?? '';
+      const brand = stripWikiRefs(stripHtmlTags(cells[0] ?? '')).trim();
+      const host = stripHtmlTags(cells[1] ?? '').trim();
       if (brand && brand !== 'Brand' && !brand.match(/^(2G|3G|4G|5G)$/)) {
         results.push({ name: brand, network: mapHostNetwork(host) });
       }

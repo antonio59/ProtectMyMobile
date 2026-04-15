@@ -134,7 +134,7 @@ export const cleanupDuplicates = mutation({
 
     const toDelete: Array<{ id: string; title: string; reason: string }> = [];
 
-    for (const [key, group] of groups.entries()) {
+    for (const [_key, group] of groups.entries()) {
       if (group.length <= 1) continue;
 
       // Sort by: published first, then longer content, then more recent

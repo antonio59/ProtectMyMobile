@@ -40,7 +40,7 @@ async function main() {
 
   let toDelete: any[] = [];
 
-  for (const [key, group] of groups.entries()) {
+  for (const [_key, group] of groups.entries()) {
     if (group.length <= 1) continue;
 
     // Keep: published first, longest content, then most recent
