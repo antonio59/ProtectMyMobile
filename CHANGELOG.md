@@ -67,6 +67,7 @@ All notable changes to this project will be documented in this file.
 - Merge branch 'main' of https://github.com/antonio59/ProtectMyMobile
 - Merge branch 'main' of https://github.com/antonio59/ProtectMyMobile
 - Merge branch 'main' of https://github.com/antonio59/ProtectMyMobile
+- Merge branch 'main' of https://github.com/antonio59/ProtectMyMobile
 - **admin**: Add distinct 401 error messages to proxies
 - Merge branch 'main' of https://github.com/antonio59/ProtectMyMobile
 - Merge branch 'main' of https://github.com/antonio59/ProtectMyMobile
@@ -1153,6 +1154,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
+- Update changelog [skip ci]
 - Add UI/UX review documentation and misc updates
 
 ### Features
@@ -1171,6 +1173,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Performance
 
+- **news**: Further optimize scraper to avoid Netlify timeouts
 - Comprehensive performance, SEO, and code quality improvements
 
 
