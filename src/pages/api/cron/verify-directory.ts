@@ -33,33 +33,77 @@ export const GET: APIRoute = async ({ request }) => {
 
     const checkUrl = async (url: string, name: string, type: 'bank' | 'provider', id: any) => {
       report.checked++;
+      let isActive = false;
+      let issueDetail = '';
+
       try {
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 5000); // 5s timeout
-        
-        const response = await fetch(url, { 
-          method: 'HEAD', 
+        const timeoutId = setTimeout(() => controller.abort(), 5000);
+        const headResponse = await fetch(url, {
+          method: 'HEAD',
           signal: controller.signal,
-          headers: { 'User-Agent': 'ProtectMyMobile/1.0' }
+          headers: { 'User-Agent': 'ProtectMyMobile/1.0 DirectoryBot' }
         });
         clearTimeout(timeoutId);
 
-        if (response.ok || response.status === 405) { // 405 Method Not Allowed is often returned for HEAD but implies server exists
-          report.active++;
-          // Update last_verified via Convex
-          const adminToken = import.meta.env.CRON_SECRET || process.env.CRON_SECRET;
-          if (type === 'bank') {
-            await convex.mutation(api.banks.update, { adminToken, id, lastVerified: Date.now(), active: true });
+        if (headResponse.ok || headResponse.status === 405) {
+          isActive = true;
+        } else if (headResponse.status === 403) {
+          // Many sites block HEAD but serve GET fine — try GET fallback
+          const getController = new AbortController();
+          const getTimeoutId = setTimeout(() => getController.abort(), 5000);
+          const getResponse = await fetch(url, {
+            method: 'GET',
+            signal: getController.signal,
+            headers: { 'User-Agent': 'ProtectMyMobile/1.0 DirectoryBot' }
+          });
+          clearTimeout(getTimeoutId);
+          if (getResponse.ok) {
+            isActive = true;
           } else {
-            await convex.mutation(api.mobileProviders.update, { adminToken, id, lastVerified: Date.now(), active: true });
+            issueDetail = `returned ${headResponse.status} (HEAD) and ${getResponse.status} (GET)`;
           }
         } else {
-          report.inactive++;
-          report.details.push(`❌ ${name} (${url}) returned ${response.status}`);
+          issueDetail = `returned ${headResponse.status}`;
         }
       } catch (err: any) {
+        // HEAD failed entirely — try GET fallback before giving up
+        try {
+          const getController = new AbortController();
+          const getTimeoutId = setTimeout(() => getController.abort(), 5000);
+          const getResponse = await fetch(url, {
+            method: 'GET',
+            signal: getController.signal,
+            headers: { 'User-Agent': 'ProtectMyMobile/1.0 DirectoryBot' }
+          });
+          clearTimeout(getTimeoutId);
+          if (getResponse.ok) {
+            isActive = true;
+          } else {
+            issueDetail = `failed: ${err.message} (HEAD), then returned ${getResponse.status} (GET)`;
+          }
+        } catch (getErr: any) {
+          issueDetail = `failed: ${err.message}`;
+        }
+      }
+
+      const adminToken = import.meta.env.CRON_SECRET || process.env.CRON_SECRET;
+      if (isActive) {
+        report.active++;
+        if (type === 'bank') {
+          await convex.mutation(api.banks.update, { adminToken, id, lastVerified: Date.now(), active: true });
+        } else {
+          await convex.mutation(api.mobileProviders.update, { adminToken, id, lastVerified: Date.now(), active: true });
+        }
+      } else {
         report.inactive++;
-        report.details.push(`❌ ${name} (${url}) failed: ${err.message}`);
+        report.details.push(`❌ ${name} (${url}) ${issueDetail}`);
+        // Mark as inactive in the database
+        if (type === 'bank') {
+          await convex.mutation(api.banks.update, { adminToken, id, active: false });
+        } else {
+          await convex.mutation(api.mobileProviders.update, { adminToken, id, active: false });
+        }
       }
     };
 
