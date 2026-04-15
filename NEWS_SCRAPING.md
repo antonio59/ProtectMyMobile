@@ -85,9 +85,9 @@ The `/news` page displays:
 
 ### Netlify Scheduled Function
 
-**File:** `netlify/functions/fetch-news.mts`
+**File:** `netlify/functions/scheduled-news.ts`
 
-**Schedule:** Daily at 9:00 AM UTC (`0 9 * * *`)
+**Schedule:** Weekly on Sundays at 8:00 AM UTC (`0 8 * * 0`)
 
 **Behavior:**
 
@@ -175,7 +175,7 @@ Required in production:
 - 3 second delay between source fetches
 - Exponential backoff on failures
 - Max 15 articles per run
-- Daily schedule to avoid overwhelming sources
+- Weekly schedule to avoid overwhelming sources and reduce noise
 
 ## Future Improvements
 

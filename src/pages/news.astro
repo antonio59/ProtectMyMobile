@@ -4,7 +4,7 @@ import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
 import { getNewsPosts } from '../lib/convexData';
-import { Newspaper, Filter, ArrowRight, Gavel, Siren, ShieldAlert, TrendingUp, Lightbulb, FileText, Rss, Clock, ExternalLink } from 'lucide-react';
+import { Newspaper, Filter, ArrowRight, Gavel, Siren, ShieldAlert, TrendingUp, Lightbulb, FileText, Rss, Clock } from 'lucide-react';
 
 interface NewsPost {
   _id: string;
@@ -186,9 +186,7 @@ const newsSchema = {
             <section class="mb-6 sm:mb-8">
               <h2 class="text-sm font-semibold text-neutral-500 uppercase tracking-wide mb-3">Featured</h2>
               <a
-                href={featuredPost.sourceUrl || `/news/${featuredPost.slug}`}
-                target={featuredPost.sourceUrl ? "_blank" : undefined}
-                rel={featuredPost.sourceUrl ? "noopener noreferrer" : undefined}
+                href={`/news/${featuredPost.slug}`}
                 class="group block bg-white rounded-xl sm:rounded-2xl shadow-lg overflow-hidden border border-neutral-200 hover:border-primary/30 transition-all"
               >
                 <div class={`h-1.5 w-full bg-gradient-to-r ${categoryConfig[featuredPost.category]?.gradient || 'from-primary to-blue-600'}`} />
@@ -209,8 +207,7 @@ const newsSchema = {
                         </span>
                         <span class="text-xs text-neutral-400">{formatDate(featuredPost.publishedAt || featuredPost._creationTime)}</span>
                         {featuredPost.sourceName && (
-                          <span class="text-xs text-neutral-400 flex items-center gap-1">
-                            <ExternalLink class="h-3 w-3" />
+                          <span class="text-xs text-neutral-400">
                             {featuredPost.sourceName}
                           </span>
                         )}
@@ -223,7 +220,7 @@ const newsSchema = {
                       </p>
                     </div>
                     <div class="flex items-center gap-1 text-sm font-semibold text-primary shrink-0 lg:pt-8">
-                      {featuredPost.sourceUrl ? 'Read article' : 'Read more'}
+                      Read article
                       <ArrowRight class="h-4 w-4 transition-transform group-hover:translate-x-1" />
                     </div>
                   </div>
@@ -266,13 +263,11 @@ const newsSchema = {
               {remainingPosts.map((post) => {
                 const config = categoryConfig[post.category] || categoryConfig.other;
                 const Icon = config.icon;
-                const isExternal = !!post.sourceUrl;
+                // Article cards always link to the internal summary page
 
                 return (
                   <a
-                    href={post.sourceUrl || `/news/${post.slug}`}
-                    target={isExternal ? "_blank" : undefined}
-                    rel={isExternal ? "noopener noreferrer" : undefined}
+                    href={`/news/${post.slug}`}
                     class="news-card group flex flex-col bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-200 border border-neutral-200 hover:border-primary/20 h-full"
                     data-category={post.category}
                   >
@@ -298,8 +293,7 @@ const newsSchema = {
 
                       <div class="flex items-center justify-between mt-auto pt-3 border-t border-neutral-100">
                         {post.sourceName ? (
-                          <span class="text-xs text-neutral-400 flex items-center gap-1">
-                            <ExternalLink class="h-3 w-3" />
+                          <span class="text-xs text-neutral-400">
                             {post.sourceName}
                           </span>
                         ) : (
@@ -321,8 +315,8 @@ const newsSchema = {
               <h3 class="text-sm font-semibold text-neutral-700">About This Feed</h3>
             </div>
             <p class="text-sm text-neutral-600 leading-relaxed">
-              Articles are automatically collected twice daily from 12+ UK news sources including BBC, Guardian, Sky News, and local police reports. 
-              Each article is filtered for relevance and categorized by type. External articles link to their original source.
+              Articles are automatically collected weekly from UK news sources including Google News, Guardian, Sky News, and local police reports.
+              Each article is filtered for relevance, summarized on this site, and categorized by type. Full original sources are linked within each article.
             </p>
             <div class="mt-4 flex items-center gap-4 text-xs text-neutral-500">
               <a href="/rss.xml" class="flex items-center gap-1.5 hover:text-primary transition-colors">
