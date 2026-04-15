@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 
 ### Bug Fixes
 
+- **security**: Resolve CodeQL incomplete multi-character sanitization alerts
 - **cron**: Add GET fallback for directory verification endpoint
 - **news**: Link all news cards to internal summary pages; reduce to weekly
 - **news**: Repair broken news scraper endpoint
@@ -1134,6 +1135,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
