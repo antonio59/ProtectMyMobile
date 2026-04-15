@@ -3,29 +3,6 @@
 All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
-### Added
-
-- **ui**: Add mobile floating "Phone Stolen?" emergency FAB on scroll
-- **ui**: Add "Was this helpful?" micro-survey to emergency guide with analytics tracking
-- **ui**: Add reading time to news article headers
-- **ui**: Add "Data updated" timestamp badge to statistics hero
-- **ui**: Add "Share Your Experience" CTAs to footer, news listing, and every news article
-- **news**: Add category-colored gradient fallbacks for news cards without featured images
-- **news**: Add gradient fallbacks to featured and related article cards
-- **news**: Add title-based deduplication to news scraper to prevent duplicate incidents
-- **news**: Add better content/excerpt fallback when scraping fails
-- **data**: Integrate 2025 police.uk data into statistics and problem pages
-- **content**: Add portfolio blog post and social media collage HTML for promotion
-
-### Changed
-
-- **ui**: Modernise breadcrumb styling with pill-shaped container and subtle shadow
-- **stats**: Update city comparison figures to verified 2024 data (Manchester 12,370; Birmingham 10,408; Leeds 7,165; Liverpool 5,370)
-- **stats**: Update recovery rate references to "less than 5%" across all pages
-- **news**: Merge and delete 7 duplicate news articles covering the same Kilburn shop raid
-- **news**: Improve Revolut article with proper scraped summary and excerpt
-- **data**: Update source notes to "Metropolitan Police & police.uk recorded crime data (2024–2025)"
-
 ### Bug Fixes
 
 - **news**: Link all news cards to internal summary pages; reduce to weekly
@@ -1181,10 +1158,12 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
+- Update changelog [skip ci]
 - Add UI/UX review documentation and misc updates
 
 ### Features
 
+- UI/UX improvements, 2025 data integration, news deduplication, and community CTAs
 - Sync homepage stats with statistics page data
 - Redesign statistics dashboard with multi-chart visualizations and backfill 2024 police.uk data
 - Seo schema, news scraping, and ux improvements
