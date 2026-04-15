@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 
 ### Bug Fixes
 
+- **news**: Link all news cards to internal summary pages; reduce to weekly
 - **news**: Repair broken news scraper endpoint
 - **admin**: Allow adminToken in all admin-facing Convex queries
 - **admin**: Clear legacy admin_auth cookie on logout
@@ -64,6 +65,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Merge branch 'main' of https://github.com/antonio59/ProtectMyMobile
 - Merge branch 'main' of https://github.com/antonio59/ProtectMyMobile
 - Merge branch 'main' of https://github.com/antonio59/ProtectMyMobile
 - Merge branch 'main' of https://github.com/antonio59/ProtectMyMobile
@@ -1131,6 +1133,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
