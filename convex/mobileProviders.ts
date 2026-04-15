@@ -68,3 +68,14 @@ export const update = mutation({
     await ctx.db.patch(id, updates);
   },
 });
+
+export const remove = mutation({
+  args: {
+    adminToken: v.optional(v.string()),
+    id: v.id("mobileProviders"),
+  },
+  handler: async (ctx, args) => {
+    requireAdmin(ctx, args.adminToken);
+    await ctx.db.delete(args.id);
+  },
+});
