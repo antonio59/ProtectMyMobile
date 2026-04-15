@@ -31,8 +31,8 @@ const NEWS_SOURCES: NewsSource[] = [
     priority: 2,
   },
   {
-    name: "BBC News UK",
-    url: "https://feeds.bbci.co.uk/news/uk/england/rss.xml",
+    name: "Guardian UK",
+    url: "https://www.theguardian.com/uk/rss",
     priority: 3,
   },
   {
@@ -176,20 +176,26 @@ const LOCATION_KEYWORDS = [
 
 async function fetchWithRetry(
   url: string,
-  maxRetries = 3,
-  initialDelay = 1000,
+  maxRetries = 2,
+  initialDelay = 500,
+  timeoutMs = 4000,
 ): Promise<Response> {
   const userAgent =
     "Mozilla/5.0 (compatible; ProtectMyMobile-Bot/1.0; +https://protectmymobile.xyz)";
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+
       const response = await fetch(url, {
+        signal: controller.signal,
         headers: {
           "User-Agent": userAgent,
           Accept: "application/rss+xml, application/xml, text/xml",
         },
       });
+      clearTimeout(timeoutId);
 
       if (response.ok) return response;
 
@@ -390,9 +396,18 @@ async function scrapeArticleContent(
 ): Promise<{ content: string; featuredImageUrl: string | null }> {
   let featuredImageUrl: string | null = null;
 
-  // Strategy 1: Direct HTML scrape for image + content
+  // Strategy 1: Direct HTML scrape for image + content (short timeout to avoid function timeout)
   try {
-    const response = await fetchWithRetry(url);
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 3000);
+    const response = await fetch(url, {
+      signal: controller.signal,
+      headers: {
+        "User-Agent": "Mozilla/5.0 (compatible; ProtectMyMobile-Bot/1.0; +https://protectmymobile.xyz)",
+        Accept: "text/html",
+      },
+    });
+    clearTimeout(timeoutId);
     const html = await response.text();
     featuredImageUrl = extractFeaturedImage(html, url);
 
@@ -460,9 +475,13 @@ async function scrapeArticleContent(
 
   // Strategy 2: r.jina.ai extraction (free, no-auth fallback)
   try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 3000);
     const jinaResponse = await fetch(`https://r.jina.ai/http://${url.replace(/^https?:\/\//, "")}`, {
+      signal: controller.signal,
       headers: { "User-Agent": "ProtectMyMobile-Bot/1.0" },
     });
+    clearTimeout(timeoutId);
     if (jinaResponse.ok) {
       const jinaText = await jinaResponse.text();
       if (jinaText && !jinaText.includes("Access Denied") && !jinaText.includes("403 Forbidden") && jinaText.length > 200) {
@@ -647,6 +666,9 @@ export const GET: APIRoute = async ({ request }) => {
   const unauthorized = requireApiKey(request);
   if (unauthorized) return unauthorized;
 
+  const url = new URL(request.url);
+  const dryRun = url.searchParams.has("dryRun");
+
   if (!convex) {
     return new Response(
       JSON.stringify({
@@ -654,6 +676,18 @@ export const GET: APIRoute = async ({ request }) => {
         error: "Missing PUBLIC_CONVEX_URL. Cannot perform database operations.",
       }),
       { status: 500 },
+    );
+  }
+
+  if (dryRun) {
+    return new Response(
+      JSON.stringify({
+        success: true,
+        dryRun: true,
+        message: "News fetch endpoint is reachable and authenticated.",
+        convexUrl: convexUrl ? "configured" : "missing",
+      }),
+      { status: 200 },
     );
   }
 
@@ -671,25 +705,32 @@ export const GET: APIRoute = async ({ request }) => {
     const sourcesFetched: string[] = [];
     const sourcesFailed: Array<{ name: string; error: string }> = [];
 
-    for (const source of NEWS_SOURCES) {
-      try {
-        logMessage("info", `Fetching from ${source.name}`);
-
-        const response = await fetchWithRetry(source.url);
-        const xml = await response.text();
-        const feed = await parser.parseString(xml);
-
-        if (feed.items) {
-          allItems.push(...feed.items);
-          sourcesFetched.push(source.name);
+    // Fetch RSS feeds in parallel with individual timeouts to avoid hanging
+    const feedResults = await Promise.all(
+      NEWS_SOURCES.map(async (source) => {
+        try {
+          logMessage("info", `Fetching from ${source.name}`);
+          const response = await fetchWithRetry(source.url, 2, 500, 3500);
+          const xml = await response.text();
+          const feed = await parser.parseString(xml);
           logMessage(
             "info",
-            `Successfully fetched ${feed.items.length} items from ${source.name}`,
+            `Successfully fetched ${feed.items?.length || 0} items from ${source.name}`,
           );
+          return { source, items: feed.items || [] };
+        } catch (err: any) {
+          logMessage("error", `Failed to fetch from ${source.name}`, err.message);
+          return { source, items: [], error: err.message };
         }
-      } catch (err: any) {
-        sourcesFailed.push({ name: source.name, error: err.message });
-        logMessage("error", `Failed to fetch from ${source.name}`, err.message);
+      }),
+    );
+
+    for (const result of feedResults) {
+      if (result.items.length > 0) {
+        allItems.push(...result.items);
+        sourcesFetched.push(result.source.name);
+      } else if (result.error) {
+        sourcesFailed.push({ name: result.source.name, error: result.error });
       }
     }
 
@@ -758,11 +799,11 @@ export const GET: APIRoute = async ({ request }) => {
 
     logMessage(
       "info",
-      `Filtered ${allItems.length} items to ${newArticles.length} relevant articles (score >= 60)`,
+      `Filtered ${allItems.length} items to ${newArticles.length} relevant articles (score >= 45)`,
     );
 
-    // Create posts for top articles
-    for (const { item: article, relevanceScore } of newArticles.slice(0, 15)) {
+    // Create posts for top articles (limit to 8 to stay within Netlify function timeout)
+    for (const { item: article, relevanceScore } of newArticles.slice(0, 8)) {
       try {
         const slug = generateSlug(article.title!);
         if (existingSlugs.has(slug)) continue;
