@@ -40,6 +40,8 @@ const NEWS_SOURCES: NewsSource[] = [
     url: "https://www.theguardian.com/uk/crime/rss",
     priority: 4,
   },
+  // Note: BBC feed removed - returns 404
+  // Note: Daily Mail feed removed - returns 404
   {
     name: "Sky News UK",
     url: "https://feeds.skynews.com/feeds/rss/uk.xml",
@@ -399,7 +401,7 @@ async function scrapeArticleContent(
   // Strategy 1: Direct HTML scrape for image + content (short timeout to avoid function timeout)
   try {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 3000);
+    const timeoutId = setTimeout(() => controller.abort(), 2000);
     const response = await fetch(url, {
       signal: controller.signal,
       headers: {
@@ -476,7 +478,7 @@ async function scrapeArticleContent(
   // Strategy 2: r.jina.ai extraction (free, no-auth fallback)
   try {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 3000);
+    const timeoutId = setTimeout(() => controller.abort(), 2000);
     const jinaResponse = await fetch(`https://r.jina.ai/http://${url.replace(/^https?:\/\//, "")}`, {
       signal: controller.signal,
       headers: { "User-Agent": "ProtectMyMobile-Bot/1.0" },
@@ -802,8 +804,8 @@ export const GET: APIRoute = async ({ request }) => {
       `Filtered ${allItems.length} items to ${newArticles.length} relevant articles (score >= 45)`,
     );
 
-    // Create posts for top articles (limit to 8 to stay within Netlify function timeout)
-    for (const { item: article, relevanceScore } of newArticles.slice(0, 8)) {
+    // Create posts for top articles (limit to 5 to stay safely within Netlify 10s timeout)
+    for (const { item: article, relevanceScore } of newArticles.slice(0, 5)) {
       try {
         const slug = generateSlug(article.title!);
         if (existingSlugs.has(slug)) continue;
