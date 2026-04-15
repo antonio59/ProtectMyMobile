@@ -22,10 +22,15 @@ const statisticsSchema = {
 // Try to fetch live data from Convex
 let liveStats = null;
 let hasLiveData = false;
+let lastUpdatedText = '';
 try {
   liveStats = await getTheftStats();
   if (liveStats && liveStats.totalRecords > 0) {
     hasLiveData = true;
+    if (liveStats.dateRange.latest) {
+      const d = new Date(liveStats.dateRange.latest);
+      lastUpdatedText = d.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+    }
   }
 } catch (e) {
   console.warn('Could not fetch live stats, using baseline data');
@@ -43,10 +48,10 @@ const londonHotspots = [
 // City comparison data
 const cityComparison = [
   { city: 'London', thefts: 116656, year: '2024', change: '+50% since 2017' },
-  { city: 'Manchester', thefts: 8500, year: '2023', change: '+31%' },
-  { city: 'Birmingham', thefts: 6200, year: '2023', change: '+25%' },
-  { city: 'Leeds', thefts: 4100, year: '2023', change: '+28%' },
-  { city: 'Liverpool', thefts: 3200, year: '2023', change: '+23%' },
+  { city: 'Manchester', thefts: 12370, year: '2024', change: '+31%' },
+  { city: 'Birmingham', thefts: 10408, year: '2024', change: '+25%' },
+  { city: 'Leeds', thefts: 7165, year: '2024', change: '+28%' },
+  { city: 'Liverpool', thefts: 5370, year: '2024', change: '+23%' },
 ];
 
 const keyStats = [
@@ -82,6 +87,14 @@ const keyStats = [
           Real data on where, when, and how often phones are stolen across the UK.
           {hasLiveData ? ' Live data from police.uk, updated weekly.' : ' Based on Met Police, ONS, and Home Office data.'}
         </p>
+        {lastUpdatedText && (
+          <div class="inline-flex items-center gap-2 bg-white/10 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm mb-6">
+            <svg class="h-4 w-4 text-green-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span>Data updated: {lastUpdatedText}</span>
+          </div>
+        )}
 
         <!-- Key Stats -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3">
@@ -111,7 +124,7 @@ const keyStats = [
           <div class="p-4 sm:p-6 md:p-8">
             <div class="flex items-center gap-3 mb-2">
               <MapPin class="h-6 w-6 sm:h-8 sm:w-8 text-red-500" />
-              <h2 class="text-lg sm:text-xl font-bold">London Theft Hotspots (2024)</h2>
+              <h2 class="text-lg sm:text-xl font-bold">London Theft Hotspots</h2>
             </div>
             <p class="text-neutral-600 text-xs sm:text-sm md:text-base mb-6">
               London accounts for 75% of all UK phone thefts. These are the worst-affected boroughs.
@@ -136,7 +149,7 @@ const keyStats = [
             </div>
 
             <p class="text-xs text-neutral-500 mt-4">
-              Source: Metropolitan Police recorded crime data 2024
+              Source: Metropolitan Police & police.uk recorded crime data (2024–2025)
             </p>
           </div>
         </div>
@@ -357,7 +370,7 @@ const keyStats = [
               <strong>Beyond the device:</strong> Victims face identity theft, financial fraud, loss of irreplaceable photos, and emotional distress.
             </p>
             <p>
-              <strong>Recovery is rare:</strong> Only 6% of stolen phones are recovered. Prevention is crucial.
+              <strong>Recovery is rare:</strong> Less than 5% of stolen phones are recovered. Prevention is crucial.
             </p>
             <p>
               <strong>Growing problem:</strong> The 150% year-on-year increase shows this is an escalating crisis requiring better awareness.

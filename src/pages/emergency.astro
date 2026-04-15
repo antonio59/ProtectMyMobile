@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
-import { AlertTriangle, Clock } from "lucide-react";
+import { AlertTriangle, Clock, ThumbsUp, ThumbsDown } from "lucide-react";
 ---
 
 <Layout 
@@ -262,6 +262,49 @@ import { AlertTriangle, Clock } from "lucide-react";
           </div>
         </div>
       </div>
+
+      {/* Was this helpful? Micro-survey */}
+      <div id="helpful-survey" class="bg-white rounded-lg sm:rounded-xl shadow-md p-4 sm:p-6 mt-6 sm:mt-8 border border-neutral-200">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <h3 class="text-base sm:text-lg font-semibold text-neutral-900">Was this guide helpful?</h3>
+            <p class="text-xs sm:text-sm text-neutral-600 mt-1">
+              Your feedback helps us improve our emergency resources.
+            </p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button
+              id="helpful-yes"
+              class="inline-flex items-center gap-2 px-4 py-2 bg-green-50 text-green-700 border border-green-200 rounded-lg font-medium hover:bg-green-100 transition-colors"
+              aria-label="Yes, this was helpful"
+            >
+              <ThumbsUp class="h-4 w-4" />
+              Yes
+            </button>
+            <button
+              id="helpful-no"
+              class="inline-flex items-center gap-2 px-4 py-2 bg-red-50 text-red-700 border border-red-200 rounded-lg font-medium hover:bg-red-100 transition-colors"
+              aria-label="No, this was not helpful"
+            >
+              <ThumbsDown class="h-4 w-4" />
+              No
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Survey thank you message (hidden by default) */}
+      <div id="helpful-thanks" class="hidden bg-green-50 border border-green-200 rounded-lg sm:rounded-xl p-4 sm:p-6 mt-6 sm:mt-8">
+        <div class="flex items-center gap-3">
+          <div class="p-2 bg-green-100 rounded-lg">
+            <ThumbsUp class="h-5 w-5 text-green-700" />
+          </div>
+          <div>
+            <p class="font-semibold text-green-900">Thank you for your feedback!</p>
+            <p class="text-sm text-green-700">We're always working to make our guides better.</p>
+          </div>
+        </div>
+      </div>
     </div>
   </main>
 
@@ -302,4 +345,54 @@ import { AlertTriangle, Clock } from "lucide-react";
 
   // Track on page load
   trackEmergencyView();
+
+  // Helpful survey
+  (function() {
+    const surveyKey = 'pmm_emergency_helpful';
+    const alreadyVoted = localStorage.getItem(surveyKey);
+    const surveyEl = document.getElementById('helpful-survey');
+    const thanksEl = document.getElementById('helpful-thanks');
+    const yesBtn = document.getElementById('helpful-yes');
+    const noBtn = document.getElementById('helpful-no');
+
+    if (alreadyVoted && surveyEl && thanksEl) {
+      surveyEl.classList.add('hidden');
+      thanksEl.classList.remove('hidden');
+      return;
+    }
+
+    function submitVote(helpful: boolean) {
+      localStorage.setItem(surveyKey, helpful ? 'yes' : 'no');
+      if (surveyEl) surveyEl.classList.add('hidden');
+      if (thanksEl) thanksEl.classList.remove('hidden');
+
+      const CONVEX_URL = (window as any).__CONVEX_URL || '';
+      if (!CONVEX_URL) return;
+      let sessionId = sessionStorage.getItem('pmm_session');
+      if (!sessionId) {
+        sessionId = typeof crypto !== 'undefined' && crypto.randomUUID
+          ? crypto.randomUUID()
+          : Array.from(crypto.getRandomValues(new Uint8Array(16)))
+              .map(b => b.toString(16).padStart(2, '0'))
+              .join('');
+        sessionStorage.setItem('pmm_session', sessionId);
+      }
+      fetch(`${CONVEX_URL}/api/mutation`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          path: 'analytics:trackEvent',
+          args: {
+            eventType: helpful ? 'emergency_guide_helpful' : 'emergency_guide_not_helpful',
+            sessionId,
+            userAgent: navigator.userAgent,
+            referrer: document.referrer || undefined,
+          },
+        }),
+      }).catch(() => {});
+    }
+
+    yesBtn?.addEventListener('click', () => submitVote(true));
+    noBtn?.addEventListener('click', () => submitVote(false));
+  })();
 </script>

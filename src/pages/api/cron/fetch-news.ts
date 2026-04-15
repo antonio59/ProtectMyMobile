@@ -512,6 +512,47 @@ function generateSlug(title: string): string {
 }
 
 /**
+ * Normalize a title for deduplication by removing common publisher suffixes,
+ * punctuation, and normalizing whitespace.
+ */
+function normalizeTitle(title: string): string {
+  return title
+    .toLowerCase()
+    .replace(/\|[^|]*$/, "") // remove trailing source pipe
+    .replace(/-[^-]*(?:news|bbc|sky|guardian|standard|metro|mail|telegraph|mirror|itv)[^-]*$/, "") // remove trailing source dash
+    .replace(/[^\w\s]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+/**
+ * Check if a title is likely a duplicate of an existing post using
+ * normalized title comparison.
+ */
+function isDuplicateTitle(title: string, existingTitles: string[]): boolean {
+  const normalized = normalizeTitle(title);
+  if (!normalized || normalized.length < 10) return false;
+
+  for (const existing of existingTitles) {
+    const existingNormalized = normalizeTitle(existing);
+    if (!existingNormalized) continue;
+
+    // Exact match on normalized title
+    if (normalized === existingNormalized) return true;
+
+    // One contains the other (for very similar titles)
+    if (
+      normalized.length > 20 &&
+      existingNormalized.length > 20 &&
+      (normalized.includes(existingNormalized) || existingNormalized.includes(normalized))
+    ) {
+      return true;
+    }
+  }
+  return false;
+}
+
+/**
  * Enhanced categorization with more accurate logic
  */
 function categorizeArticle(
@@ -702,6 +743,7 @@ export const GET: APIRoute = async ({ request }) => {
       existingPosts?.map((p: any) => p.sourceUrl) || [],
     );
     const existingSlugs = new Set(existingPosts?.map((p: any) => p.slug) || []);
+    const existingTitles = existingPosts?.map((p: any) => p.title) || [];
 
     const allItems: any[] = [];
     const sourcesFetched: string[] = [];
@@ -768,6 +810,7 @@ export const GET: APIRoute = async ({ request }) => {
       if (!item.link || !item.title) continue;
       if (item.guid && seenGuids.has(item.guid)) continue;
       if (existingUrls.has(item.link)) continue;
+      if (isDuplicateTitle(item.title, existingTitles)) continue;
 
       const snippet = stripHtml(item.contentSnippet || item.content || "");
       const { score, shouldImport, reason } = calculateRelevanceScore(
@@ -813,7 +856,6 @@ export const GET: APIRoute = async ({ request }) => {
         const cleanSnippet = stripHtml(
           article.contentSnippet || article.content || "",
         );
-        const excerpt = extractExcerpt(cleanSnippet, 150);
         const category = categorizeArticle(article.title!, cleanSnippet);
 
         // Try to get full content from RSS content:encoded first
@@ -830,11 +872,26 @@ export const GET: APIRoute = async ({ request }) => {
         } else {
           // Scrape full article content and featured image from source
           const scraped = await scrapeArticleContent(article.link!);
-          finalContent =
-            scraped.content !== "Content to be curated."
-              ? scraped.content
-              : article.content || article.contentSnippet || "Content to be curated.";
+          const fallbackContent = stripHtml(article.content || article.contentSnippet || "").trim();
+          if (scraped.content !== "Content to be curated.") {
+            finalContent = scraped.content;
+          } else if (fallbackContent.length > 100) {
+            finalContent = fallbackContent;
+          } else {
+            // Build a readable summary from whatever we have
+            finalContent = cleanSnippet.length > 50
+              ? `${article.title!}\n\n${cleanSnippet}`
+              : `${article.title!}\n\n(Source: ${article.source?.trim() || "News Feed"})`;
+          }
           featuredImageUrl = scraped.featuredImageUrl;
+        }
+
+        // Build excerpt from the best available text
+        let excerpt = extractExcerpt(finalContent, 150);
+        if (excerpt === "No excerpt available." || excerpt.length < 30) {
+          excerpt = cleanSnippet.length > 30
+            ? extractExcerpt(cleanSnippet, 150)
+            : `${article.title!} — read the full article for more details.`;
         }
 
         const newPostId = await convex.mutation(api.newsPosts.create, {

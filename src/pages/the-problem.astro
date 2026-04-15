@@ -92,10 +92,10 @@ const colorClasses: Record<string, { bg: string; border: string; icon: string; b
 };
 
 const stats = [
-  { value: '78,000+', label: 'Phones stolen in London (2023)', color: 'text-red-500' },
-  { value: '200,000+', label: 'UK mobile thefts per year', color: 'text-orange-500' },
-  { value: '44%', label: 'Increase since 2022', color: 'text-yellow-600' },
-  { value: '6%', label: 'Recovery rate', color: 'text-teal-500' },
+  { value: '116,000+', label: 'Phones stolen in London (2024)', color: 'text-red-500' },
+  { value: '230,000+', label: 'UK mobile thefts per year', color: 'text-orange-500' },
+  { value: '150%', label: 'Increase since 2022', color: 'text-yellow-600' },
+  { value: '<5%', label: 'Recovery rate', color: 'text-teal-500' },
 ];
 
 const hotspots = [
@@ -143,11 +143,11 @@ const hotspots = [
           <div class="flex flex-wrap gap-3">
             <div class="flex items-center gap-2 bg-white/10 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm">
               <TrendingUp class="h-4 w-4" />
-              <span>44% increase since 2022</span>
+              <span>150% increase since 2022</span>
             </div>
             <div class="flex items-center gap-2 bg-white/10 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm">
               <Clock class="h-4 w-4" />
-              <span>One stolen every 3 minutes</span>
+              <span>One stolen every 5 minutes</span>
             </div>
             <a href="/scenarios" class="inline-flex items-center gap-2 bg-white text-red-700 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold shadow-sm hover:bg-white/90 transition">
               <AlertTriangle class="h-4 w-4" />
@@ -213,7 +213,7 @@ const hotspots = [
       <section class="mb-6 sm:mb-8 md:mb-10">
         <h2 class="text-lg sm:text-xl font-bold mb-6 flex items-center gap-2">
           <MapPin class="h-4 w-4 sm:h-5 sm:w-5 text-red-500" />
-          London Theft Hotspots (2023)
+          London Theft Hotspots
         </h2>
         <div class="grid grid-cols-2 md:grid-cols-3 gap-2 sm:gap-3">
           {hotspots.map((spot) => (
@@ -234,7 +234,7 @@ const hotspots = [
           ))}
         </div>
         <p class="text-xs text-neutral-500 mt-4">
-          Source: Metropolitan Police recorded crime data. Other major UK cities also experiencing significant increases.
+          Source: Metropolitan Police & police.uk recorded crime data (2024–2025). Other major UK cities also experiencing significant increases.
         </p>
       </section>
       

@@ -6,7 +6,7 @@ import HeaderMobile from '../../components/HeaderMobile';
 import Footer from '../../components/Footer.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import { getNewsPosts, getNewsPostBySlug } from '../../lib/convexData';
-import { Calendar, ExternalLink, ArrowLeft, Tag, ChevronRight } from 'lucide-react';
+import { Calendar, ExternalLink, ArrowLeft, Tag, ChevronRight, MessageSquare, BookOpen, Siren, ShieldAlert, Gavel, TrendingUp, Lightbulb, FileText } from 'lucide-react';
 import { marked } from 'marked';
 import sanitizeHtml from 'sanitize-html';
 
@@ -98,13 +98,13 @@ const contentHtml = sanitizedHtml.replace(
   }
 );
 
-const categoryConfig: Record<string, { color: string; bg: string; border: string; label: string }> = {
-  arrest: { color: 'text-red-700', bg: 'bg-red-50', border: 'border-red-200', label: 'Arrest' },
-  seizure: { color: 'text-orange-700', bg: 'bg-orange-50', border: 'border-orange-200', label: 'Seizure' },
-  law_change: { color: 'text-teal-700', bg: 'bg-teal-50', border: 'border-teal-200', label: 'Law Change' },
-  statistics: { color: 'text-blue-700', bg: 'bg-blue-50', border: 'border-blue-200', label: 'Statistics' },
-  prevention_tip: { color: 'text-green-700', bg: 'bg-green-50', border: 'border-green-200', label: 'Tip' },
-  other: { color: 'text-neutral-700', bg: 'bg-neutral-50', border: 'border-neutral-200', label: 'News' },
+const categoryConfig: Record<string, { color: string; bg: string; border: string; label: string; icon: any; gradient: string }> = {
+  arrest: { color: 'text-red-700', bg: 'bg-red-50', border: 'border-red-200', label: 'Arrest', icon: Siren, gradient: 'from-red-500 to-red-600' },
+  seizure: { color: 'text-orange-700', bg: 'bg-orange-50', border: 'border-orange-200', label: 'Seizure', icon: ShieldAlert, gradient: 'from-orange-500 to-orange-600' },
+  law_change: { color: 'text-teal-700', bg: 'bg-teal-50', border: 'border-teal-200', label: 'Law Change', icon: Gavel, gradient: 'from-teal-500 to-teal-600' },
+  statistics: { color: 'text-blue-700', bg: 'bg-blue-50', border: 'border-blue-200', label: 'Statistics', icon: TrendingUp, gradient: 'from-blue-500 to-blue-600' },
+  prevention_tip: { color: 'text-green-700', bg: 'bg-green-50', border: 'border-green-200', label: 'Tip', icon: Lightbulb, gradient: 'from-green-500 to-green-600' },
+  other: { color: 'text-neutral-700', bg: 'bg-neutral-50', border: 'border-neutral-200', label: 'News', icon: FileText, gradient: 'from-neutral-500 to-neutral-600' },
 };
 
 function formatDate(dateValue: string | number) {
@@ -119,6 +119,12 @@ function formatDate(dateValue: string | number) {
 function toISODate(dateValue: string | number) {
   const date = typeof dateValue === 'number' ? new Date(dateValue) : new Date(dateValue);
   return date.toISOString();
+}
+
+function readingTime(text: string): number {
+  const wordsPerMinute = 200;
+  const words = text.trim().split(/\s+/).length;
+  return Math.max(1, Math.ceil(words / wordsPerMinute));
 }
 
 const config = categoryConfig[post.category] || categoryConfig.other;
@@ -178,7 +184,7 @@ const articleSchema = {
 
       <article class="bg-white rounded-xl sm:rounded-2xl shadow-lg overflow-hidden border border-neutral-200">
         {/* Featured Image */}
-        {post.featuredImageUrl && (
+        {post.featuredImageUrl ? (
           <div class="w-full aspect-[16/9] sm:aspect-[21/9] overflow-hidden bg-neutral-100">
             <img 
               src={post.featuredImageUrl} 
@@ -186,6 +192,15 @@ const articleSchema = {
               class="w-full h-full object-cover"
               loading="eager"
             />
+          </div>
+        ) : (
+          <div class={`w-full aspect-[16/9] sm:aspect-[21/9] bg-gradient-to-br ${config.gradient} flex items-center justify-center`}>
+            <div class="bg-white/20 backdrop-blur-sm p-4 sm:p-6 rounded-2xl sm:rounded-3xl">
+              {(() => {
+                const PostIcon = config.icon;
+                return <PostIcon class="h-12 w-12 sm:h-16 sm:w-16 text-white" />;
+              })()}
+            </div>
           </div>
         )}
 
@@ -200,6 +215,11 @@ const articleSchema = {
             <span class="text-xs text-neutral-500 flex items-center gap-1">
               <Calendar class="h-3 w-3" />
               {formatDate(post.publishedAt || post._creationTime)}
+            </span>
+            <span class="text-neutral-400">&bull;</span>
+            <span class="text-xs text-neutral-500 flex items-center gap-1">
+              <BookOpen class="h-3 w-3" />
+              {readingTime(post.content || post.excerpt || '')} min read
             </span>
             {isExternal && (
               <>
@@ -263,6 +283,32 @@ const articleSchema = {
               </div>
             </div>
           )}
+
+          {/* Community CTA */}
+          <div class="mt-8 p-5 sm:p-6 bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl border border-amber-200">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div class="flex items-start gap-3">
+                <div class="p-2.5 bg-white rounded-lg shadow-sm">
+                  <MessageSquare class="h-5 w-5 text-amber-600" />
+                </div>
+                <div>
+                  <p class="text-sm font-bold text-neutral-900">
+                    Have you been affected by phone theft?
+                  </p>
+                  <p class="text-xs text-neutral-600 mt-1">
+                    Share your experience anonymously and help others understand the real risks.
+                  </p>
+                </div>
+              </div>
+              <a 
+                href="/community-experiences#share"
+                class="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-amber-600 text-white rounded-lg text-sm font-semibold hover:bg-amber-700 transition-colors whitespace-nowrap"
+              >
+                Share your experience
+                <ChevronRight class="h-4 w-4" />
+              </a>
+            </div>
+          </div>
         </div>
 
         {/* Article Footer */}
@@ -330,17 +376,38 @@ const articleSchema = {
                   href={related.sourceUrl || `/news/${related.slug}`}
                   target={related.sourceUrl ? "_blank" : undefined}
                   rel={related.sourceUrl ? "noopener noreferrer" : undefined}
-                  class="group bg-white rounded-xl p-4 border border-neutral-200 hover:border-primary/30 hover:shadow-sm transition-all"
+                  class="group bg-white rounded-xl overflow-hidden border border-neutral-200 hover:border-primary/30 hover:shadow-sm transition-all"
                 >
-                  <span class={`text-[10px] font-medium px-2 py-0.5 rounded-full ${relatedConfig.bg} ${relatedConfig.color}`}>
-                    {relatedConfig.label}
-                  </span>
-                  <h3 class="mt-2 text-sm font-semibold text-neutral-900 group-hover:text-primary transition-colors line-clamp-2">
-                    {related.title}
-                  </h3>
-                  <div class="mt-2 flex items-center gap-1 text-xs text-neutral-400">
-                    <ChevronRight class="h-3 w-3" />
-                    <span>Read article</span>
+                  {related.featuredImageUrl ? (
+                    <div class="w-full aspect-[16/9] overflow-hidden bg-neutral-100">
+                      <img
+                        src={related.featuredImageUrl}
+                        alt={related.title}
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        loading="lazy"
+                      />
+                    </div>
+                  ) : (
+                    <div class={`w-full aspect-[16/9] bg-gradient-to-br ${relatedConfig.gradient} flex items-center justify-center`}>
+                      <div class="bg-white/20 backdrop-blur-sm p-2 rounded-xl">
+                        {(() => {
+                          const RelatedIcon = relatedConfig.icon;
+                          return <RelatedIcon class="h-6 w-6 text-white" />;
+                        })()}
+                      </div>
+                    </div>
+                  )}
+                  <div class="p-4">
+                    <span class={`text-[10px] font-medium px-2 py-0.5 rounded-full ${relatedConfig.bg} ${relatedConfig.color}`}>
+                      {relatedConfig.label}
+                    </span>
+                    <h3 class="mt-2 text-sm font-semibold text-neutral-900 group-hover:text-primary transition-colors line-clamp-2">
+                      {related.title}
+                    </h3>
+                    <div class="mt-2 flex items-center gap-1 text-xs text-neutral-400">
+                      <ChevronRight class="h-3 w-3" />
+                      <span>Read article</span>
+                    </div>
                   </div>
                 </a>
               );
