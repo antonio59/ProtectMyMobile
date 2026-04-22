@@ -53,6 +53,7 @@ All notable changes to this project will be documented in this file.
 
 ### CI/CD
 
+- Make SARIF upload non-blocking when Code Scanning is disabled
 - Add OSV Scanner workflow for dependency vulnerability scanning
 - Bump actions/upload-artifact from 6 to 7 (#40)
 - Bump actions/checkout from 4 to 6 (#39)
@@ -1136,6 +1137,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
