@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 
 ### Bug Fixes
 
+- Theft map now loads properly + shows FOI data
 - Add Yarn resolutions for uuid and yaml security overrides
 - Switch to Yarn for reliable cross-platform builds
 - Re-upgrade Astro to v6 with Netlify CI=false
@@ -1150,6 +1151,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
