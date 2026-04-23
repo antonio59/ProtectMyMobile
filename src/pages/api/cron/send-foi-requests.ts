@@ -11,7 +11,10 @@ function generateReferenceNumber(): string {
   const date = new Date();
   const year = date.getFullYear();
   const quarter = Math.ceil((date.getMonth() + 1) / 3);
-  const random = Math.random().toString(36).substring(2, 8).toUpperCase();
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  const arr = new Uint8Array(6);
+  crypto.getRandomValues(arr);
+  const random = Array.from(arr, b => chars[b % chars.length]).join('');
   return `PMM-FOI-${year}Q${quarter}-${random}`;
 }
 

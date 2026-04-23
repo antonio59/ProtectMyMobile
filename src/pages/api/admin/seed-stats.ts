@@ -28,7 +28,9 @@ function generateCount(baseRisk: string) {
   if (baseRisk === 'Medium') base = 300;
   if (baseRisk === 'High') base = 600;
   if (baseRisk === 'Very High') base = 1200;
-  const randomFactor = Math.random() * 0.4 + 0.8;
+  const arr = new Uint32Array(1);
+  crypto.getRandomValues(arr);
+  const randomFactor = (arr[0] / 0xFFFFFFFF) * 0.4 + 0.8;
   return Math.round(base * randomFactor);
 }
 

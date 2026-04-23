@@ -131,6 +131,16 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 </AdminLayout>
 
 <script>
+  function escapeHtml(str: string | null | undefined): string {
+    if (!str) return '';
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#x27;');
+  }
+
   async function adminConvex(method: 'query' | 'mutation', path: string, args: any = {}) {
     const res = await fetch('/api/admin/convex', {
       method: 'POST',
@@ -181,19 +191,19 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 
         return `
           <tr class="border-b hover:bg-neutral-50">
-            <td class="px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm font-medium">${e.policeForce || 'Unknown'}</td>
+            <td class="px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm font-medium">${escapeHtml(e.policeForce || 'Unknown')}</td>
             <td class="px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm">
-              <a href="${e.url}" target="_blank" class="text-primary hover:underline">${e.title}</a>
+              <a href="${escapeHtml(e.url)}" target="_blank" class="text-primary hover:underline">${escapeHtml(e.title)}</a>
             </td>
             <td class="px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm text-neutral-600">${date}</td>
             <td class="px-2 sm:px-4 py-2 sm:py-3">
               <span class="px-2 py-1 rounded-full text-xs font-medium ${statusClass}">
-                ${e.dataImported ? 'Imported' : e.status}
+                ${e.dataImported ? 'Imported' : escapeHtml(e.status)}
               </span>
               ${e.recordsImported ? `<span class="text-xs text-neutral-500 ml-1">(${e.recordsImported} records)</span>` : ''}
             </td>
             <td class="px-2 sm:px-4 py-2 sm:py-3">
-              <a href="${e.url}" target="_blank" class="text-xs sm:text-sm text-blue-600 hover:underline">View Response</a>
+              <a href="${escapeHtml(e.url)}" target="_blank" class="text-xs sm:text-sm text-blue-600 hover:underline">View Response</a>
             </td>
           </tr>
         `;
@@ -246,9 +256,9 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
       const count = document.getElementById('preview-count')!;
 
       const headers = Object.keys(parsedData[0]);
-      thead.innerHTML = `<tr>${headers.map(h => `<th class="px-2 py-1 text-left">${h}</th>`).join('')}</tr>`;
+      thead.innerHTML = `<tr>${headers.map(h => `<th class="px-2 py-1 text-left">${escapeHtml(h)}</th>`).join('')}</tr>`;
       tbody.innerHTML = parsedData.slice(0, 5).map(row =>
-        `<tr>${headers.map(h => `<td class="px-2 py-1 border-t">${row[h] || ''}</td>`).join('')}</tr>`
+        `<tr>${headers.map(h => `<td class="px-2 py-1 border-t">${escapeHtml(row[h] || '')}</td>`).join('')}</tr>`
       ).join('');
       count.textContent = `Total rows: ${parsedData.length}`;
       preview.classList.remove('hidden');
