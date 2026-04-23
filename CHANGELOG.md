@@ -1174,10 +1174,12 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
+- Update changelog [skip ci]
 - Add UI/UX review documentation and misc updates
 
 ### Features
 
+- Theft map, journalist outreach templates, admin approval workflow
 - **cron**: Automated directory discovery for banks and mobile providers
 - UI/UX improvements, 2025 data integration, news deduplication, and community CTAs
 - Sync homepage stats with statistics page data
