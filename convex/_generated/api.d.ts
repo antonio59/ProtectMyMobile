@@ -24,6 +24,7 @@ import type * as pageViews from "../pageViews.js";
 import type * as policeForces from "../policeForces.js";
 import type * as siteMetadata from "../siteMetadata.js";
 import type * as theftDataPoints from "../theftDataPoints.js";
+import type * as theftReports from "../theftReports.js";
 import type * as wdtkEntries from "../wdtkEntries.js";
 
 import type {
@@ -49,6 +50,7 @@ declare const fullApi: ApiFromModules<{
   policeForces: typeof policeForces;
   siteMetadata: typeof siteMetadata;
   theftDataPoints: typeof theftDataPoints;
+  theftReports: typeof theftReports;
   wdtkEntries: typeof wdtkEntries;
 }>;
 
