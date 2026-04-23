@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 
 ### Bug Fixes
 
+- Track package-lock.json for netlify builds
+- Use npm install for netlify build (reliable in build env)
 - Netlify build config for Node 22 + Bun + Leaflet CSP
 - **security**: Resolve CodeQL incomplete multi-character sanitization alerts
 - **cron**: Add GET fallback for directory verification endpoint
@@ -1141,6 +1143,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
