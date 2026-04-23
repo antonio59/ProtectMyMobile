@@ -300,6 +300,23 @@ export default defineSchema({
   })
     .index("by_event_type", ["eventType"]),
 
+  // Theft Reports (crowdsourced phone theft locations)
+  theftReports: defineTable({
+    locationName: v.string(),
+    latitude: v.optional(v.number()),
+    longitude: v.optional(v.number()),
+    theftDate: v.optional(v.string()),
+    description: v.optional(v.string()),
+    itemType: v.optional(v.string()),
+    sessionId: v.string(),
+    approved: v.boolean(),
+    approvedAt: v.optional(v.number()),
+    createdAt: v.number(),
+  })
+    .index("by_approved", ["approved"])
+    .index("by_session", ["sessionId"])
+    .index("by_created", ["createdAt"]),
+
   // Import Logs (tracking data imports from various sources)
   importLogs: defineTable({
     timestamp: v.number(),

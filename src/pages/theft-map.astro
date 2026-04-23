@@ -1,0 +1,224 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HeaderMobile from '../components/HeaderMobile';
+import Footer from '../components/Footer.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import { MapPin, Shield, Info } from "lucide-react";
+---
+
+<Layout 
+  title="UK Phone Theft Map | Report & View Stolen Phone Locations"
+  description="See where phones are being stolen across the UK. Report your own theft anonymously to help others stay safe. Crowdsourced phone theft data with interactive map."
+  canonicalPath="/theft-map"
+>
+  <HeaderMobile client:idle />
+  <Breadcrumb items={[{ label: 'Theft Map' }]} />
+  
+  <main id="main-content" class="bg-[#f3f2f1]">
+    <div class="container mx-auto px-4 py-4 sm:py-6 md:py-8">
+      <div class="max-w-7xl mx-auto">
+        
+        <!-- Hero -->
+        <div class="text-center mb-6 sm:mb-8">
+          <h1 class="flex items-center justify-center text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4">
+            <MapPin class="h-8 w-8 sm:h-10 sm:w-10 mr-3 text-red-600" />
+            UK Phone Theft Map
+          </h1>
+          <p class="text-sm sm:text-base md:text-lg text-neutral-600 max-w-2xl mx-auto">
+            See where phones are being stolen across the UK. Help others by 
+            <a href="/emergency#report-theft" class="text-primary hover:underline font-medium">reporting your theft</a>.
+          </p>
+        </div>
+
+        <!-- Stats Bar -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
+          <div class="bg-white rounded-xl p-4 shadow-sm text-center">
+            <div class="text-2xl sm:text-3xl font-bold text-red-600" id="stat-reported">-</div>
+            <div class="text-xs sm:text-sm text-neutral-500">Reports</div>
+          </div>
+          <div class="bg-white rounded-xl p-4 shadow-sm text-center">
+            <div class="text-2xl sm:text-3xl font-bold text-primary" id="stat-this-month">-</div>
+            <div class="text-xs sm:text-sm text-neutral-500">This Month</div>
+          </div>
+          <div class="bg-white rounded-xl p-4 shadow-sm text-center">
+            <div class="text-2xl sm:text-3xl font-bold text-amber-600" id="stat-london">-</div>
+            <div class="text-xs sm:text-sm text-neutral-500">London Reports</div>
+          </div>
+          <div class="bg-white rounded-xl p-4 shadow-sm text-center">
+            <div class="text-2xl sm:text-3xl font-bold text-green-600" id="stat-last-7">-</div>
+            <div class="text-xs sm:text-sm text-neutral-500">Last 7 Days</div>
+          </div>
+        </div>
+
+        <!-- Map Container -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden mb-6 sm:mb-8">
+          <div id="theft-map" class="w-full h-[400px] sm:h-[500px] md:h-[600px]"></div>
+        </div>
+
+        <!-- Info Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+          <div class="bg-blue-50 rounded-xl p-4 sm:p-6 border border-blue-100">
+            <h3 class="text-base sm:text-lg font-bold text-blue-900 mb-3 flex items-center">
+              <Shield class="h-5 w-5 mr-2" />
+              How This Helps
+            </h3>
+            <ul class="space-y-2 text-sm text-blue-800">
+              <li class="flex items-start">
+                <span class="mr-2">•</span>
+                Identifies high-risk areas for phone theft
+              </li>
+              <li class="flex items-start">
+                <span class="mr-2">•</span>
+                Helps police allocate resources effectively
+              </li>
+              <li class="flex items-start">
+                <span class="mr-2">•</span>
+                Warns visitors and residents about local risks
+              </li>
+              <li class="flex items-start">
+                <span class="mr-2">•</span>
+                All reports are anonymous and manually verified
+              </li>
+            </ul>
+          </div>
+
+          <div class="bg-amber-50 rounded-xl p-4 sm:p-6 border border-amber-100">
+            <h3 class="text-base sm:text-lg font-bold text-amber-900 mb-3 flex items-center">
+              <Info class="h-5 w-5 mr-2" />
+              Data Notes
+            </h3>
+            <ul class="space-y-2 text-sm text-amber-800">
+              <li class="flex items-start">
+                <span class="mr-2">•</span>
+                Reports appear after admin approval (within 24 hours)
+              </li>
+              <li class="flex items-start">
+                <span class="mr-2">•</span>
+                Locations are approximate to protect privacy
+              </li>
+              <li class="flex items-start">
+                <span class="mr-2">•</span>
+                Combined with official FOI data for accuracy
+              </li>
+              <li class="flex items-start">
+                <span class="mr-2">•</span>
+                <a href="/privacy" class="underline">Read our privacy policy</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin="" />
+
+  <script>
+    function loadScript(src: string): Promise<void> {
+      return new Promise((resolve, reject) => {
+        const s = document.createElement('script');
+        s.src = src;
+        s.onload = () => resolve();
+        s.onerror = reject;
+        document.head.appendChild(s);
+      });
+    }
+
+    async function initMap() {
+      await loadScript('https://unpkg.com/leaflet@1.9.4/dist/leaflet.js');
+      const L = (window as any).L;
+
+      const map = L.map('theft-map').setView([54.5, -2.5], 6);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        maxZoom: 18,
+      }).addTo(map);
+
+      const CONVEX_URL = (window as any).__CONVEX_URL || '';
+      if (!CONVEX_URL) {
+        document.getElementById('theft-map')!.innerHTML = 
+          '<div class="flex items-center justify-center h-full text-neutral-500">Map data unavailable</div>';
+        return;
+      }
+
+      try {
+        const res = await fetch(`${CONVEX_URL}/api/query`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            path: 'theftReports:list',
+            args: { approvedOnly: true },
+          }),
+        });
+        const json = await res.json();
+        const reports = json.value || [];
+
+        // Update stats
+        const now = new Date();
+        const thisMonth = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0');
+        const sevenDaysAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
+
+        document.getElementById('stat-reported')!.textContent = String(reports.length);
+        document.getElementById('stat-this-month')!.textContent = String(
+          reports.filter((r: any) => r.theftDate?.startsWith(thisMonth)).length
+        );
+        document.getElementById('stat-london')!.textContent = String(
+          reports.filter((r: any) => r.locationName?.toLowerCase().includes('london')).length
+        );
+        document.getElementById('stat-last-7')!.textContent = String(
+          reports.filter((r: any) => r.createdAt > sevenDaysAgo).length
+        );
+
+        if (reports.length === 0) {
+          document.getElementById('theft-map')!.innerHTML = 
+            '<div class="flex items-center justify-center h-full text-neutral-500">No reports yet. Be the first to <a href="/emergency#report-theft" class="text-primary underline ml-1">report a theft</a>.</div>';
+          return;
+        }
+
+        const markers: any[] = [];
+        reports.forEach((r: any) => {
+          if (r.latitude && r.longitude) {
+            const marker = L.circleMarker([r.latitude, r.longitude], {
+              radius: 8,
+              fillColor: '#dc2626',
+              color: '#fff',
+              weight: 2,
+              opacity: 1,
+              fillOpacity: 0.7,
+            }).addTo(map);
+
+            const dateStr = r.theftDate 
+              ? new Date(r.theftDate).toLocaleDateString('en-GB')
+              : 'Date unknown';
+
+            marker.bindPopup(`
+              <div class="font-sans">
+                <p class="font-semibold text-sm">${r.locationName || 'Unknown location'}</p>
+                <p class="text-xs text-neutral-500">${dateStr}</p>
+                ${r.description ? `<p class="text-xs mt-1">${r.description}</p>` : ''}
+              </div>
+            `);
+            markers.push(marker);
+          }
+        });
+
+        if (markers.length > 0) {
+          const group = new L.featureGroup(markers);
+          map.fitBounds(group.getBounds().pad(0.1));
+        }
+      } catch (err) {
+        console.error('Failed to load theft reports:', err);
+        document.getElementById('theft-map')!.innerHTML = 
+          '<div class="flex items-center justify-center h-full text-neutral-500">Unable to load map data</div>';
+      }
+    }
+
+    initMap();
+  </script>
+</Layout>

@@ -1,0 +1,222 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+---
+
+<AdminLayout
+  title="Theft Reports | ProtectMyMobile Admin"
+  description="Review and approve crowdsourced theft reports."
+  currentPage="theft-reports"
+>
+  <div class="p-3 sm:p-4 lg:p-8">
+    <!-- Header -->
+    <div class="mb-6 sm:mb-8">
+      <h1 class="text-xl sm:text-2xl md:text-3xl font-bold text-neutral-900">Theft Reports</h1>
+      <p class="text-neutral-600 text-xs sm:text-sm mt-1 sm:mt-2">
+        Review and approve crowdsourced theft location reports before they appear on the public map.
+      </p>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
+      <div class="bg-white rounded-xl p-4 shadow-sm text-center">
+        <div class="text-2xl sm:text-3xl font-bold text-neutral-900" id="stat-total">-</div>
+        <div class="text-xs sm:text-sm text-neutral-500">Total Reports</div>
+      </div>
+      <div class="bg-white rounded-xl p-4 shadow-sm text-center">
+        <div class="text-2xl sm:text-3xl font-bold text-amber-600" id="stat-pending">-</div>
+        <div class="text-xs sm:text-sm text-neutral-500">Pending</div>
+      </div>
+      <div class="bg-white rounded-xl p-4 shadow-sm text-center">
+        <div class="text-2xl sm:text-3xl font-bold text-green-600" id="stat-approved">-</div>
+        <div class="text-xs sm:text-sm text-neutral-500">Approved</div>
+      </div>
+      <div class="bg-white rounded-xl p-4 shadow-sm text-center">
+        <div class="text-2xl sm:text-3xl font-bold text-primary" id="stat-this-week">-</div>
+        <div class="text-xs sm:text-sm text-neutral-500">This Week</div>
+      </div>
+    </div>
+
+    <!-- Reports Table -->
+    <div class="bg-white rounded-xl shadow-md overflow-hidden">
+      <div class="p-4 sm:p-6 border-b border-neutral-200">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <h2 class="text-lg font-bold text-neutral-900">All Reports</h2>
+          <div class="flex gap-2">
+            <button id="filter-all" class="filter-btn px-3 py-1.5 text-xs font-medium rounded-lg bg-primary text-white">All</button>
+            <button id="filter-pending" class="filter-btn px-3 py-1.5 text-xs font-medium rounded-lg bg-neutral-100 text-neutral-700 hover:bg-neutral-200">Pending</button>
+            <button id="filter-approved" class="filter-btn px-3 py-1.5 text-xs font-medium rounded-lg bg-neutral-100 text-neutral-700 hover:bg-neutral-200">Approved</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead class="bg-neutral-50 text-neutral-600">
+            <tr>
+              <th class="px-4 py-3 text-left font-medium">Location</th>
+              <th class="px-4 py-3 text-left font-medium hidden md:table-cell">Date</th>
+              <th class="px-4 py-3 text-left font-medium hidden lg:table-cell">Description</th>
+              <th class="px-4 py-3 text-left font-medium">Coords</th>
+              <th class="px-4 py-3 text-left font-medium">Status</th>
+              <th class="px-4 py-3 text-left font-medium">Submitted</th>
+              <th class="px-4 py-3 text-left font-medium">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="reports-table" class="divide-y divide-neutral-100">
+            <tr>
+              <td colspan="7" class="px-4 py-12 text-center text-neutral-500">Loading reports...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const ADMIN_TOKEN = sessionStorage.getItem('pmm_admin_token') || '';
+    const CONVEX_URL = (window as any).__CONVEX_URL || '';
+    let allReports: any[] = [];
+    let currentFilter = 'all';
+
+    async function loadReports() {
+      if (!CONVEX_URL || !ADMIN_TOKEN) {
+        document.getElementById('reports-table')!.innerHTML = 
+          '<tr><td colspan="7" class="px-4 py-12 text-center text-red-500">Not authenticated</td></tr>';
+        return;
+      }
+
+      try {
+        const res = await fetch(`${CONVEX_URL}/api/query`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            path: 'theftReports:list',
+            args: { adminToken: ADMIN_TOKEN },
+          }),
+        });
+        const json = await res.json();
+        allReports = json.value || [];
+        updateStats();
+        renderTable();
+      } catch (err) {
+        document.getElementById('reports-table')!.innerHTML = 
+          '<tr><td colspan="7" class="px-4 py-12 text-center text-red-500">Failed to load reports</td></tr>';
+      }
+    }
+
+    function updateStats() {
+      const now = Date.now();
+      const sevenDaysAgo = now - 7 * 24 * 60 * 60 * 1000;
+      document.getElementById('stat-total')!.textContent = String(allReports.length);
+      document.getElementById('stat-pending')!.textContent = String(allReports.filter((r: any) => !r.approved).length);
+      document.getElementById('stat-approved')!.textContent = String(allReports.filter((r: any) => r.approved).length);
+      document.getElementById('stat-this-week')!.textContent = String(allReports.filter((r: any) => r.createdAt > sevenDaysAgo).length);
+    }
+
+    function renderTable() {
+      const tbody = document.getElementById('reports-table')!;
+      let filtered = allReports;
+      if (currentFilter === 'pending') filtered = allReports.filter((r: any) => !r.approved);
+      if (currentFilter === 'approved') filtered = allReports.filter((r: any) => r.approved);
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" class="px-4 py-12 text-center text-neutral-500">No reports found</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = filtered.map((r: any) => {
+        const dateStr = r.theftDate 
+          ? new Date(r.theftDate).toLocaleDateString('en-GB')
+          : '-';
+        const submittedStr = new Date(r.createdAt).toLocaleDateString('en-GB');
+        const coords = r.latitude && r.longitude 
+          ? `${r.latitude.toFixed(4)}, ${r.longitude.toFixed(4)}`
+          : '-';
+        const statusBadge = r.approved
+          ? '<span class="px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">Approved</span>'
+          : '<span class="px-2 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-700">Pending</span>';
+
+        return `
+          <tr class="border-b border-neutral-100 hover:bg-neutral-50" data-id="${r._id}">
+            <td class="px-4 py-3 font-medium text-neutral-900">${r.locationName || 'Unknown'}</td>
+            <td class="px-4 py-3 hidden md:table-cell text-neutral-600">${dateStr}</td>
+            <td class="px-4 py-3 hidden lg:table-cell text-neutral-600 max-w-xs truncate">${r.description || '-'}</td>
+            <td class="px-4 py-3 text-neutral-600 font-mono text-xs">${coords}</td>
+            <td class="px-4 py-3">${statusBadge}</td>
+            <td class="px-4 py-3 text-neutral-600">${submittedStr}</td>
+            <td class="px-4 py-3">
+              <div class="flex gap-2">
+                ${!r.approved 
+                  ? `<button class="approve-btn text-xs bg-green-600 text-white px-2 py-1 rounded hover:bg-green-700" data-id="${r._id}">Approve</button>`
+                  : `<button class="unapprove-btn text-xs bg-neutral-200 text-neutral-700 px-2 py-1 rounded hover:bg-neutral-300" data-id="${r._id}">Unapprove</button>`
+                }
+                <button class="delete-btn text-xs bg-red-100 text-red-700 px-2 py-1 rounded hover:bg-red-200" data-id="${r._id}">Delete</button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      // Attach event listeners
+      tbody.querySelectorAll('.approve-btn').forEach(btn => {
+        btn.addEventListener('click', () => updateApproval(btn.getAttribute('data-id')!, true));
+      });
+      tbody.querySelectorAll('.unapprove-btn').forEach(btn => {
+        btn.addEventListener('click', () => updateApproval(btn.getAttribute('data-id')!, false));
+      });
+      tbody.querySelectorAll('.delete-btn').forEach(btn => {
+        btn.addEventListener('click', () => deleteReport(btn.getAttribute('data-id')!));
+      });
+    }
+
+    async function updateApproval(id: string, approved: boolean) {
+      if (!confirm(approved ? 'Approve this report?' : 'Unapprove this report?')) return;
+      try {
+        await fetch(`${CONVEX_URL}/api/mutation`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            path: 'theftReports:updateApproval',
+            args: { id, approved, adminToken: ADMIN_TOKEN },
+          }),
+        });
+        await loadReports();
+      } catch (err) {
+        alert('Failed to update approval');
+      }
+    }
+
+    async function deleteReport(id: string) {
+      if (!confirm('Permanently delete this report?')) return;
+      try {
+        await fetch(`${CONVEX_URL}/api/mutation`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            path: 'theftReports:deleteReport',
+            args: { id, adminToken: ADMIN_TOKEN },
+          }),
+        });
+        await loadReports();
+      } catch (err) {
+        alert('Failed to delete report');
+      }
+    }
+
+    // Filter buttons
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => {
+          b.classList.remove('bg-primary', 'text-white');
+          b.classList.add('bg-neutral-100', 'text-neutral-700');
+        });
+        btn.classList.remove('bg-neutral-100', 'text-neutral-700');
+        btn.classList.add('bg-primary', 'text-white');
+        currentFilter = btn.id.replace('filter-', '');
+        renderTable();
+      });
+    });
+
+    loadReports();
+  </script>
+</AdminLayout>
