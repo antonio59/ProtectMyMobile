@@ -30,3 +30,5 @@ pnpm-debug.log*
 # stray duplicate directories
 ProtectMyMobile/
 netlify/netlify/
+.gstack/
+package-lock.json
