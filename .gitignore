@@ -31,4 +31,3 @@ pnpm-debug.log*
 ProtectMyMobile/
 netlify/netlify/
 .gstack/
-package-lock.json
