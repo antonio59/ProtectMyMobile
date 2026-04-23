@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 
 ### Bug Fixes
 
+- Use nvm explicitly in netlify build command
 - Add .nvmrc for Netlify Node 22
 - Add linux rollup optional dep for netlify builds
 - Track package-lock.json for netlify builds
@@ -1145,6 +1146,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
