@@ -69,6 +69,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Fix XSS and insecure randomness vulnerabilities
 - Batch update all dependencies + fix security vulnerabilities
 - Merge branch 'main' of https://github.com/antonio59/ProtectMyMobile
 - Merge branch 'main' of https://github.com/antonio59/ProtectMyMobile
@@ -1138,6 +1139,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
