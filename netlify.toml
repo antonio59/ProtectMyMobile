@@ -1,5 +1,5 @@
 [build]
-  command = "curl -fsSL https://bun.sh/install | bash && export PATH=\"$HOME/.bun/bin:$PATH\" && bun install --frozen-lockfile && bun run build"
+  command = "npm install && npm run build"
   publish = "dist"
 
 [build.environment]
