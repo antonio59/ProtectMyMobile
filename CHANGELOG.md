@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 
 ### Bug Fixes
 
+- Netlify build config for Node 22 + Bun + Leaflet CSP
 - **security**: Resolve CodeQL incomplete multi-character sanitization alerts
 - **cron**: Add GET fallback for directory verification endpoint
 - **news**: Link all news cards to internal summary pages; reduce to weekly
@@ -1140,6 +1141,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
