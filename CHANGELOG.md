@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 
 ### Bug Fixes
 
+- Re-upgrade Astro to v6 with Netlify CI=false
 - Downgrade Astro 6→5 for Netlify Node 20 compatibility
 - Use nvm explicitly in netlify build command
 - Add .nvmrc for Netlify Node 22
@@ -1147,6 +1148,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
