@@ -49,7 +49,7 @@ const schema = {
   <HeaderMobile client:idle />
   <Breadcrumb items={[{ label: 'London Visitor Safety' }]} />
 
-  <main id="main-content" class="bg-[#f3f2f1] min-h-screen">
+  <main id="main-content" class="bg-neutral-100 min-h-screen">
     <div class="container mx-auto px-4 py-4 sm:py-6 md:py-8 max-w-6xl">
       <div class="bg-gradient-to-br from-primary to-blue-700 text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8 shadow-xl">
         <div class="flex items-center gap-3 mb-3">
@@ -78,12 +78,12 @@ const schema = {
       </div>
 
       <section class="mb-6 sm:mb-8 grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
-        <div class="bg-white rounded-lg sm:rounded-2xl shadow-sm border border-neutral-100 p-4 sm:p-5 flex gap-3">
+        <div class="bg-card rounded-lg sm:rounded-2xl shadow-sm border border-neutral-100 p-4 sm:p-5 flex gap-3">
           <div class="bg-primary/10 text-primary rounded-lg p-2 h-fit">
             <Lock class="h-5 w-5" />
           </div>
           <div>
-            <p class="text-sm font-semibold text-neutral-900">Before you land</p>
+            <p class="text-sm font-semibold text-foreground">Before you land</p>
             <ul class="text-xs sm:text-sm text-neutral-600 list-disc pl-4 space-y-1 mt-1">
               <li>Enable Face ID/biometrics + strong passcode.</li>
               <li>Turn on Find My (Apple/Google) and test it.</li>
@@ -91,12 +91,12 @@ const schema = {
             </ul>
           </div>
         </div>
-        <div class="bg-white rounded-lg sm:rounded-2xl shadow-sm border border-neutral-100 p-4 sm:p-5 flex gap-3">
-          <div class="bg-amber-50 text-amber-600 rounded-lg p-2 h-fit">
+        <div class="bg-card rounded-lg sm:rounded-2xl shadow-sm border border-neutral-100 p-4 sm:p-5 flex gap-3">
+          <div class="bg-warning-subtle text-warning rounded-lg p-2 h-fit">
             <MapPin class="h-5 w-5" />
           </div>
           <div>
-            <p class="text-sm font-semibold text-neutral-900">While exploring</p>
+            <p class="text-sm font-semibold text-foreground">While exploring</p>
             <ul class="text-xs sm:text-sm text-neutral-600 list-disc pl-4 space-y-1 mt-1">
               <li>Use cross-body straps; avoid kerbside scrolling.</li>
               <li>Keep phones away from open train doors.</li>
@@ -104,12 +104,12 @@ const schema = {
             </ul>
           </div>
         </div>
-        <div class="bg-white rounded-lg sm:rounded-2xl shadow-sm border border-neutral-100 p-4 sm:p-5 flex gap-3">
-          <div class="bg-red-50 text-red-600 rounded-lg p-2 h-fit">
+        <div class="bg-card rounded-lg sm:rounded-2xl shadow-sm border border-neutral-100 p-4 sm:p-5 flex gap-3">
+          <div class="bg-destructive-subtle text-destructive rounded-lg p-2 h-fit">
             <AlertTriangle class="h-5 w-5" />
           </div>
           <div>
-            <p class="text-sm font-semibold text-neutral-900">If it's stolen</p>
+            <p class="text-sm font-semibold text-foreground">If it's stolen</p>
             <ul class="text-xs sm:text-sm text-neutral-600 list-disc pl-4 space-y-1 mt-1">
               <li>Lock/erase via Find My immediately.</li>
               <li>Block your SIM with your carrier.</li>
@@ -120,10 +120,10 @@ const schema = {
       </section>
 
       <section class="mb-6 sm:mb-8 md:mb-10 grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-        <div class="bg-white rounded-lg sm:rounded-2xl shadow-md border border-neutral-100 p-4 sm:p-6">
+        <div class="bg-card rounded-lg sm:rounded-2xl shadow-md border border-neutral-100 p-4 sm:p-6">
           <div class="flex items-center gap-2 mb-4">
             <CheckCircle2 class="h-5 w-5 text-primary" />
-            <p class="text-sm font-semibold text-neutral-900">Pre-arrival checklist</p>
+            <p class="text-sm font-semibold text-foreground">Pre-arrival checklist</p>
           </div>
           <ol class="list-decimal pl-5 space-y-2 text-xs sm:text-sm text-neutral-700">
             <li>Save UK emergency numbers: 999 (emergency), 101 (police non-emergency).</li>
@@ -134,10 +134,10 @@ const schema = {
           </ol>
         </div>
 
-        <div class="bg-white rounded-lg sm:rounded-2xl shadow-md border border-neutral-100 p-4 sm:p-6">
+        <div class="bg-card rounded-lg sm:rounded-2xl shadow-md border border-neutral-100 p-4 sm:p-6">
           <div class="flex items-center gap-2 mb-4">
             <PhoneOff class="h-5 w-5 text-primary" />
-            <p class="text-sm font-semibold text-neutral-900">Rapid response (if stolen)</p>
+            <p class="text-sm font-semibold text-foreground">Rapid response (if stolen)</p>
           </div>
           <ol class="list-decimal pl-5 space-y-2 text-xs sm:text-sm text-neutral-700">
             <li>Lock/erase: iCloud Find My iPhone or Google Find My Device.</li>
@@ -153,12 +153,12 @@ const schema = {
       </section>
 
       <section class="mb-6 sm:mb-8 md:mb-10">
-        <div class="bg-white rounded-lg sm:rounded-2xl shadow-md border border-neutral-100 p-4 sm:p-6">
-          <h2 class="text-xl md:text-2xl font-bold text-neutral-900 mb-2">High-risk spots & habits to avoid</h2>
+        <div class="bg-card rounded-lg sm:rounded-2xl shadow-md border border-neutral-100 p-4 sm:p-6">
+          <h2 class="text-xl md:text-2xl font-bold text-foreground mb-2">High-risk spots & habits to avoid</h2>
           <p class="text-neutral-600 text-sm md:text-base mb-4">Opportunistic theft is common near kerbs, open train doors, and crowded attractions. Small changes greatly reduce risk.</p>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 text-xs sm:text-sm text-neutral-700">
             <div class="p-4 rounded-xl bg-neutral-50 border border-neutral-100">
-              <p class="font-semibold text-neutral-900 mb-1">Common scenarios</p>
+              <p class="font-semibold text-foreground mb-1">Common scenarios</p>
               <ul class="list-disc pl-4 space-y-1">
                 <li>Snatch-and-grab from cyclists/scooters near kerbs.</li>
                 <li>Phone lifted at open Tube/train doors.</li>
@@ -166,7 +166,7 @@ const schema = {
               </ul>
             </div>
             <div class="p-4 rounded-xl bg-neutral-50 border border-neutral-100">
-              <p class="font-semibold text-neutral-900 mb-1">Do this instead</p>
+              <p class="font-semibold text-foreground mb-1">Do this instead</p>
               <ul class="list-disc pl-4 space-y-1">
                 <li>Stand back from kerbs when using your phone.</li>
                 <li>Keep phones stowed until doors close.</li>
@@ -188,7 +188,7 @@ const schema = {
             <a href="/emergency" class="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 text-xs sm:text-sm bg-primary text-white rounded-xl font-semibold shadow-md hover:bg-primary/90 transition">
               Open emergency steps <ArrowRight class="h-4 w-4" />
             </a>
-            <a href="/prevention" class="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 text-xs sm:text-sm bg-white/10 text-white rounded-xl font-semibold border border-white/15 hover:bg-white/15 transition">
+            <a href="/prevention" class="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 text-xs sm:text-sm bg-card/10 text-white rounded-xl font-semibold border border-white/15 hover:bg-card/15 transition">
               Prevention guide
             </a>
           </div>

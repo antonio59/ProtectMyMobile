@@ -52,8 +52,8 @@ for (const post of posts) {
 
 const categoryConfig: Record<string, { color: string; bg: string; icon: any; gradient: string; label: string }> = {
   arrest: {
-    color: "text-red-700",
-    bg: "bg-red-50",
+    color: "text-destructive-hover",
+    bg: "bg-destructive-subtle",
     icon: Siren,
     gradient: "from-red-500 to-red-600",
     label: "Arrests"
@@ -73,8 +73,8 @@ const categoryConfig: Record<string, { color: string; bg: string; icon: any; gra
     label: "Law Changes"
   },
   statistics: {
-    color: "text-blue-700",
-    bg: "bg-blue-50",
+    color: "text-primary-hover",
+    bg: "bg-primary-subtle",
     icon: TrendingUp,
     gradient: "from-blue-500 to-blue-600",
     label: "Statistics"
@@ -136,7 +136,7 @@ const newsSchema = {
 >
   <HeaderMobile client:idle />
 
-  <main id="main-content" class="bg-[#f3f2f1] min-h-screen">
+  <main id="main-content" class="bg-neutral-100 min-h-screen">
     <div class="container mx-auto px-4 py-4 sm:py-6 max-w-6xl">
       
       <Breadcrumb items={[{ label: 'News' }]} />
@@ -172,7 +172,7 @@ const newsSchema = {
           <p class="text-yellow-800 text-sm sm:text-base">Unable to load news posts. Please try again later.</p>
         </div>
       ) : posts.length === 0 ? (
-        <div class="bg-white rounded-xl sm:rounded-2xl shadow-md p-8 sm:p-12 text-center">
+        <div class="bg-card rounded-xl sm:rounded-2xl shadow-md p-8 sm:p-12 text-center">
           <Newspaper class="h-12 w-12 mx-auto mb-3 text-neutral-400" />
           <h3 class="text-lg font-semibold mb-2">No News Posts Yet</h3>
           <p class="text-neutral-600 text-sm">
@@ -187,7 +187,7 @@ const newsSchema = {
               <h2 class="text-sm font-semibold text-neutral-500 uppercase tracking-wide mb-3">Featured</h2>
               <a
                 href={`/news/${featuredPost.slug}`}
-                class="group block bg-white rounded-xl sm:rounded-2xl shadow-lg overflow-hidden border border-neutral-200 hover:border-primary/30 transition-all"
+                class="group block bg-card rounded-xl sm:rounded-2xl shadow-lg overflow-hidden border border-neutral-200 hover:border-primary/30 transition-all"
               >
                 {featuredPost.featuredImageUrl ? (
                   <div class="w-full aspect-[21/9] sm:aspect-[21/9] overflow-hidden bg-neutral-100">
@@ -230,7 +230,7 @@ const newsSchema = {
                           </span>
                         )}
                       </div>
-                      <h3 class="text-lg sm:text-xl lg:text-2xl font-bold text-neutral-900 group-hover:text-primary transition-colors leading-tight mb-2">
+                      <h3 class="text-lg sm:text-xl lg:text-2xl font-bold text-foreground group-hover:text-primary transition-colors leading-tight mb-2">
                         {featuredPost.title}
                       </h3>
                       <p class="text-neutral-600 text-sm leading-relaxed line-clamp-2">
@@ -258,7 +258,7 @@ const newsSchema = {
                 const Icon = config.icon;
                 return (
                   <button 
-                    class="category-btn px-3 py-1.5 rounded-full bg-white text-neutral-600 border border-neutral-200 text-xs sm:text-sm font-medium hover:border-primary/30 hover:text-primary transition-all whitespace-nowrap flex items-center gap-1.5" 
+                    class="category-btn px-3 py-1.5 rounded-full bg-card text-neutral-600 border border-neutral-200 text-xs sm:text-sm font-medium hover:border-primary/30 hover:text-primary transition-all whitespace-nowrap flex items-center gap-1.5" 
                     data-category={key}
                   >
                     <Icon className="h-3.5 w-3.5" />
@@ -286,7 +286,7 @@ const newsSchema = {
                 return (
                   <a
                     href={`/news/${post.slug}`}
-                    class="news-card group flex flex-col bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-200 border border-neutral-200 hover:border-primary/20 overflow-hidden h-full"
+                    class="news-card group flex flex-col bg-card rounded-xl shadow-sm hover:shadow-md transition-all duration-200 border border-neutral-200 hover:border-primary/20 overflow-hidden h-full"
                     data-category={post.category}
                   >
                     {/* Featured image or category fallback */}
@@ -318,7 +318,7 @@ const newsSchema = {
                         </div>
                       </div>
 
-                      <h3 class="text-base sm:text-lg font-semibold text-neutral-900 group-hover:text-primary transition-colors leading-snug mb-2 line-clamp-2">
+                      <h3 class="text-base sm:text-lg font-semibold text-foreground group-hover:text-primary transition-colors leading-snug mb-2 line-clamp-2">
                         {post.title}
                       </h3>
 
@@ -344,7 +344,7 @@ const newsSchema = {
           </section>
 
           {/* About Feed */}
-          <section class="mt-8 sm:mt-10 bg-white rounded-xl shadow-sm p-4 sm:p-6 border border-neutral-200">
+          <section class="mt-8 sm:mt-10 bg-card rounded-xl shadow-sm p-4 sm:p-6 border border-neutral-200">
             <div class="flex items-center gap-2 mb-3">
               <Filter class="h-4 w-4 text-neutral-400" />
               <h3 class="text-sm font-semibold text-neutral-700">About This Feed</h3>

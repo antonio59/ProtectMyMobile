@@ -79,12 +79,12 @@ const theftMethods = [
 ];
 
 const colorClasses: Record<string, { bg: string; border: string; icon: string; badge: string }> = {
-  red: { bg: 'bg-red-50', border: 'border-red-200', icon: 'text-red-500', badge: 'bg-red-100 text-red-700' },
+  red: { bg: 'bg-destructive-subtle', border: 'border-red-200', icon: 'text-red-500', badge: 'bg-destructive-muted text-destructive-hover' },
   orange: { bg: 'bg-orange-50', border: 'border-orange-200', icon: 'text-orange-500', badge: 'bg-orange-100 text-orange-700' },
   yellow: { bg: 'bg-yellow-50', border: 'border-yellow-200', icon: 'text-yellow-600', badge: 'bg-yellow-100 text-yellow-700' },
   green: { bg: 'bg-green-50', border: 'border-green-200', icon: 'text-green-500', badge: 'bg-green-100 text-green-700' },
   teal: { bg: 'bg-teal-50', border: 'border-teal-200', icon: 'text-teal-500', badge: 'bg-teal-100 text-teal-700' },
-  blue: { bg: 'bg-blue-50', border: 'border-blue-200', icon: 'text-blue-500', badge: 'bg-blue-100 text-blue-700' },
+  blue: { bg: 'bg-primary-subtle', border: 'border-blue-200', icon: 'text-blue-500', badge: 'bg-primary-muted text-primary-hover' },
   emerald: { bg: 'bg-emerald-50', border: 'border-emerald-200', icon: 'text-emerald-500', badge: 'bg-emerald-100 text-emerald-700' },
   purple: { bg: 'bg-purple-50', border: 'border-purple-200', icon: 'text-purple-500', badge: 'bg-purple-100 text-purple-700' },
   slate: { bg: 'bg-slate-50', border: 'border-slate-200', icon: 'text-slate-500', badge: 'bg-slate-100 text-slate-700' },
@@ -124,7 +124,7 @@ const hotspots = [
   <HeaderMobile client:idle />
   <Breadcrumb items={[{ label: 'The Problem' }]} />
   
-  <main id="main-content" class="bg-[#f3f2f1] min-h-screen">
+  <main id="main-content" class="bg-neutral-100 min-h-screen">
     <div class="container mx-auto px-4 py-4 sm:py-6 max-w-6xl">
       
       <!-- Hero Section -->
@@ -149,7 +149,7 @@ const hotspots = [
               <Clock class="h-4 w-4" />
               <span>One stolen every 5 minutes</span>
             </div>
-            <a href="/scenarios" class="inline-flex items-center gap-2 bg-white text-red-700 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold shadow-sm hover:bg-white/90 transition">
+            <a href="/scenarios" class="inline-flex items-center gap-2 bg-card text-destructive-hover px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold shadow-sm hover:bg-card/90 transition">
               <AlertTriangle class="h-4 w-4" />
               View scenario slides
             </a>
@@ -165,7 +165,7 @@ const hotspots = [
         </h2>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
           {stats.map((stat) => (
-            <div class="bg-white rounded-lg sm:rounded-2xl p-3 sm:p-4 md:p-5 shadow-md border border-neutral-100 text-center">
+            <div class="bg-card rounded-lg sm:rounded-2xl p-3 sm:p-4 md:p-5 shadow-md border border-neutral-100 text-center">
               <div class={`text-xl sm:text-2xl md:text-3xl font-bold ${stat.color}`}>{stat.value}</div>
               <p class="text-[10px] sm:text-xs text-neutral-600 mt-2">{stat.label}</p>
             </div>
@@ -175,7 +175,7 @@ const hotspots = [
       
       <!-- How Thieves Operate -->
       <section class="mb-6 sm:mb-8 md:mb-10">
-        <div class="bg-white rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-neutral-100">
+        <div class="bg-card rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-neutral-100">
           <div class="h-2 bg-gradient-to-r from-red-500 to-orange-500"></div>
           <div class="p-4 sm:p-6 md:p-8">
             <h2 class="text-lg sm:text-xl font-bold mb-2">How Thieves Operate</h2>
@@ -193,7 +193,7 @@ const hotspots = [
                         <method.icon class="h-5 w-5 sm:h-6 sm:w-6" />
                       </div>
                       <div class="flex-1">
-                        <h3 class="font-bold text-neutral-900 mb-1">{method.title}</h3>
+                        <h3 class="font-bold text-foreground mb-1">{method.title}</h3>
                         <p class="text-sm text-neutral-700 mb-3">{method.description}</p>
                         <div class={`${colors.badge} text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg inline-flex items-center gap-1`}>
                           <Shield class="h-3 w-3" />
@@ -217,14 +217,14 @@ const hotspots = [
         </h2>
         <div class="grid grid-cols-2 md:grid-cols-3 gap-2 sm:gap-3">
           {hotspots.map((spot) => (
-            <div class="bg-white rounded-lg sm:rounded-xl p-3 sm:p-4 shadow-sm border border-neutral-100">
+            <div class="bg-card rounded-lg sm:rounded-xl p-3 sm:p-4 shadow-sm border border-neutral-100">
               <div class="flex items-center gap-2 mb-1">
                 <MapPin class="h-4 w-4 text-red-500" />
                 <span class="font-semibold text-xs sm:text-sm">{spot.area}</span>
               </div>
-              <p class="text-lg font-bold text-red-600">{spot.thefts}</p>
+              <p class="text-lg font-bold text-destructive">{spot.thefts}</p>
               <span class={`text-xs sm:text-sm px-2 py-0.5 rounded-full ${
-                spot.risk === 'Extreme' ? 'bg-red-100 text-red-700' :
+                spot.risk === 'Extreme' ? 'bg-destructive-muted text-destructive-hover' :
                 spot.risk === 'Very High' ? 'bg-orange-100 text-orange-700' :
                 'bg-yellow-100 text-yellow-700'
               }`}>
@@ -242,11 +242,11 @@ const hotspots = [
       <section class="mb-6 sm:mb-8 md:mb-10">
         <div class="bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl p-4 sm:p-6 md:p-8 border border-amber-200">
           <h2 class="text-lg sm:text-xl font-bold mb-4 flex items-center gap-2">
-            <AlertTriangle class="h-4 w-4 sm:h-5 sm:w-5 text-amber-600" />
+            <AlertTriangle class="h-4 w-4 sm:h-5 sm:w-5 text-warning" />
             Why It Matters
           </h2>
           <div class="grid md:grid-cols-2 gap-4">
-            <div class="bg-white rounded-xl p-3 sm:p-4 shadow-sm">
+            <div class="bg-card rounded-xl p-3 sm:p-4 shadow-sm">
               <h3 class="font-semibold mb-2">Beyond the Device Cost</h3>
               <ul class="text-sm text-neutral-700 space-y-2">
                 <li>• Access to banking apps and financial data</li>
@@ -255,7 +255,7 @@ const hotspots = [
                 <li>• Two-factor authentication codes</li>
               </ul>
             </div>
-            <div class="bg-white rounded-xl p-3 sm:p-4 shadow-sm">
+            <div class="bg-card rounded-xl p-3 sm:p-4 shadow-sm">
               <h3 class="font-semibold mb-2">Identity Theft Risk</h3>
               <ul class="text-sm text-neutral-700 space-y-2">
                 <li>• Fraudulent loans taken in your name</li>
@@ -270,7 +270,7 @@ const hotspots = [
       
       <!-- Government Response -->
       <section class="mb-6 sm:mb-8 md:mb-10">
-        <div class="bg-white rounded-2xl shadow-md p-4 sm:p-6 md:p-8 border border-neutral-100">
+        <div class="bg-card rounded-2xl shadow-md p-4 sm:p-6 md:p-8 border border-neutral-100">
           <h2 class="text-lg sm:text-xl font-bold mb-4">Government Response</h2>
           <p class="text-neutral-700 text-sm mb-4">
             The UK government has announced plans to tackle the phone theft epidemic, including:
@@ -310,11 +310,11 @@ const hotspots = [
             </p>
           </div>
           <div class="flex flex-col sm:flex-row gap-3">
-            <a href="/prevention" class="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-white text-primary rounded-xl font-semibold text-xs sm:text-sm hover:bg-blue-50 transition-colors">
+            <a href="/prevention" class="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-background text-primary rounded-xl font-semibold text-xs sm:text-sm hover:bg-primary-subtle transition-colors">
               <Shield class="h-4 w-4" />
               Prevention Guide
             </a>
-            <a href="/emergency" class="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-red-500 text-white rounded-xl font-semibold text-xs sm:text-sm hover:bg-red-600 transition-colors">
+            <a href="/emergency" class="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-red-500 text-white rounded-xl font-semibold text-xs sm:text-sm hover:bg-destructive transition-colors">
               Emergency Steps
               <ArrowRight class="h-4 w-4" />
             </a>

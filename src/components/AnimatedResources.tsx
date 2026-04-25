@@ -25,21 +25,21 @@ const resources: Resource[] = [
     linkText: 'Learn How to Protect Your Phone',
   },
   {
-    icon: <AlertTriangle className="h-8 w-8 text-red-600" />,
-    iconBg: 'bg-red-100',
+    icon: <AlertTriangle className="h-8 w-8 text-destructive" />,
+    iconBg: 'bg-destructive-muted',
     title: 'Emergency Response',
     description: 'Phone stolen? Follow our 5-step emergency checklist to lock your device, secure accounts, and report the theft.',
     href: '/emergency',
-    linkColor: 'text-red-600',
+    linkColor: 'text-destructive',
     linkText: 'See Emergency Steps',
   },
   {
-    icon: <Building2 className="h-8 w-8 text-blue-600" />,
-    iconBg: 'bg-blue-100',
+    icon: <Building2 className="h-8 w-8 text-primary" />,
+    iconBg: 'bg-primary-muted',
     title: 'UK Bank Contacts',
     description: 'Emergency contact numbers for 25+ UK banks. Secure your accounts and prevent fraud immediately.',
     href: '/banks',
-    linkColor: 'text-blue-600',
+    linkColor: 'text-primary',
     linkText: 'Find Your Bank',
   },
   {
@@ -60,7 +60,7 @@ export default function AnimatedResources() {
     <section className="mb-8 sm:mb-12">
       <h2
         ref={headingRef}
-        className={`text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-neutral-900 mb-4 sm:mb-6 lg:mb-8 animate-on-scroll ${headingInView ? 'is-visible' : ''}`}
+        className={`text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-4 sm:mb-6 lg:mb-8 animate-on-scroll ${headingInView ? 'is-visible' : ''}`}
       >
         Essential Resources
       </h2>

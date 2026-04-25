@@ -561,7 +561,7 @@ const schema = [
 >
   <HeaderMobile client:idle />
 
-  <main id="main-content" class="bg-[#f3f2f1] min-h-screen">
+  <main id="main-content" class="bg-neutral-100 min-h-screen">
     <div class="container mx-auto px-4 py-4 sm:py-6 md:py-8 max-w-6xl">
       
       <Breadcrumb items={[
@@ -607,12 +607,12 @@ const schema = [
 
       <!-- Quick Action Cards -->
       <section class="mb-6 sm:mb-8 grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
-        <div class="bg-white rounded-lg sm:rounded-2xl shadow-sm border border-neutral-100 p-4 sm:p-5 flex gap-3">
+        <div class="bg-card rounded-lg sm:rounded-2xl shadow-sm border border-neutral-100 p-4 sm:p-5 flex gap-3">
           <div class="bg-primary/10 text-primary rounded-lg p-2 h-fit">
             <Shield class="h-5 w-5" />
           </div>
           <div>
-            <p class="text-sm font-semibold text-neutral-900">Before it happens</p>
+            <p class="text-sm font-semibold text-foreground">Before it happens</p>
             <ul class="text-xs sm:text-sm text-neutral-600 list-disc pl-4 space-y-1 mt-1">
               <li>Enable Find My + biometrics</li>
               <li>Use cross-body phone straps</li>
@@ -620,12 +620,12 @@ const schema = [
             </ul>
           </div>
         </div>
-        <div class="bg-white rounded-lg sm:rounded-2xl shadow-sm border border-neutral-100 p-4 sm:p-5 flex gap-3">
-          <div class="bg-amber-50 text-amber-600 rounded-lg p-2 h-fit">
+        <div class="bg-card rounded-lg sm:rounded-2xl shadow-sm border border-neutral-100 p-4 sm:p-5 flex gap-3">
+          <div class="bg-warning-subtle text-warning rounded-lg p-2 h-fit">
             <AlertTriangle class="h-5 w-5" />
           </div>
           <div>
-            <p class="text-sm font-semibold text-neutral-900">Stay alert</p>
+            <p class="text-sm font-semibold text-foreground">Stay alert</p>
             <ul class="text-xs sm:text-sm text-neutral-600 list-disc pl-4 space-y-1 mt-1">
               <li>Avoid kerbside scrolling</li>
               <li>Stay aware in crowds</li>
@@ -633,12 +633,12 @@ const schema = [
             </ul>
           </div>
         </div>
-        <div class="bg-white rounded-lg sm:rounded-2xl shadow-sm border border-neutral-100 p-4 sm:p-5 flex gap-3">
-          <div class="bg-red-50 text-red-600 rounded-lg p-2 h-fit">
+        <div class="bg-card rounded-lg sm:rounded-2xl shadow-sm border border-neutral-100 p-4 sm:p-5 flex gap-3">
+          <div class="bg-destructive-subtle text-destructive rounded-lg p-2 h-fit">
             <Phone class="h-5 w-5" />
           </div>
           <div>
-            <p class="text-sm font-semibold text-neutral-900">If stolen</p>
+            <p class="text-sm font-semibold text-foreground">If stolen</p>
             <ul class="text-xs sm:text-sm text-neutral-600 list-disc pl-4 space-y-1 mt-1">
               <li>Lock/erase immediately</li>
               <li>Block SIM with carrier</li>
@@ -650,12 +650,12 @@ const schema = [
 
       <!-- High-Risk Hotspots -->
       <section class="mb-6 sm:mb-8 md:mb-10">
-        <div class="bg-white rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-neutral-100">
+        <div class="bg-card rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-neutral-100">
           <div class="h-2 bg-gradient-to-r from-red-500 to-orange-500"></div>
           <div class="p-4 sm:p-6 md:p-8">
             <div class="flex items-center gap-3 mb-2">
               <Navigation class="h-6 w-6 text-red-500" />
-              <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-neutral-900">
+              <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-foreground">
                 High-Risk Locations in {location.name}
               </h2>
             </div>
@@ -667,7 +667,7 @@ const schema = [
               {location.hotspots.map((hotspot) => (
                 <div class="flex items-start gap-3 sm:gap-4 p-3 sm:p-4 bg-neutral-50 rounded-xl border border-neutral-100">
                   <div class={`px-2.5 py-1 rounded-lg text-xs font-bold flex-shrink-0 ${
-                    hotspot.risk === 'Extreme' ? 'bg-red-600 text-white' :
+                    hotspot.risk === 'Extreme' ? 'bg-destructive text-white' :
                     hotspot.risk === 'Very High' ? 'bg-red-500 text-white' :
                     hotspot.risk === 'High' ? 'bg-orange-500 text-white' :
                     'bg-yellow-500 text-white'
@@ -675,7 +675,7 @@ const schema = [
                     {hotspot.risk}
                   </div>
                   <div class="flex-1 min-w-0">
-                    <h3 class="font-bold text-neutral-900 text-sm md:text-base">{hotspot.area}</h3>
+                    <h3 class="font-bold text-foreground text-sm md:text-base">{hotspot.area}</h3>
                     <p class="text-xs sm:text-sm text-neutral-600 mt-1">{hotspot.description}</p>
                   </div>
                 </div>
@@ -687,20 +687,20 @@ const schema = [
 
       <!-- Transport-Specific Risks -->
       <section class="mb-6 sm:mb-8 md:mb-10">
-        <div class="bg-white rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-neutral-100">
+        <div class="bg-card rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-neutral-100">
           <div class="h-2 bg-gradient-to-r from-blue-500 to-indigo-500"></div>
           <div class="p-4 sm:p-6 md:p-8">
             <div class="flex items-center gap-3 mb-4">
-              <Train class="h-6 w-6 text-blue-600" />
-              <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-neutral-900">
+              <Train class="h-6 w-6 text-primary" />
+              <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-foreground">
                 {location.transport.type} Safety
               </h2>
             </div>
 
             <div class="grid md:grid-cols-2 gap-4 sm:gap-6">
               <div>
-                <h3 class="text-sm font-semibold text-neutral-900 mb-3 flex items-center gap-2">
-                  <AlertTriangle class="h-4 w-4 text-amber-600" />
+                <h3 class="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
+                  <AlertTriangle class="h-4 w-4 text-warning" />
                   Common Theft Scenarios
                 </h3>
                 <ul class="space-y-2 text-xs sm:text-sm text-neutral-700">
@@ -714,7 +714,7 @@ const schema = [
               </div>
 
               <div>
-                <h3 class="text-sm font-semibold text-neutral-900 mb-3 flex items-center gap-2">
+                <h3 class="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
                   <CheckCircle2 class="h-4 w-4 text-green-600" />
                   Protection Tips
                 </h3>
@@ -734,23 +734,23 @@ const schema = [
 
       <!-- Local Police Reporting -->
       <section class="mb-6 sm:mb-8 md:mb-10">
-        <div class="bg-white rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-neutral-100">
+        <div class="bg-card rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-neutral-100">
           <div class="h-2 bg-gradient-to-r from-indigo-500 to-purple-500"></div>
           <div class="p-4 sm:p-6 md:p-8">
             <div class="flex items-center gap-3 mb-4">
               <Building2 class="h-6 w-6 text-indigo-600" />
-              <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-neutral-900">
+              <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-foreground">
                 Report to {location.policeForce}
               </h2>
             </div>
 
             <div class="grid md:grid-cols-2 gap-4 sm:gap-6">
               <div class="p-4 bg-neutral-50 rounded-xl border border-neutral-100">
-                <h3 class="text-sm font-semibold text-neutral-900 mb-3">Contact Numbers</h3>
+                <h3 class="text-sm font-semibold text-foreground mb-3">Contact Numbers</h3>
                 <div class="space-y-2 text-sm">
                   <div class="flex justify-between items-center">
                     <span class="text-neutral-600">Emergency:</span>
-                    <a href={`tel:${location.emergencyPhone}`} class="font-bold text-red-600">{location.emergencyPhone}</a>
+                    <a href={`tel:${location.emergencyPhone}`} class="font-bold text-destructive">{location.emergencyPhone}</a>
                   </div>
                   <div class="flex justify-between items-center">
                     <span class="text-neutral-600">Non-emergency:</span>
@@ -760,7 +760,7 @@ const schema = [
               </div>
 
               <div class="p-4 bg-primary/5 rounded-xl border border-primary/20">
-                <h3 class="text-sm font-semibold text-neutral-900 mb-3">Online Reporting</h3>
+                <h3 class="text-sm font-semibold text-foreground mb-3">Online Reporting</h3>
                 <p class="text-xs sm:text-sm text-neutral-600 mb-3">
                   File a theft report online for faster processing. Keep your crime reference number for insurance claims.
                 </p>
@@ -775,7 +775,7 @@ const schema = [
               </div>
             </div>
 
-            <div class="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-xl">
+            <div class="mt-4 p-4 bg-primary-subtle border border-blue-200 rounded-xl">
               <p class="text-xs sm:text-sm text-blue-900">
                 <strong>What you'll need:</strong> Device details (make/model/IMEI), time and location of theft, description of circumstances.
                 Get your IMEI by dialing *#06# before theft occurs.
@@ -798,7 +798,7 @@ const schema = [
           <div class="grid md:grid-cols-3 gap-3 sm:gap-4">
             <a
               href="/prevention"
-              class="p-4 sm:p-5 bg-white/10 rounded-xl border border-white/20 hover:bg-white/15 transition-colors group"
+              class="p-4 sm:p-5 bg-card/10 rounded-xl border border-white/20 hover:bg-card/15 transition-colors group"
             >
               <div class="flex items-center gap-2 mb-2">
                 <Shield class="h-5 w-5 text-green-400" />
@@ -814,7 +814,7 @@ const schema = [
 
             <a
               href="/emergency"
-              class="p-4 sm:p-5 bg-white/10 rounded-xl border border-white/20 hover:bg-white/15 transition-colors group"
+              class="p-4 sm:p-5 bg-card/10 rounded-xl border border-white/20 hover:bg-card/15 transition-colors group"
             >
               <div class="flex items-center gap-2 mb-2">
                 <AlertTriangle class="h-5 w-5 text-red-400" />
@@ -830,7 +830,7 @@ const schema = [
 
             <a
               href="/statistics"
-              class="p-4 sm:p-5 bg-white/10 rounded-xl border border-white/20 hover:bg-white/15 transition-colors group"
+              class="p-4 sm:p-5 bg-card/10 rounded-xl border border-white/20 hover:bg-card/15 transition-colors group"
             >
               <div class="flex items-center gap-2 mb-2">
                 <TrendingUp class="h-5 w-5 text-purple-400" />

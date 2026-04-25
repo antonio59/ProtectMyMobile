@@ -180,7 +180,7 @@ function StatCard({
       <div className="flex items-start justify-between">
         <div>
           <p className="text-xs text-neutral-500 font-medium uppercase tracking-wide">{label}</p>
-          <p className="text-2xl font-bold text-neutral-900 mt-1">{value}</p>
+          <p className="text-2xl font-bold text-foreground mt-1">{value}</p>
           {subtext && <p className="text-xs text-neutral-400 mt-1">{subtext}</p>}
         </div>
         <div className="p-2 rounded-lg" style={{ backgroundColor: `${CHART_COLORS[color]}15` }}>
@@ -258,7 +258,7 @@ function TrendsChart({ data }: { data: MonthlyTrends }) {
     <div className="bg-white rounded-xl p-4 sm:p-6 border border-neutral-100 shadow-sm">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
         <div>
-          <h3 className="text-base font-bold text-neutral-900 flex items-center gap-2">
+          <h3 className="text-base font-bold text-foreground flex items-center gap-2">
             <TrendingUp className="h-5 w-5 text-blue-500" />
             Monthly Theft Trends
           </h3>
@@ -270,7 +270,7 @@ function TrendsChart({ data }: { data: MonthlyTrends }) {
           <button
             onClick={() => setViewMode('lines')}
             className={`px-3 py-1 rounded-md text-xs font-medium transition ${
-              viewMode === 'lines' ? 'bg-white text-neutral-900 shadow-sm' : 'text-neutral-600'
+              viewMode === 'lines' ? 'bg-white text-foreground shadow-sm' : 'text-neutral-600'
             }`}
           >
             Lines
@@ -278,7 +278,7 @@ function TrendsChart({ data }: { data: MonthlyTrends }) {
           <button
             onClick={() => setViewMode('stacked')}
             className={`px-3 py-1 rounded-md text-xs font-medium transition ${
-              viewMode === 'stacked' ? 'bg-white text-neutral-900 shadow-sm' : 'text-neutral-600'
+              viewMode === 'stacked' ? 'bg-white text-foreground shadow-sm' : 'text-neutral-600'
             }`}
           >
             Stacked
@@ -287,9 +287,9 @@ function TrendsChart({ data }: { data: MonthlyTrends }) {
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
-        <div className="bg-blue-50 rounded-lg p-3">
-          <div className="text-lg font-bold text-blue-700">{(latest.total as number).toLocaleString()}</div>
-          <div className="text-[10px] text-blue-600 uppercase tracking-wide font-medium">Latest month</div>
+        <div className="bg-primary-subtle rounded-lg p-3">
+          <div className="text-lg font-bold text-primary-hover">{(latest.total as number).toLocaleString()}</div>
+          <div className="text-[10px] text-primary uppercase tracking-wide font-medium">Latest month</div>
         </div>
         <div className="bg-neutral-50 rounded-lg p-3">
           <div className="text-lg font-bold text-neutral-700">
@@ -297,8 +297,8 @@ function TrendsChart({ data }: { data: MonthlyTrends }) {
           </div>
           <div className="text-[10px] text-neutral-500 uppercase tracking-wide font-medium">Total tracked</div>
         </div>
-        <div className={`rounded-lg p-3 ${monthChange && Number(monthChange) > 0 ? 'bg-red-50' : 'bg-green-50'}`}>
-          <div className={`text-lg font-bold ${monthChange && Number(monthChange) > 0 ? 'text-red-700' : 'text-green-700'}`}>
+        <div className={`rounded-lg p-3 ${monthChange && Number(monthChange) > 0 ? 'bg-destructive-subtle' : 'bg-green-50'}`}>
+          <div className={`text-lg font-bold ${monthChange && Number(monthChange) > 0 ? 'text-destructive-hover' : 'text-green-700'}`}>
             {monthChange ? `${Number(monthChange) > 0 ? '+' : ''}${monthChange}%` : '—'}
           </div>
           <div className="text-[10px] text-neutral-500 uppercase tracking-wide font-medium">Month-on-month</div>
@@ -369,7 +369,7 @@ function LocationsChart({ data }: { data: LocationRanking[] }) {
 
   return (
     <div className="bg-white rounded-xl p-4 sm:p-6 border border-neutral-100 shadow-sm h-full flex flex-col">
-      <h3 className="text-base font-bold text-neutral-900 flex items-center gap-2 mb-1">
+      <h3 className="text-base font-bold text-foreground flex items-center gap-2 mb-1">
         <MapPin className="h-5 w-5 text-red-500" />
         Top Theft Hotspots
       </h3>
@@ -426,7 +426,7 @@ function YearOverYearChart({ data }: { data: YoYData }) {
 
   return (
     <div className="bg-white rounded-xl p-4 sm:p-6 border border-neutral-100 shadow-sm h-full flex flex-col">
-      <h3 className="text-base font-bold text-neutral-900 flex items-center gap-2 mb-1">
+      <h3 className="text-base font-bold text-foreground flex items-center gap-2 mb-1">
         <Layers className="h-5 w-5 text-purple-500" />
         Year-over-Year Comparison
       </h3>
@@ -499,7 +499,7 @@ function SeasonalChart({ data }: { data: SeasonalData }) {
 
   return (
     <div className="bg-white rounded-xl p-4 sm:p-6 border border-neutral-100 shadow-sm h-full flex flex-col">
-      <h3 className="text-base font-bold text-neutral-900 flex items-center gap-2 mb-1">
+      <h3 className="text-base font-bold text-foreground flex items-center gap-2 mb-1">
         <Sun className="h-5 w-5 text-amber-500" />
         Seasonal Pattern
       </h3>
@@ -508,9 +508,9 @@ function SeasonalChart({ data }: { data: SeasonalData }) {
         <canvas ref={canvasRef} />
       </div>
       <div className="mt-3 grid grid-cols-2 gap-2">
-        <div className="bg-red-50 rounded-lg p-2 text-center">
-          <div className="text-sm font-bold text-red-700">{data.months[maxIndex]}</div>
-          <div className="text-[10px] text-red-600 uppercase tracking-wide font-medium">Peak month</div>
+        <div className="bg-destructive-subtle rounded-lg p-2 text-center">
+          <div className="text-sm font-bold text-destructive-hover">{data.months[maxIndex]}</div>
+          <div className="text-[10px] text-destructive uppercase tracking-wide font-medium">Peak month</div>
         </div>
         <div className="bg-green-50 rounded-lg p-2 text-center">
           <div className="text-sm font-bold text-green-700">{data.months[minIndex]}</div>
@@ -569,7 +569,7 @@ function SourcesChart({ data, totalRecords }: { data: SourceBreakdown; totalReco
 
   return (
     <div className="bg-white rounded-xl p-4 sm:p-6 border border-neutral-100 shadow-sm h-full flex flex-col">
-      <h3 className="text-base font-bold text-neutral-900 flex items-center gap-2 mb-1">
+      <h3 className="text-base font-bold text-foreground flex items-center gap-2 mb-1">
         <PieChart className="h-5 w-5 text-pink-500" />
         Data Sources
       </h3>
@@ -695,7 +695,7 @@ export default function StatisticsDashboard() {
       </div>
 
       {/* Data quality note */}
-      <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 text-xs text-blue-800">
+      <div className="bg-primary-subtle border border-blue-100 rounded-xl p-4 text-xs text-blue-800">
         <strong>About the data:</strong> Live trends are sourced from the police.uk API (theft-from-the-person category).
         This specifically covers street theft (snatching/pickpocketing) and may not include all mobile phone thefts.
         Static baseline figures from Met Police and Home Office estimates are shown elsewhere on this page.

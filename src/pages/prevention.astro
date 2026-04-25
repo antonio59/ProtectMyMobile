@@ -62,7 +62,7 @@ import { Shield, IdCard, Fingerprint, Lock, ShieldCheck, ArrowRight, CheckCircle
   <HeaderMobile client:idle />
   <Breadcrumb items={[{ label: 'Prevention Guide' }]} />
   
-  <main id="main-content" class="bg-[#f3f2f1] min-h-screen">
+  <main id="main-content" class="bg-neutral-100 min-h-screen">
     <div class="container mx-auto px-4 py-4 sm:py-6 max-w-6xl">
       <!-- Hero Section -->
       <div class="bg-gradient-to-br from-primary to-blue-700 text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 lg:p-12 mb-6 sm:mb-8 md:mb-10 shadow-xl">
@@ -75,7 +75,7 @@ import { Shield, IdCard, Fingerprint, Lock, ShieldCheck, ArrowRight, CheckCircle
         <p class="text-blue-100 text-xs sm:text-sm md:text-base mb-4 sm:mb-6">
           Take these preventative measures to secure your phone and minimise risk in case of theft.
         </p>
-        <a href="/security-checkup" class="inline-flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-white text-primary rounded-xl font-semibold text-xs sm:text-sm hover:bg-blue-50 transition-colors shadow-lg">
+        <a href="/security-checkup" class="inline-flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-card text-primary rounded-xl font-semibold text-xs sm:text-sm hover:bg-primary-subtle transition-colors shadow-lg">
           <ShieldCheck class="h-4 w-4" />
           Take Security Checkup
           <ArrowRight class="h-4 w-4" />
@@ -91,7 +91,7 @@ import { Shield, IdCard, Fingerprint, Lock, ShieldCheck, ArrowRight, CheckCircle
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
           <!-- Secure SIM Card -->
-          <div class="bg-white rounded-xl sm:rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-neutral-100">
+          <div class="bg-card rounded-xl sm:rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-neutral-100">
             <div class="h-2 bg-gradient-to-r from-primary to-blue-600"></div>
             <div class="p-4 sm:p-6">
               <div class="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
@@ -116,7 +116,7 @@ import { Shield, IdCard, Fingerprint, Lock, ShieldCheck, ArrowRight, CheckCircle
           </div>
           
           <!-- Biometric Authentication -->
-          <div class="bg-white rounded-xl sm:rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-neutral-100">
+          <div class="bg-card rounded-xl sm:rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-neutral-100">
             <div class="h-2 bg-gradient-to-r from-green-500 to-emerald-600"></div>
             <div class="p-4 sm:p-6">
               <div class="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
@@ -138,7 +138,7 @@ import { Shield, IdCard, Fingerprint, Lock, ShieldCheck, ArrowRight, CheckCircle
           </div>
           
           <!-- App-Specific Security -->
-          <div class="bg-white rounded-xl sm:rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-neutral-100">
+          <div class="bg-card rounded-xl sm:rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-neutral-100">
             <div class="h-2 bg-gradient-to-r from-orange-500 to-red-500"></div>
             <div class="p-4 sm:p-6">
               <div class="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
@@ -163,7 +163,7 @@ import { Shield, IdCard, Fingerprint, Lock, ShieldCheck, ArrowRight, CheckCircle
       
       <!-- IMEI Information -->
       <section class="mb-6 sm:mb-8 md:mb-10">
-        <div class="bg-white rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-neutral-100">
+        <div class="bg-card rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-neutral-100">
           <div class="h-2 bg-gradient-to-r from-teal-500 to-cyan-500"></div>
           <div class="p-4 sm:p-6 md:p-10 lg:p-12">
             <div class="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
@@ -178,12 +178,12 @@ import { Shield, IdCard, Fingerprint, Lock, ShieldCheck, ArrowRight, CheckCircle
             </p>
 
             <div class="grid md:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
-              <div class="p-4 sm:p-6 bg-blue-50 border border-blue-200 rounded-xl sm:rounded-2xl">
+              <div class="p-4 sm:p-6 bg-primary-subtle border border-blue-200 rounded-xl sm:rounded-2xl">
                 <h4 class="font-semibold text-blue-900 mb-2 sm:mb-3 text-sm sm:text-base">How to find your IMEI:</h4>
                 <ul class="space-y-2 text-xs sm:text-sm md:text-base text-blue-800">
                   <li class="flex items-start gap-2">
                     <CheckCircle2 class="h-4 w-4 mt-0.5 flex-shrink-0" />
-                    <span>Dial <code class="bg-blue-100 px-2 py-0.5 rounded font-mono">*#06#</code></span>
+                    <span>Dial <code class="bg-primary-muted px-2 py-0.5 rounded font-mono">*#06#</code></span>
                   </li>
                   <li class="flex items-start gap-2">
                     <CheckCircle2 class="h-4 w-4 mt-0.5 flex-shrink-0" />
@@ -197,7 +197,7 @@ import { Shield, IdCard, Fingerprint, Lock, ShieldCheck, ArrowRight, CheckCircle
               </div>
 
               <div class="p-4 sm:p-6 bg-neutral-100 rounded-xl sm:rounded-2xl">
-                <h4 class="font-semibold text-neutral-900 mb-2 sm:mb-3 text-sm sm:text-base">Where to store it safely:</h4>
+                <h4 class="font-semibold text-foreground mb-2 sm:mb-3 text-sm sm:text-base">Where to store it safely:</h4>
                 <ul class="space-y-2 text-xs sm:text-sm md:text-base text-neutral-700">
                   <li class="flex items-start gap-2">
                     <CheckCircle2 class="h-4 w-4 mt-0.5 flex-shrink-0 text-green-600" />

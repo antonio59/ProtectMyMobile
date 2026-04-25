@@ -94,7 +94,7 @@ export default function HeaderMobile() {
             </a>
             <a
               href="/emergency"
-              className="inline-flex items-center gap-2 px-4 py-2.5 bg-red-600 text-white rounded-xl font-bold hover:bg-red-700 transition-all text-sm shadow-lg shadow-red-600/25 hover:scale-[1.02] active:scale-[0.98]"
+              className="inline-flex items-center gap-2 px-4 py-2.5 bg-destructive text-white rounded-xl font-bold hover:bg-destructive-hover transition-all text-sm shadow-lg shadow-destructive/25 hover:scale-[1.02] active:scale-[0.98]"
             >
               <AlertTriangle className="h-4 w-4" />
               Phone Stolen?
@@ -106,7 +106,7 @@ export default function HeaderMobile() {
             <SiteSearch />
             <a
               href="/emergency"
-              className="p-2 bg-red-600 text-white rounded-xl hover:scale-105 active:scale-90 transition-transform duration-150"
+              className="p-2 bg-destructive text-white rounded-xl hover:scale-105 active:scale-90 transition-transform duration-150"
               aria-label="Emergency - Phone stolen?"
             >
               <AlertTriangle className="h-5 w-5" />
@@ -155,7 +155,7 @@ export default function HeaderMobile() {
         <div className="p-4 space-y-3 border-b bg-neutral-50">
           <a
             href="/emergency"
-            className="flex items-center justify-center gap-2 w-full px-4 py-3 bg-red-600 text-white rounded-xl font-bold shadow-lg hover:scale-[1.01] active:scale-[0.99] transition-transform duration-150"
+            className="flex items-center justify-center gap-2 w-full px-4 py-3 bg-destructive text-white rounded-xl font-bold shadow-lg hover:scale-[1.01] active:scale-[0.99] transition-transform duration-150"
             onClick={() => setIsOpen(false)}
           >
             <AlertTriangle className="h-5 w-5" />

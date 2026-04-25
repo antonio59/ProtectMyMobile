@@ -106,9 +106,9 @@ export default function SecurityCheckup() {
 
   const getScoreLevel = (percentage: number) => {
     if (percentage >= 90) return { level: 'Excellent', color: 'text-green-600', bg: 'bg-green-50', border: 'border-green-200' };
-    if (percentage >= 70) return { level: 'Good', color: 'text-blue-600', bg: 'bg-blue-50', border: 'border-blue-200' };
+    if (percentage >= 70) return { level: 'Good', color: 'text-primary', bg: 'bg-primary-subtle', border: 'border-blue-200' };
     if (percentage >= 50) return { level: 'Fair', color: 'text-yellow-600', bg: 'bg-yellow-50', border: 'border-yellow-200' };
-    return { level: 'Needs Improvement', color: 'text-red-600', bg: 'bg-red-50', border: 'border-red-200' };
+    return { level: 'Needs Improvement', color: 'text-destructive', bg: 'bg-destructive-subtle', border: 'border-red-200' };
   };
 
   const getRecommendations = () => {
@@ -258,11 +258,11 @@ export default function SecurityCheckup() {
               {recommendations.map((rec, idx) => (
                 <div
                   key={idx}
-                  className={`p-4 rounded-lg border-l-4 ${rec.priority === 'high' ? 'border-red-500 bg-red-50' : 'border-yellow-500 bg-yellow-50'}`}
+                  className={`p-4 rounded-lg border-l-4 ${rec.priority === 'high' ? 'border-red-500 bg-destructive-subtle' : 'border-yellow-500 bg-yellow-50'}`}
                 >
                   <div className="flex items-start">
                     <div className={`rounded-full p-1 mr-3 mt-0.5 ${rec.priority === 'high' ? 'bg-red-200' : 'bg-yellow-200'}`}>
-                      <AlertTriangle className={`h-4 w-4 ${rec.priority === 'high' ? 'text-red-700' : 'text-yellow-700'}`} />
+                      <AlertTriangle className={`h-4 w-4 ${rec.priority === 'high' ? 'text-destructive-hover' : 'text-yellow-700'}`} />
                     </div>
                     <div className="flex-1">
                       <h4 className="font-semibold mb-1">{rec.title}</h4>
@@ -299,7 +299,7 @@ export default function SecurityCheckup() {
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           <button
             onClick={handleShare}
-            className="flex items-center justify-center px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
+            className="flex items-center justify-center px-6 py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary-hover transition-colors"
           >
             <Share2 className="mr-2 h-5 w-5" />
             Share Result
@@ -359,7 +359,7 @@ export default function SecurityCheckup() {
                     onClick={() => handleAnswer(q.id, false)}
                     className={`flex-1 px-4 py-3 rounded-lg border-2 transition-all ${
                       answers[q.id] === false
-                        ? 'border-red-500 bg-red-50 text-red-700'
+                        ? 'border-red-500 bg-destructive-subtle text-destructive-hover'
                         : 'border-neutral-300 hover:border-red-300 text-neutral-700'
                     }`}
                   >

@@ -11,7 +11,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     <!-- Header -->
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 mb-6">
       <div>
-        <h1 class="text-xl sm:text-2xl font-bold text-neutral-900">Manage News</h1>
+        <h1 class="text-xl sm:text-2xl font-bold text-foreground">Manage News</h1>
         <p class="text-neutral-600 text-xs sm:text-sm mt-1">Publish, unpublish, edit, and delete news articles.</p>
       </div>
       <a
@@ -27,26 +27,26 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 
     <!-- Stats Cards -->
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6">
-      <div class="bg-white rounded-xl p-3 sm:p-4 shadow-sm border border-neutral-200">
-        <div class="text-xl sm:text-2xl font-bold text-neutral-900" id="stat-total">-</div>
+      <div class="bg-card rounded-xl p-3 sm:p-4 shadow-sm border border-neutral-200">
+        <div class="text-xl sm:text-2xl font-bold text-foreground" id="stat-total">-</div>
         <div class="text-xs text-neutral-500">Total Articles</div>
       </div>
-      <div class="bg-white rounded-xl p-3 sm:p-4 shadow-sm border border-neutral-200">
+      <div class="bg-card rounded-xl p-3 sm:p-4 shadow-sm border border-neutral-200">
         <div class="text-xl sm:text-2xl font-bold text-green-600" id="stat-published">-</div>
         <div class="text-xs text-neutral-500">Published</div>
       </div>
-      <div class="bg-white rounded-xl p-3 sm:p-4 shadow-sm border border-neutral-200">
+      <div class="bg-card rounded-xl p-3 sm:p-4 shadow-sm border border-neutral-200">
         <div class="text-xl sm:text-2xl font-bold text-yellow-600" id="stat-draft">-</div>
         <div class="text-xs text-neutral-500">Drafts</div>
       </div>
-      <div class="bg-white rounded-xl p-3 sm:p-4 shadow-sm border border-neutral-200">
-        <div class="text-xl sm:text-2xl font-bold text-blue-600" id="stat-sources">-</div>
+      <div class="bg-card rounded-xl p-3 sm:p-4 shadow-sm border border-neutral-200">
+        <div class="text-xl sm:text-2xl font-bold text-primary" id="stat-sources">-</div>
         <div class="text-xs text-neutral-500">Sources</div>
       </div>
     </div>
 
     <!-- Filters -->
-    <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-3 sm:p-4 mb-6">
+    <div class="bg-card rounded-xl shadow-sm border border-neutral-200 p-3 sm:p-4 mb-6">
       <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
         <div class="flex-1">
           <input
@@ -57,12 +57,12 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
           />
         </div>
         <div class="flex flex-wrap gap-2">
-          <select id="status-filter" class="px-3 sm:px-4 py-2 border border-neutral-300 rounded-lg text-xs sm:text-sm bg-white">
+          <select id="status-filter" class="px-3 sm:px-4 py-2 border border-neutral-300 rounded-lg text-xs sm:text-sm bg-background">
             <option value="all">All Status</option>
             <option value="published">Published</option>
             <option value="draft">Drafts</option>
           </select>
-          <select id="category-filter" class="px-3 sm:px-4 py-2 border border-neutral-300 rounded-lg text-xs sm:text-sm bg-white">
+          <select id="category-filter" class="px-3 sm:px-4 py-2 border border-neutral-300 rounded-lg text-xs sm:text-sm bg-background">
             <option value="all">All Categories</option>
             <option value="arrest">Arrests</option>
             <option value="seizure">Seizures</option>
@@ -76,7 +76,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     </div>
 
     <!-- Articles Table -->
-    <div class="bg-white rounded-xl shadow-sm border border-neutral-200 overflow-hidden">
+    <div class="bg-card rounded-xl shadow-sm border border-neutral-200 overflow-hidden">
       <div class="overflow-x-auto">
         <table class="w-full">
           <thead class="bg-neutral-50 border-b border-neutral-200">
@@ -107,10 +107,10 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 
   <!-- Edit Modal -->
   <div id="edit-modal" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center p-4">
-    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+    <div class="bg-card rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
       <div class="p-6 border-b border-neutral-200">
         <div class="flex items-center justify-between">
-          <h2 class="text-xl font-bold text-neutral-900">Edit Article</h2>
+          <h2 class="text-xl font-bold text-foreground">Edit Article</h2>
           <button id="close-modal" class="p-2 hover:bg-neutral-100 rounded-lg transition-colors">
             <svg class="w-5 h-5 text-neutral-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
@@ -139,7 +139,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
         <div class="grid grid-cols-2 gap-4">
           <div>
             <label class="block text-sm font-medium text-neutral-700 mb-1">Category</label>
-            <select id="edit-category" class="w-full px-4 py-2 border border-neutral-300 rounded-lg text-sm bg-white">
+            <select id="edit-category" class="w-full px-4 py-2 border border-neutral-300 rounded-lg text-sm bg-background">
               <option value="arrest">Arrest</option>
               <option value="seizure">Seizure</option>
               <option value="law_change">Law Change</option>
@@ -189,21 +189,21 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 
   <!-- Delete Confirmation Modal -->
   <div id="delete-modal" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center p-4">
-    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6">
+    <div class="bg-card rounded-2xl shadow-2xl w-full max-w-md p-6">
       <div class="text-center">
-        <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="w-12 h-12 bg-destructive-muted rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg class="w-6 h-6 text-destructive" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
           </svg>
         </div>
-        <h3 class="text-lg font-bold text-neutral-900 mb-2">Delete Article</h3>
+        <h3 class="text-lg font-bold text-foreground mb-2">Delete Article</h3>
         <p class="text-neutral-600 text-sm mb-6">Are you sure you want to delete "<span id="delete-title" class="font-medium"></span>"? This action cannot be undone.</p>
         <input type="hidden" id="delete-id" />
         <div class="flex gap-3">
           <button id="cancel-delete" class="flex-1 px-4 py-2.5 bg-neutral-100 text-neutral-700 rounded-lg font-medium text-sm hover:bg-neutral-200 transition-colors">
             Cancel
           </button>
-          <button id="confirm-delete" class="flex-1 px-4 py-2.5 bg-red-600 text-white rounded-lg font-medium text-sm hover:bg-red-700 transition-colors">
+          <button id="confirm-delete" class="flex-1 px-4 py-2.5 bg-destructive text-white rounded-lg font-medium text-sm hover:bg-destructive-hover transition-colors">
             Delete
           </button>
         </div>
@@ -262,8 +262,8 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
   }
 
   const categoryColors: Record<string, string> = {
-    arrest: 'bg-red-100 text-red-700',
-    seizure: 'bg-blue-100 text-blue-700',
+    arrest: 'bg-destructive-muted text-destructive-hover',
+    seizure: 'bg-primary-muted text-primary-hover',
     law_change: 'bg-teal-100 text-teal-700',
     statistics: 'bg-green-100 text-green-700',
     prevention_tip: 'bg-yellow-100 text-yellow-700',
@@ -292,7 +292,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
       <tr class="border-b border-neutral-100 hover:bg-neutral-50 transition-colors" data-id="${escapeHtml(post._id)}">
         <td class="px-2 sm:px-4 py-3 sm:py-4">
           <div class="max-w-xs lg:max-w-md">
-            <a href="/news/${escapeHtml(post.slug)}" target="_blank" class="font-medium text-xs sm:text-sm text-neutral-900 hover:text-primary transition-colors line-clamp-1">
+            <a href="/news/${escapeHtml(post.slug)}" target="_blank" class="font-medium text-xs sm:text-sm text-foreground hover:text-primary transition-colors line-clamp-1">
               ${escapeHtml(post.title)}
             </a>
             <p class="text-xs text-neutral-500 mt-1 line-clamp-1">${escapeHtml(post.excerpt)}</p>
@@ -329,8 +329,8 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
               </svg>
             </button>
-            <button class="delete-btn p-1.5 sm:p-2 hover:bg-red-50 rounded-lg transition-colors" data-id="${escapeHtml(post._id)}" data-title="${escapeHtml(post.title)}" title="Delete">
-              <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <button class="delete-btn p-1.5 sm:p-2 hover:bg-destructive-subtle rounded-lg transition-colors" data-id="${escapeHtml(post._id)}" data-title="${escapeHtml(post.title)}" title="Delete">
+              <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-destructive" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
               </svg>
             </button>

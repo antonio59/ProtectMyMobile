@@ -11,29 +11,29 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     <!-- Header -->
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 mb-6 sm:mb-8">
       <div>
-        <h1 class="text-xl sm:text-2xl font-bold text-neutral-900">Contact Submissions</h1>
+        <h1 class="text-xl sm:text-2xl font-bold text-foreground">Contact Submissions</h1>
         <p class="text-neutral-600 text-xs sm:text-sm mt-1">View and respond to messages from visitors.</p>
       </div>
     </div>
 
     <!-- Stats -->
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6">
-      <div class="bg-white rounded-xl p-3 sm:p-4 shadow-sm border border-neutral-200">
-        <div class="text-xl sm:text-2xl font-bold text-neutral-900" id="stat-total">-</div>
+      <div class="bg-card rounded-xl p-3 sm:p-4 shadow-sm border border-neutral-200">
+        <div class="text-xl sm:text-2xl font-bold text-foreground" id="stat-total">-</div>
         <div class="text-xs text-neutral-500">Total Submissions</div>
       </div>
-      <div class="bg-white rounded-xl p-3 sm:p-4 shadow-sm border border-neutral-200">
+      <div class="bg-card rounded-xl p-3 sm:p-4 shadow-sm border border-neutral-200">
         <div class="text-xl sm:text-2xl font-bold text-yellow-600" id="stat-pending">-</div>
         <div class="text-xs text-neutral-500">Pending Response</div>
       </div>
-      <div class="bg-white rounded-xl p-3 sm:p-4 shadow-sm border border-neutral-200">
+      <div class="bg-card rounded-xl p-3 sm:p-4 shadow-sm border border-neutral-200">
         <div class="text-xl sm:text-2xl font-bold text-green-600" id="stat-responded">-</div>
         <div class="text-xs text-neutral-500">Responded</div>
       </div>
     </div>
 
     <!-- Filters -->
-    <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-3 sm:p-4 mb-6">
+    <div class="bg-card rounded-xl shadow-sm border border-neutral-200 p-3 sm:p-4 mb-6">
       <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
         <div class="flex-1">
           <input
@@ -43,7 +43,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
             class="w-full px-3 sm:px-4 py-2 border border-neutral-300 rounded-lg text-xs sm:text-sm focus:ring-2 focus:ring-primary focus:border-primary"
           />
         </div>
-        <select id="status-filter" class="px-3 sm:px-4 py-2 border border-neutral-300 rounded-lg text-xs sm:text-sm bg-white">
+        <select id="status-filter" class="px-3 sm:px-4 py-2 border border-neutral-300 rounded-lg text-xs sm:text-sm bg-background">
           <option value="all">All</option>
           <option value="pending">Pending</option>
           <option value="responded">Responded</option>
@@ -52,7 +52,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     </div>
 
     <!-- Table -->
-    <div class="bg-white rounded-xl shadow-sm border border-neutral-200 overflow-hidden">
+    <div class="bg-card rounded-xl shadow-sm border border-neutral-200 overflow-hidden">
       <div class="overflow-x-auto">
         <table class="w-full">
           <thead class="bg-neutral-50 border-b border-neutral-200">
@@ -82,9 +82,9 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 
   <!-- View Modal -->
   <div id="view-modal" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center p-4">
-    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+    <div class="bg-card rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
       <div class="p-6 border-b border-neutral-200 flex items-center justify-between">
-        <h2 class="text-xl font-bold text-neutral-900">Message Details</h2>
+        <h2 class="text-xl font-bold text-foreground">Message Details</h2>
         <button id="close-modal" class="p-2 hover:bg-neutral-100 rounded-lg transition-colors">
           <svg class="w-5 h-5 text-neutral-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
@@ -95,17 +95,17 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label class="block text-xs font-medium text-neutral-500 uppercase">From</label>
-            <p class="text-sm font-medium text-neutral-900" id="view-name"></p>
+            <p class="text-sm font-medium text-foreground" id="view-name"></p>
             <p class="text-sm text-neutral-600" id="view-email"></p>
           </div>
           <div>
             <label class="block text-xs font-medium text-neutral-500 uppercase">Date</label>
-            <p class="text-sm text-neutral-900" id="view-date"></p>
+            <p class="text-sm text-foreground" id="view-date"></p>
           </div>
         </div>
         <div>
           <label class="block text-xs font-medium text-neutral-500 uppercase">Subject</label>
-          <p class="text-sm font-medium text-neutral-900" id="view-subject"></p>
+          <p class="text-sm font-medium text-foreground" id="view-subject"></p>
         </div>
         <div>
           <label class="block text-xs font-medium text-neutral-500 uppercase">Message</label>
@@ -228,11 +228,11 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
         (s) => `
         <tr class="border-b border-neutral-100 hover:bg-neutral-50 transition-colors">
           <td class="px-2 sm:px-4 py-3 sm:py-4">
-            <p class="text-sm font-medium text-neutral-900">${escapeHtml(s.name)}</p>
+            <p class="text-sm font-medium text-foreground">${escapeHtml(s.name)}</p>
             <p class="text-xs text-neutral-500">${escapeHtml(s.email)}</p>
           </td>
           <td class="px-2 sm:px-4 py-3 sm:py-4">
-            <p class="text-sm text-neutral-900 line-clamp-1">${escapeHtml(s.subject)}</p>
+            <p class="text-sm text-foreground line-clamp-1">${escapeHtml(s.subject)}</p>
           </td>
           <td class="px-2 sm:px-4 py-3 sm:py-4 hidden md:table-cell">
             <span class="text-xs text-neutral-600">${formatDate(s._creationTime)}</span>

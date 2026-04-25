@@ -29,8 +29,8 @@ interface Props {
 
 const categoryConfig: Record<string, { color: string; bg: string; icon: any; gradient: string }> = {
   arrest: {
-    color: "text-red-700",
-    bg: "bg-red-50",
+    color: "text-destructive-hover",
+    bg: "bg-destructive-subtle",
     icon: Siren,
     gradient: "from-red-500 to-red-600",
   },
@@ -53,8 +53,8 @@ const categoryConfig: Record<string, { color: string; bg: string; icon: any; gra
     gradient: "from-teal-500 to-teal-600",
   },
   statistics: {
-    color: "text-blue-700",
-    bg: "bg-blue-50",
+    color: "text-primary-hover",
+    bg: "bg-primary-subtle",
     icon: TrendingUp,
     gradient: "from-blue-500 to-blue-600",
   },
@@ -92,7 +92,7 @@ export default function AnimatedNewsSection({ news }: Props) {
         className={`flex items-center justify-between mb-6 sm:mb-8 gap-4 animate-on-scroll ${headerInView ? 'is-visible' : ''}`}
       >
         <div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-neutral-900 leading-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground leading-tight">
             Latest Mobile Security News
           </h2>
           <p className="mt-2 text-neutral-600 text-sm sm:text-base max-w-2xl">
@@ -167,7 +167,7 @@ function NewsCard({ post, index, config, Icon }: { post: NewsPost; index: number
         </div>
 
         {/* Title */}
-        <h3 className="text-lg sm:text-xl font-bold text-neutral-900 mb-3 group-hover:text-primary transition-colors leading-snug">
+        <h3 className="text-lg sm:text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors leading-snug">
           {post.title}
         </h3>
 
@@ -195,12 +195,12 @@ function EmptyState() {
       className={`col-span-full bg-white border border-dashed border-neutral-200 rounded-2xl p-16 text-center shadow-sm animate-on-scroll-scale ${isInView ? 'is-visible' : ''}`}
     >
       <div
-        className={`w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-6 animate-pop-in ${isInView ? 'is-visible' : ''}`}
+        className={`w-20 h-20 bg-primary-subtle rounded-full flex items-center justify-center mx-auto mb-6 animate-pop-in ${isInView ? 'is-visible' : ''}`}
         style={{ animationDelay: '200ms' }}
       >
         <Newspaper className="h-10 w-10 text-blue-500" />
       </div>
-      <h3 className="text-2xl font-bold text-neutral-900 mb-3">
+      <h3 className="text-2xl font-bold text-foreground mb-3">
         Latest News
       </h3>
       <p className="text-neutral-500 mb-8 max-w-md mx-auto">

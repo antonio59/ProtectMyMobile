@@ -10,7 +10,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
   <div class="p-3 sm:p-4 lg:p-8">
     <!-- Header -->
     <div class="mb-6 sm:mb-8">
-      <h1 class="text-xl sm:text-2xl md:text-3xl font-bold text-neutral-900">Theft Reports</h1>
+      <h1 class="text-xl sm:text-2xl md:text-3xl font-bold text-foreground">Theft Reports</h1>
       <p class="text-neutral-600 text-xs sm:text-sm mt-1 sm:mt-2">
         Review and approve crowdsourced theft location reports before they appear on the public map.
       </p>
@@ -18,29 +18,29 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 
     <!-- Stats -->
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
-      <div class="bg-white rounded-xl p-4 shadow-sm text-center">
-        <div class="text-2xl sm:text-3xl font-bold text-neutral-900" id="stat-total">-</div>
+      <div class="bg-card rounded-xl p-4 shadow-sm text-center">
+        <div class="text-2xl sm:text-3xl font-bold text-foreground" id="stat-total">-</div>
         <div class="text-xs sm:text-sm text-neutral-500">Total Reports</div>
       </div>
-      <div class="bg-white rounded-xl p-4 shadow-sm text-center">
-        <div class="text-2xl sm:text-3xl font-bold text-amber-600" id="stat-pending">-</div>
+      <div class="bg-card rounded-xl p-4 shadow-sm text-center">
+        <div class="text-2xl sm:text-3xl font-bold text-warning" id="stat-pending">-</div>
         <div class="text-xs sm:text-sm text-neutral-500">Pending</div>
       </div>
-      <div class="bg-white rounded-xl p-4 shadow-sm text-center">
+      <div class="bg-card rounded-xl p-4 shadow-sm text-center">
         <div class="text-2xl sm:text-3xl font-bold text-green-600" id="stat-approved">-</div>
         <div class="text-xs sm:text-sm text-neutral-500">Approved</div>
       </div>
-      <div class="bg-white rounded-xl p-4 shadow-sm text-center">
+      <div class="bg-card rounded-xl p-4 shadow-sm text-center">
         <div class="text-2xl sm:text-3xl font-bold text-primary" id="stat-this-week">-</div>
         <div class="text-xs sm:text-sm text-neutral-500">This Week</div>
       </div>
     </div>
 
     <!-- Reports Table -->
-    <div class="bg-white rounded-xl shadow-md overflow-hidden">
+    <div class="bg-card rounded-xl shadow-md overflow-hidden">
       <div class="p-4 sm:p-6 border-b border-neutral-200">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-          <h2 class="text-lg font-bold text-neutral-900">All Reports</h2>
+          <h2 class="text-lg font-bold text-foreground">All Reports</h2>
           <div class="flex gap-2">
             <button id="filter-all" class="filter-btn px-3 py-1.5 text-xs font-medium rounded-lg bg-primary text-white">All</button>
             <button id="filter-pending" class="filter-btn px-3 py-1.5 text-xs font-medium rounded-lg bg-neutral-100 text-neutral-700 hover:bg-neutral-200">Pending</button>
@@ -138,7 +138,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 
         return `
           <tr class="border-b border-neutral-100 hover:bg-neutral-50" data-id="${r._id}">
-            <td class="px-4 py-3 font-medium text-neutral-900">${r.locationName || 'Unknown'}</td>
+            <td class="px-4 py-3 font-medium text-foreground">${r.locationName || 'Unknown'}</td>
             <td class="px-4 py-3 hidden md:table-cell text-neutral-600">${dateStr}</td>
             <td class="px-4 py-3 hidden lg:table-cell text-neutral-600 max-w-xs truncate">${r.description || '-'}</td>
             <td class="px-4 py-3 text-neutral-600 font-mono text-xs">${coords}</td>
@@ -150,7 +150,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
                   ? `<button class="approve-btn text-xs bg-green-600 text-white px-2 py-1 rounded hover:bg-green-700" data-id="${r._id}">Approve</button>`
                   : `<button class="unapprove-btn text-xs bg-neutral-200 text-neutral-700 px-2 py-1 rounded hover:bg-neutral-300" data-id="${r._id}">Unapprove</button>`
                 }
-                <button class="delete-btn text-xs bg-red-100 text-red-700 px-2 py-1 rounded hover:bg-red-200" data-id="${r._id}">Delete</button>
+                <button class="delete-btn text-xs bg-destructive-muted text-destructive-hover px-2 py-1 rounded hover:bg-red-200" data-id="${r._id}">Delete</button>
               </div>
             </td>
           </tr>

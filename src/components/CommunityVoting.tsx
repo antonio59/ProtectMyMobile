@@ -140,7 +140,7 @@ export default function CommunityVoting({ initialStats }: Props) {
         <div className="flex items-start gap-4 mb-6">
           <CheckCircle2 className="h-8 w-8 text-green-600 flex-shrink-0" />
           <div>
-            <h3 className="text-2xl font-bold text-neutral-900 mb-2">Thank You!</h3>
+            <h3 className="text-2xl font-bold text-foreground mb-2">Thank You!</h3>
             <p className="text-neutral-700">
               Your response helps us understand phone theft patterns and protect others.
             </p>
@@ -149,7 +149,7 @@ export default function CommunityVoting({ initialStats }: Props) {
 
         {insights.length > 0 && (
           <div className="bg-white rounded-lg p-6 mb-6">
-            <h4 className="font-semibold text-neutral-900 mb-3 flex items-center">
+            <h4 className="font-semibold text-foreground mb-3 flex items-center">
               <span className="mr-2">💡</span> Insights Based On Your Response
             </h4>
             <ul className="space-y-2">
@@ -172,7 +172,7 @@ export default function CommunityVoting({ initialStats }: Props) {
           </a>
           <a
             href="#analytics"
-            className="px-4 py-2 bg-neutral-100 text-neutral-900 rounded-md hover:bg-neutral-200 transition-colors"
+            className="px-4 py-2 bg-neutral-100 text-foreground rounded-md hover:bg-neutral-200 transition-colors"
           >
             View Full Analytics
           </a>
@@ -204,7 +204,7 @@ export default function CommunityVoting({ initialStats }: Props) {
       {/* Question 1: Had Phone Stolen */}
       {currentStep === 1 && (
         <div className="space-y-4">
-          <h3 className="text-xl font-semibold text-neutral-900 mb-4">
+          <h3 className="text-xl font-semibold text-foreground mb-4">
             Have you had a phone stolen?
           </h3>
           <div className="grid grid-cols-1 gap-3">
@@ -223,7 +223,7 @@ export default function CommunityVoting({ initialStats }: Props) {
                 }`}
               >
                 <span className="text-2xl mr-3">{option.icon}</span>
-                <span className="font-medium text-neutral-900">{option.label}</span>
+                <span className="font-medium text-foreground">{option.label}</span>
               </button>
             ))}
           </div>
@@ -233,7 +233,7 @@ export default function CommunityVoting({ initialStats }: Props) {
       {/* Question 2: Phone Recovered (only if stolen) */}
       {currentStep === 2 && formData.had_phone_stolen === 'yes' && (
         <div className="space-y-4">
-          <h3 className="text-xl font-semibold text-neutral-900 mb-4">
+          <h3 className="text-xl font-semibold text-foreground mb-4">
             Was your phone recovered?
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -253,7 +253,7 @@ export default function CommunityVoting({ initialStats }: Props) {
                 }`}
               >
                 <span className="text-2xl mr-3">{option.icon}</span>
-                <span className="font-medium text-neutral-900">{option.label}</span>
+                <span className="font-medium text-foreground">{option.label}</span>
               </button>
             ))}
           </div>
@@ -263,7 +263,7 @@ export default function CommunityVoting({ initialStats }: Props) {
       {/* Question 3: Replacement Method */}
       {currentStep === 3 && formData.had_phone_stolen === 'yes' && (
         <div className="space-y-4">
-          <h3 className="text-xl font-semibold text-neutral-900 mb-4">
+          <h3 className="text-xl font-semibold text-foreground mb-4">
             How did you replace your phone?
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -285,7 +285,7 @@ export default function CommunityVoting({ initialStats }: Props) {
                 }`}
               >
                 <span className="text-2xl mr-3">{option.icon}</span>
-                <span className="font-medium text-neutral-900">{option.label}</span>
+                <span className="font-medium text-foreground">{option.label}</span>
               </button>
             ))}
           </div>
@@ -295,7 +295,7 @@ export default function CommunityVoting({ initialStats }: Props) {
       {/* Question 4: Theft Location */}
       {currentStep === 4 && formData.had_phone_stolen === 'yes' && (
         <div className="space-y-4">
-          <h3 className="text-xl font-semibold text-neutral-900 mb-4">
+          <h3 className="text-xl font-semibold text-foreground mb-4">
             Where did the theft occur?
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -317,7 +317,7 @@ export default function CommunityVoting({ initialStats }: Props) {
                 }`}
               >
                 <span className="text-2xl mr-3">{option.icon}</span>
-                <span className="font-medium text-neutral-900">{option.label}</span>
+                <span className="font-medium text-foreground">{option.label}</span>
               </button>
             ))}
           </div>
@@ -327,7 +327,7 @@ export default function CommunityVoting({ initialStats }: Props) {
       {/* Question 5: Security Measures (multiple choice) */}
       {currentStep === 5 && (
         <div className="space-y-4">
-          <h3 className="text-xl font-semibold text-neutral-900 mb-2">
+          <h3 className="text-xl font-semibold text-foreground mb-2">
             What security measures {formData.had_phone_stolen === 'yes' ? 'did you have' : 'do you have'}?
           </h3>
           <p className="text-sm text-neutral-600 mb-4">Select all that apply</p>
@@ -351,7 +351,7 @@ export default function CommunityVoting({ initialStats }: Props) {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center">
                     <span className="text-2xl mr-3">{option.icon}</span>
-                    <span className="font-medium text-neutral-900">{option.label}</span>
+                    <span className="font-medium text-foreground">{option.label}</span>
                   </div>
                   {formData.security_measures?.includes(option.value) && (
                     <CheckCircle2 className="h-5 w-5 text-primary" />
@@ -366,7 +366,7 @@ export default function CommunityVoting({ initialStats }: Props) {
       {/* Question 6: Police Reporting */}
       {currentStep === 6 && formData.had_phone_stolen === 'yes' && (
         <div className="space-y-4">
-          <h3 className="text-xl font-semibold text-neutral-900 mb-4">
+          <h3 className="text-xl font-semibold text-foreground mb-4">
             Did you report to police?
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -386,7 +386,7 @@ export default function CommunityVoting({ initialStats }: Props) {
                 }`}
               >
                 <span className="text-2xl mr-3">{option.icon}</span>
-                <span className="font-medium text-neutral-900">{option.label}</span>
+                <span className="font-medium text-foreground">{option.label}</span>
               </button>
             ))}
           </div>
@@ -395,8 +395,8 @@ export default function CommunityVoting({ initialStats }: Props) {
 
       {/* Error Message */}
       {error && (
-        <div className="mt-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3">
-          <AlertCircle className="h-5 w-5 text-red-600 flex-shrink-0 mt-0.5" />
+        <div className="mt-6 p-4 bg-destructive-subtle border border-red-200 rounded-lg flex items-start gap-3">
+          <AlertCircle className="h-5 w-5 text-destructive flex-shrink-0 mt-0.5" />
           <p className="text-sm text-red-800">{error}</p>
         </div>
       )}
@@ -406,7 +406,7 @@ export default function CommunityVoting({ initialStats }: Props) {
         <button
           onClick={handleBack}
           disabled={currentStep === 1}
-          className="px-4 py-2 text-neutral-700 hover:text-neutral-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          className="px-4 py-2 text-neutral-700 hover:text-foreground disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         >
           ← Back
         </button>

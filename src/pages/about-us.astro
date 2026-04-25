@@ -13,7 +13,7 @@ import { Info, Heart, Shield, Users, Target, CheckCircle2, ArrowRight } from 'lu
   <HeaderMobile client:idle />
   <Breadcrumb items={[{ label: 'About Us' }]} />
   
-  <main id="main-content" class="bg-[#f3f2f1] min-h-screen">
+  <main id="main-content" class="bg-neutral-100 min-h-screen">
     <div class="container mx-auto px-4 py-4 sm:py-6 max-w-5xl">
       <!-- Hero Section -->
       <div class="bg-gradient-to-br from-primary to-blue-700 text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8 shadow-xl">
@@ -29,7 +29,7 @@ import { Info, Heart, Shield, Users, Target, CheckCircle2, ArrowRight } from 'lu
       </div>
       
       <!-- Mission Statement -->
-      <section class="bg-white rounded-lg sm:rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-neutral-100 mb-6 sm:mb-8">
+      <section class="bg-card rounded-lg sm:rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-neutral-100 mb-6 sm:mb-8">
         <div class="h-2 bg-gradient-to-r from-primary to-blue-600"></div>
         <div class="p-4 sm:p-6 md:p-8">
           <div class="flex items-center gap-3 mb-4">
@@ -54,7 +54,7 @@ import { Info, Heart, Shield, Users, Target, CheckCircle2, ArrowRight } from 'lu
           Our Values
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
-          <div class="bg-white rounded-lg sm:rounded-xl sm:rounded-2xl shadow-md p-4 sm:p-6 border border-neutral-100 hover:shadow-lg transition-shadow">
+          <div class="bg-card rounded-lg sm:rounded-xl sm:rounded-2xl shadow-md p-4 sm:p-6 border border-neutral-100 hover:shadow-lg transition-shadow">
             <div class="bg-primary/10 rounded-xl p-3 w-fit mb-4">
               <Shield class="h-6 w-6 sm:h-8 sm:w-8 text-primary" />
             </div>
@@ -64,7 +64,7 @@ import { Info, Heart, Shield, Users, Target, CheckCircle2, ArrowRight } from 'lu
             </p>
           </div>
 
-          <div class="bg-white rounded-lg sm:rounded-xl sm:rounded-2xl shadow-md p-4 sm:p-6 border border-neutral-100 hover:shadow-lg transition-shadow">
+          <div class="bg-card rounded-lg sm:rounded-xl sm:rounded-2xl shadow-md p-4 sm:p-6 border border-neutral-100 hover:shadow-lg transition-shadow">
             <div class="bg-green-100 rounded-xl p-3 w-fit mb-4">
               <Users class="h-6 w-6 sm:h-8 sm:w-8 text-green-600" />
             </div>
@@ -74,9 +74,9 @@ import { Info, Heart, Shield, Users, Target, CheckCircle2, ArrowRight } from 'lu
             </p>
           </div>
 
-          <div class="bg-white rounded-lg sm:rounded-xl sm:rounded-2xl shadow-md p-4 sm:p-6 border border-neutral-100 hover:shadow-lg transition-shadow">
-            <div class="bg-red-100 rounded-xl p-3 w-fit mb-4">
-              <Heart class="h-6 w-6 sm:h-8 sm:w-8 text-red-600" />
+          <div class="bg-card rounded-lg sm:rounded-xl sm:rounded-2xl shadow-md p-4 sm:p-6 border border-neutral-100 hover:shadow-lg transition-shadow">
+            <div class="bg-destructive-muted rounded-xl p-3 w-fit mb-4">
+              <Heart class="h-6 w-6 sm:h-8 sm:w-8 text-destructive" />
             </div>
             <h3 class="text-base sm:text-lg font-bold mb-2">Always Free</h3>
             <p class="text-neutral-600 text-xs sm:text-sm">
@@ -87,7 +87,7 @@ import { Info, Heart, Shield, Users, Target, CheckCircle2, ArrowRight } from 'lu
       </section>
       
       <!-- Why We Exist -->
-      <section class="bg-white rounded-lg sm:rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-neutral-100 mb-6 sm:mb-8">
+      <section class="bg-card rounded-lg sm:rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-neutral-100 mb-6 sm:mb-8">
         <div class="h-2 bg-gradient-to-r from-red-500 to-orange-500"></div>
         <div class="p-4 sm:p-6 md:p-8">
           <h2 class="text-base sm:text-lg md:text-xl font-bold mb-4">Why We Exist</h2>

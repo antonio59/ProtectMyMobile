@@ -83,7 +83,7 @@ function slideUrls(folder: string, count: number) {
   <HeaderMobile client:idle />
   <Breadcrumb items={[{ label: 'Scenarios' }]} />
 
-  <main id="main-content" class="bg-[#f3f2f1] min-h-screen">
+  <main id="main-content" class="bg-neutral-100 min-h-screen">
     <div class="container mx-auto px-4 py-4 sm:py-6 md:py-8 max-w-6xl">
       <div class="bg-gradient-to-br from-primary to-blue-700 text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8 shadow-xl">
         <div class="flex items-center gap-3 mb-3">
@@ -104,7 +104,7 @@ function slideUrls(folder: string, count: number) {
         {scenarios.map((scenario, index) => (
           <article
             id={scenario.id}
-            class="bg-white rounded-xl sm:rounded-2xl shadow-md border border-neutral-100 p-4 sm:p-5 flex flex-col gap-4 card-lift entrance-slide-up scroll-mt-24"
+            class="bg-card rounded-xl sm:rounded-2xl shadow-md border border-neutral-100 p-4 sm:p-5 flex flex-col gap-4 card-lift entrance-slide-up scroll-mt-24"
             style={`animation-delay: ${index * 0.1}s`}
           >
             <div class="flex items-start gap-3">
@@ -112,7 +112,7 @@ function slideUrls(folder: string, count: number) {
                 <MapPin class="h-4 w-4 sm:h-5 sm:w-5" />
               </div>
               <div>
-                <h2 class="text-base sm:text-lg font-bold text-neutral-900 leading-tight">{scenario.title}</h2>
+                <h2 class="text-base sm:text-lg font-bold text-foreground leading-tight">{scenario.title}</h2>
                 <p class="text-xs sm:text-sm text-neutral-600 mt-1">{scenario.summary}</p>
               </div>
             </div>

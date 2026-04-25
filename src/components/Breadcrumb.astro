@@ -35,7 +35,7 @@ const breadcrumbSchema = items.length > 0 ? {
 ---
 
 <nav aria-label="Breadcrumb" class="mb-4 sm:mb-6">
-  <ol class="inline-flex flex-wrap items-center gap-1 sm:gap-1.5 text-xs sm:text-sm text-neutral-600 bg-white border border-neutral-200 rounded-full px-3 sm:px-4 py-2 shadow-sm">
+  <ol class="inline-flex flex-wrap items-center gap-1 sm:gap-1.5 text-xs sm:text-sm text-neutral-600 bg-card border border-neutral-200 rounded-full px-3 sm:px-4 py-2 shadow-sm">
     <li>
       <a
         href="/"
@@ -57,7 +57,7 @@ const breadcrumbSchema = items.length > 0 ? {
             {item.label}
           </a>
         ) : (
-          <span class="text-neutral-900 font-semibold" aria-current="page">
+          <span class="text-foreground font-semibold" aria-current="page">
             {item.label}
           </span>
         )}

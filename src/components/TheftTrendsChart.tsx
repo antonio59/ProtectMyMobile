@@ -239,7 +239,7 @@ export default function TheftTrendsChart() {
       {/* Header with toggle */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
         <div>
-          <h2 className="text-lg sm:text-xl font-bold text-neutral-900 flex items-center gap-2">
+          <h2 className="text-lg sm:text-xl font-bold text-foreground flex items-center gap-2">
             <TrendingUp className="h-5 w-5 text-blue-500" />
             Monthly Theft Trends
           </h2>
@@ -252,8 +252,8 @@ export default function TheftTrendsChart() {
             onClick={() => setViewMode('stacked')}
             className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
               viewMode === 'stacked'
-                ? 'bg-white text-neutral-900 shadow-sm'
-                : 'text-neutral-600 hover:text-neutral-900'
+                ? 'bg-white text-foreground shadow-sm'
+                : 'text-neutral-600 hover:text-foreground'
             }`}
           >
             Stacked
@@ -262,8 +262,8 @@ export default function TheftTrendsChart() {
             onClick={() => setViewMode('lines')}
             className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
               viewMode === 'lines'
-                ? 'bg-white text-neutral-900 shadow-sm'
-                : 'text-neutral-600 hover:text-neutral-900'
+                ? 'bg-white text-foreground shadow-sm'
+                : 'text-neutral-600 hover:text-foreground'
             }`}
           >
             Lines
@@ -273,11 +273,11 @@ export default function TheftTrendsChart() {
 
       {/* Summary strip */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 mb-6">
-        <div className="bg-blue-50 rounded-lg p-3">
-          <div className="text-lg sm:text-xl font-bold text-blue-700">
+        <div className="bg-primary-subtle rounded-lg p-3">
+          <div className="text-lg sm:text-xl font-bold text-primary-hover">
             {latestMonth.total.toLocaleString()}
           </div>
-          <div className="text-xs text-blue-600">Latest month total</div>
+          <div className="text-xs text-primary">Latest month total</div>
         </div>
         <div className="bg-neutral-50 rounded-lg p-3">
           <div className="text-lg sm:text-xl font-bold text-neutral-700">
@@ -285,8 +285,8 @@ export default function TheftTrendsChart() {
           </div>
           <div className="text-xs text-neutral-500">All-time total</div>
         </div>
-        <div className={`rounded-lg p-3 ${monthChange && Number(monthChange) > 0 ? 'bg-red-50' : 'bg-green-50'}`}>
-          <div className={`text-lg sm:text-xl font-bold ${monthChange && Number(monthChange) > 0 ? 'text-red-700' : 'text-green-700'}`}>
+        <div className={`rounded-lg p-3 ${monthChange && Number(monthChange) > 0 ? 'bg-destructive-subtle' : 'bg-green-50'}`}>
+          <div className={`text-lg sm:text-xl font-bold ${monthChange && Number(monthChange) > 0 ? 'text-destructive-hover' : 'text-green-700'}`}>
             {monthChange ? `${Number(monthChange) > 0 ? '+' : ''}${monthChange}%` : '—'}
           </div>
           <div className="text-xs text-neutral-500">Month-on-month</div>

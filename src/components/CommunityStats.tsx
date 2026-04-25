@@ -65,7 +65,7 @@ export default function CommunityStatsDisplay({ initialStats }: Props) {
     <div>
       {/* Header */}
       <div className="mb-8 text-center">
-        <h2 className="text-3xl font-bold text-neutral-900 mb-3">
+        <h2 className="text-3xl font-bold text-foreground mb-3">
           Community Insights
         </h2>
         <p className="text-neutral-600 max-w-2xl mx-auto">
@@ -79,10 +79,10 @@ export default function CommunityStatsDisplay({ initialStats }: Props) {
         <div className="bg-gradient-to-br from-red-50 to-orange-50 rounded-lg shadow-md p-6 border-2 border-red-200">
           <div className="flex items-center justify-between mb-3">
             <h3 className="text-sm font-medium text-neutral-700">Recovery Rate</h3>
-            <TrendingDown className="h-5 w-5 text-red-600" />
+            <TrendingDown className="h-5 w-5 text-destructive" />
           </div>
           <div className="mb-2">
-            <div className="text-4xl font-bold text-red-600">{recoveryRate}%</div>
+            <div className="text-4xl font-bold text-destructive">{recoveryRate}%</div>
           </div>
           <div className="text-xs text-neutral-600">
             {100 - recoveryRate}% of phones are never recovered
@@ -93,7 +93,7 @@ export default function CommunityStatsDisplay({ initialStats }: Props) {
         <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg shadow-md p-6 border-2 border-blue-200">
           <div className="flex items-center justify-between mb-3">
             <h3 className="text-sm font-medium text-neutral-700">Top Risk Zone</h3>
-            <MapPin className="h-5 w-5 text-blue-600" />
+            <MapPin className="h-5 w-5 text-primary" />
           </div>
           <div className="mb-2">
             <div className="text-xl font-bold text-blue-900 mb-1">{mostCommonLocation}</div>
@@ -134,7 +134,7 @@ export default function CommunityStatsDisplay({ initialStats }: Props) {
 
       {/* Key Findings */}
       <div className="bg-neutral-50 rounded-lg p-6 border border-neutral-200">
-        <h3 className="font-semibold text-neutral-900 mb-4 flex items-center">
+        <h3 className="font-semibold text-foreground mb-4 flex items-center">
           <span className="text-xl mr-2">📊</span> Key Findings
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-neutral-700">

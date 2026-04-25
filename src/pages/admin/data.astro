@@ -10,29 +10,29 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
   <div class="p-3 sm:p-4 lg:p-8">
     <!-- Header -->
     <div class="mb-6 sm:mb-8">
-      <h1 class="text-xl sm:text-2xl md:text-3xl font-bold text-neutral-900">Theft Data Manager</h1>
+      <h1 class="text-xl sm:text-2xl md:text-3xl font-bold text-foreground">Theft Data Manager</h1>
       <p class="text-neutral-600 text-xs sm:text-sm mt-1 sm:mt-2">Import data from WhatDoTheyKnow FOI responses and manage theft statistics.</p>
     </div>
 
     <!-- Stats Overview -->
     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 sm:gap-4 mb-6 sm:mb-8">
-      <div class="bg-white rounded-lg p-3 sm:p-4 shadow-sm">
-        <div class="text-xl sm:text-2xl font-bold text-neutral-900" id="stat-total-records">-</div>
+      <div class="bg-card rounded-lg p-3 sm:p-4 shadow-sm">
+        <div class="text-xl sm:text-2xl font-bold text-foreground" id="stat-total-records">-</div>
         <div class="text-xs text-neutral-500">Total Records</div>
       </div>
-      <div class="bg-white rounded-lg p-3 sm:p-4 shadow-sm">
-        <div class="text-xl sm:text-2xl font-bold text-blue-600" id="stat-total-thefts">-</div>
+      <div class="bg-card rounded-lg p-3 sm:p-4 shadow-sm">
+        <div class="text-xl sm:text-2xl font-bold text-primary" id="stat-total-thefts">-</div>
         <div class="text-xs text-neutral-500">Total Thefts</div>
       </div>
-      <div class="bg-white rounded-lg p-3 sm:p-4 shadow-sm">
+      <div class="bg-card rounded-lg p-3 sm:p-4 shadow-sm">
         <div class="text-xl sm:text-2xl font-bold text-green-600" id="stat-wdtk-entries">-</div>
         <div class="text-xs text-neutral-500">WDTK Entries</div>
       </div>
-      <div class="bg-white rounded-lg p-3 sm:p-4 shadow-sm">
+      <div class="bg-card rounded-lg p-3 sm:p-4 shadow-sm">
         <div class="text-xl sm:text-2xl font-bold text-yellow-600" id="stat-pending-import">-</div>
         <div class="text-xs text-neutral-500">Pending Import</div>
       </div>
-      <div class="bg-white rounded-lg p-3 sm:p-4 shadow-sm">
+      <div class="bg-card rounded-lg p-3 sm:p-4 shadow-sm">
         <div class="text-xl sm:text-2xl font-bold text-teal-600" id="stat-locations">-</div>
         <div class="text-xs text-neutral-500">Locations</div>
       </div>
@@ -46,7 +46,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
       <button id="fetch-police-uk-btn" class="px-3 sm:px-4 py-1.5 sm:py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 text-xs sm:text-sm">
         Fetch Police.uk Data
       </button>
-      <button id="scan-btn" class="px-3 sm:px-4 py-1.5 sm:py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-xs sm:text-sm">
+      <button id="scan-btn" class="px-3 sm:px-4 py-1.5 sm:py-2 bg-primary text-white rounded-lg hover:bg-primary-hover text-xs sm:text-sm">
         Scan WhatDoTheyKnow
       </button>
       <button id="scrape-btn" class="px-3 sm:px-4 py-1.5 sm:py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 text-xs sm:text-sm">
@@ -68,7 +68,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     </div>
 
     <!-- WDTK Entries with Data -->
-    <div class="bg-white rounded-xl shadow-md overflow-hidden mb-6 sm:mb-8">
+    <div class="bg-card rounded-xl shadow-md overflow-hidden mb-6 sm:mb-8">
       <div class="p-3 sm:p-4 border-b bg-neutral-50">
         <h2 class="font-bold text-sm sm:text-base">WhatDoTheyKnow FOI Responses (with Data)</h2>
         <p class="text-xs sm:text-sm text-neutral-600 mt-1">Successful FOI responses that can be imported</p>
@@ -92,7 +92,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     </div>
 
     <!-- Manual Import -->
-    <div class="bg-white rounded-xl shadow-md p-4 sm:p-6">
+    <div class="bg-card rounded-xl shadow-md p-4 sm:p-6">
       <h2 class="font-bold mb-3 sm:mb-4 text-sm sm:text-base">Manual Data Import</h2>
       <p class="text-xs sm:text-sm text-neutral-600 mb-4">Upload a CSV file with theft data. Required columns: date, location_name, latitude, longitude, theft_count</p>
 
@@ -203,7 +203,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
               ${e.recordsImported ? `<span class="text-xs text-neutral-500 ml-1">(${e.recordsImported} records)</span>` : ''}
             </td>
             <td class="px-2 sm:px-4 py-2 sm:py-3">
-              <a href="${escapeHtml(e.url)}" target="_blank" class="text-xs sm:text-sm text-blue-600 hover:underline">View Response</a>
+              <a href="${escapeHtml(e.url)}" target="_blank" class="text-xs sm:text-sm text-primary hover:underline">View Response</a>
             </td>
           </tr>
         `;

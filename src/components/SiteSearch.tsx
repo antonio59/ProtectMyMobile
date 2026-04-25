@@ -59,10 +59,10 @@ const searchData: SearchResult[] = [
 ];
 
 const categoryColors: Record<string, string> = {
-  'Emergency': 'bg-red-100 text-red-700',
+  'Emergency': 'bg-destructive-muted text-destructive-hover',
   'Prevention': 'bg-green-100 text-green-700',
   'Data': 'bg-purple-100 text-purple-700',
-  'Information': 'bg-blue-100 text-blue-700',
+  'Information': 'bg-primary-muted text-primary-hover',
   'Directory': 'bg-orange-100 text-orange-700',
   'Locations': 'bg-teal-100 text-teal-700',
   'Help': 'bg-neutral-100 text-neutral-700',
@@ -308,7 +308,7 @@ export default function SiteSearch() {
                                 <Icon className="h-4 w-4" />
                               </div>
                               <div className="flex-1 min-w-0">
-                                <p className={`font-medium text-sm ${globalIndex === selectedIndex ? 'text-primary' : 'text-neutral-900'}`}>
+                                <p className={`font-medium text-sm ${globalIndex === selectedIndex ? 'text-primary' : 'text-foreground'}`}>
                                   {result.title}
                                 </p>
                                 <p className="text-xs text-neutral-500 truncate">

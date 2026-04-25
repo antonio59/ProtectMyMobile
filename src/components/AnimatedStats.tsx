@@ -20,7 +20,7 @@ const stats: Stat[] = [
     numericValue: 116000,
     label: 'Phones stolen',
     sublabel: 'in London (2024)',
-    color: 'text-red-600'
+    color: 'text-destructive'
   },
   {
     value: '150%',
@@ -37,7 +37,7 @@ const stats: Stat[] = [
     decimals: 1,
     label: 'Result in',
     sublabel: 'charges',
-    color: 'text-blue-600'
+    color: 'text-primary'
   },
   {
     value: 'Every 5 min',
