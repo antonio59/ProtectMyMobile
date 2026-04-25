@@ -138,7 +138,7 @@ export default function CommunityVoting({ initialStats }: Props) {
     return (
       <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg p-6 md:p-8 border-2 border-green-200">
         <div className="flex items-start gap-4 mb-6">
-          <CheckCircle2 className="h-8 w-8 text-green-600 flex-shrink-0" />
+          <CheckCircle2 className="size-8 text-green-600 flex-shrink-0" />
           <div>
             <h3 className="text-2xl font-bold text-foreground mb-2">Thank You!</h3>
             <p className="text-neutral-700">
@@ -354,7 +354,7 @@ export default function CommunityVoting({ initialStats }: Props) {
                     <span className="font-medium text-foreground">{option.label}</span>
                   </div>
                   {formData.security_measures?.includes(option.value) && (
-                    <CheckCircle2 className="h-5 w-5 text-primary" />
+                    <CheckCircle2 className="size-5 text-primary" />
                   )}
                 </div>
               </button>
@@ -396,7 +396,7 @@ export default function CommunityVoting({ initialStats }: Props) {
       {/* Error Message */}
       {error && (
         <div className="mt-6 p-4 bg-destructive-subtle border border-red-200 rounded-lg flex items-start gap-3">
-          <AlertCircle className="h-5 w-5 text-destructive flex-shrink-0 mt-0.5" />
+          <AlertCircle className="size-5 text-destructive flex-shrink-0 mt-0.5" />
           <p className="text-sm text-red-800">{error}</p>
         </div>
       )}

@@ -54,7 +54,7 @@ const icons: Record<string, string> = {
     <!-- Mobile Header -->
     <header class="lg:hidden fixed top-0 left-0 right-0 h-14 bg-neutral-900 text-white z-50 flex items-center justify-between px-4">
       <button id="menu-toggle" class="p-2 -ml-2 hover:bg-neutral-800 rounded-lg">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="size-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
         </svg>
       </button>
@@ -72,8 +72,8 @@ const icons: Record<string, string> = {
       <!-- Logo -->
       <div class="h-14 flex items-center px-4 border-b border-neutral-800">
         <a href="/" class="flex items-center gap-2 hover:opacity-80">
-          <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="size-8 bg-primary rounded-lg flex items-center justify-center">
+            <svg class="size-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
             </svg>
           </div>
@@ -95,7 +95,7 @@ const icons: Record<string, string> = {
                 : 'text-neutral-300 hover:bg-neutral-800 hover:text-white'
             }`}
           >
-            <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" set:html={icons[item.icon]} />
+            <svg class="size-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" set:html={icons[item.icon]} />
             {item.label}
           </a>
         ))}
@@ -105,7 +105,7 @@ const icons: Record<string, string> = {
             href="/admin/logout"
             class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-colors"
           >
-            <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" set:html={icons.logout} />
+            <svg class="size-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" set:html={icons.logout} />
             Logout
           </a>
         </div>
@@ -117,7 +117,7 @@ const icons: Record<string, string> = {
           href="/" 
           class="flex items-center gap-2 text-sm text-neutral-400 hover:text-white transition-colors"
         >
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
           </svg>
           Back to site

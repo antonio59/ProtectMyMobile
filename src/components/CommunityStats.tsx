@@ -79,7 +79,7 @@ export default function CommunityStatsDisplay({ initialStats }: Props) {
         <div className="bg-gradient-to-br from-red-50 to-orange-50 rounded-lg shadow-md p-6 border-2 border-red-200">
           <div className="flex items-center justify-between mb-3">
             <h3 className="text-sm font-medium text-neutral-700">Recovery Rate</h3>
-            <TrendingDown className="h-5 w-5 text-destructive" />
+            <TrendingDown className="size-5 text-destructive" />
           </div>
           <div className="mb-2">
             <div className="text-4xl font-bold text-destructive">{recoveryRate}%</div>
@@ -93,7 +93,7 @@ export default function CommunityStatsDisplay({ initialStats }: Props) {
         <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg shadow-md p-6 border-2 border-blue-200">
           <div className="flex items-center justify-between mb-3">
             <h3 className="text-sm font-medium text-neutral-700">Top Risk Zone</h3>
-            <MapPin className="h-5 w-5 text-primary" />
+            <MapPin className="size-5 text-primary" />
           </div>
           <div className="mb-2">
             <div className="text-xl font-bold text-blue-900 mb-1">{mostCommonLocation}</div>
@@ -107,7 +107,7 @@ export default function CommunityStatsDisplay({ initialStats }: Props) {
         <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg shadow-md p-6 border-2 border-green-200">
           <div className="flex items-center justify-between mb-3">
             <h3 className="text-sm font-medium text-neutral-700">Security Use</h3>
-            <Shield className="h-5 w-5 text-green-600" />
+            <Shield className="size-5 text-green-600" />
           </div>
           <div className="mb-2">
             <div className="text-4xl font-bold text-green-600">{securityAdoption}%</div>
@@ -121,7 +121,7 @@ export default function CommunityStatsDisplay({ initialStats }: Props) {
         <div className="bg-gradient-to-br from-teal-50 to-cyan-50 rounded-lg shadow-md p-6 border-2 border-teal-200">
           <div className="flex items-center justify-between mb-3">
             <h3 className="text-sm font-medium text-neutral-700">Police Reports</h3>
-            <AlertTriangle className="h-5 w-5 text-teal-600" />
+            <AlertTriangle className="size-5 text-teal-600" />
           </div>
           <div className="mb-2">
             <div className="text-4xl font-bold text-teal-600">{reportingRate}%</div>

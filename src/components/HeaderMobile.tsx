@@ -89,14 +89,14 @@ export default function HeaderMobile() {
               href="/security-checkup"
               className="inline-flex items-center gap-2 px-4 py-2.5 border-2 border-primary text-primary rounded-xl font-semibold hover:bg-primary hover:text-white transition-all text-sm hover:scale-[1.02] active:scale-[0.98]"
             >
-              <Shield className="h-4 w-4" />
+              <Shield className="size-4" />
               Security Checkup
             </a>
             <a
               href="/emergency"
               className="inline-flex items-center gap-2 px-4 py-2.5 bg-destructive text-white rounded-xl font-bold hover:bg-destructive-hover transition-all text-sm shadow-lg shadow-destructive/25 hover:scale-[1.02] active:scale-[0.98]"
             >
-              <AlertTriangle className="h-4 w-4" />
+              <AlertTriangle className="size-4" />
               Phone Stolen?
             </a>
           </div>
@@ -109,14 +109,14 @@ export default function HeaderMobile() {
               className="p-2 bg-destructive text-white rounded-xl hover:scale-105 active:scale-90 transition-transform duration-150"
               aria-label="Emergency - Phone stolen?"
             >
-              <AlertTriangle className="h-5 w-5" />
+              <AlertTriangle className="size-5" />
             </a>
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="p-2 rounded-xl bg-neutral-100 hover:bg-neutral-200 transition-colors hover:scale-105 active:scale-90 transition-transform duration-150"
               aria-label="Toggle menu"
             >
-              {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              {isOpen ? <X className="size-5" /> : <Menu className="size-5" />}
             </button>
           </div>
         </div>
@@ -147,7 +147,7 @@ export default function HeaderMobile() {
             className="p-2.5 rounded-xl bg-neutral-200 hover:bg-neutral-300 active:bg-neutral-400 hover:scale-105 active:scale-90 transition-all duration-150"
             aria-label="Close menu"
           >
-            <X className="h-6 w-6 text-neutral-700" />
+            <X className="size-6 text-neutral-700" />
           </button>
         </div>
 
@@ -158,7 +158,7 @@ export default function HeaderMobile() {
             className="flex items-center justify-center gap-2 w-full px-4 py-3 bg-destructive text-white rounded-xl font-bold shadow-lg hover:scale-[1.01] active:scale-[0.99] transition-transform duration-150"
             onClick={() => setIsOpen(false)}
           >
-            <AlertTriangle className="h-5 w-5" />
+            <AlertTriangle className="size-5" />
             Phone Stolen? Act Now
           </a>
           <a
@@ -166,7 +166,7 @@ export default function HeaderMobile() {
             className="flex items-center justify-center gap-2 w-full px-4 py-3 border-2 border-primary text-primary rounded-xl font-semibold hover:scale-[1.01] active:scale-[0.99] transition-transform duration-150"
             onClick={() => setIsOpen(false)}
           >
-            <Shield className="h-5 w-5" />
+            <Shield className="size-5" />
             Security Checkup
           </a>
         </div>
@@ -185,9 +185,9 @@ export default function HeaderMobile() {
                   className="flex items-center gap-3 px-4 py-3 rounded-xl text-neutral-700 hover:bg-neutral-100 active:bg-neutral-200 transition-colors group"
                   onClick={() => setIsOpen(false)}
                 >
-                  <link.icon className="h-5 w-5 text-neutral-400 group-hover:text-primary transition-colors" />
+                  <link.icon className="size-5 text-neutral-400 group-hover:text-primary transition-colors" />
                   <span className="font-medium flex-1">{link.label}</span>
-                  <ChevronRight className="h-4 w-4 text-neutral-300 group-hover:text-primary transition-colors" />
+                  <ChevronRight className="size-4 text-neutral-300 group-hover:text-primary transition-colors" />
                 </a>
               </li>
             ))}

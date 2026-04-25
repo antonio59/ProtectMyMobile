@@ -16,7 +16,7 @@ interface Resource {
 
 const resources: Resource[] = [
   {
-    icon: <Shield className="h-8 w-8 text-primary" />,
+    icon: <Shield className="size-8 text-primary" />,
     iconBg: 'bg-primary/10',
     title: 'Prevention Guides',
     description: 'Secure your device with PIN locks, SIM protection, and app security. Learn how to prevent theft before it happens.',
@@ -25,7 +25,7 @@ const resources: Resource[] = [
     linkText: 'Learn How to Protect Your Phone',
   },
   {
-    icon: <AlertTriangle className="h-8 w-8 text-destructive" />,
+    icon: <AlertTriangle className="size-8 text-destructive" />,
     iconBg: 'bg-destructive-muted',
     title: 'Emergency Response',
     description: 'Phone stolen? Follow our 5-step emergency checklist to lock your device, secure accounts, and report the theft.',
@@ -34,7 +34,7 @@ const resources: Resource[] = [
     linkText: 'See Emergency Steps',
   },
   {
-    icon: <Building2 className="h-8 w-8 text-primary" />,
+    icon: <Building2 className="size-8 text-primary" />,
     iconBg: 'bg-primary-muted',
     title: 'UK Bank Contacts',
     description: 'Emergency contact numbers for 25+ UK banks. Secure your accounts and prevent fraud immediately.',
@@ -43,7 +43,7 @@ const resources: Resource[] = [
     linkText: 'Find Your Bank',
   },
   {
-    icon: <Phone className="h-8 w-8 text-green-600" />,
+    icon: <Phone className="size-8 text-green-600" />,
     iconBg: 'bg-green-100',
     title: 'Mobile Networks',
     description: 'Contact details for 50+ UK mobile providers. Block your SIM and prevent unauthorized usage.',
@@ -101,7 +101,7 @@ function ResourceCard({ resource, index }: { resource: Resource; index: number }
           </p>
           <span className={`${resource.linkColor} font-medium flex items-center gap-1 sm:gap-2 text-xs sm:text-sm md:text-base lg:text-lg`}>
             {resource.linkText}
-            <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 lg:h-5 lg:w-5 group-hover:translate-x-2 transition-transform" />
+            <ArrowRight className="size-3 sm:h-4 sm:w-4 lg:h-5 lg:w-5 group-hover:translate-x-2 transition-transform" />
           </span>
         </div>
       </div>

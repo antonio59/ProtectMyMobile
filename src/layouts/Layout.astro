@@ -138,6 +138,16 @@ const schemas = [defaultSchema, websiteSchema, ...additionalSchemas];
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="ProtectMyMobile" />
     <link rel="apple-touch-icon" href="/logo-icon.png" />
+
+    <!-- Dark mode — respect OS preference, no flash -->
+    <script is:inline>
+      (function() {
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (prefersDark) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
     
     <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -160,7 +170,7 @@ const schemas = [defaultSchema, websiteSchema, ...additionalSchemas];
       class="fixed bottom-6 right-6 z-50 md:hidden bg-destructive text-white rounded-full px-4 py-3 shadow-xl shadow-red-600/30 flex items-center gap-2 font-semibold text-sm translate-y-24 opacity-0 transition-all duration-300 hover:scale-105 active:scale-95"
       aria-label="Emergency - Phone stolen?"
     >
-      <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg class="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
       </svg>
       <span>Phone Stolen?</span>

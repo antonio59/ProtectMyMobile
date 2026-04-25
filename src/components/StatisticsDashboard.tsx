@@ -184,7 +184,7 @@ function StatCard({
           {subtext && <p className="text-xs text-neutral-400 mt-1">{subtext}</p>}
         </div>
         <div className="p-2 rounded-lg" style={{ backgroundColor: `${CHART_COLORS[color]}15` }}>
-          <Icon className="h-5 w-5" style={{ color: CHART_COLORS[color] }} />
+          <Icon className="size-5" style={{ color: CHART_COLORS[color] }} />
         </div>
       </div>
     </div>
@@ -259,7 +259,7 @@ function TrendsChart({ data }: { data: MonthlyTrends }) {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
         <div>
           <h3 className="text-base font-bold text-foreground flex items-center gap-2">
-            <TrendingUp className="h-5 w-5 text-blue-500" />
+            <TrendingUp className="size-5 text-blue-500" />
             Monthly Theft Trends
           </h3>
           <p className="text-xs text-neutral-500 mt-0.5">
@@ -370,7 +370,7 @@ function LocationsChart({ data }: { data: LocationRanking[] }) {
   return (
     <div className="bg-card rounded-xl p-4 sm:p-6 border border-neutral-100 shadow-sm h-full flex flex-col">
       <h3 className="text-base font-bold text-foreground flex items-center gap-2 mb-1">
-        <MapPin className="h-5 w-5 text-red-500" />
+        <MapPin className="size-5 text-red-500" />
         Top Theft Hotspots
       </h3>
       <p className="text-xs text-neutral-500 mb-4">Ranked by total theft count from police.uk data</p>
@@ -427,7 +427,7 @@ function YearOverYearChart({ data }: { data: YoYData }) {
   return (
     <div className="bg-card rounded-xl p-4 sm:p-6 border border-neutral-100 shadow-sm h-full flex flex-col">
       <h3 className="text-base font-bold text-foreground flex items-center gap-2 mb-1">
-        <Layers className="h-5 w-5 text-purple-500" />
+        <Layers className="size-5 text-purple-500" />
         Year-over-Year Comparison
       </h3>
       <p className="text-xs text-neutral-500 mb-4">Same month across different years</p>
@@ -500,7 +500,7 @@ function SeasonalChart({ data }: { data: SeasonalData }) {
   return (
     <div className="bg-card rounded-xl p-4 sm:p-6 border border-neutral-100 shadow-sm h-full flex flex-col">
       <h3 className="text-base font-bold text-foreground flex items-center gap-2 mb-1">
-        <Sun className="h-5 w-5 text-amber-500" />
+        <Sun className="size-5 text-amber-500" />
         Seasonal Pattern
       </h3>
       <p className="text-xs text-neutral-500 mb-4">Average thefts per month across all years</p>
@@ -570,7 +570,7 @@ function SourcesChart({ data, totalRecords }: { data: SourceBreakdown; totalReco
   return (
     <div className="bg-card rounded-xl p-4 sm:p-6 border border-neutral-100 shadow-sm h-full flex flex-col">
       <h3 className="text-base font-bold text-foreground flex items-center gap-2 mb-1">
-        <PieChart className="h-5 w-5 text-pink-500" />
+        <PieChart className="size-5 text-pink-500" />
         Data Sources
       </h3>
       <p className="text-xs text-neutral-500 mb-4">Composition of our statistics database</p>
@@ -618,7 +618,7 @@ export default function StatisticsDashboard() {
   if (error || !data || !data.trends) {
     return (
       <div className="bg-neutral-50 rounded-xl p-8 text-center border border-neutral-100">
-        <BarChart3 className="h-12 w-12 mx-auto mb-3 text-neutral-300" />
+        <BarChart3 className="size-12 mx-auto mb-3 text-neutral-300" />
         <h3 className="text-lg font-semibold text-neutral-700 mb-2">Unable to Load Statistics</h3>
         <p className="text-sm text-neutral-500 max-w-md mx-auto mb-4">
           {error || 'Statistics data is not available at the moment.'}
@@ -627,7 +627,7 @@ export default function StatisticsDashboard() {
           onClick={refetch}
           className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-colors"
         >
-          <RefreshCw className="h-4 w-4" />
+          <RefreshCw className="size-4" />
           Try Again
         </button>
       </div>

@@ -200,10 +200,10 @@ export default function SiteSearch() {
         className="hidden md:flex items-center gap-2 px-3 py-2 bg-neutral-100 hover:bg-neutral-200 rounded-lg text-neutral-600 transition-colors text-sm"
         aria-label="Open search (Cmd+K)"
       >
-        <Search className="h-4 w-4" />
+        <Search className="size-4" />
         <span className="hidden lg:inline">Search...</span>
         <kbd className="hidden lg:inline-flex items-center gap-1 px-1.5 py-0.5 bg-card rounded text-xs font-medium border border-neutral-200">
-          <Command className="h-3 w-3" />
+          <Command className="size-3" />
           <span>K</span>
         </kbd>
       </button>
@@ -214,7 +214,7 @@ export default function SiteSearch() {
         className="md:hidden p-2 rounded-lg bg-neutral-100 hover:bg-neutral-200 text-neutral-600 transition-colors"
         aria-label="Open search"
       >
-        <Search className="h-5 w-5" />
+        <Search className="size-5" />
       </button>
 
       {isOpen && (
@@ -236,7 +236,7 @@ export default function SiteSearch() {
           >
             {/* Search Input */}
             <div className="flex items-center gap-3 px-4 py-4 border-b border-neutral-200">
-              <Search className="h-5 w-5 text-neutral-400 flex-shrink-0" />
+              <Search className="size-5 text-neutral-400 flex-shrink-0" />
               <input
                 ref={inputRef}
                 type="text"
@@ -252,7 +252,7 @@ export default function SiteSearch() {
                   className="p-1 rounded hover:bg-neutral-100 text-neutral-400"
                   aria-label="Clear search"
                 >
-                  <X className="h-4 w-4" />
+                  <X className="size-4" />
                 </button>
               )}
               <button
@@ -274,8 +274,8 @@ export default function SiteSearch() {
                 </div>
               ) : results.length === 0 ? (
                 <div className="p-8 text-center">
-                  <div className="inline-flex items-center justify-center w-12 h-12 bg-neutral-100 rounded-full mb-3">
-                    <Search className="h-5 w-5 text-neutral-400" />
+                  <div className="inline-flex items-center justify-center size-12 bg-neutral-100 rounded-full mb-3">
+                    <Search className="size-5 text-neutral-400" />
                   </div>
                   <p className="text-neutral-600 font-medium">No results found</p>
                   <p className="text-sm text-neutral-400 mt-1">
@@ -305,7 +305,7 @@ export default function SiteSearch() {
                               }`}
                             >
                               <div className={`p-2 rounded-lg ${categoryColors[category] || 'bg-neutral-100'}`}>
-                                <Icon className="h-4 w-4" />
+                                <Icon className="size-4" />
                               </div>
                               <div className="flex-1 min-w-0">
                                 <p className={`font-medium text-sm ${globalIndex === selectedIndex ? 'text-primary' : 'text-foreground'}`}>
@@ -315,7 +315,7 @@ export default function SiteSearch() {
                                   {result.description}
                                 </p>
                               </div>
-                              <ChevronRight className={`h-4 w-4 flex-shrink-0 ${globalIndex === selectedIndex ? 'text-primary' : 'text-neutral-300'}`} />
+                              <ChevronRight className={`size-4 flex-shrink-0 ${globalIndex === selectedIndex ? 'text-primary' : 'text-neutral-300'}`} />
                             </a>
                           );
                         })}

@@ -79,7 +79,7 @@ const keyStats = [
       <div class="bg-gradient-to-br from-purple-600 to-indigo-700 text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8 shadow-xl">
         <div class="flex items-center gap-3 mb-3">
           <div class="bg-white/20 p-2 sm:p-3 rounded-xl">
-            <BarChart3 class="h-6 w-6 sm:h-8 sm:w-8" />
+            <BarChart3 class="size-6 sm:h-8 sm:w-8" />
           </div>
           <h1 class="text-xl sm:text-2xl md:text-3xl font-bold">UK Mobile Theft Statistics</h1>
         </div>
@@ -89,7 +89,7 @@ const keyStats = [
         </p>
         {lastUpdatedText && (
           <div class="inline-flex items-center gap-2 bg-white/10 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm mb-6">
-            <svg class="h-4 w-4 text-green-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="size-4 text-green-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
             <span>Data updated: {lastUpdatedText}</span>
@@ -109,7 +109,7 @@ const keyStats = [
 
       <!-- Live Statistics Dashboard (from Convex) -->
       <section class="mb-6 sm:mb-8 md:mb-10">
-        <div class="bg-card rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-neutral-100">
+        <div class="bg-card rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-border">
           <div class="h-2 bg-gradient-to-r from-blue-500 to-indigo-500"></div>
           <div class="p-4 sm:p-6 md:p-8">
             <StatisticsDashboard client:visible />
@@ -119,11 +119,11 @@ const keyStats = [
 
       <!-- London Hotspots -->
       <section class="mb-6 sm:mb-8 md:mb-10">
-        <div class="bg-card rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-neutral-100">
+        <div class="bg-card rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-border">
           <div class="h-2 bg-gradient-to-r from-red-500 to-orange-500"></div>
           <div class="p-4 sm:p-6 md:p-8">
             <div class="flex items-center gap-3 mb-2">
-              <MapPin class="h-6 w-6 sm:h-8 sm:w-8 text-red-500" />
+              <MapPin class="size-6 sm:h-8 sm:w-8 text-red-500" />
               <h2 class="text-lg sm:text-xl font-bold">London Theft Hotspots</h2>
             </div>
             <p class="text-neutral-600 text-xs sm:text-sm md:text-base mb-6">
@@ -134,7 +134,7 @@ const keyStats = [
             <div class="space-y-3">
               {londonHotspots.map((spot) => (
                 <div class="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-neutral-50 rounded-xl">
-                  <span class={`w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 ${spot.rank === 1 ? 'bg-red-500 text-white' : spot.rank <= 3 ? 'bg-orange-500 text-white' : 'bg-neutral-300 text-neutral-700'}`}>
+                  <span class={`size-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 ${spot.rank === 1 ? 'bg-red-500 text-white' : spot.rank <= 3 ? 'bg-orange-500 text-white' : 'bg-neutral-300 text-neutral-700'}`}>
                     {spot.rank}
                   </span>
                   <div class="flex-1 min-w-0">
@@ -157,11 +157,11 @@ const keyStats = [
 
       <!-- City Comparison -->
       <section class="mb-6 sm:mb-8 md:mb-10">
-        <div class="bg-card rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-neutral-100">
+        <div class="bg-card rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-border">
           <div class="h-2 bg-gradient-to-r from-purple-500 to-indigo-500"></div>
           <div class="p-4 sm:p-6 md:p-8">
             <div class="flex items-center gap-3 mb-2">
-              <BarChart3 class="h-6 w-6 sm:h-8 sm:w-8 text-purple-500" />
+              <BarChart3 class="size-6 sm:h-8 sm:w-8 text-purple-500" />
               <h2 class="text-lg sm:text-xl font-bold">Major Cities Comparison</h2>
             </div>
             <p class="text-neutral-600 text-xs sm:text-sm md:text-base mb-6">
@@ -200,11 +200,11 @@ const keyStats = [
 
       <!-- Time of Day Analysis -->
       <section class="mb-6 sm:mb-8 md:mb-10">
-        <div class="bg-card rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-neutral-100">
+        <div class="bg-card rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-border">
           <div class="h-2 bg-gradient-to-r from-orange-500 to-yellow-500"></div>
           <div class="p-4 sm:p-6 md:p-8">
             <div class="flex items-center gap-3 mb-2">
-              <Clock class="h-6 w-6 sm:h-8 sm:w-8 text-orange-500" />
+              <Clock class="size-6 sm:h-8 sm:w-8 text-orange-500" />
               <h2 class="text-lg sm:text-xl font-bold">When Do Thefts Happen?</h2>
             </div>
             <p class="text-neutral-600 text-xs sm:text-sm md:text-base mb-6">
@@ -215,8 +215,8 @@ const keyStats = [
               <div role="img" aria-label="Evening Rush 5pm to 7pm: 32% of thefts, Highest Risk">
                 <div class="flex justify-between items-center mb-2">
                   <div class="flex items-center gap-2">
-                    <span class="inline-flex items-center justify-center w-6 h-6 bg-destructive-muted rounded-full" aria-hidden="true">
-                      <svg class="w-4 h-4 text-destructive" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+                    <span class="inline-flex items-center justify-center size-6 bg-destructive-muted rounded-full" aria-hidden="true">
+                      <svg class="size-4 text-destructive" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
                     </span>
                     <span class="font-bold text-foreground text-xs sm:text-sm md:text-base">Evening Rush</span>
                     <span class="text-xs sm:text-sm text-neutral-500">5pm - 7pm</span>
@@ -233,8 +233,8 @@ const keyStats = [
               <div role="img" aria-label="Late Night 10pm to 2am: 28% of thefts, High Risk">
                 <div class="flex justify-between items-center mb-2">
                   <div class="flex items-center gap-2">
-                    <span class="inline-flex items-center justify-center w-6 h-6 bg-orange-100 rounded-full" aria-hidden="true">
-                      <svg class="w-4 h-4 text-orange-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+                    <span class="inline-flex items-center justify-center size-6 bg-orange-100 rounded-full" aria-hidden="true">
+                      <svg class="size-4 text-orange-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
                     </span>
                     <span class="font-bold text-foreground text-xs sm:text-sm md:text-base">Late Night</span>
                     <span class="text-xs sm:text-sm text-neutral-500">10pm - 2am</span>
@@ -249,8 +249,8 @@ const keyStats = [
               <div role="img" aria-label="Morning Rush 7am to 9am: 18% of thefts, Moderate Risk">
                 <div class="flex justify-between items-center mb-2">
                   <div class="flex items-center gap-2">
-                    <span class="inline-flex items-center justify-center w-6 h-6 bg-yellow-100 rounded-full" aria-hidden="true">
-                      <svg class="w-4 h-4 text-yellow-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+                    <span class="inline-flex items-center justify-center size-6 bg-yellow-100 rounded-full" aria-hidden="true">
+                      <svg class="size-4 text-yellow-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
                     </span>
                     <span class="font-bold text-foreground text-xs sm:text-sm md:text-base">Morning Rush</span>
                     <span class="text-xs sm:text-sm text-neutral-500">7am - 9am</span>
@@ -265,8 +265,8 @@ const keyStats = [
               <div role="img" aria-label="Afternoon 12pm to 5pm: 15% of thefts, Lower Risk">
                 <div class="flex justify-between items-center mb-2">
                   <div class="flex items-center gap-2">
-                    <span class="inline-flex items-center justify-center w-6 h-6 bg-primary-muted rounded-full" aria-hidden="true">
-                      <svg class="w-4 h-4 text-primary" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                    <span class="inline-flex items-center justify-center size-6 bg-primary-muted rounded-full" aria-hidden="true">
+                      <svg class="size-4 text-primary" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
                     </span>
                     <span class="font-bold text-foreground text-xs sm:text-sm md:text-base">Afternoon</span>
                     <span class="text-xs sm:text-sm text-neutral-500">12pm - 5pm</span>
@@ -281,8 +281,8 @@ const keyStats = [
               <div role="img" aria-label="Other Times 2am to 7am and 9am to 12pm: 7% of thefts, Lowest Risk">
                 <div class="flex justify-between items-center mb-2">
                   <div class="flex items-center gap-2">
-                    <span class="inline-flex items-center justify-center w-6 h-6 bg-neutral-100 rounded-full" aria-hidden="true">
-                      <svg class="w-4 h-4 text-neutral-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                    <span class="inline-flex items-center justify-center size-6 bg-neutral-100 rounded-full" aria-hidden="true">
+                      <svg class="size-4 text-neutral-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
                     </span>
                     <span class="font-bold text-foreground text-xs sm:text-sm md:text-base">Other Times</span>
                     <span class="text-xs sm:text-sm text-neutral-500">2am - 7am, 9am - 12pm</span>
@@ -306,11 +306,11 @@ const keyStats = [
 
       <!-- Seasonal Patterns -->
       <section class="mb-6 sm:mb-8 md:mb-10">
-        <div class="bg-card rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-neutral-100">
+        <div class="bg-card rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-border">
           <div class="h-2 bg-gradient-to-r from-green-500 to-teal-500"></div>
           <div class="p-4 sm:p-6 md:p-8">
             <div class="flex items-center gap-3 mb-2">
-              <Calendar class="h-6 w-6 sm:h-8 sm:w-8 text-green-500" />
+              <Calendar class="size-6 sm:h-8 sm:w-8 text-green-500" />
               <h2 class="text-lg sm:text-xl font-bold">Seasonal Patterns</h2>
             </div>
             <p class="text-neutral-600 text-xs sm:text-sm md:text-base mb-6">
@@ -320,7 +320,7 @@ const keyStats = [
             <div class="grid md:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
               <div class="bg-orange-50 border border-orange-200 rounded-xl p-4 sm:p-5">
                 <div class="flex items-center gap-2 mb-3">
-                  <Sun class="h-5 w-5 text-orange-500" />
+                  <Sun class="size-5 text-orange-500" />
                   <h3 class="font-bold text-foreground text-xs sm:text-sm md:text-base">Summer Spike</h3>
                 </div>
                 <p class="text-xs sm:text-sm text-neutral-700 mb-2">
@@ -333,7 +333,7 @@ const keyStats = [
 
               <div class="bg-destructive-subtle border border-red-200 rounded-xl p-4 sm:p-5">
                 <div class="flex items-center gap-2 mb-3">
-                  <Snowflake class="h-5 w-5 text-red-500" />
+                  <Snowflake class="size-5 text-red-500" />
                   <h3 class="font-bold text-foreground text-xs sm:text-sm md:text-base">December Danger</h3>
                 </div>
                 <p class="text-xs sm:text-sm text-neutral-700 mb-2">
@@ -346,7 +346,7 @@ const keyStats = [
 
               <div class="bg-primary-subtle border border-blue-200 rounded-xl p-4 sm:p-5">
                 <div class="flex items-center gap-2 mb-3">
-                  <Leaf class="h-5 w-5 text-blue-500" />
+                  <Leaf class="size-5 text-blue-500" />
                   <h3 class="font-bold text-foreground text-xs sm:text-sm md:text-base">Winter Lull</h3>
                 </div>
                 <p class="text-xs sm:text-sm text-neutral-700 mb-2">
@@ -363,7 +363,7 @@ const keyStats = [
 
       <!-- Why It Matters + What To Do -->
       <section class="grid md:grid-cols-2 gap-3 sm:gap-4 md:gap-6 mb-6 sm:mb-8 md:mb-10">
-        <div class="bg-card rounded-xl sm:rounded-2xl shadow-md p-4 sm:p-6 border border-neutral-100">
+        <div class="bg-card rounded-xl sm:rounded-2xl shadow-md p-4 sm:p-6 border border-border">
           <h3 class="text-lg sm:text-xl font-bold mb-4">Why These Numbers Matter</h3>
           <div class="space-y-3 text-xs sm:text-sm md:text-base text-neutral-700">
             <p>
@@ -378,7 +378,7 @@ const keyStats = [
           </div>
         </div>
 
-        <div class="bg-card rounded-xl sm:rounded-2xl shadow-md p-4 sm:p-6 border border-neutral-100">
+        <div class="bg-card rounded-xl sm:rounded-2xl shadow-md p-4 sm:p-6 border border-border">
           <h3 class="text-lg sm:text-xl font-bold mb-4">Protect Yourself</h3>
           <div class="space-y-3">
             <a href="/prevention" class="flex items-center justify-between p-2.5 sm:p-3 bg-primary/5 border border-primary/20 rounded-xl hover:bg-primary/10 transition-colors">
@@ -386,21 +386,21 @@ const keyStats = [
                 <div class="font-semibold text-primary text-xs sm:text-sm md:text-base">Prevention Guide</div>
                 <div class="text-xs text-neutral-600">Security tips before theft occurs</div>
               </div>
-              <ArrowRight class="h-5 w-5 text-primary flex-shrink-0" />
+              <ArrowRight class="size-5 text-primary flex-shrink-0" />
             </a>
             <a href="/emergency" class="flex items-center justify-between p-2.5 sm:p-3 bg-destructive-subtle border border-red-200 rounded-xl hover:bg-destructive-muted transition-colors">
               <div>
                 <div class="font-semibold text-destructive-hover text-xs sm:text-sm md:text-base">Emergency Steps</div>
                 <div class="text-xs text-neutral-600">What to do if stolen</div>
               </div>
-              <ArrowRight class="h-5 w-5 text-destructive flex-shrink-0" />
+              <ArrowRight class="size-5 text-destructive flex-shrink-0" />
             </a>
             <a href="/products" class="flex items-center justify-between p-2.5 sm:p-3 bg-teal-50 border border-teal-200 rounded-xl hover:bg-teal-100 transition-colors">
               <div>
                 <div class="font-semibold text-teal-700 text-xs sm:text-sm md:text-base">Protection Products</div>
                 <div class="text-xs text-neutral-600">Lanyards, bags, trackers & more</div>
               </div>
-              <ArrowRight class="h-5 w-5 text-teal-600 flex-shrink-0" />
+              <ArrowRight class="size-5 text-teal-600 flex-shrink-0" />
             </a>
           </div>
         </div>
@@ -408,19 +408,19 @@ const keyStats = [
 
       <!-- Data Sources -->
       <section class="mb-6 sm:mb-8 md:mb-10">
-        <div class="bg-card rounded-xl sm:rounded-2xl shadow-md p-4 sm:p-6 border border-neutral-100">
+        <div class="bg-card rounded-xl sm:rounded-2xl shadow-md p-4 sm:p-6 border border-border">
           <h3 class="text-sm font-semibold text-neutral-500 uppercase tracking-wide mb-3">Data Sources</h3>
           <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-3 text-xs text-neutral-600">
             <div class="flex items-start gap-2">
-              <Shield class="h-4 w-4 text-neutral-400 mt-0.5 flex-shrink-0" />
+              <Shield class="size-4 text-neutral-400 mt-0.5 flex-shrink-0" />
               <span>Police.uk API - Official recorded crime data, updated monthly</span>
             </div>
             <div class="flex items-start gap-2">
-              <BarChart3 class="h-4 w-4 text-neutral-400 mt-0.5 flex-shrink-0" />
+              <BarChart3 class="size-4 text-neutral-400 mt-0.5 flex-shrink-0" />
               <span>ONS Crime Survey - Annual estimates of phone theft prevalence</span>
             </div>
             <div class="flex items-start gap-2">
-              <TrendingUp class="h-4 w-4 text-neutral-400 mt-0.5 flex-shrink-0" />
+              <TrendingUp class="size-4 text-neutral-400 mt-0.5 flex-shrink-0" />
               <span>Met Police recorded crime statistics and FOI responses</span>
             </div>
           </div>

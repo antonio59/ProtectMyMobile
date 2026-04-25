@@ -248,7 +248,7 @@ export default function SecurityCheckup() {
         {recommendations.length > 0 && (
           <div className="bg-card rounded-lg shadow-md p-6">
             <h3 className="text-xl font-semibold mb-4 flex items-center">
-              <AlertTriangle className="h-6 w-6 text-orange-600 mr-2" />
+              <AlertTriangle className="size-6 text-orange-600 mr-2" />
               Your Action Plan
             </h3>
             <p className="text-neutral-600 mb-4">
@@ -262,7 +262,7 @@ export default function SecurityCheckup() {
                 >
                   <div className="flex items-start">
                     <div className={`rounded-full p-1 mr-3 mt-0.5 ${rec.priority === 'high' ? 'bg-red-200' : 'bg-yellow-200'}`}>
-                      <AlertTriangle className={`h-4 w-4 ${rec.priority === 'high' ? 'text-destructive-hover' : 'text-yellow-700'}`} />
+                      <AlertTriangle className={`size-4 ${rec.priority === 'high' ? 'text-destructive-hover' : 'text-yellow-700'}`} />
                     </div>
                     <div className="flex-1">
                       <h4 className="font-semibold mb-1">{rec.title}</h4>
@@ -278,7 +278,7 @@ export default function SecurityCheckup() {
         {/* Perfect Score */}
         {score.percentage === 100 && (
           <div className="bg-green-50 border-2 border-green-200 rounded-lg p-6 text-center">
-            <CheckCircle2 className="h-12 w-12 text-green-600 mx-auto mb-3" />
+            <CheckCircle2 className="size-12 text-green-600 mx-auto mb-3" />
             <h3 className="text-xl font-bold text-green-900 mb-2">Perfect Security Setup! 🎉</h3>
             <p className="text-green-800">
               You've implemented all recommended security measures. Keep maintaining these practices to stay protected.
@@ -301,7 +301,7 @@ export default function SecurityCheckup() {
             onClick={handleShare}
             className="flex items-center justify-center px-6 py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary-hover transition-colors"
           >
-            <Share2 className="mr-2 h-5 w-5" />
+            <Share2 className="mr-2 size-5" />
             Share Result
           </button>
           <button
@@ -338,7 +338,7 @@ export default function SecurityCheckup() {
         {questions.map((q, idx) => (
           <div key={q.id} className="bg-card rounded-lg shadow-md p-6">
             <div className="flex items-start">
-              <div className="bg-primary/10 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 mr-3 mt-1">
+              <div className="bg-primary/10 rounded-full size-8 flex items-center justify-center flex-shrink-0 mr-3 mt-1">
                 <span className="text-primary font-bold text-sm">{idx + 1}</span>
               </div>
               <div className="flex-1">
@@ -352,7 +352,7 @@ export default function SecurityCheckup() {
                         : 'border-neutral-300 hover:border-green-300 text-neutral-700'
                     }`}
                   >
-                    <Check className="h-5 w-5 inline mr-2" />
+                    <Check className="size-5 inline mr-2" />
                     Yes
                   </button>
                   <button
@@ -363,7 +363,7 @@ export default function SecurityCheckup() {
                         : 'border-neutral-300 hover:border-red-300 text-neutral-700'
                     }`}
                   >
-                    <X className="h-5 w-5 inline mr-2" />
+                    <X className="size-5 inline mr-2" />
                     No
                   </button>
                 </div>

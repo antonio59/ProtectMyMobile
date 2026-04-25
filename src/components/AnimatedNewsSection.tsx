@@ -103,7 +103,7 @@ export default function AnimatedNewsSection({ news }: Props) {
           href="/news"
           className="hidden sm:flex items-center gap-2 px-5 py-2.5 rounded-xl bg-card border border-neutral-200 shadow-sm text-neutral-600 text-sm font-semibold hover:bg-neutral-50 hover:text-primary hover:border-primary/20 transition-all group whitespace-nowrap hover:scale-[1.02] active:scale-[0.98]"
         >
-          View All <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
+          View All <ArrowRight className="size-4 group-hover:translate-x-0.5 transition-transform" />
         </a>
       </div>
 
@@ -133,7 +133,7 @@ export default function AnimatedNewsSection({ news }: Props) {
           href="/news"
           className="inline-flex items-center gap-2 text-primary font-semibold text-sm hover:underline"
         >
-          View All News <ArrowRight className="h-4 w-4" />
+          View All News <ArrowRight className="size-4" />
         </a>
       </div>
     </section>
@@ -179,7 +179,7 @@ function NewsCard({ post, index, config, Icon }: { post: NewsPost; index: number
         {/* Footer */}
         <div className="flex items-center text-sm font-semibold text-primary group-hover:gap-2 transition-all mt-auto">
           Read article
-          <ArrowRight className="h-4 w-4 ml-1 transition-transform" />
+          <ArrowRight className="size-4 ml-1 transition-transform" />
         </div>
       </div>
     </a>
@@ -211,7 +211,7 @@ function EmptyState() {
         href="/news"
         className="inline-flex items-center gap-2 px-6 py-3 bg-neutral-900 text-white rounded-xl font-semibold hover:bg-neutral-800 transition-colors"
       >
-        View all news <ArrowRight className="h-4 w-4" />
+        View all news <ArrowRight className="size-4" />
       </a>
     </div>
   );

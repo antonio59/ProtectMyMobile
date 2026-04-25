@@ -20,7 +20,7 @@ import { Book, Shield, AlertTriangle, Building2, Phone, TrendingUp, Newspaper, A
       <div class="bg-gradient-to-br from-primary to-blue-700 text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8 shadow-xl">
         <div class="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
           <div class="bg-white/20 p-2 sm:p-3 rounded-xl">
-            <Book class="h-6 w-6 sm:h-8 sm:w-8" />
+            <Book class="size-6 sm:h-8 sm:w-8" />
           </div>
           <h1 class="text-xl sm:text-2xl md:text-3xl font-bold">Resources</h1>
         </div>
@@ -31,23 +31,23 @@ import { Book, Shield, AlertTriangle, Building2, Phone, TrendingUp, Newspaper, A
         <!-- Quick Navigation -->
         <div class="flex flex-wrap gap-2">
           <a href="/the-problem" class="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-white/20 hover:bg-white/30 rounded-lg text-xs sm:text-sm font-medium transition-colors">
-            <AlertTriangle class="h-4 w-4" />
+            <AlertTriangle class="size-4" />
             The Problem
           </a>
           <a href="/statistics" class="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-white/20 hover:bg-white/30 rounded-lg text-xs sm:text-sm font-medium transition-colors">
-            <TrendingUp class="h-4 w-4" />
+            <TrendingUp class="size-4" />
             Statistics
           </a>
           <a href="/news" class="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-white/20 hover:bg-white/30 rounded-lg text-xs sm:text-sm font-medium transition-colors">
-            <Newspaper class="h-4 w-4" />
+            <Newspaper class="size-4" />
             News
           </a>
           <a href="/london-visitor-safety" class="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-white/20 hover:bg-white/30 rounded-lg text-xs sm:text-sm font-medium transition-colors">
-            <MapPin class="h-4 w-4" />
+            <MapPin class="size-4" />
             Visitor Safety
           </a>
           <a href="/scenarios" class="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-white/20 hover:bg-white/30 rounded-lg text-xs sm:text-sm font-medium transition-colors">
-            <AlertTriangle class="h-4 w-4" />
+            <AlertTriangle class="size-4" />
             Scenarios
           </a>
         </div>
@@ -59,120 +59,120 @@ import { Book, Shield, AlertTriangle, Building2, Phone, TrendingUp, Newspaper, A
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
           
           <!-- Prevention -->
-          <a href="/prevention" class="bg-card rounded-xl sm:rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-neutral-100 group">
+          <a href="/prevention" class="bg-card rounded-xl sm:rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-border group">
             <div class="h-2 bg-gradient-to-r from-primary to-blue-600"></div>
             <div class="p-4 sm:p-6">
               <div class="flex items-start gap-3 sm:gap-4">
                 <div class="bg-primary/10 rounded-xl p-2 sm:p-3 group-hover:scale-110 transition-transform">
-                  <Shield class="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+                  <Shield class="size-5 sm:h-6 sm:w-6 text-primary" />
                 </div>
                 <div class="flex-1">
                   <h3 class="font-bold text-base sm:text-lg mb-1 group-hover:text-primary transition-colors">Prevention Guides</h3>
                   <p class="text-neutral-600 text-xs sm:text-sm">Learn how to secure your device with PIN locks, biometrics, and app-specific security measures.</p>
                 </div>
-                <ArrowRight class="h-5 w-5 text-neutral-300 group-hover:text-primary group-hover:translate-x-1 transition-all flex-shrink-0" />
+                <ArrowRight class="size-5 text-neutral-300 group-hover:text-primary group-hover:translate-x-1 transition-all flex-shrink-0" />
               </div>
             </div>
           </a>
 
           <!-- Visitor Safety -->
-          <a href="/london-visitor-safety" class="bg-card rounded-xl sm:rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-neutral-100 group">
+          <a href="/london-visitor-safety" class="bg-card rounded-xl sm:rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-border group">
             <div class="h-2 bg-gradient-to-r from-blue-600 to-blue-400"></div>
             <div class="p-4 sm:p-6">
               <div class="flex items-start gap-3 sm:gap-4">
                 <div class="bg-primary-subtle rounded-xl p-2 sm:p-3 group-hover:scale-110 transition-transform">
-                  <MapPin class="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+                  <MapPin class="size-5 sm:h-6 sm:w-6 text-primary" />
                 </div>
                 <div class="flex-1">
                   <h3 class="font-bold text-base sm:text-lg mb-1 group-hover:text-primary-hover transition-colors">Visitor Safety (London)</h3>
                   <p class="text-neutral-600 text-xs sm:text-sm">Tourist-focused guidance: pre-arrival prep, where thefts happen, and rapid steps if you're targeted.</p>
                 </div>
-                <ArrowRight class="h-5 w-5 text-neutral-300 group-hover:text-primary group-hover:translate-x-1 transition-all flex-shrink-0" />
+                <ArrowRight class="size-5 text-neutral-300 group-hover:text-primary group-hover:translate-x-1 transition-all flex-shrink-0" />
               </div>
             </div>
           </a>
 
           <!-- Emergency -->
-          <a href="/emergency" class="bg-card rounded-xl sm:rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-neutral-100 group">
+          <a href="/emergency" class="bg-card rounded-xl sm:rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-border group">
             <div class="h-2 bg-gradient-to-r from-red-500 to-red-600"></div>
             <div class="p-4 sm:p-6">
               <div class="flex items-start gap-3 sm:gap-4">
                 <div class="bg-destructive-muted rounded-xl p-2 sm:p-3 group-hover:scale-110 transition-transform">
-                  <AlertTriangle class="h-5 w-5 sm:h-6 sm:w-6 text-destructive" />
+                  <AlertTriangle class="size-5 sm:h-6 sm:w-6 text-destructive" />
                 </div>
                 <div class="flex-1">
                   <h3 class="font-bold text-base sm:text-lg mb-1 group-hover:text-destructive transition-colors">Emergency Response</h3>
                   <p class="text-neutral-600 text-xs sm:text-sm">Step-by-step instructions for immediate action if your mobile has been stolen.</p>
                 </div>
-                <ArrowRight class="h-5 w-5 text-neutral-300 group-hover:text-destructive group-hover:translate-x-1 transition-all flex-shrink-0" />
+                <ArrowRight class="size-5 text-neutral-300 group-hover:text-destructive group-hover:translate-x-1 transition-all flex-shrink-0" />
               </div>
             </div>
           </a>
 
           <!-- Scenarios -->
-          <a href="/scenarios" class="bg-card rounded-xl sm:rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-neutral-100 group">
+          <a href="/scenarios" class="bg-card rounded-xl sm:rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-border group">
             <div class="h-2 bg-gradient-to-r from-amber-500 to-orange-500"></div>
             <div class="p-4 sm:p-6">
               <div class="flex items-start gap-3 sm:gap-4">
                 <div class="bg-warning-subtle rounded-xl p-2 sm:p-3 group-hover:scale-110 transition-transform">
-                  <AlertTriangle class="h-5 w-5 sm:h-6 sm:w-6 text-warning" />
+                  <AlertTriangle class="size-5 sm:h-6 sm:w-6 text-warning" />
                 </div>
                 <div class="flex-1">
                   <h3 class="font-bold text-base sm:text-lg mb-1 group-hover:text-amber-700 transition-colors">Scenarios Gallery</h3>
                   <p class="text-neutral-600 text-xs sm:text-sm">Slide-by-slide visuals for common theft setups (moped snatch, transport, nightlife) with prevention cues.</p>
                 </div>
-                <ArrowRight class="h-5 w-5 text-neutral-300 group-hover:text-warning group-hover:translate-x-1 transition-all flex-shrink-0" />
+                <ArrowRight class="size-5 text-neutral-300 group-hover:text-warning group-hover:translate-x-1 transition-all flex-shrink-0" />
               </div>
             </div>
           </a>
 
           <!-- Security Checkup -->
-          <a href="/security-checkup" class="bg-card rounded-xl sm:rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-neutral-100 group">
+          <a href="/security-checkup" class="bg-card rounded-xl sm:rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-border group">
             <div class="h-2 bg-gradient-to-r from-teal-500 to-cyan-500"></div>
             <div class="p-4 sm:p-6">
               <div class="flex items-start gap-3 sm:gap-4">
                 <div class="bg-teal-100 rounded-xl p-2 sm:p-3 group-hover:scale-110 transition-transform">
-                  <Shield class="h-5 w-5 sm:h-6 sm:w-6 text-teal-600" />
+                  <Shield class="size-5 sm:h-6 sm:w-6 text-teal-600" />
                 </div>
                 <div class="flex-1">
                   <h3 class="font-bold text-base sm:text-lg mb-1 group-hover:text-teal-600 transition-colors">Security Checkup</h3>
                   <p class="text-neutral-600 text-xs sm:text-sm">Take our quick assessment to identify security gaps and get personalised recommendations.</p>
                 </div>
-                <ArrowRight class="h-5 w-5 text-neutral-300 group-hover:text-teal-600 group-hover:translate-x-1 transition-all flex-shrink-0" />
+                <ArrowRight class="size-5 text-neutral-300 group-hover:text-teal-600 group-hover:translate-x-1 transition-all flex-shrink-0" />
               </div>
             </div>
           </a>
 
           <!-- Community Experiences -->
-          <a href="/community-experiences" class="bg-card rounded-xl sm:rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-neutral-100 group">
+          <a href="/community-experiences" class="bg-card rounded-xl sm:rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-border group">
             <div class="h-2 bg-gradient-to-r from-purple-500 to-pink-500"></div>
             <div class="p-4 sm:p-6">
               <div class="flex items-start gap-3 sm:gap-4">
                 <div class="bg-purple-100 rounded-xl p-2 sm:p-3 group-hover:scale-110 transition-transform">
-                  <Users class="h-5 w-5 sm:h-6 sm:w-6 text-purple-600" />
+                  <Users class="size-5 sm:h-6 sm:w-6 text-purple-600" />
                 </div>
                 <div class="flex-1">
                   <h3 class="font-bold text-base sm:text-lg mb-1 group-hover:text-purple-600 transition-colors">Community Experiences</h3>
                   <p class="text-neutral-600 text-xs sm:text-sm">Read real stories from theft victims and share your own experience to help others.</p>
                 </div>
-                <ArrowRight class="h-5 w-5 text-neutral-300 group-hover:text-purple-600 group-hover:translate-x-1 transition-all flex-shrink-0" />
+                <ArrowRight class="size-5 text-neutral-300 group-hover:text-purple-600 group-hover:translate-x-1 transition-all flex-shrink-0" />
               </div>
             </div>
           </a>
 
           <!-- Product Recommendations -->
-          <a href="/products" class="bg-card rounded-xl sm:rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-neutral-100 group">
+          <a href="/products" class="bg-card rounded-xl sm:rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-border group">
             <div class="h-2 bg-gradient-to-r from-orange-500 to-amber-500"></div>
             <div class="p-4 sm:p-6">
               <div class="flex items-start gap-3 sm:gap-4">
                 <div class="bg-orange-100 rounded-xl p-2 sm:p-3 group-hover:scale-110 transition-transform">
-                  <ShoppingBag class="h-5 w-5 sm:h-6 sm:w-6 text-orange-600" />
+                  <ShoppingBag class="size-5 sm:h-6 sm:w-6 text-orange-600" />
                 </div>
                 <div class="flex-1">
                   <h3 class="font-bold text-base sm:text-lg mb-1 group-hover:text-orange-600 transition-colors">Product Recommendations</h3>
                   <p class="text-neutral-600 text-xs sm:text-sm">Discover products that can help protect your phone from theft.</p>
                 </div>
-                <ArrowRight class="h-5 w-5 text-neutral-300 group-hover:text-orange-600 group-hover:translate-x-1 transition-all flex-shrink-0" />
+                <ArrowRight class="size-5 text-neutral-300 group-hover:text-orange-600 group-hover:translate-x-1 transition-all flex-shrink-0" />
               </div>
             </div>
           </a>
@@ -186,35 +186,35 @@ import { Book, Shield, AlertTriangle, Building2, Phone, TrendingUp, Newspaper, A
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
 
           <!-- Banks -->
-          <a href="/banks" class="bg-card rounded-xl sm:rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-neutral-100 group">
+          <a href="/banks" class="bg-card rounded-xl sm:rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-border group">
             <div class="h-2 bg-gradient-to-r from-blue-500 to-indigo-500"></div>
             <div class="p-4 sm:p-6">
               <div class="flex items-start gap-3 sm:gap-4">
                 <div class="bg-primary-muted rounded-xl p-2 sm:p-3 group-hover:scale-110 transition-transform">
-                  <Building2 class="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+                  <Building2 class="size-5 sm:h-6 sm:w-6 text-primary" />
                 </div>
                 <div class="flex-1">
                   <h3 class="font-bold text-base sm:text-lg mb-1 group-hover:text-primary transition-colors">UK Bank Directory</h3>
                   <p class="text-neutral-600 text-xs sm:text-sm">Emergency contact information for all major UK banks to secure your accounts.</p>
                 </div>
-                <ArrowRight class="h-5 w-5 text-neutral-300 group-hover:text-primary group-hover:translate-x-1 transition-all flex-shrink-0" />
+                <ArrowRight class="size-5 text-neutral-300 group-hover:text-primary group-hover:translate-x-1 transition-all flex-shrink-0" />
               </div>
             </div>
           </a>
 
           <!-- Mobile Providers -->
-          <a href="/mobile-providers" class="bg-card rounded-xl sm:rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-neutral-100 group">
+          <a href="/mobile-providers" class="bg-card rounded-xl sm:rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-border group">
             <div class="h-2 bg-gradient-to-r from-green-500 to-emerald-500"></div>
             <div class="p-4 sm:p-6">
               <div class="flex items-start gap-3 sm:gap-4">
                 <div class="bg-green-100 rounded-xl p-2 sm:p-3 group-hover:scale-110 transition-transform">
-                  <Phone class="h-5 w-5 sm:h-6 sm:w-6 text-green-600" />
+                  <Phone class="size-5 sm:h-6 sm:w-6 text-green-600" />
                 </div>
                 <div class="flex-1">
                   <h3 class="font-bold text-base sm:text-lg mb-1 group-hover:text-green-600 transition-colors">Mobile Provider Directory</h3>
                   <p class="text-neutral-600 text-xs sm:text-sm">Contact details for UK mobile networks to report theft and block your SIM.</p>
                 </div>
-                <ArrowRight class="h-5 w-5 text-neutral-300 group-hover:text-green-600 group-hover:translate-x-1 transition-all flex-shrink-0" />
+                <ArrowRight class="size-5 text-neutral-300 group-hover:text-green-600 group-hover:translate-x-1 transition-all flex-shrink-0" />
               </div>
             </div>
           </a>
@@ -228,12 +228,12 @@ import { Book, Shield, AlertTriangle, Building2, Phone, TrendingUp, Newspaper, A
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
 
           <!-- The Problem -->
-          <a href="/the-problem" class="bg-card rounded-xl sm:rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-neutral-100 group">
+          <a href="/the-problem" class="bg-card rounded-xl sm:rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-border group">
             <div class="h-2 bg-gradient-to-r from-red-500 to-orange-500"></div>
             <div class="p-4 sm:p-6">
               <div class="flex flex-col items-center text-center">
                 <div class="bg-destructive-muted rounded-xl p-2 sm:p-3 mb-2 sm:mb-3 group-hover:scale-110 transition-transform">
-                  <AlertTriangle class="h-5 w-5 sm:h-6 sm:w-6 text-destructive" />
+                  <AlertTriangle class="size-5 sm:h-6 sm:w-6 text-destructive" />
                 </div>
                 <h3 class="font-bold text-base sm:text-lg mb-1 group-hover:text-destructive transition-colors">The Problem</h3>
                 <p class="text-neutral-600 text-xs sm:text-sm">Understand the UK phone theft epidemic and how thieves operate.</p>
@@ -242,12 +242,12 @@ import { Book, Shield, AlertTriangle, Building2, Phone, TrendingUp, Newspaper, A
           </a>
 
           <!-- Statistics -->
-          <a href="/statistics" class="bg-card rounded-xl sm:rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-neutral-100 group">
+          <a href="/statistics" class="bg-card rounded-xl sm:rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-border group">
             <div class="h-2 bg-gradient-to-r from-purple-500 to-violet-500"></div>
             <div class="p-4 sm:p-6">
               <div class="flex flex-col items-center text-center">
                 <div class="bg-purple-100 rounded-xl p-2 sm:p-3 mb-2 sm:mb-3 group-hover:scale-110 transition-transform">
-                  <TrendingUp class="h-5 w-5 sm:h-6 sm:w-6 text-purple-600" />
+                  <TrendingUp class="size-5 sm:h-6 sm:w-6 text-purple-600" />
                 </div>
                 <h3 class="font-bold text-base sm:text-lg mb-1 group-hover:text-purple-600 transition-colors">Statistics & Hotspots</h3>
                 <p class="text-neutral-600 text-xs sm:text-sm">View theft data, hotspot rankings, and trends across the UK.</p>

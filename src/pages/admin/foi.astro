@@ -12,7 +12,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 mb-6 sm:mb-8">
       <div>
         <h1 class="text-xl sm:text-2xl md:text-3xl font-bold text-foreground flex items-center gap-2 sm:gap-3">
-          <svg class="h-6 w-6 sm:h-8 sm:w-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="size-6 sm:h-8 sm:w-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
           </svg>
           FOI & Data Manager
@@ -47,42 +47,42 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 
     <!-- Stats Cards -->
     <div id="stats-container" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2 sm:gap-3 md:gap-4 mb-6 sm:mb-8">
-      <div class="bg-card rounded-lg p-2 sm:p-3 md:p-4 shadow-sm">
+      <div class="bg-card rounded-lg p-2 sm:p-3 md:p-4 shadow-md">
         <div class="text-lg sm:text-xl md:text-2xl font-bold text-foreground" id="stat-total">-</div>
         <div class="text-xs text-neutral-500">Total</div>
       </div>
-      <div class="bg-card rounded-lg p-2 sm:p-3 md:p-4 shadow-sm">
+      <div class="bg-card rounded-lg p-2 sm:p-3 md:p-4 shadow-md">
         <div class="text-lg sm:text-xl md:text-2xl font-bold text-primary" id="stat-sent">-</div>
         <div class="text-xs text-neutral-500">Sent</div>
       </div>
-      <div class="bg-card rounded-lg p-2 sm:p-3 md:p-4 shadow-sm">
+      <div class="bg-card rounded-lg p-2 sm:p-3 md:p-4 shadow-md">
         <div class="text-lg sm:text-xl md:text-2xl font-bold text-yellow-600" id="stat-acknowledged">-</div>
         <div class="text-xs text-neutral-500">Acknowledged</div>
       </div>
-      <div class="bg-card rounded-lg p-2 sm:p-3 md:p-4 shadow-sm">
+      <div class="bg-card rounded-lg p-2 sm:p-3 md:p-4 shadow-md">
         <div class="text-lg sm:text-xl md:text-2xl font-bold text-green-600" id="stat-received">-</div>
         <div class="text-xs text-neutral-500">Received</div>
       </div>
-      <div class="bg-card rounded-lg p-2 sm:p-3 md:p-4 shadow-sm">
+      <div class="bg-card rounded-lg p-2 sm:p-3 md:p-4 shadow-md">
         <div class="text-lg sm:text-xl md:text-2xl font-bold text-emerald-600" id="stat-processed">-</div>
         <div class="text-xs text-neutral-500">Processed</div>
       </div>
-      <div class="bg-card rounded-lg p-2 sm:p-3 md:p-4 shadow-sm">
+      <div class="bg-card rounded-lg p-2 sm:p-3 md:p-4 shadow-md">
         <div class="text-lg sm:text-xl md:text-2xl font-bold text-destructive" id="stat-overdue">-</div>
         <div class="text-xs text-neutral-500">Overdue</div>
       </div>
-      <div class="bg-card rounded-lg p-2 sm:p-3 md:p-4 shadow-sm">
+      <div class="bg-card rounded-lg p-2 sm:p-3 md:p-4 shadow-md">
         <div class="text-lg sm:text-xl md:text-2xl font-bold text-red-400" id="stat-rejected">-</div>
         <div class="text-xs text-neutral-500">Rejected</div>
       </div>
-      <div class="bg-card rounded-lg p-2 sm:p-3 md:p-4 shadow-sm">
+      <div class="bg-card rounded-lg p-2 sm:p-3 md:p-4 shadow-md">
         <div class="text-lg sm:text-xl md:text-2xl font-bold text-teal-600" id="stat-records">-</div>
         <div class="text-xs text-neutral-500">Records Imported</div>
       </div>
     </div>
 
     <!-- Filters -->
-    <div class="bg-card rounded-lg p-3 sm:p-4 shadow-sm mb-6">
+    <div class="bg-card rounded-lg p-3 sm:p-4 shadow-md mb-6">
       <div class="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 items-start sm:items-center">
         <label class="text-xs sm:text-sm font-medium text-neutral-700">Filter by Status:</label>
         <select id="status-filter" class="border border-neutral-300 rounded-lg px-3 py-2 text-xs sm:text-sm">

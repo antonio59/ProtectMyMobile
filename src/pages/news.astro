@@ -146,7 +146,7 @@ const newsSchema = {
         <div class="flex items-start justify-between gap-4">
           <div>
             <div class="flex items-center gap-2 mb-2">
-              <Newspaper class="h-5 w-5 sm:h-6 sm:w-6" />
+              <Newspaper class="size-5 sm:h-6 sm:w-6" />
               <h1 class="text-xl sm:text-2xl md:text-3xl font-bold">News & Updates</h1>
             </div>
             <p class="text-blue-100 text-sm max-w-xl">
@@ -173,7 +173,7 @@ const newsSchema = {
         </div>
       ) : posts.length === 0 ? (
         <div class="bg-card rounded-xl sm:rounded-2xl shadow-md p-8 sm:p-12 text-center">
-          <Newspaper class="h-12 w-12 mx-auto mb-3 text-neutral-400" />
+          <Newspaper class="size-12 mx-auto mb-3 text-neutral-400" />
           <h3 class="text-lg font-semibold mb-2">No News Posts Yet</h3>
           <p class="text-neutral-600 text-sm">
             Check back soon or subscribe to our <a href="/rss.xml" class="text-primary hover:underline">RSS feed</a>.
@@ -187,7 +187,7 @@ const newsSchema = {
               <h2 class="text-sm font-semibold text-neutral-500 uppercase tracking-wide mb-3">Featured</h2>
               <a
                 href={`/news/${featuredPost.slug}`}
-                class="group block bg-card rounded-xl sm:rounded-2xl shadow-lg overflow-hidden border border-neutral-200 hover:border-primary/30 transition-all"
+                class="group block bg-card rounded-xl sm:rounded-2xl shadow-lg overflow-hidden border border-border hover:border-primary/30 transition-all"
               >
                 {featuredPost.featuredImageUrl ? (
                   <div class="w-full aspect-[21/9] sm:aspect-[21/9] overflow-hidden bg-neutral-100">
@@ -217,7 +217,7 @@ const newsSchema = {
                             <span class="flex items-center">
                               {(() => {
                                 const IconComponent = categoryConfig[featuredPost.category].icon;
-                                return <IconComponent class="h-3 w-3" />;
+                                return <IconComponent class="size-3" />;
                               })()}
                             </span>
                           )}
@@ -239,7 +239,7 @@ const newsSchema = {
                     </div>
                     <div class="flex items-center gap-1 text-sm font-semibold text-primary shrink-0 lg:pt-8">
                       Read article
-                      <ArrowRight class="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                      <ArrowRight class="size-4 transition-transform group-hover:translate-x-1" />
                     </div>
                   </div>
                 </div>
@@ -258,7 +258,7 @@ const newsSchema = {
                 const Icon = config.icon;
                 return (
                   <button 
-                    class="category-btn px-3 py-1.5 rounded-full bg-card text-neutral-600 border border-neutral-200 text-xs sm:text-sm font-medium hover:border-primary/30 hover:text-primary transition-all whitespace-nowrap flex items-center gap-1.5" 
+                    class="category-btn px-3 py-1.5 rounded-full bg-card text-neutral-600 border border-border text-xs sm:text-sm font-medium hover:border-primary/30 hover:text-primary transition-all whitespace-nowrap flex items-center gap-1.5" 
                     data-category={key}
                   >
                     <Icon className="h-3.5 w-3.5" />
@@ -286,7 +286,7 @@ const newsSchema = {
                 return (
                   <a
                     href={`/news/${post.slug}`}
-                    class="news-card group flex flex-col bg-card rounded-xl shadow-sm hover:shadow-md transition-all duration-200 border border-neutral-200 hover:border-primary/20 overflow-hidden h-full"
+                    class="news-card group flex flex-col bg-card rounded-xl shadow-md hover:shadow-md transition-all duration-200 border border-border hover:border-primary/20 overflow-hidden h-full"
                     data-category={post.category}
                   >
                     {/* Featured image or category fallback */}
@@ -302,18 +302,18 @@ const newsSchema = {
                     ) : (
                       <div class={`w-full aspect-[16/9] bg-gradient-to-br ${config.gradient} flex items-center justify-center`}>
                         <div class="bg-white/20 backdrop-blur-sm p-3 rounded-2xl">
-                          <Icon class="h-8 w-8 text-white" />
+                          <Icon class="size-8 text-white" />
                         </div>
                       </div>
                     )}
                     <div class="p-4 sm:p-5 flex flex-col flex-1">
                       <div class="flex items-start justify-between gap-3 mb-2">
                         <span class={`inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-full font-medium ${config.bg} ${config.color}`}>
-                          <Icon className="h-3 w-3" />
+                          <Icon className="size-3" />
                           {config.label}
                         </span>
                         <div class="flex items-center gap-1 text-[10px] text-neutral-400">
-                          <Clock class="h-3 w-3" />
+                          <Clock class="size-3" />
                           {formatDate(post.publishedAt || post._creationTime)}
                         </div>
                       </div>
@@ -334,7 +334,7 @@ const newsSchema = {
                         ) : (
                           <span class="text-xs text-primary font-medium">ProtectMyMobile</span>
                         )}
-                        <ArrowRight class="h-4 w-4 text-neutral-300 group-hover:text-primary transition-colors" />
+                        <ArrowRight class="size-4 text-neutral-300 group-hover:text-primary transition-colors" />
                       </div>
                     </div>
                   </a>
@@ -344,9 +344,9 @@ const newsSchema = {
           </section>
 
           {/* About Feed */}
-          <section class="mt-8 sm:mt-10 bg-card rounded-xl shadow-sm p-4 sm:p-6 border border-neutral-200">
+          <section class="mt-8 sm:mt-10 bg-card rounded-xl shadow-md p-4 sm:p-6 border border-border">
             <div class="flex items-center gap-2 mb-3">
-              <Filter class="h-4 w-4 text-neutral-400" />
+              <Filter class="size-4 text-neutral-400" />
               <h3 class="text-sm font-semibold text-neutral-700">About This Feed</h3>
             </div>
             <p class="text-sm text-neutral-600 leading-relaxed">
@@ -370,7 +370,7 @@ const newsSchema = {
                 <div class="flex items-start sm:items-center justify-between gap-4">
                   <div class="flex items-start gap-3">
                     <div class="p-2.5 bg-white/20 rounded-lg shrink-0">
-                      <MessageSquare class="h-5 w-5 sm:h-6 sm:w-6" />
+                      <MessageSquare class="size-5 sm:h-6 sm:w-6" />
                     </div>
                     <div>
                       <h3 class="text-base sm:text-lg font-bold">Have a story to share?</h3>
@@ -381,7 +381,7 @@ const newsSchema = {
                   </div>
                   <div class="hidden sm:flex items-center gap-1 text-sm font-semibold shrink-0">
                     Share experience
-                    <ChevronRight class="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    <ChevronRight class="size-4 transition-transform group-hover:translate-x-1" />
                   </div>
                 </div>
               </div>

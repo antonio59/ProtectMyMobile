@@ -89,7 +89,7 @@ export default function AnimatedStats() {
           href="/statistics"
           className="inline-flex items-center gap-2 text-primary hover:text-primary/80 font-medium text-sm sm:text-base lg:text-lg hover:scale-105 transition-transform duration-200"
         >
-          <TrendingUp className="h-4 w-4 lg:h-5 lg:w-5" />
+          <TrendingUp className="size-4 lg:h-5 lg:w-5" />
           View Detailed Statistics
         </a>
       </div>

@@ -19,7 +19,7 @@ import { Info, Heart, Shield, Users, Target, CheckCircle2, ArrowRight } from 'lu
       <div class="bg-gradient-to-br from-primary to-blue-700 text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8 shadow-xl">
         <div class="flex items-center gap-3 mb-3">
           <div class="bg-white/20 p-3 rounded-xl">
-            <Info class="h-6 w-6 sm:h-8 sm:w-8" />
+            <Info class="size-6 sm:h-8 sm:w-8" />
           </div>
           <h1 class="text-xl sm:text-2xl md:text-3xl font-bold">About ProtectMyMobile</h1>
         </div>
@@ -29,12 +29,12 @@ import { Info, Heart, Shield, Users, Target, CheckCircle2, ArrowRight } from 'lu
       </div>
       
       <!-- Mission Statement -->
-      <section class="bg-card rounded-lg sm:rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-neutral-100 mb-6 sm:mb-8">
+      <section class="bg-card rounded-lg sm:rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-border mb-6 sm:mb-8">
         <div class="h-2 bg-gradient-to-r from-primary to-blue-600"></div>
         <div class="p-4 sm:p-6 md:p-8">
           <div class="flex items-center gap-3 mb-4">
             <div class="bg-primary/10 rounded-xl p-3">
-              <Target class="h-6 w-6 text-primary" />
+              <Target class="size-6 text-primary" />
             </div>
             <h2 class="text-base sm:text-lg md:text-xl font-bold">Our Mission</h2>
           </div>
@@ -50,13 +50,13 @@ import { Info, Heart, Shield, Users, Target, CheckCircle2, ArrowRight } from 'lu
       <!-- Our Values -->
       <section class="mb-6 sm:mb-8">
         <h2 class="text-base sm:text-lg md:text-xl font-bold mb-6 flex items-center gap-2">
-          <Heart class="h-5 w-5 text-red-500" />
+          <Heart class="size-5 text-red-500" />
           Our Values
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
-          <div class="bg-card rounded-lg sm:rounded-xl sm:rounded-2xl shadow-md p-4 sm:p-6 border border-neutral-100 hover:shadow-lg transition-shadow">
+          <div class="bg-card rounded-lg sm:rounded-xl sm:rounded-2xl shadow-md p-4 sm:p-6 border border-border hover:shadow-lg transition-shadow">
             <div class="bg-primary/10 rounded-xl p-3 w-fit mb-4">
-              <Shield class="h-6 w-6 sm:h-8 sm:w-8 text-primary" />
+              <Shield class="size-6 sm:h-8 sm:w-8 text-primary" />
             </div>
             <h3 class="text-base sm:text-lg font-bold mb-2">Privacy First</h3>
             <p class="text-neutral-600 text-xs sm:text-sm">
@@ -64,9 +64,9 @@ import { Info, Heart, Shield, Users, Target, CheckCircle2, ArrowRight } from 'lu
             </p>
           </div>
 
-          <div class="bg-card rounded-lg sm:rounded-xl sm:rounded-2xl shadow-md p-4 sm:p-6 border border-neutral-100 hover:shadow-lg transition-shadow">
+          <div class="bg-card rounded-lg sm:rounded-xl sm:rounded-2xl shadow-md p-4 sm:p-6 border border-border hover:shadow-lg transition-shadow">
             <div class="bg-green-100 rounded-xl p-3 w-fit mb-4">
-              <Users class="h-6 w-6 sm:h-8 sm:w-8 text-green-600" />
+              <Users class="size-6 sm:h-8 sm:w-8 text-green-600" />
             </div>
             <h3 class="text-base sm:text-lg font-bold mb-2">Community Driven</h3>
             <p class="text-neutral-600 text-xs sm:text-sm">
@@ -74,9 +74,9 @@ import { Info, Heart, Shield, Users, Target, CheckCircle2, ArrowRight } from 'lu
             </p>
           </div>
 
-          <div class="bg-card rounded-lg sm:rounded-xl sm:rounded-2xl shadow-md p-4 sm:p-6 border border-neutral-100 hover:shadow-lg transition-shadow">
+          <div class="bg-card rounded-lg sm:rounded-xl sm:rounded-2xl shadow-md p-4 sm:p-6 border border-border hover:shadow-lg transition-shadow">
             <div class="bg-destructive-muted rounded-xl p-3 w-fit mb-4">
-              <Heart class="h-6 w-6 sm:h-8 sm:w-8 text-destructive" />
+              <Heart class="size-6 sm:h-8 sm:w-8 text-destructive" />
             </div>
             <h3 class="text-base sm:text-lg font-bold mb-2">Always Free</h3>
             <p class="text-neutral-600 text-xs sm:text-sm">
@@ -87,7 +87,7 @@ import { Info, Heart, Shield, Users, Target, CheckCircle2, ArrowRight } from 'lu
       </section>
       
       <!-- Why We Exist -->
-      <section class="bg-card rounded-lg sm:rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-neutral-100 mb-6 sm:mb-8">
+      <section class="bg-card rounded-lg sm:rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-border mb-6 sm:mb-8">
         <div class="h-2 bg-gradient-to-r from-red-500 to-orange-500"></div>
         <div class="p-4 sm:p-6 md:p-8">
           <h2 class="text-base sm:text-lg md:text-xl font-bold mb-4">Why We Exist</h2>
@@ -102,7 +102,7 @@ import { Info, Heart, Shield, Users, Target, CheckCircle2, ArrowRight } from 'lu
               'Difficulty finding emergency contacts during stress'
             ].map(item => (
               <li class="flex items-start gap-3">
-                <CheckCircle2 class="h-5 w-5 text-red-500 mt-0.5 flex-shrink-0" />
+                <CheckCircle2 class="size-5 text-red-500 mt-0.5 flex-shrink-0" />
                 <span class="text-neutral-700 text-xs sm:text-sm md:text-base">{item}</span>
               </li>
             ))}
@@ -122,7 +122,7 @@ import { Info, Heart, Shield, Users, Target, CheckCircle2, ArrowRight } from 'lu
           </div>
           <a href="/the-problem" class="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-primary text-white rounded-xl font-semibold text-xs sm:text-sm hover:bg-primary/90 transition-colors">
             The Problem
-            <ArrowRight class="h-4 w-4" />
+            <ArrowRight class="size-4" />
           </a>
         </div>
       </section>

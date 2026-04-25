@@ -202,7 +202,7 @@ export default function TheftTrendsChart() {
   if (error || !data || data.data.length === 0) {
     return (
       <div className="bg-neutral-50 rounded-xl p-8 text-center">
-        <BarChart3 className="h-12 w-12 mx-auto mb-3 text-neutral-300" />
+        <BarChart3 className="size-12 mx-auto mb-3 text-neutral-300" />
         <h3 className="text-lg font-semibold text-neutral-700 mb-2">
           {error ? 'Unable to Load Trends' : 'Trends Coming Soon'}
         </h3>
@@ -217,7 +217,7 @@ export default function TheftTrendsChart() {
             onClick={handleRetry}
             className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-colors"
           >
-            <RefreshCw className="h-4 w-4" />
+            <RefreshCw className="size-4" />
             Try Again
           </button>
         )}
@@ -240,7 +240,7 @@ export default function TheftTrendsChart() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
         <div>
           <h2 className="text-lg sm:text-xl font-bold text-foreground flex items-center gap-2">
-            <TrendingUp className="h-5 w-5 text-blue-500" />
+            <TrendingUp className="size-5 text-blue-500" />
             Monthly Theft Trends
           </h2>
           <p className="text-xs sm:text-sm text-neutral-500 mt-1">
@@ -293,7 +293,7 @@ export default function TheftTrendsChart() {
         </div>
         <div className="bg-neutral-50 rounded-lg p-3">
           <div className="text-lg sm:text-xl font-bold text-neutral-700 flex items-center gap-1">
-            <MapPin className="h-4 w-4" />
+            <MapPin className="size-4" />
             {locations.length}
           </div>
           <div className="text-xs text-neutral-500">Locations tracked</div>

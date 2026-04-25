@@ -403,6 +403,28 @@ The palette is intentionally restrained. Three functional families carry the UI:
 - **card (#FFFFFF):** Elevated content containers on white backgrounds. Use subtle borders or shadows to separate from the page.
 - **popover (#FFFFFF):** Dropdowns, modals, and command palettes. Same base as cards but often with stronger shadows.
 
+### Dark Mode
+Dark mode is enabled via `@variant dark` in Tailwind v4 and respects `prefers-color-scheme: dark`. The `.dark` class on `<html>` toggles the palette. No `dark:` prefixes are needed for core tokens — `bg-background`, `text-foreground`, etc. switch automatically via CSS custom property overrides.
+
+| Token | Light | Dark |
+|-------|-------|------|
+| background | `#FFFFFF` | `#0A0A0B` |
+| foreground | `#020817` | `#FAFAFA` |
+| card | `#FFFFFF` | `#171717` |
+| neutral-100 | `#F5F5F5` | `#262626` |
+| neutral-200 | `#E5E5E5` | `#404040` |
+| muted | `#F1F5F9` | `#262626` |
+| muted-foreground | `#64748B` | `#A3A3A3` |
+| border | `#E2E8F0` | `#262626` |
+| primary-subtle | `#EFF6FF` | `#1E3A5F` |
+| destructive-subtle | `#FEF2F2` | `#450A0A` |
+
+**Rules:**
+- Invert the neutral scale completely: `neutral-100` light becomes `neutral-800` dark.
+- Keep primary, destructive, warning, and success hues identical — only darken their subtle backgrounds.
+- Emergency red (#D4351C) remains unchanged; it is equally urgent in both modes.
+- Shadows become invisible in dark mode (black on black). Rely on border contrast instead.
+
 ### Gradients
 Gradients are used sparingly — only for hero backgrounds, category tags, and progress bars where a sense of motion or transition is needed.
 
