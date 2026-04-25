@@ -82,7 +82,7 @@ export function ScenarioCarousel({ images, title, summary, scenarioId }: Props) 
 
   return (
     <div className="space-y-3">
-      <div className="relative border border-neutral-200 rounded-2xl overflow-hidden shadow-sm bg-white">
+      <div className="relative border border-neutral-200 rounded-2xl overflow-hidden shadow-sm bg-card">
         <div
           className="overflow-x-auto no-scrollbar"
           ref={trackRef}
@@ -117,7 +117,7 @@ export function ScenarioCarousel({ images, title, summary, scenarioId }: Props) 
 
           {/* Share dropdown menu */}
           {showShareMenu && (
-            <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-xl shadow-lg border border-neutral-200 py-2 z-50 animate-scale-in">
+            <div className="absolute right-0 top-full mt-2 w-48 bg-card rounded-xl shadow-lg border border-neutral-200 py-2 z-50 animate-scale-in">
               <div className="px-3 py-2 border-b border-neutral-100">
                 <p className="text-xs font-semibold text-neutral-500 uppercase tracking-wide">Share</p>
               </div>

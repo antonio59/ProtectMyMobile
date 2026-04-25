@@ -81,7 +81,7 @@ function ResourceCard({ resource, index }: { resource: Resource; index: number }
     <a
       ref={ref}
       href={resource.href}
-      className={`group bg-white rounded-xl sm:rounded-2xl shadow-md p-4 sm:p-6 md:p-8 lg:p-10 hover:shadow-xl transition-all duration-300 border border-transparent hover:border-primary/10 hover:-translate-y-1 hover:scale-[1.01] animate-on-scroll ${isInView ? 'is-visible' : ''}`}
+      className={`group bg-card rounded-xl sm:rounded-2xl shadow-md p-4 sm:p-6 md:p-8 lg:p-10 hover:shadow-xl transition-all duration-300 border border-transparent hover:border-primary/10 hover:-translate-y-1 hover:scale-[1.01] animate-on-scroll ${isInView ? 'is-visible' : ''}`}
       style={{ animationDelay: `${index * 100}ms` }}
     >
       <div className="flex items-start gap-3 sm:gap-4 lg:gap-5">

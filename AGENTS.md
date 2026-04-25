@@ -15,7 +15,8 @@
 - TypeScript strict via Astro; use `@/` imports per `tsconfig.json`.
 - Prefer functional React components; follow existing Tailwind utility styling.
 - Commits: keep concise, imperative; include Co-authored-by when appropriate.
-- PRs: ensure `npm run check` and `npm run build` pass.
+- PRs: ensure `npm run check`, `npm run build`, and `npm run design:lint` pass.
+- Design system: always check [`DESIGN.md`](./DESIGN.md) before adding new colors, spacing, or components. Prefer semantic tokens (`bg-card`, `text-foreground`) over literal values (`bg-white`, `text-neutral-900`).
 
 ## Security & Secrets
 - Never commit secrets. Use `.env` / Netlify env vars / Convex env. Do not log secrets.

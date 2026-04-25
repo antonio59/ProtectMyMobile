@@ -103,7 +103,7 @@ function StatCard({ stat, index }: { stat: Stat; index: number }) {
   return (
     <div
       ref={ref}
-      className={`bg-white rounded-xl sm:rounded-2xl shadow-md p-3 sm:p-6 lg:p-8 text-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300 animate-on-scroll-scale ${isInView ? 'is-visible' : ''}`}
+      className={`bg-card rounded-xl sm:rounded-2xl shadow-md p-3 sm:p-6 lg:p-8 text-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300 animate-on-scroll-scale ${isInView ? 'is-visible' : ''}`}
       style={{ animationDelay: `${index * 100}ms` }}
     >
       <div

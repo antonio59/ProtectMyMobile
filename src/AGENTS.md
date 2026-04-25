@@ -19,7 +19,9 @@
 - Assets: reference public files via absolute `/` paths (e.g., `/Scenarios/...`).
 - ✅ DO: Follow SEO meta/canonical/schema pattern in `src/pages/index.astro`, `src/pages/news.astro`.
 - ✅ DO: Use native snap carousel pattern in `src/components/ScenarioCarousel.tsx` (no external deps).
+- ✅ DO: Use semantic design tokens from `DESIGN.md` (`bg-card`, `text-foreground`, `shadow-md`).
 - ❌ DON’T: Introduce new carousel deps; avoid inline secrets or hardcoded tokens.
+- ❌ DON’T: Use `bg-white`, `text-neutral-900`, or arbitrary hex values. Map them to tokens in `DESIGN.md`.
 
 ## Touch Points / Key Files
 - Layout/meta: `src/layouts/Layout.astro`

@@ -16,6 +16,40 @@
 - **Icons:** [Lucide React](https://lucide.dev)
 - **Package Manager:** npm
 
+## 🎨 Design System
+
+The project follows the [Google `design.md` spec](https://github.com/google-labs-code/design.md). The single source of truth is [`DESIGN.md`](./DESIGN.md), which defines:
+
+- **42 color tokens** (primary, destructive, emergency, neutral scale, semantic accents)
+- **10 typography scales** (Inter, mobile-first responsive sizing)
+- **6 spacing & radius tokens** (`xs` → `2xl`)
+- **35 component tokens** (buttons, cards, badges, surfaces, form states)
+
+### Using tokens
+
+Prefer semantic Tailwind utilities over literal colors:
+
+```html
+<!-- Good -->
+<div class="bg-card rounded-xl shadow-md p-6">
+  <h2 class="text-foreground font-bold">Heading</h2>
+  <p class="text-muted-foreground">Description</p>
+</div>
+
+<!-- Avoid -->
+<div class="bg-white rounded-xl shadow-md p-6">
+  <h2 class="text-neutral-900 font-bold">Heading</h2>
+  <p class="text-neutral-600">Description</p>
+</div>
+```
+
+### Lint & export
+
+```bash
+npm run design:lint        # Validate DESIGN.md
+npm run design:export      # Export tokens to src/styles/design-tokens.json
+```
+
 ## ✨ Key Features
 
 ### 📊 UK Theft Statistics & Live Trends
@@ -60,6 +94,7 @@
 - **Print Styles:** Optimized print layouts for emergency guides
 - **Breadcrumbs:** Navigation aid on deep pages
 - **Mobile Emergency CTA:** Quick-access emergency button in mobile header
+- **Design System:** [`DESIGN.md`](./DESIGN.md) with semantic tokens, linted via `@google/design.md`
 - **Responsive Design:** Mobile-first design optimized for all screen sizes
 
 ## 🛠️ Development

@@ -403,6 +403,21 @@ The palette is intentionally restrained. Three functional families carry the UI:
 - **card (#FFFFFF):** Elevated content containers on white backgrounds. Use subtle borders or shadows to separate from the page.
 - **popover (#FFFFFF):** Dropdowns, modals, and command palettes. Same base as cards but often with stronger shadows.
 
+### Gradients
+Gradients are used sparingly — only for hero backgrounds, category tags, and progress bars where a sense of motion or transition is needed.
+
+| Gradient | From | To | Usage |
+|----------|------|-----|-------|
+| Emergency | `red-500` (#EF4444) | `red-600` (#DC2626) | Emergency hero cards, arrest category badges |
+| Primary | `blue-500` (#3B82F6) | `blue-600` (#2563EB) | Statistics progress bars, prevention category badges |
+| Neutral | `neutral-500` (#737373) | `neutral-600` (#525252) | Generic metadata tags |
+| Dark | `neutral-900` (#171717) | `neutral-800` (#262626) | Dark section overlays |
+
+**Rules:**
+- Never use gradients for primary buttons — solid colours are more accessible.
+- Keep gradient angles horizontal (`to-r`) or subtle (`to-br`). Avoid steep diagonals.
+- Gradients on text require `bg-clip-text text-transparent`, which hurts accessibility. Use only on decorative headlines, never on body text.
+
 ## Typography
 
 **Inter** is the sole typeface. It was chosen for its exceptional legibility at small sizes, neutral personality, and extensive weight range. On a practical level, it loads reliably from Google Fonts and feels familiar to UK users of government and banking websites.
@@ -521,6 +536,23 @@ All buttons meet a **44px minimum touch target** for accessibility.
 - Pill-shaped (`rounded-full`), `padding: 4px 12px`.
 - `label` typography token.
 - Variants: `badge-info` (blue), `badge-emergency` (red), `badge-warning` (amber).
+
+### Iconography
+All icons come from **Lucide React**. They are stroke-based (not filled), keeping the UI light and scalable.
+
+| Size | Dimension | Usage |
+|------|-----------|-------|
+| xs | 12px (`h-3 w-3`) | Inline metadata, compact lists |
+| sm | 16px (`h-4 w-4`) | Buttons, form inputs, badges |
+| md | 20px (`h-5 w-5`) | Cards, list items, navigation |
+| lg | 24px (`h-6 w-6`) | Feature highlights, empty states |
+| xl | 32px (`h-8 w-8`) | Stat cards, dashboard widgets |
+
+**Rules:**
+- Icon colour should match adjacent text. If the text is `text-muted-foreground`, the icon should be the same.
+- Never use an icon alone without a text label (unless it's a universally understood action like ✕ close, → arrow, or 🔔 notification).
+- Emergency icons (AlertTriangle, Siren) should use `text-destructive` or `text-emergency`.
+- Loading states replace icons with spinners of the same size.
 
 ### Motion
 All motion serves a purpose: guiding attention, confirming interactions, or reducing perceived loading time.

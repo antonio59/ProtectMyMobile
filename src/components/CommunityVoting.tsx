@@ -148,7 +148,7 @@ export default function CommunityVoting({ initialStats }: Props) {
         </div>
 
         {insights.length > 0 && (
-          <div className="bg-white rounded-lg p-6 mb-6">
+          <div className="bg-card rounded-lg p-6 mb-6">
             <h4 className="font-semibold text-foreground mb-3 flex items-center">
               <span className="mr-2">💡</span> Insights Based On Your Response
             </h4>
@@ -182,7 +182,7 @@ export default function CommunityVoting({ initialStats }: Props) {
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 md:p-8">
+    <div className="bg-card rounded-lg shadow-md p-6 md:p-8">
       {/* Progress Bar */}
       <div className="mb-8">
         <div className="flex justify-between items-center mb-2">

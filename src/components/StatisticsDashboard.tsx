@@ -176,7 +176,7 @@ function StatCard({
   color: keyof typeof CHART_COLORS;
 }) {
   return (
-    <div className="bg-white rounded-xl p-4 border border-neutral-100 shadow-sm">
+    <div className="bg-card rounded-xl p-4 border border-neutral-100 shadow-sm">
       <div className="flex items-start justify-between">
         <div>
           <p className="text-xs text-neutral-500 font-medium uppercase tracking-wide">{label}</p>
@@ -255,7 +255,7 @@ function TrendsChart({ data }: { data: MonthlyTrends }) {
       : null;
 
   return (
-    <div className="bg-white rounded-xl p-4 sm:p-6 border border-neutral-100 shadow-sm">
+    <div className="bg-card rounded-xl p-4 sm:p-6 border border-neutral-100 shadow-sm">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
         <div>
           <h3 className="text-base font-bold text-foreground flex items-center gap-2">
@@ -270,7 +270,7 @@ function TrendsChart({ data }: { data: MonthlyTrends }) {
           <button
             onClick={() => setViewMode('lines')}
             className={`px-3 py-1 rounded-md text-xs font-medium transition ${
-              viewMode === 'lines' ? 'bg-white text-foreground shadow-sm' : 'text-neutral-600'
+              viewMode === 'lines' ? 'bg-card text-foreground shadow-sm' : 'text-neutral-600'
             }`}
           >
             Lines
@@ -278,7 +278,7 @@ function TrendsChart({ data }: { data: MonthlyTrends }) {
           <button
             onClick={() => setViewMode('stacked')}
             className={`px-3 py-1 rounded-md text-xs font-medium transition ${
-              viewMode === 'stacked' ? 'bg-white text-foreground shadow-sm' : 'text-neutral-600'
+              viewMode === 'stacked' ? 'bg-card text-foreground shadow-sm' : 'text-neutral-600'
             }`}
           >
             Stacked
@@ -368,7 +368,7 @@ function LocationsChart({ data }: { data: LocationRanking[] }) {
   );
 
   return (
-    <div className="bg-white rounded-xl p-4 sm:p-6 border border-neutral-100 shadow-sm h-full flex flex-col">
+    <div className="bg-card rounded-xl p-4 sm:p-6 border border-neutral-100 shadow-sm h-full flex flex-col">
       <h3 className="text-base font-bold text-foreground flex items-center gap-2 mb-1">
         <MapPin className="h-5 w-5 text-red-500" />
         Top Theft Hotspots
@@ -425,7 +425,7 @@ function YearOverYearChart({ data }: { data: YoYData }) {
   );
 
   return (
-    <div className="bg-white rounded-xl p-4 sm:p-6 border border-neutral-100 shadow-sm h-full flex flex-col">
+    <div className="bg-card rounded-xl p-4 sm:p-6 border border-neutral-100 shadow-sm h-full flex flex-col">
       <h3 className="text-base font-bold text-foreground flex items-center gap-2 mb-1">
         <Layers className="h-5 w-5 text-purple-500" />
         Year-over-Year Comparison
@@ -498,7 +498,7 @@ function SeasonalChart({ data }: { data: SeasonalData }) {
   const minIndex = data.averages.indexOf(Math.min(...data.averages));
 
   return (
-    <div className="bg-white rounded-xl p-4 sm:p-6 border border-neutral-100 shadow-sm h-full flex flex-col">
+    <div className="bg-card rounded-xl p-4 sm:p-6 border border-neutral-100 shadow-sm h-full flex flex-col">
       <h3 className="text-base font-bold text-foreground flex items-center gap-2 mb-1">
         <Sun className="h-5 w-5 text-amber-500" />
         Seasonal Pattern
@@ -568,7 +568,7 @@ function SourcesChart({ data, totalRecords }: { data: SourceBreakdown; totalReco
   );
 
   return (
-    <div className="bg-white rounded-xl p-4 sm:p-6 border border-neutral-100 shadow-sm h-full flex flex-col">
+    <div className="bg-card rounded-xl p-4 sm:p-6 border border-neutral-100 shadow-sm h-full flex flex-col">
       <h3 className="text-base font-bold text-foreground flex items-center gap-2 mb-1">
         <PieChart className="h-5 w-5 text-pink-500" />
         Data Sources

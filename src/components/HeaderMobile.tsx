@@ -134,13 +134,13 @@ export default function HeaderMobile() {
 
       {/* Slide-out Menu */}
       <div
-        className={`fixed top-0 right-0 h-full w-[85%] max-w-sm z-50 shadow-2xl md:hidden overflow-hidden bg-white transition-transform duration-200 ease-out ${
+        className={`fixed top-0 right-0 h-full w-[85%] max-w-sm z-50 shadow-2xl md:hidden overflow-hidden bg-card transition-transform duration-200 ease-out ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
         aria-hidden={!isOpen}
       >
         {/* Menu Header */}
-        <div className="flex items-center justify-between p-4 border-b border-neutral-200 bg-white">
+        <div className="flex items-center justify-between p-4 border-b border-neutral-200 bg-card">
           <span className="font-bold text-lg text-primary">Menu</span>
           <button
             onClick={() => setIsOpen(false)}
@@ -173,7 +173,7 @@ export default function HeaderMobile() {
 
         {/* Navigation Links */}
         <nav
-          className="p-4 bg-white overflow-y-auto"
+          className="p-4 bg-card overflow-y-auto"
           style={{ maxHeight: 'calc(100vh - 220px)' }}
           aria-label="Mobile navigation"
         >

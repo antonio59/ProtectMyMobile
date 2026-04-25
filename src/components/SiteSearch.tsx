@@ -202,7 +202,7 @@ export default function SiteSearch() {
       >
         <Search className="h-4 w-4" />
         <span className="hidden lg:inline">Search...</span>
-        <kbd className="hidden lg:inline-flex items-center gap-1 px-1.5 py-0.5 bg-white rounded text-xs font-medium border border-neutral-200">
+        <kbd className="hidden lg:inline-flex items-center gap-1 px-1.5 py-0.5 bg-card rounded text-xs font-medium border border-neutral-200">
           <Command className="h-3 w-3" />
           <span>K</span>
         </kbd>
@@ -232,7 +232,7 @@ export default function SiteSearch() {
             role="dialog"
             aria-modal="true"
             aria-label="Site search"
-            className="fixed inset-x-4 top-20 md:inset-x-auto md:left-1/2 md:-translate-x-1/2 md:w-full md:max-w-2xl bg-white rounded-2xl shadow-2xl z-50 overflow-hidden flex flex-col max-h-[80vh] transition-all duration-150 opacity-100 scale-100 translate-y-0"
+            className="fixed inset-x-4 top-20 md:inset-x-auto md:left-1/2 md:-translate-x-1/2 md:w-full md:max-w-2xl bg-card rounded-2xl shadow-2xl z-50 overflow-hidden flex flex-col max-h-[80vh] transition-all duration-150 opacity-100 scale-100 translate-y-0"
           >
             {/* Search Input */}
             <div className="flex items-center gap-3 px-4 py-4 border-b border-neutral-200">
@@ -330,12 +330,12 @@ export default function SiteSearch() {
             <div className="flex items-center justify-between px-4 py-3 border-t border-neutral-200 bg-neutral-50 text-xs text-neutral-400">
               <div className="flex items-center gap-4">
                 <span className="flex items-center gap-1">
-                  <kbd className="px-1.5 py-0.5 bg-white rounded border border-neutral-200 font-sans">↑</kbd>
-                  <kbd className="px-1.5 py-0.5 bg-white rounded border border-neutral-200 font-sans">↓</kbd>
+                  <kbd className="px-1.5 py-0.5 bg-card rounded border border-neutral-200 font-sans">↑</kbd>
+                  <kbd className="px-1.5 py-0.5 bg-card rounded border border-neutral-200 font-sans">↓</kbd>
                   <span className="ml-1">to navigate</span>
                 </span>
                 <span className="flex items-center gap-1">
-                  <kbd className="px-1.5 py-0.5 bg-white rounded border border-neutral-200 font-sans">↵</kbd>
+                  <kbd className="px-1.5 py-0.5 bg-card rounded border border-neutral-200 font-sans">↵</kbd>
                   <span className="ml-1">to select</span>
                 </span>
               </div>

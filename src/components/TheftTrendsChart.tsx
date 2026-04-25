@@ -252,7 +252,7 @@ export default function TheftTrendsChart() {
             onClick={() => setViewMode('stacked')}
             className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
               viewMode === 'stacked'
-                ? 'bg-white text-foreground shadow-sm'
+                ? 'bg-card text-foreground shadow-sm'
                 : 'text-neutral-600 hover:text-foreground'
             }`}
           >
@@ -262,7 +262,7 @@ export default function TheftTrendsChart() {
             onClick={() => setViewMode('lines')}
             className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
               viewMode === 'lines'
-                ? 'bg-white text-foreground shadow-sm'
+                ? 'bg-card text-foreground shadow-sm'
                 : 'text-neutral-600 hover:text-foreground'
             }`}
           >
