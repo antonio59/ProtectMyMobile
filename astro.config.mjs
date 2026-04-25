@@ -2,6 +2,7 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import netlify from '@astrojs/netlify';
+import sentry from '@sentry/astro';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -13,6 +14,12 @@ export default defineConfig({
   output: 'server',
   adapter: netlify(),
   integrations: [
+    sentry({
+      dsn: process.env.SENTRY_DSN,
+      sourceMapsUploadOptions: {
+        enabled: false,
+      },
+    }),
     react(),
     sitemap({
       filter: (page) => !page.includes('/admin/'),

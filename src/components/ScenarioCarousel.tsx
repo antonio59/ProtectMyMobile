@@ -82,7 +82,7 @@ export function ScenarioCarousel({ images, title, summary, scenarioId }: Props) 
 
   return (
     <div className="space-y-3">
-      <div className="relative border border-neutral-200 rounded-2xl overflow-hidden shadow-sm bg-card">
+      <div className="relative border border-border rounded-2xl overflow-hidden shadow-sm bg-card">
         <div
           className="overflow-x-auto no-scrollbar"
           ref={trackRef}
@@ -99,17 +99,17 @@ export function ScenarioCarousel({ images, title, summary, scenarioId }: Props) 
         
         {/* Navigation buttons */}
         <div className="absolute inset-y-0 left-0 flex items-center">
-          <button onClick={() => scrollBy(-1)} aria-label="Previous" className="m-2 rounded-full bg-white/90 border border-neutral-200 shadow hover:bg-white px-2 py-1 text-sm">‹</button>
+          <button onClick={() => scrollBy(-1)} aria-label="Previous" className="m-2 rounded-full bg-white/90 border border-border shadow hover:bg-white px-2 py-1 text-sm">‹</button>
         </div>
         <div className="absolute inset-y-0 right-0 flex items-center">
-          <button onClick={() => scrollBy(1)} aria-label="Next" className="m-2 rounded-full bg-white/90 border border-neutral-200 shadow hover:bg-white px-2 py-1 text-sm">›</button>
+          <button onClick={() => scrollBy(1)} aria-label="Next" className="m-2 rounded-full bg-white/90 border border-border shadow hover:bg-white px-2 py-1 text-sm">›</button>
         </div>
 
         {/* Share button */}
         <div className="absolute top-2 right-2">
           <button
             onClick={() => setShowShareMenu(!showShareMenu)}
-            className="rounded-full bg-white/90 border border-neutral-200 shadow hover:bg-white p-2 text-neutral-600 hover:text-primary transition-colors"
+            className="rounded-full bg-white/90 border border-border shadow hover:bg-white p-2 text-neutral-600 hover:text-primary transition-colors"
             aria-label="Share this scenario"
           >
             <Share2 className="size-4" />
@@ -117,8 +117,8 @@ export function ScenarioCarousel({ images, title, summary, scenarioId }: Props) 
 
           {/* Share dropdown menu */}
           {showShareMenu && (
-            <div className="absolute right-0 top-full mt-2 w-48 bg-card rounded-xl shadow-lg border border-neutral-200 py-2 z-50 animate-scale-in">
-              <div className="px-3 py-2 border-b border-neutral-100">
+            <div className="absolute right-0 top-full mt-2 w-48 bg-card rounded-xl shadow-lg border border-border py-2 z-50 animate-scale-in">
+              <div className="px-3 py-2 border-b border-border">
                 <p className="text-xs font-semibold text-neutral-500 uppercase tracking-wide">Share</p>
               </div>
               

@@ -176,7 +176,7 @@ function StatCard({
   color: keyof typeof CHART_COLORS;
 }) {
   return (
-    <div className="bg-card rounded-xl p-4 border border-neutral-100 shadow-sm">
+    <div className="bg-card rounded-xl p-4 border border-border shadow-sm">
       <div className="flex items-start justify-between">
         <div>
           <p className="text-xs text-neutral-500 font-medium uppercase tracking-wide">{label}</p>
@@ -255,7 +255,7 @@ function TrendsChart({ data }: { data: MonthlyTrends }) {
       : null;
 
   return (
-    <div className="bg-card rounded-xl p-4 sm:p-6 border border-neutral-100 shadow-sm">
+    <div className="bg-card rounded-xl p-4 sm:p-6 border border-border shadow-sm">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
         <div>
           <h3 className="text-base font-bold text-foreground flex items-center gap-2">
@@ -368,7 +368,7 @@ function LocationsChart({ data }: { data: LocationRanking[] }) {
   );
 
   return (
-    <div className="bg-card rounded-xl p-4 sm:p-6 border border-neutral-100 shadow-sm h-full flex flex-col">
+    <div className="bg-card rounded-xl p-4 sm:p-6 border border-border shadow-sm h-full flex flex-col">
       <h3 className="text-base font-bold text-foreground flex items-center gap-2 mb-1">
         <MapPin className="size-5 text-red-500" />
         Top Theft Hotspots
@@ -425,7 +425,7 @@ function YearOverYearChart({ data }: { data: YoYData }) {
   );
 
   return (
-    <div className="bg-card rounded-xl p-4 sm:p-6 border border-neutral-100 shadow-sm h-full flex flex-col">
+    <div className="bg-card rounded-xl p-4 sm:p-6 border border-border shadow-sm h-full flex flex-col">
       <h3 className="text-base font-bold text-foreground flex items-center gap-2 mb-1">
         <Layers className="size-5 text-purple-500" />
         Year-over-Year Comparison
@@ -498,7 +498,7 @@ function SeasonalChart({ data }: { data: SeasonalData }) {
   const minIndex = data.averages.indexOf(Math.min(...data.averages));
 
   return (
-    <div className="bg-card rounded-xl p-4 sm:p-6 border border-neutral-100 shadow-sm h-full flex flex-col">
+    <div className="bg-card rounded-xl p-4 sm:p-6 border border-border shadow-sm h-full flex flex-col">
       <h3 className="text-base font-bold text-foreground flex items-center gap-2 mb-1">
         <Sun className="size-5 text-amber-500" />
         Seasonal Pattern
@@ -568,7 +568,7 @@ function SourcesChart({ data, totalRecords }: { data: SourceBreakdown; totalReco
   );
 
   return (
-    <div className="bg-card rounded-xl p-4 sm:p-6 border border-neutral-100 shadow-sm h-full flex flex-col">
+    <div className="bg-card rounded-xl p-4 sm:p-6 border border-border shadow-sm h-full flex flex-col">
       <h3 className="text-base font-bold text-foreground flex items-center gap-2 mb-1">
         <PieChart className="size-5 text-pink-500" />
         Data Sources
@@ -617,7 +617,7 @@ export default function StatisticsDashboard() {
 
   if (error || !data || !data.trends) {
     return (
-      <div className="bg-neutral-50 rounded-xl p-8 text-center border border-neutral-100">
+      <div className="bg-neutral-50 rounded-xl p-8 text-center border border-border">
         <BarChart3 className="size-12 mx-auto mb-3 text-neutral-300" />
         <h3 className="text-lg font-semibold text-neutral-700 mb-2">Unable to Load Statistics</h3>
         <p className="text-sm text-neutral-500 max-w-md mx-auto mb-4">

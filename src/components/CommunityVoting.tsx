@@ -402,7 +402,7 @@ export default function CommunityVoting({ initialStats }: Props) {
       )}
 
       {/* Navigation Buttons */}
-      <div className="flex items-center justify-between mt-8 pt-6 border-t border-neutral-200">
+      <div className="flex items-center justify-between mt-8 pt-6 border-t border-border">
         <button
           onClick={handleBack}
           disabled={currentStep === 1}

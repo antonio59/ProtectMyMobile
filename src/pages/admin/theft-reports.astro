@@ -38,7 +38,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 
     <!-- Reports Table -->
     <div class="bg-card rounded-xl shadow-md overflow-hidden">
-      <div class="p-4 sm:p-6 border-b border-neutral-200">
+      <div class="p-4 sm:p-6 border-b border-border">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <h2 class="text-lg font-bold text-foreground">All Reports</h2>
           <div class="flex gap-2">
@@ -137,7 +137,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
           : '<span class="px-2 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-700">Pending</span>';
 
         return `
-          <tr class="border-b border-neutral-100 hover:bg-neutral-50" data-id="${r._id}">
+          <tr class="border-b border-border hover:bg-neutral-50" data-id="${r._id}">
             <td class="px-4 py-3 font-medium text-foreground">${r.locationName || 'Unknown'}</td>
             <td class="px-4 py-3 hidden md:table-cell text-neutral-600">${dateStr}</td>
             <td class="px-4 py-3 hidden lg:table-cell text-neutral-600 max-w-xs truncate">${r.description || '-'}</td>

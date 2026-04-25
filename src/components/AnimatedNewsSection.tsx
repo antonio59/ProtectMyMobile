@@ -101,7 +101,7 @@ export default function AnimatedNewsSection({ news }: Props) {
         </div>
         <a
           href="/news"
-          className="hidden sm:flex items-center gap-2 px-5 py-2.5 rounded-xl bg-card border border-neutral-200 shadow-sm text-neutral-600 text-sm font-semibold hover:bg-neutral-50 hover:text-primary hover:border-primary/20 transition-all group whitespace-nowrap hover:scale-[1.02] active:scale-[0.98]"
+          className="hidden sm:flex items-center gap-2 px-5 py-2.5 rounded-xl bg-card border border-border shadow-sm text-neutral-600 text-sm font-semibold hover:bg-neutral-50 hover:text-primary hover:border-primary/20 transition-all group whitespace-nowrap hover:scale-[1.02] active:scale-[0.98]"
         >
           View All <ArrowRight className="size-4 group-hover:translate-x-0.5 transition-transform" />
         </a>
@@ -147,7 +147,7 @@ function NewsCard({ post, index, config, Icon }: { post: NewsPost; index: number
     <a
       ref={ref}
       href={`/news/${post.slug}`}
-      className={`group flex flex-col bg-card rounded-xl shadow-sm hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 border border-neutral-200 hover:border-primary/20 h-full relative overflow-hidden hover:-translate-y-1 animate-on-scroll ${isInView ? 'is-visible' : ''}`}
+      className={`group flex flex-col bg-card rounded-xl shadow-sm hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 border border-border hover:border-primary/20 h-full relative overflow-hidden hover:-translate-y-1 animate-on-scroll ${isInView ? 'is-visible' : ''}`}
       style={{ animationDelay: `${index * 50}ms` }}
     >
       {/* Top Accent Line */}
@@ -192,7 +192,7 @@ function EmptyState() {
   return (
     <div
       ref={ref}
-      className={`col-span-full bg-card border border-dashed border-neutral-200 rounded-2xl p-16 text-center shadow-sm animate-on-scroll-scale ${isInView ? 'is-visible' : ''}`}
+      className={`col-span-full bg-card border border-dashed border-border rounded-2xl p-16 text-center shadow-sm animate-on-scroll-scale ${isInView ? 'is-visible' : ''}`}
     >
       <div
         className={`w-20 h-20 bg-primary-subtle rounded-full flex items-center justify-center mx-auto mb-6 animate-pop-in ${isInView ? 'is-visible' : ''}`}

@@ -41,14 +41,14 @@ const breadcrumbSchema = items.length > 0 ? {
         href="/"
         class="flex items-center gap-1 hover:text-primary transition-colors font-medium"
       >
-        <Home class="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+        <Home class="h-3.5 w-3.5 sm:size-4" />
         <span class="hidden sm:inline">Home</span>
       </a>
     </li>
 
     {items.map((item, index) => (
       <li class="flex items-center gap-1.5 sm:gap-2">
-        <ChevronRight class="h-3.5 w-3.5 sm:h-4 sm:w-4 text-neutral-300" />
+        <ChevronRight class="h-3.5 w-3.5 sm:size-4 text-neutral-300" />
         {item.href && index < items.length - 1 ? (
           <a
             href={item.href}

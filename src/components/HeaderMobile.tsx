@@ -17,6 +17,7 @@ import {
   MapPin
 } from 'lucide-react';
 import SiteSearch from './SiteSearch';
+import ThemeToggle from './ThemeToggle';
 
 // Desktop nav links (shown in header) - expanded to show more key pages
 const desktopNavLinks = [
@@ -56,7 +57,7 @@ export default function HeaderMobile() {
         Skip to main content
       </a>
 
-      <header className="bg-white/95 backdrop-blur-md shadow-md sticky top-0 z-50 border-b border-neutral-100">
+      <header className="bg-white/95 backdrop-blur-md shadow-md sticky top-0 z-50 border-b border-border">
         <div className="container mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
             {/* Logo */}
@@ -84,6 +85,7 @@ export default function HeaderMobile() {
 
           {/* Search + Desktop CTA */}
           <div className="hidden md:flex items-center gap-3">
+            <ThemeToggle />
             <SiteSearch />
             <a
               href="/security-checkup"
@@ -103,6 +105,7 @@ export default function HeaderMobile() {
 
           {/* Mobile Search + Emergency + Menu */}
           <div className="md:hidden flex items-center gap-2">
+            <ThemeToggle />
             <SiteSearch />
             <a
               href="/emergency"
@@ -140,9 +143,11 @@ export default function HeaderMobile() {
         aria-hidden={!isOpen}
       >
         {/* Menu Header */}
-        <div className="flex items-center justify-between p-4 border-b border-neutral-200 bg-card">
+        <div className="flex items-center justify-between p-4 border-b border-border bg-card">
           <span className="font-bold text-lg text-primary">Menu</span>
-          <button
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <button
             onClick={() => setIsOpen(false)}
             className="p-2.5 rounded-xl bg-neutral-200 hover:bg-neutral-300 active:bg-neutral-400 hover:scale-105 active:scale-90 transition-all duration-150"
             aria-label="Close menu"

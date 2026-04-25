@@ -60,7 +60,7 @@ export function ChartSkeleton() {
 
 export function NewsCardSkeleton() {
   return (
-    <div className="bg-card rounded-xl shadow-sm border border-neutral-200 p-4 sm:p-5 space-y-3">
+    <div className="bg-card rounded-xl shadow-sm border border-border p-4 sm:p-5 space-y-3">
       <div className="flex items-center gap-2">
         <Skeleton className="h-6 w-20 rounded-md" />
         <Skeleton className="h-4 w-24" />

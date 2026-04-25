@@ -133,7 +133,7 @@ export default function CommunityStatsDisplay({ initialStats }: Props) {
       </div>
 
       {/* Key Findings */}
-      <div className="bg-neutral-50 rounded-lg p-6 border border-neutral-200">
+      <div className="bg-neutral-50 rounded-lg p-6 border border-border">
         <h3 className="font-semibold text-foreground mb-4 flex items-center">
           <span className="text-xl mr-2">📊</span> Key Findings
         </h3>

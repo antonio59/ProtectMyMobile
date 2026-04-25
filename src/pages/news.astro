@@ -146,7 +146,7 @@ const newsSchema = {
         <div class="flex items-start justify-between gap-4">
           <div>
             <div class="flex items-center gap-2 mb-2">
-              <Newspaper class="size-5 sm:h-6 sm:w-6" />
+              <Newspaper class="size-5 sm:size-6" />
               <h1 class="text-xl sm:text-2xl md:text-3xl font-bold">News & Updates</h1>
             </div>
             <p class="text-blue-100 text-sm max-w-xl">
@@ -203,7 +203,7 @@ const newsSchema = {
                     <div class="bg-white/20 backdrop-blur-sm p-4 rounded-2xl">
                       {(() => {
                         const FeaturedIcon = categoryConfig[featuredPost.category]?.icon || FileText;
-                        return <FeaturedIcon class="h-10 w-10 sm:h-12 sm:w-12 text-white" />;
+                        return <FeaturedIcon class="h-10 w-10 sm:size-12 text-white" />;
                       })()}
                     </div>
                   </div>
@@ -326,7 +326,7 @@ const newsSchema = {
                         {post.excerpt}
                       </p>
 
-                      <div class="flex items-center justify-between mt-auto pt-3 border-t border-neutral-100">
+                      <div class="flex items-center justify-between mt-auto pt-3 border-t border-border">
                         {post.sourceName ? (
                           <span class="text-xs text-neutral-400">
                             {post.sourceName}
@@ -370,7 +370,7 @@ const newsSchema = {
                 <div class="flex items-start sm:items-center justify-between gap-4">
                   <div class="flex items-start gap-3">
                     <div class="p-2.5 bg-white/20 rounded-lg shrink-0">
-                      <MessageSquare class="size-5 sm:h-6 sm:w-6" />
+                      <MessageSquare class="size-5 sm:size-6" />
                     </div>
                     <div>
                       <h3 class="text-base sm:text-lg font-bold">Have a story to share?</h3>
@@ -407,9 +407,9 @@ const newsSchema = {
         // Update button styles
         categoryBtns.forEach(b => {
           b.classList.remove('active', 'bg-primary', 'text-white');
-          b.classList.add('bg-card', 'text-neutral-600', 'border-neutral-200');
+          b.classList.add('bg-card', 'text-neutral-600', 'border-border');
         });
-        btn.classList.remove('bg-card', 'text-neutral-600', 'border-neutral-200');
+        btn.classList.remove('bg-card', 'text-neutral-600', 'border-border');
         btn.classList.add('active', 'bg-primary', 'text-white');
 
         // Filter cards

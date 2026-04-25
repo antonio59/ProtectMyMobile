@@ -101,7 +101,7 @@ function ResourceCard({ resource, index }: { resource: Resource; index: number }
           </p>
           <span className={`${resource.linkColor} font-medium flex items-center gap-1 sm:gap-2 text-xs sm:text-sm md:text-base lg:text-lg`}>
             {resource.linkText}
-            <ArrowRight className="size-3 sm:h-4 sm:w-4 lg:h-5 lg:w-5 group-hover:translate-x-2 transition-transform" />
+            <ArrowRight className="size-3 sm:size-4 lg:size-5 group-hover:translate-x-2 transition-transform" />
           </span>
         </div>
       </div>

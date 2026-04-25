@@ -202,7 +202,7 @@ export default function SiteSearch() {
       >
         <Search className="size-4" />
         <span className="hidden lg:inline">Search...</span>
-        <kbd className="hidden lg:inline-flex items-center gap-1 px-1.5 py-0.5 bg-card rounded text-xs font-medium border border-neutral-200">
+        <kbd className="hidden lg:inline-flex items-center gap-1 px-1.5 py-0.5 bg-card rounded text-xs font-medium border border-border">
           <Command className="size-3" />
           <span>K</span>
         </kbd>
@@ -235,7 +235,7 @@ export default function SiteSearch() {
             className="fixed inset-x-4 top-20 md:inset-x-auto md:left-1/2 md:-translate-x-1/2 md:w-full md:max-w-2xl bg-card rounded-2xl shadow-2xl z-50 overflow-hidden flex flex-col max-h-[80vh] transition-all duration-150 opacity-100 scale-100 translate-y-0"
           >
             {/* Search Input */}
-            <div className="flex items-center gap-3 px-4 py-4 border-b border-neutral-200">
+            <div className="flex items-center gap-3 px-4 py-4 border-b border-border">
               <Search className="size-5 text-neutral-400 flex-shrink-0" />
               <input
                 ref={inputRef}
@@ -257,7 +257,7 @@ export default function SiteSearch() {
               )}
               <button
                 onClick={() => setIsOpen(false)}
-                className="hidden md:block px-2 py-1 text-xs text-neutral-400 border border-neutral-200 rounded"
+                className="hidden md:block px-2 py-1 text-xs text-neutral-400 border border-border rounded"
               >
                 ESC
               </button>
@@ -327,15 +327,15 @@ export default function SiteSearch() {
             </div>
 
             {/* Footer */}
-            <div className="flex items-center justify-between px-4 py-3 border-t border-neutral-200 bg-neutral-50 text-xs text-neutral-400">
+            <div className="flex items-center justify-between px-4 py-3 border-t border-border bg-neutral-50 text-xs text-neutral-400">
               <div className="flex items-center gap-4">
                 <span className="flex items-center gap-1">
-                  <kbd className="px-1.5 py-0.5 bg-card rounded border border-neutral-200 font-sans">↑</kbd>
-                  <kbd className="px-1.5 py-0.5 bg-card rounded border border-neutral-200 font-sans">↓</kbd>
+                  <kbd className="px-1.5 py-0.5 bg-card rounded border border-border font-sans">↑</kbd>
+                  <kbd className="px-1.5 py-0.5 bg-card rounded border border-border font-sans">↓</kbd>
                   <span className="ml-1">to navigate</span>
                 </span>
                 <span className="flex items-center gap-1">
-                  <kbd className="px-1.5 py-0.5 bg-card rounded border border-neutral-200 font-sans">↵</kbd>
+                  <kbd className="px-1.5 py-0.5 bg-card rounded border border-border font-sans">↵</kbd>
                   <span className="ml-1">to select</span>
                 </span>
               </div>

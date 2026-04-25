@@ -184,7 +184,7 @@ const colorClasses: Record<string, { bg: string; border: string; icon: string; l
       <div class="bg-gradient-to-br from-teal-600 to-cyan-700 text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8 shadow-xl">
         <div class="flex items-center gap-3 mb-3">
           <div class="bg-white/20 p-2 sm:p-3 rounded-xl">
-            <ShoppingBag class="size-6 sm:h-8 sm:w-8" />
+            <ShoppingBag class="size-6 sm:size-8" />
           </div>
           <h1 class="text-xl sm:text-2xl md:text-3xl font-bold">Product Recommendations</h1>
         </div>
@@ -211,7 +211,7 @@ const colorClasses: Record<string, { bg: string; border: string; icon: string; l
                   <!-- Icon and Title -->
                   <div class="flex items-start gap-4 md:w-1/3">
                     <div class={`${colors.light} rounded-xl p-2 sm:p-3 flex-shrink-0`}>
-                      <product.icon class={`size-5 sm:h-6 sm:w-6 ${colors.icon}`} />
+                      <product.icon class={`size-5 sm:size-6 ${colors.icon}`} />
                     </div>
                     <div>
                       <h2 class="text-base sm:text-lg font-bold text-foreground">{product.title}</h2>
@@ -224,7 +224,7 @@ const colorClasses: Record<string, { bg: string; border: string; icon: string; l
                           class={`inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 ${colors.bg} text-white text-xs sm:text-sm font-semibold rounded-lg hover:opacity-90 transition-opacity`}
                         >
                           {product.title}
-                          <ExternalLink class="size-3 sm:h-4 sm:w-4" />
+                          <ExternalLink class="size-3 sm:size-4" />
                         </a>
                       )}
                     </div>
@@ -268,7 +268,7 @@ const colorClasses: Record<string, { bg: string; border: string; icon: string; l
       <!-- Tips Section -->
       <section class="mt-6 sm:mt-8 md:mt-10 bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl p-4 sm:p-6 md:p-8 border border-amber-200">
         <h2 class="text-lg sm:text-xl font-bold mb-4 flex items-center gap-2">
-          <Shield class="size-4 sm:h-5 sm:w-5 text-warning" />
+          <Shield class="size-4 sm:size-5 text-warning" />
           General Buying Tips
         </h2>
         <div class="grid md:grid-cols-2 gap-4">
@@ -304,7 +304,7 @@ const colorClasses: Record<string, { bg: string; border: string; icon: string; l
           </div>
           <div class="flex flex-col sm:flex-row gap-3">
             <a href="/prevention" class="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-background text-primary rounded-xl font-semibold text-xs sm:text-sm hover:bg-primary-subtle transition-colors">
-              <Shield class="size-3 sm:h-4 sm:w-4" />
+              <Shield class="size-3 sm:size-4" />
               Prevention Guide
             </a>
             <a href="/security-checkup" class="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-white/20 text-white rounded-xl font-semibold text-xs sm:text-sm hover:bg-white/30 transition-colors">
