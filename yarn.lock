@@ -3511,10 +3511,10 @@ convert-source-map@^2.0.0:
   resolved "https://registry.yarnpkg.com/convert-source-map/-/convert-source-map-2.0.0.tgz#4b560f649fc4e918dd0ab75cf4961e8bc882d82a"
   integrity sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==
 
-convex@^1.36.0:
-  version "1.36.0"
-  resolved "https://registry.yarnpkg.com/convex/-/convex-1.36.0.tgz#5ab3309c04818937bf016a5379f17f5863574581"
-  integrity sha512-17cfDr2z+Apd59291rKWij6jq79eVwzY9u2MQOnuVkOsfEPXcuerWHQLf1ngXAbQjeTXD1nwQYsxQBhZnjZMIQ==
+convex@^1.36.1:
+  version "1.36.1"
+  resolved "https://registry.yarnpkg.com/convex/-/convex-1.36.1.tgz#591a4488306c7195fc664d3e19d0fa00c890eff3"
+  integrity sha512-NVnwNqU+h8jyPuS0Itvj4MPH9c2yF+tA/RNoSDpCqiLhmYD4+kZxm0dDkVM0QDzz66wem9NqheBb9YQGsHwzBQ==
   dependencies:
     esbuild "0.27.0"
     prettier "^3.0.0"
