@@ -107,7 +107,7 @@ Google News RSS was blocking requests without User-Agent header, returning empty
 
 ```bash
 # 1. Deploy Convex schema (in project directory)
-bunx convex deploy --prod
+npx convex deploy --prod
 
 # 2. Start dev server (new terminal)
 npm run dev

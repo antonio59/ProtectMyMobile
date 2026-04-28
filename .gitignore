@@ -33,3 +33,4 @@ netlify/netlify/
 .gstack/
 
 *.bin
+bun.lock
