@@ -172,60 +172,54 @@ const newsSchema = {
               <h2 class="text-sm font-semibold text-neutral-500 uppercase tracking-wide mb-3">Featured</h2>
               <a
                 href={`/news/${featuredPost.slug}`}
-                class="group block bg-card rounded-xl sm:rounded-2xl shadow-lg overflow-hidden border border-border hover:border-primary/30 transition-all"
+                class="group block bg-card rounded-xl sm:rounded-2xl shadow-lg overflow-hidden border-l-4 border-t border-r border-b border-border hover:border-r-primary/30 hover:border-t-primary/30 hover:border-b-primary/30 transition-all"
+                style={`border-left-color: ${categoryConfig[featuredPost.category]?.gradient ? `rgb(${featuredPost.category === 'arrest' ? '239 68 68' : featuredPost.category === 'seizure' ? '249 115 22' : featuredPost.category === 'law_change' ? '20 184 166' : featuredPost.category === 'statistics' ? '59 130 246' : featuredPost.category === 'prevention_tip' ? '16 185 129' : '115 115 115'})` : 'rgb(59 130 246)'}`}
               >
-                {featuredPost.featuredImageUrl ? (
-                  <div class="w-full aspect-[21/9] sm:aspect-[21/9] overflow-hidden bg-neutral-100">
-                    <img
-                      src={featuredPost.featuredImageUrl}
-                      alt={featuredPost.title}
-                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      loading="eager"
-                    />
-                  </div>
-                ) : (
-                  <div class={`w-full aspect-[21/9] sm:aspect-[21/9] bg-gradient-to-r ${categoryConfig[featuredPost.category]?.gradient || 'from-primary to-blue-600'} flex items-center justify-center`}>
-                    <div class="bg-white/20 backdrop-blur-sm p-4 rounded-2xl">
-                      {(() => {
-                        const FeaturedIcon = categoryConfig[featuredPost.category]?.icon || FileText;
-                        return <FeaturedIcon class="h-10 w-10 sm:size-12 text-white" />;
-                      })()}
-                    </div>
-                  </div>
-                )}
-                <div class="p-4 sm:p-6">
-                  <div class="flex flex-col lg:flex-row lg:items-start gap-4 lg:gap-6">
+                <div class="p-5 sm:p-6 md:p-8">
+                  <div class="flex flex-col md:flex-row gap-5 md:gap-6">
                     <div class="flex-1">
-                      <div class="flex items-center gap-2 mb-2 flex-wrap">
-                        <span class={`inline-flex items-center gap-1 text-[10px] sm:text-xs px-2 py-0.5 rounded-full font-medium ${categoryConfig[featuredPost.category]?.bg || 'bg-neutral-100'} ${categoryConfig[featuredPost.category]?.color || 'text-neutral-700'}`}>
+                      <div class="flex items-center gap-2 mb-3 flex-wrap">
+                        <span class={`inline-flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-md font-semibold ${categoryConfig[featuredPost.category]?.bg || 'bg-neutral-100'} ${categoryConfig[featuredPost.category]?.color || 'text-neutral-700'}`}>
                           {categoryConfig[featuredPost.category]?.icon && (
                             <span class="flex items-center">
                               {(() => {
                                 const IconComponent = categoryConfig[featuredPost.category].icon;
-                                return <IconComponent class="size-3" />;
+                                return <IconComponent class="size-3.5" />;
                               })()}
                             </span>
                           )}
-                          {featuredPost.category.replace('_', ' ')}
+                          {categoryConfig[featuredPost.category]?.label || featuredPost.category.replace('_', ' ')}
                         </span>
                         <span class="text-xs text-neutral-400">{formatDate(featuredPost.publishedAt || featuredPost._creationTime)}</span>
                         {featuredPost.sourceName && (
-                          <span class="text-xs text-neutral-400">
-                            {featuredPost.sourceName}
+                          <span class="text-xs text-neutral-500 font-medium">
+                            via {featuredPost.sourceName}
                           </span>
                         )}
                       </div>
-                      <h3 class="text-lg sm:text-xl lg:text-2xl font-bold text-foreground group-hover:text-primary transition-colors leading-tight mb-2">
+                      <h3 class="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground group-hover:text-primary transition-colors leading-tight mb-3">
                         {featuredPost.title}
                       </h3>
-                      <p class="text-neutral-600 text-sm leading-relaxed line-clamp-2">
+                      <p class="text-neutral-600 text-sm sm:text-base leading-relaxed mb-4">
                         {featuredPost.excerpt}
                       </p>
+                      <div class="flex items-center gap-2 text-sm font-semibold text-primary">
+                        Read full article
+                        <ArrowRight class="size-4 transition-transform group-hover:translate-x-1" />
+                      </div>
                     </div>
-                    <div class="flex items-center gap-1 text-sm font-semibold text-primary shrink-0 lg:pt-8">
-                      Read article
-                      <ArrowRight class="size-4 transition-transform group-hover:translate-x-1" />
-                    </div>
+                    {featuredPost.featuredImageUrl && (
+                      <div class="md:w-64 lg:w-80 shrink-0">
+                        <div class="aspect-[16/10] rounded-lg overflow-hidden bg-neutral-100">
+                          <img
+                            src={featuredPost.featuredImageUrl}
+                            alt={featuredPost.title}
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            loading="eager"
+                          />
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               </a>
@@ -262,66 +256,70 @@ const newsSchema = {
               <span class="text-xs text-neutral-400" id="article-count">Showing {remainingPosts.length} articles</span>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="news-grid">
+            <div class="space-y-3 sm:space-y-4" id="news-grid">
               {remainingPosts.map((post) => {
                 const config = categoryConfig[post.category] || categoryConfig.other;
                 const Icon = config.icon;
+                const borderColor = post.category === 'arrest' ? 'rgb(239 68 68)' : 
+                                  post.category === 'seizure' ? 'rgb(249 115 22)' : 
+                                  post.category === 'law_change' ? 'rgb(20 184 166)' : 
+                                  post.category === 'statistics' ? 'rgb(59 130 246)' : 
+                                  post.category === 'prevention_tip' ? 'rgb(16 185 129)' : 
+                                  'rgb(115 115 115)';
                 // Article cards always link to the internal summary page
 
                 return (
                   <a
                     href={`/news/${post.slug}`}
-                    class="news-card group flex flex-col bg-card rounded-xl shadow-md hover:shadow-md transition-all duration-200 border border-border hover:border-primary/20 overflow-hidden h-full"
+                    class="news-card group flex bg-card rounded-lg shadow-sm hover:shadow-md transition-all duration-200 border-l-4 border-t border-r border-b border-border hover:border-r-primary/30 hover:border-t-primary/30 hover:border-b-primary/30 overflow-hidden"
                     data-category={post.category}
+                    style={`border-left-color: ${borderColor}`}
                   >
-                    {/* Featured image or category fallback */}
-                    {post.featuredImageUrl ? (
-                      <div class="w-full aspect-[16/9] overflow-hidden bg-neutral-100">
-                        <img
-                          src={post.featuredImageUrl}
-                          alt={post.title}
-                          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                          loading="lazy"
-                        />
-                      </div>
-                    ) : (
-                      <div class={`w-full aspect-[16/9] bg-gradient-to-br ${config.gradient} flex items-center justify-center`}>
-                        <div class="bg-white/20 backdrop-blur-sm p-3 rounded-2xl">
-                          <Icon class="size-8 text-white" />
-                        </div>
-                      </div>
-                    )}
-                    <div class="p-4 sm:p-5 flex flex-col flex-1">
-                      <div class="flex items-start justify-between gap-3 mb-2">
-                        <span class={`inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-full font-medium ${config.bg} ${config.color}`}>
-                          <Icon className="size-3" />
+                    <div class="flex-1 p-4 sm:p-5">
+                      <div class="flex items-center gap-2 mb-2 flex-wrap">
+                        <span class={`inline-flex items-center gap-1 text-[10px] sm:text-xs px-2 py-0.5 sm:py-1 rounded-md font-semibold ${config.bg} ${config.color}`}>
+                          <Icon class="size-3" />
                           {config.label}
                         </span>
-                        <div class="flex items-center gap-1 text-[10px] text-neutral-400">
+                        <div class="flex items-center gap-1.5 text-[10px] sm:text-xs text-neutral-400">
                           <Clock class="size-3" />
                           {formatDate(post.publishedAt || post._creationTime)}
                         </div>
+                        {post.sourceName && (
+                          <span class="text-[10px] sm:text-xs text-neutral-400">
+                            • {post.sourceName}
+                          </span>
+                        )}
                       </div>
 
-                      <h3 class="text-base sm:text-lg font-semibold text-foreground group-hover:text-primary transition-colors leading-snug mb-2 line-clamp-2">
+                      <h3 class="text-base sm:text-lg font-bold text-foreground group-hover:text-primary transition-colors leading-snug mb-2">
                         {post.title}
                       </h3>
 
-                      <p class="text-neutral-600 text-sm leading-relaxed line-clamp-2 mb-3">
-                        {post.excerpt}
-                      </p>
+                      {post.excerpt && (
+                        <p class="text-neutral-600 text-sm leading-relaxed line-clamp-2">
+                          {post.excerpt}
+                        </p>
+                      )}
 
-                      <div class="flex items-center justify-between mt-auto pt-3 border-t border-border">
-                        {post.sourceName ? (
-                          <span class="text-xs text-neutral-400">
-                            {post.sourceName}
-                          </span>
-                        ) : (
-                          <span class="text-xs text-primary font-medium">ProtectMyMobile</span>
-                        )}
-                        <ArrowRight class="size-4 text-neutral-300 group-hover:text-primary transition-colors" />
+                      <div class="flex items-center gap-1.5 mt-3 text-xs font-semibold text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+                        Read more
+                        <ArrowRight class="size-3.5 transition-transform group-hover:translate-x-0.5" />
                       </div>
                     </div>
+
+                    {post.featuredImageUrl && (
+                      <div class="w-24 sm:w-32 md:w-40 shrink-0 self-center">
+                        <div class="aspect-square rounded-md overflow-hidden bg-neutral-100 m-3 sm:m-4">
+                          <img
+                            src={post.featuredImageUrl}
+                            alt={post.title}
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            loading="lazy"
+                          />
+                        </div>
+                      </div>
+                    )}
                   </a>
                 );
               })}

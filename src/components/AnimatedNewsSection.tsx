@@ -142,20 +142,24 @@ export default function AnimatedNewsSection({ news }: Props) {
 
 function NewsCard({ post, index, config, Icon }: { post: NewsPost; index: number; config: any; Icon: any }) {
   const { ref, isInView } = useInView<HTMLAnchorElement>({ rootMargin: '-50px', threshold: 0.1 });
+  
+  const borderColor = post.category === 'arrest' ? 'rgb(239 68 68)' : 
+                      post.category === 'seizure' ? 'rgb(249 115 22)' : 
+                      post.category === 'law_change' ? 'rgb(20 184 166)' : 
+                      post.category === 'statistics' ? 'rgb(59 130 246)' : 
+                      post.category === 'prevention_tip' ? 'rgb(16 185 129)' : 
+                      'rgb(115 115 115)';
 
   return (
     <a
       ref={ref}
       href={`/news/${post.slug}`}
-      className={`group flex flex-col bg-card rounded-xl shadow-sm hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 border border-border hover:border-primary/20 h-full relative overflow-hidden hover:-translate-y-1 animate-on-scroll ${isInView ? 'is-visible' : ''}`}
-      style={{ animationDelay: `${index * 50}ms` }}
+      className={`group flex flex-col bg-card rounded-xl shadow-sm hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 border-l-4 border-t border-r border-b border-border hover:border-r-primary/20 hover:border-t-primary/20 hover:border-b-primary/20 h-full relative overflow-hidden hover:-translate-y-1 animate-on-scroll ${isInView ? 'is-visible' : ''}`}
+      style={{ animationDelay: `${index * 50}ms`, borderLeftColor: borderColor }}
     >
-      {/* Top Accent Line */}
-      <div className={`h-1.5 w-full bg-gradient-to-r ${config.gradient}`} />
-
       <div className="p-5 sm:p-6 flex flex-col flex-grow">
         {/* Meta Header */}
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center gap-2 mb-3 flex-wrap">
           <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold ${config.bg} ${config.color}`}>
             <Icon className="h-3.5 w-3.5" />
             {post.category.replace("_", " ")}
@@ -172,9 +176,11 @@ function NewsCard({ post, index, config, Icon }: { post: NewsPost; index: number
         </h3>
 
         {/* Excerpt */}
-        <p className="text-neutral-600 text-sm leading-relaxed mb-6 flex-grow">
-          {post.excerpt}
-        </p>
+        {post.excerpt && (
+          <p className="text-neutral-600 text-sm leading-relaxed mb-4 flex-grow line-clamp-3">
+            {post.excerpt}
+          </p>
+        )}
 
         {/* Footer */}
         <div className="flex items-center text-sm font-semibold text-primary group-hover:gap-2 transition-all mt-auto">
