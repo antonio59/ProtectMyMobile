@@ -1196,10 +1196,14 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
+- Update changelog [skip ci]
 - Add UI/UX review documentation and misc updates
 
 ### Features
 
+- Final design system refinements and theme toggle
+- Shadow elevation, borders, icons, dark mode prep, print styles
+- Adopt Google design.md spec and semantic design tokens
 - Theft map, journalist outreach templates, admin approval workflow
 - **cron**: Automated directory discovery for banks and mobile providers
 - UI/UX improvements, 2025 data integration, news deduplication, and community CTAs
@@ -1219,5 +1223,10 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 - **news**: Further optimize scraper to avoid Netlify timeouts
 - Comprehensive performance, SEO, and code quality improvements
+
+### Refactoring
+
+- Fallow cleanup, complexity reduction, and CI integration
+- Complete semantic token migration and design system docs
 
 
