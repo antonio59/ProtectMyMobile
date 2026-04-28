@@ -69,6 +69,7 @@ All notable changes to this project will be documented in this file.
 
 ### CI/CD
 
+- Use npm install instead of npm ci for cross-platform optional deps
 - Switch all CI workflows from bun to npm
 - Ignore @tailwindcss/typography in fallow dead-code scan
 - Add continue-on-error to regression baseline save step
@@ -1160,6 +1161,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
