@@ -32,6 +32,4 @@ ProtectMyMobile/
 netlify/netlify/
 .gstack/
 
-# npm lockfile (project uses bun)
-package-lock.json
 *.bin

@@ -1,5 +1,5 @@
 [build]
-  command = "yarn install --frozen-lockfile && yarn build"
+  command = "npm install && npm run build"
   publish = "dist"
 
 [build.environment]
