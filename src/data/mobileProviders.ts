@@ -1,4 +1,4 @@
-export type MobileProvider = {
+type MobileProvider = {
   id: string;
   name: string;
   colour: string;

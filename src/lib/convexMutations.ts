@@ -8,7 +8,7 @@ const convexUrl = typeof window !== 'undefined'
   ? (import.meta.env?.PUBLIC_CONVEX_URL || (window as any).__CONVEX_URL__)
   : import.meta.env.PUBLIC_CONVEX_URL;
 
-export function getConvexClient() {
+function getConvexClient() {
   if (!convexUrl) {
     console.warn('Convex URL not available');
     return null;
@@ -29,7 +29,7 @@ export async function createContactSubmission(data: {
 }
 
 // Experience Reports
-export async function createExperienceReport(data: {
+async function createExperienceReport(data: {
   hasExperiencedTheft: boolean;
   when: string;
   where: string;
@@ -61,7 +61,7 @@ export async function submitCommunityResponse(data: {
 }
 
 // Page Views
-export async function recordPageView(data: {
+async function recordPageView(data: {
   path: string;
   referrer?: string;
   userAgent?: string;

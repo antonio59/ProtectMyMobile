@@ -1,12 +1,9 @@
 import type { APIRoute } from 'astro';
-import { ConvexHttpClient } from 'convex/browser';
 import { api } from '../../../../convex/_generated/api';
 import Parser from 'rss-parser';
-import { Resend } from 'resend';
-import { requireApiKey } from '../../../lib/security';
+import { getConvexClient, requireConvex, sendReportEmail } from '../../../lib/cron-utils';
 
-const convexUrl = import.meta.env.PUBLIC_CONVEX_URL;
-const convex = convexUrl ? new ConvexHttpClient(convexUrl) : null;
+const convex = getConvexClient();
 const parser = new Parser();
 
 // WhatDoTheyKnow RSS feeds to monitor
@@ -71,43 +68,42 @@ function extractStatus(content: string): string {
   return 'unknown';
 }
 
-export const GET: APIRoute = async ({ request }) => {
-  const unauthorized = requireApiKey(request);
-  if (unauthorized) return unauthorized;
+function isRelevantEntry(item: any): WDTKEntry | null {
+  const text = ((item.title || '') + ' ' + (item.content || '')).toLowerCase();
+  if (!text.includes('mobile') && !text.includes('phone theft') && !text.includes('smartphone')) return null;
+  return {
+    id: item.id || item.link || '',
+    title: item.title || '',
+    link: item.link || '',
+    published: item.pubDate || item.isoDate || '',
+    content: item.content || '',
+    policeForce: extractPoliceForce(item.content || ''),
+    status: extractStatus(item.content || ''),
+  };
+}
 
-  if (!convex) {
-    return new Response(JSON.stringify({ 
-      success: false, 
-      error: 'Missing PUBLIC_CONVEX_URL' 
-    }), { status: 500 });
+async function fetchFeedEntries(feedUrl: string): Promise<WDTKEntry[]> {
+  try {
+    const feed = await parser.parseURL(feedUrl);
+    const entries: WDTKEntry[] = [];
+    for (const item of feed.items || []) {
+      const entry = isRelevantEntry(item);
+      if (entry) entries.push(entry);
+    }
+    return entries;
+  } catch (err) {
+    console.error(`Failed to fetch feed ${feedUrl}:`, err);
+    return [];
   }
+}
+
+export const GET: APIRoute = async ({ request }) => {
+  const missingConvex = requireConvex(convex);
+  if (missingConvex) return missingConvex;
 
   try {
-    const allEntries: WDTKEntry[] = [];
-    
-    // Fetch all RSS feeds
-    for (const feedUrl of WDTK_FEEDS) {
-      try {
-        const feed = await parser.parseURL(feedUrl);
-        for (const item of feed.items || []) {
-          // Only include mobile theft related items
-          const text = ((item.title || '') + ' ' + (item.content || '')).toLowerCase();
-          if (text.includes('mobile') || text.includes('phone theft') || text.includes('smartphone')) {
-            allEntries.push({
-              id: item.id || item.link || '',
-              title: item.title || '',
-              link: item.link || '',
-              published: item.pubDate || item.isoDate || '',
-              content: item.content || '',
-              policeForce: extractPoliceForce(item.content || ''),
-              status: extractStatus(item.content || ''),
-            });
-          }
-        }
-      } catch (err) {
-        console.error(`Failed to fetch feed ${feedUrl}:`, err);
-      }
-    }
+    const feedResults = await Promise.all(WDTK_FEEDS.map(fetchFeedEntries));
+    const allEntries = feedResults.flat();
 
     // Deduplicate by ID
     const uniqueEntries = Array.from(
@@ -147,30 +143,23 @@ export const GET: APIRoute = async ({ request }) => {
       e => e.status === 'successful' || e.status === 'partial'
     );
 
-    // Send notification if we found successful responses
     if (successfulNew.length > 0) {
-      const resendApiKey = import.meta.env.RESEND_API_KEY || process.env.RESEND_API_KEY;
-      if (resendApiKey) {
-        const resend = new Resend(resendApiKey);
-        await resend.emails.send({
-          from: 'ProtectMyMobile <onboarding@resend.dev>',
-          to: ['protectmymobile.xyz.overlabor129@passmail.com'],
-          subject: `🎉 ${successfulNew.length} New FOI Responses Found on WhatDoTheyKnow`,
-          html: `
-            <h2>New Successful FOI Responses Detected</h2>
-            <p>The following FOI requests have received responses with data:</p>
-            <ul>
-              ${successfulNew.map(e => `
-                <li>
-                  <strong>${e.policeForce || 'Unknown Force'}</strong>: ${e.title}<br>
-                  <a href="${e.link}">View on WhatDoTheyKnow</a>
-                </li>
-              `).join('')}
-            </ul>
-            <p><a href="https://protectmymobile.xyz/admin/foi">Import data in Admin Dashboard</a></p>
-          `,
-        });
-      }
+      await sendReportEmail(
+        `🎉 ${successfulNew.length} New FOI Responses Found on WhatDoTheyKnow`,
+        `
+          <h2>New Successful FOI Responses Detected</h2>
+          <p>The following FOI requests have received responses with data:</p>
+          <ul>
+            ${successfulNew.map(e => `
+              <li>
+                <strong>${e.policeForce || 'Unknown Force'}</strong>: ${e.title}<br>
+                <a href="${e.link}">View on WhatDoTheyKnow</a>
+              </li>
+            `).join('')}
+          </ul>
+          <p><a href="https://protectmymobile.xyz/admin/foi">Import data in Admin Dashboard</a></p>
+        `
+      );
     }
 
     return new Response(JSON.stringify({

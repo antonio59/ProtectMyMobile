@@ -6,7 +6,7 @@ import { api } from "../../convex/_generated/api";
 
 const convexUrl = import.meta.env.PUBLIC_CONVEX_URL;
 
-export const convexClient = convexUrl ? new ConvexHttpClient(convexUrl) : null;
+const convexClient = convexUrl ? new ConvexHttpClient(convexUrl) : null;
 
 // News Posts
 export async function getNewsPosts(publishedOnly = true) {
@@ -23,7 +23,7 @@ export async function getNewsPostBySlug(slug: string) {
 }
 
 // Theft Data Points
-export async function getTheftDataPoints(startDate?: string, endDate?: string) {
+async function getTheftDataPoints(startDate?: string, endDate?: string) {
   if (!convexClient) return [];
   return await convexClient.query(api.theftDataPoints.list, { startDate, endDate });
 }
@@ -41,13 +41,13 @@ export async function getMobileProviders(activeOnly = true) {
 }
 
 // Experience Reports
-export async function getExperienceReports(approvedOnly = false) {
+async function getExperienceReports(approvedOnly = false) {
   if (!convexClient) return [];
   return await convexClient.query(api.experienceReports.list, { approvedOnly });
 }
 
 // Contact Submissions (admin only)
-export async function getContactSubmissions() {
+async function getContactSubmissions() {
   if (!convexClient) return [];
   return await convexClient.query(api.contactSubmissions.list, {});
 }
@@ -77,13 +77,13 @@ export async function getTheftStats(year?: string) {
 }
 
 // Get site metadata
-export async function getSiteMetadata(key: string) {
+async function getSiteMetadata(key: string) {
   if (!convexClient) return null;
   return await convexClient.query(api.siteMetadata.get, { key });
 }
 
 // Get multiple site metadata values
-export async function getMultipleSiteMetadata(keys: string[]) {
+async function getMultipleSiteMetadata(keys: string[]) {
   if (!convexClient) return {};
   return await convexClient.query(api.siteMetadata.getMultiple, { keys });
 }
@@ -199,48 +199,71 @@ export function getSecurityAdoptionRate(stats: CommunityStats): number {
   return Math.round((withSecurity / total) * 100);
 }
 
+type NormalizedResponse = {
+  hadStolen: string | undefined;
+  phoneRecovered: string | null | undefined;
+  securityMeasures: string[];
+  theftLocation: string | null | undefined;
+  reportedToPolice: string | null | undefined;
+};
+
+function normalizeResponse(response: CommunityResponse): NormalizedResponse {
+  return {
+    hadStolen: response.had_phone_stolen || response.hadPhoneStolen,
+    phoneRecovered: response.phone_recovered || response.phoneRecovered,
+    securityMeasures: response.security_measures || response.securityMeasures || [],
+    theftLocation: response.theft_location || response.theftLocation,
+    reportedToPolice: response.reported_to_police || response.reportedToPolice,
+  };
+}
+
+function generateTheftInsights(response: NormalizedResponse, stats: CommunityStats): string[] {
+  const insights: string[] = [];
+  const { phoneRecovered, securityMeasures, theftLocation, reportedToPolice } = response;
+
+  if (phoneRecovered === 'no') {
+    const totalWithRecovery = stats.recoveryStats.fullyRecovered + stats.recoveryStats.partiallyRecovered + stats.recoveryStats.notRecovered;
+    if (totalWithRecovery > 0) {
+      const notRecoveredPercent = Math.round((stats.recoveryStats.notRecovered / totalWithRecovery) * 100);
+      insights.push(`${notRecoveredPercent}% of theft victims in our community also never recovered their phone.`);
+    }
+  }
+
+  if (securityMeasures.includes('find_my_device')) {
+    insights.push('Find My Device significantly increases recovery chances. Keep it enabled!');
+  } else {
+    insights.push('Consider enabling Find My Device - users with this feature have higher recovery rates.');
+  }
+
+  if (theftLocation === 'public_transport') {
+    insights.push('Public transport is the most common theft location in our data. Stay extra vigilant on buses and trains.');
+  }
+
+  if (reportedToPolice === 'yes_crime_ref') {
+    insights.push('Good! Reporting to police creates official records that may help with insurance claims.');
+  } else if (reportedToPolice === 'no') {
+    insights.push('Consider reporting to police even if recovery seems unlikely - it helps track crime patterns.');
+  }
+
+  return insights;
+}
+
+function generatePreventionInsights(securityMeasures: string[]): string[] {
+  if (securityMeasures.includes('biometric') && securityMeasures.includes('find_my_device')) {
+    return ['Excellent security setup! You\'re well-protected against theft.'];
+  }
+  return ['Consider adding more security layers like biometric locks and Find My Device.'];
+}
+
 export function generateInsights(
   userResponse: CommunityResponse,
   stats: CommunityStats
 ): string[] {
-  const insights: string[] = [];
-  const hadStolen = userResponse.had_phone_stolen || userResponse.hadPhoneStolen;
-  const phoneRecovered = userResponse.phone_recovered || userResponse.phoneRecovered;
-  const securityMeasures = userResponse.security_measures || userResponse.securityMeasures || [];
-  const theftLocation = userResponse.theft_location || userResponse.theftLocation;
-  const reportedToPolice = userResponse.reported_to_police || userResponse.reportedToPolice;
-  
-  if (hadStolen === 'yes') {
-    if (phoneRecovered === 'no') {
-      const totalWithRecovery = stats.recoveryStats.fullyRecovered + stats.recoveryStats.partiallyRecovered + stats.recoveryStats.notRecovered;
-      if (totalWithRecovery > 0) {
-        const notRecoveredPercent = Math.round((stats.recoveryStats.notRecovered / totalWithRecovery) * 100);
-        insights.push(`${notRecoveredPercent}% of theft victims in our community also never recovered their phone.`);
-      }
-    }
-    
-    if (securityMeasures.includes('find_my_device')) {
-      insights.push('Find My Device significantly increases recovery chances. Keep it enabled!');
-    } else {
-      insights.push('Consider enabling Find My Device - users with this feature have higher recovery rates.');
-    }
-    
-    if (theftLocation === 'public_transport') {
-      insights.push('Public transport is the most common theft location in our data. Stay extra vigilant on buses and trains.');
-    }
-    
-    if (reportedToPolice === 'yes_crime_ref') {
-      insights.push('Good! Reporting to police creates official records that may help with insurance claims.');
-    } else if (reportedToPolice === 'no') {
-      insights.push('Consider reporting to police even if recovery seems unlikely - it helps track crime patterns.');
-    }
-  } else {
-    if (securityMeasures.includes('biometric') && securityMeasures.includes('find_my_device')) {
-      insights.push('Excellent security setup! You\'re well-protected against theft.');
-    } else {
-      insights.push('Consider adding more security layers like biometric locks and Find My Device.');
-    }
+  const normalized = normalizeResponse(userResponse);
+
+  if (normalized.hadStolen === 'yes') {
+    return generateTheftInsights(normalized, stats);
   }
-  
-  return insights;
+
+  return generatePreventionInsights(normalized.securityMeasures);
 }

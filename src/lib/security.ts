@@ -1,6 +1,6 @@
 const API_SECRET = (typeof import.meta !== 'undefined' && (import.meta as any).env?.CRON_SECRET) || process.env.CRON_SECRET;
 
-export function extractBearerToken(request: Request) {
+function extractBearerToken(request: Request) {
   const header = request.headers.get('authorization');
   if (header && header.toLowerCase().startsWith('bearer ')) {
     return header.slice(7);

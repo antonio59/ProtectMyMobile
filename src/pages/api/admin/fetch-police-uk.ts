@@ -1,10 +1,9 @@
 import type { APIRoute } from 'astro';
-import { ConvexHttpClient } from 'convex/browser';
 import { api } from '../../../../convex/_generated/api';
+import { getConvexClient, requireConvex } from '../../../lib/cron-utils';
 import { requireApiKey } from '../../../lib/security';
 
-const convexUrl = import.meta.env.PUBLIC_CONVEX_URL;
-const convex = convexUrl ? new ConvexHttpClient(convexUrl) : null;
+const convex = getConvexClient();
 
 // UK major cities with coordinates (same as seed-theft-data.ts)
 const UK_LOCATIONS = [
@@ -89,190 +88,182 @@ function generateMonthRange(startMonth: string, endMonth: string): string[] {
   return months;
 }
 
+interface DateRange {
+  startMonth: string;
+  endMonth: string;
+  months: string[];
+}
+
+function resolveDateRange(url: URL): DateRange | Response {
+  const mode = url.searchParams.get('mode') || 'explicit';
+  const recentMonths = parseInt(url.searchParams.get('months') || '3', 10);
+  let startMonth = url.searchParams.get('startMonth') || '';
+  let endMonth = url.searchParams.get('endMonth') || '';
+
+  if (mode === 'recent') {
+    const now = new Date();
+    const endDate = new Date(now.getFullYear(), now.getMonth(), 1);
+    const startDate = new Date(now.getFullYear(), now.getMonth() - (recentMonths - 1), 1);
+    endMonth = `${endDate.getFullYear()}-${String(endDate.getMonth() + 1).padStart(2, '0')}`;
+    startMonth = `${startDate.getFullYear()}-${String(startDate.getMonth() + 1).padStart(2, '0')}`;
+  }
+
+  if (!startMonth || !endMonth) {
+    startMonth = '2024-01';
+    endMonth = '2024-12';
+  }
+
+  const dateRegex = /^\d{4}-\d{2}$/;
+  if (!dateRegex.test(startMonth) || !dateRegex.test(endMonth)) {
+    return new Response(JSON.stringify({
+      error: 'Invalid date format. Use YYYY-MM format (e.g., 2024-01)'
+    }), { status: 400, headers: { 'Content-Type': 'application/json' } });
+  }
+
+  const months = generateMonthRange(startMonth, endMonth);
+  if (months.length === 0) {
+    return new Response(JSON.stringify({
+      error: 'Invalid date range. Start month must be before or equal to end month'
+    }), { status: 400, headers: { 'Content-Type': 'application/json' } });
+  }
+
+  return { startMonth, endMonth, months };
+}
+
+interface FetchStats {
+  totalRequests: number;
+  successfulRequests: number;
+  failedRequests: number;
+  totalCrimes: number;
+  byLocation: Record<string, number>;
+  byMonth: Record<string, number>;
+  recordsCreated: number;
+  errors: string[];
+}
+
+async function fetchAllLocationData(months: string[]): Promise<{ stats: FetchStats; dataPoints: any[] }> {
+  const stats: FetchStats = {
+    totalRequests: 0,
+    successfulRequests: 0,
+    failedRequests: 0,
+    totalCrimes: 0,
+    byLocation: {},
+    byMonth: {},
+    recordsCreated: 0,
+    errors: [],
+  };
+  const dataPoints: any[] = [];
+
+  for (const location of UK_LOCATIONS) {
+    for (const month of months) {
+      stats.totalRequests++;
+      try {
+        const crimes = await fetchPoliceUKData(location.lat, location.lng, month);
+        stats.successfulRequests++;
+        const crimeCount = crimes.length;
+        stats.totalCrimes += crimeCount;
+        stats.byLocation[location.name] = (stats.byLocation[location.name] || 0) + crimeCount;
+        stats.byMonth[month] = (stats.byMonth[month] || 0) + crimeCount;
+
+        if (crimeCount > 0) {
+          dataPoints.push({
+            date: `${month}-01`,
+            locationName: location.name,
+            latitude: location.lat,
+            longitude: location.lng,
+            theftCount: crimeCount,
+            dataSource: 'police.uk API',
+          });
+        }
+        await sleep(RATE_LIMIT_MS);
+      } catch (error: any) {
+        stats.failedRequests++;
+        stats.errors.push(`${location.name} (${month}): ${error.message}`);
+        if (error.message.includes('Rate limit')) {
+          await sleep(1000);
+        }
+      }
+    }
+  }
+
+  return { stats, dataPoints };
+}
+
+function buildSuccessResponse(stats: FetchStats, months: string[], dataPoints: any[], existing: any[]): object {
+  const existingPolice = existing?.filter((e: any) => e.dataSource === 'police.uk API') || [];
+  const existingKeys = new Set(existingPolice.map((e: any) => `${e.date}_${e.locationName}`));
+  const newDataPoints = dataPoints.filter(dp => !existingKeys.has(`${dp.date}_${dp.locationName}`));
+
+  return {
+    success: true,
+    message: `Fetched data from police.uk API for ${months.length} months across ${UK_LOCATIONS.length} locations`,
+    dateRange: { months: months.length },
+    locations: UK_LOCATIONS.length,
+    apiStats: {
+      totalRequests: stats.totalRequests,
+      successful: stats.successfulRequests,
+      failed: stats.failedRequests,
+      successRate: stats.totalRequests > 0
+        ? `${((stats.successfulRequests / stats.totalRequests) * 100).toFixed(1)}%`
+        : '0.0%',
+    },
+    crimeData: {
+      totalCrimes: stats.totalCrimes,
+      recordsCreated: newDataPoints.length,
+      duplicatesSkipped: dataPoints.length - newDataPoints.length,
+      existingRecords: existingPolice.length,
+    },
+    topLocations: Object.entries(stats.byLocation)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 10)
+      .map(([name, count]) => ({ name, crimes: count })),
+    monthlyBreakdown: stats.byMonth,
+    errors: stats.errors.length > 0 ? stats.errors.slice(0, 10) : undefined,
+  };
+}
+
 export const GET: APIRoute = async ({ request }) => {
   const unauthorized = requireApiKey(request);
   if (unauthorized) return unauthorized;
 
-  if (!convex) {
-    return new Response(JSON.stringify({ error: 'Missing CONVEX_URL' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  }
+  const missingConvex = requireConvex(convex);
+  if (missingConvex) return missingConvex;
 
   try {
-    // Parse query parameters
-    const url = new URL(request.url);
-    const mode = url.searchParams.get('mode') || 'explicit'; // 'recent' or 'explicit'
-    const recentMonths = parseInt(url.searchParams.get('months') || '3', 10);
-    let startMonth = url.searchParams.get('startMonth') || '';
-    let endMonth = url.searchParams.get('endMonth') || '';
+    const dateResult = resolveDateRange(new URL(request.url));
+    if (dateResult instanceof Response) return dateResult;
+    const { startMonth, endMonth, months } = dateResult;
 
-    if (mode === 'recent') {
-      // Compute last N months from current date
-      const now = new Date();
-      const endDate = new Date(now.getFullYear(), now.getMonth(), 1);
-      const startDate = new Date(now.getFullYear(), now.getMonth() - (recentMonths - 1), 1);
-      endMonth = `${endDate.getFullYear()}-${String(endDate.getMonth() + 1).padStart(2, '0')}`;
-      startMonth = `${startDate.getFullYear()}-${String(startDate.getMonth() + 1).padStart(2, '0')}`;
-    }
+    const { stats, dataPoints } = await fetchAllLocationData(months);
 
-    // Fallback defaults if still not set
-    if (!startMonth || !endMonth) {
-      startMonth = '2024-01';
-      endMonth = '2024-12';
-    }
-
-    // Validate date format
-    const dateRegex = /^\d{4}-\d{2}$/;
-    if (!dateRegex.test(startMonth) || !dateRegex.test(endMonth)) {
-      return new Response(JSON.stringify({
-        error: 'Invalid date format. Use YYYY-MM format (e.g., 2024-01)'
-      }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' },
-      });
-    }
-
-    // Generate month range
-    const months = generateMonthRange(startMonth, endMonth);
-
-    if (months.length === 0) {
-      return new Response(JSON.stringify({
-        error: 'Invalid date range. Start month must be before or equal to end month'
-      }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' },
-      });
-    }
-
-    const stats = {
-      totalRequests: 0,
-      successfulRequests: 0,
-      failedRequests: 0,
-      totalCrimes: 0,
-      byLocation: {} as Record<string, number>,
-      byMonth: {} as Record<string, number>,
-      recordsCreated: 0,
-      errors: [] as string[],
-    };
-
-    const dataPoints = [];
-
-    // Fetch data for each location and month
-    for (const location of UK_LOCATIONS) {
-      for (const month of months) {
-        stats.totalRequests++;
-
-        try {
-          // Fetch data from police.uk API
-          const crimes = await fetchPoliceUKData(location.lat, location.lng, month);
-          stats.successfulRequests++;
-
-          const crimeCount = crimes.length;
-          stats.totalCrimes += crimeCount;
-
-          // Update stats
-          stats.byLocation[location.name] = (stats.byLocation[location.name] || 0) + crimeCount;
-          stats.byMonth[month] = (stats.byMonth[month] || 0) + crimeCount;
-
-          // Only create data points if there are crimes
-          if (crimeCount > 0) {
-            dataPoints.push({
-              date: `${month}-01`, // First day of month for consistency
-              locationName: location.name,
-              latitude: location.lat,
-              longitude: location.lng,
-              theftCount: crimeCount,
-              dataSource: 'police.uk API',
-            });
-          }
-
-          // Rate limiting - wait before next request
-          await sleep(RATE_LIMIT_MS);
-
-        } catch (error: any) {
-          stats.failedRequests++;
-          stats.errors.push(`${location.name} (${month}): ${error.message}`);
-
-          // If we hit rate limit, wait longer
-          if (error.message.includes('Rate limit')) {
-            await sleep(1000);
-          }
-        }
-      }
-    }
-
-    // Check for existing data to avoid duplicates
     const existing = await convex.query(api.theftDataPoints.list, {
       startDate: `${startMonth}-01`,
       endDate: `${endMonth}-28`
     });
 
-    // Filter out months/locations that already have police.uk data
-    const existingKeys = new Set(
-      existing
-        ?.filter((e: any) => e.dataSource === 'police.uk API')
-        .map((e: any) => `${e.date}_${e.locationName}`)
-    );
+    const newDataPoints = dataPoints.filter(dp => {
+      const key = `${dp.date}_${dp.locationName}`;
+      return !existing?.some((e: any) => e.dataSource === 'police.uk API' && `${e.date}_${e.locationName}` === key);
+    });
 
-    const newDataPoints = dataPoints.filter(dp =>
-      !existingKeys.has(`${dp.date}_${dp.locationName}`)
-    );
-
-    // Batch insert new data points
     if (newDataPoints.length > 0) {
       await convex.mutation(api.theftDataPoints.createBatch, {
         adminToken: import.meta.env.CRON_SECRET || process.env.CRON_SECRET,
         dataPoints: newDataPoints
       });
-      stats.recordsCreated = newDataPoints.length;
     }
 
-    // Prepare response
-    const response = {
-      success: true,
-      message: `Fetched data from police.uk API for ${months.length} months across ${UK_LOCATIONS.length} locations`,
-      dateRange: {
-        start: startMonth,
-        end: endMonth,
-        months: months.length,
-      },
-      locations: UK_LOCATIONS.length,
-      apiStats: {
-        totalRequests: stats.totalRequests,
-        successful: stats.successfulRequests,
-        failed: stats.failedRequests,
-        successRate: `${((stats.successfulRequests / stats.totalRequests) * 100).toFixed(1)}%`,
-      },
-      crimeData: {
-        totalCrimes: stats.totalCrimes,
-        recordsCreated: stats.recordsCreated,
-        duplicatesSkipped: dataPoints.length - newDataPoints.length,
-        existingRecords: existing?.filter((e: any) => e.dataSource === 'police.uk API').length || 0,
-      },
-      topLocations: Object.entries(stats.byLocation)
-        .sort((a, b) => b[1] - a[1])
-        .slice(0, 10)
-        .map(([name, count]) => ({ name, crimes: count })),
-      monthlyBreakdown: stats.byMonth,
-      errors: stats.errors.length > 0 ? stats.errors.slice(0, 10) : undefined,
-    };
-
+    const response = buildSuccessResponse(stats, months, dataPoints, existing || []);
     return new Response(JSON.stringify(response, null, 2), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
     });
-
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : 'An unexpected error occurred';
     console.error('Police.uk fetch error:', message);
     return new Response(JSON.stringify({
       error: 'Failed to fetch police data',
       message,
-    }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    }), { status: 500, headers: { 'Content-Type': 'application/json' } });
   }
 };

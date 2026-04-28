@@ -15,7 +15,7 @@ export function Skeleton({ className }: SkeletonProps) {
   );
 }
 
-export function CardSkeleton() {
+function CardSkeleton() {
   return (
     <div className="bg-card rounded-xl p-4 sm:p-6 space-y-4">
       <Skeleton className="h-8 w-3/4" />
@@ -29,7 +29,7 @@ export function CardSkeleton() {
   );
 }
 
-export function StatsCardSkeleton() {
+function StatsCardSkeleton() {
   return (
     <div className="bg-white/10 backdrop-blur-sm rounded-xl p-3 sm:p-4 space-y-2">
       <Skeleton className="h-8 sm:h-10 w-20 mx-auto bg-white/20" />
@@ -58,7 +58,7 @@ export function ChartSkeleton() {
   );
 }
 
-export function NewsCardSkeleton() {
+function NewsCardSkeleton() {
   return (
     <div className="bg-card rounded-xl shadow-sm border border-border p-4 sm:p-5 space-y-3">
       <div className="flex items-center gap-2">
@@ -72,7 +72,7 @@ export function NewsCardSkeleton() {
   );
 }
 
-export function BankCardSkeleton() {
+function BankCardSkeleton() {
   return (
     <div className="bg-card rounded-xl shadow-md p-4 sm:p-6 space-y-4">
       <div className="flex items-center gap-3">
@@ -88,7 +88,7 @@ export function BankCardSkeleton() {
   );
 }
 
-export function ListItemSkeleton({ count = 5 }: { count?: number }) {
+function ListItemSkeleton({ count = 5 }: { count?: number }) {
   return (
     <div className="space-y-3">
       {Array.from({ length: count }).map((_, i) => (

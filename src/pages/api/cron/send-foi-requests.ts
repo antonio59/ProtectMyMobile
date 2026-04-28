@@ -1,11 +1,8 @@
 import type { APIRoute } from 'astro';
-import { ConvexHttpClient } from 'convex/browser';
 import { api } from '../../../../convex/_generated/api';
-import { Resend } from 'resend';
-import { requireApiKey } from '../../../lib/security';
+import { getConvexClient, requireConvex, sendReportEmail } from '../../../lib/cron-utils';
 
-const convexUrl = import.meta.env.PUBLIC_CONVEX_URL;
-const convex = convexUrl ? new ConvexHttpClient(convexUrl) : null;
+const convex = getConvexClient();
 
 function generateReferenceNumber(): string {
   const date = new Date();
@@ -81,15 +78,8 @@ This request is made for research purposes to help provide the public with accur
 }
 
 export const GET: APIRoute = async ({ request }) => {
-  const unauthorized = requireApiKey(request);
-  if (unauthorized) return unauthorized;
-
-  if (!convex) {
-    return new Response(JSON.stringify({ 
-      success: false, 
-      error: 'Missing PUBLIC_CONVEX_URL' 
-    }), { status: 500 });
-  }
+  const missingConvex = requireConvex(convex);
+  if (missingConvex) return missingConvex;
 
   const resendApiKey = import.meta.env.RESEND_API_KEY || process.env.RESEND_API_KEY;
   if (!resendApiKey) {
@@ -100,7 +90,6 @@ export const GET: APIRoute = async ({ request }) => {
   }
 
   try {
-    const resend = new Resend(resendApiKey);
     const dateRange = getQuarterDateRange();
     
     // Get all active police forces
@@ -183,27 +172,20 @@ export const GET: APIRoute = async ({ request }) => {
       }
     }
 
-    // Send summary email to admin
-    await resend.emails.send({
-      from: 'ProtectMyMobile <onboarding@resend.dev>',
-      to: ['protectmymobile.xyz.overlabor129@passmail.com'], // Replace with actual admin email
-      subject: `FOI Requests Summary: ${results.sent.length} sent, ${results.failed.length} failed`,
-      html: `
+    await sendReportEmail(
+      `FOI Requests Summary: ${results.sent.length} sent, ${results.failed.length} failed`,
+      `
         <h2>Quarterly FOI Request Summary</h2>
         <p>Date Range Requested: ${dateRange.start} to ${dateRange.end}</p>
-        
         <h3>✅ Successfully Sent (${results.sent.length})</h3>
         <ul>${results.sent.map(f => `<li>${f}</li>`).join('') || '<li>None</li>'}</ul>
-        
         <h3>⏭️ Skipped - Already Requested (${results.skipped.length})</h3>
         <ul>${results.skipped.map(f => `<li>${f}</li>`).join('') || '<li>None</li>'}</ul>
-        
         <h3>❌ Failed (${results.failed.length})</h3>
         <ul>${results.failed.map(f => `<li>${f.force}: ${f.error}</li>`).join('') || '<li>None</li>'}</ul>
-        
         <p>View all requests at: <a href="https://protectmymobile.xyz/admin/foi">Admin Dashboard</a></p>
-      `,
-    });
+      `
+    );
 
     return new Response(JSON.stringify({ 
       success: true, 
