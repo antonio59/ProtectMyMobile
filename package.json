@@ -48,7 +48,8 @@
     "node-forge": "^1.4.0",
     "smol-toml": "^1.6.1",
     "yaml": "^2.8.3",
-    "uuid": "^14.0.0"
+    "uuid": "^14.0.0",
+    "postcss": "^8.5.12"
   },
   "resolutions": {
     "rollup": "^4.59.0",
@@ -57,7 +58,8 @@
     "node-forge": "^1.4.0",
     "smol-toml": "^1.6.1",
     "yaml": "^2.8.3",
-    "uuid": "^14.0.0"
+    "uuid": "^14.0.0",
+    "postcss": "^8.5.12"
   },
   "optionalDependencies": {},
   "devDependencies": {
