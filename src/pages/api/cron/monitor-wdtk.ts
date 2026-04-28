@@ -98,8 +98,9 @@ async function fetchFeedEntries(feedUrl: string): Promise<WDTKEntry[]> {
 }
 
 export const GET: APIRoute = async ({ request }) => {
-  const missingConvex = requireConvex(convex);
-  if (missingConvex) return missingConvex;
+  if (!convex) {
+    return requireConvex(convex)!;
+  }
 
   try {
     const feedResults = await Promise.all(WDTK_FEEDS.map(fetchFeedEntries));

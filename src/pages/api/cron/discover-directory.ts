@@ -347,8 +347,9 @@ async function processProviders(
 }
 
 export const GET: APIRoute = async ({ request }) => {
-  const missingConvex = requireConvex(convex);
-  if (missingConvex) return missingConvex;
+  if (!convex) {
+    return requireConvex(convex)!;
+  }
 
   try {
     const [existingBanks, existingProviders] = await Promise.all([
@@ -366,6 +367,9 @@ export const GET: APIRoute = async ({ request }) => {
     ]);
 
     const adminToken = import.meta.env.CRON_SECRET || process.env.CRON_SECRET;
+    if (!adminToken) {
+      return new Response(JSON.stringify({ success: false, error: 'Missing CRON_SECRET' }), { status: 500 });
+    }
 
     const [societiesResult, banksResult, providersResult] = await Promise.all([
       processSocieties(boeSocieties, existingBankNames, adminToken),

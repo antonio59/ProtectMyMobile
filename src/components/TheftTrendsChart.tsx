@@ -192,6 +192,7 @@ export default function TheftTrendsChart() {
 
   useEffect(() => {
     if (!data || !canvasRef.current || loading) return;
+    const { locations, data: chartData } = data;
     let chartInstance: unknown;
 
     async function initChart() {
@@ -200,8 +201,7 @@ export default function TheftTrendsChart() {
       if (!ctx) return;
       if (chartRef.current) { (chartRef.current as { destroy: () => void }).destroy(); }
 
-      const { locations, data: chartData } = data;
-      const labels = chartData.map((d) => d.label);
+      const labels = chartData.map((d: TrendPoint) => d.label);
       const datasets = buildDatasets(chartData, locations, viewMode);
 
       chartInstance = new Chart(ctx, {
@@ -227,6 +227,8 @@ export default function TheftTrendsChart() {
     return <ChartErrorState error={error} hasData={!!data && data.data.length > 0} onRetry={handleRetry} />;
   }
 
+  const { locations, data: points } = data;
+
   return (
     <div>
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
@@ -236,7 +238,7 @@ export default function TheftTrendsChart() {
             Monthly Theft Trends
           </h2>
           <p className="text-xs sm:text-sm text-neutral-500 mt-1">
-            {data.locations.length} locations tracked &middot; {data.data.length} months of data
+            {locations.length} locations tracked &middot; {points.length} months of data
           </p>
         </div>
         <ViewModeToggle viewMode={viewMode} onChange={setViewMode} />

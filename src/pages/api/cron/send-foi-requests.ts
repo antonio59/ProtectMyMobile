@@ -1,6 +1,8 @@
 import type { APIRoute } from 'astro';
 import { api } from '../../../../convex/_generated/api';
+import { ConvexHttpClient } from 'convex/browser';
 import { getConvexClient, requireConvex, sendReportEmail } from '../../../lib/cron-utils';
+import { Resend } from 'resend';
 
 const convex = getConvexClient();
 
@@ -78,8 +80,9 @@ This request is made for research purposes to help provide the public with accur
 }
 
 export const GET: APIRoute = async ({ request }) => {
-  const missingConvex = requireConvex(convex);
-  if (missingConvex) return missingConvex;
+  if (!convex) {
+    return requireConvex(convex)!;
+  }
 
   const resendApiKey = import.meta.env.RESEND_API_KEY || process.env.RESEND_API_KEY;
   if (!resendApiKey) {
@@ -88,6 +91,8 @@ export const GET: APIRoute = async ({ request }) => {
       error: 'Missing RESEND_API_KEY' 
     }), { status: 500 });
   }
+
+  const resend = new Resend(resendApiKey);
 
   try {
     const dateRange = getQuarterDateRange();

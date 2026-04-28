@@ -74,7 +74,7 @@ async function createPost(
   article: any,
   relevanceScore: number,
   existingSlugs: Set<string>,
-  convex: NonNullable<typeof import("../../../lib/cron-utils").getConvexClient>,
+  convex: ConvexHttpClient,
 ) {
   const slug = generateSlug(article.title!);
   if (existingSlugs.has(slug)) return null;

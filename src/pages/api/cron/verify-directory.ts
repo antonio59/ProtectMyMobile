@@ -1,4 +1,5 @@
 import type { APIRoute } from 'astro';
+import { ConvexHttpClient } from 'convex/browser';
 import { api } from '../../../../convex/_generated/api';
 import { getConvexClient, requireConvex, sendReportEmail } from '../../../lib/cron-utils';
 
@@ -49,12 +50,12 @@ async function checkUrlAlive(url: string): Promise<{ alive: boolean; detail: str
 }
 
 async function verifyEntry(
-  convex: NonNullable<ReturnType<typeof getConvexClient>>,
+  convex: ConvexHttpClient,
   report: VerificationReport,
   url: string,
   name: string,
   type: 'bank' | 'provider',
-  id: string
+  id: any
 ) {
   report.checked++;
   const { alive, detail } = await checkUrlAlive(url);
@@ -77,8 +78,9 @@ async function verifyEntry(
 }
 
 export const GET: APIRoute = async ({ request }) => {
-  const missingConvex = requireConvex(convex);
-  if (missingConvex) return missingConvex;
+  if (!convex) {
+    return requireConvex(convex)!;
+  }
 
   try {
     const [banks, providers] = await Promise.all([

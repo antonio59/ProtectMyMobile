@@ -226,8 +226,9 @@ export const GET: APIRoute = async ({ request }) => {
   const unauthorized = requireApiKey(request);
   if (unauthorized) return unauthorized;
 
-  const missingConvex = requireConvex(convex);
-  if (missingConvex) return missingConvex;
+  if (!convex) {
+    return requireConvex(convex)!;
+  }
 
   try {
     const dateResult = resolveDateRange(new URL(request.url));

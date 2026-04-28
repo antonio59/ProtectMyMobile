@@ -34,3 +34,4 @@ netlify/netlify/
 
 # npm lockfile (project uses bun)
 package-lock.json
+*.bin

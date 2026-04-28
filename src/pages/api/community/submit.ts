@@ -10,7 +10,7 @@ function jsonResponse(data: object, status: number) {
 }
 
 interface NormalizedSubmission {
-  hadPhoneStolen: string;
+  hadPhoneStolen: 'yes' | 'no' | 'someone_i_know';
   phoneRecovered?: string;
   replacementMethod?: string;
   theftLocation?: string;
@@ -23,9 +23,10 @@ function normalizeSubmission(body: any): NormalizedSubmission | null {
   const hadPhoneStolen = body.hadPhoneStolen || body.had_phone_stolen;
   const sessionId = body.session_id || body.sessionId;
   if (!hadPhoneStolen || !sessionId) return null;
+  if (!['yes', 'no', 'someone_i_know'].includes(hadPhoneStolen)) return null;
 
   return {
-    hadPhoneStolen,
+    hadPhoneStolen: hadPhoneStolen as 'yes' | 'no' | 'someone_i_know',
     sessionId,
     phoneRecovered: body.phoneRecovered || body.phone_recovered || undefined,
     replacementMethod: body.replacementMethod || body.replacement_method || undefined,
@@ -74,7 +75,7 @@ export const POST: APIRoute = async ({ request }) => {
       ...submission,
       userIpHash: ipHash,
       userAgent: request.headers.get('user-agent') || undefined,
-    });
+    } as Parameters<typeof submitCommunityResponse>[0]);
 
     return jsonResponse({ success: true, message: 'Response submitted successfully' }, 200);
   } catch (error) {

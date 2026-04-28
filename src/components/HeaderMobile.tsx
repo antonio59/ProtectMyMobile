@@ -154,6 +154,7 @@ export default function HeaderMobile() {
           >
             <X className="size-6 text-neutral-700" />
           </button>
+          </div>
         </div>
 
         {/* CTA Buttons */}
