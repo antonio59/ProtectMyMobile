@@ -1209,10 +1209,12 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
+- Update changelog [skip ci]
 - Add UI/UX review documentation and misc updates
 
 ### Features
 
+- Redesign news listing page with typography-first image-optional layout
 - Final design system refinements and theme toggle
 - Shadow elevation, borders, icons, dark mode prep, print styles
 - Adopt Google design.md spec and semantic design tokens
