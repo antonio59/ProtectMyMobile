@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 
 ### Bug Fixes
 
+- Add postcss override to resolve CVE-2026-41305 in transitive deps
 - Remove dead code flagged by CodeQL unused-variable alerts
 - Re-add @tailwindcss/typography dependency removed by fallow
 - Resolve TypeScript errors from fallow refactoring
@@ -1157,6 +1158,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
