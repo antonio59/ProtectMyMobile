@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 
 ### Bug Fixes
 
+- Remove dead code flagged by CodeQL unused-variable alerts
 - Re-add @tailwindcss/typography dependency removed by fallow
 - Resolve TypeScript errors from fallow refactoring
 - Theft map now loads properly + shows FOI data
@@ -1156,6 +1157,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
