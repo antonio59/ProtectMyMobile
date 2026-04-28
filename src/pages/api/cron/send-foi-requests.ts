@@ -1,6 +1,5 @@
 import type { APIRoute } from 'astro';
 import { api } from '../../../../convex/_generated/api';
-import { ConvexHttpClient } from 'convex/browser';
 import { getConvexClient, requireConvex, sendReportEmail } from '../../../lib/cron-utils';
 import { Resend } from 'resend';
 

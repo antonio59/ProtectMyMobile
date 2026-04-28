@@ -22,12 +22,6 @@ export async function getNewsPostBySlug(slug: string) {
   return await convexClient.query(api.newsPosts.getBySlug, { slug });
 }
 
-// Theft Data Points
-async function getTheftDataPoints(startDate?: string, endDate?: string) {
-  if (!convexClient) return [];
-  return await convexClient.query(api.theftDataPoints.list, { startDate, endDate });
-}
-
 // Banks
 export async function getBanks(activeOnly = true) {
   if (!convexClient) return [];
@@ -38,18 +32,6 @@ export async function getBanks(activeOnly = true) {
 export async function getMobileProviders(activeOnly = true) {
   if (!convexClient) return [];
   return await convexClient.query(api.mobileProviders.list, { activeOnly });
-}
-
-// Experience Reports
-async function getExperienceReports(approvedOnly = false) {
-  if (!convexClient) return [];
-  return await convexClient.query(api.experienceReports.list, { approvedOnly });
-}
-
-// Contact Submissions (admin only)
-async function getContactSubmissions() {
-  if (!convexClient) return [];
-  return await convexClient.query(api.contactSubmissions.list, {});
 }
 
 // Community Stats
@@ -74,18 +56,6 @@ export async function getMonthlyTrends(topN?: number, startYear?: string, endYea
 export async function getTheftStats(year?: string) {
   if (!convexClient) return null;
   return await convexClient.query(api.theftDataPoints.getStats, { year });
-}
-
-// Get site metadata
-async function getSiteMetadata(key: string) {
-  if (!convexClient) return null;
-  return await convexClient.query(api.siteMetadata.get, { key });
-}
-
-// Get multiple site metadata values
-async function getMultipleSiteMetadata(keys: string[]) {
-  if (!convexClient) return {};
-  return await convexClient.query(api.siteMetadata.getMultiple, { keys });
 }
 
 // Get directory last verified dates

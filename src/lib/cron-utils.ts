@@ -1,7 +1,5 @@
 import { ConvexHttpClient } from 'convex/browser';
 import { Resend } from 'resend';
-import { requireApiKey } from './security';
-import type { APIRoute } from 'astro';
 
 export function getConvexClient(): ConvexHttpClient | null {
   const convexUrl = import.meta.env.PUBLIC_CONVEX_URL;
@@ -19,20 +17,6 @@ export function requireConvex(convex: ConvexHttpClient | null): Response | null 
     );
   }
   return null;
-}
-
-function authenticateCron(request: Request): Response | null {
-  const unauthorized = requireApiKey(request);
-  if (unauthorized) return unauthorized;
-  return null;
-}
-
-function createCronHandler(handler: (request: Request) => Promise<Response>): APIRoute {
-  return async ({ request }) => {
-    const unauthorized = authenticateCron(request);
-    if (unauthorized) return unauthorized;
-    return handler(request);
-  };
 }
 
 export async function sendReportEmail(subject: string, htmlBody: string): Promise<void> {

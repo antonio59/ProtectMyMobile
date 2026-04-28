@@ -28,21 +28,6 @@ export async function createContactSubmission(data: {
   return await client.mutation(api.contactSubmissions.create, data);
 }
 
-// Experience Reports
-async function createExperienceReport(data: {
-  hasExperiencedTheft: boolean;
-  when: string;
-  where: string;
-  whatHappened: string;
-  doingDifferently?: string;
-  name: string;
-  email: string;
-}) {
-  const client = getConvexClient();
-  if (!client) throw new Error('Convex client not initialized');
-  return await client.mutation(api.experienceReports.create, data);
-}
-
 // Community Responses
 export async function submitCommunityResponse(data: {
   hadPhoneStolen: 'yes' | 'no' | 'someone_i_know';
@@ -58,18 +43,6 @@ export async function submitCommunityResponse(data: {
   const client = getConvexClient();
   if (!client) throw new Error('Convex client not initialized');
   return await client.mutation(api.communityResponses.submit, data);
-}
-
-// Page Views
-async function recordPageView(data: {
-  path: string;
-  referrer?: string;
-  userAgent?: string;
-  ipHash?: string;
-}) {
-  const client = getConvexClient();
-  if (!client) return;
-  return await client.mutation(api.pageViews.record, data);
 }
 
 // Helper functions from original communityData.ts
