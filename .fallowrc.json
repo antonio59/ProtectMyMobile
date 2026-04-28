@@ -20,6 +20,7 @@
     "@astrojs/sitemap",
     "@sentry/astro",
     "@resvg/resvg-js",
+    "@tailwindcss/typography",
     "chart.js",
     "marked",
     "nanostores",
