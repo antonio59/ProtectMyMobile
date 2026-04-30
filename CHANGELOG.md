@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 
 ### Bug Fixes
 
+- Move --spacing-* tokens out of @theme to restore Tailwind v4 sizing utilities
 - Ignore lightningcss-linux-x64-gnu platform binary in fallow
 - Resolve all fallow dead-code and astro type-check CI failures
 - Use minimal wrangler.toml to avoid pre-build entry.mjs check
@@ -1169,6 +1170,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
