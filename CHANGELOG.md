@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 
 ### Bug Fixes
 
+- Resolve all fallow dead-code and astro type-check CI failures
 - Use minimal wrangler.toml to avoid pre-build entry.mjs check
 - Remove package-lock.json from git tracking to fix npm optional deps bug
 - Switch Netlify build from yarn to npm, remove stale yarn.lock
@@ -1166,6 +1167,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
