@@ -1156,6 +1156,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Chores
 
+- Remove Sentry in favour of Cloudflare built-in logging
 - Update bun.lock with @tailwindcss/typography
 - Fix npm vulnerabilities [skip ci]
 - Add git-cliff config for changelog generation
@@ -1168,6 +1169,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
