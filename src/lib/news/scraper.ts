@@ -36,7 +36,7 @@ export function extractExcerpt(content: string | undefined, maxLength = 150): st
   return truncated + "...";
 }
 
-export function extractFeaturedImage(html: string, baseUrl: string): string | null {
+function extractFeaturedImage(html: string, baseUrl: string): string | null {
   const ogImage = html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["'][^>]*>/i);
   const twitterImage = html.match(/<meta[^>]+name=["']twitter:image["'][^>]+content=["']([^"']+)["'][^>]*>/i);
   const imageUrl = ogImage?.[1] || twitterImage?.[1];

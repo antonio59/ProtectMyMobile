@@ -5,7 +5,8 @@
     "**/*"
   ],
   "exclude": [
-    "dist"
+    "dist",
+    "cron-worker"
   ],
   "compilerOptions": {
     "jsx": "react-jsx",

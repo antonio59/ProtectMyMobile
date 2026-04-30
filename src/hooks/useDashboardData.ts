@@ -32,7 +32,7 @@ export type SeasonalData = {
 
 export type SourceBreakdown = Array<{ name: string; records: number; thefts: number }>;
 
-export type DashboardData = {
+type DashboardData = {
   trends: MonthlyTrends | null;
   rankings: LocationRanking[] | null;
   yoy: YoYData | null;

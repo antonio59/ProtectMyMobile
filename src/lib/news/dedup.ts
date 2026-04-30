@@ -5,7 +5,7 @@ export function generateSlug(title: string): string {
     .replace(/(^-|-$)+/g, "");
 }
 
-export function normalizeTitle(title: string): string {
+function normalizeTitle(title: string): string {
   return title
     .toLowerCase()
     .replace(/\|[^|]*$/, "")
