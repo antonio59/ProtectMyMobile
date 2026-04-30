@@ -1,0 +1,9 @@
+name = "protectmymobile-cron"
+main = "src/index.ts"
+compatibility_date = "2024-12-01"
+
+[triggers]
+crons = ["0 8 * * *", "0 3 * * 0"]
+
+# Set these with: wrangler secret put SITE_URL
+# Set these with: wrangler secret put CRON_SECRET
