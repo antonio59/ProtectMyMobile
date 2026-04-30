@@ -68,7 +68,6 @@
     "@astrojs/sitemap": "^3.7.2",
     "@google/design.md": "^0.1.1",
     "@resvg/resvg-js": "2.6.2",
-    "@sentry/astro": "^9.0.0",
     "@tailwindcss/postcss": "^4.2.4",
     "@tailwindcss/typography": "^0.5.16",
     "@types/sanitize-html": "^2.16.1",
