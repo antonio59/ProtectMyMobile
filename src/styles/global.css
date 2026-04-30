@@ -105,14 +105,6 @@
   --text-stat-number--letter-spacing: -0.02em;
   --text-stat-number--font-weight: 700;
 
-  /* Spacing */
-  --spacing-xs: 4px;
-  --spacing-sm: 8px;
-  --spacing-md: 16px;
-  --spacing-lg: 24px;
-  --spacing-xl: 32px;
-  --spacing-2xl: 48px;
-
   /* Border radius */
   --radius-sm: 4px;
   --radius-md: 8px;
@@ -146,6 +138,20 @@
   /* 3D perspective */
   --perspective-normal: 1000px;
   --perspective-dramatic: 500px;
+}
+
+/* =====================================================
+   DESIGN SPACING TOKENS — kept as plain CSS vars, NOT in @theme.
+   Defining --spacing-sm/md/lg inside @theme overwrites Tailwind v4's
+   sizing scale (max-w-sm, w-md, etc.) breaking layout.
+   ===================================================== */
+:root {
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
 }
 
 /* =====================================================
