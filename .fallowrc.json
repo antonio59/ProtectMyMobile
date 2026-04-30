@@ -1,1 +1,6 @@
-{"$schema":"https://fallow.dev/schema.json","ignorePatterns":["cron-worker/**"],"entry":["scripts/**/*.ts","scripts/**/*.mjs"]}
+{
+  "$schema": "https://fallow.dev/schema.json",
+  "ignorePatterns": ["cron-worker/**"],
+  "entry": ["scripts/**/*.ts", "scripts/**/*.mjs"],
+  "ignoreDependencies": ["lightningcss-linux-x64-gnu"]
+}
