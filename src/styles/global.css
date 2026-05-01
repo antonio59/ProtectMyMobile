@@ -172,6 +172,7 @@
 
   /* Neutral scale inverted */
   --color-neutral: #171717;
+  --color-neutral-50: #1a1a1a;
   --color-neutral-100: #262626;
   --color-neutral-200: #404040;
   --color-neutral-300: #525252;
@@ -212,6 +213,7 @@
     --color-popover: #171717;
     --color-popover-foreground: #fafafa;
     --color-neutral: #171717;
+    --color-neutral-50: #1a1a1a;
     --color-neutral-100: #262626;
     --color-neutral-200: #404040;
     --color-neutral-300: #525252;
