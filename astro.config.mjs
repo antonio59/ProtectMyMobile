@@ -1,7 +1,7 @@
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
-import cloudflare from '@astrojs/cloudflare';
+import netlify from '@astrojs/netlify';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -11,12 +11,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export default defineConfig({
   site: 'https://protectmymobile.xyz',
   output: 'server',
-  adapter: cloudflare({
-    platformProxy: {
-      enabled: true,
-      configPath: 'wrangler.toml',
-    },
-  }),
+  adapter: netlify(),
   integrations: [
     react(),
     sitemap({
