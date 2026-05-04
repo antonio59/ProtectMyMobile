@@ -103,6 +103,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- News page — clean card grid, remove hardcoded colors, semantic tokens
 - Remove breadcrumbs from all pages
 - Compact breadcrumbs — remove pill container, reduce spacing
 - Rebuild UI to match DESIGN.md light theme + semantic tokens
@@ -1182,6 +1183,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
