@@ -139,15 +139,14 @@ const schemas = [defaultSchema, websiteSchema, ...additionalSchemas];
     <meta name="apple-mobile-web-app-title" content="ProtectMyMobile" />
     <link rel="apple-touch-icon" href="/logo-icon.png" />
 
-    <!-- Dark mode — respect saved preference or OS, no flash -->
+    <!-- Theme — default to light, respect saved preference only -->
     <script is:inline>
       (function() {
         const saved = localStorage.getItem('theme');
-        if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        if (saved === 'dark') {
           document.documentElement.classList.add('dark');
-        } else if (saved === 'light') {
-          document.documentElement.classList.remove('dark');
         }
+        // Default is light — no class needed
       })();
     </script>
     
