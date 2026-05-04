@@ -4,7 +4,7 @@ import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
 import { getNewsPosts } from '../lib/convexData';
 import type { NewsPost } from '../types/news';
-import { Newspaper, Filter, ArrowRight, Gavel, Siren, ShieldAlert, TrendingUp, Lightbulb, FileText, Rss, Clock, MessageSquare, ChevronRight } from 'lucide-react';
+import { Newspaper, ArrowRight, Gavel, Siren, ShieldAlert, TrendingUp, Lightbulb, FileText, Rss, Clock, Filter } from 'lucide-react';
 
 let posts: NewsPost[] = [];
 let error: unknown = null;
@@ -24,74 +24,31 @@ try {
   console.error('Error fetching news posts:', e);
 }
 
-// Get featured post (most recent)
 const featuredPost = posts[0];
 const remainingPosts = posts.slice(1);
 
-// Count by category for stats
 const categoryCounts: Record<string, number> = {};
 for (const post of posts) {
   categoryCounts[post.category] = (categoryCounts[post.category] || 0) + 1;
 }
 
-const categoryConfig: Record<string, { color: string; bg: string; icon: any; gradient: string; label: string }> = {
-  arrest: {
-    color: "text-destructive-hover",
-    bg: "bg-destructive-subtle",
-    icon: Siren,
-    gradient: "from-red-500 to-red-600",
-    label: "Arrests"
-  },
-  seizure: {
-    color: "text-orange-700",
-    bg: "bg-orange-50",
-    icon: ShieldAlert,
-    gradient: "from-orange-500 to-orange-600",
-    label: "Seizures"
-  },
-  law_change: {
-    color: "text-teal-700",
-    bg: "bg-teal-50",
-    icon: Gavel,
-    gradient: "from-teal-500 to-teal-600",
-    label: "Law Changes"
-  },
-  statistics: {
-    color: "text-primary-hover",
-    bg: "bg-primary-subtle",
-    icon: TrendingUp,
-    gradient: "from-blue-500 to-blue-600",
-    label: "Statistics"
-  },
-  prevention_tip: {
-    color: "text-green-700",
-    bg: "bg-green-50",
-    icon: Lightbulb,
-    gradient: "from-green-500 to-green-600",
-    label: "Tips"
-  },
-  other: {
-    color: "text-foreground",
-    bg: "bg-neutral",
-    icon: FileText,
-    gradient: "from-neutral-500 to-neutral-600",
-    label: "News"
-  },
+const categoryConfig: Record<string, { color: string; bg: string; icon: any; label: string }> = {
+  arrest:        { color: "text-destructive-hover", bg: "bg-destructive-subtle", icon: Siren,        label: "Arrests" },
+  seizure:       { color: "text-warning",          bg: "bg-warning-subtle",     icon: ShieldAlert, label: "Seizures" },
+  law_change:    { color: "text-teal-600",         bg: "bg-teal-50",            icon: Gavel,       label: "Law Changes" },
+  statistics:    { color: "text-primary-hover",    bg: "bg-primary-subtle",     icon: TrendingUp,   label: "Statistics" },
+  prevention_tip:{ color: "text-emerald-600",      bg: "bg-emerald-50",         icon: Lightbulb,    label: "Tips" },
+  other:         { color: "text-muted-foreground", bg: "bg-neutral",            icon: FileText,     label: "News" },
 };
 
 function formatDate(dateValue: string | number) {
   const date = typeof dateValue === 'number' ? new Date(dateValue) : new Date(dateValue);
   const now = new Date();
   const diffDays = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60 * 24));
-  
   if (diffDays === 0) return 'Today';
   if (diffDays === 1) return 'Yesterday';
   if (diffDays < 7) return `${diffDays} days ago`;
-  
-  return date.toLocaleDateString('en-GB', {
-    day: 'numeric',
-    month: 'short'
-  });
+  return date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
 }
 
 const newsSchema = {
@@ -114,7 +71,7 @@ const newsSchema = {
 ---
 
 <Layout
-  title="Latest News & Updates - UK Mobile Theft | ProtectMyMobile"
+  title="Latest News & Updates — UK Mobile Theft | ProtectMyMobile"
   description={`Stay informed about mobile theft arrests, seizures, law changes, and prevention tips across the UK. ${posts.length} articles tracked.`}
   schema={newsSchema}
 >
@@ -122,210 +79,190 @@ const newsSchema = {
 
   <main id="main-content" class="bg-background min-h-screen">
     <div class="container mx-auto px-4 py-4 sm:py-6 max-w-6xl">
-      
 
-      <!-- Hero Section -->
-      <div class="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 mb-6 sm:mb-8 shadow-xl">
-        <div class="flex items-start justify-between gap-4">
+      <!-- Page header -->
+      <div class="mb-6 sm:mb-8">
+        <div class="flex items-center justify-between gap-4">
           <div>
-            <div class="flex items-center gap-2 mb-2">
-              <Newspaper class="size-5 sm:size-6" />
-              <h1 class="text-xl sm:text-2xl md:text-3xl font-bold">News & Updates</h1>
-            </div>
-            <p class="text-blue-100 text-sm max-w-xl">
+            <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground">News & Updates</h1>
+            <p class="text-muted-foreground text-sm sm:text-base mt-1 max-w-xl">
               The latest on mobile theft arrests, seizures, policy changes, and prevention tips from across the UK.
             </p>
           </div>
-          <a href="/rss.xml" class="flex items-center gap-1.5 text-xs bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-full transition-colors shrink-0">
-            <Rss class="h-3.5 w-3.5" />
-            <span class="hidden sm:inline">RSS</span>
-          </a>
-        </div>
-        
-        {lastUpdated && (
-          <div class="mt-4 pt-4 border-t border-white/20 flex items-center gap-2 text-xs text-blue-200">
-            <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-            Last updated {lastUpdated}
+          <div class="flex items-center gap-2 shrink-0">
+            <a href="/rss.xml" class="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full bg-neutral hover:text-primary border border-border transition-colors">
+              <Rss class="size-3.5" />
+              <span class="hidden sm:inline">RSS</span>
+            </a>
+            {lastUpdated && (
+              <span class="hidden sm:inline-flex items-center gap-1.5 text-xs text-muted-foreground">
+                <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
+                Updated {lastUpdated}
+              </span>
+            )}
           </div>
-        )}
+        </div>
       </div>
 
       {error ? (
-        <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 sm:p-6">
-          <p class="text-yellow-800 text-sm sm:text-base">Unable to load news posts. Please try again later.</p>
+        <div class="bg-destructive-subtle border border-destructive-muted rounded-xl p-6 text-center">
+          <p class="text-destructive-hover text-sm">Unable to load news posts. Please try again later.</p>
         </div>
       ) : posts.length === 0 ? (
-        <div class="bg-card rounded-xl sm:rounded-2xl shadow-md p-8 sm:p-12 text-center">
+        <div class="bg-card rounded-2xl shadow-sm border border-border p-12 text-center">
           <Newspaper class="size-12 mx-auto mb-3 text-muted-foreground" />
-          <h3 class="text-lg font-semibold mb-2">No News Posts Yet</h3>
+          <h3 class="text-lg font-semibold mb-2 text-foreground">No News Posts Yet</h3>
           <p class="text-muted-foreground text-sm">
             Check back soon or subscribe to our <a href="/rss.xml" class="text-primary hover:underline">RSS feed</a>.
           </p>
         </div>
       ) : (
         <>
-          {/* Featured Article */}
+          <!-- Featured Article -->
           {featuredPost && (
-            <section class="mb-6 sm:mb-8">
-              <h2 class="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3">Featured</h2>
+            <section class="mb-8 sm:mb-10">
               <a
                 href={`/news/${featuredPost.slug}`}
-                class="group block bg-card rounded-xl sm:rounded-2xl shadow-lg overflow-hidden border-l-4 border-t border-r border-b border-border hover:border-r-primary/30 hover:border-t-primary/30 hover:border-b-primary/30 transition-all"
-                style={`border-left-color: ${categoryConfig[featuredPost.category]?.gradient ? `rgb(${featuredPost.category === 'arrest' ? '239 68 68' : featuredPost.category === 'seizure' ? '249 115 22' : featuredPost.category === 'law_change' ? '20 184 166' : featuredPost.category === 'statistics' ? '59 130 246' : featuredPost.category === 'prevention_tip' ? '16 185 129' : '115 115 115'})` : 'rgb(59 130 246)'}`}
+                class="group block bg-card rounded-2xl shadow-sm border border-border hover:shadow-md hover:border-primary/20 transition-all overflow-hidden"
               >
-                <div class="p-5 sm:p-6 md:p-8">
-                  <div class="flex flex-col md:flex-row gap-5 md:gap-6">
-                    <div class="flex-1">
-                      <div class="flex items-center gap-2 mb-3 flex-wrap">
-                        <span class={`inline-flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-md font-semibold ${categoryConfig[featuredPost.category]?.bg || 'bg-neutral-100'} ${categoryConfig[featuredPost.category]?.color || 'text-foreground'}`}>
-                          {categoryConfig[featuredPost.category]?.icon && (
-                            <span class="flex items-center">
-                              {(() => {
-                                const IconComponent = categoryConfig[featuredPost.category].icon;
-                                return <IconComponent class="size-3.5" />;
-                              })()}
-                            </span>
-                          )}
-                          {categoryConfig[featuredPost.category]?.label || featuredPost.category.replace('_', ' ')}
-                        </span>
-                        <span class="text-xs text-muted-foreground">{formatDate(featuredPost.publishedAt || featuredPost._creationTime)}</span>
-                        {featuredPost.sourceName && (
-                          <span class="text-xs text-muted-foreground font-medium">
-                            via {featuredPost.sourceName}
-                          </span>
-                        )}
-                      </div>
-                      <h3 class="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground group-hover:text-primary transition-colors leading-tight mb-3">
-                        {featuredPost.title}
-                      </h3>
-                      <p class="text-muted-foreground text-sm sm:text-base leading-relaxed mb-4">
-                        {featuredPost.excerpt}
-                      </p>
-                      <div class="flex items-center gap-2 text-sm font-semibold text-primary">
-                        Read full article
-                        <ArrowRight class="size-4 transition-transform group-hover:translate-x-1" />
+                <div class="md:flex">
+                  {featuredPost.featuredImageUrl && (
+                    <div class="md:w-80 lg:w-96 shrink-0">
+                      <div class="aspect-[16/10] md:aspect-auto md:h-full bg-neutral overflow-hidden">
+                        <img
+                          src={featuredPost.featuredImageUrl}
+                          alt={featuredPost.title}
+                          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          loading="eager"
+                        />
                       </div>
                     </div>
-                    {featuredPost.featuredImageUrl && (
-                      <div class="md:w-64 lg:w-80 shrink-0">
-                        <div class="aspect-[16/10] rounded-lg overflow-hidden bg-neutral-100">
-                          <img
-                            src={featuredPost.featuredImageUrl}
-                            alt={featuredPost.title}
-                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                            loading="eager"
-                          />
-                        </div>
-                      </div>
-                    )}
+                  )}
+                  <div class="p-5 sm:p-6 md:p-8 flex flex-col justify-center">
+                    <div class="flex items-center gap-2 mb-3 flex-wrap">
+                      <span class={`inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-md font-semibold ${categoryConfig[featuredPost.category]?.bg || 'bg-neutral'} ${categoryConfig[featuredPost.category]?.color || 'text-foreground'}`}>
+                        {categoryConfig[featuredPost.category]?.icon && (
+                          <span class="flex items-center">
+                            {(() => {
+                              const IconComponent = categoryConfig[featuredPost.category].icon;
+                              return <IconComponent class="size-3.5" />;
+                            })()}
+                          </span>
+                        )}
+                        {categoryConfig[featuredPost.category]?.label || featuredPost.category.replace('_', ' ')}
+                      </span>
+                      <span class="text-xs text-muted-foreground flex items-center gap-1">
+                        <Clock class="size-3" />
+                        {formatDate(featuredPost.publishedAt || featuredPost._creationTime)}
+                      </span>
+                      {featuredPost.sourceName && (
+                        <span class="text-xs text-muted-foreground">via {featuredPost.sourceName}</span>
+                      )}
+                    </div>
+                    <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground group-hover:text-primary transition-colors leading-tight mb-3">
+                      {featuredPost.title}
+                    </h2>
+                    <p class="text-muted-foreground text-sm sm:text-base leading-relaxed mb-4">
+                      {featuredPost.excerpt}
+                    </p>
+                    <span class="inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
+                      Read full article
+                      <ArrowRight class="size-4 group-hover:translate-x-1 transition-transform" />
+                    </span>
                   </div>
                 </div>
               </a>
             </section>
           )}
 
-          {/* Category Quick Filters */}
-          <section class="mb-6">
-            <div class="flex items-center gap-2 overflow-x-auto pb-2 -mx-1 px-1 sm:mx-0 sm:px-0 sm:flex-wrap scrollbar-hide">
-              <button class="category-btn active px-3 py-1.5 rounded-full bg-primary text-white text-xs sm:text-sm font-medium transition-all whitespace-nowrap flex items-center gap-1.5" data-category="all">
-                All <span class="bg-white/20 px-1.5 py-0.5 rounded-full text-[10px]">{posts.length}</span>
+          <!-- Category Quick Filters -->
+          <section class="mb-6 sm:mb-8">
+            <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-hide">
+              <button class="category-btn active px-3.5 py-2 rounded-lg bg-primary text-white text-xs sm:text-sm font-medium transition-all whitespace-nowrap flex items-center gap-1.5 shadow-sm" data-category="all">
+                <Filter class="size-3.5" />
+                All
+                <span class="bg-white/20 px-1.5 py-0.5 rounded-full text-[10px]">{posts.length}</span>
               </button>
               {Object.entries(categoryConfig).map(([key, config]) => {
                 if (!categoryCounts[key]) return null;
                 const Icon = config.icon;
                 return (
                   <button 
-                    class="category-btn px-3 py-1.5 rounded-full bg-card text-muted-foreground border border-border text-xs sm:text-sm font-medium hover:border-primary/30 hover:text-primary transition-all whitespace-nowrap flex items-center gap-1.5" 
+                    class="category-btn px-3.5 py-2 rounded-lg bg-card text-muted-foreground border border-border text-xs sm:text-sm font-medium hover:border-primary/30 hover:text-primary transition-all whitespace-nowrap flex items-center gap-1.5" 
                     data-category={key}
                   >
-                    <Icon className="h-3.5 w-3.5" />
+                    <Icon class="size-3.5" />
                     {config.label}
-                    <span class="bg-neutral-100 px-1.5 py-0.5 rounded-full text-[10px] text-muted-foreground">{categoryCounts[key]}</span>
+                    <span class="bg-neutral px-1.5 py-0.5 rounded-full text-[10px] text-muted-foreground">{categoryCounts[key]}</span>
                   </button>
                 );
               })}
             </div>
           </section>
 
-          {/* Article Grid */}
+          <!-- Article Grid -->
           <section>
-            <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center justify-between mb-4 sm:mb-5">
               <h2 class="text-sm font-semibold text-muted-foreground uppercase tracking-wide">Latest Articles</h2>
-              <span class="text-xs text-muted-foreground" id="article-count">Showing {remainingPosts.length} articles</span>
+              <span class="text-xs text-muted-foreground" id="article-count">{remainingPosts.length} articles</span>
             </div>
             
-            <div class="space-y-3 sm:space-y-4" id="news-grid">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5" id="news-grid">
               {remainingPosts.map((post) => {
                 const config = categoryConfig[post.category] || categoryConfig.other;
                 const Icon = config.icon;
-                const borderColor = post.category === 'arrest' ? 'rgb(239 68 68)' : 
-                                  post.category === 'seizure' ? 'rgb(249 115 22)' : 
-                                  post.category === 'law_change' ? 'rgb(20 184 166)' : 
-                                  post.category === 'statistics' ? 'rgb(59 130 246)' : 
-                                  post.category === 'prevention_tip' ? 'rgb(16 185 129)' : 
-                                  'rgb(115 115 115)';
-                // Article cards always link to the internal summary page
 
                 return (
                   <a
                     href={`/news/${post.slug}`}
-                    class="news-card group flex bg-card rounded-lg shadow-sm hover:shadow-md transition-all duration-200 border-l-4 border-t border-r border-b border-border hover:border-r-primary/30 hover:border-t-primary/30 hover:border-b-primary/30 overflow-hidden"
+                    class="news-card group flex flex-col bg-card rounded-xl shadow-sm border border-border hover:shadow-md hover:border-primary/20 transition-all overflow-hidden"
                     data-category={post.category}
-                    style={`border-left-color: ${borderColor}`}
                   >
-                    <div class="flex-1 p-4 sm:p-5">
+                    {post.featuredImageUrl && (
+                      <div class="aspect-[16/10] bg-neutral overflow-hidden">
+                        <img
+                          src={post.featuredImageUrl}
+                          alt={post.title}
+                          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          loading="lazy"
+                        />
+                      </div>
+                    )}
+                    <div class="p-4 flex flex-col flex-1">
                       <div class="flex items-center gap-2 mb-2 flex-wrap">
-                        <span class={`inline-flex items-center gap-1 text-[10px] sm:text-xs px-2 py-0.5 sm:py-1 rounded-md font-semibold ${config.bg} ${config.color}`}>
+                        <span class={`inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded font-semibold ${config.bg} ${config.color}`}>
                           <Icon class="size-3" />
                           {config.label}
                         </span>
-                        <div class="flex items-center gap-1.5 text-[10px] sm:text-xs text-muted-foreground">
+                        <span class="text-[10px] text-muted-foreground flex items-center gap-1">
                           <Clock class="size-3" />
                           {formatDate(post.publishedAt || post._creationTime)}
-                        </div>
-                        {post.sourceName && (
-                          <span class="text-[10px] sm:text-xs text-muted-foreground">
-                            • {post.sourceName}
-                          </span>
-                        )}
+                        </span>
                       </div>
 
-                      <h3 class="text-base sm:text-lg font-bold text-foreground group-hover:text-primary transition-colors leading-snug mb-2">
+                      <h3 class="text-sm sm:text-base font-bold text-foreground group-hover:text-primary transition-colors leading-snug mb-1.5 line-clamp-3">
                         {post.title}
                       </h3>
 
                       {post.excerpt && (
-                        <p class="text-muted-foreground text-sm leading-relaxed line-clamp-2">
+                        <p class="text-muted-foreground text-xs sm:text-sm leading-relaxed line-clamp-2 mb-3">
                           {post.excerpt}
                         </p>
                       )}
 
-                      <div class="flex items-center gap-1.5 mt-3 text-xs font-semibold text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+                      <div class="mt-auto flex items-center gap-1.5 text-xs font-semibold text-primary opacity-0 group-hover:opacity-100 transition-opacity">
                         Read more
-                        <ArrowRight class="size-3.5 transition-transform group-hover:translate-x-0.5" />
+                        <ArrowRight class="size-3 transition-transform group-hover:translate-x-0.5" />
                       </div>
                     </div>
-
-                    {post.featuredImageUrl && (
-                      <div class="w-24 sm:w-32 md:w-40 shrink-0 self-center">
-                        <div class="aspect-square rounded-md overflow-hidden bg-neutral-100 m-3 sm:m-4">
-                          <img
-                            src={post.featuredImageUrl}
-                            alt={post.title}
-                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                            loading="lazy"
-                          />
-                        </div>
-                      </div>
-                    )}
                   </a>
                 );
               })}
             </div>
           </section>
 
-          {/* About Feed */}
-          <section class="mt-8 sm:mt-10 bg-card rounded-xl shadow-md p-4 sm:p-6 border border-border">
+          <!-- About Feed -->
+          <section class="mt-8 sm:mt-10 bg-card rounded-xl shadow-sm border border-border p-5 sm:p-6">
             <div class="flex items-center gap-2 mb-3">
               <Filter class="size-4 text-muted-foreground" />
               <h3 class="text-sm font-semibold text-foreground">About This Feed</h3>
@@ -336,37 +273,12 @@ const newsSchema = {
             </p>
             <div class="mt-4 flex items-center gap-4 text-xs text-muted-foreground">
               <a href="/rss.xml" class="flex items-center gap-1.5 hover:text-primary transition-colors">
-                <Rss class="h-3.5 w-3.5" />
+                <Rss class="size-3.5" />
                 Subscribe via RSS
               </a>
               <span>&bull;</span>
               <span>{posts.length} total articles</span>
             </div>
-          </section>
-
-          {/* Community CTA */}
-          <section class="mt-6 sm:mt-8">
-            <a href="/community-experiences#share" class="group block bg-gradient-to-br from-amber-500 to-orange-500 rounded-xl sm:rounded-2xl shadow-lg overflow-hidden border border-amber-200 hover:shadow-xl transition-all">
-              <div class="p-4 sm:p-6 text-white">
-                <div class="flex items-start sm:items-center justify-between gap-4">
-                  <div class="flex items-start gap-3">
-                    <div class="p-2.5 bg-white/20 rounded-lg shrink-0">
-                      <MessageSquare class="size-5 sm:size-6" />
-                    </div>
-                    <div>
-                      <h3 class="text-base sm:text-lg font-bold">Have a story to share?</h3>
-                      <p class="text-sm text-white/90 mt-1">
-                        Share your phone theft experience anonymously and help others stay safe.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="hidden sm:flex items-center gap-1 text-sm font-semibold shrink-0">
-                    Share experience
-                    <ChevronRight class="size-4 transition-transform group-hover:translate-x-1" />
-                  </div>
-                </div>
-              </div>
-            </a>
           </section>
         </>
       )}
@@ -376,7 +288,6 @@ const newsSchema = {
   <Footer />
 
   <script>
-    // Category filter functionality
     const categoryBtns = document.querySelectorAll('.category-btn');
     const newsCards = document.querySelectorAll('.news-card');
     const articleCount = document.getElementById('article-count');
@@ -385,15 +296,13 @@ const newsSchema = {
       btn.addEventListener('click', () => {
         const category = btn.getAttribute('data-category');
 
-        // Update button styles
         categoryBtns.forEach(b => {
-          b.classList.remove('active', 'bg-primary', 'text-white');
-          b.classList.add('bg-card', 'text-muted-foreground', 'border-border');
+          b.classList.remove('active', 'bg-primary', 'text-white', 'shadow-sm');
+          b.classList.add('bg-card', 'text-muted-foreground', 'border', 'border-border');
         });
-        btn.classList.remove('bg-card', 'text-muted-foreground', 'border-border');
-        btn.classList.add('active', 'bg-primary', 'text-white');
+        btn.classList.remove('bg-card', 'text-muted-foreground', 'border', 'border-border');
+        btn.classList.add('active', 'bg-primary', 'text-white', 'shadow-sm');
 
-        // Filter cards
         let visibleCount = 0;
         newsCards.forEach(card => {
           const cardCategory = card.getAttribute('data-category');
@@ -406,7 +315,7 @@ const newsSchema = {
         });
 
         if (articleCount) {
-          articleCount.textContent = `Showing ${visibleCount} article${visibleCount !== 1 ? 's' : ''}`;
+          articleCount.textContent = `${visibleCount} article${visibleCount !== 1 ? 's' : ''}`;
         }
       });
     });
