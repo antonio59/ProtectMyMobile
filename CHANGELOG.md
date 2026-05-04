@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 
 ### Bug Fixes
 
+- Consistent image placeholder for articles without photos
 - Remove orphaned breadcrumb props breaking astro type check
 - Remove unused Breadcrumb component
 - Site defaults to light theme, dark mode is explicit toggle only
@@ -1183,6 +1184,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
