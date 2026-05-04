@@ -69,17 +69,40 @@ let sanitizedHtml = sanitizeHtml(rawHtml as string, {
   },
 });
 
-// Remove duplicate title
-const contentHtml = sanitizedHtml.replace(
+// Remove duplicate title and excerpt from content body
+const titleText = post.title.toLowerCase().trim();
+const excerptText = post.excerpt?.toLowerCase().trim() || '';
+
+// Strip duplicate H1 matching the title
+let contentHtml = sanitizedHtml.replace(
   /^<h1[^>]*>.*?<\/h1>\s*/i,
   (match) => {
     const h1Text = match.replace(/<[^>]+>/g, '').trim().toLowerCase();
-    const titleText = post.title.toLowerCase().trim();
     if (h1Text === titleText || titleText.startsWith(h1Text) || h1Text.startsWith(titleText)) {
       return '';
     }
     return match;
   }
+);
+
+// Strip leading paragraph that matches the excerpt (common in scraped content)
+if (excerptText && excerptText.length > 20) {
+  contentHtml = contentHtml.replace(
+    /^<p[^>]*>(.*?)<\/p>\s*/i,
+    (match) => {
+      const pText = match.replace(/<[^>]+>/g, '').trim().toLowerCase();
+      if (pText === excerptText || excerptText.startsWith(pText) || pText.startsWith(excerptText)) {
+        return '';
+      }
+      return match;
+    }
+  );
+}
+
+// Remove consecutive duplicate paragraphs (scraper artifact)
+contentHtml = contentHtml.replace(
+  /(<p[^>]*>.*?<\/p>)\s*\1/gi,
+  '$1'
 );
 
 const categoryConfig: Record<string, { color: string; bg: string; border: string; label: string; icon: any; gradient: string }> = {
