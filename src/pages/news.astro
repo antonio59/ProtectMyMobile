@@ -123,12 +123,12 @@ const newsSchema = {
             <section class="mb-8 sm:mb-10">
               <a
                 href={`/news/${featuredPost.slug}`}
-                class="group block bg-card rounded-2xl shadow-sm border border-border hover:shadow-md hover:border-primary/20 transition-all overflow-hidden"
+                class="group block bg-card rounded-2xl shadow-sm border border-border hover:shadow-md hover:border-primary/20 transition-all"
               >
                 <div class="md:flex">
                   {featuredPost.featuredImageUrl && (
                     <div class="md:w-80 lg:w-96 shrink-0">
-                      <div class="aspect-[16/10] md:aspect-auto md:h-full bg-neutral overflow-hidden">
+                      <div class="aspect-[16/10] md:aspect-auto md:h-full bg-neutral overflow-hidden rounded-t-2xl md:rounded-t-none md:rounded-l-2xl">
                         <img
                           src={featuredPost.featuredImageUrl}
                           alt={featuredPost.title}
