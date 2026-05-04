@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 
 ### Bug Fixes
 
+- Remove unused escapeHtml export to satisfy Fallow dead-code check
 - Reduce AnimatedNewsSection card title size
 - Remove unused icon imports from about page
 - Consistent image placeholder for articles without photos
@@ -1188,6 +1189,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
