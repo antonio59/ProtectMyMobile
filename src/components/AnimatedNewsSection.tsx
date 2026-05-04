@@ -171,7 +171,7 @@ function NewsCard({ post, index, config, Icon }: { post: NewsPost; index: number
         </div>
 
         {/* Title */}
-        <h3 className="text-lg sm:text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors leading-snug">
+        <h3 className="text-sm sm:text-base font-semibold text-foreground mb-3 group-hover:text-primary transition-colors leading-snug">
           {post.title}
         </h3>
 
