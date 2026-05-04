@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 
 ### Bug Fixes
 
+- Site defaults to light theme, dark mode is explicit toggle only
 - Dark mode contrast — body text color and neutral-50 override
 - Move --spacing-* tokens out of @theme to restore Tailwind v4 sizing utilities
 - Ignore lightningcss-linux-x64-gnu platform binary in fallow
@@ -1177,6 +1178,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
