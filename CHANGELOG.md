@@ -100,6 +100,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Rebuild UI to match DESIGN.md light theme + semantic tokens
 - Merge pull request #58 from antonio59/dependabot/github_actions/actions/checkout-6
 
 ci: bump actions/checkout from 4 to 6
@@ -1176,6 +1177,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
