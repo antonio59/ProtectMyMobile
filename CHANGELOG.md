@@ -75,6 +75,7 @@ All notable changes to this project will be documented in this file.
 
 ### CI/CD
 
+- Bump actions/checkout from 4 to 6
 - Ignore lightningcss-linux-x64-gnu in fallow dead-code scan
 - Explicitly install lightningcss-linux-x64-gnu on Linux runners
 - Clean node_modules before npm install to force platform-native dep resolution
@@ -99,6 +100,9 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Merge pull request #58 from antonio59/dependabot/github_actions/actions/checkout-6
+
+ci: bump actions/checkout from 4 to 6
 - Fix XSS and insecure randomness vulnerabilities
 - Batch update all dependencies + fix security vulnerabilities
 - Merge branch 'main' of https://github.com/antonio59/ProtectMyMobile
@@ -1172,6 +1176,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
