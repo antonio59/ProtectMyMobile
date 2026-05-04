@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 
 ### Bug Fixes
 
+- Remove orphaned breadcrumb props breaking astro type check
 - Remove unused Breadcrumb component
 - Site defaults to light theme, dark mode is explicit toggle only
 - Dark mode contrast — body text color and neutral-50 override
@@ -1181,6 +1182,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
