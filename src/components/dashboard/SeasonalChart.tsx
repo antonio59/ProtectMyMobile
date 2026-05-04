@@ -83,7 +83,7 @@ export default function SeasonalChart({ data }: { data: SeasonalData }) {
         <Sun className="size-5 text-amber-500" />
         Seasonal Pattern
       </h3>
-      <p className="text-xs text-neutral-500 mb-4">Average thefts per month across all years</p>
+      <p className="text-xs text-muted-foreground mb-4">Average thefts per month across all years</p>
       <div className="flex-1 min-h-[200px]">
         <canvas ref={canvasRef} />
       </div>

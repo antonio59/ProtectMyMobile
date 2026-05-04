@@ -177,7 +177,7 @@ const colorClasses: Record<string, { bg: string; border: string; icon: string; l
   <HeaderMobile client:idle />
   <Breadcrumb items={[{ label: 'Products' }]} />
   
-  <main id="main-content" class="bg-neutral-100 min-h-screen">
+  <main id="main-content" class="bg-background min-h-screen">
     <div class="container mx-auto px-4 py-4 sm:py-6 max-w-6xl">
       
       <!-- Hero Section -->
@@ -215,7 +215,7 @@ const colorClasses: Record<string, { bg: string; border: string; icon: string; l
                     </div>
                     <div>
                       <h2 class="text-base sm:text-lg font-bold text-foreground">{product.title}</h2>
-                      <p class="text-sm text-neutral-600 mt-1 mb-3">{product.description}</p>
+                      <p class="text-sm text-muted-foreground mt-1 mb-3">{product.description}</p>
                       {product.affiliateLink && (
                         <a
                           href={product.affiliateLink}
@@ -237,7 +237,7 @@ const colorClasses: Record<string, { bg: string; border: string; icon: string; l
                       <h3 class="font-semibold text-sm text-foreground mb-2">Benefits</h3>
                       <ul class="space-y-1.5">
                         {product.benefits.map((benefit) => (
-                          <li class="flex items-start gap-2 text-sm text-neutral-700">
+                          <li class="flex items-start gap-2 text-sm text-foreground">
                             <CheckCircle2 class={`size-4 ${colors.icon} flex-shrink-0 mt-0.5`} />
                             <span>{benefit}</span>
                           </li>
@@ -246,12 +246,12 @@ const colorClasses: Record<string, { bg: string; border: string; icon: string; l
                     </div>
 
                     <!-- What to Look For -->
-                    <div class="bg-neutral-50 rounded-lg sm:rounded-xl p-3 sm:p-4">
+                    <div class="bg-neutral rounded-lg sm:rounded-xl p-3 sm:p-4">
                       <h3 class="font-semibold text-sm text-foreground mb-2">What to Look For</h3>
                       <ul class="space-y-1.5">
                         {product.lookFor.map((item) => (
-                          <li class="flex items-start gap-2 text-sm text-neutral-600">
-                            <ChevronRight class="size-4 text-neutral-400 flex-shrink-0 mt-0.5" />
+                          <li class="flex items-start gap-2 text-sm text-muted-foreground">
+                            <ChevronRight class="size-4 text-muted-foreground flex-shrink-0 mt-0.5" />
                             <span>{item}</span>
                           </li>
                         ))}
@@ -274,7 +274,7 @@ const colorClasses: Record<string, { bg: string; border: string; icon: string; l
         <div class="grid md:grid-cols-2 gap-4">
           <div class="bg-card rounded-xl p-3 sm:p-4 shadow-md">
             <h3 class="font-semibold mb-2">Before You Buy</h3>
-            <ul class="text-sm text-neutral-700 space-y-2">
+            <ul class="text-sm text-foreground space-y-2">
               <li>• Read multiple reviews from verified purchasers</li>
               <li>• Check compatibility with your specific phone model</li>
               <li>• Compare prices across multiple retailers</li>
@@ -283,7 +283,7 @@ const colorClasses: Record<string, { bg: string; border: string; icon: string; l
           </div>
           <div class="bg-card rounded-xl p-3 sm:p-4 shadow-md">
             <h3 class="font-semibold mb-2">Remember</h3>
-            <ul class="text-sm text-neutral-700 space-y-2">
+            <ul class="text-sm text-foreground space-y-2">
               <li>• No product guarantees complete protection</li>
               <li>• Combine products with good security habits</li>
               <li>• Stay aware of your surroundings</li>
@@ -294,7 +294,7 @@ const colorClasses: Record<string, { bg: string; border: string; icon: string; l
       </section>
       
       <!-- CTA -->
-      <section class="mt-6 sm:mt-8 md:mt-10 bg-gradient-to-r from-primary to-blue-700 rounded-2xl p-4 sm:p-6 md:p-8 text-white">
+      <section class="mt-6 sm:mt-8 md:mt-10 bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl p-4 sm:p-6 md:p-8 text-white">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
             <h2 class="text-lg sm:text-xl font-bold mb-2">Products are just one part of protection</h2>

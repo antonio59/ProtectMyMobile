@@ -116,10 +116,10 @@ function StatCard({ stat, index }: { stat: Stat; index: number }) {
           stat.value
         )}
       </div>
-      <div className="text-xs sm:text-sm md:text-base lg:text-lg text-neutral-600 leading-tight">
+      <div className="text-xs sm:text-sm md:text-base lg:text-lg text-muted-foreground leading-tight">
         {stat.label}<br/>{stat.sublabel}
       </div>
-      <div className="mt-1 sm:mt-2 lg:mt-3 text-[10px] sm:text-xs lg:text-sm text-neutral-400">Met Police data</div>
+      <div className="mt-1 sm:mt-2 lg:mt-3 text-[10px] sm:text-xs lg:text-sm text-muted-foreground">Met Police data</div>
     </div>
   );
 }

@@ -62,17 +62,17 @@ import { Shield, IdCard, Fingerprint, Lock, ShieldCheck, ArrowRight, CheckCircle
   <HeaderMobile client:idle />
   <Breadcrumb items={[{ label: 'Prevention Guide' }]} />
   
-  <main id="main-content" class="bg-neutral-100 min-h-screen">
+  <main id="main-content" class="bg-background min-h-screen">
     <div class="container mx-auto px-4 py-4 sm:py-6 max-w-6xl">
       <!-- Hero Section -->
-      <div class="bg-gradient-to-br from-primary to-blue-700 text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 lg:p-12 mb-6 sm:mb-8 md:mb-10 shadow-xl">
+      <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 lg:p-12 mb-6 sm:mb-8 md:mb-10 shadow-xl">
         <div class="flex items-center gap-2 sm:gap-3 mb-3">
           <div class="bg-white/20 p-2 sm:p-3 rounded-xl">
             <Shield class="size-6 sm:size-8" />
           </div>
           <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-shadow-glow">Prevention Guides</h1>
         </div>
-        <p class="text-blue-100 text-xs sm:text-sm md:text-base mb-4 sm:mb-6">
+        <p class="text-white/85 text-xs sm:text-sm md:text-base mb-4 sm:mb-6">
           Take these preventative measures to secure your phone and minimise risk in case of theft.
         </p>
         <a href="/security-checkup" class="inline-flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-card text-primary rounded-xl font-semibold text-xs sm:text-sm hover:bg-primary-subtle transition-colors shadow-lg">
@@ -100,10 +100,10 @@ import { Shield, IdCard, Fingerprint, Lock, ShieldCheck, ArrowRight, CheckCircle
                 </div>
                 <h3 class="text-base sm:text-lg md:text-xl font-bold">Secure Your SIM</h3>
               </div>
-              <p class="text-neutral-600 text-xs sm:text-sm md:text-base mb-3 sm:mb-4">
+              <p class="text-muted-foreground text-xs sm:text-sm md:text-base mb-3 sm:mb-4">
                 Set a PIN for your SIM card to prevent unauthorised use if stolen.
               </p>
-              <ol class="list-decimal pl-5 text-neutral-700 space-y-1 text-xs sm:text-sm md:text-base mb-3 sm:mb-4">
+              <ol class="list-decimal pl-5 text-foreground space-y-1 text-xs sm:text-sm md:text-base mb-3 sm:mb-4">
                 <li>Go to Settings → Security</li>
                 <li>Find "SIM card lock"</li>
                 <li>Enable and set a unique PIN</li>
@@ -125,10 +125,10 @@ import { Shield, IdCard, Fingerprint, Lock, ShieldCheck, ArrowRight, CheckCircle
                 </div>
                 <h3 class="text-base sm:text-lg md:text-xl font-bold">Biometric Auth</h3>
               </div>
-              <p class="text-neutral-600 text-xs sm:text-sm md:text-base mb-3 sm:mb-4">
+              <p class="text-muted-foreground text-xs sm:text-sm md:text-base mb-3 sm:mb-4">
                 Set up fingerprint or face recognition alongside a strong passcode.
               </p>
-              <ol class="list-decimal pl-5 text-neutral-700 space-y-1 text-xs sm:text-sm md:text-base">
+              <ol class="list-decimal pl-5 text-foreground space-y-1 text-xs sm:text-sm md:text-base">
                 <li>Go to Settings → Security</li>
                 <li>Select Face ID or Fingerprint</li>
                 <li>Register your biometrics</li>
@@ -147,10 +147,10 @@ import { Shield, IdCard, Fingerprint, Lock, ShieldCheck, ArrowRight, CheckCircle
                 </div>
                 <h3 class="text-base sm:text-lg md:text-xl font-bold">App Security</h3>
               </div>
-              <p class="text-neutral-600 text-xs sm:text-sm md:text-base mb-3 sm:mb-4">
+              <p class="text-muted-foreground text-xs sm:text-sm md:text-base mb-3 sm:mb-4">
                 Enable additional security for banking and payment apps.
               </p>
-              <ol class="list-decimal pl-5 text-neutral-700 space-y-1 text-xs sm:text-sm md:text-base">
+              <ol class="list-decimal pl-5 text-foreground space-y-1 text-xs sm:text-sm md:text-base">
                 <li>Open banking app settings</li>
                 <li>Enable app-specific PIN</li>
                 <li>Turn on 2FA if available</li>
@@ -173,7 +173,7 @@ import { Shield, IdCard, Fingerprint, Lock, ShieldCheck, ArrowRight, CheckCircle
               <h3 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">Know Your IMEI Number</h3>
             </div>
 
-            <p class="text-neutral-700 text-xs sm:text-sm md:text-base mb-4 sm:mb-6">
+            <p class="text-foreground text-xs sm:text-sm md:text-base mb-4 sm:mb-6">
               Your IMEI is your phone's unique 15-digit identifier. You'll need this to report theft to police and your network.
             </p>
 
@@ -198,7 +198,7 @@ import { Shield, IdCard, Fingerprint, Lock, ShieldCheck, ArrowRight, CheckCircle
 
               <div class="p-4 sm:p-6 bg-neutral-100 rounded-xl sm:rounded-2xl">
                 <h4 class="font-semibold text-foreground mb-2 sm:mb-3 text-sm sm:text-base">Where to store it safely:</h4>
-                <ul class="space-y-2 text-xs sm:text-sm md:text-base text-neutral-700">
+                <ul class="space-y-2 text-xs sm:text-sm md:text-base text-foreground">
                   <li class="flex items-start gap-2">
                     <CheckCircle2 class="size-4 mt-0.5 flex-shrink-0 text-green-600" />
                     <span>Password manager (most secure)</span>
@@ -231,9 +231,9 @@ import { Shield, IdCard, Fingerprint, Lock, ShieldCheck, ArrowRight, CheckCircle
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 sm:gap-4">
           <div>
             <h3 class="text-lg sm:text-xl md:text-2xl font-bold mb-2">How secure is your phone?</h3>
-            <p class="text-neutral-700 text-xs sm:text-sm md:text-base">Complete our quick assessment to identify security gaps.</p>
+            <p class="text-foreground text-xs sm:text-sm md:text-base">Complete our quick assessment to identify security gaps.</p>
           </div>
-          <a href="/security-checkup" class="inline-flex items-center justify-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-primary text-white rounded-xl font-semibold text-xs sm:text-sm hover:bg-primary/90 transition-colors shadow-lg whitespace-nowrap">
+          <a href="/security-checkup" class="inline-flex items-center justify-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-primary text-white rounded-xl font-semibold text-xs sm:text-sm hover:bg-primary-hover transition-colors shadow-lg whitespace-nowrap">
             Start Security Checkup
             <ArrowRight class="size-4" />
           </a>

@@ -94,7 +94,7 @@ const providersFaqSchema = {
   <HeaderMobile client:idle />
   <Breadcrumb items={[{ label: 'Mobile Providers' }]} />
   
-  <main id="main-content" class="bg-neutral-100 min-h-screen">
+  <main id="main-content" class="bg-background min-h-screen">
     <div class="container mx-auto px-4 py-4 sm:py-6 max-w-6xl">
       <!-- Hero Section -->
       <div class="bg-gradient-to-br from-green-600 to-emerald-700 text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8 shadow-xl">
@@ -129,7 +129,7 @@ const providersFaqSchema = {
         <div class="mb-4 sm:mb-6">
           <label for="provider-search" class="sr-only">Search for your mobile provider</label>
           <div class="relative">
-            <Search class="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 size-5" />
+            <Search class="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground size-5" />
             <input
               id="provider-search"
               type="search"
@@ -148,7 +148,7 @@ const providersFaqSchema = {
                 class={`network-filter px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm rounded-lg transition-colors ${
                   index === 0
                     ? 'bg-primary text-white'
-                    : 'bg-neutral-200 text-neutral-700 hover:bg-neutral-300'
+                    : 'bg-neutral-200 text-foreground hover:bg-neutral-300'
                 }`}
                 data-network={network.toLowerCase()}
               >
@@ -180,7 +180,7 @@ const providersFaqSchema = {
                       <div>
                         <h3 class="text-base sm:text-lg font-bold text-foreground truncate">{provider.name}</h3>
                         <div class="flex items-center gap-2 mt-1">
-                          <span class="text-xs px-2 py-0.5 bg-neutral-100 text-neutral-600 rounded-full">{provider.network}</span>
+                          <span class="text-xs px-2 py-0.5 bg-neutral-100 text-muted-foreground rounded-full">{provider.network}</span>
                           {provider.is_mvno && <span class="text-xs px-2 py-0.5 bg-primary-muted text-primary-hover rounded-full">MVNO</span>}
                         </div>
                       </div>
@@ -188,7 +188,7 @@ const providersFaqSchema = {
                         href={provider.website}
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="text-xs text-neutral-500 hover:text-primary flex items-center gap-1 flex-shrink-0"
+                        class="text-xs text-muted-foreground hover:text-primary flex items-center gap-1 flex-shrink-0"
                       >
                         <ExternalLink class="size-3" />
                         Website
@@ -206,7 +206,7 @@ const providersFaqSchema = {
                       ) : (
                         <a href={`tel:${provider.emergencyContact.uk}`} class="text-destructive-hover font-bold text-base sm:text-lg hover:underline block">{provider.emergencyContact.uk}</a>
                       )}
-                      <p class="text-neutral-600 text-xs mt-1">{provider.emergencyContact.available}</p>
+                      <p class="text-muted-foreground text-xs mt-1">{provider.emergencyContact.available}</p>
                     </div>
 
                     <!-- Additional Info -->
@@ -228,7 +228,7 @@ const providersFaqSchema = {
             <AlertCircle class="size-5 mr-2" />
             Important Notes:
           </h3>
-          <ul class="list-disc pl-5 space-y-2 text-neutral-700 text-xs sm:text-sm">
+          <ul class="list-disc pl-5 space-y-2 text-foreground text-xs sm:text-sm">
             <li>Report your SIM as stolen as soon as possible to prevent unauthorized use</li>
             <li>You'll need your phone number and account details when contacting your provider</li>
             <li>Ask for a reference number for your call/report</li>
@@ -266,9 +266,9 @@ const providersFaqSchema = {
         // Update button styles
         networkButtons.forEach(btn => {
           btn.classList.remove('bg-primary', 'text-white');
-          btn.classList.add('bg-neutral-200', 'text-neutral-700');
+          btn.classList.add('bg-neutral-200', 'text-foreground');
         });
-        target.classList.remove('bg-neutral-200', 'text-neutral-700');
+        target.classList.remove('bg-neutral-200', 'text-foreground');
         target.classList.add('bg-primary', 'text-white');
         
         // Filter providers
@@ -304,13 +304,13 @@ const providersFaqSchema = {
           noResultsEl.id = 'no-provider-results';
           noResultsEl.className = 'col-span-full text-center py-12';
           noResultsEl.innerHTML = `
-            <div class="text-neutral-400 mb-2">
+            <div class="text-muted-foreground mb-2">
               <svg class="size-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
               </svg>
             </div>
-            <p class="text-neutral-600 font-medium">No providers found</p>
-            <p class="text-neutral-500 text-sm">Try different search terms or clear your filters</p>
+            <p class="text-muted-foreground font-medium">No providers found</p>
+            <p class="text-muted-foreground text-sm">Try different search terms or clear your filters</p>
           `;
           providerList?.appendChild(noResultsEl);
         }

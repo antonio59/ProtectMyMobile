@@ -65,7 +65,7 @@ const categoryColors: Record<string, string> = {
   'Information': 'bg-primary-muted text-primary-hover',
   'Directory': 'bg-orange-100 text-orange-700',
   'Locations': 'bg-teal-100 text-teal-700',
-  'Help': 'bg-neutral-100 text-neutral-700',
+  'Help': 'bg-neutral-100 text-foreground',
   'About': 'bg-gray-100 text-gray-700',
 };
 
@@ -197,7 +197,7 @@ export default function SiteSearch() {
       <button
         ref={triggerButtonRef}
         onClick={() => setIsOpen(true)}
-        className="hidden md:flex items-center gap-2 px-3 py-2 bg-neutral-100 hover:bg-neutral-200 rounded-lg text-neutral-600 transition-colors text-sm"
+        className="hidden md:flex items-center gap-2 px-3 py-2 bg-neutral-100 hover:bg-neutral-200 rounded-lg text-muted-foreground transition-colors text-sm"
         aria-label="Open search (Cmd+K)"
       >
         <Search className="size-4" />
@@ -211,7 +211,7 @@ export default function SiteSearch() {
       {/* Mobile Search Trigger */}
       <button
         onClick={() => setIsOpen(true)}
-        className="md:hidden p-2 rounded-lg bg-neutral-100 hover:bg-neutral-200 text-neutral-600 transition-colors"
+        className="md:hidden p-2 rounded-lg bg-neutral-100 hover:bg-neutral-200 text-muted-foreground transition-colors"
         aria-label="Open search"
       >
         <Search className="size-5" />
@@ -236,7 +236,7 @@ export default function SiteSearch() {
           >
             {/* Search Input */}
             <div className="flex items-center gap-3 px-4 py-4 border-b border-border">
-              <Search className="size-5 text-neutral-400 flex-shrink-0" />
+              <Search className="size-5 text-muted-foreground flex-shrink-0" />
               <input
                 ref={inputRef}
                 type="text"
@@ -244,12 +244,12 @@ export default function SiteSearch() {
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={handleKeyDown}
                 placeholder="Search pages, guides, locations..."
-                className="flex-1 bg-transparent border-none outline-none text-base placeholder:text-neutral-400"
+                className="flex-1 bg-transparent border-none outline-none text-base placeholder:text-muted-foreground"
               />
               {query && (
                 <button
                   onClick={() => setQuery('')}
-                  className="p-1 rounded hover:bg-neutral-100 text-neutral-400"
+                  className="p-1 rounded hover:bg-neutral-100 text-muted-foreground"
                   aria-label="Clear search"
                 >
                   <X className="size-4" />
@@ -257,7 +257,7 @@ export default function SiteSearch() {
               )}
               <button
                 onClick={() => setIsOpen(false)}
-                className="hidden md:block px-2 py-1 text-xs text-neutral-400 border border-border rounded"
+                className="hidden md:block px-2 py-1 text-xs text-muted-foreground border border-border rounded"
               >
                 ESC
               </button>
@@ -266,19 +266,19 @@ export default function SiteSearch() {
             {/* Results */}
             <div className="overflow-y-auto flex-1 p-2">
               {query.trim() === '' ? (
-                <div className="p-4 text-center text-neutral-500">
+                <div className="p-4 text-center text-muted-foreground">
                   <p className="text-sm">Start typing to search...</p>
-                  <p className="text-xs mt-2 text-neutral-400">
+                  <p className="text-xs mt-2 text-muted-foreground">
                     Try: "emergency", "banks", "London", "prevention"
                   </p>
                 </div>
               ) : results.length === 0 ? (
                 <div className="p-8 text-center">
                   <div className="inline-flex items-center justify-center size-12 bg-neutral-100 rounded-full mb-3">
-                    <Search className="size-5 text-neutral-400" />
+                    <Search className="size-5 text-muted-foreground" />
                   </div>
-                  <p className="text-neutral-600 font-medium">No results found</p>
-                  <p className="text-sm text-neutral-400 mt-1">
+                  <p className="text-muted-foreground font-medium">No results found</p>
+                  <p className="text-sm text-muted-foreground mt-1">
                     Try different keywords or check spelling
                   </p>
                 </div>
@@ -286,7 +286,7 @@ export default function SiteSearch() {
                 <div className="space-y-4">
                   {Object.entries(groupedResults).map(([category, items]) => (
                     <div key={category}>
-                      <h3 className="px-3 py-2 text-xs font-semibold text-neutral-400 uppercase tracking-wide">
+                      <h3 className="px-3 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wide">
                         {category}
                       </h3>
                       <div className="space-y-1">
@@ -311,7 +311,7 @@ export default function SiteSearch() {
                                 <p className={`font-medium text-sm ${globalIndex === selectedIndex ? 'text-primary' : 'text-foreground'}`}>
                                   {result.title}
                                 </p>
-                                <p className="text-xs text-neutral-500 truncate">
+                                <p className="text-xs text-muted-foreground truncate">
                                   {result.description}
                                 </p>
                               </div>
@@ -327,7 +327,7 @@ export default function SiteSearch() {
             </div>
 
             {/* Footer */}
-            <div className="flex items-center justify-between px-4 py-3 border-t border-border bg-neutral-50 text-xs text-neutral-400">
+            <div className="flex items-center justify-between px-4 py-3 border-t border-border bg-neutral text-xs text-muted-foreground">
               <div className="flex items-center gap-4">
                 <span className="flex items-center gap-1">
                   <kbd className="px-1.5 py-0.5 bg-card rounded border border-border font-sans">↑</kbd>

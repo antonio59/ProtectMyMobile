@@ -84,7 +84,7 @@ function TrendSummaryStats({ data }: { data: TrendsData }) {
 
   const stats = [
     { label: 'Latest month total', value: latestMonth.total.toLocaleString(), bg: 'bg-primary-subtle', text: 'text-primary-hover' },
-    { label: 'All-time total', value: allTimeTotal.toLocaleString(), bg: 'bg-neutral-50', text: 'text-neutral-700' },
+    { label: 'All-time total', value: allTimeTotal.toLocaleString(), bg: 'bg-neutral', text: 'text-foreground' },
     {
       label: 'Month-on-month',
       value: monthChange ? `${Number(monthChange) > 0 ? '+' : ''}${monthChange}%` : '—',
@@ -99,8 +99,8 @@ function TrendSummaryStats({ data }: { data: TrendsData }) {
           {data.locations.length}
         </span>
       ),
-      bg: 'bg-neutral-50',
-      text: 'text-neutral-700',
+      bg: 'bg-neutral',
+      text: 'text-foreground',
     },
   ];
 
@@ -109,7 +109,7 @@ function TrendSummaryStats({ data }: { data: TrendsData }) {
       {stats.map((s) => (
         <div key={s.label} className={`${s.bg} rounded-lg p-3`}>
           <div className={`text-lg sm:text-xl font-bold ${s.text}`}>{s.value}</div>
-          <div className="text-xs text-neutral-500">{s.label}</div>
+          <div className="text-xs text-muted-foreground">{s.label}</div>
         </div>
       ))}
     </div>
@@ -118,12 +118,12 @@ function TrendSummaryStats({ data }: { data: TrendsData }) {
 
 function ChartErrorState({ error, hasData, onRetry }: { error: string | null; hasData: boolean; onRetry: () => void }) {
   return (
-    <div className="bg-neutral-50 rounded-xl p-8 text-center">
+    <div className="bg-neutral rounded-xl p-8 text-center">
       <BarChart3 className="size-12 mx-auto mb-3 text-neutral-300" />
-      <h3 className="text-lg font-semibold text-neutral-700 mb-2">
+      <h3 className="text-lg font-semibold text-foreground mb-2">
         {error ? 'Unable to Load Trends' : 'Trends Coming Soon'}
       </h3>
-      <p className="text-sm text-neutral-500 max-w-md mx-auto mb-4">
+      <p className="text-sm text-muted-foreground max-w-md mx-auto mb-4">
         {error
           ? 'There was a problem loading the theft trends data. Please try again.'
           : 'Monthly theft trends will appear here once data has been imported from police.uk. The data is automatically refreshed weekly.'
@@ -132,7 +132,7 @@ function ChartErrorState({ error, hasData, onRetry }: { error: string | null; ha
       {(error || !hasData) && (
         <button
           onClick={onRetry}
-          className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-colors"
+          className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg font-medium hover:bg-primary-hover transition-colors"
         >
           <RefreshCw className="size-4" />
           Try Again
@@ -150,7 +150,7 @@ function ViewModeToggle({ viewMode, onChange }: { viewMode: 'stacked' | 'lines';
           key={mode}
           onClick={() => onChange(mode)}
           className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
-            viewMode === mode ? 'bg-card text-foreground shadow-sm' : 'text-neutral-600 hover:text-foreground'
+            viewMode === mode ? 'bg-card text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'
           }`}
         >
           {mode === 'stacked' ? 'Stacked' : 'Lines'}
@@ -237,7 +237,7 @@ export default function TheftTrendsChart() {
             <TrendingUp className="size-5 text-blue-500" />
             Monthly Theft Trends
           </h2>
-          <p className="text-xs sm:text-sm text-neutral-500 mt-1">
+          <p className="text-xs sm:text-sm text-muted-foreground mt-1">
             {locations.length} locations tracked &middot; {points.length} months of data
           </p>
         </div>

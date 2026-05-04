@@ -75,7 +75,7 @@ export default function LocationsChart({ data }: { data: LocationRanking[] }) {
         <MapPin className="size-5 text-red-500" />
         Top Theft Hotspots
       </h3>
-      <p className="text-xs text-neutral-500 mb-4">Ranked by total theft count from police.uk data</p>
+      <p className="text-xs text-muted-foreground mb-4">Ranked by total theft count from police.uk data</p>
       <div className="flex-1 min-h-[240px]">
         <canvas ref={canvasRef} />
       </div>

@@ -14,7 +14,7 @@ import { MapPin, Shield, Info } from "lucide-react";
   <HeaderMobile client:idle />
   <Breadcrumb items={[{ label: 'Theft Map' }]} />
   
-  <main id="main-content" class="bg-neutral-100">
+  <main id="main-content" class="bg-background">
     <div class="container mx-auto px-4 py-4 sm:py-6 md:py-8">
       <div class="max-w-7xl mx-auto">
         
@@ -24,7 +24,7 @@ import { MapPin, Shield, Info } from "lucide-react";
             <MapPin class="size-8 sm:size-10 mr-3 text-destructive" />
             UK Phone Theft Map
           </h1>
-          <p class="text-sm sm:text-base md:text-lg text-neutral-600 max-w-2xl mx-auto">
+          <p class="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
             See where phones are being stolen across the UK. Help others by 
             <a href="/emergency#report-theft" class="text-primary hover:underline font-medium">reporting your theft</a>.
           </p>
@@ -34,19 +34,19 @@ import { MapPin, Shield, Info } from "lucide-react";
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
           <div class="bg-card rounded-xl p-4 shadow-md text-center">
             <div class="text-2xl sm:text-3xl font-bold text-destructive" id="stat-reported">-</div>
-            <div class="text-xs sm:text-sm text-neutral-500">Reports</div>
+            <div class="text-xs sm:text-sm text-muted-foreground">Reports</div>
           </div>
           <div class="bg-card rounded-xl p-4 shadow-md text-center">
             <div class="text-2xl sm:text-3xl font-bold text-primary" id="stat-this-month">-</div>
-            <div class="text-xs sm:text-sm text-neutral-500">This Month</div>
+            <div class="text-xs sm:text-sm text-muted-foreground">This Month</div>
           </div>
           <div class="bg-card rounded-xl p-4 shadow-md text-center">
             <div class="text-2xl sm:text-3xl font-bold text-warning" id="stat-london">-</div>
-            <div class="text-xs sm:text-sm text-neutral-500">London Reports</div>
+            <div class="text-xs sm:text-sm text-muted-foreground">London Reports</div>
           </div>
           <div class="bg-card rounded-xl p-4 shadow-md text-center">
             <div class="text-2xl sm:text-3xl font-bold text-green-600" id="stat-last-7">-</div>
-            <div class="text-xs sm:text-sm text-neutral-500">Last 7 Days</div>
+            <div class="text-xs sm:text-sm text-muted-foreground">Last 7 Days</div>
           </div>
         </div>
 
@@ -55,8 +55,8 @@ import { MapPin, Shield, Info } from "lucide-react";
           <div id="theft-map" class="w-full h-[400px] sm:h-[500px] md:h-[600px]"></div>
           <div id="map-overlay" class="absolute inset-0 bg-white/90 flex items-center justify-center hidden z-[1000]">
             <div class="text-center px-4">
-              <p class="text-neutral-600 font-medium">No reports yet.</p>
-              <p class="text-sm text-neutral-500 mt-1">Be the first to <a href="/emergency#report-theft" class="text-primary underline">report a theft</a>.</p>
+              <p class="text-muted-foreground font-medium">No reports yet.</p>
+              <p class="text-sm text-muted-foreground mt-1">Be the first to <a href="/emergency#report-theft" class="text-primary underline">report a theft</a>.</p>
             </div>
           </div>
         </div>
@@ -150,7 +150,7 @@ import { MapPin, Shield, Info } from "lucide-react";
       if (!CONVEX_URL) {
         document.getElementById('map-overlay')!.classList.remove('hidden');
         document.getElementById('map-overlay')!.innerHTML = 
-          '<div class="text-center px-4"><p class="text-neutral-600 font-medium">Map data unavailable</p></div>';
+          '<div class="text-center px-4"><p class="text-muted-foreground font-medium">Map data unavailable</p></div>';
         return;
       }
 
@@ -215,7 +215,7 @@ import { MapPin, Shield, Info } from "lucide-react";
             marker.bindPopup(`
               <div class="font-sans">
                 <p class="font-semibold text-sm">${p.locationName || 'Unknown'}</p>
-                <p class="text-xs text-neutral-500">${p.date || ''}</p>
+                <p class="text-xs text-muted-foreground">${p.date || ''}</p>
                 <p class="text-xs text-primary mt-1 font-medium">${p.theftCount} thefts (police data)</p>
               </div>
             `);
@@ -242,7 +242,7 @@ import { MapPin, Shield, Info } from "lucide-react";
             marker.bindPopup(`
               <div class="font-sans">
                 <p class="font-semibold text-sm">${r.locationName || 'Unknown location'}</p>
-                <p class="text-xs text-neutral-500">${dateStr}</p>
+                <p class="text-xs text-muted-foreground">${dateStr}</p>
                 ${r.description ? `<p class="text-xs mt-1">${r.description}</p>` : ''}
                 <p class="text-xs text-destructive mt-1 font-medium">Crowdsourced report</p>
               </div>
@@ -262,7 +262,7 @@ import { MapPin, Shield, Info } from "lucide-react";
         console.error('Failed to load map data:', err);
         document.getElementById('map-overlay')!.classList.remove('hidden');
         document.getElementById('map-overlay')!.innerHTML = 
-          '<div class="text-center px-4"><p class="text-neutral-600 font-medium">Unable to load map data</p><p class="text-sm text-neutral-500">Please try again later</p></div>';
+          '<div class="text-center px-4"><p class="text-muted-foreground font-medium">Unable to load map data</p><p class="text-sm text-muted-foreground">Please try again later</p></div>';
       }
     }
 

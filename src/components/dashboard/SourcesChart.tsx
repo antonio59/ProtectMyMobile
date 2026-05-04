@@ -70,7 +70,7 @@ export default function SourcesChart({ data, totalRecords }: { data: SourceBreak
         <PieChart className="size-5 text-pink-500" />
         Data Sources
       </h3>
-      <p className="text-xs text-neutral-500 mb-4">Composition of our statistics database</p>
+      <p className="text-xs text-muted-foreground mb-4">Composition of our statistics database</p>
       <div className="flex-1 min-h-[200px] flex items-center justify-center">
         <canvas ref={canvasRef} />
       </div>
@@ -81,9 +81,9 @@ export default function SourcesChart({ data, totalRecords }: { data: SourceBreak
             <div key={item.name} className="flex items-center justify-between text-xs">
               <div className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: COLORS[i % COLORS.length] }} />
-                <span className="text-neutral-700">{item.name}</span>
+                <span className="text-foreground">{item.name}</span>
               </div>
-              <span className="text-neutral-500">{pct}%</span>
+              <span className="text-muted-foreground">{pct}%</span>
             </div>
           );
         })}

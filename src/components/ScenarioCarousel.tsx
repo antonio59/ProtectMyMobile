@@ -91,7 +91,7 @@ export function ScenarioCarousel({ images, title, summary, scenarioId }: Props) 
           <div className="flex snap-x snap-mandatory">
             {images.map((src) => (
               <div className="min-w-0 flex-[0_0_100%] snap-center" key={src}>
-                <img src={src} alt={title} className="w-full h-auto object-contain bg-neutral-50" loading="lazy" />
+                <img src={src} alt={title} className="w-full h-auto object-contain bg-neutral" loading="lazy" />
               </div>
             ))}
           </div>
@@ -109,7 +109,7 @@ export function ScenarioCarousel({ images, title, summary, scenarioId }: Props) 
         <div className="absolute top-2 right-2">
           <button
             onClick={() => setShowShareMenu(!showShareMenu)}
-            className="rounded-full bg-white/90 border border-border shadow hover:bg-white p-2 text-neutral-600 hover:text-primary transition-colors"
+            className="rounded-full bg-white/90 border border-border shadow hover:bg-white p-2 text-muted-foreground hover:text-primary transition-colors"
             aria-label="Share this scenario"
           >
             <Share2 className="size-4" />
@@ -119,14 +119,14 @@ export function ScenarioCarousel({ images, title, summary, scenarioId }: Props) 
           {showShareMenu && (
             <div className="absolute right-0 top-full mt-2 w-48 bg-card rounded-xl shadow-lg border border-border py-2 z-50 animate-scale-in">
               <div className="px-3 py-2 border-b border-border">
-                <p className="text-xs font-semibold text-neutral-500 uppercase tracking-wide">Share</p>
+                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Share</p>
               </div>
               
               {/* Native share (mobile) */}
               {typeof navigator !== 'undefined' && 'share' in navigator && (
                 <button
                   onClick={handleNativeShare}
-                  className="w-full flex items-center gap-3 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50 transition-colors"
+                  className="w-full flex items-center gap-3 px-3 py-2 text-sm text-foreground hover:bg-neutral transition-colors"
                 >
                   <Share2 className="size-4" />
                   Share...
@@ -136,7 +136,7 @@ export function ScenarioCarousel({ images, title, summary, scenarioId }: Props) 
               {/* Copy link */}
               <button
                 onClick={handleCopyLink}
-                className="w-full flex items-center gap-3 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50 transition-colors"
+                className="w-full flex items-center gap-3 px-3 py-2 text-sm text-foreground hover:bg-neutral transition-colors"
               >
                 {copied ? <Check className="size-4 text-green-600" /> : <Copy className="size-4" />}
                 {copied ? 'Copied!' : 'Copy link'}
@@ -145,7 +145,7 @@ export function ScenarioCarousel({ images, title, summary, scenarioId }: Props) 
               {/* Twitter/X */}
               <button
                 onClick={handleTwitterShare}
-                className="w-full flex items-center gap-3 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50 transition-colors"
+                className="w-full flex items-center gap-3 px-3 py-2 text-sm text-foreground hover:bg-neutral transition-colors"
               >
                 <X className="size-4" />
                 Post on X
@@ -154,7 +154,7 @@ export function ScenarioCarousel({ images, title, summary, scenarioId }: Props) 
               {/* WhatsApp */}
               <button
                 onClick={handleWhatsAppShare}
-                className="w-full flex items-center gap-3 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50 transition-colors"
+                className="w-full flex items-center gap-3 px-3 py-2 text-sm text-foreground hover:bg-neutral transition-colors"
               >
                 <MessageCircle className="size-4" />
                 WhatsApp
@@ -163,7 +163,7 @@ export function ScenarioCarousel({ images, title, summary, scenarioId }: Props) 
               {/* Facebook */}
               <button
                 onClick={handleFacebookShare}
-                className="w-full flex items-center gap-3 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50 transition-colors"
+                className="w-full flex items-center gap-3 px-3 py-2 text-sm text-foreground hover:bg-neutral transition-colors"
               >
                 <svg className="size-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
                 Facebook

@@ -28,9 +28,9 @@ export default function StatCard({
     <div className="bg-card rounded-xl p-4 border border-border shadow-sm">
       <div className="flex items-start justify-between">
         <div>
-          <p className="text-xs text-neutral-500 font-medium uppercase tracking-wide">{label}</p>
+          <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide">{label}</p>
           <p className="text-2xl font-bold text-foreground mt-1">{value}</p>
-          {subtext && <p className="text-xs text-neutral-400 mt-1">{subtext}</p>}
+          {subtext && <p className="text-xs text-muted-foreground mt-1">{subtext}</p>}
         </div>
         <div className="p-2 rounded-lg" style={{ backgroundColor: `${CHART_COLORS[color]}15` }}>
           <Icon className="size-5" style={{ color: CHART_COLORS[color] }} />

@@ -65,8 +65,8 @@ const categoryConfig: Record<string, { color: string; bg: string; icon: any; gra
     gradient: "from-green-500 to-green-600",
   },
   other: {
-    color: "text-neutral-700",
-    bg: "bg-neutral-50",
+    color: "text-foreground",
+    bg: "bg-neutral",
     icon: FileText,
     gradient: "from-neutral-500 to-neutral-600",
   },
@@ -95,13 +95,13 @@ export default function AnimatedNewsSection({ news }: Props) {
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground leading-tight">
             Latest Mobile Security News
           </h2>
-          <p className="mt-2 text-neutral-600 text-sm sm:text-base max-w-2xl">
+          <p className="mt-2 text-muted-foreground text-sm sm:text-base max-w-2xl">
             Updates on UK mobile theft trends, policy changes, and safety guides.
           </p>
         </div>
         <a
           href="/news"
-          className="hidden sm:flex items-center gap-2 px-5 py-2.5 rounded-xl bg-card border border-border shadow-sm text-neutral-600 text-sm font-semibold hover:bg-neutral-50 hover:text-primary hover:border-primary/20 transition-all group whitespace-nowrap hover:scale-[1.02] active:scale-[0.98]"
+          className="hidden sm:flex items-center gap-2 px-5 py-2.5 rounded-xl bg-card border border-border shadow-sm text-muted-foreground text-sm font-semibold hover:bg-neutral hover:text-primary hover:border-primary/20 transition-all group whitespace-nowrap hover:scale-[1.02] active:scale-[0.98]"
         >
           View All <ArrowRight className="size-4 group-hover:translate-x-0.5 transition-transform" />
         </a>
@@ -164,7 +164,7 @@ function NewsCard({ post, index, config, Icon }: { post: NewsPost; index: number
             <Icon className="h-3.5 w-3.5" />
             {post.category.replace("_", " ")}
           </span>
-          <div className="flex items-center gap-1.5 text-xs text-neutral-400 font-medium">
+          <div className="flex items-center gap-1.5 text-xs text-muted-foreground font-medium">
             <Calendar className="h-3.5 w-3.5" />
             {formatDate(post.publishedAt || post._creationTime)}
           </div>
@@ -177,7 +177,7 @@ function NewsCard({ post, index, config, Icon }: { post: NewsPost; index: number
 
         {/* Excerpt */}
         {post.excerpt && (
-          <p className="text-neutral-600 text-sm leading-relaxed mb-4 flex-grow line-clamp-3">
+          <p className="text-muted-foreground text-sm leading-relaxed mb-4 flex-grow line-clamp-3">
             {post.excerpt}
           </p>
         )}
@@ -209,7 +209,7 @@ function EmptyState() {
       <h3 className="text-2xl font-bold text-foreground mb-3">
         Latest News
       </h3>
-      <p className="text-neutral-500 mb-8 max-w-md mx-auto">
+      <p className="text-muted-foreground mb-8 max-w-md mx-auto">
         Visit our news page for the latest updates on UK mobile theft trends,
         arrests, and policy changes.
       </p>

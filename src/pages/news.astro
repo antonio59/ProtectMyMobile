@@ -72,8 +72,8 @@ const categoryConfig: Record<string, { color: string; bg: string; icon: any; gra
     label: "Tips"
   },
   other: {
-    color: "text-neutral-700",
-    bg: "bg-neutral-50",
+    color: "text-foreground",
+    bg: "bg-neutral",
     icon: FileText,
     gradient: "from-neutral-500 to-neutral-600",
     label: "News"
@@ -121,13 +121,13 @@ const newsSchema = {
 >
   <HeaderMobile client:idle />
 
-  <main id="main-content" class="bg-neutral-100 min-h-screen">
+  <main id="main-content" class="bg-background min-h-screen">
     <div class="container mx-auto px-4 py-4 sm:py-6 max-w-6xl">
       
       <Breadcrumb items={[{ label: 'News' }]} />
 
       <!-- Hero Section -->
-      <div class="bg-gradient-to-br from-primary to-blue-700 text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 mb-6 sm:mb-8 shadow-xl">
+      <div class="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 mb-6 sm:mb-8 shadow-xl">
         <div class="flex items-start justify-between gap-4">
           <div>
             <div class="flex items-center gap-2 mb-2">
@@ -158,9 +158,9 @@ const newsSchema = {
         </div>
       ) : posts.length === 0 ? (
         <div class="bg-card rounded-xl sm:rounded-2xl shadow-md p-8 sm:p-12 text-center">
-          <Newspaper class="size-12 mx-auto mb-3 text-neutral-400" />
+          <Newspaper class="size-12 mx-auto mb-3 text-muted-foreground" />
           <h3 class="text-lg font-semibold mb-2">No News Posts Yet</h3>
-          <p class="text-neutral-600 text-sm">
+          <p class="text-muted-foreground text-sm">
             Check back soon or subscribe to our <a href="/rss.xml" class="text-primary hover:underline">RSS feed</a>.
           </p>
         </div>
@@ -169,7 +169,7 @@ const newsSchema = {
           {/* Featured Article */}
           {featuredPost && (
             <section class="mb-6 sm:mb-8">
-              <h2 class="text-sm font-semibold text-neutral-500 uppercase tracking-wide mb-3">Featured</h2>
+              <h2 class="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3">Featured</h2>
               <a
                 href={`/news/${featuredPost.slug}`}
                 class="group block bg-card rounded-xl sm:rounded-2xl shadow-lg overflow-hidden border-l-4 border-t border-r border-b border-border hover:border-r-primary/30 hover:border-t-primary/30 hover:border-b-primary/30 transition-all"
@@ -179,7 +179,7 @@ const newsSchema = {
                   <div class="flex flex-col md:flex-row gap-5 md:gap-6">
                     <div class="flex-1">
                       <div class="flex items-center gap-2 mb-3 flex-wrap">
-                        <span class={`inline-flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-md font-semibold ${categoryConfig[featuredPost.category]?.bg || 'bg-neutral-100'} ${categoryConfig[featuredPost.category]?.color || 'text-neutral-700'}`}>
+                        <span class={`inline-flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-md font-semibold ${categoryConfig[featuredPost.category]?.bg || 'bg-neutral-100'} ${categoryConfig[featuredPost.category]?.color || 'text-foreground'}`}>
                           {categoryConfig[featuredPost.category]?.icon && (
                             <span class="flex items-center">
                               {(() => {
@@ -190,9 +190,9 @@ const newsSchema = {
                           )}
                           {categoryConfig[featuredPost.category]?.label || featuredPost.category.replace('_', ' ')}
                         </span>
-                        <span class="text-xs text-neutral-400">{formatDate(featuredPost.publishedAt || featuredPost._creationTime)}</span>
+                        <span class="text-xs text-muted-foreground">{formatDate(featuredPost.publishedAt || featuredPost._creationTime)}</span>
                         {featuredPost.sourceName && (
-                          <span class="text-xs text-neutral-500 font-medium">
+                          <span class="text-xs text-muted-foreground font-medium">
                             via {featuredPost.sourceName}
                           </span>
                         )}
@@ -200,7 +200,7 @@ const newsSchema = {
                       <h3 class="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground group-hover:text-primary transition-colors leading-tight mb-3">
                         {featuredPost.title}
                       </h3>
-                      <p class="text-neutral-600 text-sm sm:text-base leading-relaxed mb-4">
+                      <p class="text-muted-foreground text-sm sm:text-base leading-relaxed mb-4">
                         {featuredPost.excerpt}
                       </p>
                       <div class="flex items-center gap-2 text-sm font-semibold text-primary">
@@ -237,12 +237,12 @@ const newsSchema = {
                 const Icon = config.icon;
                 return (
                   <button 
-                    class="category-btn px-3 py-1.5 rounded-full bg-card text-neutral-600 border border-border text-xs sm:text-sm font-medium hover:border-primary/30 hover:text-primary transition-all whitespace-nowrap flex items-center gap-1.5" 
+                    class="category-btn px-3 py-1.5 rounded-full bg-card text-muted-foreground border border-border text-xs sm:text-sm font-medium hover:border-primary/30 hover:text-primary transition-all whitespace-nowrap flex items-center gap-1.5" 
                     data-category={key}
                   >
                     <Icon className="h-3.5 w-3.5" />
                     {config.label}
-                    <span class="bg-neutral-100 px-1.5 py-0.5 rounded-full text-[10px] text-neutral-500">{categoryCounts[key]}</span>
+                    <span class="bg-neutral-100 px-1.5 py-0.5 rounded-full text-[10px] text-muted-foreground">{categoryCounts[key]}</span>
                   </button>
                 );
               })}
@@ -252,8 +252,8 @@ const newsSchema = {
           {/* Article Grid */}
           <section>
             <div class="flex items-center justify-between mb-4">
-              <h2 class="text-sm font-semibold text-neutral-500 uppercase tracking-wide">Latest Articles</h2>
-              <span class="text-xs text-neutral-400" id="article-count">Showing {remainingPosts.length} articles</span>
+              <h2 class="text-sm font-semibold text-muted-foreground uppercase tracking-wide">Latest Articles</h2>
+              <span class="text-xs text-muted-foreground" id="article-count">Showing {remainingPosts.length} articles</span>
             </div>
             
             <div class="space-y-3 sm:space-y-4" id="news-grid">
@@ -281,12 +281,12 @@ const newsSchema = {
                           <Icon class="size-3" />
                           {config.label}
                         </span>
-                        <div class="flex items-center gap-1.5 text-[10px] sm:text-xs text-neutral-400">
+                        <div class="flex items-center gap-1.5 text-[10px] sm:text-xs text-muted-foreground">
                           <Clock class="size-3" />
                           {formatDate(post.publishedAt || post._creationTime)}
                         </div>
                         {post.sourceName && (
-                          <span class="text-[10px] sm:text-xs text-neutral-400">
+                          <span class="text-[10px] sm:text-xs text-muted-foreground">
                             • {post.sourceName}
                           </span>
                         )}
@@ -297,7 +297,7 @@ const newsSchema = {
                       </h3>
 
                       {post.excerpt && (
-                        <p class="text-neutral-600 text-sm leading-relaxed line-clamp-2">
+                        <p class="text-muted-foreground text-sm leading-relaxed line-clamp-2">
                           {post.excerpt}
                         </p>
                       )}
@@ -329,14 +329,14 @@ const newsSchema = {
           {/* About Feed */}
           <section class="mt-8 sm:mt-10 bg-card rounded-xl shadow-md p-4 sm:p-6 border border-border">
             <div class="flex items-center gap-2 mb-3">
-              <Filter class="size-4 text-neutral-400" />
-              <h3 class="text-sm font-semibold text-neutral-700">About This Feed</h3>
+              <Filter class="size-4 text-muted-foreground" />
+              <h3 class="text-sm font-semibold text-foreground">About This Feed</h3>
             </div>
-            <p class="text-sm text-neutral-600 leading-relaxed">
+            <p class="text-sm text-muted-foreground leading-relaxed">
               Articles are automatically collected weekly from UK news sources including Google News, Guardian, Sky News, and local police reports.
               Each article is filtered for relevance, summarized on this site, and categorized by type. Full original sources are linked within each article.
             </p>
-            <div class="mt-4 flex items-center gap-4 text-xs text-neutral-500">
+            <div class="mt-4 flex items-center gap-4 text-xs text-muted-foreground">
               <a href="/rss.xml" class="flex items-center gap-1.5 hover:text-primary transition-colors">
                 <Rss class="h-3.5 w-3.5" />
                 Subscribe via RSS
@@ -390,9 +390,9 @@ const newsSchema = {
         // Update button styles
         categoryBtns.forEach(b => {
           b.classList.remove('active', 'bg-primary', 'text-white');
-          b.classList.add('bg-card', 'text-neutral-600', 'border-border');
+          b.classList.add('bg-card', 'text-muted-foreground', 'border-border');
         });
-        btn.classList.remove('bg-card', 'text-neutral-600', 'border-border');
+        btn.classList.remove('bg-card', 'text-muted-foreground', 'border-border');
         btn.classList.add('active', 'bg-primary', 'text-white');
 
         // Filter cards

@@ -96,7 +96,7 @@ function ResourceCard({ resource, index }: { resource: Resource; index: number }
           <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold mb-1 sm:mb-2 lg:mb-3 group-hover:text-primary transition-colors">
             {resource.title}
           </h3>
-          <p className="text-neutral-600 mb-2 sm:mb-4 text-xs sm:text-sm md:text-base lg:text-lg line-clamp-2 sm:line-clamp-none">
+          <p className="text-muted-foreground mb-2 sm:mb-4 text-xs sm:text-sm md:text-base lg:text-lg line-clamp-2 sm:line-clamp-none">
             {resource.description}
           </p>
           <span className={`${resource.linkColor} font-medium flex items-center gap-1 sm:gap-2 text-xs sm:text-sm md:text-base lg:text-lg`}>

@@ -49,7 +49,7 @@ const schema = {
   <HeaderMobile client:idle />
   <Breadcrumb items={[{ label: 'London Visitor Safety' }]} />
 
-  <main id="main-content" class="bg-neutral-100 min-h-screen">
+  <main id="main-content" class="bg-background min-h-screen">
     <div class="container mx-auto px-4 py-4 sm:py-6 md:py-8 max-w-6xl">
       <div class="bg-gradient-to-br from-primary to-blue-700 text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8 shadow-xl">
         <div class="flex items-center gap-3 mb-3">
@@ -84,7 +84,7 @@ const schema = {
           </div>
           <div>
             <p class="text-sm font-semibold text-foreground">Before you land</p>
-            <ul class="text-xs sm:text-sm text-neutral-600 list-disc pl-4 space-y-1 mt-1">
+            <ul class="text-xs sm:text-sm text-muted-foreground list-disc pl-4 space-y-1 mt-1">
               <li>Enable Face ID/biometrics + strong passcode.</li>
               <li>Turn on Find My (Apple/Google) and test it.</li>
               <li>Note IMEI and carrier support numbers.</li>
@@ -97,7 +97,7 @@ const schema = {
           </div>
           <div>
             <p class="text-sm font-semibold text-foreground">While exploring</p>
-            <ul class="text-xs sm:text-sm text-neutral-600 list-disc pl-4 space-y-1 mt-1">
+            <ul class="text-xs sm:text-sm text-muted-foreground list-disc pl-4 space-y-1 mt-1">
               <li>Use cross-body straps; avoid kerbside scrolling.</li>
               <li>Keep phones away from open train doors.</li>
               <li>Stay alert in busy spots (West End, Borough, markets).</li>
@@ -110,7 +110,7 @@ const schema = {
           </div>
           <div>
             <p class="text-sm font-semibold text-foreground">If it's stolen</p>
-            <ul class="text-xs sm:text-sm text-neutral-600 list-disc pl-4 space-y-1 mt-1">
+            <ul class="text-xs sm:text-sm text-muted-foreground list-disc pl-4 space-y-1 mt-1">
               <li>Lock/erase via Find My immediately.</li>
               <li>Block your SIM with your carrier.</li>
               <li>Call your bank to secure banking apps.</li>
@@ -125,7 +125,7 @@ const schema = {
             <CheckCircle2 class="size-5 text-primary" />
             <p class="text-sm font-semibold text-foreground">Pre-arrival checklist</p>
           </div>
-          <ol class="list-decimal pl-5 space-y-2 text-xs sm:text-sm text-neutral-700">
+          <ol class="list-decimal pl-5 space-y-2 text-xs sm:text-sm text-foreground">
             <li>Save UK emergency numbers: 999 (emergency), 101 (police non-emergency).</li>
             <li>Save carrier lost/stolen lines for your provider.</li>
             <li>Enable Find My, ensure backups are on, and test login recovery.</li>
@@ -139,14 +139,14 @@ const schema = {
             <PhoneOff class="size-5 text-primary" />
             <p class="text-sm font-semibold text-foreground">Rapid response (if stolen)</p>
           </div>
-          <ol class="list-decimal pl-5 space-y-2 text-xs sm:text-sm text-neutral-700">
+          <ol class="list-decimal pl-5 space-y-2 text-xs sm:text-sm text-foreground">
             <li>Lock/erase: iCloud Find My iPhone or Google Find My Device.</li>
             <li>Block SIM: call your carrier to prevent calls/data.</li>
             <li>Secure banking: contact your bank, freeze cards if needed.</li>
             <li>Report: file with police (keep reference number).</li>
             <li>Document: note time/location for insurance and travel claims.</li>
           </ol>
-          <a href="/emergency" class="inline-flex items-center gap-2 mt-4 px-4 py-2 bg-primary text-white rounded-xl font-semibold shadow-md hover:bg-primary/90 transition">
+          <a href="/emergency" class="inline-flex items-center gap-2 mt-4 px-4 py-2 bg-primary text-white rounded-xl font-semibold shadow-md hover:bg-primary-hover transition">
             Open the 5-step emergency guide <ArrowRight class="size-4" />
           </a>
         </div>
@@ -155,9 +155,9 @@ const schema = {
       <section class="mb-6 sm:mb-8 md:mb-10">
         <div class="bg-card rounded-lg sm:rounded-2xl shadow-md border border-border p-4 sm:p-6">
           <h2 class="text-xl md:text-2xl font-bold text-foreground mb-2">High-risk spots & habits to avoid</h2>
-          <p class="text-neutral-600 text-sm md:text-base mb-4">Opportunistic theft is common near kerbs, open train doors, and crowded attractions. Small changes greatly reduce risk.</p>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 text-xs sm:text-sm text-neutral-700">
-            <div class="p-4 rounded-xl bg-neutral-50 border border-border">
+          <p class="text-muted-foreground text-sm md:text-base mb-4">Opportunistic theft is common near kerbs, open train doors, and crowded attractions. Small changes greatly reduce risk.</p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 text-xs sm:text-sm text-foreground">
+            <div class="p-4 rounded-xl bg-neutral border border-border">
               <p class="font-semibold text-foreground mb-1">Common scenarios</p>
               <ul class="list-disc pl-4 space-y-1">
                 <li>Snatch-and-grab from cyclists/scooters near kerbs.</li>
@@ -165,7 +165,7 @@ const schema = {
                 <li>Distraction theft in queues and crowded markets.</li>
               </ul>
             </div>
-            <div class="p-4 rounded-xl bg-neutral-50 border border-border">
+            <div class="p-4 rounded-xl bg-neutral border border-border">
               <p class="font-semibold text-foreground mb-1">Do this instead</p>
               <ul class="list-disc pl-4 space-y-1">
                 <li>Stand back from kerbs when using your phone.</li>
@@ -185,7 +185,7 @@ const schema = {
             <p class="text-sm text-white/80 mt-1">Step-by-step actions to take within minutes of theft: lock, block SIM, bank, report.</p>
           </div>
           <div class="flex gap-3">
-            <a href="/emergency" class="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 text-xs sm:text-sm bg-primary text-white rounded-xl font-semibold shadow-md hover:bg-primary/90 transition">
+            <a href="/emergency" class="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 text-xs sm:text-sm bg-primary text-white rounded-xl font-semibold shadow-md hover:bg-primary-hover transition">
               Open emergency steps <ArrowRight class="size-4" />
             </a>
             <a href="/prevention" class="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 text-xs sm:text-sm bg-card/10 text-white rounded-xl font-semibold border border-white/15 hover:bg-card/15 transition">

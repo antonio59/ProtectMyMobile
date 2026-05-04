@@ -70,7 +70,7 @@ const keyStats = [
 >
   <HeaderMobile client:idle />
 
-  <main id="main-content" class="bg-neutral-100 min-h-screen">
+  <main id="main-content" class="bg-background min-h-screen">
     <div class="container mx-auto px-4 py-4 sm:py-6 max-w-6xl">
       
       <Breadcrumb items={[{ label: 'Statistics' }]} />
@@ -126,15 +126,15 @@ const keyStats = [
               <MapPin class="size-6 sm:size-8 text-red-500" />
               <h2 class="text-lg sm:text-xl font-bold">London Theft Hotspots</h2>
             </div>
-            <p class="text-neutral-600 text-xs sm:text-sm md:text-base mb-6">
+            <p class="text-muted-foreground text-xs sm:text-sm md:text-base mb-6">
               London accounts for 75% of all UK phone thefts. These are the worst-affected boroughs.
               Westminster alone sees more thefts than any other city in the UK.
             </p>
 
             <div class="space-y-3">
               {londonHotspots.map((spot) => (
-                <div class="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-neutral-50 rounded-xl">
-                  <span class={`size-6 sm:size-8 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 ${spot.rank === 1 ? 'bg-red-500 text-white' : spot.rank <= 3 ? 'bg-orange-500 text-white' : 'bg-neutral-300 text-neutral-700'}`}>
+                <div class="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-neutral rounded-xl">
+                  <span class={`size-6 sm:size-8 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 ${spot.rank === 1 ? 'bg-red-500 text-white' : spot.rank <= 3 ? 'bg-orange-500 text-white' : 'bg-neutral-300 text-foreground'}`}>
                     {spot.rank}
                   </span>
                   <div class="flex-1 min-w-0">
@@ -142,13 +142,13 @@ const keyStats = [
                       <h3 class="font-bold text-foreground text-xs sm:text-sm md:text-base">{spot.area}</h3>
                       <span class="text-destructive font-semibold text-xs sm:text-sm">{spot.thefts}</span>
                     </div>
-                    <p class="text-xs text-neutral-500 truncate">{spot.description}</p>
+                    <p class="text-xs text-muted-foreground truncate">{spot.description}</p>
                   </div>
                 </div>
               ))}
             </div>
 
-            <p class="text-xs text-neutral-500 mt-4">
+            <p class="text-xs text-muted-foreground mt-4">
               Source: Metropolitan Police & police.uk recorded crime data (2024–2025)
             </p>
           </div>
@@ -164,7 +164,7 @@ const keyStats = [
               <BarChart3 class="size-6 sm:size-8 text-purple-500" />
               <h2 class="text-lg sm:text-xl font-bold">Major Cities Comparison</h2>
             </div>
-            <p class="text-neutral-600 text-xs sm:text-sm md:text-base mb-6">
+            <p class="text-muted-foreground text-xs sm:text-sm md:text-base mb-6">
               Annual mobile phone theft figures by city. London dominates, but theft is rising across all major UK cities.
             </p>
 
@@ -177,7 +177,7 @@ const keyStats = [
                     <div class="flex items-center justify-between mb-2">
                       <div class="flex items-center gap-2 sm:gap-3">
                         <span class="font-bold text-foreground text-xs sm:text-sm md:text-base">{city.city}</span>
-                        <span class="text-xs text-neutral-500">({city.year})</span>
+                        <span class="text-xs text-muted-foreground">({city.year})</span>
                       </div>
                       <div class="text-right">
                         <span class="font-bold text-foreground text-xs sm:text-sm md:text-base">{city.thefts.toLocaleString()}</span>
@@ -207,7 +207,7 @@ const keyStats = [
               <Clock class="size-6 sm:size-8 text-orange-500" />
               <h2 class="text-lg sm:text-xl font-bold">When Do Thefts Happen?</h2>
             </div>
-            <p class="text-neutral-600 text-xs sm:text-sm md:text-base mb-6">
+            <p class="text-muted-foreground text-xs sm:text-sm md:text-base mb-6">
               Time-of-day breakdown showing peak risk periods. Knowing when you're most vulnerable helps you stay alert.
             </p>
 
@@ -219,7 +219,7 @@ const keyStats = [
                       <svg class="size-4 text-destructive" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
                     </span>
                     <span class="font-bold text-foreground text-xs sm:text-sm md:text-base">Evening Rush</span>
-                    <span class="text-xs sm:text-sm text-neutral-500">5pm - 7pm</span>
+                    <span class="text-xs sm:text-sm text-muted-foreground">5pm - 7pm</span>
                   </div>
                   <span class="text-lg sm:text-xl font-bold text-destructive">32%</span>
                 </div>
@@ -237,7 +237,7 @@ const keyStats = [
                       <svg class="size-4 text-orange-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
                     </span>
                     <span class="font-bold text-foreground text-xs sm:text-sm md:text-base">Late Night</span>
-                    <span class="text-xs sm:text-sm text-neutral-500">10pm - 2am</span>
+                    <span class="text-xs sm:text-sm text-muted-foreground">10pm - 2am</span>
                   </div>
                   <span class="text-lg sm:text-xl font-bold text-orange-600">28%</span>
                 </div>
@@ -253,7 +253,7 @@ const keyStats = [
                       <svg class="size-4 text-yellow-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
                     </span>
                     <span class="font-bold text-foreground text-xs sm:text-sm md:text-base">Morning Rush</span>
-                    <span class="text-xs sm:text-sm text-neutral-500">7am - 9am</span>
+                    <span class="text-xs sm:text-sm text-muted-foreground">7am - 9am</span>
                   </div>
                   <span class="text-lg sm:text-xl font-bold text-yellow-600">18%</span>
                 </div>
@@ -269,7 +269,7 @@ const keyStats = [
                       <svg class="size-4 text-primary" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
                     </span>
                     <span class="font-bold text-foreground text-xs sm:text-sm md:text-base">Afternoon</span>
-                    <span class="text-xs sm:text-sm text-neutral-500">12pm - 5pm</span>
+                    <span class="text-xs sm:text-sm text-muted-foreground">12pm - 5pm</span>
                   </div>
                   <span class="text-lg sm:text-xl font-bold text-primary">15%</span>
                 </div>
@@ -282,12 +282,12 @@ const keyStats = [
                 <div class="flex justify-between items-center mb-2">
                   <div class="flex items-center gap-2">
                     <span class="inline-flex items-center justify-center size-6 bg-neutral-100 rounded-full" aria-hidden="true">
-                      <svg class="size-4 text-neutral-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                      <svg class="size-4 text-muted-foreground" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
                     </span>
                     <span class="font-bold text-foreground text-xs sm:text-sm md:text-base">Other Times</span>
-                    <span class="text-xs sm:text-sm text-neutral-500">2am - 7am, 9am - 12pm</span>
+                    <span class="text-xs sm:text-sm text-muted-foreground">2am - 7am, 9am - 12pm</span>
                   </div>
-                  <span class="text-lg sm:text-xl font-bold text-neutral-500">7%</span>
+                  <span class="text-lg sm:text-xl font-bold text-muted-foreground">7%</span>
                 </div>
                 <div class="w-full bg-neutral-100 rounded-full h-3 sm:h-4 md:h-5 overflow-hidden">
                   <div class="bg-neutral-400 h-3 sm:h-4 md:h-5 rounded-full" style="width: 22%"></div>
@@ -313,7 +313,7 @@ const keyStats = [
               <Calendar class="size-6 sm:size-8 text-green-500" />
               <h2 class="text-lg sm:text-xl font-bold">Seasonal Patterns</h2>
             </div>
-            <p class="text-neutral-600 text-xs sm:text-sm md:text-base mb-6">
+            <p class="text-muted-foreground text-xs sm:text-sm md:text-base mb-6">
               How theft rates change throughout the year. Understanding seasonal patterns helps you prepare.
             </p>
 
@@ -323,10 +323,10 @@ const keyStats = [
                   <Sun class="size-5 text-orange-500" />
                   <h3 class="font-bold text-foreground text-xs sm:text-sm md:text-base">Summer Spike</h3>
                 </div>
-                <p class="text-xs sm:text-sm text-neutral-700 mb-2">
+                <p class="text-xs sm:text-sm text-foreground mb-2">
                   <strong>June - August:</strong> Thefts rise 25-30%
                 </p>
-                <p class="text-xs text-neutral-600">
+                <p class="text-xs text-muted-foreground">
                   Outdoor dining, festivals, and tourists with phones out create more opportunities. "Table surfing" peaks.
                 </p>
               </div>
@@ -336,10 +336,10 @@ const keyStats = [
                   <Snowflake class="size-5 text-red-500" />
                   <h3 class="font-bold text-foreground text-xs sm:text-sm md:text-base">December Danger</h3>
                 </div>
-                <p class="text-xs sm:text-sm text-neutral-700 mb-2">
+                <p class="text-xs sm:text-sm text-foreground mb-2">
                   <strong>December:</strong> Secondary peak (+20%)
                 </p>
-                <p class="text-xs text-neutral-600">
+                <p class="text-xs text-muted-foreground">
                   Christmas shopping crowds, holiday parties, and reduced awareness due to alcohol consumption.
                 </p>
               </div>
@@ -349,10 +349,10 @@ const keyStats = [
                   <Leaf class="size-5 text-blue-500" />
                   <h3 class="font-bold text-foreground text-xs sm:text-sm md:text-base">Winter Lull</h3>
                 </div>
-                <p class="text-xs sm:text-sm text-neutral-700 mb-2">
+                <p class="text-xs sm:text-sm text-foreground mb-2">
                   <strong>January - February:</strong> Lowest rates
                 </p>
-                <p class="text-xs text-neutral-600">
+                <p class="text-xs text-muted-foreground">
                   Fewer people outdoors, darker evenings keep people home, reduced social activity post-holidays.
                 </p>
               </div>
@@ -365,7 +365,7 @@ const keyStats = [
       <section class="grid md:grid-cols-2 gap-3 sm:gap-4 md:gap-6 mb-6 sm:mb-8 md:mb-10">
         <div class="bg-card rounded-xl sm:rounded-2xl shadow-md p-4 sm:p-6 border border-border">
           <h3 class="text-lg sm:text-xl font-bold mb-4">Why These Numbers Matter</h3>
-          <div class="space-y-3 text-xs sm:text-sm md:text-base text-neutral-700">
+          <div class="space-y-3 text-xs sm:text-sm md:text-base text-foreground">
             <p>
               <strong>Beyond the device:</strong> Victims face identity theft, financial fraud, loss of irreplaceable photos, and emotional distress.
             </p>
@@ -384,21 +384,21 @@ const keyStats = [
             <a href="/prevention" class="flex items-center justify-between p-2.5 sm:p-3 bg-primary/5 border border-primary/20 rounded-xl hover:bg-primary/10 transition-colors">
               <div>
                 <div class="font-semibold text-primary text-xs sm:text-sm md:text-base">Prevention Guide</div>
-                <div class="text-xs text-neutral-600">Security tips before theft occurs</div>
+                <div class="text-xs text-muted-foreground">Security tips before theft occurs</div>
               </div>
               <ArrowRight class="size-5 text-primary flex-shrink-0" />
             </a>
             <a href="/emergency" class="flex items-center justify-between p-2.5 sm:p-3 bg-destructive-subtle border border-red-200 rounded-xl hover:bg-destructive-muted transition-colors">
               <div>
                 <div class="font-semibold text-destructive-hover text-xs sm:text-sm md:text-base">Emergency Steps</div>
-                <div class="text-xs text-neutral-600">What to do if stolen</div>
+                <div class="text-xs text-muted-foreground">What to do if stolen</div>
               </div>
               <ArrowRight class="size-5 text-destructive flex-shrink-0" />
             </a>
             <a href="/products" class="flex items-center justify-between p-2.5 sm:p-3 bg-teal-50 border border-teal-200 rounded-xl hover:bg-teal-100 transition-colors">
               <div>
                 <div class="font-semibold text-teal-700 text-xs sm:text-sm md:text-base">Protection Products</div>
-                <div class="text-xs text-neutral-600">Lanyards, bags, trackers & more</div>
+                <div class="text-xs text-muted-foreground">Lanyards, bags, trackers & more</div>
               </div>
               <ArrowRight class="size-5 text-teal-600 flex-shrink-0" />
             </a>
@@ -409,18 +409,18 @@ const keyStats = [
       <!-- Data Sources -->
       <section class="mb-6 sm:mb-8 md:mb-10">
         <div class="bg-card rounded-xl sm:rounded-2xl shadow-md p-4 sm:p-6 border border-border">
-          <h3 class="text-sm font-semibold text-neutral-500 uppercase tracking-wide mb-3">Data Sources</h3>
-          <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-3 text-xs text-neutral-600">
+          <h3 class="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3">Data Sources</h3>
+          <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-3 text-xs text-muted-foreground">
             <div class="flex items-start gap-2">
-              <Shield class="size-4 text-neutral-400 mt-0.5 flex-shrink-0" />
+              <Shield class="size-4 text-muted-foreground mt-0.5 flex-shrink-0" />
               <span>Police.uk API - Official recorded crime data, updated monthly</span>
             </div>
             <div class="flex items-start gap-2">
-              <BarChart3 class="size-4 text-neutral-400 mt-0.5 flex-shrink-0" />
+              <BarChart3 class="size-4 text-muted-foreground mt-0.5 flex-shrink-0" />
               <span>ONS Crime Survey - Annual estimates of phone theft prevalence</span>
             </div>
             <div class="flex items-start gap-2">
-              <TrendingUp class="size-4 text-neutral-400 mt-0.5 flex-shrink-0" />
+              <TrendingUp class="size-4 text-muted-foreground mt-0.5 flex-shrink-0" />
               <span>Met Police recorded crime statistics and FOI responses</span>
             </div>
           </div>

@@ -143,15 +143,15 @@ export default function CommunityVoting({ initialStats }: Props) {
     <div className="bg-card rounded-lg shadow-md p-6 md:p-8">
       <div className="mb-8">
         <div className="flex justify-between items-center mb-2">
-          <span className="text-sm font-medium text-neutral-700">Question {currentStep} of 6</span>
-          <span className="text-xs text-neutral-500">{Math.round((currentStep / 6) * 100)}% complete</span>
+          <span className="text-sm font-medium text-foreground">Question {currentStep} of 6</span>
+          <span className="text-xs text-muted-foreground">{Math.round((currentStep / 6) * 100)}% complete</span>
         </div>
         <div className="w-full bg-neutral-200 rounded-full h-2"><div className="bg-primary rounded-full h-2 transition-all duration-300" style={{ width: `${(currentStep / 6) * 100}%` }} /></div>
       </div>
       {showStep && stepConfig && (
         <div className="space-y-4">
           <h3 className="text-xl font-semibold text-foreground mb-4">{typeof stepConfig.title === 'function' ? stepConfig.title(formData) : stepConfig.title}</h3>
-          {stepConfig.multiSelect && <p className="text-sm text-neutral-600 mb-4">Select all that apply</p>}
+          {stepConfig.multiSelect && <p className="text-sm text-muted-foreground mb-4">Select all that apply</p>}
           <OptionGrid options={stepConfig.options} selected={formData[stepConfig.field] as string | string[] | null} onSelect={(value) => { if (stepConfig.multiSelect) toggleSecurityMeasure(value); else handleOptionClick(stepConfig.field, value); }} multiSelect={stepConfig.multiSelect} singleColumn={stepConfig.singleColumn} />
         </div>
       )}
@@ -161,9 +161,9 @@ export default function CommunityVoting({ initialStats }: Props) {
         </div>
       )}
       <div className="flex items-center justify-between mt-8 pt-6 border-t border-border">
-        <button onClick={handleBack} disabled={currentStep === 1} className="px-4 py-2 text-neutral-700 hover:text-foreground disabled:opacity-50 disabled:cursor-not-allowed transition-colors">← Back</button>
+        <button onClick={handleBack} disabled={currentStep === 1} className="px-4 py-2 text-foreground hover:text-foreground disabled:opacity-50 disabled:cursor-not-allowed transition-colors">← Back</button>
         {currentStep < 6 || (currentStep === 6 && formData.had_phone_stolen !== 'yes') ? (
-          <button onClick={handleNext} disabled={!canProceed(formData, currentStep)} className="px-6 py-2 bg-primary text-white rounded-md hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">Next →</button>
+          <button onClick={handleNext} disabled={!canProceed(formData, currentStep)} className="px-6 py-2 bg-primary text-white rounded-md hover:bg-primary-hover disabled:opacity-50 disabled:cursor-not-allowed transition-colors">Next →</button>
         ) : (
           <button onClick={handleSubmit} disabled={!canProceed(formData, currentStep) || isSubmitting} className="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">{isSubmitting ? 'Submitting...' : 'Submit Anonymously'}</button>
         )}

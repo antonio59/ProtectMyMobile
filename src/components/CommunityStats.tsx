@@ -68,7 +68,7 @@ export default function CommunityStatsDisplay({ initialStats }: Props) {
         <h2 className="text-3xl font-bold text-foreground mb-3">
           Community Insights
         </h2>
-        <p className="text-neutral-600 max-w-2xl mx-auto">
+        <p className="text-muted-foreground max-w-2xl mx-auto">
           Based on <span className="font-bold text-primary">{stats.totalResponses.toLocaleString()}</span> anonymous responses from our community
         </p>
       </div>
@@ -78,13 +78,13 @@ export default function CommunityStatsDisplay({ initialStats }: Props) {
         {/* Recovery Rate */}
         <div className="bg-gradient-to-br from-red-50 to-orange-50 rounded-lg shadow-md p-6 border-2 border-red-200">
           <div className="flex items-center justify-between mb-3">
-            <h3 className="text-sm font-medium text-neutral-700">Recovery Rate</h3>
+            <h3 className="text-sm font-medium text-foreground">Recovery Rate</h3>
             <TrendingDown className="size-5 text-destructive" />
           </div>
           <div className="mb-2">
             <div className="text-4xl font-bold text-destructive">{recoveryRate}%</div>
           </div>
-          <div className="text-xs text-neutral-600">
+          <div className="text-xs text-muted-foreground">
             {100 - recoveryRate}% of phones are never recovered
           </div>
         </div>
@@ -92,13 +92,13 @@ export default function CommunityStatsDisplay({ initialStats }: Props) {
         {/* Most Common Location */}
         <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg shadow-md p-6 border-2 border-blue-200">
           <div className="flex items-center justify-between mb-3">
-            <h3 className="text-sm font-medium text-neutral-700">Top Risk Zone</h3>
+            <h3 className="text-sm font-medium text-foreground">Top Risk Zone</h3>
             <MapPin className="size-5 text-primary" />
           </div>
           <div className="mb-2">
             <div className="text-xl font-bold text-blue-900 mb-1">{mostCommonLocation}</div>
           </div>
-          <div className="text-xs text-neutral-600">
+          <div className="text-xs text-muted-foreground">
             Most common theft location
           </div>
         </div>
@@ -106,13 +106,13 @@ export default function CommunityStatsDisplay({ initialStats }: Props) {
         {/* Security Adoption */}
         <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg shadow-md p-6 border-2 border-green-200">
           <div className="flex items-center justify-between mb-3">
-            <h3 className="text-sm font-medium text-neutral-700">Security Use</h3>
+            <h3 className="text-sm font-medium text-foreground">Security Use</h3>
             <Shield className="size-5 text-green-600" />
           </div>
           <div className="mb-2">
             <div className="text-4xl font-bold text-green-600">{securityAdoption}%</div>
           </div>
-          <div className="text-xs text-neutral-600">
+          <div className="text-xs text-muted-foreground">
             Have some security protection
           </div>
         </div>
@@ -120,24 +120,24 @@ export default function CommunityStatsDisplay({ initialStats }: Props) {
         {/* Police Reporting */}
         <div className="bg-gradient-to-br from-teal-50 to-cyan-50 rounded-lg shadow-md p-6 border-2 border-teal-200">
           <div className="flex items-center justify-between mb-3">
-            <h3 className="text-sm font-medium text-neutral-700">Police Reports</h3>
+            <h3 className="text-sm font-medium text-foreground">Police Reports</h3>
             <AlertTriangle className="size-5 text-teal-600" />
           </div>
           <div className="mb-2">
             <div className="text-4xl font-bold text-teal-600">{reportingRate}%</div>
           </div>
-          <div className="text-xs text-neutral-600">
+          <div className="text-xs text-muted-foreground">
             Reported theft to police
           </div>
         </div>
       </div>
 
       {/* Key Findings */}
-      <div className="bg-neutral-50 rounded-lg p-6 border border-border">
+      <div className="bg-neutral rounded-lg p-6 border border-border">
         <h3 className="font-semibold text-foreground mb-4 flex items-center">
           <span className="text-xl mr-2">📊</span> Key Findings
         </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-neutral-700">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-foreground">
           <div className="flex items-start">
             <span className="text-primary mr-2">•</span>
             <span>

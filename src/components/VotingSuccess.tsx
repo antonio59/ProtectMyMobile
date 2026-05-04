@@ -18,7 +18,7 @@ export default function VotingSuccess({ stats, formData }: VotingSuccessProps) {
         <CheckCircle2 className="size-8 text-green-600 flex-shrink-0" />
         <div>
           <h3 className="text-2xl font-bold text-foreground mb-2">Thank You!</h3>
-          <p className="text-neutral-700">
+          <p className="text-foreground">
             Your response helps us understand phone theft patterns and protect others.
           </p>
         </div>
@@ -31,7 +31,7 @@ export default function VotingSuccess({ stats, formData }: VotingSuccessProps) {
           </h4>
           <ul className="space-y-2">
             {insights.map((insight, i) => (
-              <li key={i} className="text-sm text-neutral-700 flex items-start">
+              <li key={i} className="text-sm text-foreground flex items-start">
                 <span className="mr-2 text-primary">•</span>
                 <span>{insight}</span>
               </li>
@@ -43,7 +43,7 @@ export default function VotingSuccess({ stats, formData }: VotingSuccessProps) {
       <div className="flex flex-wrap gap-3">
         <a
           href="/prevention"
-          className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors"
+          className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-hover transition-colors"
         >
           View Prevention Tips
         </a>

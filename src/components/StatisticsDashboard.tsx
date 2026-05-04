@@ -32,15 +32,15 @@ export default function StatisticsDashboard() {
 
   if (error || !data || !data.trends) {
     return (
-      <div className="bg-neutral-50 rounded-xl p-8 text-center border border-border">
+      <div className="bg-neutral rounded-xl p-8 text-center border border-border">
         <BarChart3 className="size-12 mx-auto mb-3 text-neutral-300" />
-        <h3 className="text-lg font-semibold text-neutral-700 mb-2">Unable to Load Statistics</h3>
-        <p className="text-sm text-neutral-500 max-w-md mx-auto mb-4">
+        <h3 className="text-lg font-semibold text-foreground mb-2">Unable to Load Statistics</h3>
+        <p className="text-sm text-muted-foreground max-w-md mx-auto mb-4">
           {error || 'Statistics data is not available at the moment.'}
         </p>
         <button
           onClick={refetch}
-          className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-colors"
+          className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg font-medium hover:bg-primary-hover transition-colors"
         >
           <RefreshCw className="size-4" />
           Try Again

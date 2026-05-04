@@ -29,7 +29,7 @@ export default function OptionGrid({ options, selected, onSelect, multiSelect, s
           className={`p-4 rounded-lg border-2 text-left transition-all ${
             isSelected(option.value)
               ? 'border-primary bg-primary/5'
-              : 'border-neutral-200 hover:border-neutral-300'
+              : 'border-border hover:border-neutral-300'
           }`}
         >
           <div className="flex items-center justify-between">

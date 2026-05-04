@@ -208,13 +208,13 @@ const faqSchema = {
 >
   <HeaderMobile client:idle />
 
-  <main id="main-content" class="bg-neutral-100 min-h-screen">
+  <main id="main-content" class="bg-background min-h-screen">
     <div class="container mx-auto px-4 py-4 sm:py-6 max-w-5xl">
       
       <Breadcrumb items={[{ label: 'FAQ' }]} />
 
       <!-- Hero Section -->
-      <div class="bg-gradient-to-br from-primary to-blue-700 text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 mb-6 sm:mb-8 shadow-xl">
+      <div class="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 mb-6 sm:mb-8 shadow-xl">
         <div class="flex items-center gap-3 mb-3">
           <div class="bg-white/20 p-2 sm:p-3 rounded-xl">
             <HelpCircle class="size-6 sm:size-8" />
@@ -229,7 +229,7 @@ const faqSchema = {
       <!-- Search & Filter -->
       <div class="bg-card rounded-xl shadow-md p-4 mb-6 sticky top-20 z-30 border border-border">
         <div class="relative mb-4">
-          <Search class="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400 size-5" />
+          <Search class="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground size-5" />
           <input
             type="search"
             id="faq-search"
@@ -238,7 +238,7 @@ const faqSchema = {
           />
           <button 
             id="clear-search" 
-            class="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-600 hidden"
+            class="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-muted-foreground hidden"
           >
             <X class="size-4" />
           </button>
@@ -251,7 +251,7 @@ const faqSchema = {
           </button>
           {faqCategories.map(cat => (
             <button 
-              class="category-pill px-3 py-1.5 rounded-full bg-neutral-100 text-neutral-600 text-xs sm:text-sm font-medium whitespace-nowrap hover:bg-neutral-200 transition-colors" 
+              class="category-pill px-3 py-1.5 rounded-full bg-neutral-100 text-muted-foreground text-xs sm:text-sm font-medium whitespace-nowrap hover:bg-neutral-200 transition-colors" 
               data-category={cat.id}
             >
               {cat.title}
@@ -259,7 +259,7 @@ const faqSchema = {
           ))}
         </div>
         
-        <div id="search-results-count" class="mt-3 text-xs text-neutral-500 hidden"></div>
+        <div id="search-results-count" class="mt-3 text-xs text-muted-foreground hidden"></div>
       </div>
 
       <!-- FAQ Content -->
@@ -273,7 +273,7 @@ const faqSchema = {
                 </div>
                 <div>
                   <h2 class="font-bold text-foreground">{category.title}</h2>
-                  <p class="text-xs text-neutral-500">{category.description}</p>
+                  <p class="text-xs text-muted-foreground">{category.description}</p>
                 </div>
               </div>
             </div>
@@ -281,11 +281,11 @@ const faqSchema = {
             <div class="divide-y divide-neutral-100">
               {category.questions.map((q, idx) => (
                 <details class="faq-item group" data-keywords={q.keywords?.join(',')}>
-                  <summary class="flex items-start justify-between gap-4 p-4 sm:p-5 cursor-pointer hover:bg-neutral-50 transition-colors list-none">
+                  <summary class="flex items-start justify-between gap-4 p-4 sm:p-5 cursor-pointer hover:bg-neutral transition-colors list-none">
                     <span class="font-medium text-foreground text-sm sm:text-base pr-4">{q.question}</span>
-                    <ChevronRight class="size-5 text-neutral-400 group-open:rotate-90 transition-transform flex-shrink-0 mt-0.5" />
+                    <ChevronRight class="size-5 text-muted-foreground group-open:rotate-90 transition-transform flex-shrink-0 mt-0.5" />
                   </summary>
-                  <div class="px-4 sm:px-5 pb-4 sm:pb-5 text-neutral-600 text-sm leading-relaxed">
+                  <div class="px-4 sm:px-5 pb-4 sm:pb-5 text-muted-foreground text-sm leading-relaxed">
                     {q.answer}
                   </div>
                 </details>
@@ -298,26 +298,26 @@ const faqSchema = {
       <!-- No Results State -->
       <div id="no-results" class="hidden text-center py-12">
         <div class="inline-flex items-center justify-center size-12 bg-neutral-100 rounded-full mb-3">
-          <Search class="size-5 text-neutral-400" />
+          <Search class="size-5 text-muted-foreground" />
         </div>
-        <h3 class="font-semibold text-neutral-700 mb-1">No questions found</h3>
-        <p class="text-sm text-neutral-500">Try different keywords or browse by category above.</p>
+        <h3 class="font-semibold text-foreground mb-1">No questions found</h3>
+        <p class="text-sm text-muted-foreground">Try different keywords or browse by category above.</p>
       </div>
 
       <!-- Still Need Help -->
       <div class="mt-8 bg-gradient-to-r from-primary/5 to-blue-50 rounded-xl p-5 border border-primary/20">
         <h3 class="font-semibold text-foreground mb-2">Still need help?</h3>
-        <p class="text-sm text-neutral-600 mb-3">
+        <p class="text-sm text-muted-foreground mb-3">
           If you can't find the answer you're looking for, check our comprehensive guides or contact us.
         </p>
         <div class="flex flex-wrap gap-2">
           <a href="/emergency" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-destructive text-white rounded-lg text-xs font-medium hover:bg-destructive-hover transition-colors">
             Emergency Guide
           </a>
-          <a href="/prevention" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary/90 transition-colors">
+          <a href="/prevention" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-hover transition-colors">
             Prevention Guide
           </a>
-          <a href="/contact-us" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-card border border-border text-neutral-700 rounded-lg text-xs font-medium hover:bg-neutral-50 transition-colors">
+          <a href="/contact-us" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-card border border-border text-foreground rounded-lg text-xs font-medium hover:bg-neutral transition-colors">
             Contact Us
           </a>
         </div>
@@ -403,9 +403,9 @@ const faqSchema = {
         // Update active state
         categoryPills.forEach(p => {
           p.classList.remove('active', 'bg-primary', 'text-white');
-          p.classList.add('bg-neutral-100', 'text-neutral-600');
+          p.classList.add('bg-neutral-100', 'text-muted-foreground');
         });
-        pill.classList.remove('bg-neutral-100', 'text-neutral-600');
+        pill.classList.remove('bg-neutral-100', 'text-muted-foreground');
         pill.classList.add('active', 'bg-primary', 'text-white');
 
         // Update filter

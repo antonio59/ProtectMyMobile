@@ -89,7 +89,7 @@ export default function TrendsChart({ data }: { data: MonthlyTrends }) {
             <TrendingUp className="size-5 text-blue-500" />
             Monthly Theft Trends
           </h3>
-          <p className="text-xs text-neutral-500 mt-0.5">
+          <p className="text-xs text-muted-foreground mt-0.5">
             {data.locations.length} locations · {data.data.length} months of live police.uk data
           </p>
         </div>
@@ -97,7 +97,7 @@ export default function TrendsChart({ data }: { data: MonthlyTrends }) {
           <button
             onClick={() => setViewMode('lines')}
             className={`px-3 py-1 rounded-md text-xs font-medium transition ${
-              viewMode === 'lines' ? 'bg-card text-foreground shadow-sm' : 'text-neutral-600'
+              viewMode === 'lines' ? 'bg-card text-foreground shadow-sm' : 'text-muted-foreground'
             }`}
           >
             Lines
@@ -105,7 +105,7 @@ export default function TrendsChart({ data }: { data: MonthlyTrends }) {
           <button
             onClick={() => setViewMode('stacked')}
             className={`px-3 py-1 rounded-md text-xs font-medium transition ${
-              viewMode === 'stacked' ? 'bg-card text-foreground shadow-sm' : 'text-neutral-600'
+              viewMode === 'stacked' ? 'bg-card text-foreground shadow-sm' : 'text-muted-foreground'
             }`}
           >
             Stacked
@@ -118,21 +118,21 @@ export default function TrendsChart({ data }: { data: MonthlyTrends }) {
           <div className="text-lg font-bold text-primary-hover">{(latest.total as number).toLocaleString()}</div>
           <div className="text-[10px] text-primary uppercase tracking-wide font-medium">Latest month</div>
         </div>
-        <div className="bg-neutral-50 rounded-lg p-3">
-          <div className="text-lg font-bold text-neutral-700">
+        <div className="bg-neutral rounded-lg p-3">
+          <div className="text-lg font-bold text-foreground">
             {data.data.reduce((s, d) => s + (d.total as number), 0).toLocaleString()}
           </div>
-          <div className="text-[10px] text-neutral-500 uppercase tracking-wide font-medium">Total tracked</div>
+          <div className="text-[10px] text-muted-foreground uppercase tracking-wide font-medium">Total tracked</div>
         </div>
         <div className={`rounded-lg p-3 ${monthChange && Number(monthChange) > 0 ? 'bg-destructive-subtle' : 'bg-green-50'}`}>
           <div className={`text-lg font-bold ${monthChange && Number(monthChange) > 0 ? 'text-destructive-hover' : 'text-green-700'}`}>
             {monthChange ? `${Number(monthChange) > 0 ? '+' : ''}${monthChange}%` : '—'}
           </div>
-          <div className="text-[10px] text-neutral-500 uppercase tracking-wide font-medium">Month-on-month</div>
+          <div className="text-[10px] text-muted-foreground uppercase tracking-wide font-medium">Month-on-month</div>
         </div>
-        <div className="bg-neutral-50 rounded-lg p-3">
-          <div className="text-lg font-bold text-neutral-700">{data.locations.length}</div>
-          <div className="text-[10px] text-neutral-500 uppercase tracking-wide font-medium">Locations</div>
+        <div className="bg-neutral rounded-lg p-3">
+          <div className="text-lg font-bold text-foreground">{data.locations.length}</div>
+          <div className="text-[10px] text-muted-foreground uppercase tracking-wide font-medium">Locations</div>
         </div>
       </div>
 

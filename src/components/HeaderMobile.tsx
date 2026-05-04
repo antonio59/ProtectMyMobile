@@ -57,7 +57,7 @@ export default function HeaderMobile() {
         Skip to main content
       </a>
 
-      <header className="bg-white/95 backdrop-blur-md shadow-md sticky top-0 z-50 border-b border-border">
+      <header className="bg-background/95 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-border">
         <div className="container mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
             {/* Logo */}
@@ -76,7 +76,7 @@ export default function HeaderMobile() {
                 <a
                   key={link.href}
                   href={link.href}
-                  className="px-3 py-2 text-sm font-medium text-neutral-600 hover:text-primary hover:bg-primary/5 rounded-lg transition-colors"
+                  className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-primary hover:bg-primary-subtle rounded-lg transition-colors"
                 >
                   {link.label}
                 </a>
@@ -149,16 +149,16 @@ export default function HeaderMobile() {
             <ThemeToggle />
             <button
             onClick={() => setIsOpen(false)}
-            className="p-2.5 rounded-xl bg-neutral-200 hover:bg-neutral-300 active:bg-neutral-400 hover:scale-105 active:scale-90 transition-all duration-150"
+            className="p-2.5 rounded-xl bg-neutral-200 hover:bg-neutral-300 hover:scale-105 active:scale-90 transition-all duration-150"
             aria-label="Close menu"
           >
-            <X className="size-6 text-neutral-700" />
+            <X className="size-6 text-foreground" />
           </button>
           </div>
         </div>
 
         {/* CTA Buttons */}
-        <div className="p-4 space-y-3 border-b bg-neutral-50">
+        <div className="p-4 space-y-3 border-b border-border bg-neutral">
           <a
             href="/emergency"
             className="flex items-center justify-center gap-2 w-full px-4 py-3 bg-destructive text-white rounded-xl font-bold shadow-lg hover:scale-[1.01] active:scale-[0.99] transition-transform duration-150"
@@ -188,10 +188,10 @@ export default function HeaderMobile() {
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className="flex items-center gap-3 px-4 py-3 rounded-xl text-neutral-700 hover:bg-neutral-100 active:bg-neutral-200 transition-colors group"
+                  className="flex items-center gap-3 px-4 py-3 rounded-xl text-foreground hover:bg-neutral-100 active:bg-neutral-200 transition-colors group"
                   onClick={() => setIsOpen(false)}
                 >
-                  <link.icon className="size-5 text-neutral-400 group-hover:text-primary transition-colors" />
+                  <link.icon className="size-5 text-muted-foreground group-hover:text-primary transition-colors" />
                   <span className="font-medium flex-1">{link.label}</span>
                   <ChevronRight className="size-4 text-neutral-300 group-hover:text-primary transition-colors" />
                 </a>
@@ -201,8 +201,8 @@ export default function HeaderMobile() {
         </nav>
 
         {/* Footer */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t bg-neutral-50">
-          <p className="text-xs text-neutral-500 text-center">
+        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-border bg-neutral">
+          <p className="text-xs text-muted-foreground text-center">
             Protecting UK residents from mobile theft
           </p>
         </div>

@@ -211,7 +211,7 @@ export default function SecurityCheckup() {
             {score.percentage}%
           </div>
           <div className="text-xl font-semibold mb-1">{scoreLevel.level}</div>
-          <div className="text-neutral-600">
+          <div className="text-muted-foreground">
             {score.earnedPoints} out of {score.totalPoints} points
           </div>
         </div>
@@ -230,7 +230,7 @@ export default function SecurityCheckup() {
                 <div key={key}>
                   <div className="flex justify-between mb-1">
                     <span className="font-medium">{name}</span>
-                    <span className="text-neutral-600">{categoryPercent}%</span>
+                    <span className="text-muted-foreground">{categoryPercent}%</span>
                   </div>
                   <div className="w-full bg-neutral-200 rounded-full h-2">
                     <div
@@ -251,7 +251,7 @@ export default function SecurityCheckup() {
               <AlertTriangle className="size-6 text-orange-600 mr-2" />
               Your Action Plan
             </h3>
-            <p className="text-neutral-600 mb-4">
+            <p className="text-muted-foreground mb-4">
               Based on your answers, here are the top security improvements you should make:
             </p>
             <div className="space-y-3">
@@ -266,7 +266,7 @@ export default function SecurityCheckup() {
                     </div>
                     <div className="flex-1">
                       <h4 className="font-semibold mb-1">{rec.title}</h4>
-                      <p className="text-sm text-neutral-700">{rec.description}</p>
+                      <p className="text-sm text-foreground">{rec.description}</p>
                     </div>
                   </div>
                 </div>
@@ -306,7 +306,7 @@ export default function SecurityCheckup() {
           </button>
           <button
             onClick={handleReset}
-            className="px-6 py-3 bg-neutral-200 text-neutral-800 rounded-lg font-medium hover:bg-neutral-300 transition-colors"
+            className="px-6 py-3 bg-neutral-200 text-foreground rounded-lg font-medium hover:bg-neutral-300 transition-colors"
           >
             Retake Assessment
           </button>
@@ -321,7 +321,7 @@ export default function SecurityCheckup() {
       <div className="bg-card rounded-lg shadow-md p-4">
         <div className="flex justify-between mb-2">
           <span className="text-sm font-medium">Progress</span>
-          <span className="text-sm text-neutral-600">
+          <span className="text-sm text-muted-foreground">
             {Object.keys(answers).length} of {questions.length} answered
           </span>
         </div>
@@ -349,7 +349,7 @@ export default function SecurityCheckup() {
                     className={`flex-1 px-4 py-3 rounded-lg border-2 transition-all ${
                       answers[q.id] === true
                         ? 'border-green-500 bg-green-50 text-green-700'
-                        : 'border-neutral-300 hover:border-green-300 text-neutral-700'
+                        : 'border-neutral-300 hover:border-green-300 text-foreground'
                     }`}
                   >
                     <Check className="size-5 inline mr-2" />
@@ -360,7 +360,7 @@ export default function SecurityCheckup() {
                     className={`flex-1 px-4 py-3 rounded-lg border-2 transition-all ${
                       answers[q.id] === false
                         ? 'border-red-500 bg-destructive-subtle text-destructive-hover'
-                        : 'border-neutral-300 hover:border-red-300 text-neutral-700'
+                        : 'border-neutral-300 hover:border-red-300 text-foreground'
                     }`}
                   >
                     <X className="size-5 inline mr-2" />
@@ -380,8 +380,8 @@ export default function SecurityCheckup() {
           disabled={!allAnswered}
           className={`w-full px-6 py-4 rounded-lg font-bold text-lg transition-all ${
             allAnswered
-              ? 'bg-primary text-white hover:bg-primary/90 cursor-pointer'
-              : 'bg-neutral-300 text-neutral-500 cursor-not-allowed'
+              ? 'bg-primary text-white hover:bg-primary-hover cursor-pointer'
+              : 'bg-neutral-300 text-muted-foreground cursor-not-allowed'
           }`}
         >
           {allAnswered ? 'Get My Security Score' : `Answer All Questions (${Object.keys(answers).length}/${questions.length})`}
