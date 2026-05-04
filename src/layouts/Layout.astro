@@ -113,13 +113,6 @@ const schemas = [defaultSchema, websiteSchema, ...additionalSchemas];
     <link rel="alternate" hreflang="en-GB" href={canonicalUrl} />
     <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
 
-    <!-- Google Analytics 4 — loaded only after cookie consent -->
-    {import.meta.env.PUBLIC_GA4_ID && (
-      <script is:inline define:vars={{ gaId: import.meta.env.PUBLIC_GA4_ID }}>
-        window.__GA4_ID = gaId;
-      </script>
-    )}
-    
     <!-- Schema.org JSON-LD -->
     {schemas.map((s) => (
       <script type="application/ld+json" is:inline set:html={JSON.stringify(s)} />

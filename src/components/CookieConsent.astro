@@ -1,21 +1,13 @@
-<!-- Cookie Consent Banner — minimal, GDPR-compliant -->
+<!-- Cookie consent — notice only (no analytics tracking) -->
 <div id="cookie-consent" class="hidden fixed bottom-0 left-0 right-0 z-[100] bg-card border-t border-border shadow-2xl">
-  <div class="container mx-auto max-w-6xl px-4 py-3 sm:py-4">
-    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-      <div class="flex-1">
-        <p class="text-sm text-foreground leading-relaxed">
-          This site uses cookies for essential functionality and anonymous analytics. 
-          <a href="/privacy" class="text-primary hover:underline font-medium">Learn more</a>.
-        </p>
-      </div>
-      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
-        <button id="cookie-reject" class="px-3 sm:px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground border border-border rounded-lg hover:bg-neutral transition-colors">
-          Essential only
-        </button>
-        <button id="cookie-accept" class="px-3 sm:px-4 py-2 text-sm font-semibold text-white bg-primary rounded-lg hover:bg-primary-hover transition-colors shadow-sm">
-          Accept all
-        </button>
-      </div>
+  <div class="container mx-auto max-w-6xl px-4 py-3">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+      <p class="text-sm text-muted-foreground">
+        This site uses essential cookies to function. <a href="/privacy" class="text-primary hover:underline font-medium">Privacy policy</a>.
+      </p>
+      <button id="cookie-dismiss" class="px-4 py-1.5 text-sm font-medium text-foreground border border-border rounded-lg hover:bg-neutral transition-colors shrink-0">
+        Got it
+      </button>
     </div>
   </div>
 </div>
@@ -23,57 +15,15 @@
 <script is:inline>
   (function() {
     const banner = document.getElementById('cookie-consent');
-    const acceptBtn = document.getElementById('cookie-accept');
-    const rejectBtn = document.getElementById('cookie-reject');
-    if (!banner || !acceptBtn || !rejectBtn) return;
+    const btn = document.getElementById('cookie-dismiss');
+    if (!banner || !btn) return;
 
-    const COOKIE_KEY = 'pmm_cookie_consent';
-    const ANALYTICS_KEY = 'pmm_analytics_consent';
-
-    // Don't show if already decided
-    const saved = localStorage.getItem(COOKIE_KEY);
-    if (saved) {
-      // If previously accepted, load GA4
-      if (localStorage.getItem(ANALYTICS_KEY) === 'true' && window.__GA4_ID) {
-        loadGA4();
-      }
-      return;
-    }
-
-    // Show banner
+    if (localStorage.getItem('pmm_cookie_notice')) return;
     banner.classList.remove('hidden');
 
-    function setConsent(analyticsConsent) {
-      localStorage.setItem(COOKIE_KEY, 'true');
-      localStorage.setItem(ANALYTICS_KEY, analyticsConsent ? 'true' : 'false');
+    btn.addEventListener('click', () => {
+      localStorage.setItem('pmm_cookie_notice', '1');
       banner.classList.add('hidden');
-
-      if (analyticsConsent && window.__GA4_ID) {
-        loadGA4();
-      }
-
-      // Fire page view event now that consent is recorded (for existing pageview)
-      if (window.__trackPageView && analyticsConsent) {
-        window.__trackPageView();
-      }
-    }
-
-    acceptBtn.addEventListener('click', () => setConsent(true));
-    rejectBtn.addEventListener('click', () => setConsent(false));
-
-    function loadGA4() {
-      if (document.querySelector('script[src*="googletagmanager"]')) return; // Already loaded
-      const gaId = window.__GA4_ID;
-      const script = document.createElement('script');
-      script.async = true;
-      script.src = 'https://www.googletagmanager.com/gtag/js?id=' + gaId;
-      document.head.appendChild(script);
-
-      window.dataLayer = window.dataLayer || [];
-      function gtag() { window.dataLayer.push(arguments); }
-      gtag('js', new Date());
-      gtag('config', gaId);
-      window.gtag = gtag;
-    }
+    });
   })();
 </script>
