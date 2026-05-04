@@ -62,16 +62,3 @@ export function getClientIp(request: Request): string {
   );
 }
 
-/**
- * Escape HTML to prevent XSS attacks
- * Use this when inserting user-controlled content into innerHTML
- */
-export function escapeHtml(str: string | null | undefined): string {
-  if (!str) return '';
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#x27;');
-}
