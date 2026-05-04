@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 
 ### Bug Fixes
 
+- Tighten news card title typography — text-sm/text-base with leading-tight
 - Remove unused escapeHtml export to satisfy Fallow dead-code check
 - Reduce AnimatedNewsSection card title size
 - Remove unused icon imports from about page
@@ -1189,6 +1190,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
