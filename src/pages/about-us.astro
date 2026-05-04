@@ -2,128 +2,307 @@
 import Layout from '../layouts/Layout.astro';
 import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
-import { Info, Heart, Shield, Users, Target, CheckCircle2, ArrowRight } from 'lucide-react';
+import {
+  Info, Heart, Shield, Users, Target, CheckCircle2, ArrowRight,
+  Map, TrendingUp, Newspaper, Database, FileText, Phone,
+  Megaphone, Globe, Search, Send
+} from 'lucide-react';
+
+const stats = [
+  { value: '200,000+', label: 'Phones stolen in the UK each year', detail: 'One every 3 minutes' },
+  { value: '70%', label: 'Of thefts happen in London', detail: 'Highest in Westminster and Camden' },
+  { value: '48%', label: 'Victims don\'t know what to do', detail: 'From police survey data' },
+  { value: '< 1%', label: 'Recovery rate for stolen phones', detail: 'Only 5,000 recovered annually' },
+];
 ---
 
 <Layout 
-  title="About Us - Our Mission to Protect Mobile Users | ProtectMyMobile"
-  description="Learn about ProtectMyMobile's mission to help UK residents protect their mobile devices and respond effectively to theft."
+  title="About — Antonio Smith | ProtectMyMobile"
+  description="I built ProtectMyMobile to help UK residents protect their mobile devices. Here's the mission, how I collect data, and how you can contribute."
 >
   <HeaderMobile client:idle />
   
   <main id="main-content" class="bg-background min-h-screen">
     <div class="container mx-auto px-4 py-4 sm:py-6 max-w-5xl">
-      <!-- Hero Section -->
-      <div class="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8 shadow-xl">
-        <div class="flex items-center gap-3 mb-3">
+
+      <!-- Hero -->
+      <div class="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-10 mb-6 sm:mb-8 shadow-xl">
+        <div class="flex items-center gap-3 mb-4">
           <div class="bg-white/20 p-3 rounded-xl">
             <Info class="size-6 sm:size-8" />
           </div>
           <h1 class="text-xl sm:text-2xl md:text-3xl font-bold">About ProtectMyMobile</h1>
         </div>
-        <p class="text-blue-100 text-xs sm:text-sm md:text-base">
-          Empowering UK residents with knowledge and tools to protect their mobile devices from theft.
+        <p class="text-blue-100 text-sm sm:text-base md:text-lg max-w-2xl leading-relaxed">
+          Built and maintained by <strong>Antonio Smith</strong>. An independent resource to help UK residents understand phone theft, protect their devices, and know exactly what to do when theft happens.
         </p>
       </div>
-      
-      <!-- Mission Statement -->
-      <section class="bg-card rounded-lg sm:rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-border mb-6 sm:mb-8">
+
+      <!-- Stats Snapshot -->
+      <section class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
+        {stats.map((stat) => (
+          <div class="bg-card rounded-xl shadow-sm border border-border p-4 sm:p-5 text-center">
+            <div class="text-xl sm:text-2xl md:text-3xl font-bold text-primary">{stat.value}</div>
+            <div class="text-xs text-foreground mt-1 leading-tight">{stat.label}</div>
+            <div class="text-[10px] text-muted-foreground mt-1">{stat.detail}</div>
+          </div>
+        ))}
+      </section>
+
+      <!-- Mission -->
+      <section class="bg-card rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-border mb-6 sm:mb-8">
         <div class="h-2 bg-gradient-to-r from-primary to-blue-600"></div>
-        <div class="p-4 sm:p-6 md:p-8">
+        <div class="p-5 sm:p-6 md:p-8">
           <div class="flex items-center gap-3 mb-4">
             <div class="bg-primary/10 rounded-xl p-3">
               <Target class="size-6 text-primary" />
             </div>
-            <h2 class="text-base sm:text-lg md:text-xl font-bold">Our Mission</h2>
+            <h2 class="text-base sm:text-lg font-bold">My Mission</h2>
           </div>
-          <p class="text-foreground mb-4 text-xs sm:text-sm md:text-base">
-            ProtectMyMobile exists to empower UK residents with the knowledge and tools to protect their mobile devices from theft and respond effectively when theft occurs.
+          <p class="text-foreground mb-4 text-sm sm:text-base">
+            I built ProtectMyMobile because the advice people get after a phone theft is scattered across police websites, bank pages, network provider portals, and forum threads — exactly when you're stressed, angry, and short on time.
           </p>
-          <p class="text-muted-foreground text-xs sm:text-sm">
-            We believe everyone deserves access to clear, actionable information about mobile security without having to search through countless websites during stressful situations.
+          <p class="text-muted-foreground text-sm leading-relaxed">
+            I bring it all together in one place: prevention guidance before it happens, emergency steps when it does, and the data to understand how serious the problem really is. No ads, no signups, no fluff.
           </p>
         </div>
       </section>
-      
-      <!-- Our Values -->
+
+      <!-- What We Do -->
       <section class="mb-6 sm:mb-8">
-        <h2 class="text-base sm:text-lg md:text-xl font-bold mb-6 flex items-center gap-2">
+        <h2 class="text-base sm:text-lg font-bold mb-4 sm:mb-5 flex items-center gap-2">
+          <Database class="size-5 text-primary" />
+          What I Do
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+          <a href="/statistics" class="bg-card rounded-xl shadow-sm border border-border p-4 sm:p-5 hover:shadow-md hover:border-primary/20 transition-all group">
+            <div class="flex items-start gap-3">
+              <div class="bg-purple-100 rounded-lg p-2.5">
+                <TrendingUp class="size-5 text-purple-600" />
+              </div>
+              <div>
+                <h3 class="font-semibold text-sm sm:text-base text-foreground group-hover:text-primary transition-colors">Theft Data & Statistics</h3>
+                <p class="text-muted-foreground text-xs sm:text-sm mt-1">Interactive maps, city-level breakdowns, hotspot rankings, and seasonal trends built from FOI requests and police data.</p>
+              </div>
+            </div>
+          </a>
+          <a href="/news" class="bg-card rounded-xl shadow-sm border border-border p-4 sm:p-5 hover:shadow-md hover:border-primary/20 transition-all group">
+            <div class="flex items-start gap-3">
+              <div class="bg-teal-100 rounded-lg p-2.5">
+                <Newspaper class="size-5 text-teal-600" />
+              </div>
+              <div>
+                <h3 class="font-semibold text-sm sm:text-base text-foreground group-hover:text-primary transition-colors">News Monitoring</h3>
+                <p class="text-muted-foreground text-xs sm:text-sm mt-1">Automated tracking of arrests, seizures, law changes, and prevention tips from UK news sources. Updated weekly.</p>
+              </div>
+            </div>
+          </a>
+          <a href="/prevention" class="bg-card rounded-xl shadow-sm border border-border p-4 sm:p-5 hover:shadow-md hover:border-primary/20 transition-all group">
+            <div class="flex items-start gap-3">
+              <div class="bg-green-100 rounded-lg p-2.5">
+                <Shield class="size-5 text-green-600" />
+              </div>
+              <div>
+                <h3 class="font-semibold text-sm sm:text-base text-foreground group-hover:text-primary transition-colors">Prevention Guides</h3>
+                <p class="text-muted-foreground text-xs sm:text-sm mt-1">Step-by-step walkthroughs for SIM locks, biometric security, app-specific passwords, and IMEI registration.</p>
+              </div>
+            </div>
+          </a>
+          <a href="/emergency" class="bg-card rounded-xl shadow-sm border border-border p-4 sm:p-5 hover:shadow-md hover:border-primary/20 transition-all group">
+            <div class="flex items-start gap-3">
+              <div class="bg-red-100 rounded-lg p-2.5">
+                <Phone class="size-5 text-destructive" />
+              </div>
+              <div>
+                <h3 class="font-semibold text-sm sm:text-base text-foreground group-hover:text-primary transition-colors">Emergency Response</h3>
+                <p class="text-muted-foreground text-xs sm:text-sm mt-1">What to do in the first 30 minutes: lock your device, change passwords, contact your bank and network, report to police.</p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <!-- Data & Methodology -->
+      <section class="bg-card rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-border mb-6 sm:mb-8">
+        <div class="h-2 bg-gradient-to-r from-teal-500 to-cyan-500"></div>
+        <div class="p-5 sm:p-6 md:p-8">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="bg-teal-100 rounded-xl p-3">
+              <Search class="size-6 text-teal-600" />
+            </div>
+            <h2 class="text-base sm:text-lg font-bold">How I Collect Data</h2>
+          </div>
+          <p class="text-muted-foreground text-sm mb-5">
+            Everything on this site comes from public sources. Here's where the data comes from and how I use it.
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
+            <div>
+              <div class="flex items-center gap-2 mb-2">
+                <FileText class="size-4 text-primary" />
+                <h3 class="font-semibold text-sm">Freedom of Information</h3>
+              </div>
+              <p class="text-xs text-muted-foreground">
+                I submit FOI requests to UK police forces for mobile theft statistics. Responses provide location-level data that I aggregate into the theft map and trends.
+              </p>
+            </div>
+            <div>
+              <div class="flex items-center gap-2 mb-2">
+                <Globe class="size-4 text-primary" />
+                <h3 class="font-semibold text-sm">News Aggregation</h3>
+              </div>
+              <p class="text-xs text-muted-foreground">
+                Automated weekly scanning of UK news sources (Google News, Guardian, Sky News, local police reports) filtered for mobile theft relevance and categorized by type.
+              </p>
+            </div>
+            <div>
+              <div class="flex items-center gap-2 mb-2">
+                <Users class="size-4 text-primary" />
+                <h3 class="font-semibold text-sm">Community Reports</h3>
+              </div>
+              <p class="text-xs text-muted-foreground">
+                Visitors can report where and when thefts occurred. These reports help identify emerging hotspots that official statistics haven't yet captured.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Values -->
+      <section class="mb-6 sm:mb-8">
+        <h2 class="text-base sm:text-lg font-bold mb-4 sm:mb-5 flex items-center gap-2">
           <Heart class="size-5 text-red-500" />
           Our Values
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
-          <div class="bg-card rounded-lg sm:rounded-xl sm:rounded-2xl shadow-md p-4 sm:p-6 border border-border hover:shadow-lg transition-shadow">
+          <div class="bg-card rounded-xl shadow-sm border border-border p-5 sm:p-6 hover:shadow-md transition-shadow">
             <div class="bg-primary/10 rounded-xl p-3 w-fit mb-4">
-              <Shield class="size-6 sm:size-8 text-primary" />
+              <Shield class="size-6 text-primary" />
             </div>
-            <h3 class="text-base sm:text-lg font-bold mb-2">Privacy First</h3>
-            <p class="text-muted-foreground text-xs sm:text-sm">
-              We don't store your IMEI numbers or personal device information. Your privacy is paramount.
+            <h3 class="font-semibold text-sm sm:text-base mb-2">Privacy First</h3>
+            <p class="text-muted-foreground text-xs sm:text-sm leading-relaxed">
+              I don't store IMEI numbers, require accounts, or track individual users. Theft reports are anonymous. I use <a href="/privacy" class="text-primary hover:underline">minimal analytics</a> — just enough to know which pages help and which don't.
             </p>
           </div>
-
-          <div class="bg-card rounded-lg sm:rounded-xl sm:rounded-2xl shadow-md p-4 sm:p-6 border border-border hover:shadow-lg transition-shadow">
+          <div class="bg-card rounded-xl shadow-sm border border-border p-5 sm:p-6 hover:shadow-md transition-shadow">
             <div class="bg-green-100 rounded-xl p-3 w-fit mb-4">
-              <Users class="size-6 sm:size-8 text-green-600" />
+              <Users class="size-6 text-green-600" />
             </div>
-            <h3 class="text-base sm:text-lg font-bold mb-2">Community Driven</h3>
-            <p class="text-muted-foreground text-xs sm:text-sm">
-              We learn from real experiences and feedback to continuously improve our guidance.
+            <h3 class="font-semibold text-sm sm:text-base mb-2">Community Driven</h3>
+            <p class="text-muted-foreground text-xs sm:text-sm leading-relaxed">
+              <a href="/community-experiences" class="text-primary hover:underline">Real experiences</a> shape my guidance. If a prevention tip doesn't match how thefts actually happen, I want to know. The theft map improves with every report submitted.
             </p>
           </div>
-
-          <div class="bg-card rounded-lg sm:rounded-xl sm:rounded-2xl shadow-md p-4 sm:p-6 border border-border hover:shadow-lg transition-shadow">
-            <div class="bg-destructive-muted rounded-xl p-3 w-fit mb-4">
-              <Heart class="size-6 sm:size-8 text-destructive" />
+          <div class="bg-card rounded-xl shadow-sm border border-border p-5 sm:p-6 hover:shadow-md transition-shadow">
+            <div class="bg-red-100 rounded-xl p-3 w-fit mb-4">
+              <Heart class="size-6 text-destructive" />
             </div>
-            <h3 class="text-base sm:text-lg font-bold mb-2">Always Free</h3>
-            <p class="text-muted-foreground text-xs sm:text-sm">
-              Essential security information should be accessible to everyone, always.
+            <h3 class="font-semibold text-sm sm:text-base mb-2">Always Free</h3>
+            <p class="text-muted-foreground text-xs sm:text-sm leading-relaxed">
+              No paywalls, no premium tiers. Phone theft advice belongs in the public domain. If this information helps one person avoid having their phone stolen — or recover faster when it is — the site has done its job.
             </p>
           </div>
         </div>
       </section>
-      
-      <!-- Why We Exist -->
-      <section class="bg-card rounded-lg sm:rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-border mb-6 sm:mb-8">
+
+      <!-- Why This Matters -->
+      <section class="bg-card rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-border mb-6 sm:mb-8">
         <div class="h-2 bg-gradient-to-r from-red-500 to-orange-500"></div>
-        <div class="p-4 sm:p-6 md:p-8">
-          <h2 class="text-base sm:text-lg md:text-xl font-bold mb-4">Why We Exist</h2>
-          <p class="text-foreground mb-4 text-xs sm:text-sm md:text-base">
-            With over 200,000 mobile phones stolen in the UK every year, the impact on victims is significant:
+        <div class="p-5 sm:p-6 md:p-8">
+          <h2 class="text-base sm:text-lg font-bold mb-4">Why This Matters</h2>
+          <p class="text-foreground mb-4 text-sm sm:text-base">
+            Phone theft isn't just about losing a device. With over 200,000 stolen annually in the UK, the ripple effects go far beyond the handset:
           </p>
-          <ul class="space-y-3 mb-4">
+          <ul class="space-y-3 mb-5">
             {[
-              'Loss of irreplaceable photos, contacts, and memories',
-              'Risk of identity theft and financial fraud',
-              'Confusion about what steps to take immediately',
-              'Difficulty finding emergency contacts during stress'
-            ].map(item => (
+              { icon: FileText, text: 'Loss of irreplaceable photos, contacts, and memories not backed up to the cloud' },
+              { icon: Shield, text: 'Identity theft risk — thieves who access banking apps can drain accounts in minutes' },
+              { icon: Phone, text: 'Confusion about what steps to take — 48% of victims don\'t know where to start' },
+              { icon: Search, text: 'Difficulty finding bank and network emergency numbers during a stressful moment' },
+              { icon: Globe, text: 'Theft hotspots concentrated in areas visitors don\'t know are dangerous — Leicester Square, Oxford Circus, Shoreditch at night' },
+            ].map((item) => (
               <li class="flex items-start gap-3">
-                <CheckCircle2 class="size-5 text-red-500 mt-0.5 flex-shrink-0" />
-                <span class="text-foreground text-xs sm:text-sm md:text-base">{item}</span>
+                <item.icon class="size-4 text-red-500 mt-0.5 flex-shrink-0" />
+                <span class="text-foreground text-xs sm:text-sm">{item.text}</span>
               </li>
             ))}
           </ul>
-          <p class="text-muted-foreground text-xs sm:text-sm">
-            ProtectMyMobile consolidates all the information you need in one place, making it easier to stay safe and act quickly.
+          <p class="text-muted-foreground text-sm">
+            ProtectMyMobile consolidates everything you need in one place — prevention, emergency contacts, and the data to understand the scale of the problem. No searching through 12 different websites while panicking.
           </p>
         </div>
       </section>
 
-      <!-- CTA -->
-      <section class="bg-gradient-to-r from-primary/10 to-blue-100 rounded-lg sm:rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-primary/20">
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <div>
-            <h3 class="text-base sm:text-lg font-bold mb-1">Learn about the theft epidemic</h3>
-            <p class="text-muted-foreground text-xs sm:text-sm">Understand how phones are being stolen across the UK.</p>
+      <!-- How You Can Help -->
+      <section class="bg-card rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-border mb-6 sm:mb-8">
+        <div class="h-2 bg-gradient-to-r from-green-500 to-emerald-500"></div>
+        <div class="p-5 sm:p-6 md:p-8">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="bg-green-100 rounded-xl p-3">
+              <Megaphone class="size-6 text-green-600" />
+            </div>
+            <h2 class="text-base sm:text-lg font-bold">How You Can Help</h2>
           </div>
-          <a href="/the-problem" class="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-primary text-white rounded-xl font-semibold text-xs sm:text-sm hover:bg-primary-hover transition-colors">
-            The Problem
-            <ArrowRight class="size-4" />
-          </a>
+          <p class="text-muted-foreground text-sm mb-5">This site improves when people contribute. Here's what makes a difference:</p>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="flex items-start gap-3">
+              <div class="bg-primary/10 rounded-lg p-2 mt-0.5">
+                <Send class="size-4 text-primary" />
+              </div>
+              <div>
+                <h3 class="font-semibold text-sm mb-1">Report Thefts</h3>
+                <p class="text-xs text-muted-foreground">If your phone was stolen, <a href="/emergency#report" class="text-primary hover:underline">tell us where and when</a>. Each report improves the hotspot data for everyone.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="bg-primary/10 rounded-lg p-2 mt-0.5">
+                <FileText class="size-4 text-primary" />
+              </div>
+              <div>
+                <h3 class="font-semibold text-sm mb-1">Share Your Experience</h3>
+                <p class="text-xs text-muted-foreground">Your story helps others know what to expect. <a href="/community-experiences" class="text-primary hover:underline">Submit your account</a> — it stays anonymous.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="bg-primary/10 rounded-lg p-2 mt-0.5">
+                <Megaphone class="size-4 text-primary" />
+              </div>
+              <div>
+                <h3 class="font-semibold text-sm mb-1">Spread the Word</h3>
+                <p class="text-xs text-muted-foreground">Share the <a href="/london-visitor-safety" class="text-primary hover:underline">London visitor guide</a> with tourists, or tell colleagues about the <a href="/security-checkup" class="text-primary hover:underline">2-minute checkup</a>.</p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
+
+      <!-- CTAs -->
+      <section class="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 mb-6 sm:mb-8">
+        <a href="/the-problem" class="bg-gradient-to-br from-red-500 to-orange-500 text-white rounded-xl shadow-md p-5 sm:p-6 hover:shadow-lg transition-all group">
+          <h3 class="font-semibold text-base mb-2">The Problem</h3>
+          <p class="text-white/80 text-xs sm:text-sm mb-3">See how bad phone theft really is in the UK.</p>
+          <span class="inline-flex items-center gap-1.5 text-sm font-semibold">
+            Explore
+            <ArrowRight class="size-4 group-hover:translate-x-1 transition-transform" />
+          </span>
+        </a>
+        <a href="/prevention" class="bg-gradient-to-br from-green-500 to-emerald-600 text-white rounded-xl shadow-md p-5 sm:p-6 hover:shadow-lg transition-all group">
+          <h3 class="font-semibold text-base mb-2">Prevention Guide</h3>
+          <p class="text-white/80 text-xs sm:text-sm mb-3">Lock down your phone in under 10 minutes.</p>
+          <span class="inline-flex items-center gap-1.5 text-sm font-semibold">
+            Secure Now
+            <ArrowRight class="size-4 group-hover:translate-x-1 transition-transform" />
+          </span>
+        </a>
+        <a href="/emergency" class="bg-gradient-to-br from-red-600 to-red-700 text-white rounded-xl shadow-md p-5 sm:p-6 hover:shadow-lg transition-all group">
+          <h3 class="font-semibold text-base mb-2">Emergency Steps</h3>
+          <p class="text-white/80 text-xs sm:text-sm mb-3">What to do immediately after a theft.</p>
+          <span class="inline-flex items-center gap-1.5 text-sm font-semibold">
+            Take Action
+            <ArrowRight class="size-4 group-hover:translate-x-1 transition-transform" />
+          </span>
+        </a>
+      </section>
+
     </div>
   </main>
   

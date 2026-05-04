@@ -22,7 +22,7 @@ import { Shield, Home, Search } from 'lucide-react';
         <h2 class="text-lg sm:text-xl md:text-2xl font-semibold text-foreground mb-4 sm:mb-6">Page Not Found</h2>
         
         <p class="text-sm sm:text-base md:text-lg text-muted-foreground mb-6 sm:mb-8 max-w-md mx-auto">
-          Sorry, we couldn't find the page you're looking for. It might have been moved, deleted, or never existed.
+          Sorry, I couldn't find the page you're looking for. It might have been moved, deleted, or never existed.
         </p>
         
         <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
@@ -44,11 +44,34 @@ import { Shield, Home, Search } from 'lucide-react';
         </div>
         
         <div class="mt-8 sm:mt-10 md:mt-12 pt-6 sm:pt-8 border-t border-border text-xs sm:text-sm text-muted-foreground">
-          <p>If you believe this is an error, please <a href="/contact-us" class="text-primary hover:underline">contact us</a>.</p>
+          <p>If you believe this is an error, please <a href="/contact-us" class="text-primary hover:underline">contact me</a> and I'll fix it.</p>
         </div>
       </div>
     </div>
   </main>
+  
+  <script is:inline>
+    // Track 404 hits for monitoring
+    (function() {
+      var convexUrl = window.__CONVEX_URL;
+      if (!convexUrl) return;
+      fetch(convexUrl + '/api/mutation', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          path: 'analytics:trackEvent',
+          args: {
+            eventType: 'page_404',
+            metadata: {
+              url: window.location.pathname + window.location.search
+            },
+            userAgent: navigator.userAgent,
+            referrer: document.referrer || undefined,
+          },
+        }),
+      }).catch(function() {});
+    })();
+  </script>
   
   <Footer />
 </Layout>

@@ -282,6 +282,7 @@ export default defineSchema({
       v.literal("community_survey_completed"),
       v.literal("scenario_viewed"),
       v.literal("news_article_viewed"),
+      v.literal("page_404"),
     ),
     // Event-specific data
     metadata: v.optional(v.object({
@@ -292,6 +293,7 @@ export default defineSchema({
       scenarioId: v.optional(v.string()),
       articleSlug: v.optional(v.string()),
       categoryBreakdown: v.optional(v.string()),
+      url: v.optional(v.string()),
     })),
     // Session/user info (anonymized)
     sessionId: v.optional(v.string()),

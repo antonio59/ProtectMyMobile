@@ -13,6 +13,7 @@ export const trackEvent = mutation({
       v.literal("community_survey_completed"),
       v.literal("scenario_viewed"),
       v.literal("news_article_viewed"),
+      v.literal("page_404"),
     ),
     metadata: v.optional(v.object({
       score: v.optional(v.number()),
@@ -22,6 +23,7 @@ export const trackEvent = mutation({
       scenarioId: v.optional(v.string()),
       articleSlug: v.optional(v.string()),
       categoryBreakdown: v.optional(v.string()),
+      url: v.optional(v.string()),
     })),
     sessionId: v.optional(v.string()),
     userAgent: v.optional(v.string()),
