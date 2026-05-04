@@ -34,30 +34,30 @@ const breadcrumbSchema = items.length > 0 ? {
 } : null;
 ---
 
-<nav aria-label="Breadcrumb" class="mb-4 sm:mb-6">
-  <ol class="inline-flex flex-wrap items-center gap-1 sm:gap-1.5 text-xs sm:text-sm text-muted-foreground bg-card border border-border rounded-full px-3 sm:px-4 py-2 shadow-md">
+<nav aria-label="Breadcrumb" class="mb-2 sm:mb-3 mt-1">
+  <ol class="inline-flex flex-wrap items-center gap-1 text-[11px] sm:text-xs text-muted-foreground">
     <li>
       <a
         href="/"
-        class="flex items-center gap-1 hover:text-primary transition-colors font-medium"
+        class="flex items-center gap-1 hover:text-primary transition-colors"
       >
-        <Home class="h-3.5 w-3.5 sm:size-4" />
+        <Home class="size-3 sm:size-3.5" />
         <span class="hidden sm:inline">Home</span>
       </a>
     </li>
 
     {items.map((item, index) => (
-      <li class="flex items-center gap-1.5 sm:gap-2">
-        <ChevronRight class="h-3.5 w-3.5 sm:size-4 text-neutral-300" />
+      <li class="flex items-center gap-1">
+        <ChevronRight class="size-3 text-neutral-300" />
         {item.href && index < items.length - 1 ? (
           <a
             href={item.href}
-            class="hover:text-primary transition-colors font-medium"
+            class="hover:text-primary transition-colors"
           >
             {item.label}
           </a>
         ) : (
-          <span class="text-foreground font-semibold" aria-current="page">
+          <span class="text-foreground font-medium" aria-current="page">
             {item.label}
           </span>
         )}
