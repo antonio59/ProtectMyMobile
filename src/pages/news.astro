@@ -218,7 +218,7 @@ const newsSchema = {
                     class="news-card group flex flex-col bg-card rounded-xl shadow-sm border border-border hover:shadow-md hover:border-primary/20 transition-all overflow-hidden"
                     data-category={post.category}
                   >
-                    {post.featuredImageUrl && (
+                    {post.featuredImageUrl ? (
                       <div class="aspect-[16/10] bg-neutral overflow-hidden">
                         <img
                           src={post.featuredImageUrl}
@@ -226,6 +226,10 @@ const newsSchema = {
                           class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                           loading="lazy"
                         />
+                      </div>
+                    ) : (
+                      <div class={`aspect-[16/10] ${config.bg} flex items-center justify-center`}>
+                        <Icon class="size-8 sm:size-10 opacity-20" />
                       </div>
                     )}
                     <div class="p-4 flex flex-col flex-1">
