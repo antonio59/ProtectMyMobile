@@ -2,7 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
-import Breadcrumb from '../components/Breadcrumb.astro';
 import { ScenarioCarousel } from '../components/ScenarioCarousel';
 import { Shield, AlertTriangle, MapPin } from 'lucide-react';
 
@@ -81,7 +80,6 @@ function slideUrls(folder: string, count: number) {
   ogImage="/og-image.png"
 >
   <HeaderMobile client:idle />
-  <Breadcrumb items={[{ label: 'Scenarios' }]} />
 
   <main id="main-content" class="bg-background min-h-screen">
     <div class="container mx-auto px-4 py-4 sm:py-6 md:py-8 max-w-6xl">

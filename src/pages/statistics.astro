@@ -2,7 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
-import Breadcrumb from '../components/Breadcrumb.astro';
 import StatisticsDashboard from '../components/StatisticsDashboard';
 import { getTheftStats } from '../lib/convexData';
 import { BarChart3, TrendingUp, MapPin, AlertTriangle, Clock, Shield, ArrowRight, Calendar, Sun, Snowflake, Leaf } from 'lucide-react';
@@ -73,7 +72,6 @@ const keyStats = [
   <main id="main-content" class="bg-background min-h-screen">
     <div class="container mx-auto px-4 py-4 sm:py-6 max-w-6xl">
       
-      <Breadcrumb items={[{ label: 'Statistics' }]} />
 
       <!-- Hero Section -->
       <div class="bg-gradient-to-br from-purple-600 to-indigo-700 text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8 shadow-xl">

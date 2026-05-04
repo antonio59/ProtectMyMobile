@@ -2,7 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
-import Breadcrumb from '../components/Breadcrumb.astro';
 import SecurityCheckupComponent from '../components/SecurityCheckup';
 import { ShieldCheck, Clock, CheckCircle2 } from 'lucide-react';
 ---
@@ -12,7 +11,6 @@ import { ShieldCheck, Clock, CheckCircle2 } from 'lucide-react';
   description="Take our interactive security assessment to identify vulnerabilities and get personalised recommendations for protecting your mobile device."
 >
   <HeaderMobile client:idle />
-  <Breadcrumb items={[{ label: 'Security Checkup' }]} />
   
   <main id="main-content" class="bg-background min-h-screen">
     <div class="container mx-auto px-4 py-4 sm:py-6 max-w-4xl">

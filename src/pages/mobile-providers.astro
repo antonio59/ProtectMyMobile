@@ -2,7 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
-import Breadcrumb from '../components/Breadcrumb.astro';
 import { getMobileProviders, getDirectoryLastVerified } from '../lib/convexData';
 import { mobileProviders as staticProviders } from '../data/mobileProviders';
 import { Phone, Search, AlertCircle, Clock, CheckCircle2, ExternalLink } from 'lucide-react';
@@ -92,7 +91,6 @@ const providersFaqSchema = {
   schema={providersFaqSchema}
 >
   <HeaderMobile client:idle />
-  <Breadcrumb items={[{ label: 'Mobile Providers' }]} />
   
   <main id="main-content" class="bg-background min-h-screen">
     <div class="container mx-auto px-4 py-4 sm:py-6 max-w-6xl">

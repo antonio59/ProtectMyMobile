@@ -2,7 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
-import Breadcrumb from '../components/Breadcrumb.astro';
 import { getBanks, getDirectoryLastVerified } from '../lib/convexData';
 import { banks as staticBanks } from '../data/banks';
 import { Building2, Search, Phone, AlertCircle, Clock, CheckCircle2, ExternalLink, Shield, ArrowRight } from 'lucide-react';
@@ -101,7 +100,6 @@ const banksFaqSchema = {
   <main id="main-content" class="bg-background min-h-screen">
     <div class="container mx-auto px-4 py-4 sm:py-6 max-w-6xl">
       
-      <Breadcrumb items={[{ label: 'Bank Directory' }]} />
 
       <!-- Hero Section -->
       <div class="bg-gradient-to-br from-blue-600 to-indigo-700 text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 mb-6 shadow-xl">
