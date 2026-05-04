@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 
 ### Bug Fixes
 
+- Restore overflow-hidden with items-stretch, remove h-full conflict
 - Prevent featured article text clipping, add stronger content dedup
 - Use aspect-ratio on featured image instead of h-full to prevent text clipping
 - Remove overflow-hidden from featured article, add image border-radius
@@ -1193,6 +1194,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
