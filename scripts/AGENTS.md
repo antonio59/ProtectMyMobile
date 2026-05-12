@@ -5,7 +5,7 @@
 
 ## Setup & Run
 - Convert OG PNG: `node scripts/convert-og-image.mjs`
-- Uses `@resvg/resvg-js`; ensure deps installed (`npm install`).
+- Uses `@resvg/resvg-js`; ensure deps installed (`pnpm install`).
 
 ## Patterns & Conventions
 - Keep scripts ESM (`type: module`).

@@ -6,7 +6,7 @@
 
 ```bash
 cd /Users/antoniosmith/Projects/ProtectMyMobile
-npm run dev
+pnpm run dev
 ```
 
 The dev server will start on `http://localhost:4321`
@@ -110,7 +110,7 @@ Google News RSS was blocking requests without User-Agent header, returning empty
 npx convex deploy --prod
 
 # 2. Start dev server (new terminal)
-npm run dev
+pnpm run dev
 
 # 3. Test news fetch (another new terminal)
 ./scripts/test-news-fetch.ts

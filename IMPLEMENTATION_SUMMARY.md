@@ -135,7 +135,7 @@ Complete overhaul of the news scraping system to improve reliability, monitoring
 
 - Created `scripts/test-news-fetch.ts` - Manually trigger news fetch
 - Created `scripts/health-check.ts` - Check system health
-- Added npm scripts: `npm run news:fetch`, `npm run health:check`
+- Added pnpm scripts: `pnpm run news:fetch`, `pnpm run health:check`
 
 **New Files:**
 
@@ -274,7 +274,7 @@ The following are suggested but not yet implemented:
 
 Before deploying to production:
 
-- [ ] Start dev server: `npm run dev`
+- [ ] Start dev server: `pnpm run dev`
 - [ ] Test news fetch manually: `./scripts/test-news-fetch.ts`
 - [ ] Verify health check: `./scripts/health-check.ts`
 - [ ] Check news page displays status correctly
@@ -301,7 +301,7 @@ Before deploying to production:
 3. Build and deploy to Netlify:
 
    ```bash
-   npm run build
+   pnpm run build
    # Deploy via Netlify dashboard or CLI
    ```
 

@@ -2,20 +2,20 @@
 
 ## Project Snapshot
 - Single Astro + React + TypeScript site with Convex backend and Netlify scheduled functions.
-- Package manager: npm. Builds deploy to Netlify; Convex functions in `convex/`.
+- Package manager: pnpm. Builds deploy to Netlify; Convex functions in `convex/`.
 - Subdirectories have their own AGENTS.md (see JIT Index).
 
 ## Root Setup Commands
-- Install deps: `npm install`
-- Typecheck: `npm run check`
-- Build: `npm run build`
+- Install deps: `pnpm install`
+- Typecheck: `pnpm run check`
+- Build: `pnpm run build`
 - Convert OG image (optional): `node scripts/convert-og-image.mjs`
 
 ## Universal Conventions
 - TypeScript strict via Astro; use `@/` imports per `tsconfig.json`.
 - Prefer functional React components; follow existing Tailwind utility styling.
 - Commits: keep concise, imperative; include Co-authored-by when appropriate.
-- PRs: ensure `npm run check`, `npm run build`, and `npm run design:lint` pass.
+- PRs: ensure `pnpm run check`, `pnpm run build`, and `pnpm run design:lint` pass.
 - Design system: always check [`DESIGN.md`](./DESIGN.md) before adding new colors, spacing, or components. Prefer semantic tokens (`bg-card`, `text-foreground`) over literal values (`bg-white`, `text-neutral-900`).
 
 ## Security & Secrets
@@ -38,6 +38,6 @@
 - Find Netlify scheduled functions: `ls netlify/functions`
 
 ## Definition of Done
-- `npm run check` and `npm run build` succeed.
+- `pnpm run check` and `pnpm run build` succeed.
 - Secrets not exposed; admin/cron tokens handled via env.
 - Relevant docs/links updated if routing or env requirements change.

@@ -14,7 +14,7 @@
 - **Charts:** [Recharts](https://recharts.org)
 - **Hosting:** [Netlify](https://netlify.com)
 - **Icons:** [Lucide React](https://lucide.dev)
-- **Package Manager:** npm
+- **Package Manager:** pnpm
 
 ## 🎨 Design System
 
@@ -46,8 +46,8 @@ Prefer semantic Tailwind utilities over literal colors:
 ### Lint & export
 
 ```bash
-npm run design:lint        # Validate DESIGN.md
-npm run design:export      # Export tokens to src/styles/design-tokens.json
+pnpm run design:lint        # Validate DESIGN.md
+pnpm run design:export      # Export tokens to src/styles/design-tokens.json
 ```
 
 ## ✨ Key Features
@@ -113,7 +113,7 @@ npm run design:export      # Export tokens to src/styles/design-tokens.json
 
 2. **Install dependencies:**
    ```bash
-   npm install
+   pnpm install
    ```
 
 3. **Environment Variables:**
@@ -131,7 +131,7 @@ npm run design:export      # Export tokens to src/styles/design-tokens.json
 
 5. **Start Astro development server:**
    ```bash
-   npm run dev
+   pnpm run dev
    ```
    Visit `http://localhost:4321`
 
@@ -168,10 +168,10 @@ npm run design:export      # Export tokens to src/styles/design-tokens.json
 
 ## 🚢 Deployment
 
-The project is configured for deployment on **Netlify** with **Bun**.
+The project is configured for deployment on **Netlify**.
 
 1. Connect your GitHub repository to Netlify
-2. Build command: `npm run build`
+2. Build command: `pnpm run build`
 3. Publish directory: `dist`
 4. Add environment variables in Netlify dashboard:
    - `PUBLIC_CONVEX_URL`

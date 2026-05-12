@@ -6,7 +6,7 @@
 ## Setup & Run
 - Dev (if needed): `npx convex dev`
 - Deploy: `npx convex deploy` (or with `--prod`)
-- Build (part of Astro build): `npm run build`
+- Build (part of Astro build): `pnpm run build`
 
 ## Patterns & Conventions
 - Mutations/queries per domain file (e.g., `banks.ts`, `mobileProviders.ts`, `newsPosts.ts`).
@@ -26,4 +26,4 @@
 - Find specific domain mutation: `rg -n "mutation\(" convex/<file>.ts`
 
 ## Pre-PR Checks
-- Ensure admin-protected mutations still import `requireAdmin`; run `npm run build`.
+- Ensure admin-protected mutations still import `requireAdmin`; run `pnpm run build`.

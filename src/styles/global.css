@@ -22,8 +22,8 @@
   /* =====================================================
      DESIGN TOKENS — Generated from DESIGN.md
      Source of truth: ./DESIGN.md
-     Export: npm run design:export
-     Lint:   npm run design:lint
+     Export: pnpm run design:export
+     Lint:   pnpm run design:lint
      ===================================================== */
 
   /* Colors */
