@@ -112,6 +112,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Migrate to pnpm
 - We/our → I/my, add Antonio Smith credit
 - News page — clean card grid, remove hardcoded colors, semantic tokens
 - Remove breadcrumbs from all pages
@@ -1194,6 +1195,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
