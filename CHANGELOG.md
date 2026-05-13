@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 
 ### Bug Fixes
 
+- Correct pnpm typo in corepack workflow
 - Use corepack instead of pnpm/action-setup for v11 compatibility
 - Remove --frozen-lockfile for pnpm v11 compatibility
 - Migrate CI from npm/bun to pnpm
@@ -1201,6 +1202,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
