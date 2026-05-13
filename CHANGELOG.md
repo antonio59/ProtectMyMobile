@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 
 ### Bug Fixes
 
+- Migrate CI from npm/bun to pnpm
 - Correct pnpm-workspace.yaml format for v11
 - Restore overflow-hidden with items-stretch, remove h-full conflict
 - Prevent featured article text clipping, add stronger content dedup
@@ -1198,6 +1199,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
