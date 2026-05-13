@@ -26,8 +26,8 @@ jobs:
       - name: Install dependencies
         run: |
           rm -rf node_modules
-          ppnpm install
-          ppnpm install lightningcss-linux-x64-gnu
+          pnpm install
+          pnpm install lightningcss-linux-x64-gnu
 
       - name: Type check
         run: pnpm run check
@@ -47,8 +47,8 @@ jobs:
       - name: Install dependencies
         run: |
           rm -rf node_modules
-          ppnpm install
-          ppnpm install lightningcss-linux-x64-gnu
+          pnpm install
+          pnpm install lightningcss-linux-x64-gnu
 
       - name: Security audit
         run: pnpm audit
@@ -68,8 +68,8 @@ jobs:
       - name: Install dependencies
         run: |
           rm -rf node_modules
-          ppnpm install
-          ppnpm install lightningcss-linux-x64-gnu
+          pnpm install
+          pnpm install lightningcss-linux-x64-gnu
 
       - name: Lint DESIGN.md
         run: pnpm run design:lint
@@ -95,8 +95,8 @@ jobs:
       - name: Install dependencies
         run: |
           rm -rf node_modules
-          ppnpm install
-          ppnpm install lightningcss-linux-x64-gnu
+          pnpm install
+          pnpm install lightningcss-linux-x64-gnu
 
       - name: Build
         run: pnpm run build
