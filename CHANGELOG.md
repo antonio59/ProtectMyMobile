@@ -1181,6 +1181,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Chores
 
+- Migrate to pnpm v11
 - Remove Google Analytics, simplify cookie notice
 - Remove unused @astrojs/cloudflare devDependency
 - Remove Sentry in favour of Cloudflare built-in logging
@@ -1196,6 +1197,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
