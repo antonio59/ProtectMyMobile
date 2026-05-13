@@ -16,62 +16,65 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v4
         with:
-          node-version: "22"
+          node-version: '22'
+          cache: 'pnpm'
 
-      - name: Clean install dependencies
+      - name: Install dependencies
         run: |
           rm -rf node_modules
-          npm install
-          npm install lightningcss-linux-x64-gnu
+          pnpm install --frozen-lockfile
+          pnpm install lightningcss-linux-x64-gnu
 
       - name: Type check
-        run: npm run check
+        run: pnpm run check
 
   security:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v4
         with:
-          node-version: "22"
+          node-version: '22'
+          cache: 'pnpm'
 
-      - name: Clean install dependencies
+      - name: Install dependencies
         run: |
           rm -rf node_modules
-          npm install
-          npm install lightningcss-linux-x64-gnu
+          pnpm install --frozen-lockfile
+          pnpm install lightningcss-linux-x64-gnu
 
       - name: Security audit
-        run: npm audit
+        run: pnpm audit
 
   design-system:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v4
         with:
-          node-version: "22"
+          node-version: '22'
+          cache: 'pnpm'
 
-      - name: Clean install dependencies
+      - name: Install dependencies
         run: |
           rm -rf node_modules
-          npm install
-          npm install lightningcss-linux-x64-gnu
+          pnpm install --frozen-lockfile
+          pnpm install lightningcss-linux-x64-gnu
 
       - name: Lint DESIGN.md
-        run: npm run design:lint
+        run: pnpm run design:lint
 
       - name: Verify token export
         run: |
-          npm run design:export
-          git diff --exit-code src/styles/design-tokens.json || (echo "Token export is out of sync with DESIGN.md. Run 'npm run design:export' and commit the changes." && exit 1)
+          pnpm run design:export
+          git diff --exit-code src/styles/design-tokens.json || (echo "Token export is out of sync with DESIGN.md. Run 'pnpm run design:export' and commit the changes." && exit 1)
 
   build:
     runs-on: ubuntu-latest
@@ -79,19 +82,20 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v4
         with:
-          node-version: "22"
+          node-version: '22'
+          cache: 'pnpm'
 
-      - name: Clean install dependencies
+      - name: Install dependencies
         run: |
           rm -rf node_modules
-          npm install
-          npm install lightningcss-linux-x64-gnu
+          pnpm install --frozen-lockfile
+          pnpm install lightningcss-linux-x64-gnu
 
       - name: Build
-        run: npm run build
+        run: pnpm run build
         env:
           PUBLIC_CONVEX_URL: ${{ secrets.PUBLIC_CONVEX_URL || 'https://example.convex.cloud' }}
           RESEND_API_KEY: "mock-key-for-build"
