@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 
 ### Bug Fixes
 
+- Override yaml to 2.9.0 to resolve CVE-2026-33532
 - Resolve 26 stylelint errors in global.css
 - Remove unused pnpm override flagged by fallow
 - Run pnpm audit on prod deps only to avoid dev transitive vuln
@@ -1206,6 +1207,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
