@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 
 ### Bug Fixes
 
+- Pnpm v11 CI — add lockfile, fix workspace config, migrate fallow workflow
 - Correct pnpm typo in corepack workflow
 - Use corepack instead of pnpm/action-setup for v11 compatibility
 - Remove --frozen-lockfile for pnpm v11 compatibility
@@ -1202,6 +1203,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
