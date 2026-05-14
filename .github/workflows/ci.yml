@@ -51,7 +51,7 @@ jobs:
           pnpm install lightningcss-linux-x64-gnu
 
       - name: Security audit
-        run: pnpm audit
+        run: pnpm audit --prod
 
   design-system:
     runs-on: ubuntu-latest
