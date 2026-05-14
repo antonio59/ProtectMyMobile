@@ -6,6 +6,9 @@ allowBuilds:
   esbuild: true
   sharp: true
 
+overrides:
+  yaml: 2.9.0
+
 pnpm:
   autoInstallPeers: true
   strictPeerDependencies: false
