@@ -2,5 +2,8 @@
   "$schema": "https://fallow.dev/schema.json",
   "ignorePatterns": ["cron-worker/**"],
   "entry": ["scripts/**/*.ts", "scripts/**/*.mjs", "netlify/functions/**/*.ts", "netlify/functions/**/*.mts"],
-  "ignoreDependencies": ["lightningcss-linux-x64-gnu"]
+  "ignoreDependencies": ["lightningcss-linux-x64-gnu"],
+  "ignoreDependencyOverrides": [
+    { "package": "yaml", "source": "pnpm-workspace.yaml" }
+  ]
 }
