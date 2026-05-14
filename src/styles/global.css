@@ -138,6 +138,12 @@
   /* 3D perspective */
   --perspective-normal: 1000px;
   --perspective-dramatic: 500px;
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
 }
 
 /* =====================================================
@@ -146,12 +152,7 @@
    sizing scale (max-w-sm, w-md, etc.) breaking layout.
    ===================================================== */
 :root {
-  --spacing-xs: 4px;
-  --spacing-sm: 8px;
-  --spacing-md: 16px;
-  --spacing-lg: 24px;
-  --spacing-xl: 32px;
-  --spacing-2xl: 48px;
+  --radius: 0.5rem;
 }
 
 /* =====================================================
@@ -220,33 +221,75 @@
 }
 
 @keyframes slide-up {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes slide-down {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes scale-in {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 @keyframes scale-out {
-  from { opacity: 1; transform: scale(1); }
-  to { opacity: 0; transform: scale(0.95); }
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
 }
 
 @keyframes accordion-down {
-  from { height: 0; opacity: 0; }
-  to { height: var(--radix-accordion-content-height); opacity: 1; }
+  from {
+    height: 0;
+    opacity: 0;
+  }
+
+  to {
+    height: var(--radix-accordion-content-height);
+    opacity: 1;
+  }
 }
 
 @keyframes accordion-up {
-  from { height: var(--radix-accordion-content-height); opacity: 1; }
-  to { height: 0; opacity: 0; }
+  from {
+    height: var(--radix-accordion-content-height);
+    opacity: 1;
+  }
+
+  to {
+    height: 0;
+    opacity: 0;
+  }
 }
 
 @keyframes caret-blink {
@@ -262,21 +305,6 @@
 @keyframes pulse-glow {
   0%, 100% { box-shadow: 0 0 20px rgb(239 68 68 / 40%); }
   50% { box-shadow: 0 0 40px rgb(239 68 68 / 80%); }
-}
-
-/* =====================================================
-   CSS VARIABLES - Color Scheme
-   ===================================================== */
-
-/* =====================================================
-   CSS VARIABLES — Legacy compat & runtime tokens
-   =====================================================
-   Colors now live in @theme above. These variables remain
-   for any third-party scripts that expect them.
-   ----------------------------------------------------- */
-
-:root {
-  --radius: 0.5rem;
 }
 
 /* =====================================================
@@ -378,7 +406,7 @@ h1, h2, h3, h4, h5, h6 {
 /* Allow phone numbers and long strings to break */
 .break-text,
 .force-wrap {
-  word-break: break-word !important;
+  overflow-wrap: break-word !important;
   hyphens: auto;
 }
 
@@ -461,7 +489,7 @@ img {
 .stat-number {
   font-size: 1.875rem; /* 30px mobile */
   font-weight: 700;
-  word-break: break-word;
+  overflow-wrap: break-word;
   line-height: 1.2;
 }
 
@@ -485,7 +513,6 @@ img {
 
 /* Phone numbers and long text that shouldn't break layout */
 .break-text {
-  word-break: break-word;
   overflow-wrap: break-word;
 }
 
@@ -542,9 +569,7 @@ img {
 
 /* Force text wrapping */
 .force-wrap {
-  word-wrap: break-word !important;
   overflow-wrap: break-word !important;
-  word-break: break-word !important;
 }
 
 /* Prevent any overflow */
@@ -690,7 +715,7 @@ img {
 }
 
 /* High contrast mode support */
-@media (prefers-contrast: high) {
+@media (prefers-contrast: more) {
   * {
     border-color: currentcolor;
   }
@@ -850,11 +875,9 @@ img {
 /* Video mask gradient */
 .mask-gradient-bottom {
   mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
-  mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
 }
 
 .mask-gradient-right {
-  mask-image: linear-gradient(to right, black 70%, transparent 100%);
   mask-image: linear-gradient(to right, black 70%, transparent 100%);
 }
 
@@ -913,18 +936,39 @@ img {
    ===================================================== */
 
 @keyframes fade-in-up {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes fade-in-up-scale {
-  from { opacity: 0; transform: translateY(30px) scale(0.95); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 @keyframes pop-in {
-  from { opacity: 0; transform: scale(0.5); }
-  to { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .animate-on-scroll {
