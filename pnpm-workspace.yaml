@@ -1,11 +1,12 @@
 packages:
   - .
 
+allowBuilds:
+  '@parcel/watcher': true
+  esbuild: true
+  sharp: true
+
 pnpm:
   autoInstallPeers: true
   strictPeerDependencies: false
-  allowBuilds:
-    '@parcel/watcher': true
-    esbuild: true
-    sharp: true
   packageImportMethod: clone-or-copy

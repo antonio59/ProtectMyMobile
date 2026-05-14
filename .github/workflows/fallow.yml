@@ -22,30 +22,32 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - name: Enable pnpm via corepack
+        run: corepack enable pnpm
+      - uses: actions/setup-node@v4
         with:
-          node-version: "22"
+          node-version: '22'
+          cache: 'pnpm'
 
-      - name: Clean install dependencies
+      - name: Install dependencies
         run: |
           rm -rf node_modules
-          npm install
-          npm install lightningcss-linux-x64-gnu
+          pnpm install
+          pnpm install lightningcss-linux-x64-gnu
 
       - name: Run Fallow (dead-code)
-        run: npx fallow --only dead-code --fail-on-issues --format compact
+        run: pnpm dlx fallow --only dead-code --fail-on-issues --format compact
 
       - name: Run Fallow (duplication)
-        run: npx fallow --only dupes --format compact
+        run: pnpm dlx fallow --only dupes --format compact
         continue-on-error: true
 
       - name: Run Fallow (health)
-        run: npx fallow --only health --format compact
+        run: pnpm dlx fallow --only health --format compact
         continue-on-error: true
 
       - name: Run Fallow (full + SARIF)
-        run: npx fallow --format sarif --sarif-file=fallow-results.sarif
+        run: pnpm dlx fallow --format sarif --sarif-file=fallow-results.sarif
         continue-on-error: true
 
       - name: Upload SARIF to GitHub Security tab
@@ -60,13 +62,13 @@ jobs:
         continue-on-error: true
         run: |
           mkdir -p .fallow
-          npx fallow --save-regression-baseline .fallow/regression-baseline.json --format compact
+          pnpm dlx fallow --save-regression-baseline .fallow/regression-baseline.json --format compact
 
       - name: Check for regressions (PR only)
         if: github.event_name == 'pull_request'
         run: |
           if [ -f .fallow/regression-baseline.json ]; then
-            npx fallow --fail-on-regression --regression-baseline .fallow/regression-baseline.json --format compact
+            pnpm dlx fallow --fail-on-regression --regression-baseline .fallow/regression-baseline.json --format compact
           else
             echo "No baseline found; skipping regression check."
           fi
