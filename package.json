@@ -26,7 +26,7 @@
     "@nanostores/react": "^1.1.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "astro": "^6.1.9",
+    "astro": "^6.3.4",
     "chart.js": "^4.5.1",
     "clsx": "^2.1.1",
     "convex": "^1.36.1",
