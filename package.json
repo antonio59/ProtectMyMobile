@@ -24,7 +24,7 @@
   "dependencies": {
     "@astrojs/rss": "^4.0.18",
     "@nanostores/react": "^1.1.0",
-    "@types/react": "^19.2.14",
+    "@types/react": "^19.2.15",
     "@types/react-dom": "^19.2.3",
     "astro": "^6.1.9",
     "chart.js": "^4.5.1",
