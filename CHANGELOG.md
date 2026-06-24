@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 
 ### Bug Fixes
 
+- Require API key on cron endpoints that were unauthenticated
 - Resolve Tailwind v4 @theme spacing collision breaking max-w utilities
 - Tell Fallow to ignore yaml CVE override
 - Override yaml to 2.9.0 to resolve CVE-2026-33532
@@ -1328,10 +1329,12 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
+- Update changelog [skip ci]
 - Add UI/UX review documentation and misc updates
 
 ### Features
 
+- Dedup near-duplicate news from different outlets
 - Migrate from Netlify to Cloudflare Pages
 - Redesign news listing page with typography-first image-optional layout
 - Final design system refinements and theme toggle
