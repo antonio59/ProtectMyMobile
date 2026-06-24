@@ -3,13 +3,16 @@ export {};
 
 // Default to production URL if not specified
 const API_URL = process.env.SITE_URL || "https://protectmymobile.xyz";
-const CRON_SECRET = process.env.CRON_SECRET || "dev-secret-key";
+const CRON_SECRET = process.env.CRON_SECRET;
+
+if (!CRON_SECRET) {
+  console.error("CRON_SECRET environment variable is required.");
+  process.exit(1);
+}
 
 console.log("Testing news fetch...");
 console.log(`API URL: ${API_URL}`);
-console.log(
-  `Using CRON_SECRET: ${CRON_SECRET === "dev-secret-key" ? "dev-secret-key (default)" : "configured"}`,
-);
+console.log("CRON_SECRET: configured");
 console.log("Fetching...\n");
 
 try {

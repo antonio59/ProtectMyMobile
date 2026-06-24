@@ -8,6 +8,14 @@ allowBuilds:
 
 overrides:
   yaml: 2.9.0
+  tmp: ^0.2.6
+  esbuild: ^0.28.1
+  ws: ^8.21.0
+  tar: ^7.5.16
+  vite: ^7.3.5
+  js-yaml: ^4.1.2
+  '@babel/core': ^7.29.1
+  '@opentelemetry/core': ^2.8.0
 
 pnpm:
   autoInstallPeers: true

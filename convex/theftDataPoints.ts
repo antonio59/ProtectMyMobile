@@ -362,17 +362,6 @@ export const getSourceBreakdown = query({
   },
 });
 
-export const debugEnv = query({
-  args: {},
-  handler: async () => {
-    return {
-      hasCronSecret: !!process.env.CRON_SECRET,
-      hasAdminToken: !!process.env.CONVEX_ADMIN_TOKEN,
-      adminTokenLength: (process.env.CONVEX_ADMIN_TOKEN || process.env.CRON_SECRET || '').length,
-    };
-  },
-});
-
 export const ping = mutation({
   args: {},
   handler: async () => {

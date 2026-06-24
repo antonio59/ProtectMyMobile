@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 
 ### Bug Fixes
 
+- **security**: Patch transitive vulnerabilities via pnpm overrides (tmp, esbuild, ws, tar, vite, js-yaml, @babel/core, @opentelemetry/core)
+- **security**: Fix stored XSS in admin theft-reports page by escaping rendered user data and using cookie auth
+- **security**: Remove hardcoded CRON_SECRET fallback in scripts/test-news-fetch.ts
+- **security**: Remove Convex debug endpoints that leaked admin token metadata
 - Tell Fallow to ignore yaml CVE override
 - Override yaml to 2.9.0 to resolve CVE-2026-33532
 - Resolve 26 stylelint errors in global.css

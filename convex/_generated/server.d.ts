@@ -1,5 +1,4 @@
 /* eslint-disable */
-// fallow-ignore-file unresolved-import
 /**
  * Generated utilities for implementing server-side Convex query and mutation functions.
  *

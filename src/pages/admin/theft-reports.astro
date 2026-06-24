@@ -73,29 +73,33 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
   </div>
 
   <script>
-    const ADMIN_TOKEN = sessionStorage.getItem('pmm_admin_token') || '';
-    const CONVEX_URL = (window as any).__CONVEX_URL || '';
+    function escapeHtml(str: string | null | undefined): string {
+      if (!str) return '';
+      return str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#x27;');
+    }
+
     let allReports: any[] = [];
     let currentFilter = 'all';
 
-    async function loadReports() {
-      if (!CONVEX_URL || !ADMIN_TOKEN) {
-        document.getElementById('reports-table')!.innerHTML = 
-          '<tr><td colspan="7" class="px-4 py-12 text-center text-red-500">Not authenticated</td></tr>';
-        return;
-      }
+    async function adminConvex(method: 'query' | 'mutation', path: string, args: Record<string, unknown> = {}) {
+      const res = await fetch('/api/admin/convex', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ method, path, args }),
+      });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error || 'Request failed');
+      return json.value;
+    }
 
+    async function loadReports() {
       try {
-        const res = await fetch(`${CONVEX_URL}/api/query`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            path: 'theftReports:list',
-            args: { adminToken: ADMIN_TOKEN },
-          }),
-        });
-        const json = await res.json();
-        allReports = json.value || [];
+        allReports = (await adminConvex('query', 'theftReports:list')) || [];
         updateStats();
         renderTable();
       } catch (err) {
@@ -137,20 +141,20 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
           : '<span class="px-2 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-700">Pending</span>';
 
         return `
-          <tr class="border-b border-border hover:bg-neutral-50" data-id="${r._id}">
-            <td class="px-4 py-3 font-medium text-foreground">${r.locationName || 'Unknown'}</td>
-            <td class="px-4 py-3 hidden md:table-cell text-neutral-600">${dateStr}</td>
-            <td class="px-4 py-3 hidden lg:table-cell text-neutral-600 max-w-xs truncate">${r.description || '-'}</td>
-            <td class="px-4 py-3 text-neutral-600 font-mono text-xs">${coords}</td>
+          <tr class="border-b border-border hover:bg-neutral-50" data-id="${escapeHtml(r._id)}">
+            <td class="px-4 py-3 font-medium text-foreground">${escapeHtml(r.locationName) || 'Unknown'}</td>
+            <td class="px-4 py-3 hidden md:table-cell text-neutral-600">${escapeHtml(dateStr)}</td>
+            <td class="px-4 py-3 hidden lg:table-cell text-neutral-600 max-w-xs truncate">${escapeHtml(r.description) || '-'}</td>
+            <td class="px-4 py-3 text-neutral-600 font-mono text-xs">${escapeHtml(coords)}</td>
             <td class="px-4 py-3">${statusBadge}</td>
-            <td class="px-4 py-3 text-neutral-600">${submittedStr}</td>
+            <td class="px-4 py-3 text-neutral-600">${escapeHtml(submittedStr)}</td>
             <td class="px-4 py-3">
               <div class="flex gap-2">
                 ${!r.approved 
-                  ? `<button class="approve-btn text-xs bg-green-600 text-white px-2 py-1 rounded hover:bg-green-700" data-id="${r._id}">Approve</button>`
-                  : `<button class="unapprove-btn text-xs bg-neutral-200 text-neutral-700 px-2 py-1 rounded hover:bg-neutral-300" data-id="${r._id}">Unapprove</button>`
+                  ? `<button class="approve-btn text-xs bg-green-600 text-white px-2 py-1 rounded hover:bg-green-700" data-id="${escapeHtml(r._id)}">Approve</button>`
+                  : `<button class="unapprove-btn text-xs bg-neutral-200 text-neutral-700 px-2 py-1 rounded hover:bg-neutral-300" data-id="${escapeHtml(r._id)}">Unapprove</button>`
                 }
-                <button class="delete-btn text-xs bg-destructive-muted text-destructive-hover px-2 py-1 rounded hover:bg-red-200" data-id="${r._id}">Delete</button>
+                <button class="delete-btn text-xs bg-destructive-muted text-destructive-hover px-2 py-1 rounded hover:bg-red-200" data-id="${escapeHtml(r._id)}">Delete</button>
               </div>
             </td>
           </tr>
@@ -172,14 +176,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     async function updateApproval(id: string, approved: boolean) {
       if (!confirm(approved ? 'Approve this report?' : 'Unapprove this report?')) return;
       try {
-        await fetch(`${CONVEX_URL}/api/mutation`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            path: 'theftReports:updateApproval',
-            args: { id, approved, adminToken: ADMIN_TOKEN },
-          }),
-        });
+        await adminConvex('mutation', 'theftReports:updateApproval', { id, approved });
         await loadReports();
       } catch (err) {
         alert('Failed to update approval');
@@ -189,14 +186,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     async function deleteReport(id: string) {
       if (!confirm('Permanently delete this report?')) return;
       try {
-        await fetch(`${CONVEX_URL}/api/mutation`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            path: 'theftReports:deleteReport',
-            args: { id, adminToken: ADMIN_TOKEN },
-          }),
-        });
+        await adminConvex('mutation', 'theftReports:deleteReport', { id });
         await loadReports();
       } catch (err) {
         alert('Failed to delete report');
