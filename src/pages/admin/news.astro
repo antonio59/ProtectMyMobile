@@ -14,15 +14,26 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
         <h1 class="text-xl sm:text-2xl font-bold text-foreground">Manage News</h1>
         <p class="text-neutral-600 text-xs sm:text-sm mt-1">Publish, unpublish, edit, and delete news articles.</p>
       </div>
-      <a
-        href="/admin/add-news"
-        class="inline-flex items-center justify-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-primary text-white rounded-lg font-medium text-xs sm:text-sm hover:bg-primary-hover transition-colors"
-      >
-        <svg class="w-3.5 h-3.5 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-        </svg>
-        Add Article
-      </a>
+      <div class="flex flex-wrap gap-2">
+        <button
+          id="dedup-btn"
+          class="inline-flex items-center justify-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-neutral-100 text-neutral-700 rounded-lg font-medium text-xs sm:text-sm hover:bg-neutral-200 transition-colors"
+        >
+          <svg class="w-3.5 h-3.5 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m4 6H4m0 0l4 4m-4-4l4-4"/>
+          </svg>
+          Remove Duplicates
+        </button>
+        <a
+          href="/admin/add-news"
+          class="inline-flex items-center justify-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-primary text-white rounded-lg font-medium text-xs sm:text-sm hover:bg-primary-hover transition-colors"
+        >
+          <svg class="w-3.5 h-3.5 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+          </svg>
+          Add Article
+        </a>
+      </div>
     </div>
 
     <!-- Stats Cards -->
@@ -521,6 +532,37 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     } catch (err) {
       console.error('Failed to delete article:', err);
       alert('Failed to delete article');
+    }
+  });
+
+  // Remove duplicates: preview with a dry run, confirm, then delete.
+  document.getElementById('dedup-btn')?.addEventListener('click', async () => {
+    const btn = document.getElementById('dedup-btn') as HTMLButtonElement;
+    btn.disabled = true;
+    const original = btn.innerHTML;
+    btn.textContent = 'Scanning…';
+    try {
+      const preview = await adminConvex('mutation', 'newsPosts:cleanupDuplicates', { dryRun: true });
+      const count = preview?.duplicatesFound ?? 0;
+      if (count === 0) {
+        alert('No duplicate articles found.');
+        return;
+      }
+      const titles = (preview.removedArticles || [])
+        .map((a: { title: string }) => `• ${a.title}`)
+        .join('\n');
+      if (!confirm(`Found ${count} duplicate article(s) to remove:\n\n${titles}\n\nDelete them?`)) {
+        return;
+      }
+      const result = await adminConvex('mutation', 'newsPosts:cleanupDuplicates', { dryRun: false });
+      alert(`Removed ${result?.deleted ?? 0} duplicate article(s).`);
+      await loadPosts();
+    } catch (err) {
+      console.error('Failed to remove duplicates:', err);
+      alert('Failed to remove duplicates. Please try again.');
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = original;
     }
   });
 

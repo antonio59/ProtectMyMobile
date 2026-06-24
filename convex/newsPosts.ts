@@ -107,14 +107,46 @@ export const remove = mutation({
   },
 });
 
-function normalizeTitle(title: string): string {
-  return title
+// Token-based similarity — mirrors src/lib/news/dedup.ts. Kept in sync here
+// because Convex functions are bundled independently from the Astro app.
+const STOP_WORDS = new Set([
+  "the", "a", "an", "and", "or", "but", "of", "to", "in", "on", "at", "for",
+  "with", "as", "is", "are", "was", "were", "be", "been", "by", "from", "that",
+  "this", "it", "its", "after", "into", "over", "amid", "near", "my", "your",
+  "his", "her", "their", "out", "up", "off", "has", "have", "had",
+]);
+const SOURCE_SUFFIX = /\s+[-|–—]\s+[^-|–—]{1,40}$/;
+const SIMILARITY_THRESHOLD = 0.6;
+const CONTAINMENT_THRESHOLD = 0.8;
+const MIN_SHARED_TOKENS = 4;
+
+function tokenizeTitle(title: string): Set<string> {
+  const tokens = title
+    .replace(SOURCE_SUFFIX, "")
     .toLowerCase()
-    .replace(/\|[^|]*$/, "")
-    .replace(/-[^-]*(?:news|bbc|sky|guardian|standard|metro|mail|telegraph|mirror|itv)[^-]*$/, "")
-    .replace(/[^\w\s]/g, "")
-    .replace(/\s+/g, " ")
-    .trim();
+    .replace(/['’]s\b/g, "")
+    .replace(/[^a-z0-9\s]/g, " ")
+    .split(/\s+/)
+    .filter((word) => word.length > 2 && !STOP_WORDS.has(word));
+  return new Set(tokens);
+}
+
+function titlesAreSimilar(a: string, b: string): boolean {
+  const tokensA = tokenizeTitle(a);
+  const tokensB = tokenizeTitle(b);
+  if (tokensA.size === 0 || tokensB.size === 0) return false;
+
+  let shared = 0;
+  for (const token of tokensA) {
+    if (tokensB.has(token)) shared++;
+  }
+  if (shared < MIN_SHARED_TOKENS) return false;
+
+  const union = tokensA.size + tokensB.size - shared;
+  const jaccard = union === 0 ? 0 : shared / union;
+  const containment = shared / Math.min(tokensA.size, tokensB.size);
+
+  return jaccard >= SIMILARITY_THRESHOLD || containment >= CONTAINMENT_THRESHOLD;
 }
 
 export const cleanupDuplicates = mutation({
@@ -123,35 +155,28 @@ export const cleanupDuplicates = mutation({
     requireAdmin(ctx, args.adminToken);
     const posts = await ctx.db.query("newsPosts").order("desc").collect();
 
-    const groups = new Map<string, typeof posts>();
-    for (const post of posts) {
-      const key = normalizeTitle(post.title);
-      if (!key || key.length < 10) continue;
-      const group = groups.get(key) || [];
-      group.push(post);
-      groups.set(key, group);
-    }
+    // Prefer the strongest article as the cluster keeper.
+    const ranked = [...posts].sort((a, b) => {
+      if (a.published !== b.published) return a.published ? -1 : 1;
+      if (b.content.length !== a.content.length) return b.content.length - a.content.length;
+      return (b.publishedAt || b._creationTime) - (a.publishedAt || a._creationTime);
+    });
 
+    // Cluster by title similarity: each post either joins an existing keeper's
+    // cluster or becomes a new keeper.
+    const keepers: typeof posts = [];
     const toDelete: Array<{ id: string; title: string; reason: string }> = [];
 
-    for (const [_key, group] of groups.entries()) {
-      if (group.length <= 1) continue;
-
-      // Sort by: published first, then longer content, then more recent
-      group.sort((a, b) => {
-        if (a.published !== b.published) return a.published ? -1 : 1;
-        if (b.content.length !== a.content.length) return b.content.length - a.content.length;
-        return (b.publishedAt || b._creationTime) - (a.publishedAt || a._creationTime);
-      });
-
-      const keeper = group[0];
-      for (let i = 1; i < group.length; i++) {
-        const dup = group[i];
+    for (const post of ranked) {
+      const keeper = keepers.find((k) => titlesAreSimilar(k.title, post.title));
+      if (keeper) {
         toDelete.push({
-          id: dup._id,
-          title: dup.title,
+          id: post._id,
+          title: post.title,
           reason: `Duplicate of "${keeper.title}"`,
         });
+      } else {
+        keepers.push(post);
       }
     }
 
