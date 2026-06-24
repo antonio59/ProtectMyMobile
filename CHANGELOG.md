@@ -98,6 +98,7 @@ All notable changes to this project will be documented in this file.
 
 ### CI/CD
 
+- Bump google/osv-scanner-action from 2.3.5 to 2.3.8 (#65)
 - Bump actions/checkout from 4 to 6
 - Ignore lightningcss-linux-x64-gnu in fallow dead-code scan
 - Explicitly install lightningcss-linux-x64-gnu on Linux runners
@@ -123,6 +124,9 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Bump sanitize-html from 2.17.3 to 2.17.5 (#69)
+- Bump the react group across 1 directory with 3 updates (#67)
+- Bump convex from 1.38.0 to 1.39.1 in the convex group (#60)
 - Bump astro from 6.3.1 to 6.3.4 in the astro group (#59)
 - Migrate from npm/bun to pnpm across all docs and scripts
 - Migrate to pnpm
@@ -1209,6 +1213,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
