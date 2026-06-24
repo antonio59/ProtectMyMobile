@@ -98,6 +98,7 @@ All notable changes to this project will be documented in this file.
 
 ### CI/CD
 
+- Fix fallow dead-code analysis
 - Upgrade to Node 24
 - Bump google/osv-scanner-action from 2.3.5 to 2.3.8 (#65)
 - Bump actions/checkout from 4 to 6
@@ -1217,6 +1218,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
