@@ -123,6 +123,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Bump astro from 6.3.1 to 6.3.4 in the astro group (#59)
 - Migrate from npm/bun to pnpm across all docs and scripts
 - Migrate to pnpm
 - We/our → I/my, add Antonio Smith credit
@@ -1208,6 +1209,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
