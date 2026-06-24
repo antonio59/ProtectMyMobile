@@ -5,10 +5,6 @@ All notable changes to this project will be documented in this file.
 
 ### Bug Fixes
 
-- **security**: Patch transitive vulnerabilities via pnpm overrides (tmp, esbuild, ws, tar, vite, js-yaml, @babel/core, @opentelemetry/core)
-- **security**: Fix stored XSS in admin theft-reports page by escaping rendered user data and using cookie auth
-- **security**: Remove hardcoded CRON_SECRET fallback in scripts/test-news-fetch.ts
-- **security**: Remove Convex debug endpoints that leaked admin token metadata
 - Tell Fallow to ignore yaml CVE override
 - Override yaml to 2.9.0 to resolve CVE-2026-33532
 - Resolve 26 stylelint errors in global.css
@@ -128,6 +124,9 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Patch dependencies and fix XSS/debug leaks
+- Bump resend from 6.12.3 to 6.14.0 (#71)
+- Bump the dev-dependencies group across 1 directory with 10 updates (#70)
 - Bump sanitize-html from 2.17.3 to 2.17.5 (#69)
 - Bump the react group across 1 directory with 3 updates (#67)
 - Bump convex from 1.38.0 to 1.39.1 in the convex group (#60)
@@ -1217,6 +1216,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
