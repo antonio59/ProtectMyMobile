@@ -138,18 +138,14 @@
   /* 3D perspective */
   --perspective-normal: 1000px;
   --perspective-dramatic: 500px;
-  --spacing-xs: 4px;
-  --spacing-sm: 8px;
-  --spacing-md: 16px;
-  --spacing-lg: 24px;
-  --spacing-xl: 32px;
-  --spacing-2xl: 48px;
 }
 
 /* =====================================================
-   DESIGN SPACING TOKENS — kept as plain CSS vars, NOT in @theme.
-   Defining --spacing-sm/md/lg inside @theme overwrites Tailwind v4's
-   sizing scale (max-w-sm, w-md, etc.) breaking layout.
+   DESIGN SPACING TOKENS — must be plain CSS vars, NEVER in @theme.
+   Defining named --spacing-xs/sm/md/lg/xl/2xl inside @theme overwrites
+   Tailwind v4's container scale, so max-w-sm/md/lg/xl/2xl resolve to the
+   tiny spacing values (e.g. max-w-2xl -> 48px) and collapse layouts.
+   If you need named spacing tokens, declare them here, not in @theme.
    ===================================================== */
 :root {
   --radius: 0.5rem;
