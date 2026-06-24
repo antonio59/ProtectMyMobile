@@ -1330,6 +1330,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
+- Update changelog [skip ci]
 - Add UI/UX review documentation and misc updates
 
 ### Features
@@ -1362,6 +1363,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Refactoring
 
+- Make titlesAreSimilar internal to dedup.ts
 - Fallow cleanup, complexity reduction, and CI integration
 - Complete semantic token migration and design system docs
 
