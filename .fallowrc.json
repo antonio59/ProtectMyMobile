@@ -1,6 +1,6 @@
 {
   "$schema": "https://fallow.dev/schema.json",
-  "ignorePatterns": ["cron-worker/**"],
+  "ignorePatterns": ["cron-worker/**", "convex/_generated/**"],
   "entry": ["scripts/**/*.ts", "scripts/**/*.mjs", "netlify/functions/**/*.ts", "netlify/functions/**/*.mts"],
   "ignoreDependencies": ["lightningcss-linux-x64-gnu"],
   "ignoreDependencyOverrides": [
