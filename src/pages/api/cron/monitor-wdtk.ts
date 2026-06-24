@@ -2,6 +2,7 @@ import type { APIRoute } from 'astro';
 import { api } from '../../../../convex/_generated/api';
 import Parser from 'rss-parser';
 import { getConvexClient, requireConvex, sendReportEmail } from '../../../lib/cron-utils';
+import { requireApiKey } from '../../../lib/security';
 
 const convex = getConvexClient();
 const parser = new Parser();
@@ -98,6 +99,9 @@ async function fetchFeedEntries(feedUrl: string): Promise<WDTKEntry[]> {
 }
 
 export const GET: APIRoute = async ({ request }) => {
+  const unauthorized = requireApiKey(request);
+  if (unauthorized) return unauthorized;
+
   if (!convex) {
     return requireConvex(convex)!;
   }

@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { api } from '../../../../convex/_generated/api';
 import { getConvexClient, requireConvex, sendReportEmail } from '../../../lib/cron-utils';
+import { requireApiKey } from '../../../lib/security';
 
 const convex = getConvexClient();
 
@@ -347,6 +348,9 @@ async function processProviders(
 }
 
 export const GET: APIRoute = async ({ request }) => {
+  const unauthorized = requireApiKey(request);
+  if (unauthorized) return unauthorized;
+
   if (!convex) {
     return requireConvex(convex)!;
   }
