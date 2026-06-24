@@ -52,7 +52,7 @@ function tokenizeTitle(title: string): Set<string> {
  * with a containment fallback so a short headline fully contained in a longer
  * one still matches.
  */
-export function titlesAreSimilar(a: string, b: string): boolean {
+function titlesAreSimilar(a: string, b: string): boolean {
   const tokensA = tokenizeTitle(a);
   const tokensB = tokenizeTitle(b);
   if (tokensA.size === 0 || tokensB.size === 0) return false;
