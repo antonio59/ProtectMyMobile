@@ -47,18 +47,23 @@ function filterAndScoreArticles(
   const newArticles: Array<{ item: any; relevanceScore: number; relevanceReason: string }> = [];
   const rejectedArticles: Array<{ title: string; score: number; reason: string }> = [];
   const seenGuids = new Set<string>();
+  // Seed with the existing DB titles, then grow as we accept articles so that
+  // same-story rewrites arriving from different feeds in this run dedup against
+  // each other — not just against what's already stored.
+  const seenTitles = [...existingTitles];
 
   for (const item of items) {
     if (!item.link || !item.title) continue;
     if (item.guid && seenGuids.has(item.guid)) continue;
     if (existingUrls.has(item.link)) continue;
-    if (isDuplicateTitle(item.title, existingTitles)) continue;
+    if (isDuplicateTitle(item.title, seenTitles)) continue;
 
     const snippet = stripHtml(item.contentSnippet || item.content || "");
     const { score, shouldImport, reason } = calculateRelevanceScore(item.title, snippet);
 
     if (shouldImport) {
       if (item.guid) seenGuids.add(item.guid);
+      seenTitles.push(item.title);
       newArticles.push({ item, relevanceScore: score, relevanceReason: reason });
       logMessage("info", `Article passed relevance check (score: ${score})`, `"${item.title.substring(0, 60)}..." - ${reason}`);
     } else {
