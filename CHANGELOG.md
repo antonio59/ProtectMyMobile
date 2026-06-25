@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 
 ### Bug Fixes
 
+- Dedup news within a single fetch run, not just against the DB
 - Require API key on cron endpoints that were unauthenticated
 - Resolve Tailwind v4 @theme spacing collision breaking max-w utilities
 - Tell Fallow to ignore yaml CVE override
@@ -1220,6 +1221,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
