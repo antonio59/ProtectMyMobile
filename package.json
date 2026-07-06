@@ -22,7 +22,7 @@
     "design:export-dtcg": "npx @google/design.md export --format dtcg DESIGN.md > src/styles/design-tokens-dtcg.json"
   },
   "dependencies": {
-    "@astrojs/rss": "^4.0.18",
+    "@astrojs/rss": "^4.0.19",
     "@nanostores/react": "^1.1.0",
     "@types/react": "^19.2.16",
     "@types/react-dom": "^19.2.3",
