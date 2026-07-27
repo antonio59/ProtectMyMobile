@@ -24,7 +24,7 @@ importers:
         version: 4.0.18
       '@nanostores/react':
         specifier: ^1.1.0
-        version: 1.1.0(nanostores@1.3.0)(react@19.2.7)
+        version: 1.1.0(nanostores@1.3.0)(react@19.2.8)
       '@types/react':
         specifier: ^19.2.16
         version: 19.2.17
@@ -42,10 +42,10 @@ importers:
         version: 2.1.1
       convex:
         specifier: ^1.39.1
-        version: 1.41.0(react@19.2.7)
+        version: 1.41.0(react@19.2.8)
       lucide-react:
         specifier: ^0.577.0
-        version: 0.577.0(react@19.2.7)
+        version: 0.577.0(react@19.2.8)
       marked:
         specifier: ^17.0.6
         version: 17.0.6
@@ -56,11 +56,11 @@ importers:
         specifier: ^7.1.0
         version: 7.1.0
       react:
-        specifier: ^19.2.7
-        version: 19.2.7
+        specifier: ^19.2.8
+        version: 19.2.8
       react-dom:
-        specifier: ^19.2.7
-        version: 19.2.7(react@19.2.7)
+        specifier: ^19.2.8
+        version: 19.2.8(react@19.2.8)
       resend:
         specifier: ^6.14.0
         version: 6.14.0
@@ -82,7 +82,7 @@ importers:
         version: 7.0.13(@types/node@25.7.0)(astro@6.4.8(@netlify/blobs@10.7.5)(@types/node@25.7.0)(jiti@2.7.0)(lightningcss@1.32.0)(rollup@4.60.3)(tsx@4.22.4)(yaml@2.9.0))(jiti@2.7.0)(lightningcss@1.32.0)(rollup@4.60.3)(tsx@4.22.4)(yaml@2.9.0)
       '@astrojs/react':
         specifier: ^5.0.7
-        version: 5.0.7(@types/node@25.7.0)(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(jiti@2.7.0)(lightningcss@1.32.0)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(tsx@4.22.4)(yaml@2.9.0)
+        version: 5.0.7(@types/node@25.7.0)(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(jiti@2.7.0)(lightningcss@1.32.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(tsx@4.22.4)(yaml@2.9.0)
       '@astrojs/sitemap':
         specifier: ^3.7.3
         version: 3.7.3
@@ -3993,10 +3993,10 @@ packages:
   radix3@1.1.2:
     resolution: {integrity: sha512-b484I/7b8rDEdSDKckSSBA8knMpcdsXudlE/LNL639wFoHKwLbEkQFZHWEYwDC0wa0FKUcCY+GAF73Z7wxNVFA==}
 
-  react-dom@19.2.7:
-    resolution: {integrity: sha512-t0BRVXvbiE/o20Hfw669rLbMCDWtYZLvmJigy2f0MxsXF+71pxhR3xOkspmsO8h3ZlNzyibAmtCa3l4lYKk6gQ==}
+  react-dom@19.2.8:
+    resolution: {integrity: sha512-rVprimfGBG3DR+Tq0IQG2DT5PxKth1WIGDmj5yPmlzr4YBe7uyE+Du4oVqTDXZSHGGGXRtTJEGSSePyQCMBglQ==}
     peerDependencies:
-      react: ^19.2.7
+      react: ^19.2.8
 
   react-reconciler@0.33.0:
     resolution: {integrity: sha512-KetWRytFv1epdpJc3J4G75I4WrplZE5jOL7Yq0p34+OVOKF4Se7WrdIdVC45XsSSmUTlht2FM/fM1FZb1mfQeA==}
@@ -4008,8 +4008,8 @@ packages:
     resolution: {integrity: sha512-QgT5//D3jfjJb6Gsjxv0Slpj23ip+HtOpnNgnb2S5zU3CB26G/IDPGoy4RJB42wzFE46DRsstbW6tKHoKbhAxw==}
     engines: {node: '>=0.10.0'}
 
-  react@19.2.7:
-    resolution: {integrity: sha512-HNe9WslTbXmFK8o8cmwgAeJFSBvt1bPdHCVKtaaV+WlAN36mpT4hcRpwbf3fY56ar2oIXzsBpOAiIRHAdY0OlQ==}
+  react@19.2.8:
+    resolution: {integrity: sha512-PWaYA1L/q9u2u7xYQi+Y3L3Yfnie7XyLeaJICV1MGD6LprsBxcAqGjYyr0eY3p+QdsA+x/Irkt4Qif8D63+Sbw==}
     engines: {node: '>=0.10.0'}
 
   read-package-up@11.0.0:
@@ -5170,15 +5170,15 @@ snapshots:
     dependencies:
       prismjs: 1.30.0
 
-  '@astrojs/react@5.0.7(@types/node@25.7.0)(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(jiti@2.7.0)(lightningcss@1.32.0)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(tsx@4.22.4)(yaml@2.9.0)':
+  '@astrojs/react@5.0.7(@types/node@25.7.0)(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(jiti@2.7.0)(lightningcss@1.32.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(tsx@4.22.4)(yaml@2.9.0)':
     dependencies:
       '@astrojs/internal-helpers': 0.10.0
       '@types/react': 19.2.17
       '@types/react-dom': 19.2.3(@types/react@19.2.17)
       '@vitejs/plugin-react': 5.2.0(vite@7.3.5(@types/node@25.7.0)(jiti@2.7.0)(lightningcss@1.32.0)(tsx@4.22.4)(yaml@2.9.0))
       devalue: 5.8.1
-      react: 19.2.7
-      react-dom: 19.2.7(react@19.2.7)
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
       ultrahtml: 1.6.0
       vite: 7.3.5(@types/node@25.7.0)(jiti@2.7.0)(lightningcss@1.32.0)(tsx@4.22.4)(yaml@2.9.0)
     transitivePeerDependencies:
@@ -5534,11 +5534,11 @@ snapshots:
   '@google/design.md@0.2.0(@types/react@19.2.17)':
     dependencies:
       '@json-render/core': 0.16.0(zod@3.25.76)
-      '@json-render/ink': 0.16.0(ink@7.0.2(@types/react@19.2.17)(react@19.2.7))(react@19.2.7)(zod@3.25.76)
+      '@json-render/ink': 0.16.0(ink@7.0.2(@types/react@19.2.17)(react@19.2.8))(react@19.2.8)(zod@3.25.76)
       citty: 0.1.6
-      ink: 7.0.2(@types/react@19.2.17)(react@19.2.7)
+      ink: 7.0.2(@types/react@19.2.17)(react@19.2.8)
       mdast: 3.0.0
-      react: 19.2.7
+      react: 19.2.8
       remark-frontmatter: 5.0.0
       remark-mdx: 3.1.1
       remark-parse: 11.0.0
@@ -5692,12 +5692,12 @@ snapshots:
     dependencies:
       zod: 3.25.76
 
-  '@json-render/ink@0.16.0(ink@7.0.2(@types/react@19.2.17)(react@19.2.7))(react@19.2.7)(zod@3.25.76)':
+  '@json-render/ink@0.16.0(ink@7.0.2(@types/react@19.2.17)(react@19.2.8))(react@19.2.8)(zod@3.25.76)':
     dependencies:
       '@json-render/core': 0.16.0(zod@3.25.76)
-      ink: 7.0.2(@types/react@19.2.17)(react@19.2.7)
+      ink: 7.0.2(@types/react@19.2.17)(react@19.2.8)
       marked: 17.0.6
-      react: 19.2.7
+      react: 19.2.8
     transitivePeerDependencies:
       - zod
 
@@ -5724,10 +5724,10 @@ snapshots:
       - encoding
       - supports-color
 
-  '@nanostores/react@1.1.0(nanostores@1.3.0)(react@19.2.7)':
+  '@nanostores/react@1.1.0(nanostores@1.3.0)(react@19.2.8)':
     dependencies:
       nanostores: 1.3.0
-      react: 19.2.7
+      react: 19.2.8
 
   '@netlify/ai@0.4.1':
     dependencies:
@@ -7219,13 +7219,13 @@ snapshots:
 
   convert-to-spaces@2.0.1: {}
 
-  convex@1.41.0(react@19.2.7):
+  convex@1.41.0(react@19.2.8):
     dependencies:
       esbuild: 0.28.1
       prettier: 3.8.3
       ws: 8.21.0
     optionalDependencies:
-      react: 19.2.7
+      react: 19.2.8
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -8141,7 +8141,7 @@ snapshots:
 
   ini@1.3.8: {}
 
-  ink@7.0.2(@types/react@19.2.17)(react@19.2.7):
+  ink@7.0.2(@types/react@19.2.17)(react@19.2.8):
     dependencies:
       '@alcalzone/ansi-tokenize': 0.3.0
       ansi-escapes: 7.3.0
@@ -8156,8 +8156,8 @@ snapshots:
       indent-string: 5.0.0
       is-in-ci: 2.0.0
       patch-console: 2.0.0
-      react: 19.2.7
-      react-reconciler: 0.33.0(react@19.2.7)
+      react: 19.2.8
+      react-reconciler: 0.33.0(react@19.2.8)
       scheduler: 0.27.0
       signal-exit: 3.0.7
       slice-ansi: 9.0.0
@@ -8595,9 +8595,9 @@ snapshots:
     dependencies:
       yallist: 3.1.1
 
-  lucide-react@0.577.0(react@19.2.7):
+  lucide-react@0.577.0(react@19.2.8):
     dependencies:
-      react: 19.2.7
+      react: 19.2.8
 
   luxon@3.7.2: {}
 
@@ -9511,19 +9511,19 @@ snapshots:
 
   radix3@1.1.2: {}
 
-  react-dom@19.2.7(react@19.2.7):
+  react-dom@19.2.8(react@19.2.8):
     dependencies:
-      react: 19.2.7
+      react: 19.2.8
       scheduler: 0.27.0
 
-  react-reconciler@0.33.0(react@19.2.7):
+  react-reconciler@0.33.0(react@19.2.8):
     dependencies:
-      react: 19.2.7
+      react: 19.2.8
       scheduler: 0.27.0
 
   react-refresh@0.18.0: {}
 
-  react@19.2.7: {}
+  react@19.2.8: {}
 
   read-package-up@11.0.0:
     dependencies:
