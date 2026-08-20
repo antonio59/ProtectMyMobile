@@ -129,6 +129,36 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Fix Fallow dead-code job: declare production deps correctly
+
+Fallow's dead-code check fails with --fail-on-issues on three
+dev-dep-in-prod findings: tailwindcss and @tailwindcss/typography are
+imported by src/styles/global.css, and @resvg/resvg-js by
+scripts/convert-og-image.mjs, yet all three sat in devDependencies.
+Pre-existing failure, not introduced by the redesign.
+
+Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_015Q86Qi5hphcto97zGqhCvp
+- Fix CI security job: upgrade Astro 7 and patch vulnerable transitive deps
+
+The CI security job (pnpm audit --prod) was failing on 14 production
+vulnerabilities. Upgrades astro 6 -> 7, @astrojs/netlify 7 -> 8 and
+@astrojs/react 5 -> 6 to clear astro's own advisories, and pins the
+remaining vulnerable transitive dependencies (js-yaml, sharp, postcss,
+nanoid, svgo, tar, brace-expansion, fast-uri) via pnpm overrides.
+
+Astro 7 requires vite 8, so the vite override moves to ^8.0.13. Tailwind
+v4 no longer works through PostCSS under vite 8, so it moves to the
+official @tailwindcss/vite plugin and postcss.config.mjs is removed.
+
+Two advisories (image-size, extract-zip) have no published fix upstream
+and sit in Netlify dev tooling rather than shipped code; they are listed
+in auditConfig.ignoreGhsas with a note to revisit.
+
+30 advisories -> 3, all five CI jobs verified passing locally.
+
+Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_015Q86Qi5hphcto97zGqhCvp
 - Merge branch 'redesign/data-journalism'
 - Redesign cleanup: fix remaining off-palette remnants
 - Data-journalism visual system
@@ -1224,6 +1254,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
