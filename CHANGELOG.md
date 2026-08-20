@@ -1369,6 +1369,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
+- Update changelog [skip ci]
 - Add UI/UX review documentation and misc updates
 
 ### Features
@@ -1409,5 +1410,9 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 ### Reverts
 
 - Restore Netlify adapter and scheduled functions
+
+### Security
+
+- Enforce the editorial system across every page
 
 
