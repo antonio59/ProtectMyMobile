@@ -129,6 +129,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Quieter desktop nav and a text-forward news index
 - Fix Fallow dead-code job: declare production deps correctly
 
 Fallow's dead-code check fails with --fail-on-issues on three
@@ -1254,6 +1255,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
