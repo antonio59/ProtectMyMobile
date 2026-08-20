@@ -138,7 +138,7 @@ export function ScenarioCarousel({ images, title, summary, scenarioId }: Props) 
                 onClick={handleCopyLink}
                 className="w-full flex items-center gap-3 px-3 py-2 text-sm text-foreground hover:bg-neutral transition-colors"
               >
-                {copied ? <Check className="size-4 text-green-600" /> : <Copy className="size-4" />}
+                {copied ? <Check className="size-4 text-success" /> : <Copy className="size-4" />}
                 {copied ? 'Copied!' : 'Copy link'}
               </button>
 

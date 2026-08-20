@@ -32,37 +32,37 @@ const categoryConfig: Record<string, { color: string; bg: string; icon: any; gra
     color: "text-destructive-hover",
     bg: "bg-destructive-subtle",
     icon: Siren,
-    gradient: "from-red-500 to-red-600",
+    gradient: "from-destructive to-destructive-hover",
   },
   seizure: {
-    color: "text-orange-700",
-    bg: "bg-orange-50",
+    color: "text-warning",
+    bg: "bg-warning-subtle",
     icon: ShieldAlert,
-    gradient: "from-orange-500 to-orange-600",
+    gradient: "from-warning to-warning",
   },
   law_change: {
-    color: "text-teal-700",
-    bg: "bg-teal-50",
+    color: "text-success",
+    bg: "bg-success-subtle",
     icon: Gavel,
-    gradient: "from-teal-500 to-teal-600",
+    gradient: "from-success to-success",
   },
   law_changes: {
-    color: "text-teal-700",
-    bg: "bg-teal-50",
+    color: "text-success",
+    bg: "bg-success-subtle",
     icon: Gavel,
-    gradient: "from-teal-500 to-teal-600",
+    gradient: "from-success to-success",
   },
   statistics: {
     color: "text-primary-hover",
     bg: "bg-primary-subtle",
     icon: TrendingUp,
-    gradient: "from-blue-500 to-blue-600",
+    gradient: "from-primary to-primary",
   },
   prevention_tip: {
-    color: "text-green-700",
-    bg: "bg-green-50",
+    color: "text-success",
+    bg: "bg-success-subtle",
     icon: Lightbulb,
-    gradient: "from-green-500 to-green-600",
+    gradient: "from-success to-success",
   },
   other: {
     color: "text-foreground",
@@ -204,7 +204,7 @@ function EmptyState() {
         className={`w-20 h-20 bg-primary-subtle rounded-full flex items-center justify-center mx-auto mb-6 animate-pop-in ${isInView ? 'is-visible' : ''}`}
         style={{ animationDelay: '200ms' }}
       >
-        <Newspaper className="h-10 w-10 text-blue-500" />
+        <Newspaper className="h-10 w-10 text-primary" />
       </div>
       <h3 className="text-2xl font-bold text-foreground mb-3">
         Latest News

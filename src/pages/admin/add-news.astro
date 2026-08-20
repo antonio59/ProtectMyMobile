@@ -149,14 +149,14 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
         published,
       });
 
-      resultDiv.className = 'mt-4 p-4 rounded-lg bg-green-100 text-green-800 text-sm';
+      resultDiv.className = 'mt-4 p-4 rounded-lg bg-success-subtle text-success text-sm';
       resultDiv.innerHTML = `Article added successfully! <a href="/admin/news" class="underline font-medium">View news page</a>`;
 
       // Clear form
       (document.getElementById('add-news-form') as HTMLFormElement).reset();
 
     } catch (err: any) {
-      resultDiv.className = 'mt-4 p-4 rounded-lg bg-destructive-muted text-red-800 text-sm';
+      resultDiv.className = 'mt-4 p-4 rounded-lg bg-destructive-muted text-destructive text-sm';
       resultDiv.textContent = 'Error: ' + err.message;
     }
   });

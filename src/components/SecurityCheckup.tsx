@@ -105,10 +105,10 @@ export default function SecurityCheckup() {
   };
 
   const getScoreLevel = (percentage: number) => {
-    if (percentage >= 90) return { level: 'Excellent', color: 'text-green-600', bg: 'bg-green-50', border: 'border-green-200' };
-    if (percentage >= 70) return { level: 'Good', color: 'text-primary', bg: 'bg-primary-subtle', border: 'border-blue-200' };
-    if (percentage >= 50) return { level: 'Fair', color: 'text-yellow-600', bg: 'bg-yellow-50', border: 'border-yellow-200' };
-    return { level: 'Needs Improvement', color: 'text-destructive', bg: 'bg-destructive-subtle', border: 'border-red-200' };
+    if (percentage >= 90) return { level: 'Excellent', color: 'text-success', bg: 'bg-success-subtle', border: 'border-border' };
+    if (percentage >= 70) return { level: 'Good', color: 'text-primary', bg: 'bg-primary-subtle', border: 'border-border' };
+    if (percentage >= 50) return { level: 'Fair', color: 'text-warning', bg: 'bg-warning-subtle', border: 'border-border' };
+    return { level: 'Needs Improvement', color: 'text-destructive', bg: 'bg-destructive-subtle', border: 'border-destructive-muted' };
   };
 
   const getRecommendations = () => {
@@ -234,7 +234,7 @@ export default function SecurityCheckup() {
                   </div>
                   <div className="w-full bg-neutral-200 rounded-full h-2">
                     <div
-                      className={`h-2 rounded-full ${categoryPercent >= 70 ? 'bg-green-500' : categoryPercent >= 50 ? 'bg-yellow-500' : 'bg-red-500'}`}
+                      className={`h-2 rounded-full ${categoryPercent >= 70 ? 'bg-success' : categoryPercent >= 50 ? 'bg-warning' : 'bg-destructive'}`}
                       style={{ width: `${categoryPercent}%` }}
                     ></div>
                   </div>
@@ -248,7 +248,7 @@ export default function SecurityCheckup() {
         {recommendations.length > 0 && (
           <div className="bg-card rounded-lg shadow-md p-6">
             <h3 className="text-xl font-semibold mb-4 flex items-center">
-              <AlertTriangle className="size-6 text-orange-600 mr-2" />
+              <AlertTriangle className="size-6 text-warning mr-2" />
               Your Action Plan
             </h3>
             <p className="text-muted-foreground mb-4">
@@ -258,11 +258,11 @@ export default function SecurityCheckup() {
               {recommendations.map((rec, idx) => (
                 <div
                   key={idx}
-                  className={`p-4 rounded-lg border-l-4 ${rec.priority === 'high' ? 'border-red-500 bg-destructive-subtle' : 'border-yellow-500 bg-yellow-50'}`}
+                  className={`p-4 rounded-lg border-l-4 ${rec.priority === 'high' ? 'border-destructive-muted bg-destructive-subtle' : 'border-border bg-warning-subtle'}`}
                 >
                   <div className="flex items-start">
-                    <div className={`rounded-full p-1 mr-3 mt-0.5 ${rec.priority === 'high' ? 'bg-red-200' : 'bg-yellow-200'}`}>
-                      <AlertTriangle className={`size-4 ${rec.priority === 'high' ? 'text-destructive-hover' : 'text-yellow-700'}`} />
+                    <div className={`rounded-full p-1 mr-3 mt-0.5 ${rec.priority === 'high' ? 'bg-destructive-muted' : 'bg-warning-subtle'}`}>
+                      <AlertTriangle className={`size-4 ${rec.priority === 'high' ? 'text-destructive-hover' : 'text-warning'}`} />
                     </div>
                     <div className="flex-1">
                       <h4 className="font-semibold mb-1">{rec.title}</h4>
@@ -277,10 +277,10 @@ export default function SecurityCheckup() {
 
         {/* Perfect Score */}
         {score.percentage === 100 && (
-          <div className="bg-green-50 border-2 border-green-200 rounded-lg p-6 text-center">
-            <CheckCircle2 className="size-12 text-green-600 mx-auto mb-3" />
-            <h3 className="text-xl font-bold text-green-900 mb-2">Perfect Security Setup! 🎉</h3>
-            <p className="text-green-800">
+          <div className="bg-success-subtle border-2 border-border rounded-lg p-6 text-center">
+            <CheckCircle2 className="size-12 text-success mx-auto mb-3" />
+            <h3 className="text-xl font-bold text-success mb-2">Perfect Security Setup! 🎉</h3>
+            <p className="text-success">
               You've implemented all recommended security measures. Keep maintaining these practices to stay protected.
             </p>
           </div>
@@ -348,8 +348,8 @@ export default function SecurityCheckup() {
                     onClick={() => handleAnswer(q.id, true)}
                     className={`flex-1 px-4 py-3 rounded-lg border-2 transition-all ${
                       answers[q.id] === true
-                        ? 'border-green-500 bg-green-50 text-green-700'
-                        : 'border-neutral-300 hover:border-green-300 text-foreground'
+                        ? 'border-success bg-success-subtle text-success'
+                        : 'border-neutral-300 hover:border-success text-foreground'
                     }`}
                   >
                     <Check className="size-5 inline mr-2" />
@@ -359,8 +359,8 @@ export default function SecurityCheckup() {
                     onClick={() => handleAnswer(q.id, false)}
                     className={`flex-1 px-4 py-3 rounded-lg border-2 transition-all ${
                       answers[q.id] === false
-                        ? 'border-red-500 bg-destructive-subtle text-destructive-hover'
-                        : 'border-neutral-300 hover:border-red-300 text-foreground'
+                        ? 'border-destructive-muted bg-destructive-subtle text-destructive-hover'
+                        : 'border-neutral-300 hover:border-destructive-muted text-foreground'
                     }`}
                   >
                     <X className="size-5 inline mr-2" />

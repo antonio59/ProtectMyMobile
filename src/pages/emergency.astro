@@ -99,14 +99,14 @@ import { AlertTriangle, Clock, ThumbsUp, ThumbsDown, MapPin, Shield } from "luci
   <main id="main-content" class="bg-background min-h-screen">
     <div class="container mx-auto px-4 py-4 sm:py-6 max-w-4xl">
       <!-- Emergency Hero - Bold Red -->
-      <div class="bg-gradient-to-br from-red-600 to-red-700 text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8 shadow-xl">
+      <div class="bg-gradient-to-br from-destructive to-destructive-hover text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8 shadow-xl">
         <div class="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
           <div class="bg-white/20 p-2.5 sm:p-4 rounded-xl sm:rounded-2xl">
             <AlertTriangle class="h-7 w-7 sm:size-10" />
           </div>
           <div>
             <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-shadow-danger">Phone Stolen?</h1>
-            <p class="text-red-100 text-xs sm:text-sm md:text-base">Act immediately - every minute counts</p>
+            <p class="text-destructive-muted text-xs sm:text-sm md:text-base">Act immediately - every minute counts</p>
           </div>
         </div>
         <div class="flex items-center gap-2 bg-white/10 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm w-fit">
@@ -121,7 +121,7 @@ import { AlertTriangle, Clock, ThumbsUp, ThumbsDown, MapPin, Shield } from "luci
           {[1, 2, 3, 4, 5].map((num) => (
             <div class="flex items-center">
               <div class="w-7 h-7 sm:size-10 rounded-full bg-destructive text-white flex items-center justify-center font-bold text-xs sm:text-base">{num}</div>
-              {num < 5 && <div class="w-5 sm:w-16 lg:w-24 h-1 bg-red-200 mx-1 sm:mx-2" />}
+              {num < 5 && <div class="w-5 sm:w-16 lg:w-24 h-1 bg-destructive-muted mx-1 sm:mx-2" />}
             </div>
           ))}
         </div>
@@ -141,9 +141,9 @@ import { AlertTriangle, Clock, ThumbsUp, ThumbsDown, MapPin, Shield } from "luci
 
               <div class="space-y-2">
                 <a href="https://www.google.com/android/find" target="_blank" rel="noopener noreferrer"
-                   class="block p-2.5 sm:p-3 border border-green-500 rounded-lg sm:rounded-xl hover:bg-green-50 transition-colors">
+                   class="block p-2.5 sm:p-3 border border-success rounded-lg sm:rounded-xl hover:bg-success-subtle transition-colors">
                   <div class="flex items-center">
-                    <div class="w-7 h-7 sm:size-8 bg-green-100 rounded-full flex items-center justify-center mr-2.5 sm:mr-3 font-bold text-sm sm:text-base">A</div>
+                    <div class="w-7 h-7 sm:size-8 bg-success-subtle rounded-full flex items-center justify-center mr-2.5 sm:mr-3 font-bold text-sm sm:text-base">A</div>
                     <div>
                       <p class="font-medium text-sm sm:text-base">Lock Android Device</p>
                       <p class="text-xs sm:text-sm text-muted-foreground">Google Find My Device</p>
@@ -275,7 +275,7 @@ import { AlertTriangle, Clock, ThumbsUp, ThumbsDown, MapPin, Shield } from "luci
           <div class="flex items-center gap-2">
             <button
               id="helpful-yes"
-              class="inline-flex items-center gap-2 px-4 py-2 bg-green-50 text-green-700 border border-green-200 rounded-lg font-medium hover:bg-green-100 transition-colors"
+              class="inline-flex items-center gap-2 px-4 py-2 bg-success-subtle text-success border border-border rounded-lg font-medium hover:bg-success-subtle transition-colors"
               aria-label="Yes, this was helpful"
             >
               <ThumbsUp class="size-4" />
@@ -283,7 +283,7 @@ import { AlertTriangle, Clock, ThumbsUp, ThumbsDown, MapPin, Shield } from "luci
             </button>
             <button
               id="helpful-no"
-              class="inline-flex items-center gap-2 px-4 py-2 bg-destructive-subtle text-destructive-hover border border-red-200 rounded-lg font-medium hover:bg-destructive-muted transition-colors"
+              class="inline-flex items-center gap-2 px-4 py-2 bg-destructive-subtle text-destructive-hover border border-destructive-muted rounded-lg font-medium hover:bg-destructive-muted transition-colors"
               aria-label="No, this was not helpful"
             >
               <ThumbsDown class="size-4" />
@@ -294,20 +294,20 @@ import { AlertTriangle, Clock, ThumbsUp, ThumbsDown, MapPin, Shield } from "luci
       </div>
 
       {/* Survey thank you message (hidden by default) */}
-      <div id="helpful-thanks" class="hidden bg-green-50 border border-green-200 rounded-lg sm:rounded-xl p-4 sm:p-6 mt-6 sm:mt-8">
+      <div id="helpful-thanks" class="hidden bg-success-subtle border border-border rounded-lg sm:rounded-xl p-4 sm:p-6 mt-6 sm:mt-8">
         <div class="flex items-center gap-3">
-          <div class="p-2 bg-green-100 rounded-lg">
-            <ThumbsUp class="size-5 text-green-700" />
+          <div class="p-2 bg-success-subtle rounded-lg">
+            <ThumbsUp class="size-5 text-success" />
           </div>
           <div>
-            <p class="font-semibold text-green-900">Thank you for your feedback!</p>
-            <p class="text-sm text-green-700">I'm always working to make the guides better.</p>
+            <p class="font-semibold text-success">Thank you for your feedback!</p>
+            <p class="text-sm text-success">I'm always working to make the guides better.</p>
           </div>
         </div>
       </div>
 
       {/* Report Theft Location */}
-      <div id="report-theft" class="bg-card rounded-lg sm:rounded-xl shadow-md p-4 sm:p-6 md:p-8 mt-6 sm:mt-8 border border-red-200">
+      <div id="report-theft" class="bg-card rounded-lg sm:rounded-xl shadow-md p-4 sm:p-6 md:p-8 mt-6 sm:mt-8 border border-destructive-muted">
         <div class="flex items-start gap-3 mb-4">
           <div class="p-2 bg-destructive-muted rounded-lg flex-shrink-0">
             <MapPin class="size-5 text-destructive" />
@@ -375,13 +375,13 @@ import { AlertTriangle, Clock, ThumbsUp, ThumbsDown, MapPin, Shield } from "luci
           </div>
         </form>
 
-        <div id="tr-success" class="hidden mt-4 bg-green-50 border border-green-200 rounded-lg p-4">
-          <p class="font-semibold text-green-900">Thank you for reporting.</p>
-          <p class="text-sm text-green-700">Your report will be reviewed and appear on the map within 24 hours.</p>
+        <div id="tr-success" class="hidden mt-4 bg-success-subtle border border-border rounded-lg p-4">
+          <p class="font-semibold text-success">Thank you for reporting.</p>
+          <p class="text-sm text-success">Your report will be reviewed and appear on the map within 24 hours.</p>
         </div>
 
-        <div id="tr-error" class="hidden mt-4 bg-destructive-subtle border border-red-200 rounded-lg p-4">
-          <p class="font-semibold text-red-900">Something went wrong.</p>
+        <div id="tr-error" class="hidden mt-4 bg-destructive-subtle border border-destructive-muted rounded-lg p-4">
+          <p class="font-semibold text-destructive">Something went wrong.</p>
           <p class="text-sm text-destructive-hover" id="tr-error-msg">Please try again.</p>
         </div>
       </div>
@@ -498,7 +498,7 @@ import { AlertTriangle, Clock, ThumbsUp, ThumbsDown, MapPin, Shield } from "luci
           if (latInput) latInput.value = String(pos.coords.latitude);
           if (lngInput) lngInput.value = String(pos.coords.longitude);
           detectBtn.textContent = 'Location detected ✓';
-          detectBtn.classList.add('text-green-600');
+          detectBtn.classList.add('text-success');
         },
         () => {
           detectBtn.textContent = 'Unable to detect location';
@@ -563,7 +563,7 @@ import { AlertTriangle, Clock, ThumbsUp, ThumbsDown, MapPin, Shield } from "luci
         if (lngInput) lngInput.value = '';
         if (detectBtn) {
           detectBtn.textContent = 'Use my current location';
-          detectBtn.classList.remove('text-green-600', 'text-destructive');
+          detectBtn.classList.remove('text-success', 'text-destructive');
         }
       } catch (err: any) {
         errorEl?.classList.remove('hidden');

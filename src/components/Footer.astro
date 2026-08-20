@@ -2,20 +2,13 @@
 import { Heart, Shield, Smartphone, ChevronRight, Mail } from "lucide-react";
 ---
 
-<footer class="bg-background border-t border-border pt-8 sm:pt-12 pb-6" role="contentinfo">
+<footer class="bg-background border-t-[3px] border-foreground pt-8 sm:pt-12 pb-6" role="contentinfo">
   <div class="container mx-auto px-4">
-    <!-- Top section with logo and description -->
+    <!-- Top section with wordmark and tagline -->
     <div class="flex flex-col sm:flex-row justify-between items-center mb-6 sm:mb-10 gap-4">
-      <div class="flex items-center">
-        <svg class="h-10 w-10 sm:size-12 mr-2 sm:mr-3" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="50" cy="50" r="45" fill="#2563eb" opacity="0.2"/>
-          <path d="M50 15 L30 30 L30 60 C30 70 40 80 50 85 C60 80 70 70 70 60 L70 30 Z" fill="#2563eb"/>
-          <path d="M45 50 L42 53 L48 59 L58 45" stroke="white" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <div>
-          <h2 class="text-xl sm:text-2xl font-bold text-foreground">ProtectMyMobile</h2>
-          <p class="text-muted-foreground text-xs sm:text-sm">Protecting UK mobile users since 2025</p>
-        </div>
+      <div>
+        <h2 class="font-serif text-xl sm:text-2xl font-bold text-foreground">ProtectMyMobile</h2>
+        <p class="text-muted-foreground text-xs sm:text-sm uppercase tracking-[0.12em] font-semibold">Track the theft. Protect your phone.</p>
       </div>
       <div class="flex items-center gap-2 sm:gap-3">
         <!-- Ko-fi -->
@@ -23,9 +16,9 @@ import { Heart, Shield, Smartphone, ChevronRight, Mail } from "lucide-react";
           href="https://ko-fi.com/Z8Z21E3RHF"
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center px-3 sm:px-4 py-2 bg-[#FF5E5B] text-white rounded-md font-medium hover:bg-[#FF3D39] transition-colors shadow-sm text-sm sm:text-base"
+          class="inline-flex items-center px-3 sm:px-4 py-2 border-2 border-foreground text-foreground font-bold uppercase tracking-wide hover:bg-foreground hover:text-background transition-colors text-xs sm:text-sm"
         >
-          <span class="mr-1.5 sm:mr-2">☕</span> Support
+          Support us
         </a>
       </div>
     </div>

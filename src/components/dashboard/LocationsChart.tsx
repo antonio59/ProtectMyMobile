@@ -72,7 +72,7 @@ export default function LocationsChart({ data }: { data: LocationRanking[] }) {
   return (
     <div className="bg-card rounded-xl p-4 sm:p-6 border border-border shadow-sm h-full flex flex-col">
       <h3 className="text-base font-bold text-foreground flex items-center gap-2 mb-1">
-        <MapPin className="size-5 text-red-500" />
+        <MapPin className="size-5 text-destructive" />
         Top Theft Hotspots
       </h3>
       <p className="text-xs text-muted-foreground mb-4">Ranked by total theft count from police.uk data</p>

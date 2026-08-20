@@ -27,7 +27,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
         <div class="text-xs sm:text-sm text-neutral-500">Pending</div>
       </div>
       <div class="bg-card rounded-xl p-4 shadow-md text-center">
-        <div class="text-2xl sm:text-3xl font-bold text-green-600" id="stat-approved">-</div>
+        <div class="text-2xl sm:text-3xl font-bold text-success" id="stat-approved">-</div>
         <div class="text-xs sm:text-sm text-neutral-500">Approved</div>
       </div>
       <div class="bg-card rounded-xl p-4 shadow-md text-center">
@@ -104,7 +104,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
         renderTable();
       } catch (err) {
         document.getElementById('reports-table')!.innerHTML = 
-          '<tr><td colspan="7" class="px-4 py-12 text-center text-red-500">Failed to load reports</td></tr>';
+          '<tr><td colspan="7" class="px-4 py-12 text-center text-destructive">Failed to load reports</td></tr>';
       }
     }
 
@@ -137,8 +137,8 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
           ? `${r.latitude.toFixed(4)}, ${r.longitude.toFixed(4)}`
           : '-';
         const statusBadge = r.approved
-          ? '<span class="px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">Approved</span>'
-          : '<span class="px-2 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-700">Pending</span>';
+          ? '<span class="px-2 py-1 rounded-full text-xs font-medium bg-success-subtle text-success">Approved</span>'
+          : '<span class="px-2 py-1 rounded-full text-xs font-medium bg-warning-subtle text-warning">Pending</span>';
 
         return `
           <tr class="border-b border-border hover:bg-neutral-50" data-id="${escapeHtml(r._id)}">
@@ -151,10 +151,10 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
             <td class="px-4 py-3">
               <div class="flex gap-2">
                 ${!r.approved 
-                  ? `<button class="approve-btn text-xs bg-green-600 text-white px-2 py-1 rounded hover:bg-green-700" data-id="${escapeHtml(r._id)}">Approve</button>`
+                  ? `<button class="approve-btn text-xs bg-success text-white px-2 py-1 rounded hover:bg-success" data-id="${escapeHtml(r._id)}">Approve</button>`
                   : `<button class="unapprove-btn text-xs bg-neutral-200 text-neutral-700 px-2 py-1 rounded hover:bg-neutral-300" data-id="${escapeHtml(r._id)}">Unapprove</button>`
                 }
-                <button class="delete-btn text-xs bg-destructive-muted text-destructive-hover px-2 py-1 rounded hover:bg-red-200" data-id="${escapeHtml(r._id)}">Delete</button>
+                <button class="delete-btn text-xs bg-destructive-muted text-destructive-hover px-2 py-1 rounded hover:bg-destructive-muted" data-id="${escapeHtml(r._id)}">Delete</button>
               </div>
             </td>
           </tr>

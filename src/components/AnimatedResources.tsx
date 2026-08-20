@@ -43,12 +43,12 @@ const resources: Resource[] = [
     linkText: 'Find Your Bank',
   },
   {
-    icon: <Phone className="size-8 text-green-600" />,
-    iconBg: 'bg-green-100',
+    icon: <Phone className="size-8 text-success" />,
+    iconBg: 'bg-success-subtle',
     title: 'Mobile Networks',
     description: 'Contact details for 50+ UK mobile providers. Block your SIM and prevent unauthorized usage.',
     href: '/mobile-providers',
-    linkColor: 'text-green-600',
+    linkColor: 'text-success',
     linkText: 'Find Your Provider',
   },
 ];

@@ -35,9 +35,9 @@ for (const post of posts) {
 const categoryConfig: Record<string, { color: string; bg: string; icon: any; label: string }> = {
   arrest:        { color: "text-destructive-hover", bg: "bg-destructive-subtle", icon: Siren,        label: "Arrests" },
   seizure:       { color: "text-warning",          bg: "bg-warning-subtle",     icon: ShieldAlert, label: "Seizures" },
-  law_change:    { color: "text-teal-600",         bg: "bg-teal-50",            icon: Gavel,       label: "Law Changes" },
+  law_change:    { color: "text-success",         bg: "bg-success-subtle",            icon: Gavel,       label: "Law Changes" },
   statistics:    { color: "text-primary-hover",    bg: "bg-primary-subtle",     icon: TrendingUp,   label: "Statistics" },
-  prevention_tip:{ color: "text-emerald-600",      bg: "bg-emerald-50",         icon: Lightbulb,    label: "Tips" },
+  prevention_tip:{ color: "text-success",      bg: "bg-success-subtle",         icon: Lightbulb,    label: "Tips" },
   other:         { color: "text-muted-foreground", bg: "bg-neutral",            icon: FileText,     label: "News" },
 };
 
@@ -96,7 +96,7 @@ const newsSchema = {
             </a>
             {lastUpdated && (
               <span class="hidden sm:inline-flex items-center gap-1.5 text-xs text-muted-foreground">
-                <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
+                <span class="w-1.5 h-1.5 bg-success rounded-full"></span>
                 Updated {lastUpdated}
               </span>
             )}

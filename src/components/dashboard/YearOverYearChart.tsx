@@ -64,7 +64,7 @@ export default function YearOverYearChart({ data }: { data: YoYData }) {
   return (
     <div className="bg-card rounded-xl p-4 sm:p-6 border border-border shadow-sm h-full flex flex-col">
       <h3 className="text-base font-bold text-foreground flex items-center gap-2 mb-1">
-        <Layers className="size-5 text-purple-500" />
+        <Layers className="size-5 text-primary" />
         Year-over-Year Comparison
       </h3>
       <p className="text-xs text-muted-foreground mb-4">Same month across different years</p>
