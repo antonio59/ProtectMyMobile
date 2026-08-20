@@ -114,7 +114,7 @@ export default function TrendsChart({ data }: { data: MonthlyTrends }) {
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
-        <div className="bg-primary-subtle rounded-lg p-3">
+        <div className="bg-neutral-100 rounded-lg p-3">
           <div className="text-lg font-bold text-primary-hover">{(latest.total as number).toLocaleString()}</div>
           <div className="text-[10px] text-primary uppercase tracking-wide font-medium">Latest month</div>
         </div>

@@ -217,7 +217,7 @@ export default function SecurityCheckup() {
         </div>
 
         {/* Score Breakdown */}
-        <div className="bg-card rounded-lg shadow-md p-6">
+        <div className="bg-card rounded-lg  p-6">
           <h3 className="text-xl font-semibold mb-4">Category Breakdown</h3>
           <div className="space-y-3">
             {Object.entries(categoryNames).map(([key, name]) => {
@@ -246,7 +246,7 @@ export default function SecurityCheckup() {
 
         {/* Recommendations */}
         {recommendations.length > 0 && (
-          <div className="bg-card rounded-lg shadow-md p-6">
+          <div className="bg-card rounded-lg  p-6">
             <h3 className="text-xl font-semibold mb-4 flex items-center">
               <AlertTriangle className="size-6 text-warning mr-2" />
               Your Action Plan
@@ -318,7 +318,7 @@ export default function SecurityCheckup() {
   return (
     <div className="space-y-6">
       {/* Progress */}
-      <div className="bg-card rounded-lg shadow-md p-4">
+      <div className="bg-card rounded-lg  p-4">
         <div className="flex justify-between mb-2">
           <span className="text-sm font-medium">Progress</span>
           <span className="text-sm text-muted-foreground">
@@ -336,7 +336,7 @@ export default function SecurityCheckup() {
       {/* Questions */}
       <div className="space-y-4">
         {questions.map((q, idx) => (
-          <div key={q.id} className="bg-card rounded-lg shadow-md p-6">
+          <div key={q.id} className="bg-card rounded-lg  p-6">
             <div className="flex items-start">
               <div className="bg-primary/10 rounded-full size-8 flex items-center justify-center flex-shrink-0 mr-3 mt-1">
                 <span className="text-primary font-bold text-sm">{idx + 1}</span>
@@ -374,7 +374,7 @@ export default function SecurityCheckup() {
       </div>
 
       {/* Submit Button */}
-      <div className="sticky bottom-4 bg-card rounded-lg shadow-xl p-4 border-2 border-primary/20">
+      <div className="sticky bottom-4 bg-card rounded-lg  p-4 border-2 border-primary/20">
         <button
           onClick={handleSubmit}
           disabled={!allAnswered}

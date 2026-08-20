@@ -28,7 +28,7 @@ const stats: Stat[] = [
     suffix: '%',
     label: 'Increase',
     sublabel: 'since 2023',
-    color: 'text-warning'
+    color: 'text-destructive'
   },
   {
     value: '0.8%',
@@ -37,13 +37,13 @@ const stats: Stat[] = [
     decimals: 1,
     label: 'Result in',
     sublabel: 'charges',
-    color: 'text-primary'
+    color: 'text-foreground'
   },
   {
     value: 'Every 5 min',
     label: 'One stolen',
     sublabel: '(theft rate)',
-    color: 'text-success'
+    color: 'text-foreground'
   },
 ];
 
@@ -103,7 +103,7 @@ function StatCard({ stat, index }: { stat: Stat; index: number }) {
   return (
     <div
       ref={ref}
-      className={`bg-card rounded-xl sm:rounded-2xl shadow-md p-3 sm:p-6 lg:p-8 text-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300 animate-on-scroll-scale ${isInView ? 'is-visible' : ''}`}
+      className={`bg-card rounded-xl sm:rounded-2xl  p-3 sm:p-6 lg:p-8 text-center hover: hover:-translate-y-1 transition-all duration-300 animate-on-scroll-scale ${isInView ? 'is-visible' : ''}`}
       style={{ animationDelay: `${index * 100}ms` }}
     >
       <div

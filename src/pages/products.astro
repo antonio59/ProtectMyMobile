@@ -158,14 +158,14 @@ const productCategories = [
 ];
 
 const colorClasses: Record<string, { bg: string; border: string; icon: string; light: string }> = {
-  blue: { bg: 'bg-primary', border: 'border-border', icon: 'text-primary', light: 'bg-primary-subtle' },
-  green: { bg: 'bg-success', border: 'border-border', icon: 'text-success', light: 'bg-success-subtle' },
-  teal: { bg: 'bg-success', border: 'border-border', icon: 'text-success', light: 'bg-success-subtle' },
-  purple: { bg: 'bg-primary', border: 'border-border', icon: 'text-primary', light: 'bg-primary-subtle' },
-  orange: { bg: 'bg-warning', border: 'border-border', icon: 'text-warning', light: 'bg-warning-subtle' },
-  red: { bg: 'bg-destructive', border: 'border-destructive-muted', icon: 'text-destructive', light: 'bg-destructive-subtle' },
-  indigo: { bg: 'bg-primary', border: 'border-border', icon: 'text-primary', light: 'bg-primary-subtle' },
-  slate: { bg: 'bg-slate-500', border: 'border-slate-200', icon: 'text-slate-600', light: 'bg-slate-50' },
+  blue:   { bg: 'bg-foreground', border: 'border-foreground', icon: 'text-foreground', light: 'bg-neutral-100' },
+  green:  { bg: 'bg-foreground', border: 'border-foreground', icon: 'text-foreground', light: 'bg-neutral-100' },
+  teal:   { bg: 'bg-foreground', border: 'border-foreground', icon: 'text-foreground', light: 'bg-neutral-100' },
+  purple: { bg: 'bg-foreground', border: 'border-foreground', icon: 'text-foreground', light: 'bg-neutral-100' },
+  orange: { bg: 'bg-foreground', border: 'border-foreground', icon: 'text-foreground', light: 'bg-neutral-100' },
+  red:    { bg: 'bg-destructive', border: 'border-destructive', icon: 'text-destructive', light: 'bg-destructive-subtle' },
+  indigo: { bg: 'bg-foreground', border: 'border-foreground', icon: 'text-foreground', light: 'bg-neutral-100' },
+  slate:  { bg: 'bg-foreground', border: 'border-foreground', icon: 'text-foreground', light: 'bg-neutral-100' },
 };
 ---
 
@@ -179,20 +179,20 @@ const colorClasses: Record<string, { bg: string; border: string; icon: string; l
     <div class="container mx-auto px-4 py-4 sm:py-6 max-w-6xl">
       
       <!-- Hero Section -->
-      <div class="bg-gradient-to-br from-success to-success text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8 shadow-xl">
+      <div class="bg-foreground text-background rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8 ">
         <div class="flex items-center gap-3 mb-3">
           <div class="bg-white/20 p-2 sm:p-3 rounded-xl">
             <ShoppingBag class="size-6 sm:size-8" />
           </div>
           <h1 class="text-xl sm:text-2xl md:text-3xl font-bold">Product Recommendations</h1>
         </div>
-        <p class="text-success text-xs sm:text-sm md:text-base mb-4">
+        <p class="text-neutral-300 text-xs sm:text-sm md:text-base mb-4">
           Products and accessories that can help protect your phone from theft. Click through to browse options and read reviews.
         </p>
         <div class="flex items-start gap-2 bg-white/10 rounded-xl p-4 text-sm">
           <AlertTriangle class="size-5 flex-shrink-0 mt-0.5" />
-          <p class="text-success">
-            <strong>Affiliate Disclosure:</strong> As an Amazon Associate, I earn from qualifying purchases. This helps support the site at no extra cost to you.
+          <p class="text-neutral-300">
+            <strong class="text-background">Affiliate Disclosure:</strong> As an Amazon Associate, I earn from qualifying purchases. This helps support the site at no extra cost to you.
           </p>
         </div>
       </div>
@@ -200,9 +200,9 @@ const colorClasses: Record<string, { bg: string; border: string; icon: string; l
       <!-- Product Categories -->
       <div class="space-y-6">
         {productCategories.map((product) => {
-          const colors = colorClasses[product.color];
+          const colors = colorClasses[product.color] ?? colorClasses.blue;
           return (
-            <div class={`bg-card rounded-lg sm:rounded-2xl shadow-md overflow-hidden border ${colors.border}`}>
+            <div class={`bg-card rounded-lg sm:rounded-2xl  overflow-hidden border ${colors.border}`}>
               <div class={`h-2 ${colors.bg}`}></div>
               <div class="p-4 sm:p-6">
                 <div class="flex flex-col md:flex-row md:items-start gap-4 sm:gap-6">
@@ -264,13 +264,13 @@ const colorClasses: Record<string, { bg: string; border: string; icon: string; l
       </div>
       
       <!-- Tips Section -->
-      <section class="mt-6 sm:mt-8 md:mt-10 bg-gradient-to-r from-warning to-warning rounded-2xl p-4 sm:p-6 md:p-8 border border-border">
+      <section class="mt-6 sm:mt-8 md:mt-10 bg-neutral-100 rounded-2xl p-4 sm:p-6 md:p-8 border border-border">
         <h2 class="text-lg sm:text-xl font-bold mb-4 flex items-center gap-2">
-          <Shield class="size-4 sm:size-5 text-warning" />
+          <Shield class="size-4 sm:size-5 text-foreground" />
           General Buying Tips
         </h2>
         <div class="grid md:grid-cols-2 gap-4">
-          <div class="bg-card rounded-xl p-3 sm:p-4 shadow-md">
+          <div class="bg-card rounded-xl p-3 sm:p-4 ">
             <h3 class="font-semibold mb-2">Before You Buy</h3>
             <ul class="text-sm text-foreground space-y-2">
               <li>• Read multiple reviews from verified purchasers</li>
@@ -279,7 +279,7 @@ const colorClasses: Record<string, { bg: string; border: string; icon: string; l
               <li>• Look for products with warranties or guarantees</li>
             </ul>
           </div>
-          <div class="bg-card rounded-xl p-3 sm:p-4 shadow-md">
+          <div class="bg-card rounded-xl p-3 sm:p-4 ">
             <h3 class="font-semibold mb-2">Remember</h3>
             <ul class="text-sm text-foreground space-y-2">
               <li>• No product guarantees complete protection</li>
@@ -292,7 +292,7 @@ const colorClasses: Record<string, { bg: string; border: string; icon: string; l
       </section>
       
       <!-- CTA -->
-      <section class="mt-6 sm:mt-8 md:mt-10 bg-gradient-to-r from-primary to-primary rounded-2xl p-4 sm:p-6 md:p-8 text-white">
+      <section class="mt-6 sm:mt-8 md:mt-10 bg-foreground rounded-2xl p-4 sm:p-6 md:p-8 text-background">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
             <h2 class="text-lg sm:text-xl font-bold mb-2">Products are just one part of protection</h2>

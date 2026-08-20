@@ -34,10 +34,10 @@ for (const post of posts) {
 
 const categoryConfig: Record<string, { color: string; bg: string; icon: any; label: string }> = {
   arrest:        { color: "text-destructive-hover", bg: "bg-destructive-subtle", icon: Siren,        label: "Arrests" },
-  seizure:       { color: "text-warning",          bg: "bg-warning-subtle",     icon: ShieldAlert, label: "Seizures" },
-  law_change:    { color: "text-success",         bg: "bg-success-subtle",            icon: Gavel,       label: "Law Changes" },
+  seizure:       { color: "text-foreground",          bg: "bg-neutral-100",     icon: ShieldAlert, label: "Seizures" },
+  law_change:    { color: "text-foreground",         bg: "bg-neutral-100",            icon: Gavel,       label: "Law Changes" },
   statistics:    { color: "text-primary-hover",    bg: "bg-primary-subtle",     icon: TrendingUp,   label: "Statistics" },
-  prevention_tip:{ color: "text-success",      bg: "bg-success-subtle",         icon: Lightbulb,    label: "Tips" },
+  prevention_tip:{ color: "text-foreground",      bg: "bg-neutral-100",         icon: Lightbulb,    label: "Tips" },
   other:         { color: "text-muted-foreground", bg: "bg-neutral",            icon: FileText,     label: "News" },
 };
 
@@ -96,7 +96,7 @@ const newsSchema = {
             </a>
             {lastUpdated && (
               <span class="hidden sm:inline-flex items-center gap-1.5 text-xs text-muted-foreground">
-                <span class="w-1.5 h-1.5 bg-success rounded-full"></span>
+                <span class="w-1.5 h-1.5 bg-foreground rounded-full"></span>
                 Updated {lastUpdated}
               </span>
             )}
@@ -123,7 +123,7 @@ const newsSchema = {
             <section class="mb-8 sm:mb-10">
               <a
                 href={`/news/${featuredPost.slug}`}
-                class="group block bg-card rounded-2xl shadow-sm border border-border hover:shadow-md hover:border-primary/20 transition-all overflow-hidden"
+                class="group block bg-card rounded-2xl shadow-sm border border-border hover: hover:border-primary/20 transition-all overflow-hidden"
               >
                 <div class="md:flex md:items-stretch">
                   {featuredPost.featuredImageUrl && (
@@ -215,7 +215,7 @@ const newsSchema = {
                 return (
                   <a
                     href={`/news/${post.slug}`}
-                    class="news-card group flex flex-col bg-card rounded-xl shadow-sm border border-border hover:shadow-md hover:border-primary/20 transition-all overflow-hidden"
+                    class="news-card group flex flex-col bg-card rounded-xl shadow-sm border border-border hover: hover:border-primary/20 transition-all overflow-hidden"
                     data-category={post.category}
                   >
                     {post.featuredImageUrl ? (

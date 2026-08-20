@@ -115,7 +115,7 @@ try {
       
       <!-- Hero Section with Prominent Video -->
       <section class="mb-12">
-        <div class="bg-gradient-to-br from-neutral-900 to-neutral-800 rounded-3xl shadow-2xl overflow-hidden">
+        <div class="bg-foreground text-background rounded-3xl  overflow-hidden">
           <!-- Video takes prominence -->
           <div class="relative">
             <video
@@ -153,7 +153,7 @@ try {
                 <div class="flex flex-col sm:flex-row gap-2 sm:gap-4 mb-4 sm:mb-8">
                   <a
                     href="/prevention"
-                    class="inline-flex items-center justify-center gap-2 px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 text-sm sm:text-base bg-card text-foreground rounded-xl font-semibold hover:bg-neutral-100 transition-all shadow-lg shadow-glow-blue hover-lift touch-target"
+                    class="inline-flex items-center justify-center gap-2 px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 text-sm sm:text-base bg-card text-foreground rounded-xl font-semibold hover:bg-neutral-100 transition-all  shadow-glow-blue hover-lift touch-target"
                   >
                     <Shield class="size-4 sm:size-5" />
                     <span>Protect Your Phone</span>
@@ -224,7 +224,7 @@ try {
 
       <!-- Visitor Safety Section (moved below "Blink and it's gone") -->
       <section class="mb-8 sm:mb-12">
-        <div class="bg-card rounded-2xl shadow-md border border-border p-4 sm:p-6 md:p-8 lg:p-10">
+        <div class="bg-card rounded-2xl  border border-border p-4 sm:p-6 md:p-8 lg:p-10">
           <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 lg:gap-8 mb-4 lg:mb-6">
             <div class="lg:max-w-2xl">
               <p class="text-xs uppercase tracking-wide text-primary font-semibold mb-1">London visitors</p>
@@ -232,12 +232,12 @@ try {
               <p class="text-muted-foreground text-xs sm:text-sm md:text-base lg:text-lg mt-2">Fast tips for travellers and students: avoid kerbside scrolling, use cross-body bags, pre-save Find My links, and know who to contact if you're targeted.</p>
             </div>
             <div class="grid grid-cols-2 sm:flex sm:flex-row gap-2 sm:gap-3 shrink-0 mt-2 lg:mt-0">
-              <a href="/london-visitor-safety" class="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3 lg:py-4 bg-primary text-white rounded-xl font-semibold shadow-md hover:bg-primary-hover hover:scale-[1.02] transition-all text-xs sm:text-sm md:text-base">
+              <a href="/london-visitor-safety" class="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3 lg:py-4 bg-primary text-white rounded-xl font-semibold  hover:bg-primary-hover hover:scale-[1.02] transition-all text-xs sm:text-sm md:text-base">
                 <Shield class="size-4 sm:size-5" />
                 <span class="sm:hidden">Safety</span>
                 <span class="hidden sm:inline">Visitor Safety Guide</span>
               </a>
-              <a href="/emergency" class="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3 lg:py-4 bg-destructive text-white rounded-xl font-semibold shadow-md hover:bg-destructive-hover hover:scale-[1.02] transition-all text-xs sm:text-sm md:text-base">
+              <a href="/emergency" class="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3 lg:py-4 bg-destructive text-white rounded-xl font-semibold  hover:bg-destructive-hover hover:scale-[1.02] transition-all text-xs sm:text-sm md:text-base">
                 <AlertTriangle class="size-4 sm:size-5" />
                 <span class="sm:hidden">Emergency</span>
                 <span class="hidden sm:inline">Emergency Steps</span>
@@ -350,7 +350,7 @@ try {
       {/* Theft Trends Chart */}
       {trendsData && trendsData.data.length > 0 && (
         <section class="mb-8 sm:mb-12">
-          <div class="bg-card rounded-2xl shadow-xl border border-border p-4 sm:p-6 md:p-8">
+          <div class="bg-card rounded-2xl  border border-border p-4 sm:p-6 md:p-8">
             <TheftTrendsChart client:visible />
           </div>
         </section>
@@ -363,14 +363,14 @@ try {
       <AnimatedResources client:visible />
 
       <!-- More Resources CTA -->
-      <section class="bg-gradient-to-br from-background to-neutral rounded-2xl shadow-md border border-border p-5 sm:p-8 lg:p-12 text-center">
+      <section class="bg-background rounded-2xl  border border-border p-5 sm:p-8 lg:p-12 text-center">
         <h3 class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mb-2 sm:mb-3 text-foreground">Looking for More Resources?</h3>
         <p class="text-muted-foreground mb-4 sm:mb-6 lg:mb-8 max-w-2xl mx-auto text-sm sm:text-base lg:text-lg">
           Access the complete library of guides, tools, community stories, and expert advice.
         </p>
         <a
           href="/resources"
-          class="inline-flex items-center justify-center gap-2 px-5 sm:px-6 lg:px-8 py-2.5 sm:py-3 lg:py-4 bg-primary text-white rounded-xl font-semibold hover:bg-primary-hover hover:scale-[1.02] transition-all text-sm sm:text-base lg:text-lg shadow-lg shadow-primary/20"
+          class="inline-flex items-center justify-center gap-2 px-5 sm:px-6 lg:px-8 py-2.5 sm:py-3 lg:py-4 bg-primary text-white rounded-xl font-semibold hover:bg-primary-hover hover:scale-[1.02] transition-all text-sm sm:text-base lg:text-lg  shadow-primary/20"
         >
           Browse All Resources
           <ArrowRight class="size-4 lg:size-5" />

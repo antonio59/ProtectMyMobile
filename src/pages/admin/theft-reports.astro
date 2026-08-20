@@ -18,26 +18,26 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 
     <!-- Stats -->
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
-      <div class="bg-card rounded-xl p-4 shadow-md text-center">
+      <div class="bg-card rounded-xl p-4  text-center">
         <div class="text-2xl sm:text-3xl font-bold text-foreground" id="stat-total">-</div>
         <div class="text-xs sm:text-sm text-neutral-500">Total Reports</div>
       </div>
-      <div class="bg-card rounded-xl p-4 shadow-md text-center">
+      <div class="bg-card rounded-xl p-4  text-center">
         <div class="text-2xl sm:text-3xl font-bold text-warning" id="stat-pending">-</div>
         <div class="text-xs sm:text-sm text-neutral-500">Pending</div>
       </div>
-      <div class="bg-card rounded-xl p-4 shadow-md text-center">
+      <div class="bg-card rounded-xl p-4  text-center">
         <div class="text-2xl sm:text-3xl font-bold text-success" id="stat-approved">-</div>
         <div class="text-xs sm:text-sm text-neutral-500">Approved</div>
       </div>
-      <div class="bg-card rounded-xl p-4 shadow-md text-center">
+      <div class="bg-card rounded-xl p-4  text-center">
         <div class="text-2xl sm:text-3xl font-bold text-primary" id="stat-this-week">-</div>
         <div class="text-xs sm:text-sm text-neutral-500">This Week</div>
       </div>
     </div>
 
     <!-- Reports Table -->
-    <div class="bg-card rounded-xl shadow-md overflow-hidden">
+    <div class="bg-card rounded-xl  overflow-hidden">
       <div class="p-4 sm:p-6 border-b border-border">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <h2 class="text-lg font-bold text-foreground">All Reports</h2>
@@ -197,11 +197,11 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     document.querySelectorAll('.filter-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.filter-btn').forEach(b => {
-          b.classList.remove('bg-primary', 'text-white');
-          b.classList.add('bg-neutral-100', 'text-neutral-700');
+          b.classList.remove('bg-primary', 'text-background');
+          b.classList.add('bg-foreground', 'text-neutral-700');
         });
-        btn.classList.remove('bg-neutral-100', 'text-neutral-700');
-        btn.classList.add('bg-primary', 'text-white');
+        btn.classList.remove('bg-foreground', 'text-neutral-700');
+        btn.classList.add('bg-primary', 'text-background');
         currentFilter = btn.id.replace('filter-', '');
         renderTable();
       });

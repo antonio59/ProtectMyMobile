@@ -99,7 +99,7 @@ import { AlertTriangle, Clock, ThumbsUp, ThumbsDown, MapPin, Shield } from "luci
   <main id="main-content" class="bg-background min-h-screen">
     <div class="container mx-auto px-4 py-4 sm:py-6 max-w-4xl">
       <!-- Emergency Hero - Bold Red -->
-      <div class="bg-gradient-to-br from-destructive to-destructive-hover text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8 shadow-xl">
+      <div class="bg-destructive text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8 ">
         <div class="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
           <div class="bg-white/20 p-2.5 sm:p-4 rounded-xl sm:rounded-2xl">
             <AlertTriangle class="h-7 w-7 sm:size-10" />
@@ -130,7 +130,7 @@ import { AlertTriangle, Clock, ThumbsUp, ThumbsDown, MapPin, Shield } from "luci
       <!-- Emergency Steps -->
       <div class="space-y-4 sm:space-y-6">
         <!-- Step 1: Lock Device -->
-        <div class="bg-card rounded-lg sm:rounded-xl shadow-md p-4 sm:p-6">
+        <div class="bg-card rounded-lg sm:rounded-xl  p-4 sm:p-6">
           <div class="flex items-start">
             <div class="bg-emergency text-white rounded-full size-8 sm:size-10 flex items-center justify-center font-bold text-sm sm:text-lg mr-3 sm:mr-4 flex-shrink-0">
               1
@@ -141,9 +141,9 @@ import { AlertTriangle, Clock, ThumbsUp, ThumbsDown, MapPin, Shield } from "luci
 
               <div class="space-y-2">
                 <a href="https://www.google.com/android/find" target="_blank" rel="noopener noreferrer"
-                   class="block p-2.5 sm:p-3 border border-success rounded-lg sm:rounded-xl hover:bg-success-subtle transition-colors">
+                   class="block p-2.5 sm:p-3 border border-border rounded-lg sm:rounded-xl hover:bg-neutral-100 transition-colors">
                   <div class="flex items-center">
-                    <div class="w-7 h-7 sm:size-8 bg-success-subtle rounded-full flex items-center justify-center mr-2.5 sm:mr-3 font-bold text-sm sm:text-base">A</div>
+                    <div class="w-7 h-7 sm:size-8 bg-neutral-100 rounded-full flex items-center justify-center mr-2.5 sm:mr-3 font-bold text-sm sm:text-base">A</div>
                     <div>
                       <p class="font-medium text-sm sm:text-base">Lock Android Device</p>
                       <p class="text-xs sm:text-sm text-muted-foreground">Google Find My Device</p>
@@ -167,7 +167,7 @@ import { AlertTriangle, Clock, ThumbsUp, ThumbsDown, MapPin, Shield } from "luci
         </div>
 
         <!-- Step 2: Change Passwords -->
-        <div class="bg-card rounded-lg sm:rounded-xl shadow-md p-4 sm:p-6">
+        <div class="bg-card rounded-lg sm:rounded-xl  p-4 sm:p-6">
           <div class="flex items-start">
             <div class="bg-emergency text-white rounded-full size-8 sm:size-10 flex items-center justify-center font-bold text-sm sm:text-lg mr-3 sm:mr-4 flex-shrink-0">
               2
@@ -187,7 +187,7 @@ import { AlertTriangle, Clock, ThumbsUp, ThumbsDown, MapPin, Shield } from "luci
         </div>
 
         <!-- Step 3: Block SIM -->
-        <div class="bg-card rounded-lg sm:rounded-xl shadow-md p-4 sm:p-6">
+        <div class="bg-card rounded-lg sm:rounded-xl  p-4 sm:p-6">
           <div class="flex items-start">
             <div class="bg-emergency text-white rounded-full size-8 sm:size-10 flex items-center justify-center font-bold text-sm sm:text-lg mr-3 sm:mr-4 flex-shrink-0">
               3
@@ -203,7 +203,7 @@ import { AlertTriangle, Clock, ThumbsUp, ThumbsDown, MapPin, Shield } from "luci
         </div>
 
         <!-- Step 4: Report to Police -->
-        <div class="bg-card rounded-lg sm:rounded-xl shadow-md p-4 sm:p-6">
+        <div class="bg-card rounded-lg sm:rounded-xl  p-4 sm:p-6">
           <div class="flex items-start">
             <div class="bg-emergency text-white rounded-full size-8 sm:size-10 flex items-center justify-center font-bold text-sm sm:text-lg mr-3 sm:mr-4 flex-shrink-0">
               4
@@ -221,7 +221,7 @@ import { AlertTriangle, Clock, ThumbsUp, ThumbsDown, MapPin, Shield } from "luci
         </div>
 
         <!-- Step 5: Check Banks -->
-        <div class="bg-card rounded-lg sm:rounded-xl shadow-md p-4 sm:p-6">
+        <div class="bg-card rounded-lg sm:rounded-xl  p-4 sm:p-6">
           <div class="flex items-start">
             <div class="bg-emergency text-white rounded-full size-8 sm:size-10 flex items-center justify-center font-bold text-sm sm:text-lg mr-3 sm:mr-4 flex-shrink-0">
               5
@@ -238,7 +238,7 @@ import { AlertTriangle, Clock, ThumbsUp, ThumbsDown, MapPin, Shield } from "luci
       </div>
 
       <!-- Additional Actions -->
-      <div class="bg-card rounded-lg sm:rounded-xl shadow-md p-4 sm:p-6 mt-6 sm:mt-8">
+      <div class="bg-card rounded-lg sm:rounded-xl  p-4 sm:p-6 mt-6 sm:mt-8">
         <h3 class="text-base sm:text-lg md:text-xl font-semibold mb-3 sm:mb-4">After Immediate Steps</h3>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
           <div class="p-3 sm:p-4 border border-primary rounded-lg sm:rounded-xl">
@@ -264,7 +264,7 @@ import { AlertTriangle, Clock, ThumbsUp, ThumbsDown, MapPin, Shield } from "luci
       </div>
 
       {/* Was this helpful? Micro-survey */}
-      <div id="helpful-survey" class="bg-card rounded-lg sm:rounded-xl shadow-md p-4 sm:p-6 mt-6 sm:mt-8 border border-border">
+      <div id="helpful-survey" class="bg-card rounded-lg sm:rounded-xl  p-4 sm:p-6 mt-6 sm:mt-8 border border-border">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
             <h3 class="text-base sm:text-lg font-semibold text-foreground">Was this guide helpful?</h3>
@@ -275,7 +275,7 @@ import { AlertTriangle, Clock, ThumbsUp, ThumbsDown, MapPin, Shield } from "luci
           <div class="flex items-center gap-2">
             <button
               id="helpful-yes"
-              class="inline-flex items-center gap-2 px-4 py-2 bg-success-subtle text-success border border-border rounded-lg font-medium hover:bg-success-subtle transition-colors"
+              class="inline-flex items-center gap-2 px-4 py-2 bg-neutral-100 text-foreground border border-border rounded-lg font-medium hover:bg-neutral-100 transition-colors"
               aria-label="Yes, this was helpful"
             >
               <ThumbsUp class="size-4" />
@@ -294,20 +294,20 @@ import { AlertTriangle, Clock, ThumbsUp, ThumbsDown, MapPin, Shield } from "luci
       </div>
 
       {/* Survey thank you message (hidden by default) */}
-      <div id="helpful-thanks" class="hidden bg-success-subtle border border-border rounded-lg sm:rounded-xl p-4 sm:p-6 mt-6 sm:mt-8">
+      <div id="helpful-thanks" class="hidden bg-neutral-100 border border-border rounded-lg sm:rounded-xl p-4 sm:p-6 mt-6 sm:mt-8">
         <div class="flex items-center gap-3">
-          <div class="p-2 bg-success-subtle rounded-lg">
-            <ThumbsUp class="size-5 text-success" />
+          <div class="p-2 bg-neutral-100 rounded-lg">
+            <ThumbsUp class="size-5 text-foreground" />
           </div>
           <div>
-            <p class="font-semibold text-success">Thank you for your feedback!</p>
-            <p class="text-sm text-success">I'm always working to make the guides better.</p>
+            <p class="font-semibold text-foreground">Thank you for your feedback!</p>
+            <p class="text-sm text-foreground">I'm always working to make the guides better.</p>
           </div>
         </div>
       </div>
 
       {/* Report Theft Location */}
-      <div id="report-theft" class="bg-card rounded-lg sm:rounded-xl shadow-md p-4 sm:p-6 md:p-8 mt-6 sm:mt-8 border border-destructive-muted">
+      <div id="report-theft" class="bg-card rounded-lg sm:rounded-xl  p-4 sm:p-6 md:p-8 mt-6 sm:mt-8 border border-destructive-muted">
         <div class="flex items-start gap-3 mb-4">
           <div class="p-2 bg-destructive-muted rounded-lg flex-shrink-0">
             <MapPin class="size-5 text-destructive" />
@@ -375,9 +375,9 @@ import { AlertTriangle, Clock, ThumbsUp, ThumbsDown, MapPin, Shield } from "luci
           </div>
         </form>
 
-        <div id="tr-success" class="hidden mt-4 bg-success-subtle border border-border rounded-lg p-4">
-          <p class="font-semibold text-success">Thank you for reporting.</p>
-          <p class="text-sm text-success">Your report will be reviewed and appear on the map within 24 hours.</p>
+        <div id="tr-success" class="hidden mt-4 bg-neutral-100 border border-border rounded-lg p-4">
+          <p class="font-semibold text-foreground">Thank you for reporting.</p>
+          <p class="text-sm text-foreground">Your report will be reviewed and appear on the map within 24 hours.</p>
         </div>
 
         <div id="tr-error" class="hidden mt-4 bg-destructive-subtle border border-destructive-muted rounded-lg p-4">
@@ -498,7 +498,7 @@ import { AlertTriangle, Clock, ThumbsUp, ThumbsDown, MapPin, Shield } from "luci
           if (latInput) latInput.value = String(pos.coords.latitude);
           if (lngInput) lngInput.value = String(pos.coords.longitude);
           detectBtn.textContent = 'Location detected ✓';
-          detectBtn.classList.add('text-success');
+          detectBtn.classList.add('text-foreground');
         },
         () => {
           detectBtn.textContent = 'Unable to detect location';
@@ -563,7 +563,7 @@ import { AlertTriangle, Clock, ThumbsUp, ThumbsDown, MapPin, Shield } from "luci
         if (lngInput) lngInput.value = '';
         if (detectBtn) {
           detectBtn.textContent = 'Use my current location';
-          detectBtn.classList.remove('text-success', 'text-destructive');
+          detectBtn.classList.remove('text-foreground', 'text-destructive');
         }
       } catch (err: any) {
         errorEl?.classList.remove('hidden');

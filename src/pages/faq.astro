@@ -212,7 +212,7 @@ const faqSchema = {
       
 
       <!-- Hero Section -->
-      <div class="bg-gradient-to-br from-primary to-primary text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 mb-6 sm:mb-8 shadow-xl">
+      <div class="bg-foreground text-background rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 mb-6 sm:mb-8 ">
         <div class="flex items-center gap-3 mb-3">
           <div class="bg-white/20 p-2 sm:p-3 rounded-xl">
             <HelpCircle class="size-6 sm:size-8" />
@@ -225,7 +225,7 @@ const faqSchema = {
       </div>
 
       <!-- Search & Filter -->
-      <div class="bg-card rounded-xl shadow-md p-4 mb-6 sticky top-20 z-30 border border-border">
+      <div class="bg-card rounded-xl  p-4 mb-6 sticky top-20 z-30 border border-border">
         <div class="relative mb-4">
           <Search class="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground size-5" />
           <input
@@ -263,8 +263,8 @@ const faqSchema = {
       <!-- FAQ Content -->
       <div id="faq-content" class="space-y-6">
         {faqCategories.map((category) => (
-          <section class="faq-category bg-card rounded-xl shadow-md overflow-hidden border border-border" data-category={category.id}>
-            <div class="bg-gradient-to-r from-neutral-50 to-white p-4 sm:p-5 border-b border-border">
+          <section class="faq-category bg-card rounded-xl  overflow-hidden border border-border" data-category={category.id}>
+            <div class="bg-neutral-100 p-4 sm:p-5 border-b border-border">
               <div class="flex items-center gap-3">
                 <div class="bg-primary/10 p-2 rounded-lg">
                   <category.icon class="size-5 text-primary" />
@@ -303,7 +303,7 @@ const faqSchema = {
       </div>
 
       <!-- Still Need Help -->
-      <div class="mt-8 bg-gradient-to-r from-primary/5 to-primary rounded-xl p-5 border border-primary/20">
+      <div class="mt-8 bg-neutral-100 rounded-xl p-5 border border-primary/20">
         <h3 class="font-semibold text-foreground mb-2">Still need help?</h3>
         <p class="text-sm text-muted-foreground mb-3">
           If you can't find the answer you're looking for, check our comprehensive guides or contact us.
@@ -400,11 +400,11 @@ const faqSchema = {
       pill.addEventListener('click', () => {
         // Update active state
         categoryPills.forEach(p => {
-          p.classList.remove('active', 'bg-primary', 'text-white');
-          p.classList.add('bg-neutral-100', 'text-muted-foreground');
+          p.classList.remove('active', 'bg-primary', 'text-background');
+          p.classList.add('bg-foreground', 'text-muted-foreground');
         });
-        pill.classList.remove('bg-neutral-100', 'text-muted-foreground');
-        pill.classList.add('active', 'bg-primary', 'text-white');
+        pill.classList.remove('bg-foreground', 'text-muted-foreground');
+        pill.classList.add('active', 'bg-primary', 'text-background');
 
         // Update filter
         currentCategory = pill.getAttribute('data-category') || 'all';

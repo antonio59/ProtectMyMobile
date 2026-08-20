@@ -92,7 +92,7 @@ export default function SeasonalChart({ data }: { data: SeasonalData }) {
           <div className="text-sm font-bold text-destructive-hover">{data.months[maxIndex]}</div>
           <div className="text-[10px] text-destructive uppercase tracking-wide font-medium">Peak month</div>
         </div>
-        <div className="bg-success-subtle rounded-lg p-2 text-center">
+        <div className="bg-neutral-100 rounded-lg p-2 text-center">
           <div className="text-sm font-bold text-success">{data.months[minIndex]}</div>
           <div className="text-[10px] text-success uppercase tracking-wide font-medium">Lowest month</div>
         </div>

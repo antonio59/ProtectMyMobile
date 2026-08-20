@@ -38,7 +38,7 @@ export default function CommunityStatsDisplay({ initialStats }: Props) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {[1, 2, 3, 4].map(i => (
-          <div key={i} className="bg-card rounded-lg shadow-md p-6 animate-pulse">
+          <div key={i} className="bg-card rounded-lg  p-6 animate-pulse">
             <div className="h-4 bg-neutral-200 rounded w-3/4 mb-4"></div>
             <div className="h-8 bg-neutral-200 rounded w-1/2 mb-2"></div>
             <div className="h-3 bg-neutral-200 rounded w-full"></div>
@@ -50,8 +50,8 @@ export default function CommunityStatsDisplay({ initialStats }: Props) {
 
   if (!stats) {
     return (
-      <div className="bg-warning-subtle border border-border rounded-lg p-6">
-        <p className="text-warning">Unable to load community statistics. Please try again later.</p>
+      <div className="bg-neutral-100 border border-border rounded-lg p-6">
+        <p className="text-foreground">Unable to load community statistics. Please try again later.</p>
       </div>
     );
   }
@@ -76,7 +76,7 @@ export default function CommunityStatsDisplay({ initialStats }: Props) {
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         {/* Recovery Rate */}
-        <div className="bg-gradient-to-br from-destructive to-warning rounded-lg shadow-md p-6 border-2 border-destructive-muted">
+        <div className="bg-destructive rounded-lg  p-6 border-2 border-destructive-muted">
           <div className="flex items-center justify-between mb-3">
             <h3 className="text-sm font-medium text-foreground">Recovery Rate</h3>
             <TrendingDown className="size-5 text-destructive" />
@@ -90,7 +90,7 @@ export default function CommunityStatsDisplay({ initialStats }: Props) {
         </div>
 
         {/* Most Common Location */}
-        <div className="bg-primary-subtle rounded-lg shadow-md p-6 border-2 border-border">
+        <div className="bg-primary-subtle rounded-lg  p-6 border-2 border-border">
           <div className="flex items-center justify-between mb-3">
             <h3 className="text-sm font-medium text-foreground">Top Risk Zone</h3>
             <MapPin className="size-5 text-primary" />
@@ -104,13 +104,13 @@ export default function CommunityStatsDisplay({ initialStats }: Props) {
         </div>
 
         {/* Security Adoption */}
-        <div className="bg-gradient-to-br from-success to-success rounded-lg shadow-md p-6 border-2 border-border">
+        <div className="bg-foreground text-background rounded-lg  p-6 border-2 border-border">
           <div className="flex items-center justify-between mb-3">
             <h3 className="text-sm font-medium text-foreground">Security Use</h3>
-            <Shield className="size-5 text-success" />
+            <Shield className="size-5 text-foreground" />
           </div>
           <div className="mb-2">
-            <div className="text-4xl font-bold text-success">{securityAdoption}%</div>
+            <div className="text-4xl font-bold text-foreground">{securityAdoption}%</div>
           </div>
           <div className="text-xs text-muted-foreground">
             Have some security protection
@@ -118,13 +118,13 @@ export default function CommunityStatsDisplay({ initialStats }: Props) {
         </div>
 
         {/* Police Reporting */}
-        <div className="bg-success-subtle rounded-lg shadow-md p-6 border-2 border-border">
+        <div className="bg-neutral-100 rounded-lg  p-6 border-2 border-border">
           <div className="flex items-center justify-between mb-3">
             <h3 className="text-sm font-medium text-foreground">Police Reports</h3>
-            <AlertTriangle className="size-5 text-success" />
+            <AlertTriangle className="size-5 text-foreground" />
           </div>
           <div className="mb-2">
-            <div className="text-4xl font-bold text-success">{reportingRate}%</div>
+            <div className="text-4xl font-bold text-foreground">{reportingRate}%</div>
           </div>
           <div className="text-xs text-muted-foreground">
             Reported theft to police

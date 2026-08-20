@@ -14,7 +14,7 @@ import { Mail, Send, User, FileText } from 'lucide-react';
   <main id="main-content" class="bg-background min-h-screen">
     <div class="container mx-auto px-4 py-4 sm:py-6 max-w-2xl">
 
-      <div class="bg-gradient-to-br from-primary to-primary text-white rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-8 mb-6 sm:mb-8 shadow-xl">
+      <div class="bg-foreground text-background rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-8 mb-6 sm:mb-8 ">
         <div class="flex items-center gap-3 mb-3">
           <div class="bg-white/20 p-2.5 rounded-xl">
             <Mail class="size-6" />
@@ -26,7 +26,7 @@ import { Mail, Send, User, FileText } from 'lucide-react';
         </p>
       </div>
 
-      <div class="bg-card rounded-xl sm:rounded-2xl shadow-md border border-border p-5 sm:p-6 md:p-8">
+      <div class="bg-card rounded-xl sm:rounded-2xl  border border-border p-5 sm:p-6 md:p-8">
         <form id="contact-form" class="space-y-5">
           <div>
             <label for="name" class="block text-sm font-semibold text-foreground mb-1.5">
@@ -143,7 +143,7 @@ import { Mail, Send, User, FileText } from 'lucide-react';
         const data = await res.json();
 
         if (data.success) {
-          status.className = 'bg-success-subtle border border-border text-success rounded-lg p-3 text-sm';
+          status.className = 'bg-neutral-100 border border-border text-foreground rounded-lg p-3 text-sm';
           status.textContent = 'Message sent! I\'ll get back to you soon.';
           form.reset();
         } else {

@@ -60,11 +60,11 @@ const searchData: SearchResult[] = [
 
 const categoryColors: Record<string, string> = {
   'Emergency': 'bg-destructive-muted text-destructive-hover',
-  'Prevention': 'bg-success-subtle text-success',
+  'Prevention': 'bg-neutral-100 text-foreground',
   'Data': 'bg-primary text-primary',
   'Information': 'bg-primary-muted text-primary-hover',
-  'Directory': 'bg-warning-subtle text-warning',
-  'Locations': 'bg-success-subtle text-success',
+  'Directory': 'bg-neutral-100 text-foreground',
+  'Locations': 'bg-neutral-100 text-foreground',
   'Help': 'bg-neutral-100 text-foreground',
   'About': 'bg-neutral-100 text-neutral-700',
 };

@@ -23,7 +23,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 
     <!-- Key Metrics Grid -->
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
-      <div class="bg-card rounded-xl p-4 sm:p-5 shadow-md border border-border">
+      <div class="bg-card rounded-xl p-4 sm:p-5  border border-border">
         <div class="flex items-center justify-between mb-3">
           <div class="w-10 h-10 bg-success-subtle rounded-lg flex items-center justify-center">
             <svg class="size-5 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -35,7 +35,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
         <div class="text-xs text-neutral-500">Security Checkups</div>
       </div>
 
-      <div class="bg-card rounded-xl p-4 sm:p-5 shadow-md border border-border">
+      <div class="bg-card rounded-xl p-4 sm:p-5  border border-border">
         <div class="flex items-center justify-between mb-3">
           <div class="w-10 h-10 bg-success-subtle rounded-lg flex items-center justify-center">
             <svg class="size-5 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -47,7 +47,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
         <div class="text-xs text-neutral-500">Avg Security Score</div>
       </div>
 
-      <div class="bg-card rounded-xl p-4 sm:p-5 shadow-md border border-border">
+      <div class="bg-card rounded-xl p-4 sm:p-5  border border-border">
         <div class="flex items-center justify-between mb-3">
           <div class="w-10 h-10 bg-destructive-muted rounded-lg flex items-center justify-center">
             <svg class="size-5 text-destructive" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -59,7 +59,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
         <div class="text-xs text-neutral-500">Emergency Views</div>
       </div>
 
-      <div class="bg-card rounded-xl p-4 sm:p-5 shadow-md border border-border">
+      <div class="bg-card rounded-xl p-4 sm:p-5  border border-border">
         <div class="flex items-center justify-between mb-3">
           <div class="w-10 h-10 bg-primary-muted rounded-lg flex items-center justify-center">
             <svg class="size-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -75,7 +75,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     <!-- Charts Row -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8">
       <!-- Security Checkup Stats -->
-      <div class="bg-card rounded-xl shadow-md border border-border p-4 sm:p-6">
+      <div class="bg-card rounded-xl  border border-border p-4 sm:p-6">
         <h2 class="font-bold text-foreground mb-4 text-sm sm:text-base">Security Checkup Performance</h2>
 
         <!-- Completion Rate -->
@@ -127,7 +127,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
       </div>
 
       <!-- Daily Activity -->
-      <div class="bg-card rounded-xl shadow-md border border-border p-4 sm:p-6">
+      <div class="bg-card rounded-xl  border border-border p-4 sm:p-6">
         <h2 class="font-bold text-foreground mb-4 text-sm sm:text-base">Daily Activity (Last 7 Days)</h2>
         <div id="daily-chart" class="h-48 flex items-end gap-2 justify-between">
           <!-- Chart bars will be inserted here -->
@@ -138,7 +138,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     <!-- Top Content Row -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8">
       <!-- Top Banks -->
-      <div class="bg-card rounded-xl shadow-md border border-border p-4 sm:p-6">
+      <div class="bg-card rounded-xl  border border-border p-4 sm:p-6">
         <h2 class="font-bold text-foreground mb-4 text-sm sm:text-base">Top Bank Contacts</h2>
         <div id="top-banks" class="space-y-3">
           <div class="animate-pulse space-y-3">
@@ -150,7 +150,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
       </div>
 
       <!-- Recent Activity -->
-      <div class="bg-card rounded-xl shadow-md border border-border p-4 sm:p-6">
+      <div class="bg-card rounded-xl  border border-border p-4 sm:p-6">
         <h2 class="font-bold text-foreground mb-4 text-sm sm:text-base">Recent Activity</h2>
         <div id="recent-activity" class="space-y-2 max-h-64 overflow-y-auto">
           <div class="animate-pulse space-y-2">
@@ -165,7 +165,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 
     <!-- Event Type Breakdown -->
     <!-- Tailwind safelist for dynamic colors: bg-primary border-border text-primary text-primary bg-warning-subtle border-border text-warning text-warning -->
-    <div class="bg-card rounded-xl shadow-md border border-border p-4 sm:p-6">
+    <div class="bg-card rounded-xl  border border-border p-4 sm:p-6">
       <h2 class="font-bold text-foreground mb-4 text-sm sm:text-base">All Events by Type</h2>
       <div id="event-breakdown" class="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <div class="animate-pulse space-y-3">

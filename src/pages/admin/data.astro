@@ -16,23 +16,23 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 
     <!-- Stats Overview -->
     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 sm:gap-4 mb-6 sm:mb-8">
-      <div class="bg-card rounded-lg p-3 sm:p-4 shadow-md">
+      <div class="bg-card rounded-lg p-3 sm:p-4 ">
         <div class="text-xl sm:text-2xl font-bold text-foreground" id="stat-total-records">-</div>
         <div class="text-xs text-neutral-500">Total Records</div>
       </div>
-      <div class="bg-card rounded-lg p-3 sm:p-4 shadow-md">
+      <div class="bg-card rounded-lg p-3 sm:p-4 ">
         <div class="text-xl sm:text-2xl font-bold text-primary" id="stat-total-thefts">-</div>
         <div class="text-xs text-neutral-500">Total Thefts</div>
       </div>
-      <div class="bg-card rounded-lg p-3 sm:p-4 shadow-md">
+      <div class="bg-card rounded-lg p-3 sm:p-4 ">
         <div class="text-xl sm:text-2xl font-bold text-success" id="stat-wdtk-entries">-</div>
         <div class="text-xs text-neutral-500">WDTK Entries</div>
       </div>
-      <div class="bg-card rounded-lg p-3 sm:p-4 shadow-md">
+      <div class="bg-card rounded-lg p-3 sm:p-4 ">
         <div class="text-xl sm:text-2xl font-bold text-warning" id="stat-pending-import">-</div>
         <div class="text-xs text-neutral-500">Pending Import</div>
       </div>
-      <div class="bg-card rounded-lg p-3 sm:p-4 shadow-md">
+      <div class="bg-card rounded-lg p-3 sm:p-4 ">
         <div class="text-xl sm:text-2xl font-bold text-success" id="stat-locations">-</div>
         <div class="text-xs text-neutral-500">Locations</div>
       </div>
@@ -61,14 +61,14 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     </div>
 
     <!-- Email Configuration Notice -->
-    <div class="bg-warning-subtle border border-border rounded-lg p-3 sm:p-4 mb-6">
-      <p class="text-xs sm:text-sm text-warning">
+    <div class="bg-neutral-100 border border-border rounded-lg p-3 sm:p-4 mb-6">
+      <p class="text-xs sm:text-sm text-foreground">
         <strong>Email Notifications:</strong> Notifications will be sent to protectmymobile.xyz.overlabor129@passmail.com
       </p>
     </div>
 
     <!-- WDTK Entries with Data -->
-    <div class="bg-card rounded-xl shadow-md overflow-hidden mb-6 sm:mb-8">
+    <div class="bg-card rounded-xl  overflow-hidden mb-6 sm:mb-8">
       <div class="p-3 sm:p-4 border-b bg-neutral-50">
         <h2 class="font-bold text-sm sm:text-base">WhatDoTheyKnow FOI Responses (with Data)</h2>
         <p class="text-xs sm:text-sm text-neutral-600 mt-1">Successful FOI responses that can be imported</p>
@@ -92,7 +92,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     </div>
 
     <!-- Manual Import -->
-    <div class="bg-card rounded-xl shadow-md p-4 sm:p-6">
+    <div class="bg-card rounded-xl  p-4 sm:p-6">
       <h2 class="font-bold mb-3 sm:mb-4 text-sm sm:text-base">Manual Data Import</h2>
       <p class="text-xs sm:text-sm text-neutral-600 mb-4">Upload a CSV file with theft data. Required columns: date, location_name, latitude, longitude, theft_count</p>
 

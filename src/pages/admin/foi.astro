@@ -47,42 +47,42 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 
     <!-- Stats Cards -->
     <div id="stats-container" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2 sm:gap-3 md:gap-4 mb-6 sm:mb-8">
-      <div class="bg-card rounded-lg p-2 sm:p-3 md:p-4 shadow-md">
+      <div class="bg-card rounded-lg p-2 sm:p-3 md:p-4 ">
         <div class="text-lg sm:text-xl md:text-2xl font-bold text-foreground" id="stat-total">-</div>
         <div class="text-xs text-neutral-500">Total</div>
       </div>
-      <div class="bg-card rounded-lg p-2 sm:p-3 md:p-4 shadow-md">
+      <div class="bg-card rounded-lg p-2 sm:p-3 md:p-4 ">
         <div class="text-lg sm:text-xl md:text-2xl font-bold text-primary" id="stat-sent">-</div>
         <div class="text-xs text-neutral-500">Sent</div>
       </div>
-      <div class="bg-card rounded-lg p-2 sm:p-3 md:p-4 shadow-md">
+      <div class="bg-card rounded-lg p-2 sm:p-3 md:p-4 ">
         <div class="text-lg sm:text-xl md:text-2xl font-bold text-warning" id="stat-acknowledged">-</div>
         <div class="text-xs text-neutral-500">Acknowledged</div>
       </div>
-      <div class="bg-card rounded-lg p-2 sm:p-3 md:p-4 shadow-md">
+      <div class="bg-card rounded-lg p-2 sm:p-3 md:p-4 ">
         <div class="text-lg sm:text-xl md:text-2xl font-bold text-success" id="stat-received">-</div>
         <div class="text-xs text-neutral-500">Received</div>
       </div>
-      <div class="bg-card rounded-lg p-2 sm:p-3 md:p-4 shadow-md">
+      <div class="bg-card rounded-lg p-2 sm:p-3 md:p-4 ">
         <div class="text-lg sm:text-xl md:text-2xl font-bold text-success" id="stat-processed">-</div>
         <div class="text-xs text-neutral-500">Processed</div>
       </div>
-      <div class="bg-card rounded-lg p-2 sm:p-3 md:p-4 shadow-md">
+      <div class="bg-card rounded-lg p-2 sm:p-3 md:p-4 ">
         <div class="text-lg sm:text-xl md:text-2xl font-bold text-destructive" id="stat-overdue">-</div>
         <div class="text-xs text-neutral-500">Overdue</div>
       </div>
-      <div class="bg-card rounded-lg p-2 sm:p-3 md:p-4 shadow-md">
+      <div class="bg-card rounded-lg p-2 sm:p-3 md:p-4 ">
         <div class="text-lg sm:text-xl md:text-2xl font-bold text-destructive" id="stat-rejected">-</div>
         <div class="text-xs text-neutral-500">Rejected</div>
       </div>
-      <div class="bg-card rounded-lg p-2 sm:p-3 md:p-4 shadow-md">
+      <div class="bg-card rounded-lg p-2 sm:p-3 md:p-4 ">
         <div class="text-lg sm:text-xl md:text-2xl font-bold text-success" id="stat-records">-</div>
         <div class="text-xs text-neutral-500">Records Imported</div>
       </div>
     </div>
 
     <!-- Filters -->
-    <div class="bg-card rounded-lg p-3 sm:p-4 shadow-md mb-6">
+    <div class="bg-card rounded-lg p-3 sm:p-4  mb-6">
       <div class="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 items-start sm:items-center">
         <label class="text-xs sm:text-sm font-medium text-neutral-700">Filter by Status:</label>
         <select id="status-filter" class="border border-neutral-300 rounded-lg px-3 py-2 text-xs sm:text-sm">
@@ -101,7 +101,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     </div>
 
     <!-- Requests Table -->
-    <div class="bg-card rounded-xl shadow-md overflow-hidden">
+    <div class="bg-card rounded-xl  overflow-hidden">
       <div class="overflow-x-auto">
         <table class="w-full">
           <thead class="bg-neutral-50 border-b">

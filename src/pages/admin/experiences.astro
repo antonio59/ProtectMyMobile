@@ -18,22 +18,22 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 
     <!-- Stats -->
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6">
-      <div class="bg-card rounded-xl p-3 sm:p-4 shadow-md border border-border">
+      <div class="bg-card rounded-xl p-3 sm:p-4  border border-border">
         <div class="text-xl sm:text-2xl font-bold text-foreground" id="stat-total">-</div>
         <div class="text-xs text-neutral-500">Total Reports</div>
       </div>
-      <div class="bg-card rounded-xl p-3 sm:p-4 shadow-md border border-border">
+      <div class="bg-card rounded-xl p-3 sm:p-4  border border-border">
         <div class="text-xl sm:text-2xl font-bold text-success" id="stat-approved">-</div>
         <div class="text-xs text-neutral-500">Approved</div>
       </div>
-      <div class="bg-card rounded-xl p-3 sm:p-4 shadow-md border border-border">
+      <div class="bg-card rounded-xl p-3 sm:p-4  border border-border">
         <div class="text-xl sm:text-2xl font-bold text-warning" id="stat-pending">-</div>
         <div class="text-xs text-neutral-500">Pending</div>
       </div>
     </div>
 
     <!-- Filters -->
-    <div class="bg-card rounded-xl shadow-md border border-border p-3 sm:p-4 mb-6">
+    <div class="bg-card rounded-xl  border border-border p-3 sm:p-4 mb-6">
       <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
         <div class="flex-1">
           <input
@@ -52,7 +52,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     </div>
 
     <!-- Table -->
-    <div class="bg-card rounded-xl shadow-md border border-border overflow-hidden">
+    <div class="bg-card rounded-xl  border border-border overflow-hidden">
       <div class="overflow-x-auto">
         <table class="w-full">
           <thead class="bg-neutral-50 border-b border-border">
@@ -83,7 +83,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 
   <!-- View Modal -->
   <div id="view-modal" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center p-4">
-    <div class="bg-card rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+    <div class="bg-card rounded-2xl  w-full max-w-2xl max-h-[90vh] overflow-y-auto">
       <div class="p-6 border-b border-border flex items-center justify-between">
         <h2 class="text-xl font-bold text-foreground">Report Details</h2>
         <button id="close-modal" class="p-2 hover:bg-neutral-100 rounded-lg transition-colors">
@@ -139,7 +139,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 
   <!-- Delete Confirmation Modal -->
   <div id="delete-modal" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center p-4">
-    <div class="bg-card rounded-2xl shadow-2xl w-full max-w-md p-6">
+    <div class="bg-card rounded-2xl  w-full max-w-md p-6">
       <div class="text-center">
         <div class="size-12 bg-destructive-muted rounded-full flex items-center justify-center mx-auto mb-4">
           <svg class="size-6 text-destructive" fill="none" stroke="currentColor" viewBox="0 0 24 24">

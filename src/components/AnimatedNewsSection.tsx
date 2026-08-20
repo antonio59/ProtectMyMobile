@@ -35,22 +35,22 @@ const categoryConfig: Record<string, { color: string; bg: string; icon: any; gra
     gradient: "from-destructive to-destructive-hover",
   },
   seizure: {
-    color: "text-warning",
-    bg: "bg-warning-subtle",
+    color: "text-foreground",
+    bg: "bg-neutral-100",
     icon: ShieldAlert,
-    gradient: "from-warning to-warning",
+    gradient: "from-foreground to-foreground",
   },
   law_change: {
-    color: "text-success",
-    bg: "bg-success-subtle",
+    color: "text-foreground",
+    bg: "bg-neutral-100",
     icon: Gavel,
-    gradient: "from-success to-success",
+    gradient: "from-foreground to-foreground",
   },
   law_changes: {
-    color: "text-success",
-    bg: "bg-success-subtle",
+    color: "text-foreground",
+    bg: "bg-neutral-100",
     icon: Gavel,
-    gradient: "from-success to-success",
+    gradient: "from-foreground to-foreground",
   },
   statistics: {
     color: "text-primary-hover",
@@ -59,10 +59,10 @@ const categoryConfig: Record<string, { color: string; bg: string; icon: any; gra
     gradient: "from-primary to-primary",
   },
   prevention_tip: {
-    color: "text-success",
-    bg: "bg-success-subtle",
+    color: "text-foreground",
+    bg: "bg-neutral-100",
     icon: Lightbulb,
-    gradient: "from-success to-success",
+    gradient: "from-foreground to-foreground",
   },
   other: {
     color: "text-foreground",
@@ -154,7 +154,7 @@ function NewsCard({ post, index, config, Icon }: { post: NewsPost; index: number
     <a
       ref={ref}
       href={`/news/${post.slug}`}
-      className={`group flex flex-col bg-card rounded-xl shadow-sm hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 border-l-4 border-t border-r border-b border-border hover:border-r-primary/20 hover:border-t-primary/20 hover:border-b-primary/20 h-full relative overflow-hidden hover:-translate-y-1 animate-on-scroll ${isInView ? 'is-visible' : ''}`}
+      className={`group flex flex-col bg-card rounded-xl shadow-sm hover: hover:shadow-primary/5 transition-all duration-300 border-l-4 border-t border-r border-b border-border hover:border-r-primary/20 hover:border-t-primary/20 hover:border-b-primary/20 h-full relative overflow-hidden hover:-translate-y-1 animate-on-scroll ${isInView ? 'is-visible' : ''}`}
       style={{ animationDelay: `${index * 50}ms`, borderLeftColor: borderColor }}
     >
       <div className="p-5 sm:p-6 flex flex-col flex-grow">

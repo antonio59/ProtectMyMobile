@@ -117,7 +117,7 @@ export function ScenarioCarousel({ images, title, summary, scenarioId }: Props) 
 
           {/* Share dropdown menu */}
           {showShareMenu && (
-            <div className="absolute right-0 top-full mt-2 w-48 bg-card rounded-xl shadow-lg border border-border py-2 z-50 animate-scale-in">
+            <div className="absolute right-0 top-full mt-2 w-48 bg-card rounded-xl  border border-border py-2 z-50 animate-scale-in">
               <div className="px-3 py-2 border-b border-border">
                 <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Share</p>
               </div>
@@ -138,7 +138,7 @@ export function ScenarioCarousel({ images, title, summary, scenarioId }: Props) 
                 onClick={handleCopyLink}
                 className="w-full flex items-center gap-3 px-3 py-2 text-sm text-foreground hover:bg-neutral transition-colors"
               >
-                {copied ? <Check className="size-4 text-success" /> : <Copy className="size-4" />}
+                {copied ? <Check className="size-4 text-foreground" /> : <Copy className="size-4" />}
                 {copied ? 'Copied!' : 'Copy link'}
               </button>
 

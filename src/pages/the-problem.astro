@@ -78,23 +78,23 @@ const theftMethods = [
 ];
 
 const colorClasses: Record<string, { bg: string; border: string; icon: string; badge: string }> = {
-  red: { bg: 'bg-destructive-subtle', border: 'border-destructive-muted', icon: 'text-destructive', badge: 'bg-destructive-muted text-destructive-hover' },
-  orange: { bg: 'bg-warning-subtle', border: 'border-border', icon: 'text-warning', badge: 'bg-warning-subtle text-warning' },
-  yellow: { bg: 'bg-warning-subtle', border: 'border-border', icon: 'text-warning', badge: 'bg-warning-subtle text-warning' },
-  green: { bg: 'bg-success-subtle', border: 'border-border', icon: 'text-success', badge: 'bg-success-subtle text-success' },
-  teal: { bg: 'bg-success-subtle', border: 'border-border', icon: 'text-success', badge: 'bg-success-subtle text-success' },
-  blue: { bg: 'bg-primary-subtle', border: 'border-border', icon: 'text-primary', badge: 'bg-primary-muted text-primary-hover' },
-  emerald: { bg: 'bg-success-subtle', border: 'border-border', icon: 'text-success', badge: 'bg-success-subtle text-success' },
-  purple: { bg: 'bg-primary-subtle', border: 'border-border', icon: 'text-primary', badge: 'bg-primary-muted text-primary' },
-  slate: { bg: 'bg-neutral-100', border: 'border-border', icon: 'text-muted-foreground', badge: 'bg-neutral-100 text-neutral-700' },
-  indigo: { bg: 'bg-primary-subtle', border: 'border-border', icon: 'text-primary', badge: 'bg-primary-muted text-primary' },
+  red:     { bg: 'bg-destructive-subtle', border: 'border-destructive-muted', icon: 'text-destructive', badge: 'bg-destructive text-background' },
+  orange:  { bg: 'bg-foreground', border: 'border-border', icon: 'text-foreground', badge: 'bg-foreground text-background' },
+  yellow:  { bg: 'bg-neutral-100', border: 'border-border', icon: 'text-foreground', badge: 'bg-foreground text-background' },
+  green:   { bg: 'bg-neutral-100', border: 'border-border', icon: 'text-foreground', badge: 'bg-foreground text-background' },
+  teal:    { bg: 'bg-neutral-100', border: 'border-border', icon: 'text-foreground', badge: 'bg-foreground text-background' },
+  blue:    { bg: 'bg-neutral-100', border: 'border-border', icon: 'text-foreground', badge: 'bg-foreground text-background' },
+  emerald: { bg: 'bg-neutral-100', border: 'border-border', icon: 'text-foreground', badge: 'bg-foreground text-background' },
+  purple:  { bg: 'bg-neutral-100', border: 'border-border', icon: 'text-foreground', badge: 'bg-foreground text-background' },
+  slate:   { bg: 'bg-neutral-100', border: 'border-border', icon: 'text-foreground', badge: 'bg-foreground text-background' },
+  indigo:  { bg: 'bg-neutral-100', border: 'border-border', icon: 'text-foreground', badge: 'bg-foreground text-background' },
 };
 
 const stats = [
   { value: '116,000+', label: 'Phones stolen in London (2024)', color: 'text-destructive' },
-  { value: '230,000+', label: 'UK mobile thefts per year', color: 'text-warning' },
-  { value: '150%', label: 'Increase since 2022', color: 'text-warning' },
-  { value: '<5%', label: 'Recovery rate', color: 'text-success' },
+  { value: '230,000+', label: 'UK mobile thefts per year', color: 'text-foreground' },
+  { value: '150%', label: 'Increase since 2022', color: 'text-foreground' },
+  { value: '<5%', label: 'Recovery rate', color: 'text-foreground' },
 ];
 
 const hotspots = [
@@ -126,7 +126,7 @@ const hotspots = [
     <div class="container mx-auto px-4 py-4 sm:py-6 max-w-6xl">
       
       <!-- Hero Section -->
-      <div class="bg-gradient-to-br from-destructive to-destructive-hover text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8 shadow-xl relative overflow-hidden">
+      <div class="bg-destructive text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8  relative overflow-hidden">
         <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
         <div class="relative">
           <div class="flex items-center gap-3 mb-3">
@@ -147,7 +147,7 @@ const hotspots = [
               <Clock class="size-4" />
               <span>One stolen every 5 minutes</span>
             </div>
-            <a href="/scenarios" class="inline-flex items-center gap-2 bg-card text-destructive-hover px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold shadow-md hover:bg-card/90 transition">
+            <a href="/scenarios" class="inline-flex items-center gap-2 bg-card text-destructive-hover px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold  hover:bg-card/90 transition">
               <AlertTriangle class="size-4" />
               View scenario slides
             </a>
@@ -163,7 +163,7 @@ const hotspots = [
         </h2>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
           {stats.map((stat) => (
-            <div class="bg-card rounded-lg sm:rounded-2xl p-3 sm:p-4 md:p-5 shadow-md border border-border text-center">
+            <div class="bg-card rounded-lg sm:rounded-2xl p-3 sm:p-4 md:p-5  border border-border text-center">
               <div class={`text-xl sm:text-2xl md:text-3xl font-bold ${stat.color}`}>{stat.value}</div>
               <p class="text-[10px] sm:text-xs text-muted-foreground mt-2">{stat.label}</p>
             </div>
@@ -173,8 +173,8 @@ const hotspots = [
       
       <!-- How Thieves Operate -->
       <section class="mb-6 sm:mb-8 md:mb-10">
-        <div class="bg-card rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-border">
-          <div class="h-2 bg-gradient-to-r from-destructive to-warning"></div>
+        <div class="bg-card rounded-xl sm:rounded-2xl  overflow-hidden border border-border">
+          <div class="h-1 bg-foreground"></div>
           <div class="p-4 sm:p-6 md:p-8">
             <h2 class="text-lg sm:text-xl font-bold mb-2">How Thieves Operate</h2>
             <p class="text-muted-foreground text-sm mb-6">
@@ -183,9 +183,9 @@ const hotspots = [
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
               {theftMethods.map((method) => {
-                const colors = colorClasses[method.color];
+                const colors = colorClasses[method.color] ?? colorClasses.red;
                 return (
-                  <div class={`${colors.bg} ${colors.border} border rounded-lg sm:rounded-xl p-3 sm:p-4 md:p-5 hover:shadow-md transition-shadow`}>
+                  <div class={`${colors.bg} ${colors.border} border rounded-lg sm:rounded-xl p-3 sm:p-4 md:p-5 hover: transition-shadow`}>
                     <div class="flex items-start gap-3 sm:gap-4">
                       <div class={`${colors.icon} mt-1`}>
                         <method.icon class="size-5 sm:size-6" />
@@ -215,7 +215,7 @@ const hotspots = [
         </h2>
         <div class="grid grid-cols-2 md:grid-cols-3 gap-2 sm:gap-3">
           {hotspots.map((spot) => (
-            <div class="bg-card rounded-lg sm:rounded-xl p-3 sm:p-4 shadow-md border border-border">
+            <div class="bg-card rounded-lg sm:rounded-xl p-3 sm:p-4  border border-border">
               <div class="flex items-center gap-2 mb-1">
                 <MapPin class="size-4 text-destructive" />
                 <span class="font-semibold text-xs sm:text-sm">{spot.area}</span>
@@ -223,8 +223,8 @@ const hotspots = [
               <p class="text-lg font-bold text-destructive">{spot.thefts}</p>
               <span class={`text-xs sm:text-sm px-2 py-0.5 rounded-full ${
                 spot.risk === 'Extreme' ? 'bg-destructive-muted text-destructive-hover' :
-                spot.risk === 'Very High' ? 'bg-warning-subtle text-warning' :
-                'bg-warning-subtle text-warning'
+                spot.risk === 'Very High' ? 'bg-neutral-100 text-foreground' :
+                'bg-neutral-100 text-foreground'
               }`}>
                 {spot.risk} Risk
               </span>
@@ -238,13 +238,13 @@ const hotspots = [
       
       <!-- Why It Matters -->
       <section class="mb-6 sm:mb-8 md:mb-10">
-        <div class="bg-gradient-to-r from-warning to-warning rounded-2xl p-4 sm:p-6 md:p-8 border border-border">
+        <div class="bg-neutral-100 rounded-2xl p-4 sm:p-6 md:p-8 border border-border">
           <h2 class="text-lg sm:text-xl font-bold mb-4 flex items-center gap-2">
-            <AlertTriangle class="size-4 sm:size-5 text-warning" />
+            <AlertTriangle class="size-4 sm:size-5 text-foreground" />
             Why It Matters
           </h2>
           <div class="grid md:grid-cols-2 gap-4">
-            <div class="bg-card rounded-xl p-3 sm:p-4 shadow-md">
+            <div class="bg-card rounded-xl p-3 sm:p-4 ">
               <h3 class="font-semibold mb-2">Beyond the Device Cost</h3>
               <ul class="text-sm text-foreground space-y-2">
                 <li>• Access to banking apps and financial data</li>
@@ -253,7 +253,7 @@ const hotspots = [
                 <li>• Two-factor authentication codes</li>
               </ul>
             </div>
-            <div class="bg-card rounded-xl p-3 sm:p-4 shadow-md">
+            <div class="bg-card rounded-xl p-3 sm:p-4 ">
               <h3 class="font-semibold mb-2">Identity Theft Risk</h3>
               <ul class="text-sm text-foreground space-y-2">
                 <li>• Fraudulent loans taken in your name</li>
@@ -268,26 +268,26 @@ const hotspots = [
       
       <!-- Government Response -->
       <section class="mb-6 sm:mb-8 md:mb-10">
-        <div class="bg-card rounded-2xl shadow-md p-4 sm:p-6 md:p-8 border border-border">
+        <div class="bg-card rounded-2xl  p-4 sm:p-6 md:p-8 border border-border">
           <h2 class="text-lg sm:text-xl font-bold mb-4">Government Response</h2>
           <p class="text-foreground text-sm mb-4">
             The UK government has announced plans to tackle the phone theft epidemic, including:
           </p>
           <ul class="space-y-2 text-sm text-foreground">
             <li class="flex items-start gap-2">
-              <Shield class="size-4 text-success mt-0.5 flex-shrink-0" />
+              <Shield class="size-4 text-foreground mt-0.5 flex-shrink-0" />
               <span>Factory reset blocks - making stolen phones unusable</span>
             </li>
             <li class="flex items-start gap-2">
-              <Shield class="size-4 text-success mt-0.5 flex-shrink-0" />
+              <Shield class="size-4 text-foreground mt-0.5 flex-shrink-0" />
               <span>Working with manufacturers on kill switch technology</span>
             </li>
             <li class="flex items-start gap-2">
-              <Shield class="size-4 text-success mt-0.5 flex-shrink-0" />
+              <Shield class="size-4 text-foreground mt-0.5 flex-shrink-0" />
               <span>Increased police focus on organised theft gangs</span>
             </li>
             <li class="flex items-start gap-2">
-              <Shield class="size-4 text-success mt-0.5 flex-shrink-0" />
+              <Shield class="size-4 text-foreground mt-0.5 flex-shrink-0" />
               <span>National database improvements for stolen devices</span>
             </li>
           </ul>
@@ -299,7 +299,7 @@ const hotspots = [
       </section>
       
       <!-- CTA Section -->
-      <section class="bg-gradient-to-r from-primary to-primary rounded-2xl p-4 sm:p-6 md:p-8 text-white">
+      <section class="bg-foreground rounded-2xl p-4 sm:p-6 md:p-8 text-background">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
             <h2 class="text-lg sm:text-xl font-bold mb-2">Don't become a statistic</h2>

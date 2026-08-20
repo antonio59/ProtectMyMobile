@@ -28,17 +28,16 @@ export default function OptionGrid({ options, selected, onSelect, multiSelect, s
           onClick={() => onSelect(option.value)}
           className={`p-4 rounded-lg border-2 text-left transition-all ${
             isSelected(option.value)
-              ? 'border-primary bg-primary/5'
+              ? 'border-destructive bg-destructive-subtle'
               : 'border-border hover:border-neutral-300'
           }`}
         >
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <span className="text-2xl mr-3">{option.icon}</span>
               <span className="font-medium text-foreground">{option.label}</span>
             </div>
             {multiSelect && isSelected(option.value) && (
-              <CheckCircle2 className="size-5 text-primary" />
+              <CheckCircle2 className="size-5 text-destructive" />
             )}
           </div>
         </button>

@@ -40,7 +40,7 @@ const initialStats = await getCommunityStats();
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           <!-- Voting Section (Main) -->
           <section class="lg:col-span-2" id="share">
-            <div class="bg-card rounded-xl shadow-md p-4 sm:p-6 md:p-8 mb-6 border-t-4 border-primary">
+            <div class="bg-card rounded-xl  p-4 sm:p-6 md:p-8 mb-6 border-t-4 border-primary">
               <div class="flex items-center gap-3 mb-4">
                 <MessageSquare class="size-5 sm:size-6 text-primary" />
                 <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-foreground">
@@ -59,7 +59,7 @@ const initialStats = await getCommunityStats();
           <!-- Sidebar Info -->
           <aside class="space-y-4 sm:space-y-6">
             <!-- Privacy Card -->
-            <div class="bg-primary-subtle rounded-xl p-4 sm:p-6 border border-border shadow-md">
+            <div class="bg-primary-subtle rounded-xl p-4 sm:p-6 border border-border ">
               <h3 class="text-base sm:text-lg font-bold text-primary mb-3 flex items-center">
                 <Shield class="size-4 sm:size-5 mr-2" />
                 Privacy First
@@ -85,7 +85,7 @@ const initialStats = await getCommunityStats();
             </div>
 
             <!-- Why it matters -->
-            <div class="bg-card rounded-xl p-4 sm:p-6 border border-border shadow-md">
+            <div class="bg-card rounded-xl p-4 sm:p-6 border border-border ">
               <h3 class="text-base sm:text-lg font-bold text-foreground mb-3">
                 Why contribute?
               </h3>
@@ -98,11 +98,11 @@ const initialStats = await getCommunityStats();
                   New theft hotspots
                 </li>
                 <li class="flex items-center gap-2">
-                  <span class="w-2 h-2 bg-warning rounded-full"></span>
+                  <span class="w-2 h-2 bg-foreground rounded-full"></span>
                   Emerging theft tactics
                 </li>
                 <li class="flex items-center gap-2">
-                  <span class="w-2 h-2 bg-success rounded-full"></span>
+                  <span class="w-2 h-2 bg-foreground rounded-full"></span>
                   Effective security measures
                 </li>
               </ul>

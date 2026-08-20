@@ -14,20 +14,20 @@ import { Shield, Eye, Lock, Database, Mail, Cookie } from 'lucide-react';
   <main id="main-content" class="bg-background min-h-screen">
     <div class="container mx-auto px-4 py-4 sm:py-6 max-w-4xl">
       <!-- Hero Section -->
-      <div class="bg-gradient-to-br from-success to-success text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8 shadow-xl">
+      <div class="bg-foreground text-background rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8 ">
         <div class="flex items-center gap-3 mb-3">
           <div class="bg-white/20 p-2 sm:p-3 rounded-xl">
             <Shield class="size-6 sm:size-8" />
           </div>
           <h1 class="text-xl sm:text-2xl md:text-3xl font-bold">Privacy Policy</h1>
         </div>
-        <p class="text-success text-sm md:text-base">
+        <p class="text-neutral-300 text-sm md:text-base">
           Last updated: December 2024
         </p>
       </div>
       
       <!-- Content -->
-      <div class="bg-card rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-border">
+      <div class="bg-card rounded-xl sm:rounded-2xl  overflow-hidden border border-border">
         <div class="p-4 sm:p-6 md:p-8 space-y-6 sm:space-y-8">
           
           <!-- Introduction -->
@@ -40,8 +40,8 @@ import { Shield, Eye, Lock, Database, Mail, Cookie } from 'lucide-react';
           <!-- What We Collect -->
           <section>
             <div class="flex items-center gap-3 mb-4">
-              <div class="bg-primary-muted rounded-lg sm:rounded-xl p-1.5 sm:p-2">
-                <Database class="size-4 sm:size-5 text-primary" />
+              <div class="bg-neutral-100 rounded-lg sm:rounded-xl p-1.5 sm:p-2">
+                <Database class="size-4 sm:size-5 text-foreground" />
               </div>
               <h2 class="text-base sm:text-lg font-bold">What I Collect</h2>
             </div>
@@ -66,14 +66,14 @@ import { Shield, Eye, Lock, Database, Mail, Cookie } from 'lucide-react';
           </section>
           
           <!-- What We DON'T Collect -->
-          <section class="bg-success-subtle border border-border rounded-lg sm:rounded-xl p-4 sm:p-6">
+          <section class="bg-neutral-100 border border-border rounded-lg sm:rounded-xl p-4 sm:p-6">
             <div class="flex items-center gap-3 mb-4">
-              <div class="bg-success-subtle rounded-lg sm:rounded-xl p-1.5 sm:p-2">
-                <Eye class="size-4 sm:size-5 text-success" />
+              <div class="bg-neutral-100 rounded-lg sm:rounded-xl p-1.5 sm:p-2">
+                <Eye class="size-4 sm:size-5 text-foreground" />
               </div>
-              <h2 class="text-base sm:text-lg font-bold text-success">What I DON'T Collect</h2>
+              <h2 class="text-base sm:text-lg font-bold text-foreground">What I DON'T Collect</h2>
             </div>
-            <ul class="space-y-2 text-success">
+            <ul class="space-y-2 text-foreground">
               <li class="flex items-center gap-2 text-xs sm:text-sm">
                 <Lock class="size-4" />
                 <span>Your IMEI number or device identifiers</span>
@@ -96,8 +96,8 @@ import { Shield, Eye, Lock, Database, Mail, Cookie } from 'lucide-react';
           <!-- How We Use Data -->
           <section>
             <div class="flex items-center gap-3 mb-4">
-              <div class="bg-primary/10 rounded-lg sm:rounded-xl p-1.5 sm:p-2">
-                <Lock class="size-4 sm:size-5 text-primary" />
+              <div class="bg-neutral-100/10 rounded-lg sm:rounded-xl p-1.5 sm:p-2">
+                <Lock class="size-4 sm:size-5 text-foreground" />
               </div>
               <h2 class="text-base sm:text-lg font-bold">How I Use Your Data</h2>
             </div>
@@ -112,8 +112,8 @@ import { Shield, Eye, Lock, Database, Mail, Cookie } from 'lucide-react';
           <!-- Cookies -->
           <section>
             <div class="flex items-center gap-3 mb-4">
-              <div class="bg-warning-subtle rounded-lg sm:rounded-xl p-1.5 sm:p-2">
-                <Cookie class="size-4 sm:size-5 text-warning" />
+              <div class="bg-neutral-100 rounded-lg sm:rounded-xl p-1.5 sm:p-2">
+                <Cookie class="size-4 sm:size-5 text-foreground" />
               </div>
               <h2 class="text-base sm:text-lg font-bold">Cookies</h2>
             </div>
