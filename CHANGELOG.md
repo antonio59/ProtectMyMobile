@@ -129,6 +129,9 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Merge branch 'redesign/data-journalism'
+- Redesign cleanup: fix remaining off-palette remnants
+- Data-journalism visual system
 - Patch dependencies and fix XSS/debug leaks
 - Bump resend from 6.12.3 to 6.14.0 (#71)
 - Bump the dev-dependencies group across 1 directory with 10 updates (#70)
@@ -1221,6 +1224,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
