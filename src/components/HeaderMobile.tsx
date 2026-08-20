@@ -19,14 +19,12 @@ import {
 import SiteSearch from './SiteSearch';
 import ThemeToggle from './ThemeToggle';
 
-// Desktop nav links (shown in header) - expanded to show more key pages
+// Desktop nav: the editorial spine only. Everything else stays reachable
+// via Resources, the footer, search and the mobile menu.
 const desktopNavLinks = [
   { href: '/the-problem', label: 'The Problem', icon: AlertTriangle },
   { href: '/statistics', label: 'Statistics', icon: BarChart3 },
-  { href: '/banks', label: 'Banks', icon: Building2 },
   { href: '/prevention', label: 'Prevention', icon: BookOpen },
-  { href: '/scenarios', label: 'Scenarios', icon: AlertTriangle },
-  { href: '/products', label: 'Products', icon: ShoppingBag },
   { href: '/news', label: 'News', icon: Newspaper },
 ];
 
@@ -34,10 +32,10 @@ const desktopNavLinks = [
 const navLinks = [
   { href: '/the-problem', label: 'The Problem', icon: AlertTriangle },
   { href: '/statistics', label: 'Statistics', icon: BarChart3 },
+  { href: '/prevention', label: 'Prevention Guide', icon: BookOpen },
   { href: '/news', label: 'News', icon: Newspaper },
   { href: '/banks', label: 'Banks', icon: Building2 },
   { href: '/mobile-providers', label: 'Mobile Providers', icon: Phone },
-  { href: '/prevention', label: 'Prevention Guide', icon: BookOpen },
   { href: '/london-visitor-safety', label: 'Visitor Safety', icon: MapPin },
   { href: '/scenarios', label: 'Scenarios', icon: AlertTriangle },
   { href: '/products', label: 'Product Recommendations', icon: ShoppingBag },
@@ -65,18 +63,18 @@ export default function HeaderMobile() {
               <span className="font-serif text-xl sm:text-2xl font-bold text-foreground tracking-tight">
                 ProtectMyMobile
               </span>
-              <span className="hidden 2xl:inline whitespace-nowrap text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+              <span className="hidden xl:inline whitespace-nowrap text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
                 Track the theft. Protect your phone.
               </span>
             </a>
 
             {/* Desktop Nav */}
-            <nav className="hidden lg:flex items-center gap-1" aria-label="Main navigation">
+            <nav className="hidden lg:flex items-center gap-6" aria-label="Main navigation">
               {desktopNavLinks.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
-                  className="px-2 py-2 text-[13px] font-medium text-foreground hover:text-destructive transition-colors whitespace-nowrap"
+                  className="py-2 text-sm font-medium text-foreground hover:text-destructive transition-colors whitespace-nowrap"
                 >
                   {link.label}
                 </a>
@@ -87,13 +85,6 @@ export default function HeaderMobile() {
           <div className="hidden md:flex items-center gap-2">
             <ThemeToggle />
             <SiteSearch />
-            <a
-              href="/security-checkup"
-              className="inline-flex items-center gap-1.5 px-3 py-2.5 border-2 border-foreground text-foreground font-bold uppercase tracking-wide hover:bg-foreground hover:text-background transition-all text-xs whitespace-nowrap"
-            >
-              <Shield className="size-4 shrink-0" />
-              Checkup
-            </a>
             <a
               href="/emergency"
               className="inline-flex items-center gap-1.5 px-3 py-2.5 bg-destructive text-white font-bold uppercase tracking-wide hover:bg-destructive-hover transition-all text-xs whitespace-nowrap"
