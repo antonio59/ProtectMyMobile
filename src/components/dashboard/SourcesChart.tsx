@@ -67,7 +67,7 @@ export default function SourcesChart({ data, totalRecords }: { data: SourceBreak
   return (
     <div className="bg-card rounded-xl p-4 sm:p-6 border border-border shadow-sm h-full flex flex-col">
       <h3 className="text-base font-bold text-foreground flex items-center gap-2 mb-1">
-        <PieChart className="size-5 text-pink-500" />
+        <PieChart className="size-5 text-destructive" />
         Data Sources
       </h3>
       <p className="text-xs text-muted-foreground mb-4">Composition of our statistics database</p>

@@ -59,12 +59,12 @@ const initialStats = await getCommunityStats();
           <!-- Sidebar Info -->
           <aside class="space-y-4 sm:space-y-6">
             <!-- Privacy Card -->
-            <div class="bg-primary-subtle rounded-xl p-4 sm:p-6 border border-blue-100 shadow-md">
-              <h3 class="text-base sm:text-lg font-bold text-blue-900 mb-3 flex items-center">
+            <div class="bg-primary-subtle rounded-xl p-4 sm:p-6 border border-border shadow-md">
+              <h3 class="text-base sm:text-lg font-bold text-primary mb-3 flex items-center">
                 <Shield class="size-4 sm:size-5 mr-2" />
                 Privacy First
               </h3>
-              <ul class="space-y-3 text-sm text-blue-800">
+              <ul class="space-y-3 text-sm text-primary">
                 <li class="flex items-start">
                   <span class="mr-2">•</span>
                   No accounts or login required
@@ -94,15 +94,15 @@ const initialStats = await getCommunityStats();
               </p>
               <ul class="space-y-2 text-sm text-foreground font-medium">
                 <li class="flex items-center gap-2">
-                  <span class="w-2 h-2 bg-red-500 rounded-full"></span>
+                  <span class="w-2 h-2 bg-destructive rounded-full"></span>
                   New theft hotspots
                 </li>
                 <li class="flex items-center gap-2">
-                  <span class="w-2 h-2 bg-orange-500 rounded-full"></span>
+                  <span class="w-2 h-2 bg-warning rounded-full"></span>
                   Emerging theft tactics
                 </li>
                 <li class="flex items-center gap-2">
-                  <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                  <span class="w-2 h-2 bg-success rounded-full"></span>
                   Effective security measures
                 </li>
               </ul>

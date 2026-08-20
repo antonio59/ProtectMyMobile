@@ -25,8 +25,8 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
       <div class="bg-card rounded-xl p-4 sm:p-5 shadow-md border border-border">
         <div class="flex items-center justify-between mb-3">
-          <div class="w-10 h-10 bg-teal-100 rounded-lg flex items-center justify-center">
-            <svg class="size-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="w-10 h-10 bg-success-subtle rounded-lg flex items-center justify-center">
+            <svg class="size-5 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
             </svg>
           </div>
@@ -37,8 +37,8 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 
       <div class="bg-card rounded-xl p-4 sm:p-5 shadow-md border border-border">
         <div class="flex items-center justify-between mb-3">
-          <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
-            <svg class="size-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="w-10 h-10 bg-success-subtle rounded-lg flex items-center justify-center">
+            <svg class="size-5 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
             </svg>
           </div>
@@ -97,28 +97,28 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
             <div class="flex items-center gap-3">
               <span class="text-xs w-28 text-neutral-600">Excellent (90%+)</span>
               <div class="flex-1 bg-neutral-100 rounded-full h-2">
-                <div id="dist-excellent" class="h-2 rounded-full bg-green-500 transition-all" style="width: 0%"></div>
+                <div id="dist-excellent" class="h-2 rounded-full bg-success transition-all" style="width: 0%"></div>
               </div>
               <span class="text-xs w-8 text-right font-medium" id="dist-excellent-count">-</span>
             </div>
             <div class="flex items-center gap-3">
               <span class="text-xs w-28 text-neutral-600">Good (70-89%)</span>
               <div class="flex-1 bg-neutral-100 rounded-full h-2">
-                <div id="dist-good" class="h-2 rounded-full bg-blue-500 transition-all" style="width: 0%"></div>
+                <div id="dist-good" class="h-2 rounded-full bg-primary transition-all" style="width: 0%"></div>
               </div>
               <span class="text-xs w-8 text-right font-medium" id="dist-good-count">-</span>
             </div>
             <div class="flex items-center gap-3">
               <span class="text-xs w-28 text-neutral-600">Fair (50-69%)</span>
               <div class="flex-1 bg-neutral-100 rounded-full h-2">
-                <div id="dist-fair" class="h-2 rounded-full bg-yellow-500 transition-all" style="width: 0%"></div>
+                <div id="dist-fair" class="h-2 rounded-full bg-warning transition-all" style="width: 0%"></div>
               </div>
               <span class="text-xs w-8 text-right font-medium" id="dist-fair-count">-</span>
             </div>
             <div class="flex items-center gap-3">
               <span class="text-xs w-28 text-neutral-600">Needs Work (&lt;50%)</span>
               <div class="flex-1 bg-neutral-100 rounded-full h-2">
-                <div id="dist-needs" class="h-2 rounded-full bg-red-500 transition-all" style="width: 0%"></div>
+                <div id="dist-needs" class="h-2 rounded-full bg-destructive transition-all" style="width: 0%"></div>
               </div>
               <span class="text-xs w-8 text-right font-medium" id="dist-needs-count">-</span>
             </div>
@@ -164,7 +164,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     </div>
 
     <!-- Event Type Breakdown -->
-    <!-- Tailwind safelist for dynamic colors: bg-purple-50 border-purple-100 text-purple-700 text-purple-600 bg-orange-50 border-orange-100 text-orange-700 text-orange-600 -->
+    <!-- Tailwind safelist for dynamic colors: bg-primary border-border text-primary text-primary bg-warning-subtle border-border text-warning text-warning -->
     <div class="bg-card rounded-xl shadow-md border border-border p-4 sm:p-6">
       <h2 class="font-bold text-foreground mb-4 text-sm sm:text-base">All Events by Type</h2>
       <div id="event-breakdown" class="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -287,7 +287,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
           <div class="flex items-center gap-3">
             <span class="text-sm flex-1 truncate">${escapeHtml(name)}</span>
             <div class="w-24 bg-neutral-100 rounded-full h-2">
-              <div class="h-2 rounded-full bg-blue-500" style="width: ${(count / maxBankClicks) * 100}%"></div>
+              <div class="h-2 rounded-full bg-primary" style="width: ${(count / maxBankClicks) * 100}%"></div>
             </div>
             <span class="text-sm font-medium w-8 text-right">${count}</span>
           </div>

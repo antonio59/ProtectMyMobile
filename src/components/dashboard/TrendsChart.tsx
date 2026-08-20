@@ -86,7 +86,7 @@ export default function TrendsChart({ data }: { data: MonthlyTrends }) {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
         <div>
           <h3 className="text-base font-bold text-foreground flex items-center gap-2">
-            <TrendingUp className="size-5 text-blue-500" />
+            <TrendingUp className="size-5 text-primary" />
             Monthly Theft Trends
           </h3>
           <p className="text-xs text-muted-foreground mt-0.5">
@@ -124,8 +124,8 @@ export default function TrendsChart({ data }: { data: MonthlyTrends }) {
           </div>
           <div className="text-[10px] text-muted-foreground uppercase tracking-wide font-medium">Total tracked</div>
         </div>
-        <div className={`rounded-lg p-3 ${monthChange && Number(monthChange) > 0 ? 'bg-destructive-subtle' : 'bg-green-50'}`}>
-          <div className={`text-lg font-bold ${monthChange && Number(monthChange) > 0 ? 'text-destructive-hover' : 'text-green-700'}`}>
+        <div className={`rounded-lg p-3 ${monthChange && Number(monthChange) > 0 ? 'bg-destructive-subtle' : 'bg-success-subtle'}`}>
+          <div className={`text-lg font-bold ${monthChange && Number(monthChange) > 0 ? 'text-destructive-hover' : 'text-success'}`}>
             {monthChange ? `${Number(monthChange) > 0 ? '+' : ''}${monthChange}%` : '—'}
           </div>
           <div className="text-[10px] text-muted-foreground uppercase tracking-wide font-medium">Month-on-month</div>

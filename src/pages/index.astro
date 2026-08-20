@@ -137,11 +137,11 @@ try {
                   <span>UK Theft Crisis</span>
                 </div>
 
-                <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2 sm:mb-3 text-shadow-hero">
-                  Blink and it's gone.
+                <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-2 sm:mb-3 text-shadow-hero max-w-3xl">
+                  A phone is stolen in London every five minutes.
                 </h1>
                 <p class="text-sm sm:text-lg md:text-xl text-neutral-200 mb-4 sm:mb-6 max-w-2xl">
-                  Over 116,000 phones stolen in London every year — a 150% increase since 2023. Organised gangs use bikes, mopeds, and distraction tactics to snatch phones in seconds.
+                  Over 116,000 phones stolen in London last year, a 150% rise since 2023. Organised gangs use bikes, mopeds and distraction tactics to snatch phones in seconds.
                   {liveStats && liveStats.totalRecords > 0 && (
                     <span class="block mt-1 text-neutral-300 text-xs sm:text-sm">
                       Live police.uk data tracking {liveStats.totalRecords.toLocaleString()} monthly records across UK cities.
@@ -177,7 +177,7 @@ try {
                 <!-- Stats Row -->
                 <div class="grid grid-cols-4 gap-2 sm:gap-3 md:gap-4 lg:gap-6">
                   <div class="bg-white/10 backdrop-blur-sm rounded-lg sm:rounded-xl lg:rounded-2xl p-2 sm:p-4 lg:p-5">
-                    <div class="text-base sm:text-2xl md:text-3xl lg:text-4xl font-bold text-red-300">
+                    <div class="font-serif text-base sm:text-2xl md:text-3xl lg:text-4xl font-bold text-[#E0685F]">
                       <span class="md:hidden">116K+</span>
                       <span class="hidden md:inline">116,000+</span>
                     </div>
@@ -185,17 +185,17 @@ try {
                     <div class="text-[10px] text-neutral-300 sm:hidden">Stolen</div>
                   </div>
                   <div class="bg-white/10 backdrop-blur-sm rounded-lg sm:rounded-xl lg:rounded-2xl p-2 sm:p-4 lg:p-5">
-                    <div class="text-base sm:text-2xl md:text-3xl lg:text-4xl font-bold text-orange-300">150%</div>
+                    <div class="font-serif text-base sm:text-2xl md:text-3xl lg:text-4xl font-bold text-[#E0685F]">150%</div>
                     <div class="text-[10px] sm:text-xs lg:text-sm text-neutral-300 hidden sm:block">Increase since 2023</div>
                     <div class="text-[10px] text-neutral-300 sm:hidden">Increase</div>
                   </div>
                   <div class="bg-white/10 backdrop-blur-sm rounded-lg sm:rounded-xl lg:rounded-2xl p-2 sm:p-4 lg:p-5">
-                    <div class="text-base sm:text-2xl md:text-3xl lg:text-4xl font-bold text-yellow-300">5 min</div>
+                    <div class="font-serif text-base sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white">5 min</div>
                     <div class="text-[10px] sm:text-xs lg:text-sm text-neutral-300 hidden sm:block">One stolen every</div>
                     <div class="text-[10px] text-neutral-300 sm:hidden">Frequency</div>
                   </div>
                   <div class="bg-white/10 backdrop-blur-sm rounded-lg sm:rounded-xl lg:rounded-2xl p-2 sm:p-4 lg:p-5">
-                    <div class="text-base sm:text-2xl md:text-3xl lg:text-4xl font-bold text-teal-300">0.8%</div>
+                    <div class="font-serif text-base sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white">0.8%</div>
                     <div class="text-[10px] sm:text-xs lg:text-sm text-neutral-300 hidden sm:block">Result in charges</div>
                     <div class="text-[10px] text-neutral-300 sm:hidden">Charges</div>
                   </div>
@@ -265,28 +265,53 @@ try {
       <!-- Animated News Section -->
       <AnimatedNewsSection client:visible news={latestNews} />
 
+      <!-- Share a stat -->
+      <section class="mb-8 sm:mb-12">
+        <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 mb-4 sm:mb-6 pb-3 border-b-[3px] border-foreground">
+          <h2 class="text-foreground">Share a stat</h2>
+          <p class="text-sm text-muted-foreground">Ready-made cards for Instagram, X and WhatsApp</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
+          <div class="bg-foreground text-background p-6 sm:p-7 flex flex-col justify-between gap-4 aspect-square">
+            <span class="text-[11px] font-bold uppercase tracking-[0.15em] text-[#E0685F]">London 2025</span>
+            <span class="font-serif text-2xl lg:text-3xl leading-tight">One phone stolen every 5 minutes.</span>
+            <span class="text-xs text-neutral-400">protectmymobile.xyz</span>
+          </div>
+          <div class="bg-destructive text-white p-6 sm:p-7 flex flex-col justify-between gap-4 aspect-square">
+            <span class="text-[11px] font-bold uppercase tracking-[0.15em]">The odds</span>
+            <span class="font-serif text-2xl lg:text-3xl leading-tight">99.2% of phone thefts go unpunished.</span>
+            <span class="text-xs text-destructive-muted">protectmymobile.xyz</span>
+          </div>
+          <div class="bg-background border-[3px] border-foreground p-6 sm:p-7 flex flex-col justify-between gap-4 aspect-square">
+            <span class="text-[11px] font-bold uppercase tracking-[0.15em] text-destructive">Do this today</span>
+            <span class="font-serif text-2xl lg:text-3xl leading-tight text-foreground">Know your IMEI before a thief does.</span>
+            <span class="text-xs text-muted-foreground">protectmymobile.xyz</span>
+          </div>
+        </div>
+      </section>
+
       <!-- Scenarios CTA -->
       <section class="mb-8 sm:mb-12">
-        <a href="/scenarios" class="block bg-gradient-to-r from-amber-500 to-orange-500 rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow group">
-          <div class="p-5 sm:p-8 md:p-12 text-white">
+        <a href="/scenarios" class="block bg-foreground text-background overflow-hidden group">
+          <div class="p-5 sm:p-8 md:p-10">
             <div class="flex items-start justify-between gap-4">
               <div class="flex-1 space-y-2 sm:space-y-4">
-                <div class="inline-flex items-center gap-1.5 sm:gap-2 bg-white/15 rounded-full px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold">
+                <div class="inline-flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-bold uppercase tracking-[0.15em] text-[#E0685F]">
                   <AlertTriangle class="size-3 sm:size-4" />
                   Real-world scenarios
                 </div>
-                <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight">See how theft happens—and how to stop it</h2>
-                <p class="text-sm sm:text-base md:text-lg text-white/85 max-w-2xl">
-                  Slide-by-slide guides for moped snatches, public transport grabs, nightlife thefts, and more.
+                <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl leading-tight text-background">See how theft happens, and how to stop it</h2>
+                <p class="text-sm sm:text-base md:text-lg text-neutral-400 max-w-2xl">
+                  Frame-by-frame playbooks for moped snatches, public transport grabs, nightlife thefts and more.
                 </p>
-                <div class="inline-flex items-center gap-2 text-sm sm:text-base md:text-lg font-semibold group-hover:gap-3 sm:group-hover:gap-4 transition-all">
-                  View scenario slides <ArrowRight class="size-4 sm:size-5" />
+                <div class="inline-flex items-center gap-2 text-sm sm:text-base font-bold uppercase tracking-wide group-hover:gap-3 sm:group-hover:gap-4 transition-all">
+                  View the playbooks <ArrowRight class="size-4 sm:size-5" />
                 </div>
               </div>
               <div class="hidden sm:flex items-center justify-center shrink-0">
-                <div class="bg-white/10 rounded-xl sm:rounded-2xl px-4 sm:px-6 py-3 sm:py-4 text-center">
-                  <p class="text-2xl sm:text-3xl md:text-4xl font-extrabold">8</p>
-                  <p class="text-white/80 text-xs sm:text-sm">visual playbooks</p>
+                <div class="border-2 border-background/30 px-4 sm:px-6 py-3 sm:py-4 text-center">
+                  <p class="font-serif text-2xl sm:text-3xl md:text-4xl font-bold">8</p>
+                  <p class="text-neutral-400 text-xs sm:text-sm">visual playbooks</p>
                 </div>
               </div>
             </div>
@@ -296,26 +321,26 @@ try {
 
       <!-- Statistics CTA -->
       <section class="mb-8 sm:mb-12">
-        <a href="/statistics" class="block bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow group">
-          <div class="p-5 sm:p-8 md:p-12 text-white">
+        <a href="/statistics" class="block bg-background border-[3px] border-foreground overflow-hidden group hover:bg-neutral-100 transition-colors">
+          <div class="p-5 sm:p-8 md:p-10">
             <div class="flex items-start justify-between gap-4">
               <div class="flex-1">
-                <div class="inline-flex items-center gap-1.5 sm:gap-2 bg-white/20 rounded-full px-3 sm:px-4 py-1.5 sm:py-2 mb-2 sm:mb-4 text-xs sm:text-sm">
+                <div class="inline-flex items-center gap-1.5 sm:gap-2 mb-2 sm:mb-4 text-xs sm:text-sm font-bold uppercase tracking-[0.15em] text-destructive">
                   <TrendingUp class="size-4 sm:size-5" />
-                  <span class="font-medium">UK DATA</span>
+                  <span>UK data</span>
                 </div>
-                <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-4">
-                  Theft Hotspots & Statistics
+                <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl mb-2 sm:mb-4 text-foreground">
+                  Theft hotspots &amp; statistics
                 </h2>
-                <p class="text-sm sm:text-base md:text-xl text-purple-100 mb-4 sm:mb-6 max-w-2xl">
+                <p class="text-sm sm:text-base md:text-xl text-muted-foreground mb-4 sm:mb-6 max-w-2xl">
                   See where thefts happen most, when you're at highest risk, and how the epidemic is growing across UK cities.
                 </p>
-                <div class="inline-flex items-center gap-2 text-sm sm:text-base md:text-lg font-semibold group-hover:gap-3 sm:group-hover:gap-4 transition-all">
-                  View Statistics <ArrowRight class="size-4 sm:size-5" />
+                <div class="inline-flex items-center gap-2 text-sm sm:text-base font-bold uppercase tracking-wide text-foreground group-hover:gap-3 sm:group-hover:gap-4 transition-all">
+                  View statistics <ArrowRight class="size-4 sm:size-5" />
                 </div>
               </div>
               <div class="hidden sm:block shrink-0">
-                <MapPin class="h-16 w-16 sm:size-20 md:size-32 text-white/30" />
+                <MapPin class="h-16 w-16 sm:size-20 md:size-32 text-neutral-300" />
               </div>
             </div>
           </div>

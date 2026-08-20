@@ -56,15 +56,15 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
         <div class="text-xs text-neutral-500">Sent</div>
       </div>
       <div class="bg-card rounded-lg p-2 sm:p-3 md:p-4 shadow-md">
-        <div class="text-lg sm:text-xl md:text-2xl font-bold text-yellow-600" id="stat-acknowledged">-</div>
+        <div class="text-lg sm:text-xl md:text-2xl font-bold text-warning" id="stat-acknowledged">-</div>
         <div class="text-xs text-neutral-500">Acknowledged</div>
       </div>
       <div class="bg-card rounded-lg p-2 sm:p-3 md:p-4 shadow-md">
-        <div class="text-lg sm:text-xl md:text-2xl font-bold text-green-600" id="stat-received">-</div>
+        <div class="text-lg sm:text-xl md:text-2xl font-bold text-success" id="stat-received">-</div>
         <div class="text-xs text-neutral-500">Received</div>
       </div>
       <div class="bg-card rounded-lg p-2 sm:p-3 md:p-4 shadow-md">
-        <div class="text-lg sm:text-xl md:text-2xl font-bold text-emerald-600" id="stat-processed">-</div>
+        <div class="text-lg sm:text-xl md:text-2xl font-bold text-success" id="stat-processed">-</div>
         <div class="text-xs text-neutral-500">Processed</div>
       </div>
       <div class="bg-card rounded-lg p-2 sm:p-3 md:p-4 shadow-md">
@@ -72,11 +72,11 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
         <div class="text-xs text-neutral-500">Overdue</div>
       </div>
       <div class="bg-card rounded-lg p-2 sm:p-3 md:p-4 shadow-md">
-        <div class="text-lg sm:text-xl md:text-2xl font-bold text-red-400" id="stat-rejected">-</div>
+        <div class="text-lg sm:text-xl md:text-2xl font-bold text-destructive" id="stat-rejected">-</div>
         <div class="text-xs text-neutral-500">Rejected</div>
       </div>
       <div class="bg-card rounded-lg p-2 sm:p-3 md:p-4 shadow-md">
-        <div class="text-lg sm:text-xl md:text-2xl font-bold text-teal-600" id="stat-records">-</div>
+        <div class="text-lg sm:text-xl md:text-2xl font-bold text-success" id="stat-records">-</div>
         <div class="text-xs text-neutral-500">Records Imported</div>
       </div>
     </div>
@@ -234,13 +234,13 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
       tbody.innerHTML = allRequests.map(req => {
         const isOverdue = req.status === 'sent' && req.dueDate < now;
         const statusColors: Record<string, string> = {
-          sent: 'bg-primary-muted text-blue-800',
-          acknowledged: 'bg-yellow-100 text-yellow-800',
-          extended: 'bg-orange-100 text-orange-800',
-          received: 'bg-green-100 text-green-800',
-          processed: 'bg-emerald-100 text-emerald-800',
-          rejected: 'bg-destructive-muted text-red-800',
-          overdue: 'bg-red-200 text-red-900',
+          sent: 'bg-primary-muted text-primary',
+          acknowledged: 'bg-warning-subtle text-warning',
+          extended: 'bg-warning-subtle text-warning',
+          received: 'bg-success-subtle text-success',
+          processed: 'bg-success-subtle text-success',
+          rejected: 'bg-destructive-muted text-destructive',
+          overdue: 'bg-destructive-muted text-destructive',
         };
 
         const displayStatus = isOverdue ? 'overdue' : req.status;
@@ -273,7 +273,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 
     } catch (err) {
       console.error('Failed to load requests:', err);
-      tbody.innerHTML = '<tr><td colspan="6" class="text-center py-6 sm:py-8 text-red-500 text-xs sm:text-sm">Failed to load requests</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="6" class="text-center py-6 sm:py-8 text-destructive text-xs sm:text-sm">Failed to load requests</td></tr>';
     }
   }
 

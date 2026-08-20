@@ -57,16 +57,16 @@ export default function HeaderMobile() {
         Skip to main content
       </a>
 
-      <header className="bg-background/95 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-border">
+      <header className="bg-background/95 backdrop-blur-md sticky top-0 z-50 border-b-[3px] border-foreground">
         <div className="container mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
-            {/* Logo */}
-            <a href="/" className="flex items-center gap-2 group" aria-label="ProtectMyMobile - Go to homepage">
-              <div className="bg-primary/10 p-2 rounded-xl group-hover:bg-primary/20 transition-colors hover:scale-105 active:scale-95 transition-transform duration-200">
-                <img src="/logo-icon.svg" alt="" className="h-7 w-7" aria-hidden="true" />
-              </div>
-              <span className="text-xl font-bold text-primary tracking-tight">
+            {/* Wordmark */}
+            <a href="/" className="flex items-baseline gap-2.5 group" aria-label="ProtectMyMobile - Go to homepage">
+              <span className="font-serif text-xl sm:text-2xl font-bold text-foreground tracking-tight">
                 ProtectMyMobile
+              </span>
+              <span className="hidden 2xl:inline whitespace-nowrap text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+                Track the theft. Protect your phone.
               </span>
             </a>
 
@@ -76,7 +76,7 @@ export default function HeaderMobile() {
                 <a
                   key={link.href}
                   href={link.href}
-                  className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-primary hover:bg-primary-subtle rounded-lg transition-colors"
+                  className="px-2 py-2 text-[13px] font-medium text-foreground hover:text-destructive transition-colors whitespace-nowrap"
                 >
                   {link.label}
                 </a>
@@ -84,19 +84,19 @@ export default function HeaderMobile() {
             </nav>
 
           {/* Search + Desktop CTA */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-2">
             <ThemeToggle />
             <SiteSearch />
             <a
               href="/security-checkup"
-              className="inline-flex items-center gap-2 px-4 py-2.5 border-2 border-primary text-primary rounded-xl font-semibold hover:bg-primary hover:text-white transition-all text-sm hover:scale-[1.02] active:scale-[0.98]"
+              className="inline-flex items-center gap-1.5 px-3 py-2.5 border-2 border-foreground text-foreground font-bold uppercase tracking-wide hover:bg-foreground hover:text-background transition-all text-xs whitespace-nowrap"
             >
-              <Shield className="size-4" />
-              Security Checkup
+              <Shield className="size-4 shrink-0" />
+              Checkup
             </a>
             <a
               href="/emergency"
-              className="inline-flex items-center gap-2 px-4 py-2.5 bg-destructive text-white rounded-xl font-bold hover:bg-destructive-hover transition-all text-sm shadow-lg shadow-destructive/25 hover:scale-[1.02] active:scale-[0.98]"
+              className="inline-flex items-center gap-1.5 px-3 py-2.5 bg-destructive text-white font-bold uppercase tracking-wide hover:bg-destructive-hover transition-all text-xs whitespace-nowrap"
             >
               <AlertTriangle className="size-4" />
               Phone Stolen?

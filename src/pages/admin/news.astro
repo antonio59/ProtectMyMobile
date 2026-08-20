@@ -43,11 +43,11 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
         <div class="text-xs text-neutral-500">Total Articles</div>
       </div>
       <div class="bg-card rounded-xl p-3 sm:p-4 shadow-md border border-border">
-        <div class="text-xl sm:text-2xl font-bold text-green-600" id="stat-published">-</div>
+        <div class="text-xl sm:text-2xl font-bold text-success" id="stat-published">-</div>
         <div class="text-xs text-neutral-500">Published</div>
       </div>
       <div class="bg-card rounded-xl p-3 sm:p-4 shadow-md border border-border">
-        <div class="text-xl sm:text-2xl font-bold text-yellow-600" id="stat-draft">-</div>
+        <div class="text-xl sm:text-2xl font-bold text-warning" id="stat-draft">-</div>
         <div class="text-xs text-neutral-500">Drafts</div>
       </div>
       <div class="bg-card rounded-xl p-3 sm:p-4 shadow-md border border-border">
@@ -275,9 +275,9 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
   const categoryColors: Record<string, string> = {
     arrest: 'bg-destructive-muted text-destructive-hover',
     seizure: 'bg-primary-muted text-primary-hover',
-    law_change: 'bg-teal-100 text-teal-700',
-    statistics: 'bg-green-100 text-green-700',
-    prevention_tip: 'bg-yellow-100 text-yellow-700',
+    law_change: 'bg-success-subtle text-success',
+    statistics: 'bg-success-subtle text-success',
+    prevention_tip: 'bg-warning-subtle text-warning',
     other: 'bg-neutral-100 text-neutral-700',
   };
 
@@ -323,7 +323,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
         </td>
         <td class="px-2 sm:px-4 py-3 sm:py-4">
           <button
-            class="toggle-status px-2 py-1 rounded-full text-xs font-medium transition-colors ${post.published ? 'bg-green-100 text-green-700 hover:bg-green-200' : 'bg-yellow-100 text-yellow-700 hover:bg-yellow-200'}"
+            class="toggle-status px-2 py-1 rounded-full text-xs font-medium transition-colors ${post.published ? 'bg-success-subtle text-success hover:bg-success-subtle' : 'bg-warning-subtle text-warning hover:bg-warning-subtle'}"
             data-id="${escapeHtml(post._id)}"
             data-published="${post.published}"
           >
@@ -400,7 +400,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
       console.error('Failed to load posts:', err);
       document.getElementById('articles-table')!.innerHTML = `
         <tr>
-          <td colspan="6" class="text-center py-12 text-red-500">
+          <td colspan="6" class="text-center py-12 text-destructive">
             Failed to load articles. Please refresh the page.
           </td>
         </tr>

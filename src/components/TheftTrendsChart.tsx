@@ -88,8 +88,8 @@ function TrendSummaryStats({ data }: { data: TrendsData }) {
     {
       label: 'Month-on-month',
       value: monthChange ? `${Number(monthChange) > 0 ? '+' : ''}${monthChange}%` : '—',
-      bg: monthChange && Number(monthChange) > 0 ? 'bg-destructive-subtle' : 'bg-green-50',
-      text: monthChange && Number(monthChange) > 0 ? 'text-destructive-hover' : 'text-green-700',
+      bg: monthChange && Number(monthChange) > 0 ? 'bg-destructive-subtle' : 'bg-success-subtle',
+      text: monthChange && Number(monthChange) > 0 ? 'text-destructive-hover' : 'text-success',
     },
     {
       label: 'Locations tracked',
@@ -234,7 +234,7 @@ export default function TheftTrendsChart() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
         <div>
           <h2 className="text-lg sm:text-xl font-bold text-foreground flex items-center gap-2">
-            <TrendingUp className="size-5 text-blue-500" />
+            <TrendingUp className="size-5 text-primary" />
             Monthly Theft Trends
           </h2>
           <p className="text-xs sm:text-sm text-muted-foreground mt-1">

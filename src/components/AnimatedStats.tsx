@@ -28,7 +28,7 @@ const stats: Stat[] = [
     suffix: '%',
     label: 'Increase',
     sublabel: 'since 2023',
-    color: 'text-orange-600'
+    color: 'text-warning'
   },
   {
     value: '0.8%',
@@ -43,7 +43,7 @@ const stats: Stat[] = [
     value: 'Every 5 min',
     label: 'One stolen',
     sublabel: '(theft rate)',
-    color: 'text-teal-600'
+    color: 'text-success'
   },
 ];
 

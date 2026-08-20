@@ -75,7 +75,7 @@ export default function StatisticsDashboard() {
         {yoy && yoy.years.length > 1 && <YearOverYearChart data={yoy} />}
         {seasonal && <SeasonalChart data={seasonal} />}
       </div>
-      <div className="bg-primary-subtle border border-blue-100 rounded-xl p-4 text-xs text-blue-800">
+      <div className="bg-primary-subtle border border-border rounded-xl p-4 text-xs text-primary">
         <strong>About the data:</strong> Live trends are sourced from the police.uk API (theft-from-the-person category).
         This specifically covers street theft (snatching/pickpocketing) and may not include all mobile phone thefts.
         Static baseline figures from Met Police and Home Office estimates are shown elsewhere on this page.

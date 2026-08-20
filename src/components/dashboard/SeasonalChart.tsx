@@ -80,7 +80,7 @@ export default function SeasonalChart({ data }: { data: SeasonalData }) {
   return (
     <div className="bg-card rounded-xl p-4 sm:p-6 border border-border shadow-sm h-full flex flex-col">
       <h3 className="text-base font-bold text-foreground flex items-center gap-2 mb-1">
-        <Sun className="size-5 text-amber-500" />
+        <Sun className="size-5 text-warning" />
         Seasonal Pattern
       </h3>
       <p className="text-xs text-muted-foreground mb-4">Average thefts per month across all years</p>
@@ -92,9 +92,9 @@ export default function SeasonalChart({ data }: { data: SeasonalData }) {
           <div className="text-sm font-bold text-destructive-hover">{data.months[maxIndex]}</div>
           <div className="text-[10px] text-destructive uppercase tracking-wide font-medium">Peak month</div>
         </div>
-        <div className="bg-green-50 rounded-lg p-2 text-center">
-          <div className="text-sm font-bold text-green-700">{data.months[minIndex]}</div>
-          <div className="text-[10px] text-green-600 uppercase tracking-wide font-medium">Lowest month</div>
+        <div className="bg-success-subtle rounded-lg p-2 text-center">
+          <div className="text-sm font-bold text-success">{data.months[minIndex]}</div>
+          <div className="text-[10px] text-success uppercase tracking-wide font-medium">Lowest month</div>
         </div>
       </div>
     </div>

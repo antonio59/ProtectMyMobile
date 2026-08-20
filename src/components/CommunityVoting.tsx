@@ -156,8 +156,8 @@ export default function CommunityVoting({ initialStats }: Props) {
         </div>
       )}
       {error && (
-        <div className="mt-6 p-4 bg-destructive-subtle border border-red-200 rounded-lg flex items-start gap-3">
-          <AlertCircle className="size-5 text-destructive flex-shrink-0 mt-0.5" /><p className="text-sm text-red-800">{error}</p>
+        <div className="mt-6 p-4 bg-destructive-subtle border border-destructive-muted rounded-lg flex items-start gap-3">
+          <AlertCircle className="size-5 text-destructive flex-shrink-0 mt-0.5" /><p className="text-sm text-destructive">{error}</p>
         </div>
       )}
       <div className="flex items-center justify-between mt-8 pt-6 border-t border-border">
@@ -165,7 +165,7 @@ export default function CommunityVoting({ initialStats }: Props) {
         {currentStep < 6 || (currentStep === 6 && formData.had_phone_stolen !== 'yes') ? (
           <button onClick={handleNext} disabled={!canProceed(formData, currentStep)} className="px-6 py-2 bg-primary text-white rounded-md hover:bg-primary-hover disabled:opacity-50 disabled:cursor-not-allowed transition-colors">Next →</button>
         ) : (
-          <button onClick={handleSubmit} disabled={!canProceed(formData, currentStep) || isSubmitting} className="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">{isSubmitting ? 'Submitting...' : 'Submit Anonymously'}</button>
+          <button onClick={handleSubmit} disabled={!canProceed(formData, currentStep) || isSubmitting} className="px-6 py-2 bg-success text-white rounded-md hover:bg-success disabled:opacity-50 disabled:cursor-not-allowed transition-colors">{isSubmitting ? 'Submitting...' : 'Submit Anonymously'}</button>
         )}
       </div>
     </div>

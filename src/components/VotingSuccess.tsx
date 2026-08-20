@@ -13,9 +13,9 @@ export default function VotingSuccess({ stats, formData }: VotingSuccessProps) {
   const insights = generateInsights(formData, stats);
 
   return (
-    <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg p-6 md:p-8 border-2 border-green-200">
+    <div className="bg-gradient-to-br from-success to-success rounded-lg p-6 md:p-8 border-2 border-border">
       <div className="flex items-start gap-4 mb-6">
-        <CheckCircle2 className="size-8 text-green-600 flex-shrink-0" />
+        <CheckCircle2 className="size-8 text-success flex-shrink-0" />
         <div>
           <h3 className="text-2xl font-bold text-foreground mb-2">Thank You!</h3>
           <p className="text-foreground">

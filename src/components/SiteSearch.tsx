@@ -60,13 +60,13 @@ const searchData: SearchResult[] = [
 
 const categoryColors: Record<string, string> = {
   'Emergency': 'bg-destructive-muted text-destructive-hover',
-  'Prevention': 'bg-green-100 text-green-700',
-  'Data': 'bg-purple-100 text-purple-700',
+  'Prevention': 'bg-success-subtle text-success',
+  'Data': 'bg-primary text-primary',
   'Information': 'bg-primary-muted text-primary-hover',
-  'Directory': 'bg-orange-100 text-orange-700',
-  'Locations': 'bg-teal-100 text-teal-700',
+  'Directory': 'bg-warning-subtle text-warning',
+  'Locations': 'bg-success-subtle text-success',
   'Help': 'bg-neutral-100 text-foreground',
-  'About': 'bg-gray-100 text-gray-700',
+  'About': 'bg-neutral-100 text-neutral-700',
 };
 
 export default function SiteSearch() {
