@@ -11,13 +11,28 @@ overrides:
   tmp: ^0.2.6
   esbuild: ^0.28.1
   ws: ^8.21.0
-  tar: ^7.5.16
-  vite: ^7.3.5
-  js-yaml: ^4.1.2
+  tar: ^7.5.22
+  vite: ^8.0.13
+  js-yaml: ^4.3.1
   '@babel/core': ^7.29.1
   '@opentelemetry/core': ^2.8.0
+  sharp: ^0.35.3
+  postcss: ^8.5.26
+  nanoid: ^3.3.18
+  svgo: ^4.0.2
+  brace-expansion: ^5.0.9
+  fast-uri: ^4.1.2
 
 pnpm:
   autoInstallPeers: true
   strictPeerDependencies: false
   packageImportMethod: clone-or-copy
+
+# Audit exceptions: advisories with NO published fix upstream as of Aug 2026.
+# Both are build/dev tooling paths (Netlify dev utils), not shipped runtime code.
+# Re-check periodically and delete entries once a patched release exists.
+auditConfig:
+  ignoreGhsas:
+    - GHSA-w3rx-r6r6-pgpr  # image-size ICNS parser DoS - no patch published (latest 2.0.2 < 2.0.3)
+    - GHSA-5p2g-fcmc-qvqq  # image-size JXL/HEIF parser DoS - no patch published
+    - GHSA-jmr9-qjv8-65gv  # extract-zip symlink traversal - no patch published (latest 2.0.1 < 2.0.2)

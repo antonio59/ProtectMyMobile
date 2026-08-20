@@ -22,11 +22,11 @@
     "design:export-dtcg": "npx @google/design.md export --format dtcg DESIGN.md > src/styles/design-tokens-dtcg.json"
   },
   "dependencies": {
-    "@astrojs/rss": "^4.0.18",
+    "@astrojs/rss": "^4.0.19",
     "@nanostores/react": "^1.1.0",
     "@types/react": "^19.2.16",
     "@types/react-dom": "^19.2.3",
-    "astro": "^6.3.4",
+    "astro": "^7.2.4",
     "chart.js": "^4.5.1",
     "clsx": "^2.1.1",
     "convex": "^1.39.1",
@@ -78,15 +78,16 @@
     "@opentelemetry/core": "^2.8.0"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.8",
-    "@astrojs/netlify": "^7.0.13",
-    "@astrojs/react": "^5.0.7",
+    "@astrojs/check": "^0.9.10",
+    "@astrojs/netlify": "^8.2.3",
+    "@astrojs/react": "^6.0.4",
     "@astrojs/sitemap": "^3.7.3",
     "@google/design.md": "^0.2.0",
     "@netlify/functions": "^5.3.0",
     "@resvg/resvg-js": "2.6.2",
     "@tailwindcss/postcss": "^4.3.1",
     "@tailwindcss/typography": "^0.5.20",
+    "@tailwindcss/vite": "^4.3.3",
     "@types/sanitize-html": "^2.16.1",
     "postcss": "^8.5.15",
     "stylelint": "^16.0.0",
