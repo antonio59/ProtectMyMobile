@@ -143,12 +143,12 @@ export default function AnimatedNewsSection({ news }: Props) {
 function NewsCard({ post, index, config, Icon }: { post: NewsPost; index: number; config: any; Icon: any }) {
   const { ref, isInView } = useInView<HTMLAnchorElement>({ rootMargin: '-50px', threshold: 0.1 });
   
-  const borderColor = post.category === 'arrest' ? 'rgb(239 68 68)' : 
-                      post.category === 'seizure' ? 'rgb(249 115 22)' : 
-                      post.category === 'law_change' ? 'rgb(20 184 166)' : 
-                      post.category === 'statistics' ? 'rgb(59 130 246)' : 
-                      post.category === 'prevention_tip' ? 'rgb(16 185 129)' : 
-                      'rgb(115 115 115)';
+  const borderColor = post.category === 'arrest' ? '#C8322B' : 
+                      post.category === 'seizure' ? '#B06000' : 
+                      post.category === 'law_change' ? '#2F6B4F' : 
+                      post.category === 'statistics' ? '#16130F' : 
+                      post.category === 'prevention_tip' ? '#2F6B4F' : 
+                      '#6B6459';
 
   return (
     <a

@@ -90,7 +90,7 @@ export default function CommunityStatsDisplay({ initialStats }: Props) {
         </div>
 
         {/* Most Common Location */}
-        <div className="bg-gradient-to-br from-primary to-primary-subtle rounded-lg shadow-md p-6 border-2 border-border">
+        <div className="bg-primary-subtle rounded-lg shadow-md p-6 border-2 border-border">
           <div className="flex items-center justify-between mb-3">
             <h3 className="text-sm font-medium text-foreground">Top Risk Zone</h3>
             <MapPin className="size-5 text-primary" />
@@ -118,7 +118,7 @@ export default function CommunityStatsDisplay({ initialStats }: Props) {
         </div>
 
         {/* Police Reporting */}
-        <div className="bg-gradient-to-br from-success to-cyan-50 rounded-lg shadow-md p-6 border-2 border-border">
+        <div className="bg-success-subtle rounded-lg shadow-md p-6 border-2 border-border">
           <div className="flex items-center justify-between mb-3">
             <h3 className="text-sm font-medium text-foreground">Police Reports</h3>
             <AlertTriangle className="size-5 text-success" />

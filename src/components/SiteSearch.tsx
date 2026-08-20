@@ -66,7 +66,7 @@ const categoryColors: Record<string, string> = {
   'Directory': 'bg-warning-subtle text-warning',
   'Locations': 'bg-success-subtle text-success',
   'Help': 'bg-neutral-100 text-foreground',
-  'About': 'bg-gray-100 text-gray-700',
+  'About': 'bg-neutral-100 text-neutral-700',
 };
 
 export default function SiteSearch() {
