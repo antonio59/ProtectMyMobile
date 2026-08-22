@@ -129,6 +129,9 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Optimize hero video and harden playback
+- Pair inverting surfaces with semantic foreground tokens
+- Sync DESIGN.md with editorial system and restore radii
 - Quieter desktop nav and a text-forward news index
 - Fix Fallow dead-code job: declare production deps correctly
 
@@ -1372,6 +1375,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
+- Update changelog [skip ci]
 - Add UI/UX review documentation and misc updates
 
 ### Features
@@ -1415,6 +1419,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Security
 
+- Pin vite ^8.2.2 to match Astro 7 requirement
 - Enforce the editorial system across every page
 
 
