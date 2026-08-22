@@ -4,7 +4,7 @@ import { useRef, useState } from 'react';
 import { TrendingUp } from 'lucide-react';
 import { useChartJS } from '../../hooks/useChart';
 import type { MonthlyTrends } from '../../hooks/useDashboardData';
-import { CHART_SERIES_COLORS as COLORS, CHART_BODY_COLOR } from '@/lib/chartPalette';
+import { CHART_SERIES_COLORS as COLORS, CHART_TOOLTIP_BASE, CHART_TICKS, CHART_GRID } from '@/lib/chartPalette';
 
 
 export default function TrendsChart({ data }: { data: MonthlyTrends }) {
@@ -40,21 +40,17 @@ export default function TrendsChart({ data }: { data: MonthlyTrends }) {
               labels: { boxWidth: 10, padding: 12, font: { size: 11 }, usePointStyle: true },
             },
             tooltip: {
-              backgroundColor: 'rgba(255,255,255,0.95)',
-              titleColor: '#1f2937',
-              bodyColor: CHART_BODY_COLOR,
-              borderColor: '#e5e7eb',
-              borderWidth: 1,
+              ...CHART_TOOLTIP_BASE,
               padding: 10,
             },
           },
           scales: {
-            x: { grid: { display: false }, ticks: { font: { size: 10 }, color: '#6b7280', maxRotation: 45 } },
+            x: { grid: { display: false }, ticks: { ...CHART_TICKS, maxRotation: 45 } },
             y: {
               beginAtZero: true,
               stacked: viewMode === 'stacked',
-              grid: { color: '#e5e7eb', borderDash: [3, 3] },
-              ticks: { font: { size: 10 }, color: '#6b7280' },
+              grid: CHART_GRID,
+              ticks: CHART_TICKS,
             },
           },
         },

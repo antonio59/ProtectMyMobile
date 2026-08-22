@@ -26,3 +26,16 @@ export const CHART_KEY_COLORS = {
 };
 
 export const CHART_BODY_COLOR = '#6b6459'; // muted-foreground
+
+// Shared Chart.js option fragments — same light tooltip card, dashed grid and
+// small grey ticks everywhere.
+export const CHART_TOOLTIP_BASE = {
+  backgroundColor: 'rgba(255,255,255,0.95)',
+  titleColor: '#1f2937',
+  bodyColor: CHART_BODY_COLOR,
+  borderColor: '#e5e7eb',
+  borderWidth: 1,
+};
+
+export const CHART_TICKS = { font: { size: 10 }, color: '#6b7280' };
+export const CHART_GRID = { color: '#e5e7eb', borderDash: [3, 3] };

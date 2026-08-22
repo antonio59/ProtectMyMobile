@@ -4,7 +4,7 @@ import { useRef } from 'react';
 import { PieChart } from 'lucide-react';
 import { useChartJS } from '../../hooks/useChart';
 import type { SourceBreakdown } from '../../hooks/useDashboardData';
-import { CHART_SERIES_COLORS as COLORS, CHART_BODY_COLOR } from '@/lib/chartPalette';
+import { CHART_SERIES_COLORS as COLORS, CHART_TOOLTIP_BASE } from '@/lib/chartPalette';
 
 
 export default function SourcesChart({ data, totalRecords }: { data: SourceBreakdown; totalRecords: number }) {
@@ -33,11 +33,7 @@ export default function SourcesChart({ data, totalRecords }: { data: SourceBreak
           plugins: {
             legend: { position: 'bottom', labels: { boxWidth: 10, padding: 10, font: { size: 11 } } },
             tooltip: {
-              backgroundColor: 'rgba(255,255,255,0.95)',
-              titleColor: '#1f2937',
-              bodyColor: CHART_BODY_COLOR,
-              borderColor: '#e5e7eb',
-              borderWidth: 1,
+              ...CHART_TOOLTIP_BASE,
               callbacks: {
                 label: (ctx: any) => {
                   const item = data[ctx.dataIndex];

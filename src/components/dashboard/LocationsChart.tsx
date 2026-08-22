@@ -4,7 +4,7 @@ import { useRef } from 'react';
 import { MapPin } from 'lucide-react';
 import { useChartJS } from '../../hooks/useChart';
 import type { LocationRanking } from '../../hooks/useDashboardData';
-import { CHART_SERIES_COLORS as COLORS, CHART_BODY_COLOR } from '@/lib/chartPalette';
+import { CHART_SERIES_COLORS as COLORS, CHART_TOOLTIP_BASE, CHART_TICKS, CHART_GRID } from '@/lib/chartPalette';
 
 
 export default function LocationsChart({ data }: { data: LocationRanking[] }) {
@@ -35,11 +35,7 @@ export default function LocationsChart({ data }: { data: LocationRanking[] }) {
           plugins: {
             legend: { display: false },
             tooltip: {
-              backgroundColor: 'rgba(255,255,255,0.95)',
-              titleColor: '#1f2937',
-              bodyColor: CHART_BODY_COLOR,
-              borderColor: '#e5e7eb',
-              borderWidth: 1,
+              ...CHART_TOOLTIP_BASE,
               callbacks: {
                 afterLabel: (ctx: any) => {
                   const item = limited[ctx.dataIndex];
@@ -49,7 +45,7 @@ export default function LocationsChart({ data }: { data: LocationRanking[] }) {
             },
           },
           scales: {
-            x: { grid: { color: '#e5e7eb', borderDash: [3, 3] }, ticks: { font: { size: 10 }, color: '#6b7280' } },
+            x: { grid: CHART_GRID, ticks: CHART_TICKS },
             y: { grid: { display: false }, ticks: { font: { size: 11 }, color: '#374151' } },
           },
         },
