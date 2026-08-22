@@ -131,6 +131,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Wire orphaned color tokens into DESIGN.md component specs
 - Darken warning amber to #9A4F00 for WCAG AA contrast
 - Bump convex in the convex group across 1 directory (#73)
 - Bump the react group across 1 directory with 4 updates (#91)
@@ -1284,6 +1285,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
