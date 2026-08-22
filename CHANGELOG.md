@@ -131,6 +131,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Bump the react group across 1 directory with 4 updates (#91)
 - Drop unused exports flagged by Fallow dead-code gate
 - Bump the dev-dependencies group across 1 directory with 3 updates (#95)
 - Extract admin TableLoadingRow/ModalHeader, dedupe verification fetch fallback
