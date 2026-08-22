@@ -99,17 +99,17 @@ export function ScenarioCarousel({ images, title, summary, scenarioId }: Props) 
         
         {/* Navigation buttons */}
         <div className="absolute inset-y-0 left-0 flex items-center">
-          <button onClick={() => scrollBy(-1)} aria-label="Previous" className="m-2 rounded-full bg-white/90 border border-border shadow hover:bg-white px-2 py-1 text-sm">‹</button>
+          <button onClick={() => scrollBy(-1)} aria-label="Previous" className="m-2 rounded-full bg-card/90 border border-border shadow hover:bg-card px-2 py-1 text-sm">‹</button>
         </div>
         <div className="absolute inset-y-0 right-0 flex items-center">
-          <button onClick={() => scrollBy(1)} aria-label="Next" className="m-2 rounded-full bg-white/90 border border-border shadow hover:bg-white px-2 py-1 text-sm">›</button>
+          <button onClick={() => scrollBy(1)} aria-label="Next" className="m-2 rounded-full bg-card/90 border border-border shadow hover:bg-card px-2 py-1 text-sm">›</button>
         </div>
 
         {/* Share button */}
         <div className="absolute top-2 right-2">
           <button
             onClick={() => setShowShareMenu(!showShareMenu)}
-            className="rounded-full bg-white/90 border border-border shadow hover:bg-white p-2 text-muted-foreground hover:text-primary transition-colors"
+            className="rounded-full bg-card/90 border border-border shadow hover:bg-card p-2 text-muted-foreground hover:text-primary transition-colors"
             aria-label="Share this scenario"
           >
             <Share2 className="size-4" />

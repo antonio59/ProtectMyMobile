@@ -197,10 +197,10 @@ const articleSchema = {
           </div>
         ) : (
           <div class={`w-full aspect-[16/9] sm:aspect-[21/9] bg-foreground flex items-center justify-center`}>
-            <div class="bg-white/20 backdrop-blur-sm p-4 sm:p-6 rounded-2xl sm:rounded-3xl">
+            <div class="bg-background/20 backdrop-blur-sm p-4 sm:p-6 rounded-2xl sm:rounded-3xl">
               {(() => {
                 const PostIcon = config.icon;
-                return <PostIcon class="size-12 sm:size-16 text-white" />;
+                return <PostIcon class="size-12 sm:size-16 text-background" />;
               })()}
             </div>
           </div>
@@ -277,7 +277,7 @@ const articleSchema = {
                   href={post.sourceUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-primary text-white rounded-lg text-sm font-semibold hover:bg-primary-hover transition-colors whitespace-nowrap"
+                  class="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground rounded-lg text-sm font-semibold hover:bg-primary-hover transition-colors whitespace-nowrap"
                 >
                   Read full article
                   <ExternalLink class="size-4" />
@@ -304,7 +304,7 @@ const articleSchema = {
               </div>
               <a 
                 href="/community-experiences#share"
-                class="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-foreground text-white rounded-lg text-sm font-semibold hover:bg-foreground transition-colors whitespace-nowrap"
+                class="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-foreground text-background rounded-lg text-sm font-semibold hover:bg-foreground transition-colors whitespace-nowrap"
               >
                 Share your experience
                 <ChevronRight class="size-4" />
@@ -324,7 +324,7 @@ const articleSchema = {
                   href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(pageUrl)}&text=${encodeURIComponent(post.title)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="p-2 rounded-lg bg-card border border-border text-muted-foreground hover:bg-neutral-900 hover:text-white hover:border-neutral-900 transition-colors"
+                  class="p-2 rounded-lg bg-card border border-border text-muted-foreground hover:bg-foreground hover:text-background hover:border-foreground transition-colors"
                   aria-label="Share on Twitter"
                 >
                   <svg class="size-4" viewBox="0 0 24 24" fill="currentColor">
@@ -391,10 +391,10 @@ const articleSchema = {
                     </div>
                   ) : (
                     <div class={`w-full aspect-[16/9] bg-foreground flex items-center justify-center`}>
-                      <div class="bg-white/20 backdrop-blur-sm p-2 rounded-xl">
+                      <div class="bg-background/20 backdrop-blur-sm p-2 rounded-xl">
                         {(() => {
                           const RelatedIcon = relatedConfig.icon;
-                          return <RelatedIcon class="size-6 text-white" />;
+                          return <RelatedIcon class="size-6 text-background" />;
                         })()}
                       </div>
                     </div>

@@ -299,7 +299,7 @@ export default function SecurityCheckup() {
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           <button
             onClick={handleShare}
-            className="flex items-center justify-center px-6 py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary-hover transition-colors"
+            className="flex items-center justify-center px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary-hover transition-colors"
           >
             <Share2 className="mr-2 size-5" />
             Share Result
@@ -349,7 +349,7 @@ export default function SecurityCheckup() {
                     className={`flex-1 px-4 py-3 rounded-lg border-2 transition-all ${
                       answers[q.id] === true
                         ? 'border-success bg-success-subtle text-success'
-                        : 'border-neutral-300 hover:border-success text-foreground'
+                        : 'border-input hover:border-success text-foreground'
                     }`}
                   >
                     <Check className="size-5 inline mr-2" />
@@ -360,7 +360,7 @@ export default function SecurityCheckup() {
                     className={`flex-1 px-4 py-3 rounded-lg border-2 transition-all ${
                       answers[q.id] === false
                         ? 'border-destructive-muted bg-destructive-subtle text-destructive-hover'
-                        : 'border-neutral-300 hover:border-destructive-muted text-foreground'
+                        : 'border-input hover:border-destructive-muted text-foreground'
                     }`}
                   >
                     <X className="size-5 inline mr-2" />
@@ -380,7 +380,7 @@ export default function SecurityCheckup() {
           disabled={!allAnswered}
           className={`w-full px-6 py-4 rounded-lg font-bold text-lg transition-all ${
             allAnswered
-              ? 'bg-primary text-white hover:bg-primary-hover cursor-pointer'
+              ? 'bg-primary text-primary-foreground hover:bg-primary-hover cursor-pointer'
               : 'bg-neutral-300 text-muted-foreground cursor-not-allowed'
           }`}
         >

@@ -214,7 +214,7 @@ const faqSchema = {
       <!-- Hero Section -->
       <div class="bg-foreground text-background rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 mb-6 sm:mb-8 ">
         <div class="flex items-center gap-3 mb-3">
-          <div class="bg-white/20 p-2 sm:p-3 rounded-xl">
+          <div class="bg-background/20 p-2 sm:p-3 rounded-xl">
             <HelpCircle class="size-6 sm:size-8" />
           </div>
           <h1 class="text-xl sm:text-2xl md:text-3xl font-bold">Frequently Asked Questions</h1>
@@ -244,7 +244,7 @@ const faqSchema = {
         
         <!-- Category Pills -->
         <div class="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-hide">
-          <button class="category-pill active px-3 py-1.5 rounded-full bg-primary text-white text-xs sm:text-sm font-medium whitespace-nowrap transition-colors" data-category="all">
+          <button class="category-pill active px-3 py-1.5 rounded-full bg-primary text-primary-foreground text-xs sm:text-sm font-medium whitespace-nowrap transition-colors" data-category="all">
             All Questions
           </button>
           {faqCategories.map(cat => (
@@ -309,10 +309,10 @@ const faqSchema = {
           If you can't find the answer you're looking for, check our comprehensive guides or contact us.
         </p>
         <div class="flex flex-wrap gap-2">
-          <a href="/emergency" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-destructive text-white rounded-lg text-xs font-medium hover:bg-destructive-hover transition-colors">
+          <a href="/emergency" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-destructive text-destructive-foreground rounded-lg text-xs font-medium hover:bg-destructive-hover transition-colors">
             Emergency Guide
           </a>
-          <a href="/prevention" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-hover transition-colors">
+          <a href="/prevention" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-primary text-primary-foreground rounded-lg text-xs font-medium hover:bg-primary-hover transition-colors">
             Prevention Guide
           </a>
           <a href="/contact-us" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-card border border-border text-foreground rounded-lg text-xs font-medium hover:bg-neutral transition-colors">

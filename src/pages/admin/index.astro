@@ -70,7 +70,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
       <div class="bg-card rounded-xl  border border-border p-4 sm:p-6">
         <h2 class="font-bold text-foreground mb-3 sm:mb-4 text-sm sm:text-base">Quick Actions</h2>
         <div class="grid grid-cols-2 gap-2 sm:gap-3">
-          <a href="/admin/add-news" class="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 bg-neutral-50 rounded-lg hover:bg-neutral-100 transition-colors">
+          <a href="/admin/add-news" class="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 bg-neutral rounded-lg hover:bg-neutral-100 transition-colors">
             <div class="w-7 h-7 sm:size-8 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
               <svg class="w-3.5 h-3.5 sm:size-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
@@ -78,7 +78,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
             </div>
             <span class="text-xs sm:text-sm font-medium text-neutral-700">Add News</span>
           </a>
-          <a href="/admin/news" class="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 bg-neutral-50 rounded-lg hover:bg-neutral-100 transition-colors">
+          <a href="/admin/news" class="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 bg-neutral rounded-lg hover:bg-neutral-100 transition-colors">
             <div class="w-7 h-7 sm:size-8 bg-primary-muted rounded-lg flex items-center justify-center flex-shrink-0">
               <svg class="w-3.5 h-3.5 sm:size-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/>
@@ -86,7 +86,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
             </div>
             <span class="text-xs sm:text-sm font-medium text-neutral-700">Manage News</span>
           </a>
-          <a href="/admin/data" class="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 bg-neutral-50 rounded-lg hover:bg-neutral-100 transition-colors">
+          <a href="/admin/data" class="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 bg-neutral rounded-lg hover:bg-neutral-100 transition-colors">
             <div class="w-7 h-7 sm:size-8 bg-primary rounded-lg flex items-center justify-center flex-shrink-0">
               <svg class="w-3.5 h-3.5 sm:size-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"/>
@@ -94,7 +94,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
             </div>
             <span class="text-xs sm:text-sm font-medium text-neutral-700">Theft Data</span>
           </a>
-          <a href="/admin/foi" class="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 bg-neutral-50 rounded-lg hover:bg-neutral-100 transition-colors">
+          <a href="/admin/foi" class="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 bg-neutral rounded-lg hover:bg-neutral-100 transition-colors">
             <div class="w-7 h-7 sm:size-8 bg-warning-subtle rounded-lg flex items-center justify-center flex-shrink-0">
               <svg class="w-3.5 h-3.5 sm:size-4 text-warning" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
@@ -229,7 +229,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
         `;
       } else {
         recentContainer.innerHTML = recentNews.map((post: any) => `
-          <a href="/admin/news" class="flex items-center justify-between p-3 bg-neutral-50 rounded-lg hover:bg-neutral-100 transition-colors">
+          <a href="/admin/news" class="flex items-center justify-between p-3 bg-neutral rounded-lg hover:bg-neutral-100 transition-colors">
             <div class="flex-1 min-w-0 mr-3">
               <p class="text-sm font-medium text-foreground truncate">${escapeHtml(post.title)}</p>
               <p class="text-xs text-neutral-500">${formatDate(post.publishedAt || post._creationTime)}</p>

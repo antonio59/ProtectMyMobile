@@ -50,7 +50,7 @@ export default function HeaderMobile() {
       {/* Skip to main content link for keyboard users */}
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-primary focus:text-white focus:rounded-lg focus:font-medium"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-primary focus:text-primary-foreground focus:rounded-lg focus:font-medium"
       >
         Skip to main content
       </a>
@@ -87,7 +87,7 @@ export default function HeaderMobile() {
             <SiteSearch />
             <a
               href="/emergency"
-              className="inline-flex items-center gap-1.5 px-3 py-2.5 bg-destructive text-white font-bold uppercase tracking-wide hover:bg-destructive-hover transition-all text-xs whitespace-nowrap"
+              className="inline-flex items-center gap-1.5 px-3 py-2.5 bg-destructive text-destructive-foreground font-bold uppercase tracking-wide hover:bg-destructive-hover transition-all text-xs whitespace-nowrap"
             >
               <AlertTriangle className="size-4" />
               Phone Stolen?
@@ -100,7 +100,7 @@ export default function HeaderMobile() {
             <SiteSearch />
             <a
               href="/emergency"
-              className="p-2 bg-destructive text-white rounded-xl hover:scale-105 active:scale-90 transition-transform duration-150"
+              className="p-2 bg-destructive text-destructive-foreground rounded-xl hover:scale-105 active:scale-90 transition-transform duration-150"
               aria-label="Emergency - Phone stolen?"
             >
               <AlertTriangle className="size-5" />
@@ -152,7 +152,7 @@ export default function HeaderMobile() {
         <div className="p-4 space-y-3 border-b border-border bg-neutral">
           <a
             href="/emergency"
-            className="flex items-center justify-center gap-2 w-full px-4 py-3 bg-destructive text-white rounded-xl font-bold shadow-lg hover:scale-[1.01] active:scale-[0.99] transition-transform duration-150"
+            className="flex items-center justify-center gap-2 w-full px-4 py-3 bg-destructive text-destructive-foreground rounded-xl font-bold shadow-lg hover:scale-[1.01] active:scale-[0.99] transition-transform duration-150"
             onClick={() => setIsOpen(false)}
           >
             <AlertTriangle className="size-5" />

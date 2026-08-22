@@ -51,7 +51,7 @@ const schema = {
     <div class="container mx-auto px-4 py-4 sm:py-6 md:py-8 max-w-6xl">
       <div class="bg-foreground text-background rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8 ">
         <div class="flex items-center gap-3 mb-3">
-          <div class="bg-white/20 p-2 sm:p-3 rounded-xl">
+          <div class="bg-background/20 p-2 sm:p-3 rounded-xl">
             <ShieldCheck class="size-6 sm:size-8" />
           </div>
           <div>
@@ -63,13 +63,13 @@ const schema = {
           Practical prevention steps for tourists, students, and business travellers in London—plus exactly what to do if your phone is stolen.
         </p>
         <div class="flex flex-wrap gap-3 mt-5">
-          <span class="inline-flex items-center gap-2 bg-white/15 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-sm">
+          <span class="inline-flex items-center gap-2 bg-background/15 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-sm">
             <MapPin class="size-4" /> Avoid kerbside scrolling
           </span>
-          <span class="inline-flex items-center gap-2 bg-white/15 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-sm">
+          <span class="inline-flex items-center gap-2 bg-background/15 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-sm">
             <Lock class="size-4" /> Enable Find My + biometrics
           </span>
-          <span class="inline-flex items-center gap-2 bg-white/15 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-sm">
+          <span class="inline-flex items-center gap-2 bg-background/15 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-sm">
             <PhoneOff class="size-4" /> Know how to block your SIM fast
           </span>
         </div>
@@ -144,7 +144,7 @@ const schema = {
             <li>Report: file with police (keep reference number).</li>
             <li>Document: note time/location for insurance and travel claims.</li>
           </ol>
-          <a href="/emergency" class="inline-flex items-center gap-2 mt-4 px-4 py-2 bg-primary text-white rounded-xl font-semibold  hover:bg-primary-hover transition">
+          <a href="/emergency" class="inline-flex items-center gap-2 mt-4 px-4 py-2 bg-primary text-primary-foreground rounded-xl font-semibold  hover:bg-primary-hover transition">
             Open the 5-step emergency guide <ArrowRight class="size-4" />
           </a>
         </div>
@@ -176,17 +176,17 @@ const schema = {
       </section>
 
       <section class="mb-8 sm:mb-10 md:mb-12">
-        <div class="bg-foreground text-white rounded-xl sm:rounded-2xl  p-4 sm:p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div class="bg-foreground text-background rounded-xl sm:rounded-2xl  p-4 sm:p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
-            <p class="text-xs uppercase tracking-wide text-white/60 font-semibold mb-1">Need help fast?</p>
+            <p class="text-xs uppercase tracking-wide text-background/60 font-semibold mb-1">Need help fast?</p>
             <h3 class="text-xl font-bold">Jump to the emergency guide</h3>
-            <p class="text-sm text-white/80 mt-1">Step-by-step actions to take within minutes of theft: lock, block SIM, bank, report.</p>
+            <p class="text-sm text-background/80 mt-1">Step-by-step actions to take within minutes of theft: lock, block SIM, bank, report.</p>
           </div>
           <div class="flex gap-3">
-            <a href="/emergency" class="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 text-xs sm:text-sm bg-primary text-white rounded-xl font-semibold  hover:bg-primary-hover transition">
+            <a href="/emergency" class="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 text-xs sm:text-sm bg-background text-foreground rounded-xl font-semibold hover:bg-neutral-200 transition">
               Open emergency steps <ArrowRight class="size-4" />
             </a>
-            <a href="/prevention" class="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 text-xs sm:text-sm bg-card/10 text-white rounded-xl font-semibold border border-white/15 hover:bg-card/15 transition">
+            <a href="/prevention" class="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 text-xs sm:text-sm bg-background/10 text-background rounded-xl font-semibold border border-background/15 hover:bg-background/15 transition">
               Prevention guide
             </a>
           </div>

@@ -99,17 +99,17 @@ import { AlertTriangle, Clock, ThumbsUp, ThumbsDown, MapPin, Shield } from "luci
   <main id="main-content" class="bg-background min-h-screen">
     <div class="container mx-auto px-4 py-4 sm:py-6 max-w-4xl">
       <!-- Emergency Hero - Bold Red -->
-      <div class="bg-destructive text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8 ">
+      <div class="bg-destructive text-destructive-foreground rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8 ">
         <div class="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
-          <div class="bg-white/20 p-2.5 sm:p-4 rounded-xl sm:rounded-2xl">
+          <div class="bg-background/20 p-2.5 sm:p-4 rounded-xl sm:rounded-2xl">
             <AlertTriangle class="h-7 w-7 sm:size-10" />
           </div>
           <div>
             <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-shadow-danger">Phone Stolen?</h1>
-            <p class="text-destructive-muted text-xs sm:text-sm md:text-base">Act immediately - every minute counts</p>
+            <p class="text-destructive-foreground/70 text-xs sm:text-sm md:text-base">Act immediately - every minute counts</p>
           </div>
         </div>
-        <div class="flex items-center gap-2 bg-white/10 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm w-fit">
+        <div class="flex items-center gap-2 bg-background/10 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm w-fit">
           <Clock class="size-3 sm:size-4" />
           <span>Complete these 5 steps within 30 minutes</span>
         </div>
@@ -120,7 +120,7 @@ import { AlertTriangle, Clock, ThumbsUp, ThumbsDown, MapPin, Shield } from "luci
         <div class="flex items-center justify-between">
           {[1, 2, 3, 4, 5].map((num) => (
             <div class="flex items-center">
-              <div class="w-7 h-7 sm:size-10 rounded-full bg-destructive text-white flex items-center justify-center font-bold text-xs sm:text-base">{num}</div>
+              <div class="w-7 h-7 sm:size-10 rounded-full bg-destructive text-destructive-foreground flex items-center justify-center font-bold text-xs sm:text-base">{num}</div>
               {num < 5 && <div class="w-5 sm:w-16 lg:w-24 h-1 bg-destructive-muted mx-1 sm:mx-2" />}
             </div>
           ))}
@@ -132,7 +132,7 @@ import { AlertTriangle, Clock, ThumbsUp, ThumbsDown, MapPin, Shield } from "luci
         <!-- Step 1: Lock Device -->
         <div class="bg-card rounded-lg sm:rounded-xl  p-4 sm:p-6">
           <div class="flex items-start">
-            <div class="bg-emergency text-white rounded-full size-8 sm:size-10 flex items-center justify-center font-bold text-sm sm:text-lg mr-3 sm:mr-4 flex-shrink-0">
+            <div class="bg-emergency text-emergency-foreground rounded-full size-8 sm:size-10 flex items-center justify-center font-bold text-sm sm:text-lg mr-3 sm:mr-4 flex-shrink-0">
               1
             </div>
             <div class="flex-1">
@@ -169,7 +169,7 @@ import { AlertTriangle, Clock, ThumbsUp, ThumbsDown, MapPin, Shield } from "luci
         <!-- Step 2: Change Passwords -->
         <div class="bg-card rounded-lg sm:rounded-xl  p-4 sm:p-6">
           <div class="flex items-start">
-            <div class="bg-emergency text-white rounded-full size-8 sm:size-10 flex items-center justify-center font-bold text-sm sm:text-lg mr-3 sm:mr-4 flex-shrink-0">
+            <div class="bg-emergency text-emergency-foreground rounded-full size-8 sm:size-10 flex items-center justify-center font-bold text-sm sm:text-lg mr-3 sm:mr-4 flex-shrink-0">
               2
             </div>
             <div class="flex-1">
@@ -189,13 +189,13 @@ import { AlertTriangle, Clock, ThumbsUp, ThumbsDown, MapPin, Shield } from "luci
         <!-- Step 3: Block SIM -->
         <div class="bg-card rounded-lg sm:rounded-xl  p-4 sm:p-6">
           <div class="flex items-start">
-            <div class="bg-emergency text-white rounded-full size-8 sm:size-10 flex items-center justify-center font-bold text-sm sm:text-lg mr-3 sm:mr-4 flex-shrink-0">
+            <div class="bg-emergency text-emergency-foreground rounded-full size-8 sm:size-10 flex items-center justify-center font-bold text-sm sm:text-lg mr-3 sm:mr-4 flex-shrink-0">
               3
             </div>
             <div class="flex-1">
               <h3 class="text-base sm:text-lg md:text-xl font-semibold mb-1.5 sm:mb-2">Contact Your Mobile Provider</h3>
               <p class="text-foreground mb-3 sm:mb-4 text-sm sm:text-base">Report the theft and block your SIM/number to prevent unauthorised use.</p>
-              <a href="/mobile-providers" class="inline-flex items-center justify-center rounded-lg text-xs sm:text-sm font-medium bg-primary text-white hover:bg-primary-hover h-9 sm:h-10 px-3 sm:px-4 py-2">
+              <a href="/mobile-providers" class="inline-flex items-center justify-center rounded-lg text-xs sm:text-sm font-medium bg-primary text-primary-foreground hover:bg-primary-hover h-9 sm:h-10 px-3 sm:px-4 py-2">
                 Find Your Provider
               </a>
             </div>
@@ -205,14 +205,14 @@ import { AlertTriangle, Clock, ThumbsUp, ThumbsDown, MapPin, Shield } from "luci
         <!-- Step 4: Report to Police -->
         <div class="bg-card rounded-lg sm:rounded-xl  p-4 sm:p-6">
           <div class="flex items-start">
-            <div class="bg-emergency text-white rounded-full size-8 sm:size-10 flex items-center justify-center font-bold text-sm sm:text-lg mr-3 sm:mr-4 flex-shrink-0">
+            <div class="bg-emergency text-emergency-foreground rounded-full size-8 sm:size-10 flex items-center justify-center font-bold text-sm sm:text-lg mr-3 sm:mr-4 flex-shrink-0">
               4
             </div>
             <div class="flex-1">
               <h3 class="text-base sm:text-lg md:text-xl font-semibold mb-1.5 sm:mb-2">Report to the Police</h3>
               <p class="text-foreground mb-3 sm:mb-4 text-sm sm:text-base">File a theft report with your local police and get a crime reference number.</p>
               <a href="https://www.police.uk/pu/contact-the-police/report-a-crime-incident/" target="_blank" rel="noopener noreferrer"
-                 class="inline-flex items-center justify-center rounded-lg text-xs sm:text-sm font-medium bg-primary text-white hover:bg-primary-hover h-9 sm:h-10 px-3 sm:px-4 py-2">
+                 class="inline-flex items-center justify-center rounded-lg text-xs sm:text-sm font-medium bg-primary text-primary-foreground hover:bg-primary-hover h-9 sm:h-10 px-3 sm:px-4 py-2">
                 Report to UK Police Online
               </a>
               <p class="text-xs sm:text-sm text-muted-foreground mt-2">Or call 101 for non-emergency police assistance</p>
@@ -223,13 +223,13 @@ import { AlertTriangle, Clock, ThumbsUp, ThumbsDown, MapPin, Shield } from "luci
         <!-- Step 5: Check Banks -->
         <div class="bg-card rounded-lg sm:rounded-xl  p-4 sm:p-6">
           <div class="flex items-start">
-            <div class="bg-emergency text-white rounded-full size-8 sm:size-10 flex items-center justify-center font-bold text-sm sm:text-lg mr-3 sm:mr-4 flex-shrink-0">
+            <div class="bg-emergency text-emergency-foreground rounded-full size-8 sm:size-10 flex items-center justify-center font-bold text-sm sm:text-lg mr-3 sm:mr-4 flex-shrink-0">
               5
             </div>
             <div class="flex-1">
               <h3 class="text-base sm:text-lg md:text-xl font-semibold mb-1.5 sm:mb-2">Check Your Bank Accounts</h3>
               <p class="text-foreground mb-3 sm:mb-4 text-sm sm:text-base">Monitor for unauthorised transactions and contact your bank immediately if you spot anything suspicious.</p>
-              <a href="/banks" class="inline-flex items-center justify-center rounded-lg text-xs sm:text-sm font-medium bg-primary text-white hover:bg-primary-hover h-9 sm:h-10 px-3 sm:px-4 py-2">
+              <a href="/banks" class="inline-flex items-center justify-center rounded-lg text-xs sm:text-sm font-medium bg-primary text-primary-foreground hover:bg-primary-hover h-9 sm:h-10 px-3 sm:px-4 py-2">
                 View UK Bank Emergency Contacts
               </a>
             </div>
@@ -330,7 +330,7 @@ import { AlertTriangle, Clock, ThumbsUp, ThumbsDown, MapPin, Shield } from "luci
                 name="locationName" 
                 required
                 placeholder="e.g. Oxford Street, London"
-                class="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:ring-2 focus:ring-primary focus:border-primary"
+                class="w-full px-3 py-2 border border-input rounded-lg text-sm focus:ring-2 focus:ring-primary focus:border-primary"
               />
               <button type="button" id="tr-detect-location" class="text-xs text-primary hover:underline mt-1">
                 Use my current location
@@ -344,7 +344,7 @@ import { AlertTriangle, Clock, ThumbsUp, ThumbsDown, MapPin, Shield } from "luci
                 type="date" 
                 id="tr-date" 
                 name="theftDate"
-                class="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:ring-2 focus:ring-primary focus:border-primary"
+                class="w-full px-3 py-2 border border-input rounded-lg text-sm focus:ring-2 focus:ring-primary focus:border-primary"
               />
             </div>
           </div>
@@ -356,7 +356,7 @@ import { AlertTriangle, Clock, ThumbsUp, ThumbsDown, MapPin, Shield } from "luci
               name="description"
               rows={3}
               placeholder="Brief description e.g. 'Phone snatched from hand while on bus'"
-              class="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:ring-2 focus:ring-primary focus:border-primary resize-none"
+              class="w-full px-3 py-2 border border-input rounded-lg text-sm focus:ring-2 focus:ring-primary focus:border-primary resize-none"
             ></textarea>
           </div>
 
@@ -368,7 +368,7 @@ import { AlertTriangle, Clock, ThumbsUp, ThumbsDown, MapPin, Shield } from "luci
             <button 
               type="submit"
               id="tr-submit"
-              class="px-5 py-2 bg-destructive text-white text-sm font-medium rounded-lg hover:bg-destructive-hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              class="px-5 py-2 bg-destructive text-destructive-foreground text-sm font-medium rounded-lg hover:bg-destructive-hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Submit Report
             </button>

@@ -43,10 +43,10 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
       <button id="seed-btn" class="px-3 sm:px-4 py-1.5 sm:py-2 bg-success text-white rounded-lg hover:bg-success text-xs sm:text-sm">
         Seed Verified Data
       </button>
-      <button id="fetch-police-uk-btn" class="px-3 sm:px-4 py-1.5 sm:py-2 bg-primary text-white rounded-lg hover:bg-primary text-xs sm:text-sm">
+      <button id="fetch-police-uk-btn" class="px-3 sm:px-4 py-1.5 sm:py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary text-xs sm:text-sm">
         Fetch Police.uk Data
       </button>
-      <button id="scan-btn" class="px-3 sm:px-4 py-1.5 sm:py-2 bg-primary text-white rounded-lg hover:bg-primary-hover text-xs sm:text-sm">
+      <button id="scan-btn" class="px-3 sm:px-4 py-1.5 sm:py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary-hover text-xs sm:text-sm">
         Scan WhatDoTheyKnow
       </button>
       <button id="scrape-btn" class="px-3 sm:px-4 py-1.5 sm:py-2 bg-success text-white rounded-lg hover:bg-success text-xs sm:text-sm">
@@ -69,13 +69,13 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 
     <!-- WDTK Entries with Data -->
     <div class="bg-card rounded-xl  overflow-hidden mb-6 sm:mb-8">
-      <div class="p-3 sm:p-4 border-b bg-neutral-50">
+      <div class="p-3 sm:p-4 border-b bg-neutral">
         <h2 class="font-bold text-sm sm:text-base">WhatDoTheyKnow FOI Responses (with Data)</h2>
         <p class="text-xs sm:text-sm text-neutral-600 mt-1">Successful FOI responses that can be imported</p>
       </div>
       <div class="overflow-x-auto">
         <table class="w-full">
-          <thead class="bg-neutral-50 border-b">
+          <thead class="bg-neutral border-b">
             <tr>
               <th class="text-left px-2 sm:px-4 py-2 sm:py-3 text-xs font-semibold">Police Force</th>
               <th class="text-left px-2 sm:px-4 py-2 sm:py-3 text-xs font-semibold">Title</th>
@@ -109,7 +109,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
           <button type="button" id="preview-btn" class="px-3 sm:px-4 py-1.5 sm:py-2 bg-neutral-200 rounded-lg hover:bg-neutral-300 text-xs sm:text-sm">
             Preview Data
           </button>
-          <button type="submit" class="px-3 sm:px-4 py-1.5 sm:py-2 bg-primary text-white rounded-lg hover:bg-primary-hover text-xs sm:text-sm">
+          <button type="submit" class="px-3 sm:px-4 py-1.5 sm:py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary-hover text-xs sm:text-sm">
             Import Data
           </button>
         </div>
@@ -190,7 +190,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
         const statusClass = statusColors[e.status] || 'bg-neutral-100';
 
         return `
-          <tr class="border-b hover:bg-neutral-50">
+          <tr class="border-b hover:bg-neutral">
             <td class="px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm font-medium">${escapeHtml(e.policeForce || 'Unknown')}</td>
             <td class="px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm">
               <a href="${escapeHtml(e.url)}" target="_blank" class="text-primary hover:underline">${escapeHtml(e.title)}</a>

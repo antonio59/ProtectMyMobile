@@ -163,9 +163,9 @@ export default function CommunityVoting({ initialStats }: Props) {
       <div className="flex items-center justify-between mt-8 pt-6 border-t border-border">
         <button onClick={handleBack} disabled={currentStep === 1} className="px-4 py-2 text-foreground hover:text-foreground disabled:opacity-50 disabled:cursor-not-allowed transition-colors">← Back</button>
         {currentStep < 6 || (currentStep === 6 && formData.had_phone_stolen !== 'yes') ? (
-          <button onClick={handleNext} disabled={!canProceed(formData, currentStep)} className="px-6 py-2 bg-primary text-white rounded-md hover:bg-primary-hover disabled:opacity-50 disabled:cursor-not-allowed transition-colors">Next →</button>
+          <button onClick={handleNext} disabled={!canProceed(formData, currentStep)} className="px-6 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary-hover disabled:opacity-50 disabled:cursor-not-allowed transition-colors">Next →</button>
         ) : (
-          <button onClick={handleSubmit} disabled={!canProceed(formData, currentStep) || isSubmitting} className="px-6 py-2 bg-foreground text-white rounded-md hover:bg-foreground disabled:opacity-50 disabled:cursor-not-allowed transition-colors">{isSubmitting ? 'Submitting...' : 'Submit Anonymously'}</button>
+          <button onClick={handleSubmit} disabled={!canProceed(formData, currentStep) || isSubmitting} className="px-6 py-2 bg-foreground text-background rounded-md hover:bg-foreground disabled:opacity-50 disabled:cursor-not-allowed transition-colors">{isSubmitting ? 'Submitting...' : 'Submit Anonymously'}</button>
         )}
       </div>
     </div>

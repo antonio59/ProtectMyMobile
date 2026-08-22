@@ -114,14 +114,14 @@ const banksFaqSchema = {
               Use these to report fraud and secure your accounts if your phone is stolen.
             </p>
           </div>
-          <div class="flex items-center gap-2 bg-white/10 px-3 py-1.5 rounded-lg text-xs shrink-0">
+          <div class="flex items-center gap-2 bg-background/10 px-3 py-1.5 rounded-lg text-xs shrink-0">
             <Clock class="h-3.5 w-3.5" />
             <span>Verified {lastUpdated}</span>
           </div>
         </div>
 
         <!-- Quick Stats -->
-        <div class="mt-5 pt-5 border-t border-white/20 grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div class="mt-5 pt-5 border-t border-background/20 grid grid-cols-2 sm:grid-cols-4 gap-3">
           <div class="text-center">
             <div class="text-2xl sm:text-3xl font-bold">{sortedBanks.length}</div>
             <div class="text-xs text-neutral-300">Banks Listed</div>
@@ -164,7 +164,7 @@ const banksFaqSchema = {
               type="search"
               id="bank-search"
               placeholder="Search for your bank..."
-              class="w-full pl-10 pr-4 py-2 sm:py-3 text-sm sm:text-base border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+              class="w-full pl-10 pr-4 py-2 sm:py-3 text-sm sm:text-base border border-input rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
               autocomplete="off"
               autocorrect="off"
               autocapitalize="off"
@@ -175,7 +175,7 @@ const banksFaqSchema = {
 
         <!-- Category Filter -->
         <div class="mb-6 flex gap-2 overflow-x-auto whitespace-nowrap">
-          <button type="button" class="category-filter px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm rounded-lg bg-primary text-white" data-category="all">
+          <button type="button" class="category-filter px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm rounded-lg bg-primary text-primary-foreground" data-category="all">
             All Banks ({sortedBanks.length})
           </button>
           <button type="button" class="category-filter px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm rounded-lg bg-neutral-200 text-foreground hover:bg-neutral-300" data-category="high_street">
@@ -303,11 +303,11 @@ const banksFaqSchema = {
         
         // Update button styles
         categoryButtons.forEach(btn => {
-          btn.classList.remove('bg-primary', 'text-white');
+          btn.classList.remove('bg-primary', 'text-primary-foreground');
           btn.classList.add('bg-neutral-200', 'text-foreground');
         });
         target.classList.remove('bg-neutral-200', 'text-foreground');
-        target.classList.add('bg-primary', 'text-white');
+        target.classList.add('bg-primary', 'text-primary-foreground');
         
         // Filter banks
         const searchQuery = searchInput?.value.toLowerCase() || '';

@@ -42,7 +42,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <h2 class="text-lg font-bold text-foreground">All Reports</h2>
           <div class="flex gap-2">
-            <button id="filter-all" class="filter-btn px-3 py-1.5 text-xs font-medium rounded-lg bg-primary text-white">All</button>
+            <button id="filter-all" class="filter-btn px-3 py-1.5 text-xs font-medium rounded-lg bg-primary text-primary-foreground">All</button>
             <button id="filter-pending" class="filter-btn px-3 py-1.5 text-xs font-medium rounded-lg bg-neutral-100 text-neutral-700 hover:bg-neutral-200">Pending</button>
             <button id="filter-approved" class="filter-btn px-3 py-1.5 text-xs font-medium rounded-lg bg-neutral-100 text-neutral-700 hover:bg-neutral-200">Approved</button>
           </div>
@@ -51,7 +51,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
-          <thead class="bg-neutral-50 text-neutral-600">
+          <thead class="bg-neutral text-neutral-600">
             <tr>
               <th class="px-4 py-3 text-left font-medium">Location</th>
               <th class="px-4 py-3 text-left font-medium hidden md:table-cell">Date</th>
@@ -141,7 +141,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
           : '<span class="px-2 py-1 rounded-full text-xs font-medium bg-warning-subtle text-warning">Pending</span>';
 
         return `
-          <tr class="border-b border-border hover:bg-neutral-50" data-id="${escapeHtml(r._id)}">
+          <tr class="border-b border-border hover:bg-neutral" data-id="${escapeHtml(r._id)}">
             <td class="px-4 py-3 font-medium text-foreground">${escapeHtml(r.locationName) || 'Unknown'}</td>
             <td class="px-4 py-3 hidden md:table-cell text-neutral-600">${escapeHtml(dateStr)}</td>
             <td class="px-4 py-3 hidden lg:table-cell text-neutral-600 max-w-xs truncate">${escapeHtml(r.description) || '-'}</td>

@@ -132,7 +132,7 @@ function ChartErrorState({ error, hasData, onRetry }: { error: string | null; ha
       {(error || !hasData) && (
         <button
           onClick={onRetry}
-          className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg font-medium hover:bg-primary-hover transition-colors"
+          className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary-hover transition-colors"
         >
           <RefreshCw className="size-4" />
           Try Again

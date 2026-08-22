@@ -564,13 +564,13 @@ const schema = [
     <div class="container mx-auto px-4 py-4 sm:py-6 md:py-8 max-w-6xl">
       
       <!-- Hero Section with Location Stats -->
-      <div class="bg-destructive text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8 ">
+      <div class="bg-destructive text-destructive-foreground rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8 ">
         <div class="flex items-center gap-3 mb-3">
-          <div class="bg-white/20 p-2 sm:p-3 rounded-xl">
+          <div class="bg-background/20 p-2 sm:p-3 rounded-xl">
             <MapPin class="size-6 sm:size-8" />
           </div>
           <div>
-            <p class="text-xs uppercase tracking-wide text-destructive-muted font-semibold">
+            <p class="text-xs uppercase tracking-wide text-destructive-foreground/70 font-semibold">
               {location.rank === 1 ? 'Highest Risk Area' : `#${location.rank} UK Hotspot`}
             </p>
             <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">
@@ -578,23 +578,23 @@ const schema = [
             </h1>
           </div>
         </div>
-        <p class="text-destructive-muted text-sm md:text-base max-w-3xl mb-6">
+        <p class="text-destructive-foreground/70 text-sm md:text-base max-w-3xl mb-6">
           {location.description}
         </p>
 
         <!-- Key Stats -->
         <div class="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
-          <div class="bg-white/15 backdrop-blur-sm rounded-xl p-3 sm:p-4">
+          <div class="bg-background/15 backdrop-blur-sm rounded-xl p-3 sm:p-4">
             <div class="text-2xl sm:text-3xl font-bold">{location.thefts.toLocaleString()}</div>
-            <div class="text-xs sm:text-sm text-destructive-muted mt-1">Thefts in {location.year}</div>
+            <div class="text-xs sm:text-sm text-destructive-foreground/70 mt-1">Thefts in {location.year}</div>
           </div>
-          <div class="bg-white/15 backdrop-blur-sm rounded-xl p-3 sm:p-4">
+          <div class="bg-background/15 backdrop-blur-sm rounded-xl p-3 sm:p-4">
             <div class="text-2xl sm:text-3xl font-bold">{location.change}</div>
-            <div class="text-xs sm:text-sm text-destructive-muted mt-1">Trend</div>
+            <div class="text-xs sm:text-sm text-destructive-foreground/70 mt-1">Trend</div>
           </div>
-          <div class="bg-white/15 backdrop-blur-sm rounded-xl p-3 sm:p-4 col-span-2 md:col-span-1">
+          <div class="bg-background/15 backdrop-blur-sm rounded-xl p-3 sm:p-4 col-span-2 md:col-span-1">
             <div class="text-2xl sm:text-3xl font-bold">{location.rank === 1 ? '1st' : location.rank === 2 ? '2nd' : '3rd'}</div>
-            <div class="text-xs sm:text-sm text-destructive-muted mt-1">UK Ranking</div>
+            <div class="text-xs sm:text-sm text-destructive-foreground/70 mt-1">UK Ranking</div>
           </div>
         </div>
       </div>
@@ -602,7 +602,7 @@ const schema = [
       <!-- Quick Action Cards -->
       <section class="mb-6 sm:mb-8 grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
         <div class="bg-card rounded-lg sm:rounded-2xl  border border-border p-4 sm:p-5 flex gap-3">
-          <div class="bg-neutral-100/10 text-primary rounded-lg p-2 h-fit">
+          <div class="bg-neutral-100 text-foreground rounded-lg p-2 h-fit">
             <Shield class="size-5" />
           </div>
           <div>
@@ -661,10 +661,10 @@ const schema = [
               {location.hotspots.map((hotspot) => (
                 <div class="flex items-start gap-3 sm:gap-4 p-3 sm:p-4 bg-neutral rounded-xl border border-border">
                   <div class={`px-2.5 py-1 rounded-lg text-xs font-bold flex-shrink-0 ${
-                    hotspot.risk === 'Extreme' ? 'bg-destructive text-white' :
-                    hotspot.risk === 'Very High' ? 'bg-destructive text-white' :
-                    hotspot.risk === 'High' ? 'bg-foreground text-white' :
-                    'bg-foreground text-white'
+                    hotspot.risk === 'Extreme' ? 'bg-destructive text-destructive-foreground' :
+                    hotspot.risk === 'Very High' ? 'bg-destructive text-destructive-foreground' :
+                    hotspot.risk === 'High' ? 'bg-foreground text-background' :
+                    'bg-foreground text-background'
                   }`}>
                     {hotspot.risk}
                   </div>
@@ -762,7 +762,7 @@ const schema = [
                   href={location.reportingUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-xl font-semibold text-sm  hover:bg-primary-hover transition"
+                  class="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-xl font-semibold text-sm  hover:bg-primary-hover transition"
                 >
                   Report Online <ArrowRight class="size-4" />
                 </a>
@@ -781,40 +781,40 @@ const schema = [
 
       <!-- Prevention & Emergency CTAs -->
       <section class="mb-8 sm:mb-10 md:mb-12">
-        <div class="bg-foreground text-white rounded-xl sm:rounded-2xl  p-4 sm:p-6 md:p-8">
+        <div class="bg-foreground text-background rounded-xl sm:rounded-2xl  p-4 sm:p-6 md:p-8">
           <h2 class="text-xl sm:text-2xl font-bold mb-2">
             {location.residents ? 'Protect Yourself' : 'Essential Guides for Visitors'}
           </h2>
-          <p class="text-sm text-white/80 mb-6">
+          <p class="text-sm text-background/80 mb-6">
             Complete step-by-step guides to prevent theft and respond quickly if your phone is stolen in {location.name}.
           </p>
 
           <div class="grid md:grid-cols-3 gap-3 sm:gap-4">
             <a
               href="/prevention"
-              class="p-4 sm:p-5 bg-card/10 rounded-xl border border-white/20 hover:bg-card/15 transition-colors group"
+              class="p-4 sm:p-5 bg-background/10 rounded-xl border border-background/20 hover:bg-background/15 transition-colors group"
             >
               <div class="flex items-center gap-2 mb-2">
-                <Shield class="size-5 text-foreground" />
+                <Shield class="size-5 text-background" />
                 <h3 class="font-bold text-base sm:text-lg">Prevention Guide</h3>
               </div>
-              <p class="text-xs sm:text-sm text-white/70 mb-3">
+              <p class="text-xs sm:text-sm text-background/70 mb-3">
                 Security settings, protective gear, and habits to avoid becoming a target.
               </p>
-              <div class="flex items-center gap-2 text-sm font-semibold text-foreground group-hover:gap-3 transition-all">
+              <div class="flex items-center gap-2 text-sm font-semibold text-background group-hover:gap-3 transition-all">
                 Read guide <ArrowRight class="size-4" />
               </div>
             </a>
 
             <a
               href="/emergency"
-              class="p-4 sm:p-5 bg-card/10 rounded-xl border border-white/20 hover:bg-card/15 transition-colors group"
+              class="p-4 sm:p-5 bg-background/10 rounded-xl border border-background/20 hover:bg-background/15 transition-colors group"
             >
               <div class="flex items-center gap-2 mb-2">
                 <AlertTriangle class="size-5 text-destructive" />
                 <h3 class="font-bold text-base sm:text-lg">Emergency Steps</h3>
               </div>
-              <p class="text-xs sm:text-sm text-white/70 mb-3">
+              <p class="text-xs sm:text-sm text-background/70 mb-3">
                 Immediate actions: lock device, block SIM, secure banking, report to police.
               </p>
               <div class="flex items-center gap-2 text-sm font-semibold text-destructive group-hover:gap-3 transition-all">
@@ -824,16 +824,16 @@ const schema = [
 
             <a
               href="/statistics"
-              class="p-4 sm:p-5 bg-card/10 rounded-xl border border-white/20 hover:bg-card/15 transition-colors group"
+              class="p-4 sm:p-5 bg-background/10 rounded-xl border border-background/20 hover:bg-background/15 transition-colors group"
             >
               <div class="flex items-center gap-2 mb-2">
-                <TrendingUp class="size-5 text-primary" />
+                <TrendingUp class="size-5 text-background" />
                 <h3 class="font-bold text-base sm:text-lg">UK Statistics</h3>
               </div>
-              <p class="text-xs sm:text-sm text-white/70 mb-3">
+              <p class="text-xs sm:text-sm text-background/70 mb-3">
                 See theft data for all UK cities, seasonal trends, and high-risk times.
               </p>
-              <div class="flex items-center gap-2 text-sm font-semibold text-primary group-hover:gap-3 transition-all">
+              <div class="flex items-center gap-2 text-sm font-semibold text-background group-hover:gap-3 transition-all">
                 View data <ArrowRight class="size-4" />
               </div>
             </a>
