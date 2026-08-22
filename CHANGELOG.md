@@ -101,6 +101,7 @@ All notable changes to this project will be documented in this file.
 
 ### CI/CD
 
+- Bump actions/checkout from 6 to 7 (#77)
 - Bump actions/setup-node from 6 to 7 (#88)
 - Fix fallow dead-code analysis
 - Upgrade to Node 24
@@ -1280,6 +1281,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
