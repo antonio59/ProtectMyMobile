@@ -129,6 +129,13 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Dedupe analytics recent-events query prologue
+- Share police.uk fetch helpers between endpoint and backfill script
+- Share approval/delete/list handlers in convex crud lib
+- Share admin CRUD mutation handlers in convex/lib/crud
+- Share Chart.js tooltip/grid/tick options via chartPalette
+- Share cron-caller boilerplate across Netlify scheduled functions
+- Share headline dedup between Convex and Astro app
 - Extract shared directory-discovery core into src/lib
 - Editorial favicon, manifest theme, and shared chart palette
 - Bring undersized interactive elements to 44px touch targets
@@ -1269,6 +1276,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
