@@ -1,5 +1,16 @@
 import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
+import type { QueryCtx } from "./_generated/server";
+
+// Shared prologue: collect analyticsEvents from the last `days` (default 30).
+async function collectRecentEvents(ctx: QueryCtx, days?: number) {
+  const d = days || 30;
+  const cutoff = Date.now() - (d * 24 * 60 * 60 * 1000);
+  return await ctx.db
+    .query("analyticsEvents")
+    .filter((q) => q.gte(q.field("_creationTime"), cutoff))
+    .collect();
+}
 
 // Track an analytics event
 export const trackEvent = mutation({
@@ -47,13 +58,7 @@ export const getSummary = query({
     adminToken: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
-    const days = args.days || 30;
-    const cutoff = Date.now() - (days * 24 * 60 * 60 * 1000);
-
-    const allEvents = await ctx.db
-      .query("analyticsEvents")
-      .filter((q) => q.gte(q.field("_creationTime"), cutoff))
-      .collect();
+    const allEvents = await collectRecentEvents(ctx, args.days);
 
     // Count by event type
     const eventCounts: Record<string, number> = {};
@@ -174,21 +179,11 @@ export const getCheckupAnalytics = query({
     adminToken: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
-    const days = args.days || 30;
-    const cutoff = Date.now() - (days * 24 * 60 * 60 * 1000);
-
-    const checkupEvents = await ctx.db
-      .query("analyticsEvents")
-      .filter((q) =>
-        q.and(
-          q.gte(q.field("_creationTime"), cutoff),
-          q.or(
-            q.eq(q.field("eventType"), "security_checkup_started"),
-            q.eq(q.field("eventType"), "security_checkup_completed")
-          )
-        )
-      )
-      .collect();
+    const checkupEvents = (await collectRecentEvents(ctx, args.days))
+      .filter(e =>
+        e.eventType === "security_checkup_started" ||
+        e.eventType === "security_checkup_completed"
+      );
 
     const completed = checkupEvents.filter(e => e.eventType === "security_checkup_completed");
 
