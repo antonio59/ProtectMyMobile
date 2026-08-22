@@ -129,6 +129,9 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Bring undersized interactive elements to 44px touch targets
+- Bump resend from 6.14.0 to 6.20.0 (#93)
+- Bump nanostores from 1.3.0 to 1.5.1 (#90)
 - Bump sanitize-html from 2.17.5 to 2.17.7 (#94)
 - Scope Fallow PR regression check to dead-code
 - Tighten button padding to match content size
@@ -1263,6 +1266,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
