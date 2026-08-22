@@ -171,6 +171,10 @@ components:
     padding: 12px
     height: 44px
 
+  button-secondary-hover:
+    backgroundColor: "{colors.secondary-hover}"
+    textColor: "{colors.secondary-foreground}"
+
   button-outline:
     backgroundColor: "{colors.background}"
     textColor: "{colors.foreground}"
@@ -245,6 +249,13 @@ components:
     rounded: "{rounded.full}"
     padding: "4px 12px"
 
+  badge-success:
+    backgroundColor: "{colors.success-subtle}"
+    textColor: "{colors.success}"
+    typography: "{typography.label}"
+    rounded: "{rounded.full}"
+    padding: "4px 12px"
+
   fab-emergency:
     backgroundColor: "{colors.emergency}"
     textColor: "{colors.emergency-foreground}"
@@ -290,7 +301,7 @@ components:
     height: 1px
 
   focus-ring:
-    backgroundColor: "{colors.primary}"
+    backgroundColor: "{colors.ring}"
     height: 2px
 
   surface-page:
@@ -306,6 +317,17 @@ components:
   surface-disabled:
     backgroundColor: "{colors.neutral-300}"
     rounded: "{rounded.md}"
+
+  table-header:
+    backgroundColor: "{colors.neutral}"
+    textColor: "{colors.neutral-500}"
+    typography: "{typography.label}"
+
+  text-muted:
+    textColor: "{colors.neutral-500}"
+
+  text-heading:
+    textColor: "{colors.neutral-900}"
 
   text-placeholder:
     textColor: "{colors.neutral-400}"
@@ -566,7 +588,7 @@ All buttons meet a **44px minimum touch target** for accessibility.
 ### Badges
 - Pill-shaped (`rounded-full`), `padding: 4px 12px`.
 - `label` typography token.
-- Variants: `badge-info` (ink tint), `badge-emergency` (red), `badge-warning` (amber).
+- Variants: `badge-info` (ink tint), `badge-emergency` (red), `badge-warning` (amber), `badge-success` (green).
 
 ### Iconography
 All icons come from **Lucide React**. They are stroke-based (not filled), keeping the UI light and scalable.
