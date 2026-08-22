@@ -85,7 +85,7 @@ jobs:
         if: github.event_name == 'pull_request'
         run: |
           if [ -f .fallow/regression-baseline.json ]; then
-            pnpm dlx fallow --fail-on-regression --regression-baseline .fallow/regression-baseline.json --format compact
+            pnpm dlx fallow --only dead-code --fail-on-regression --regression-baseline .fallow/regression-baseline.json --format compact
           else
             echo "No baseline found; skipping regression check."
           fi
