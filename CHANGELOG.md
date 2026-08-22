@@ -129,6 +129,8 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Extract shared directory-discovery core into src/lib
+- Editorial favicon, manifest theme, and shared chart palette
 - Bring undersized interactive elements to 44px touch targets
 - Bump resend from 6.14.0 to 6.20.0 (#93)
 - Bump nanostores from 1.3.0 to 1.5.1 (#90)
@@ -1250,6 +1252,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Chores
 
+- Update fallow regression baseline [skip ci]
 - Migrate to pnpm v11
 - Remove Google Analytics, simplify cookie notice
 - Remove unused @astrojs/cloudflare devDependency
@@ -1266,6 +1269,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
