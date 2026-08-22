@@ -129,6 +129,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Bump the dev-dependencies group across 1 directory with 3 updates (#95)
 - Extract admin TableLoadingRow/ModalHeader, dedupe verification fetch fallback
 - Dedupe analytics recent-events query prologue
 - Share police.uk fetch helpers between endpoint and backfill script
@@ -1277,6 +1278,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
