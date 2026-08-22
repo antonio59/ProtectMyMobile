@@ -21,7 +21,7 @@ export interface DiscoveryReport {
   pendingProviders: Array<{ name: string; network: string }>;
 }
 
-export function normalizeName(name: string): string {
+function normalizeName(name: string): string {
   return name
     .toLowerCase()
     .replace(/\b(limited|ltd|plc|llp)\b/g, '')
@@ -135,7 +135,7 @@ async function fetchBoeCsv(filename: string): Promise<string> {
   throw new Error(`Failed to fetch BoE CSV: ${filename}`);
 }
 
-export async function fetchBoEBanks(): Promise<string[]> {
+async function fetchBoEBanks(): Promise<string[]> {
   const csvText = await fetchBoeCsv('list-of-pra-regulated-banks.csv');
 
   const lines = csvText.replace(/^\uFEFF/, '').split('\n');
@@ -162,7 +162,7 @@ export async function fetchBoEBanks(): Promise<string[]> {
   return results;
 }
 
-export async function fetchBoEBuildingSocieties(): Promise<string[]> {
+async function fetchBoEBuildingSocieties(): Promise<string[]> {
   const csvText = await fetchBoeCsv('list-of-pra-regulated-building-societies.csv');
 
   const lines = csvText.replace(/^\uFEFF/, '').split('\n');
@@ -202,7 +202,7 @@ function stripWikiRefs(str: string): string {
   return str;
 }
 
-export async function fetchWikipediaMvno(): Promise<{ name: string; network: string }[]> {
+async function fetchWikipediaMvno(): Promise<{ name: string; network: string }[]> {
   const url = 'https://en.wikipedia.org/wiki/List_of_mobile_virtual_network_operators_in_the_United_Kingdom';
   const res = await fetch(url, { headers: { 'User-Agent': BOT_UA } });
   if (!res.ok) throw new Error('Failed to fetch Wikipedia MVNO page');
