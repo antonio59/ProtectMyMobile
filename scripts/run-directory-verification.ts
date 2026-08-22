@@ -5,6 +5,16 @@ const convexUrl = process.env.PUBLIC_CONVEX_URL!;
 const adminToken = process.env.CRON_SECRET!;
 const convex = new ConvexHttpClient(convexUrl);
 
+const BOT_HEADERS = { 'User-Agent': 'ProtectMyMobile/1.0 DirectoryBot' };
+
+async function fetchGet(url: string): Promise<Response> {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 5000);
+  const response = await fetch(url, { method: 'GET', signal: controller.signal, headers: BOT_HEADERS });
+  clearTimeout(timeoutId);
+  return response;
+}
+
 async function checkUrl(url: string, name: string, type: 'bank' | 'provider', id: any) {
   let isActive = false;
   let issueDetail = '';
@@ -15,21 +25,14 @@ async function checkUrl(url: string, name: string, type: 'bank' | 'provider', id
     const headResponse = await fetch(url, {
       method: 'HEAD',
       signal: controller.signal,
-      headers: { 'User-Agent': 'ProtectMyMobile/1.0 DirectoryBot' }
+      headers: BOT_HEADERS
     });
     clearTimeout(timeoutId);
 
     if (headResponse.ok || headResponse.status === 405) {
       isActive = true;
     } else if (headResponse.status === 403) {
-      const getController = new AbortController();
-      const getTimeoutId = setTimeout(() => getController.abort(), 5000);
-      const getResponse = await fetch(url, {
-        method: 'GET',
-        signal: getController.signal,
-        headers: { 'User-Agent': 'ProtectMyMobile/1.0 DirectoryBot' }
-      });
-      clearTimeout(getTimeoutId);
+      const getResponse = await fetchGet(url);
       if (getResponse.ok) {
         isActive = true;
       } else {
@@ -40,14 +43,7 @@ async function checkUrl(url: string, name: string, type: 'bank' | 'provider', id
     }
   } catch (err: any) {
     try {
-      const getController = new AbortController();
-      const getTimeoutId = setTimeout(() => getController.abort(), 5000);
-      const getResponse = await fetch(url, {
-        method: 'GET',
-        signal: getController.signal,
-        headers: { 'User-Agent': 'ProtectMyMobile/1.0 DirectoryBot' }
-      });
-      clearTimeout(getTimeoutId);
+      const getResponse = await fetchGet(url);
       if (getResponse.ok) {
         isActive = true;
       } else {
