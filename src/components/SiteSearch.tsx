@@ -211,7 +211,7 @@ export default function SiteSearch() {
       {/* Mobile Search Trigger */}
       <button
         onClick={() => setIsOpen(true)}
-        className="md:hidden p-2 rounded-lg bg-neutral-100 hover:bg-neutral-200 text-muted-foreground transition-colors"
+        className="md:hidden size-11 flex items-center justify-center rounded-lg bg-neutral-100 hover:bg-neutral-200 text-muted-foreground transition-colors"
         aria-label="Open search"
       >
         <Search className="size-5" />
@@ -249,7 +249,7 @@ export default function SiteSearch() {
               {query && (
                 <button
                   onClick={() => setQuery('')}
-                  className="p-1 rounded hover:bg-neutral-100 text-muted-foreground"
+                  className="p-2 rounded hover:bg-neutral-100 text-muted-foreground"
                   aria-label="Clear search"
                 >
                   <X className="size-4" />

@@ -324,7 +324,7 @@ const articleSchema = {
                   href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(pageUrl)}&text=${encodeURIComponent(post.title)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="p-2 rounded-lg bg-card border border-border text-muted-foreground hover:bg-foreground hover:text-background hover:border-foreground transition-colors"
+                  class="size-11 flex items-center justify-center rounded-lg bg-card border border-border text-muted-foreground hover:bg-foreground hover:text-background hover:border-foreground transition-colors"
                   aria-label="Share on Twitter"
                 >
                   <svg class="size-4" viewBox="0 0 24 24" fill="currentColor">
@@ -335,7 +335,7 @@ const articleSchema = {
                   href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="p-2 rounded-lg bg-card border border-border text-muted-foreground hover:bg-[#1877F2] hover:text-white hover:border-[#1877F2] transition-colors"
+                  class="size-11 flex items-center justify-center rounded-lg bg-card border border-border text-muted-foreground hover:bg-[#1877F2] hover:text-white hover:border-[#1877F2] transition-colors"
                   aria-label="Share on Facebook"
                 >
                   <svg class="size-4" viewBox="0 0 24 24" fill="currentColor">
@@ -344,7 +344,7 @@ const articleSchema = {
                 </a>
                 <button
                   id="copy-link-btn"
-                  class="p-2 rounded-lg bg-card border border-border text-muted-foreground hover:bg-neutral-100 transition-colors text-xs font-medium"
+                  class="min-h-11 px-3 py-2 rounded-lg bg-card border border-border text-muted-foreground hover:bg-neutral-100 transition-colors text-xs font-medium"
                   data-url={pageUrl}
                 >
                   Copy link

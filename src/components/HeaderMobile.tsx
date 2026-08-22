@@ -100,14 +100,14 @@ export default function HeaderMobile() {
             <SiteSearch />
             <a
               href="/emergency"
-              className="p-2 bg-destructive text-destructive-foreground rounded-xl hover:scale-105 active:scale-90 transition-transform duration-150"
+              className="size-11 flex items-center justify-center bg-destructive text-destructive-foreground rounded-xl hover:scale-105 active:scale-90 transition-transform duration-150"
               aria-label="Emergency - Phone stolen?"
             >
               <AlertTriangle className="size-5" />
             </a>
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-xl bg-neutral-100 hover:bg-neutral-200 transition-colors hover:scale-105 active:scale-90 transition-transform duration-150"
+              className="size-11 flex items-center justify-center rounded-xl bg-neutral-100 hover:bg-neutral-200 transition-colors hover:scale-105 active:scale-90 transition-transform duration-150"
               aria-label="Toggle menu"
             >
               {isOpen ? <X className="size-5" /> : <Menu className="size-5" />}
@@ -140,7 +140,7 @@ export default function HeaderMobile() {
             <ThemeToggle />
             <button
             onClick={() => setIsOpen(false)}
-            className="p-2.5 rounded-xl bg-neutral-200 hover:bg-neutral-300 hover:scale-105 active:scale-90 transition-all duration-150"
+            className="size-11 flex items-center justify-center rounded-xl bg-neutral-200 hover:bg-neutral-300 hover:scale-105 active:scale-90 transition-all duration-150"
             aria-label="Close menu"
           >
             <X className="size-6 text-foreground" />

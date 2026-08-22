@@ -95,7 +95,7 @@ const newsSchema = {
             {lastUpdated && (
               <span class="text-muted-foreground uppercase tracking-wide font-semibold">Updated {lastUpdated}</span>
             )}
-            <a href="/rss.xml" class="inline-flex items-center gap-1.5 border-2 border-foreground px-3 py-1.5 font-bold uppercase tracking-wide hover:bg-foreground hover:text-background transition-colors">
+            <a href="/rss.xml" class="inline-flex items-center gap-1.5 min-h-11 border-2 border-foreground px-3 py-1.5 font-bold uppercase tracking-wide hover:bg-foreground hover:text-background transition-colors">
               <Rss class="size-3.5" />
               RSS
             </a>
@@ -120,14 +120,14 @@ const newsSchema = {
           <!-- Filters -->
           <section class="mb-6 sm:mb-8">
             <div class="flex items-center gap-2 overflow-x-auto pb-1">
-              <button class="category-btn active border-2 border-foreground bg-foreground text-background px-3 py-1.5 text-xs font-bold uppercase tracking-wide whitespace-nowrap transition-colors" data-category="all">
+              <button class="category-btn active min-h-11 border-2 border-foreground bg-foreground text-background px-3 py-1.5 text-xs font-bold uppercase tracking-wide whitespace-nowrap transition-colors" data-category="all">
                 All <span class="opacity-60">{posts.length}</span>
               </button>
               {Object.entries(categoryConfig).map(([key, config]) => {
                 if (!categoryCounts[key]) return null;
                 return (
                   <button
-                    class="category-btn border-2 border-foreground bg-background text-foreground px-3 py-1.5 text-xs font-bold uppercase tracking-wide whitespace-nowrap hover:bg-neutral-100 transition-colors"
+                    class="category-btn min-h-11 border-2 border-foreground bg-background text-foreground px-3 py-1.5 text-xs font-bold uppercase tracking-wide whitespace-nowrap hover:bg-neutral-100 transition-colors"
                     data-category={key}
                   >
                     {config.label} <span class="opacity-60">{categoryCounts[key]}</span>
