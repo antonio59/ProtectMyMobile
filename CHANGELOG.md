@@ -129,6 +129,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Extract admin TableLoadingRow/ModalHeader, dedupe verification fetch fallback
 - Dedupe analytics recent-events query prologue
 - Share police.uk fetch helpers between endpoint and backfill script
 - Share approval/delete/list handlers in convex crud lib
@@ -1276,6 +1277,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
