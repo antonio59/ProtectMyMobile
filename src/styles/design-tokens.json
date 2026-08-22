@@ -2,76 +2,82 @@
   "theme": {
     "extend": {
       "colors": {
-        "primary": "#2563eb",
-        "primary-foreground": "#ffffff",
-        "primary-hover": "#1d4ed8",
-        "primary-subtle": "#eff6ff",
-        "primary-muted": "#dbeafe",
-        "secondary": "#f1f5f9",
-        "secondary-foreground": "#0f172a",
-        "background": "#ffffff",
-        "foreground": "#020817",
-        "neutral": "#fafafa",
-        "neutral-100": "#f5f5f5",
-        "neutral-200": "#e5e5e5",
-        "neutral-300": "#d4d4d4",
-        "neutral-400": "#a3a3a3",
-        "neutral-500": "#737373",
-        "neutral-600": "#525252",
-        "neutral-700": "#404040",
-        "neutral-800": "#262626",
-        "neutral-900": "#171717",
-        "muted": "#f1f5f9",
-        "muted-foreground": "#64748b",
-        "accent": "#f1f5f9",
-        "accent-foreground": "#0f172a",
-        "destructive": "#dc2626",
+        "primary": "#16130f",
+        "primary-foreground": "#faf8f5",
+        "primary-hover": "#000000",
+        "primary-subtle": "#f2eee6",
+        "primary-muted": "#e8e2d6",
+        "secondary": "#f2eee6",
+        "secondary-foreground": "#16130f",
+        "secondary-hover": "#e8e2d6",
+        "background": "#faf8f5",
+        "foreground": "#16130f",
+        "neutral": "#f5f2ec",
+        "neutral-100": "#f2eee6",
+        "neutral-200": "#e5dfd5",
+        "neutral-300": "#d8d2c8",
+        "neutral-400": "#a39b8d",
+        "neutral-500": "#6b6459",
+        "neutral-600": "#58524a",
+        "neutral-700": "#453f36",
+        "neutral-800": "#2b2620",
+        "neutral-900": "#16130f",
+        "muted": "#f2eee6",
+        "muted-foreground": "#6b6459",
+        "accent": "#f2eee6",
+        "accent-foreground": "#16130f",
+        "destructive": "#c8322b",
         "destructive-foreground": "#ffffff",
-        "destructive-hover": "#b91c1c",
-        "destructive-subtle": "#fef2f2",
-        "destructive-muted": "#fee2e2",
-        "emergency": "#d4351c",
-        "warning": "#d97706",
-        "warning-subtle": "#fffbeb",
-        "success": "#059669",
-        "card": "#ffffff",
-        "card-foreground": "#020817",
-        "popover": "#ffffff",
-        "popover-foreground": "#020817",
-        "border": "#e2e8f0",
-        "input": "#e2e8f0",
-        "ring": "#3b82f6"
+        "destructive-hover": "#a8271f",
+        "destructive-subtle": "#f9ece8",
+        "destructive-muted": "#f0c7c4",
+        "emergency": "#c8322b",
+        "emergency-foreground": "#ffffff",
+        "warning": "#b06000",
+        "warning-subtle": "#f7efe0",
+        "success": "#2f6b4f",
+        "success-subtle": "#eaf2ec",
+        "card": "#faf8f5",
+        "card-foreground": "#16130f",
+        "popover": "#faf8f5",
+        "popover-foreground": "#16130f",
+        "border": "#d8d2c8",
+        "input": "#d8d2c8",
+        "ring": "#c8322b"
       },
       "fontFamily": {
         "font-sans": [
-          "Inter"
+          "Archivo"
+        ],
+        "font-serif": [
+          "Newsreader"
         ],
         "h1": [
-          "Inter"
+          "Newsreader"
         ],
         "h2": [
-          "Inter"
+          "Newsreader"
         ],
         "h3": [
-          "Inter"
+          "Newsreader"
         ],
         "h4": [
-          "Inter"
+          "Archivo"
         ],
         "body": [
-          "Inter"
+          "Archivo"
         ],
         "body-sm": [
-          "Inter"
+          "Archivo"
         ],
         "body-xs": [
-          "Inter"
+          "Archivo"
         ],
         "label": [
-          "Inter"
+          "Archivo"
         ],
         "stat-number": [
-          "Inter"
+          "Archivo"
         ]
       },
       "fontSize": {
@@ -81,30 +87,36 @@
             "fontWeight": "400"
           }
         ],
+        "font-serif": [
+          "1rem",
+          {
+            "fontWeight": "500"
+          }
+        ],
         "h1": [
-          "1.875rem",
+          "2.125rem",
           {
             "letterSpacing": "-0.02em",
-            "fontWeight": "700"
+            "fontWeight": "500"
           }
         ],
         "h2": [
-          "1.5rem",
+          "1.625rem",
           {
             "letterSpacing": "-0.01em",
             "fontWeight": "700"
           }
         ],
         "h3": [
-          "1.25rem",
+          "1.375rem",
           {
-            "fontWeight": "600"
+            "fontWeight": "700"
           }
         ],
         "h4": [
-          "1.125rem",
+          "1.0625rem",
           {
-            "fontWeight": "600"
+            "fontWeight": "700"
           }
         ],
         "body": [
