@@ -131,6 +131,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Bump convex in the convex group across 1 directory (#73)
 - Bump the react group across 1 directory with 4 updates (#91)
 - Drop unused exports flagged by Fallow dead-code gate
 - Bump the dev-dependencies group across 1 directory with 3 updates (#95)
@@ -1282,6 +1283,8 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
