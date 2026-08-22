@@ -48,7 +48,7 @@ colors:
   # Semantic
   emergency: "#C8322B"
   emergency-foreground: "#FFFFFF"
-  warning: "#B06000"
+  warning: "#9A4F00"
   warning-subtle: "#F7EFE0"
   success: "#2F6B4F"
   success-subtle: "#EAF2EC"

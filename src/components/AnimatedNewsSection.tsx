@@ -144,7 +144,7 @@ function NewsCard({ post, index, config, Icon }: { post: NewsPost; index: number
   const { ref, isInView } = useInView<HTMLAnchorElement>({ rootMargin: '-50px', threshold: 0.1 });
   
   const borderColor = post.category === 'arrest' ? '#C8322B' : 
-                      post.category === 'seizure' ? '#B06000' : 
+                      post.category === 'seizure' ? '#9A4F00' : 
                       post.category === 'law_change' ? '#2F6B4F' : 
                       post.category === 'statistics' ? '#16130F' : 
                       post.category === 'prevention_tip' ? '#2F6B4F' : 
