@@ -1,6 +1,7 @@
 import { v } from "convex/values";
 import { query, mutation } from "./_generated/server";
 import { requireAdmin } from "./auth";
+import { titlesAreSimilar } from "./lib/newsDedup";
 
 export const list = query({
   args: { publishedOnly: v.optional(v.boolean()), adminToken: v.optional(v.string()) },
@@ -107,47 +108,7 @@ export const remove = mutation({
   },
 });
 
-// Token-based similarity — mirrors src/lib/news/dedup.ts. Kept in sync here
-// because Convex functions are bundled independently from the Astro app.
-const STOP_WORDS = new Set([
-  "the", "a", "an", "and", "or", "but", "of", "to", "in", "on", "at", "for",
-  "with", "as", "is", "are", "was", "were", "be", "been", "by", "from", "that",
-  "this", "it", "its", "after", "into", "over", "amid", "near", "my", "your",
-  "his", "her", "their", "out", "up", "off", "has", "have", "had",
-]);
-const SOURCE_SUFFIX = /\s+[-|–—]\s+[^-|–—]{1,40}$/;
-const SIMILARITY_THRESHOLD = 0.6;
-const CONTAINMENT_THRESHOLD = 0.8;
-const MIN_SHARED_TOKENS = 4;
-
-function tokenizeTitle(title: string): Set<string> {
-  const tokens = title
-    .replace(SOURCE_SUFFIX, "")
-    .toLowerCase()
-    .replace(/['’]s\b/g, "")
-    .replace(/[^a-z0-9\s]/g, " ")
-    .split(/\s+/)
-    .filter((word) => word.length > 2 && !STOP_WORDS.has(word));
-  return new Set(tokens);
-}
-
-function titlesAreSimilar(a: string, b: string): boolean {
-  const tokensA = tokenizeTitle(a);
-  const tokensB = tokenizeTitle(b);
-  if (tokensA.size === 0 || tokensB.size === 0) return false;
-
-  let shared = 0;
-  for (const token of tokensA) {
-    if (tokensB.has(token)) shared++;
-  }
-  if (shared < MIN_SHARED_TOKENS) return false;
-
-  const union = tokensA.size + tokensB.size - shared;
-  const jaccard = union === 0 ? 0 : shared / union;
-  const containment = shared / Math.min(tokensA.size, tokensB.size);
-
-  return jaccard >= SIMILARITY_THRESHOLD || containment >= CONTAINMENT_THRESHOLD;
-}
+// Title similarity helpers live in ./lib/newsDedup (shared with the Astro app).
 
 export const cleanupDuplicates = mutation({
   args: { adminToken: v.optional(v.string()), dryRun: v.optional(v.boolean()) },
