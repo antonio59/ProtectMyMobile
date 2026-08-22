@@ -1,18 +1,10 @@
 import { v } from "convex/values";
 import { query, mutation } from "./_generated/server";
-import { insertRow, patchById, removeById } from "./lib/crud";
+import { insertRow, listRows, patchById, removeById } from "./lib/crud";
 
 export const list = query({
   args: { activeOnly: v.optional(v.boolean()) },
-  handler: async (ctx, args) => {
-    if (args.activeOnly) {
-      return await ctx.db
-        .query("mobileProviders")
-        .withIndex("by_active", (q) => q.eq("active", true))
-        .collect();
-    }
-    return await ctx.db.query("mobileProviders").collect();
-  },
+  handler: async (ctx, args) => listRows(ctx, "mobileProviders", args.activeOnly),
 });
 
 export const create = mutation({

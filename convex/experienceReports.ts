@@ -1,6 +1,7 @@
 import { v } from "convex/values";
 import { query, mutation } from "./_generated/server";
 import { requireAdmin } from "./auth";
+import { removeById, setApproval } from "./lib/crud";
 
 export const list = query({
   args: {
@@ -50,14 +51,7 @@ export const updateApproval = mutation({
     approved: v.boolean(),
     adminToken: v.string(),
   },
-  handler: async (ctx, args) => {
-    // Admin only - requires token
-    requireAdmin(ctx, args.adminToken);
-    await ctx.db.patch(args.id, {
-      approved: args.approved,
-      approvedAt: args.approved ? Date.now() : undefined,
-    });
-  },
+  handler: async (ctx, args) => setApproval(ctx, args),
 });
 
 export const remove = mutation({
@@ -65,9 +59,5 @@ export const remove = mutation({
     id: v.id("experienceReports"),
     adminToken: v.string(),
   },
-  handler: async (ctx, args) => {
-    // Admin only - requires token
-    requireAdmin(ctx, args.adminToken);
-    await ctx.db.delete(args.id);
-  },
+  handler: async (ctx, args) => removeById(ctx, args),
 });
