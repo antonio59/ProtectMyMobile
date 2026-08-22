@@ -1,6 +1,7 @@
 import { v } from "convex/values";
 import { query, mutation } from "./_generated/server";
 import { requireAdmin } from "./auth";
+import { patchById } from "./lib/crud";
 
 export const list = query({
   args: { 
@@ -65,11 +66,7 @@ export const update = mutation({
     active: v.optional(v.boolean()),
     lastRequestDate: v.optional(v.number()),
   },
-  handler: async (ctx, args) => {
-    requireAdmin(ctx, args.adminToken);
-    const { id, adminToken, ...updates } = args;
-    await ctx.db.patch(id, updates);
-  },
+  handler: async (ctx, args) => patchById(ctx, args),
 });
 
 export const seedUKForces = mutation({

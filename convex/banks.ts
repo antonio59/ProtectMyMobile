@@ -1,6 +1,6 @@
 import { v } from "convex/values";
 import { query, mutation } from "./_generated/server";
-import { requireAdmin } from "./auth";
+import { insertRow, patchById, removeById } from "./lib/crud";
 
 export const list = query({
   args: { activeOnly: v.optional(v.boolean()) },
@@ -31,11 +31,7 @@ export const create = mutation({
     logoUrl: v.optional(v.string()),
     active: v.boolean(),
   },
-  handler: async (ctx, args) => {
-    requireAdmin(ctx, args.adminToken);
-    const { adminToken, ...rest } = args;
-    return await ctx.db.insert("banks", rest);
-  },
+  handler: async (ctx, args) => insertRow(ctx, "banks", args),
 });
 
 export const update = mutation({
@@ -58,11 +54,7 @@ export const update = mutation({
     active: v.optional(v.boolean()),
     lastVerified: v.optional(v.number()),
   },
-  handler: async (ctx, args) => {
-    requireAdmin(ctx, args.adminToken);
-    const { id, adminToken, ...updates } = args;
-    await ctx.db.patch(id, updates);
-  },
+  handler: async (ctx, args) => patchById(ctx, args),
 });
 
 export const remove = mutation({
@@ -70,8 +62,5 @@ export const remove = mutation({
     adminToken: v.optional(v.string()),
     id: v.id("banks"),
   },
-  handler: async (ctx, args) => {
-    requireAdmin(ctx, args.adminToken);
-    await ctx.db.delete(args.id);
-  },
+  handler: async (ctx, args) => removeById(ctx, args),
 });
