@@ -101,6 +101,7 @@ All notable changes to this project will be documented in this file.
 
 ### CI/CD
 
+- Bump actions/setup-node from 6 to 7 (#88)
 - Fix fallow dead-code analysis
 - Upgrade to Node 24
 - Bump google/osv-scanner-action from 2.3.5 to 2.3.8 (#65)
