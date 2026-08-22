@@ -123,16 +123,20 @@ try {
               autoplay
               muted
               playsinline
+              preload="metadata"
+              poster="/videos/phone-theft-animation-poster.jpg"
+              disablepictureinpicture
+              aria-hidden="true"
               class="w-full aspect-[4/5] sm:aspect-[16/9] md:aspect-[21/9] object-cover object-[70%_center]"
             >
-              <source src="/videos/phone-theft-animation.mp4" type="video/mp4" />
+              <source src="/videos/phone-theft-animation-web.mp4" type="video/mp4" />
             </video>
-            <div class="absolute inset-0 bg-gradient-to-t from-neutral-900 via-neutral-900/40 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
 
             <!-- Overlay Content -->
             <div class="absolute inset-0 flex flex-col justify-end p-4 sm:p-6 md:p-10 lg:p-12">
               <div class="max-w-5xl">
-                <div class="inline-flex items-center gap-2 bg-destructive/50 text-white rounded-full px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-semibold w-fit mb-2 sm:mb-4 shadow-sm">
+                <div class="inline-flex items-center gap-2 bg-destructive/50 text-destructive-foreground rounded-full px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-semibold w-fit mb-2 sm:mb-4 shadow-sm">
                   <AlertTriangle class="size-3 sm:size-4" aria-hidden="true" />
                   <span>UK Theft Crisis</span>
                 </div>
@@ -140,10 +144,10 @@ try {
                 <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-2 sm:mb-3 text-shadow-hero max-w-3xl">
                   A phone is stolen in London every five minutes.
                 </h1>
-                <p class="text-sm sm:text-lg md:text-xl text-neutral-200 mb-4 sm:mb-6 max-w-2xl">
+                <p class="text-sm sm:text-lg md:text-xl text-white/80 mb-4 sm:mb-6 max-w-2xl">
                   Over 116,000 phones stolen in London last year, a 150% rise since 2023. Organised gangs use bikes, mopeds and distraction tactics to snatch phones in seconds.
                   {liveStats && liveStats.totalRecords > 0 && (
-                    <span class="block mt-1 text-neutral-300 text-xs sm:text-sm">
+                    <span class="block mt-1 text-white/70 text-xs sm:text-sm">
                       Live police.uk data tracking {liveStats.totalRecords.toLocaleString()} monthly records across UK cities.
                     </span>
                   )}
@@ -160,14 +164,14 @@ try {
                   </a>
                   <a
                     href="/emergency"
-                    class="inline-flex items-center justify-center gap-2 px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 text-sm sm:text-base bg-destructive text-white rounded-xl font-semibold hover:bg-destructive-hover transition-all shadow-glow-red animate-pulse-glow hover-lift touch-target"
+                    class="inline-flex items-center justify-center gap-2 px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 text-sm sm:text-base bg-destructive text-destructive-foreground rounded-xl font-semibold hover:bg-destructive-hover transition-all shadow-glow-red animate-pulse-glow hover-lift touch-target"
                   >
                     <AlertTriangle class="size-4 sm:size-5" />
                     <span>Phone Stolen? Act Now</span>
                   </a>
                   <a
                     href="/the-problem"
-                    class="hidden sm:inline-flex items-center justify-center gap-2 px-6 md:px-8 py-3 md:py-4 text-sm sm:text-base bg-card/10 text-white border border-white/20 rounded-xl font-semibold hover:bg-card/20 transition-all hover-lift touch-target"
+                    class="hidden sm:inline-flex items-center justify-center gap-2 px-6 md:px-8 py-3 md:py-4 text-sm sm:text-base bg-white/10 text-white border border-white/20 rounded-xl font-semibold hover:bg-white/20 transition-all hover-lift touch-target"
                   >
                     <span>Learn How Thieves Operate</span>
                     <ArrowRight class="size-4" />
@@ -181,23 +185,23 @@ try {
                       <span class="md:hidden">116K+</span>
                       <span class="hidden md:inline">116,000+</span>
                     </div>
-                    <div class="text-[10px] sm:text-xs lg:text-sm text-neutral-300 hidden sm:block">Stolen in London (2024)</div>
-                    <div class="text-[10px] text-neutral-300 sm:hidden">Stolen</div>
+                    <div class="text-[10px] sm:text-xs lg:text-sm text-white/70 hidden sm:block">Stolen in London (2024)</div>
+                    <div class="text-[10px] text-white/70 sm:hidden">Stolen</div>
                   </div>
                   <div class="bg-white/10 backdrop-blur-sm rounded-lg sm:rounded-xl lg:rounded-2xl p-2 sm:p-4 lg:p-5">
                     <div class="font-serif text-base sm:text-2xl md:text-3xl lg:text-4xl font-bold text-[#E0685F]">150%</div>
-                    <div class="text-[10px] sm:text-xs lg:text-sm text-neutral-300 hidden sm:block">Increase since 2023</div>
-                    <div class="text-[10px] text-neutral-300 sm:hidden">Increase</div>
+                    <div class="text-[10px] sm:text-xs lg:text-sm text-white/70 hidden sm:block">Increase since 2023</div>
+                    <div class="text-[10px] text-white/70 sm:hidden">Increase</div>
                   </div>
                   <div class="bg-white/10 backdrop-blur-sm rounded-lg sm:rounded-xl lg:rounded-2xl p-2 sm:p-4 lg:p-5">
                     <div class="font-serif text-base sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white">5 min</div>
-                    <div class="text-[10px] sm:text-xs lg:text-sm text-neutral-300 hidden sm:block">One stolen every</div>
-                    <div class="text-[10px] text-neutral-300 sm:hidden">Frequency</div>
+                    <div class="text-[10px] sm:text-xs lg:text-sm text-white/70 hidden sm:block">One stolen every</div>
+                    <div class="text-[10px] text-white/70 sm:hidden">Frequency</div>
                   </div>
                   <div class="bg-white/10 backdrop-blur-sm rounded-lg sm:rounded-xl lg:rounded-2xl p-2 sm:p-4 lg:p-5">
                     <div class="font-serif text-base sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white">0.8%</div>
-                    <div class="text-[10px] sm:text-xs lg:text-sm text-neutral-300 hidden sm:block">Result in charges</div>
-                    <div class="text-[10px] text-neutral-300 sm:hidden">Charges</div>
+                    <div class="text-[10px] sm:text-xs lg:text-sm text-white/70 hidden sm:block">Result in charges</div>
+                    <div class="text-[10px] text-white/70 sm:hidden">Charges</div>
                   </div>
                 </div>
               </div>
@@ -207,16 +211,39 @@ try {
       </section>
 
       <script>
-        // Limit video to 3 loops then pause
-        const heroVideo = document.getElementById('hero-video') as HTMLVideoElement;
+        // Hero video: respect reduced-motion, survive autoplay rejection,
+        // loop 3 times then settle back on the poster frame.
+        const heroVideo = document.getElementById('hero-video') as HTMLVideoElement | null;
         if (heroVideo) {
+          const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+          const stopOnPoster = () => {
+            heroVideo.pause();
+            heroVideo.currentTime = 0;
+          };
+
+          if (prefersReducedMotion.matches) {
+            heroVideo.removeAttribute('autoplay');
+            stopOnPoster();
+          } else {
+            heroVideo.play().catch(() => stopOnPoster());
+          }
+
+          // If the OS-level setting changes while the page is open, follow it
+          prefersReducedMotion.addEventListener('change', (e) => {
+            if (e.matches) stopOnPoster();
+          });
+
+          // Replay up to 3 loops, then freeze on the first frame (poster)
           let loopCount = 0;
           const maxLoops = 3;
           heroVideo.addEventListener('ended', () => {
             loopCount++;
-            if (loopCount < maxLoops) {
+            if (loopCount < maxLoops && !prefersReducedMotion.matches) {
               heroVideo.currentTime = 0;
-              heroVideo.play();
+              heroVideo.play().catch(() => {});
+            } else {
+              stopOnPoster();
             }
           });
         }
@@ -232,12 +259,12 @@ try {
               <p class="text-muted-foreground text-xs sm:text-sm md:text-base lg:text-lg mt-2">Fast tips for travellers and students: avoid kerbside scrolling, use cross-body bags, pre-save Find My links, and know who to contact if you're targeted.</p>
             </div>
             <div class="grid grid-cols-2 sm:flex sm:flex-row gap-2 sm:gap-3 shrink-0 mt-2 lg:mt-0">
-              <a href="/london-visitor-safety" class="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3 lg:py-4 bg-primary text-white rounded-xl font-semibold  hover:bg-primary-hover hover:scale-[1.02] transition-all text-xs sm:text-sm md:text-base">
+              <a href="/london-visitor-safety" class="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3 lg:py-4 bg-primary text-primary-foreground rounded-xl font-semibold  hover:bg-primary-hover hover:scale-[1.02] transition-all text-xs sm:text-sm md:text-base">
                 <Shield class="size-4 sm:size-5" />
                 <span class="sm:hidden">Safety</span>
                 <span class="hidden sm:inline">Visitor Safety Guide</span>
               </a>
-              <a href="/emergency" class="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3 lg:py-4 bg-destructive text-white rounded-xl font-semibold  hover:bg-destructive-hover hover:scale-[1.02] transition-all text-xs sm:text-sm md:text-base">
+              <a href="/emergency" class="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3 lg:py-4 bg-destructive text-destructive-foreground rounded-xl font-semibold  hover:bg-destructive-hover hover:scale-[1.02] transition-all text-xs sm:text-sm md:text-base">
                 <AlertTriangle class="size-4 sm:size-5" />
                 <span class="sm:hidden">Emergency</span>
                 <span class="hidden sm:inline">Emergency Steps</span>
@@ -277,10 +304,10 @@ try {
             <span class="font-serif text-2xl lg:text-3xl leading-tight">One phone stolen every 5 minutes.</span>
             <span class="text-xs text-neutral-400">protectmymobile.xyz</span>
           </div>
-          <div class="bg-destructive text-white p-6 sm:p-7 flex flex-col justify-between gap-4 aspect-square">
+          <div class="bg-destructive text-destructive-foreground p-6 sm:p-7 flex flex-col justify-between gap-4 aspect-square">
             <span class="text-[11px] font-bold uppercase tracking-[0.15em]">The odds</span>
             <span class="font-serif text-2xl lg:text-3xl leading-tight">99.2% of phone thefts go unpunished.</span>
-            <span class="text-xs text-destructive-muted">protectmymobile.xyz</span>
+            <span class="text-xs text-destructive-foreground/70">protectmymobile.xyz</span>
           </div>
           <div class="bg-background border-[3px] border-foreground p-6 sm:p-7 flex flex-col justify-between gap-4 aspect-square">
             <span class="text-[11px] font-bold uppercase tracking-[0.15em] text-destructive">Do this today</span>
@@ -370,7 +397,7 @@ try {
         </p>
         <a
           href="/resources"
-          class="inline-flex items-center justify-center gap-2 px-5 sm:px-6 lg:px-8 py-2.5 sm:py-3 lg:py-4 bg-primary text-white rounded-xl font-semibold hover:bg-primary-hover hover:scale-[1.02] transition-all text-sm sm:text-base lg:text-lg  shadow-primary/20"
+          class="inline-flex items-center justify-center gap-2 px-5 sm:px-6 lg:px-8 py-2.5 sm:py-3 lg:py-4 bg-primary text-primary-foreground rounded-xl font-semibold hover:bg-primary-hover hover:scale-[1.02] transition-all text-sm sm:text-base lg:text-lg  shadow-primary/20"
         >
           Browse All Resources
           <ArrowRight class="size-4 lg:size-5" />
