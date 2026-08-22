@@ -129,6 +129,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Persist Fallow regression baseline for PR checks
 - Regenerate lockfile with pnpm 11.1.1
 - Optimize hero video and harden playback
 - Pair inverting surfaces with semantic foreground tokens
@@ -1259,6 +1260,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
