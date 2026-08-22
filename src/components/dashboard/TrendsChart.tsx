@@ -4,19 +4,8 @@ import { useRef, useState } from 'react';
 import { TrendingUp } from 'lucide-react';
 import { useChartJS } from '../../hooks/useChart';
 import type { MonthlyTrends } from '../../hooks/useDashboardData';
+import { CHART_SERIES_COLORS as COLORS, CHART_BODY_COLOR } from '@/lib/chartPalette';
 
-const COLORS = [
-  '#ef4444', // red
-  '#f97316', // orange
-  '#eab308', // yellow
-  '#22c55e', // green
-  '#3b82f6', // blue
-  '#8b5cf6', // purple
-  '#ec4899', // pink
-  '#14b8a6', // teal
-  '#f43f5e', // rose
-  '#06b6d4', // cyan
-];
 
 export default function TrendsChart({ data }: { data: MonthlyTrends }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -53,7 +42,7 @@ export default function TrendsChart({ data }: { data: MonthlyTrends }) {
             tooltip: {
               backgroundColor: 'rgba(255,255,255,0.95)',
               titleColor: '#1f2937',
-              bodyColor: '#4b5563',
+              bodyColor: CHART_BODY_COLOR,
               borderColor: '#e5e7eb',
               borderWidth: 1,
               padding: 10,

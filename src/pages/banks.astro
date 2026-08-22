@@ -26,7 +26,7 @@ const banks = banksData.map(bank => {
   return {
     id: bank._id,
     name: bank.name,
-    colour: staticBank?.colour || staticBank?.color || '#1d4ed8', // Use static color if available
+    colour: staticBank?.colour || staticBank?.color || '#16130F', // Use static color if available
     initial: bank.name.charAt(0).toUpperCase(),
     emergencyContact: {
       uk: bank.phone || 'In-app chat only',

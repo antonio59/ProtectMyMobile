@@ -1,16 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 128 128" fill="none" role="img" aria-label="ProtectMyMobile shield favicon">
-  <defs>
-    <linearGradient id="shieldFill" x1="48" y1="12" x2="48" y2="84" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#2563EB"/>
-      <stop offset="1" stop-color="#0EA5E9"/>
-    </linearGradient>
-    <linearGradient id="shieldStroke" x1="48" y1="6" x2="48" y2="90" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#1D4ED8"/>
-      <stop offset="1" stop-color="#0EA5E9" stop-opacity="0.85"/>
-    </linearGradient>
-  </defs>
+  <!-- Editorial system: flat ink shield, paper check, alert-red keyline accent -->
   <g transform="translate(24 10)">
-    <path d="M36 0L72 14.4V53.1C72 79.8 52.3 102.9 36 108 19.7 102.9 0 79.8 0 53.1V14.4L36 0Z" fill="url(#shieldFill)" stroke="url(#shieldStroke)" stroke-width="4"/>
-    <path d="M21 54.5L33 66.5L54 42" stroke="#ffffff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M36 0L72 14.4V53.1C72 79.8 52.3 102.9 36 108 19.7 102.9 0 79.8 0 53.1V14.4L36 0Z" fill="#16130F" stroke="#FAF8F5" stroke-width="6"/>
+    <path d="M21 54.5L33 66.5L54 42" stroke="#FAF8F5" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="36" cy="14" r="6" fill="#C8322B"/>
   </g>
 </svg>

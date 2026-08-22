@@ -6,10 +6,8 @@ import { api } from '../../convex/_generated/api';
 import { TrendingUp, MapPin, BarChart3, RefreshCw } from 'lucide-react';
 import { ChartSkeleton } from './ui/Skeleton';
 import type { ChartData, ChartOptions } from 'chart.js';
+import { CHART_SERIES_COLORS as COLORS, CHART_BODY_COLOR } from '@/lib/chartPalette';
 
-const COLORS = [
-  '#ef4444', '#f97316', '#eab308', '#22c55e', '#3b82f6', '#8b5cf6', '#ec4899', '#14b8a6',
-];
 
 interface TrendPoint {
   month: string;
@@ -41,7 +39,7 @@ function buildChartConfig(viewMode: 'stacked' | 'lines'): ChartOptions<'line'> {
       tooltip: {
         backgroundColor: 'rgba(255, 255, 255, 0.95)',
         titleColor: '#1f2937',
-        bodyColor: '#4b5563',
+        bodyColor: CHART_BODY_COLOR,
         borderColor: '#e5e7eb',
         borderWidth: 1,
         padding: 12,

@@ -1,15 +1,6 @@
 'use client';
 
-const CHART_COLORS = {
-  red: '#ef4444',
-  orange: '#f97316',
-  blue: '#3b82f6',
-  green: '#22c55e',
-  purple: '#8b5cf6',
-  teal: '#14b8a6',
-  pink: '#ec4899',
-  cyan: '#06b6d4',
-};
+import { CHART_KEY_COLORS as CHART_COLORS } from '@/lib/chartPalette';
 
 export default function StatCard({
   label,

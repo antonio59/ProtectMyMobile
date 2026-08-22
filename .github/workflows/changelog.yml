@@ -37,5 +37,11 @@ jobs:
           git add CHANGELOG.md
           git diff --staged --quiet && echo "No changes to commit" && exit 0
           git commit -m "docs: update changelog [skip ci]"
-          git pull --rebase origin ${{ github.ref_name }}
+          # CHANGELOG.md is fully generated — on rebase conflict, take the
+          # regenerated version rather than failing the run.
+          if ! git pull --rebase origin ${{ github.ref_name }}; then
+            git checkout --theirs CHANGELOG.md
+            git add CHANGELOG.md
+            git rebase --continue
+          fi
           git push
