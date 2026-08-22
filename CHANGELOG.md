@@ -129,6 +129,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Bump sanitize-html from 2.17.5 to 2.17.7 (#94)
 - Scope Fallow PR regression check to dead-code
 - Tighten button padding to match content size
 - Persist Fallow regression baseline for PR checks
@@ -1262,6 +1263,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
