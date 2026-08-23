@@ -6,10 +6,9 @@ import { dirname, join } from 'path';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const publicDir = join(__dirname, '..', 'public');
 
-const svg = readFileSync(join(publicDir, 'og-image.svg'), 'utf-8');
-const resvg = new Resvg(svg, {
-  fitTo: { mode: 'width', value: 1200 }
-});
-const pngData = resvg.render();
-writeFileSync(join(publicDir, 'og-image.png'), pngData.asPng());
-console.log('Created og-image.png (1200x630)');
+for (const [name, width] of [['og-image', 1200], ['og-image-square', 1080]]) {
+  const svg = readFileSync(join(publicDir, `${name}.svg`), 'utf-8');
+  const png = new Resvg(svg, { fitTo: { mode: 'width', value: width } }).render().asPng();
+  writeFileSync(join(publicDir, `${name}.png`), png);
+  console.log(`Created ${name}.png (${width}px wide)`);
+}

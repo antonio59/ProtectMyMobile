@@ -1,0 +1,56 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Editorial system, square share variant: ink ground, paper type, alert-red keyline -->
+  <rect width="1080" height="1080" fill="#16130F"/>
+
+  <!-- Red keyline on the leading edge -->
+  <rect x="0" y="0" width="10" height="1080" fill="#C8322B"/>
+
+  <!-- Subtle paper dot accents -->
+  <circle cx="980" cy="120" r="180" fill="#FAF8F5" fill-opacity="0.04"/>
+  <circle cx="120" cy="980" r="150" fill="#FAF8F5" fill-opacity="0.04"/>
+
+  <!-- Shield mark (flat ink badge, paper check, red accent) -->
+  <g transform="translate(90, 110)">
+    <path d="M48 0L96 19.2V70.8C96 106.4 73.6 137.2 48 148 22.4 137.2 0 106.4 0 70.8V19.2L48 0Z" fill="#FAF8F5"/>
+    <path d="M28 73L44 89L72 56" stroke="#16130F" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="48" cy="20" r="9" fill="#C8322B"/>
+  </g>
+
+  <!-- Wordmark -->
+  <text x="230" y="160" font-family="Georgia, 'Times New Roman', serif" font-size="44" font-weight="700" fill="#FAF8F5" letter-spacing="0.5">
+    ProtectMyMobile
+  </text>
+  <text x="230" y="202" font-family="system-ui, -apple-system, sans-serif" font-size="20" fill="#A39B8D" letter-spacing="3">
+    UK PHONE THEFT PREVENTION &amp; RECOVERY
+  </text>
+
+  <!-- Headline (the tagline) -->
+  <text x="90" y="420" font-family="Georgia, 'Times New Roman', serif" font-size="76" font-weight="700" fill="#FAF8F5">
+    A phone is stolen
+  </text>
+  <text x="90" y="515" font-family="Georgia, 'Times New Roman', serif" font-size="76" font-weight="700" fill="#FAF8F5">
+    in London every
+  </text>
+  <text x="90" y="610" font-family="Georgia, 'Times New Roman', serif" font-size="76" font-weight="700" fill="#E0685F">
+    five minutes.
+  </text>
+
+  <!-- Red rule -->
+  <rect x="90" y="665" width="120" height="5" fill="#C8322B" rx="2.5"/>
+
+  <!-- Subline -->
+  <text x="90" y="745" font-family="system-ui, -apple-system, sans-serif" font-size="28" fill="#C9C2B6">
+    Live police.uk theft data
+  </text>
+  <text x="90" y="795" font-family="system-ui, -apple-system, sans-serif" font-size="28" fill="#C9C2B6">
+    Prevention checklists
+  </text>
+  <text x="90" y="845" font-family="system-ui, -apple-system, sans-serif" font-size="28" fill="#C9C2B6">
+    Step-by-step emergency guide
+  </text>
+
+  <!-- URL -->
+  <text x="90" y="960" font-family="system-ui, -apple-system, sans-serif" font-size="26" fill="#8A7A54">
+    protectmymobile.xyz
+  </text>
+</svg>
