@@ -131,6 +131,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Fix null-rank badge on no-data locations, tidy hero separators, correct chart footnote
 - Slim hero to tagline + CTAs + one-line evidence strip; add backup guide
 
 - Hero stat cards duplicated AnimatedStats below the fold; replaced with
@@ -1341,6 +1342,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
