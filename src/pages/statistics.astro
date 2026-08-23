@@ -44,13 +44,20 @@ const londonHotspots = [
   { rank: 5, area: 'Southwark', thefts: '4,900+', description: 'Borough Market, London Bridge' },
 ];
 
-// City comparison data
+// City comparison: theft-from-the-person offences recorded within roughly 1 mile
+// of each city centre, July 2025 - June 2026 (latest police.uk data), with
+// year-on-year change vs July 2024 - June 2025. Greater Manchester Police does
+// not currently publish street-level data to police.uk, so Manchester is excluded.
 const cityComparison = [
-  { city: 'London', thefts: 117211, year: '2024', change: '−12.3% in 2025' },
-  { city: 'Manchester', thefts: 12370, year: '2024', change: '+31%' },
-  { city: 'Birmingham', thefts: 10408, year: '2024', change: '+25%' },
-  { city: 'Leeds', thefts: 7165, year: '2024', change: '+28%' },
-  { city: 'Liverpool', thefts: 5370, year: '2024', change: '+23%' },
+  { city: 'London (Westminster area)', thefts: 16639, year: 'Jul 2025 - Jun 2026', change: '-40.9% YoY' },
+  { city: 'Camden (London)', thefts: 6651, year: 'Jul 2025 - Jun 2026', change: '-28.7% YoY' },
+  { city: 'Hackney (London)', thefts: 1610, year: 'Jul 2025 - Jun 2026', change: '-1.8% YoY' },
+  { city: 'Tower Hamlets (London)', thefts: 709, year: 'Jul 2025 - Jun 2026', change: '-18.4% YoY' },
+  { city: 'Leeds', thefts: 528, year: 'Jul 2025 - Jun 2026', change: '-11.9% YoY' },
+  { city: 'Birmingham', thefts: 436, year: 'Jul 2025 - Jun 2026', change: '-21.3% YoY' },
+  { city: 'Liverpool', thefts: 376, year: 'Jul 2025 - Jun 2026', change: '-21.5% YoY' },
+  { city: 'Brighton', thefts: 308, year: 'Jul 2025 - Jun 2026', change: '-23.2% YoY' },
+  { city: 'Bristol', thefts: 282, year: 'Jul 2025 - Jun 2026', change: '+46.1% YoY' },
 ];
 
 const keyStats = [
@@ -160,7 +167,7 @@ const maxYearlyThefts = Math.max(...yearlyTrend.map((y) => y.thefts));
 
             <p class="text-xs text-muted-foreground mt-4">
               Source: Metropolitan Police. 2019–2024: FOI disclosure (June 2025), count of all recorded offences in which a mobile phone was stolen.
-              2025 (blue bar): Met headline series — theft-from-person and robbery offences involving a phone, announced February 2026 (−12.3% vs 2024);
+              2025 (blue bar): Met headline series (theft-from-person and robbery offences involving a phone), announced February 2026 (−12.3% vs 2024);
               counted on a narrower basis, so not directly comparable with earlier years. Jan–May 2026 is running a further 20.6% below the same period in 2025.
             </p>
           </div>
@@ -215,7 +222,8 @@ const maxYearlyThefts = Math.max(...yearlyTrend.map((y) => y.thefts));
               <h2 class="text-lg sm:text-xl font-bold">Major Cities Comparison</h2>
             </div>
             <p class="text-muted-foreground text-xs sm:text-sm md:text-base mb-6">
-              Annual mobile phone theft figures by city. London dominates, but theft is rising across all major UK cities.
+              Theft-from-the-person offences recorded within roughly a mile of each city centre, 12 months to June 2026 (police.uk).
+              London dominates by an order of magnitude, and most areas are now falling year on year.
             </p>
 
             <div class="space-y-4">
@@ -423,7 +431,7 @@ const maxYearlyThefts = Math.max(...yearlyTrend.map((y) => y.thefts));
               <strong>Recovery is rare:</strong> The vast majority of stolen phones are never recovered. Prevention is crucial.
             </p>
             <p>
-              <strong>Turning a corner:</strong> After peaking at 117,211 in 2024, Met figures show London phone thefts fell 12.3% in 2025 — but levels remain historically high.
+              <strong>Turning a corner:</strong> After peaking at 117,211 in 2024, Met figures show London phone thefts fell 12.3% in 2025, but levels remain historically high.
             </p>
           </div>
         </div>
@@ -456,23 +464,33 @@ const maxYearlyThefts = Math.max(...yearlyTrend.map((y) => y.thefts));
         </div>
       </section>
 
-      <!-- Data Sources -->
+      <!-- Data Sources & Methodology -->
       <section class="mb-6 sm:mb-8 md:mb-10">
         <div class="bg-card rounded-xl sm:rounded-2xl  p-4 sm:p-6 border border-border">
-          <h3 class="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3">Data Sources</h3>
-          <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-3 text-xs text-muted-foreground">
+          <h3 class="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3">Sources &amp; Methodology</h3>
+          <div class="grid sm:grid-cols-2 gap-3 text-xs text-muted-foreground mb-4">
             <div class="flex items-start gap-2">
               <Shield className="size-4 text-muted-foreground mt-0.5 flex-shrink-0" />
-              <span>Police.uk API - Official recorded crime data, updated monthly</span>
+              <span><a href="https://data.police.uk/docs/" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">police.uk API</a> - official street-level recorded crime, updated monthly. City and borough comparisons count theft-from-the-person offences within roughly 1 mile of each centre.</span>
             </div>
             <div class="flex items-start gap-2">
               <BarChart3 className="size-4 text-muted-foreground mt-0.5 flex-shrink-0" />
-              <span>ONS Crime Survey - Annual estimates of phone theft prevalence</span>
+              <span><a href="https://www.met.police.uk/foi-ai/metropolitan-police/disclosure-2025/june-2025/thefts-mobile-phone-january2019-march2025/" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">Met Police FOI disclosure (June 2025)</a> - phones recorded stolen in London, 2019 to March 2025. This series counts every offence type in which a phone was stolen.</span>
             </div>
             <div class="flex items-start gap-2">
               <TrendingUp className="size-4 text-muted-foreground mt-0.5 flex-shrink-0" />
-              <span>Met Police recorded crime statistics and FOI responses</span>
+              <span><a href="https://news.met.police.uk/" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">Met Police press releases (Feb &amp; Jun 2026)</a> - headline series: theft-from-person and robbery offences involving a phone (81,365 in 2024, 71,391 in 2025), plus crackdown results. Counted on a narrower basis than the FOI series.</span>
             </div>
+            <div class="flex items-start gap-2">
+              <MapPin className="size-4 text-muted-foreground mt-0.5 flex-shrink-0" />
+              <span><a href="https://www.ons.gov.uk/peoplepopulationandcommunity/crimeandjustice/bulletins/crimeinenglandandwales/latest" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">ONS, Crime in England and Wales</a> - police-recorded theft from the person, and Crime Survey (CSEW) snatch-theft estimates.</span>
+            </div>
+          </div>
+          <div class="text-xs text-muted-foreground space-y-2 border-t border-border pt-3">
+            <p><strong>Why two London totals?</strong> The Met publishes two series: a broad FOI count of all offences involving a stolen phone (117,211 in 2024) and a narrower headline count of theft-from-person and robbery offences (81,365 in 2024). Both are official; we label which is which wherever a number appears.</p>
+            <p><strong>Recorded, not actual.</strong> All figures are police-recorded offences; true totals are higher because not every theft is reported.</p>
+            <p><strong>Manchester &amp; Scotland.</strong> Greater Manchester Police does not currently publish street-level data to police.uk, and Police Scotland does not feed the police.uk street API, so no comparable counts are shown for those cities.</p>
+            <p><strong>Corrections.</strong> Spotted a number that looks off? <a href="/contact-us" class="text-primary hover:underline">Tell us</a> and we'll check it against the source.</p>
           </div>
         </div>
       </section>

@@ -366,7 +366,7 @@ export function buildDiscoveryReportHtml(report: DiscoveryReport): string {
     <p>Auto-created: <span style="color:green">${report.societiesNew}</span> | Pending review: <span style="color:orange">${report.societiesPending}</span></p>
     ${report.newSocieties.length > 0 ? `
     <h4>New Building Societies (inactive, awaiting review)</h4>
-    <ul>${report.newSocieties.map(b => `<li><strong>${b.name}</strong> — <a href="${b.website}">${b.website}</a></li>`).join('')}</ul>
+    <ul>${report.newSocieties.map(b => `<li><strong>${b.name}</strong>: <a href="${b.website}">${b.website}</a></li>`).join('')}</ul>
     ` : ''}
     ${report.pendingSocieties.length > 0 ? `
     <h4>Pending Building Societies (could not infer website)</h4>
@@ -382,7 +382,7 @@ export function buildDiscoveryReportHtml(report: DiscoveryReport): string {
     <p>Checked: ${report.providersChecked} | Auto-created: <span style="color:green">${report.providersNew}</span> | Pending review: <span style="color:orange">${report.providersPending}</span></p>
     ${report.newProviders.length > 0 ? `
     <h4>New Providers (inactive, awaiting review)</h4>
-    <ul>${report.newProviders.map(p => `<li><strong>${p.name}</strong> — <a href="${p.website}">${p.website}</a> (host: ${p.network})</li>`).join('')}</ul>
+    <ul>${report.newProviders.map(p => `<li><strong>${p.name}</strong>: <a href="${p.website}">${p.website}</a> (host: ${p.network})</li>`).join('')}</ul>
     ` : ''}
     ${report.pendingProviders.length > 0 ? `
     <h4>Pending Providers (could not infer website)</h4>

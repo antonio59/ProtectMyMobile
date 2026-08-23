@@ -48,9 +48,9 @@ export function getStaticPaths() {
       slug: 'westminster',
       name: 'Westminster',
       fullName: 'City of Westminster, London',
-      thefts: 34000,
-      year: 2024,
-      change: '+60% since 2023',
+      thefts: 16639,
+      year: 'Jul 2025 - Jun 2026',
+      change: '-40.9% YoY',
       rank: 1,
       hotspots: [
         { area: 'Oxford Street', description: 'Shopping district, heavy foot traffic', risk: 'Extreme' },
@@ -77,16 +77,16 @@ export function getStaticPaths() {
       policePhone: '101',
       emergencyPhone: '999',
       reportingUrl: 'https://www.met.police.uk/ro/report/theft/',
-      description: 'Westminster is the UK\'s phone theft hotspot with 34,000+ incidents in 2024. The West End shopping and entertainment district sees extreme theft activity.',
+      description: 'Police.uk recorded 16,639 theft-from-the-person offences within roughly a mile of Charing Cross in the 12 months to June 2026, down 41% year on year. Westminster remains the UK\'s worst-affected area; the Met reports thefts in Westminster fell 45.8% in Jan-May 2026 vs the same months of 2025.',
       residents: false
     },
     {
       slug: 'camden',
       name: 'Camden',
       fullName: 'London Borough of Camden',
-      thefts: 8500,
-      year: 2024,
-      change: '+45% since 2023',
+      thefts: 6651,
+      year: 'Jul 2025 - Jun 2026',
+      change: '-28.7% YoY',
       rank: 2,
       hotspots: [
         { area: 'Camden Market', description: 'Markets, street vendors, heavy crowds', risk: 'Very High' },
@@ -113,17 +113,17 @@ export function getStaticPaths() {
       policePhone: '101',
       emergencyPhone: '999',
       reportingUrl: 'https://www.met.police.uk/ro/report/theft/',
-      description: 'Camden is London\'s 2nd highest risk area with 8,500+ phone thefts in 2024. Camden Market and the surrounding high street are major hotspots.',
+      description: 'Police.uk recorded 6,651 theft-from-the-person offences within roughly a mile of Camden Town in the 12 months to June 2026, down 29% year on year. Camden Market and the surrounding high street remain major hotspots.',
       residents: true
     },
     {
       slug: 'manchester',
       name: 'Manchester',
       fullName: 'Greater Manchester',
-      thefts: 8500,
-      year: 2023,
-      change: '+31% since 2019',
-      rank: 2,
+      thefts: null,
+      year: 'Jul 2025 - Jun 2026',
+      change: 'Not published',
+      rank: null,
       hotspots: [
         { area: 'City Centre', description: 'Market Street, Arndale, Piccadilly Gardens', risk: 'Very High' },
         { area: 'Northern Quarter', description: 'Bars, restaurants, nightlife', risk: 'High' },
@@ -149,17 +149,17 @@ export function getStaticPaths() {
       policePhone: '101',
       emergencyPhone: '999',
       reportingUrl: 'https://www.gmp.police.uk/ro/report/theft/',
-      description: 'Manchester is the UK\'s 2nd highest city for phone theft with 8,500+ incidents. The city centre and tram network are particular risk areas.',
+      description: 'Manchester city centre and the tram network are known phone-theft risk areas, but Greater Manchester Police does not currently publish street-level data to police.uk, so no comparable official count is available. Figures can be requested from GMP via FOI.',
       residents: true
     },
     {
       slug: 'birmingham',
       name: 'Birmingham',
       fullName: 'Birmingham, West Midlands',
-      thefts: 6200,
-      year: 2023,
-      change: '+25% since 2019',
-      rank: 3,
+      thefts: 436,
+      year: 'Jul 2025 - Jun 2026',
+      change: '-21.3% YoY',
+      rank: null,
       hotspots: [
         { area: 'City Centre', description: 'New Street, Bull Ring, Corporation Street', risk: 'Very High' },
         { area: 'Broad Street', description: 'Nightlife, bars, restaurants', risk: 'High' },
@@ -185,17 +185,17 @@ export function getStaticPaths() {
       policePhone: '101',
       emergencyPhone: '999',
       reportingUrl: 'https://www.west-midlands.police.uk/ro/report/theft/',
-      description: 'Birmingham sees 6,200+ phone thefts annually. New Street station and the city centre shopping district are the highest risk areas.',
+      description: 'Police.uk recorded 436 theft-from-the-person offences within roughly a mile of Birmingham city centre in the 12 months to June 2026, down 21% year on year. New Street station and the city centre shopping district are the highest risk areas.',
       residents: true
     },
     {
       slug: 'liverpool',
       name: 'Liverpool',
       fullName: 'Liverpool, Merseyside',
-      thefts: 3200,
-      year: 2023,
-      change: '+23% since 2019',
-      rank: 5,
+      thefts: 376,
+      year: 'Jul 2025 - Jun 2026',
+      change: '-21.5% YoY',
+      rank: null,
       hotspots: [
         { area: 'City Centre', description: 'Church Street, Liverpool ONE shopping, Lime Street', risk: 'Very High' },
         { area: 'Concert Square', description: 'Nightlife hub, bars, late-night venues', risk: 'High' },
@@ -221,17 +221,17 @@ export function getStaticPaths() {
       policePhone: '101',
       emergencyPhone: '999',
       reportingUrl: 'https://www.merseyside.police.uk/ro/report/',
-      description: 'Liverpool sees around 3,200 phone thefts annually. The city centre nightlife areas and shopping district are the primary hotspots.',
+      description: 'Police.uk recorded 376 theft-from-the-person offences within roughly a mile of Liverpool city centre in the 12 months to June 2026, down 22% year on year. The city centre nightlife areas and shopping district are the primary hotspots.',
       residents: true
     },
     {
       slug: 'leeds',
       name: 'Leeds',
       fullName: 'Leeds, West Yorkshire',
-      thefts: 4100,
-      year: 2023,
-      change: '+28% since 2019',
-      rank: 4,
+      thefts: 528,
+      year: 'Jul 2025 - Jun 2026',
+      change: '-11.9% YoY',
+      rank: null,
       hotspots: [
         { area: 'City Centre', description: 'Briggate, Trinity Leeds, Commercial Street', risk: 'Very High' },
         { area: 'Headingley', description: 'Student area, bars, Otley Run pub crawl route', risk: 'High' },
@@ -257,16 +257,16 @@ export function getStaticPaths() {
       policePhone: '101',
       emergencyPhone: '999',
       reportingUrl: 'https://www.westyorkshire.police.uk/ro/report/',
-      description: 'Leeds experiences around 4,100 phone thefts a year. The student-heavy Headingley area and busy nightlife on Call Lane are particular risk zones.',
+      description: 'Police.uk recorded 528 theft-from-the-person offences within roughly a mile of Leeds city centre in the 12 months to June 2026, down 12% year on year. The student-heavy Headingley area and busy nightlife on Call Lane are particular risk zones.',
       residents: true
     },
     {
       slug: 'edinburgh',
       name: 'Edinburgh',
       fullName: 'City of Edinburgh',
-      thefts: 2800,
-      year: 2023,
-      change: '+19% since 2019',
+      thefts: null,
+      year: 'N/A',
+      change: 'Not published',
       rank: 7,
       hotspots: [
         { area: 'Royal Mile', description: 'Tourist heart of the city, heavy foot traffic', risk: 'Very High' },
@@ -293,16 +293,16 @@ export function getStaticPaths() {
       policePhone: '101',
       emergencyPhone: '999',
       reportingUrl: 'https://www.scotland.police.uk/contact-us/report-a-crime/',
-      description: 'Edinburgh sees around 2,800 phone thefts yearly. The Royal Mile and Princes Street are the highest risk areas, especially during the Edinburgh Festival in August.',
+      description: 'Police Scotland does not publish street-level data to police.uk, so no comparable official count is available for Edinburgh. The Royal Mile and Princes Street are the highest risk areas, especially during the Edinburgh Festival in August.',
       residents: true
     },
     {
       slug: 'glasgow',
       name: 'Glasgow',
       fullName: 'Glasgow, Scotland',
-      thefts: 3100,
-      year: 2023,
-      change: '+21% since 2019',
+      thefts: null,
+      year: 'N/A',
+      change: 'Not published',
       rank: 6,
       hotspots: [
         { area: 'Sauchiehall Street', description: 'Nightlife, bars, clubs', risk: 'Very High' },
@@ -329,16 +329,16 @@ export function getStaticPaths() {
       policePhone: '101',
       emergencyPhone: '999',
       reportingUrl: 'https://www.scotland.police.uk/contact-us/report-a-crime/',
-      description: 'Glasgow sees around 3,100 phone thefts annually. Sauchiehall Street nightlife and Buchanan Street shopping area are the primary hotspots.',
+      description: 'Police Scotland does not publish street-level data to police.uk, so no comparable official count is available for Glasgow. Sauchiehall Street nightlife and Buchanan Street shopping area are the primary hotspots.',
       residents: true
     },
     {
       slug: 'bristol',
       name: 'Bristol',
       fullName: 'Bristol, South West England',
-      thefts: 2400,
-      year: 2023,
-      change: '+22% since 2019',
+      thefts: 282,
+      year: 'Jul 2025 - Jun 2026',
+      change: '+46.1% YoY',
       rank: 8,
       hotspots: [
         { area: 'Broadmead', description: 'Cabot Circus shopping, city centre', risk: 'High' },
@@ -365,16 +365,16 @@ export function getStaticPaths() {
       policePhone: '101',
       emergencyPhone: '999',
       reportingUrl: 'https://www.avonandsomerset.police.uk/report/',
-      description: 'Bristol has around 2,400 phone thefts per year. The Harbourside area and Broadmead shopping district see the most incidents, with spikes during summer events.',
+      description: 'Police.uk recorded 282 theft-from-the-person offences within roughly a mile of Bristol city centre in the 12 months to June 2026, up 46% year on year. The Harbourside area and Broadmead shopping district see the most incidents, with spikes during summer events.',
       residents: true
     },
     {
       slug: 'brighton',
       name: 'Brighton',
       fullName: 'Brighton and Hove',
-      thefts: 1800,
-      year: 2023,
-      change: '+27% since 2019',
+      thefts: 308,
+      year: 'Jul 2025 - Jun 2026',
+      change: '-23.2% YoY',
       rank: 9,
       hotspots: [
         { area: 'The Lanes', description: 'Narrow shopping streets, tourist crowds', risk: 'High' },
@@ -401,16 +401,16 @@ export function getStaticPaths() {
       policePhone: '101',
       emergencyPhone: '999',
       reportingUrl: 'https://www.sussex.police.uk/contact/',
-      description: 'Brighton sees around 1,800 phone thefts per year. The compact city centre and busy seafront create ideal conditions for opportunistic thieves, especially during summer.',
+      description: 'Police.uk recorded 308 theft-from-the-person offences within roughly a mile of Brighton city centre in the 12 months to June 2026, down 23% year on year. The compact city centre and busy seafront create ideal conditions for opportunistic thieves, especially during summer.',
       residents: true
     },
     {
       slug: 'tower-hamlets',
       name: 'Tower Hamlets',
       fullName: 'London Borough of Tower Hamlets',
-      thefts: 6200,
-      year: 2024,
-      change: '+55% since 2023',
+      thefts: 709,
+      year: 'Jul 2025 - Jun 2026',
+      change: '-18.4% YoY',
       rank: 3,
       hotspots: [
         { area: 'Shoreditch', description: 'Nightlife, street art, Boxpark', risk: 'Extreme' },
@@ -437,16 +437,16 @@ export function getStaticPaths() {
       policePhone: '101',
       emergencyPhone: '999',
       reportingUrl: 'https://www.met.police.uk/ro/report/theft/',
-      description: 'Tower Hamlets has seen a 55% surge in phone theft, with 6,200+ incidents in 2024. Shoreditch nightlife and Brick Lane markets are the worst-affected areas.',
+      description: 'Police.uk recorded 709 theft-from-the-person offences within roughly a mile of the borough centre in the 12 months to June 2026, down 18% year on year. Shoreditch nightlife and Brick Lane markets are the worst-affected areas.',
       residents: true
     },
     {
       slug: 'hackney',
       name: 'Hackney',
       fullName: 'London Borough of Hackney',
-      thefts: 5800,
-      year: 2024,
-      change: '+48% since 2023',
+      thefts: 1610,
+      year: 'Jul 2025 - Jun 2026',
+      change: '-1.8% YoY',
       rank: 4,
       hotspots: [
         { area: 'Dalston', description: 'Nightlife, Dalston Junction, busy bars', risk: 'Very High' },
@@ -473,7 +473,7 @@ export function getStaticPaths() {
       policePhone: '101',
       emergencyPhone: '999',
       reportingUrl: 'https://www.met.police.uk/ro/report/theft/',
-      description: 'Hackney saw 5,800+ phone thefts in 2024, a 48% increase. Dalston nightlife and the London Fields area are the main hotspots.',
+      description: 'Police.uk recorded 1,610 theft-from-the-person offences within roughly a mile of Hackney Central in the 12 months to June 2026, broadly flat year on year. Dalston nightlife and the London Fields area are the main hotspots.',
       residents: true
     }
   ];
@@ -585,7 +585,7 @@ const schema = [
         <!-- Key Stats -->
         <div class="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
           <div class="bg-background/15 backdrop-blur-sm rounded-xl p-3 sm:p-4">
-            <div class="text-2xl sm:text-3xl font-bold">{location.thefts.toLocaleString()}</div>
+            <div class="text-2xl sm:text-3xl font-bold">{location.thefts === null ? 'No data' : location.thefts.toLocaleString()}</div>
             <div class="text-xs sm:text-sm text-destructive-foreground/70 mt-1">Thefts in {location.year}</div>
           </div>
           <div class="bg-background/15 backdrop-blur-sm rounded-xl p-3 sm:p-4">
@@ -593,7 +593,7 @@ const schema = [
             <div class="text-xs sm:text-sm text-destructive-foreground/70 mt-1">Trend</div>
           </div>
           <div class="bg-background/15 backdrop-blur-sm rounded-xl p-3 sm:p-4 col-span-2 md:col-span-1">
-            <div class="text-2xl sm:text-3xl font-bold">{location.rank === 1 ? '1st' : location.rank === 2 ? '2nd' : '3rd'}</div>
+            <div class="text-2xl sm:text-3xl font-bold">{location.rank === 1 ? '1st' : location.rank === 2 ? '2nd' : location.rank === 3 ? '3rd' : 'N/A'}</div>
             <div class="text-xs sm:text-sm text-destructive-foreground/70 mt-1">UK Ranking</div>
           </div>
         </div>

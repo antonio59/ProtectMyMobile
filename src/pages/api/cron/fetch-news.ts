@@ -116,7 +116,7 @@ async function createPost(
   if (excerpt === "No excerpt available." || excerpt.length < 30) {
     excerpt = cleanSnippet.length > 30
       ? extractExcerpt(cleanSnippet, 150)
-      : `${article.title!} — read the full article for more details.`;
+      : `${article.title!} - read the full article for more details.`;
   }
 
   const newPostId = await convex.mutation(api.newsPosts.create, {
