@@ -131,6 +131,10 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Fix remaining low-contrast text on dark/red backgrounds
+
+- banks: emergency contact box uses destructive-foreground throughout
+- admin theft-reports: inactive filter pills keep light styling on toggle
 - Fix unreadable community insight cards (dark-on-red/dark-on-ink tokens)
 - Remove stale uuid override/resolution (dep no longer in tree; fixes Fallow CI)
 - Fix null-rank badge on no-data locations, tidy hero separators, correct chart footnote
@@ -1344,6 +1348,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
