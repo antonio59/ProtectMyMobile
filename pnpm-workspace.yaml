@@ -22,6 +22,9 @@ overrides:
   svgo: ^4.0.2
   brace-expansion: ^5.0.9
   fast-uri: ^4.1.2
+  '@netlify/blobs': ^11.0.1
+  '@netlify/dev-utils': ^6.0.1
+  '@netlify/functions-dev': ^2.0.1
 
 pnpm:
   autoInstallPeers: true
@@ -29,10 +32,10 @@ pnpm:
   packageImportMethod: clone-or-copy
 
 # Audit exceptions: advisories with NO published fix upstream as of Aug 2026.
-# Both are build/dev tooling paths (Netlify dev utils), not shipped runtime code.
+# Dev-only tooling path (Netlify local dev), not shipped runtime code.
+# image-size advisories were resolved by overriding to @netlify/blobs@^11 /
+# @netlify/dev-utils@^6, which no longer depend on image-size.
 # Re-check periodically and delete entries once a patched release exists.
 auditConfig:
   ignoreGhsas:
-    - GHSA-w3rx-r6r6-pgpr  # image-size ICNS parser DoS - no patch published (latest 2.0.2 < 2.0.3)
-    - GHSA-5p2g-fcmc-qvqq  # image-size JXL/HEIF parser DoS - no patch published
-    - GHSA-jmr9-qjv8-65gv  # extract-zip symlink traversal - no patch published (latest 2.0.1 < 2.0.2)
+    - GHSA-jmr9-qjv8-65gv  # extract-zip symlink traversal - no patch published (latest 2.0.1), dev-only via @netlify/functions-dev

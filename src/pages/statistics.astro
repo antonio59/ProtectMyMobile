@@ -35,13 +35,14 @@ try {
   console.warn('Could not fetch live stats, using baseline data');
 }
 
-// Top 5 London hotspots
+// Top 5 London hotspots: theft-from-the-person offences within roughly 1 mile of
+// each borough centre, July 2025 - June 2026 (police.uk).
 const londonHotspots = [
-  { rank: 1, area: 'Westminster', thefts: '34,000+', description: 'Tourist areas, West End, transport hubs' },
-  { rank: 2, area: 'Camden', thefts: '8,500+', description: 'Markets, nightlife, busy high streets' },
-  { rank: 3, area: 'Tower Hamlets', thefts: '6,200+', description: 'Shoreditch, Brick Lane, City fringe' },
-  { rank: 4, area: 'Hackney', thefts: '5,800+', description: 'Nightlife spots, busy cafes' },
-  { rank: 5, area: 'Southwark', thefts: '4,900+', description: 'Borough Market, London Bridge' },
+  { rank: 1, area: 'Westminster', thefts: '16,639', description: 'Tourist areas, West End, transport hubs' },
+  { rank: 2, area: 'Camden', thefts: '6,651', description: 'Markets, nightlife, busy high streets' },
+  { rank: 3, area: 'Southwark', thefts: '5,571', description: 'Borough Market, London Bridge, South Bank' },
+  { rank: 4, area: 'Hackney', thefts: '1,610', description: 'Nightlife spots, busy cafes' },
+  { rank: 5, area: 'Lambeth', thefts: '1,523', description: 'Brixton, Waterloo, South Bank fringe' },
 ];
 
 // City comparison: theft-from-the-person offences recorded within roughly 1 mile
@@ -206,7 +207,7 @@ const maxYearlyThefts = Math.max(...yearlyTrend.map((y) => y.thefts));
             </div>
 
             <p class="text-xs text-muted-foreground mt-4">
-              Source: Metropolitan Police & police.uk recorded crime data (2024–2025)
+              Source: police.uk recorded crime data, 12 months to June 2026 (theft from the person within ~1 mile of each borough centre)
             </p>
           </div>
         </div>

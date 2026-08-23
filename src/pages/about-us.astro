@@ -9,10 +9,10 @@ import {
 } from 'lucide-react';
 
 const stats = [
-  { value: '200,000+', label: 'Phones stolen in the UK each year', detail: 'One every 3 minutes' },
-  { value: '70%', label: 'Of thefts happen in London', detail: 'Highest in Westminster and Camden' },
-  { value: '48%', label: 'Victims don\'t know what to do', detail: 'From police survey data' },
-  { value: '< 1%', label: 'Recovery rate for stolen phones', detail: 'Only 5,000 recovered annually' },
+  { value: '117,211', label: 'Phones stolen in London in 2024', detail: 'Met Police FOI data' },
+  { value: '71,391', label: 'Stolen in London in 2025', detail: 'Down 12.3% vs 2024 (Met Police)' },
+  { value: '151,220', label: 'Theft from the person, E&W (YE Mar 2025)', detail: 'ONS, record high' },
+  { value: '78,000', label: 'Snatch thefts in the UK', detail: 'Crime Survey, YE Mar 2024' },
 ];
 ---
 
@@ -210,13 +210,13 @@ const stats = [
         <div class="p-5 sm:p-6 md:p-8">
           <h2 class="text-base sm:text-lg font-bold mb-4">Why This Matters</h2>
           <p class="text-foreground mb-4 text-sm sm:text-base">
-            Phone theft isn't just about losing a device. With over 200,000 stolen annually in the UK, the ripple effects go far beyond the handset:
+            Phone theft isn't just about losing a device. With 151,220 theft-from-the-person offences recorded in England and Wales in the year to March 2025 (ONS), the ripple effects go far beyond the handset:
           </p>
           <ul class="space-y-3 mb-5">
             {[
               { icon: FileText, text: 'Loss of irreplaceable photos, contacts, and memories not backed up to the cloud' },
               { icon: Shield, text: 'Identity theft risk: thieves who access banking apps can drain accounts in minutes' },
-              { icon: Phone, text: 'Confusion about what steps to take: 48% of victims don\'t know where to start' },
+              { icon: Phone, text: 'Confusion about what steps to take in the first hour after a theft' },
               { icon: Search, text: 'Difficulty finding bank and network emergency numbers during a stressful moment' },
               { icon: Globe, text: 'Theft hotspots concentrated in areas visitors don\'t know are dangerous: Leicester Square, Oxford Circus, Shoreditch at night' },
             ].map((item) => (
