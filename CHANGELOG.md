@@ -131,6 +131,12 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Retag to 'every seven minutes', add 2019-2025 trend chart
+
+- Tagline now reflects 2025 Met rate (71,391 thefts, one every ~7.4 min)
+- statistics page: year-by-year bar chart, Met FOI series 2019-2024
+  plus 2025 headline series with comparability footnote
+- Updated H1, meta descriptions, OG/Twitter alt text, badges
 - Update theft stats to sourced 2024-2026 figures, trim hero copy
 
 - Hero: 117,211 London thefts 2024 (Met FOI), -12.3% fall in 2025 (Met),
@@ -1309,6 +1315,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
