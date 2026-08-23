@@ -131,6 +131,9 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Redesign OG image and logo lockup, refresh meta descriptions to new tagline
+
+og-image + logo.svg/png now match the editorial ink/paper/alert-red system; default description, schema.org org logo, manifest, and og/twitter image alt text updated. Hero stats collapse behind a disclosure on mobile.
 - Fix mobile hero readability and compact mobile buttons
 
 Hero video becomes a cover background behind flowing content on mobile (no more cramped 4:5 overlay), scrim strengthened. touch-target min drops 44px to 40px (still above WCAG 2.2 AA 24px); hero, checkup, news CTAs get compact px-4 py-2 on small screens.
@@ -1288,6 +1291,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
