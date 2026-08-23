@@ -571,7 +571,7 @@ const schema = [
           </div>
           <div>
             <p class="text-xs uppercase tracking-wide text-destructive-foreground/70 font-semibold">
-              {location.rank === 1 ? 'Highest Risk Area' : `#${location.rank} UK Hotspot`}
+              {location.rank === 1 ? 'Highest Risk Area' : location.rank ? `#${location.rank} UK Hotspot` : 'Known Risk Area'}
             </p>
             <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">
               Phone Theft in {location.name}
