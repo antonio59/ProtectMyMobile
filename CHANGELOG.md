@@ -131,6 +131,8 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Restyle OG share images with cinematic London hero backdrop
+- Drop orphaned hero video assets
 - Replace flat hero animation with cinematic London street image
 
 - Generated 2K cinematic dusk scene, cropped watermark, optimized to 164KB JPG
@@ -1354,6 +1356,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
