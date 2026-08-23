@@ -567,7 +567,7 @@ const schema = [
       <div class="bg-destructive text-destructive-foreground rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8 ">
         <div class="flex items-center gap-3 mb-3">
           <div class="bg-background/20 p-2 sm:p-3 rounded-xl">
-            <MapPin class="size-6 sm:size-8" />
+            <MapPin className="size-6 sm:size-8" />
           </div>
           <div>
             <p class="text-xs uppercase tracking-wide text-destructive-foreground/70 font-semibold">
@@ -603,7 +603,7 @@ const schema = [
       <section class="mb-6 sm:mb-8 grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
         <div class="bg-card rounded-lg sm:rounded-2xl  border border-border p-4 sm:p-5 flex gap-3">
           <div class="bg-neutral-100 text-foreground rounded-lg p-2 h-fit">
-            <Shield class="size-5" />
+            <Shield className="size-5" />
           </div>
           <div>
             <p class="text-sm font-semibold text-foreground">Before it happens</p>
@@ -616,7 +616,7 @@ const schema = [
         </div>
         <div class="bg-card rounded-lg sm:rounded-2xl  border border-border p-4 sm:p-5 flex gap-3">
           <div class="bg-neutral-100 text-foreground rounded-lg p-2 h-fit">
-            <AlertTriangle class="size-5" />
+            <AlertTriangle className="size-5" />
           </div>
           <div>
             <p class="text-sm font-semibold text-foreground">Stay alert</p>
@@ -629,7 +629,7 @@ const schema = [
         </div>
         <div class="bg-card rounded-lg sm:rounded-2xl  border border-border p-4 sm:p-5 flex gap-3">
           <div class="bg-destructive-subtle text-destructive rounded-lg p-2 h-fit">
-            <Phone class="size-5" />
+            <Phone className="size-5" />
           </div>
           <div>
             <p class="text-sm font-semibold text-foreground">If stolen</p>
@@ -648,7 +648,7 @@ const schema = [
           <div class="h-1 bg-foreground"></div>
           <div class="p-4 sm:p-6 md:p-8">
             <div class="flex items-center gap-3 mb-2">
-              <Navigation class="size-6 text-destructive" />
+              <Navigation className="size-6 text-destructive" />
               <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-foreground">
                 High-Risk Locations in {location.name}
               </h2>
@@ -685,7 +685,7 @@ const schema = [
           <div class="h-1 bg-foreground"></div>
           <div class="p-4 sm:p-6 md:p-8">
             <div class="flex items-center gap-3 mb-4">
-              <Train class="size-6 text-primary" />
+              <Train className="size-6 text-primary" />
               <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-foreground">
                 {location.transport.type} Safety
               </h2>
@@ -694,7 +694,7 @@ const schema = [
             <div class="grid md:grid-cols-2 gap-4 sm:gap-6">
               <div>
                 <h3 class="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
-                  <AlertTriangle class="size-4 text-foreground" />
+                  <AlertTriangle className="size-4 text-foreground" />
                   Common Theft Scenarios
                 </h3>
                 <ul class="space-y-2 text-xs sm:text-sm text-foreground">
@@ -709,7 +709,7 @@ const schema = [
 
               <div>
                 <h3 class="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
-                  <CheckCircle2 class="size-4 text-foreground" />
+                  <CheckCircle2 className="size-4 text-foreground" />
                   Protection Tips
                 </h3>
                 <ul class="space-y-2 text-xs sm:text-sm text-foreground">
@@ -732,7 +732,7 @@ const schema = [
           <div class="h-1 bg-foreground"></div>
           <div class="p-4 sm:p-6 md:p-8">
             <div class="flex items-center gap-3 mb-4">
-              <Building2 class="size-6 text-primary" />
+              <Building2 className="size-6 text-primary" />
               <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-foreground">
                 Report to {location.policeForce}
               </h2>
@@ -764,7 +764,7 @@ const schema = [
                   rel="noopener noreferrer"
                   class="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-xl font-semibold text-sm  hover:bg-primary-hover transition"
                 >
-                  Report Online <ArrowRight class="size-4" />
+                  Report Online <ArrowRight className="size-4" />
                 </a>
               </div>
             </div>
@@ -795,14 +795,14 @@ const schema = [
               class="p-4 sm:p-5 bg-background/10 rounded-xl border border-background/20 hover:bg-background/15 transition-colors group"
             >
               <div class="flex items-center gap-2 mb-2">
-                <Shield class="size-5 text-background" />
+                <Shield className="size-5 text-background" />
                 <h3 class="font-bold text-base sm:text-lg">Prevention Guide</h3>
               </div>
               <p class="text-xs sm:text-sm text-background/70 mb-3">
                 Security settings, protective gear, and habits to avoid becoming a target.
               </p>
               <div class="flex items-center gap-2 text-sm font-semibold text-background group-hover:gap-3 transition-all">
-                Read guide <ArrowRight class="size-4" />
+                Read guide <ArrowRight className="size-4" />
               </div>
             </a>
 
@@ -811,14 +811,14 @@ const schema = [
               class="p-4 sm:p-5 bg-background/10 rounded-xl border border-background/20 hover:bg-background/15 transition-colors group"
             >
               <div class="flex items-center gap-2 mb-2">
-                <AlertTriangle class="size-5 text-destructive" />
+                <AlertTriangle className="size-5 text-destructive" />
                 <h3 class="font-bold text-base sm:text-lg">Emergency Steps</h3>
               </div>
               <p class="text-xs sm:text-sm text-background/70 mb-3">
                 Immediate actions: lock device, block SIM, secure banking, report to police.
               </p>
               <div class="flex items-center gap-2 text-sm font-semibold text-destructive group-hover:gap-3 transition-all">
-                Get help now <ArrowRight class="size-4" />
+                Get help now <ArrowRight className="size-4" />
               </div>
             </a>
 
@@ -827,14 +827,14 @@ const schema = [
               class="p-4 sm:p-5 bg-background/10 rounded-xl border border-background/20 hover:bg-background/15 transition-colors group"
             >
               <div class="flex items-center gap-2 mb-2">
-                <TrendingUp class="size-5 text-background" />
+                <TrendingUp className="size-5 text-background" />
                 <h3 class="font-bold text-base sm:text-lg">UK Statistics</h3>
               </div>
               <p class="text-xs sm:text-sm text-background/70 mb-3">
                 See theft data for all UK cities, seasonal trends, and high-risk times.
               </p>
               <div class="flex items-center gap-2 text-sm font-semibold text-background group-hover:gap-3 transition-all">
-                View data <ArrowRight class="size-4" />
+                View data <ArrowRight className="size-4" />
               </div>
             </a>
           </div>

@@ -29,7 +29,7 @@ const stats = [
       <div class="bg-foreground text-background rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-10 mb-6 sm:mb-8 ">
         <div class="flex items-center gap-3 mb-4">
           <div class="bg-background/20 p-3 rounded-xl">
-            <Info class="size-6 sm:size-8" />
+            <Info className="size-6 sm:size-8" />
           </div>
           <h1 class="text-xl sm:text-2xl md:text-3xl font-bold">About ProtectMyMobile</h1>
         </div>
@@ -55,7 +55,7 @@ const stats = [
         <div class="p-5 sm:p-6 md:p-8">
           <div class="flex items-center gap-3 mb-4">
             <div class="bg-neutral-100/10 rounded-xl p-3">
-              <Target class="size-6 text-foreground" />
+              <Target className="size-6 text-foreground" />
             </div>
             <h2 class="text-base sm:text-lg font-bold">My Mission</h2>
           </div>
@@ -71,14 +71,14 @@ const stats = [
       <!-- What We Do -->
       <section class="mb-6 sm:mb-8">
         <h2 class="text-base sm:text-lg font-bold mb-4 sm:mb-5 flex items-center gap-2">
-          <Database class="size-5 text-primary" />
+          <Database className="size-5 text-primary" />
           What I Do
         </h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
           <a href="/statistics" class="bg-card rounded-xl shadow-sm border border-border p-4 sm:p-5 hover: hover:border-primary/20 transition-all group">
             <div class="flex items-start gap-3">
               <div class="bg-neutral-100 rounded-lg p-2.5">
-                <TrendingUp class="size-5 text-foreground" />
+                <TrendingUp className="size-5 text-foreground" />
               </div>
               <div>
                 <h3 class="font-semibold text-sm sm:text-base text-foreground group-hover:text-primary transition-colors">Theft Data & Statistics</h3>
@@ -89,7 +89,7 @@ const stats = [
           <a href="/news" class="bg-card rounded-xl shadow-sm border border-border p-4 sm:p-5 hover: hover:border-primary/20 transition-all group">
             <div class="flex items-start gap-3">
               <div class="bg-neutral-100 rounded-lg p-2.5">
-                <Newspaper class="size-5 text-foreground" />
+                <Newspaper className="size-5 text-foreground" />
               </div>
               <div>
                 <h3 class="font-semibold text-sm sm:text-base text-foreground group-hover:text-primary transition-colors">News Monitoring</h3>
@@ -100,7 +100,7 @@ const stats = [
           <a href="/prevention" class="bg-card rounded-xl shadow-sm border border-border p-4 sm:p-5 hover: hover:border-primary/20 transition-all group">
             <div class="flex items-start gap-3">
               <div class="bg-neutral-100 rounded-lg p-2.5">
-                <Shield class="size-5 text-foreground" />
+                <Shield className="size-5 text-foreground" />
               </div>
               <div>
                 <h3 class="font-semibold text-sm sm:text-base text-foreground group-hover:text-primary transition-colors">Prevention Guides</h3>
@@ -111,7 +111,7 @@ const stats = [
           <a href="/emergency" class="bg-card rounded-xl shadow-sm border border-border p-4 sm:p-5 hover: hover:border-primary/20 transition-all group">
             <div class="flex items-start gap-3">
               <div class="bg-destructive-muted rounded-lg p-2.5">
-                <Phone class="size-5 text-destructive" />
+                <Phone className="size-5 text-destructive" />
               </div>
               <div>
                 <h3 class="font-semibold text-sm sm:text-base text-foreground group-hover:text-primary transition-colors">Emergency Response</h3>
@@ -128,7 +128,7 @@ const stats = [
         <div class="p-5 sm:p-6 md:p-8">
           <div class="flex items-center gap-3 mb-4">
             <div class="bg-neutral-100 rounded-xl p-3">
-              <Search class="size-6 text-foreground" />
+              <Search className="size-6 text-foreground" />
             </div>
             <h2 class="text-base sm:text-lg font-bold">How I Collect Data</h2>
           </div>
@@ -138,7 +138,7 @@ const stats = [
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
             <div>
               <div class="flex items-center gap-2 mb-2">
-                <FileText class="size-4 text-primary" />
+                <FileText className="size-4 text-primary" />
                 <h3 class="font-semibold text-sm">Freedom of Information</h3>
               </div>
               <p class="text-xs text-muted-foreground">
@@ -147,7 +147,7 @@ const stats = [
             </div>
             <div>
               <div class="flex items-center gap-2 mb-2">
-                <Globe class="size-4 text-primary" />
+                <Globe className="size-4 text-primary" />
                 <h3 class="font-semibold text-sm">News Aggregation</h3>
               </div>
               <p class="text-xs text-muted-foreground">
@@ -156,7 +156,7 @@ const stats = [
             </div>
             <div>
               <div class="flex items-center gap-2 mb-2">
-                <Users class="size-4 text-primary" />
+                <Users className="size-4 text-primary" />
                 <h3 class="font-semibold text-sm">Community Reports</h3>
               </div>
               <p class="text-xs text-muted-foreground">
@@ -170,13 +170,13 @@ const stats = [
       <!-- Values -->
       <section class="mb-6 sm:mb-8">
         <h2 class="text-base sm:text-lg font-bold mb-4 sm:mb-5 flex items-center gap-2">
-          <Heart class="size-5 text-destructive" />
+          <Heart className="size-5 text-destructive" />
           Our Values
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
           <div class="bg-card rounded-xl shadow-sm border border-border p-5 sm:p-6 hover: transition-shadow">
             <div class="bg-neutral-100/10 rounded-xl p-3 w-fit mb-4">
-              <Shield class="size-6 text-foreground" />
+              <Shield className="size-6 text-foreground" />
             </div>
             <h3 class="font-semibold text-sm sm:text-base mb-2">Privacy First</h3>
             <p class="text-muted-foreground text-xs sm:text-sm leading-relaxed">
@@ -185,7 +185,7 @@ const stats = [
           </div>
           <div class="bg-card rounded-xl shadow-sm border border-border p-5 sm:p-6 hover: transition-shadow">
             <div class="bg-neutral-100 rounded-xl p-3 w-fit mb-4">
-              <Users class="size-6 text-foreground" />
+              <Users className="size-6 text-foreground" />
             </div>
             <h3 class="font-semibold text-sm sm:text-base mb-2">Community Driven</h3>
             <p class="text-muted-foreground text-xs sm:text-sm leading-relaxed">
@@ -194,7 +194,7 @@ const stats = [
           </div>
           <div class="bg-card rounded-xl shadow-sm border border-border p-5 sm:p-6 hover: transition-shadow">
             <div class="bg-destructive-muted rounded-xl p-3 w-fit mb-4">
-              <Heart class="size-6 text-destructive" />
+              <Heart className="size-6 text-destructive" />
             </div>
             <h3 class="font-semibold text-sm sm:text-base mb-2">Always Free</h3>
             <p class="text-muted-foreground text-xs sm:text-sm leading-relaxed">
@@ -238,7 +238,7 @@ const stats = [
         <div class="p-5 sm:p-6 md:p-8">
           <div class="flex items-center gap-3 mb-4">
             <div class="bg-neutral-100 rounded-xl p-3">
-              <Megaphone class="size-6 text-foreground" />
+              <Megaphone className="size-6 text-foreground" />
             </div>
             <h2 class="text-base sm:text-lg font-bold">How You Can Help</h2>
           </div>
@@ -246,7 +246,7 @@ const stats = [
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div class="flex items-start gap-3">
               <div class="bg-neutral-100/10 rounded-lg p-2 mt-0.5">
-                <Send class="size-4 text-foreground" />
+                <Send className="size-4 text-foreground" />
               </div>
               <div>
                 <h3 class="font-semibold text-sm mb-1">Report Thefts</h3>
@@ -255,7 +255,7 @@ const stats = [
             </div>
             <div class="flex items-start gap-3">
               <div class="bg-neutral-100/10 rounded-lg p-2 mt-0.5">
-                <FileText class="size-4 text-foreground" />
+                <FileText className="size-4 text-foreground" />
               </div>
               <div>
                 <h3 class="font-semibold text-sm mb-1">Share Your Experience</h3>
@@ -264,7 +264,7 @@ const stats = [
             </div>
             <div class="flex items-start gap-3">
               <div class="bg-neutral-100/10 rounded-lg p-2 mt-0.5">
-                <Megaphone class="size-4 text-foreground" />
+                <Megaphone className="size-4 text-foreground" />
               </div>
               <div>
                 <h3 class="font-semibold text-sm mb-1">Spread the Word</h3>
@@ -282,7 +282,7 @@ const stats = [
           <p class="text-destructive-foreground/80 text-xs sm:text-sm mb-3">See how bad phone theft really is in the UK.</p>
           <span class="inline-flex items-center gap-1.5 text-sm font-semibold">
             Explore
-            <ArrowRight class="size-4 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="size-4 group-hover:translate-x-1 transition-transform" />
           </span>
         </a>
         <a href="/prevention" class="bg-foreground text-background rounded-xl  p-5 sm:p-6 hover: transition-all group">
@@ -290,7 +290,7 @@ const stats = [
           <p class="text-background/80 text-xs sm:text-sm mb-3">Lock down your phone in under 10 minutes.</p>
           <span class="inline-flex items-center gap-1.5 text-sm font-semibold">
             Secure Now
-            <ArrowRight class="size-4 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="size-4 group-hover:translate-x-1 transition-transform" />
           </span>
         </a>
         <a href="/emergency" class="bg-destructive text-destructive-foreground rounded-xl  p-5 sm:p-6 hover: transition-all group">
@@ -298,7 +298,7 @@ const stats = [
           <p class="text-destructive-foreground/80 text-xs sm:text-sm mb-3">What to do immediately after a theft.</p>
           <span class="inline-flex items-center gap-1.5 text-sm font-semibold">
             Take Action
-            <ArrowRight class="size-4 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="size-4 group-hover:translate-x-1 transition-transform" />
           </span>
         </a>
       </section>

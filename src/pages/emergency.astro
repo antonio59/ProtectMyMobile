@@ -102,7 +102,7 @@ import { AlertTriangle, Clock, ThumbsUp, ThumbsDown, MapPin, Shield } from "luci
       <div class="bg-destructive text-destructive-foreground rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8 ">
         <div class="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
           <div class="bg-background/20 p-2.5 sm:p-4 rounded-xl sm:rounded-2xl">
-            <AlertTriangle class="h-7 w-7 sm:size-10" />
+            <AlertTriangle className="h-7 w-7 sm:size-10" />
           </div>
           <div>
             <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-shadow-danger">Phone Stolen?</h1>
@@ -110,7 +110,7 @@ import { AlertTriangle, Clock, ThumbsUp, ThumbsDown, MapPin, Shield } from "luci
           </div>
         </div>
         <div class="flex items-center gap-2 bg-background/10 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm w-fit">
-          <Clock class="size-3 sm:size-4" />
+          <Clock className="size-3 sm:size-4" />
           <span>Complete these 5 steps within 30 minutes</span>
         </div>
       </div>
@@ -278,7 +278,7 @@ import { AlertTriangle, Clock, ThumbsUp, ThumbsDown, MapPin, Shield } from "luci
               class="inline-flex items-center gap-2 min-h-11 px-4 py-2 bg-neutral-100 text-foreground border border-border rounded-lg font-medium hover:bg-neutral-100 transition-colors"
               aria-label="Yes, this was helpful"
             >
-              <ThumbsUp class="size-4" />
+              <ThumbsUp className="size-4" />
               Yes
             </button>
             <button
@@ -286,7 +286,7 @@ import { AlertTriangle, Clock, ThumbsUp, ThumbsDown, MapPin, Shield } from "luci
               class="inline-flex items-center gap-2 min-h-11 px-4 py-2 bg-destructive-subtle text-destructive-hover border border-destructive-muted rounded-lg font-medium hover:bg-destructive-muted transition-colors"
               aria-label="No, this was not helpful"
             >
-              <ThumbsDown class="size-4" />
+              <ThumbsDown className="size-4" />
               No
             </button>
           </div>
@@ -297,7 +297,7 @@ import { AlertTriangle, Clock, ThumbsUp, ThumbsDown, MapPin, Shield } from "luci
       <div id="helpful-thanks" class="hidden bg-neutral-100 border border-border rounded-lg sm:rounded-xl p-4 sm:p-6 mt-6 sm:mt-8">
         <div class="flex items-center gap-3">
           <div class="p-2 bg-neutral-100 rounded-lg">
-            <ThumbsUp class="size-5 text-foreground" />
+            <ThumbsUp className="size-5 text-foreground" />
           </div>
           <div>
             <p class="font-semibold text-foreground">Thank you for your feedback!</p>
@@ -310,7 +310,7 @@ import { AlertTriangle, Clock, ThumbsUp, ThumbsDown, MapPin, Shield } from "luci
       <div id="report-theft" class="bg-card rounded-lg sm:rounded-xl  p-4 sm:p-6 md:p-8 mt-6 sm:mt-8 border border-destructive-muted">
         <div class="flex items-start gap-3 mb-4">
           <div class="p-2 bg-destructive-muted rounded-lg flex-shrink-0">
-            <MapPin class="size-5 text-destructive" />
+            <MapPin className="size-5 text-destructive" />
           </div>
           <div>
             <h3 class="text-lg sm:text-xl font-bold text-foreground">Report Where Your Phone Was Stolen</h3>
@@ -362,7 +362,7 @@ import { AlertTriangle, Clock, ThumbsUp, ThumbsDown, MapPin, Shield } from "luci
 
           <div class="flex items-center justify-between">
             <p class="text-xs text-muted-foreground">
-              <Shield class="size-3 inline mr-1" />
+              <Shield className="size-3 inline mr-1" />
               Anonymous. No personal data stored. Approved within 24 hours.
             </p>
             <button 

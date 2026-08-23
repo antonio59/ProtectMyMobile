@@ -131,7 +131,7 @@ const hotspots = [
         <div class="relative">
           <div class="flex items-center gap-3 mb-3">
             <div class="bg-background/20 p-2 sm:p-3 rounded-xl">
-              <AlertTriangle class="size-6 sm:size-8" />
+              <AlertTriangle className="size-6 sm:size-8" />
             </div>
             <h1 class="text-xl sm:text-2xl md:text-3xl font-bold text-shadow-danger">The Mobile Theft Epidemic</h1>
           </div>
@@ -140,15 +140,15 @@ const hotspots = [
           </p>
           <div class="flex flex-wrap gap-3">
             <div class="flex items-center gap-2 bg-background/10 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm">
-              <TrendingUp class="size-4" />
+              <TrendingUp className="size-4" />
               <span>150% increase since 2022</span>
             </div>
             <div class="flex items-center gap-2 bg-background/10 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm">
-              <Clock class="size-4" />
+              <Clock className="size-4" />
               <span>One stolen every 5 minutes</span>
             </div>
             <a href="/scenarios" class="inline-flex items-center gap-2 bg-card text-destructive-hover px-3 sm:px-4 py-1.5 sm:py-2 min-h-11 rounded-lg text-xs sm:text-sm font-semibold  hover:bg-card/90 transition">
-              <AlertTriangle class="size-4" />
+              <AlertTriangle className="size-4" />
               View scenario slides
             </a>
           </div>
@@ -158,7 +158,7 @@ const hotspots = [
       <!-- Stats Section -->
       <section class="mb-6 sm:mb-8 md:mb-10">
         <h2 class="text-lg sm:text-xl font-bold mb-6 flex items-center gap-2">
-          <TrendingUp class="size-4 sm:size-5 text-destructive" />
+          <TrendingUp className="size-4 sm:size-5 text-destructive" />
           The Numbers
         </h2>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
@@ -194,7 +194,7 @@ const hotspots = [
                         <h3 class="font-bold text-foreground mb-1">{method.title}</h3>
                         <p class="text-sm text-foreground mb-3">{method.description}</p>
                         <div class={`${colors.badge} text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg inline-flex items-center gap-1`}>
-                          <Shield class="size-3" />
+                          <Shield className="size-3" />
                           {method.tip}
                         </div>
                       </div>
@@ -210,14 +210,14 @@ const hotspots = [
       <!-- Hotspots -->
       <section class="mb-6 sm:mb-8 md:mb-10">
         <h2 class="text-lg sm:text-xl font-bold mb-6 flex items-center gap-2">
-          <MapPin class="size-4 sm:size-5 text-destructive" />
+          <MapPin className="size-4 sm:size-5 text-destructive" />
           London Theft Hotspots
         </h2>
         <div class="grid grid-cols-2 md:grid-cols-3 gap-2 sm:gap-3">
           {hotspots.map((spot) => (
             <div class="bg-card rounded-lg sm:rounded-xl p-3 sm:p-4  border border-border">
               <div class="flex items-center gap-2 mb-1">
-                <MapPin class="size-4 text-destructive" />
+                <MapPin className="size-4 text-destructive" />
                 <span class="font-semibold text-xs sm:text-sm">{spot.area}</span>
               </div>
               <p class="text-lg font-bold text-destructive">{spot.thefts}</p>
@@ -240,7 +240,7 @@ const hotspots = [
       <section class="mb-6 sm:mb-8 md:mb-10">
         <div class="bg-neutral-100 rounded-2xl p-4 sm:p-6 md:p-8 border border-border">
           <h2 class="text-lg sm:text-xl font-bold mb-4 flex items-center gap-2">
-            <AlertTriangle class="size-4 sm:size-5 text-foreground" />
+            <AlertTriangle className="size-4 sm:size-5 text-foreground" />
             Why It Matters
           </h2>
           <div class="grid md:grid-cols-2 gap-4">
@@ -275,25 +275,25 @@ const hotspots = [
           </p>
           <ul class="space-y-2 text-sm text-foreground">
             <li class="flex items-start gap-2">
-              <Shield class="size-4 text-foreground mt-0.5 flex-shrink-0" />
+              <Shield className="size-4 text-foreground mt-0.5 flex-shrink-0" />
               <span>Factory reset blocks - making stolen phones unusable</span>
             </li>
             <li class="flex items-start gap-2">
-              <Shield class="size-4 text-foreground mt-0.5 flex-shrink-0" />
+              <Shield className="size-4 text-foreground mt-0.5 flex-shrink-0" />
               <span>Working with manufacturers on kill switch technology</span>
             </li>
             <li class="flex items-start gap-2">
-              <Shield class="size-4 text-foreground mt-0.5 flex-shrink-0" />
+              <Shield className="size-4 text-foreground mt-0.5 flex-shrink-0" />
               <span>Increased police focus on organised theft gangs</span>
             </li>
             <li class="flex items-start gap-2">
-              <Shield class="size-4 text-foreground mt-0.5 flex-shrink-0" />
+              <Shield className="size-4 text-foreground mt-0.5 flex-shrink-0" />
               <span>National database improvements for stolen devices</span>
             </li>
           </ul>
           <a href="https://www.gov.uk/government/news/crackdown-to-halt-rise-in-phone-thefts" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-primary text-sm mt-4 hover:underline">
             Read the government announcement
-            <ExternalLink class="size-4" />
+            <ExternalLink className="size-4" />
           </a>
         </div>
       </section>
@@ -309,12 +309,12 @@ const hotspots = [
           </div>
           <div class="flex flex-col sm:flex-row gap-3">
             <a href="/prevention" class="inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 bg-background text-primary rounded-xl font-semibold text-xs sm:text-sm hover:bg-primary-subtle transition-colors">
-              <Shield class="size-4" />
+              <Shield className="size-4" />
               Prevention Guide
             </a>
             <a href="/emergency" class="inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 bg-destructive text-destructive-foreground rounded-xl font-semibold text-xs sm:text-sm hover:bg-destructive transition-colors">
               Emergency Steps
-              <ArrowRight class="size-4" />
+              <ArrowRight className="size-4" />
             </a>
           </div>
         </div>
