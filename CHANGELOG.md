@@ -131,6 +131,12 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Replace flat hero animation with cinematic London street image
+
+- Generated 2K cinematic dusk scene, cropped watermark, optimized to 164KB JPG
+- Removed hero video, autoplay script, and stale VideoObject schema
+- Softened overlay gradient, tightened evidence strip to one line
+- Reduced mobile hero min-height; moved orphaned videos out of public/
 - Fix remaining low-contrast text on dark/red backgrounds
 
 - banks: emergency contact box uses destructive-foreground throughout
@@ -1348,6 +1354,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
