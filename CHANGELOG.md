@@ -131,6 +131,12 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Slim hero to tagline + CTAs + one-line evidence strip; add backup guide
+
+- Hero stat cards duplicated AnimatedStats below the fold; replaced with
+  a compact sourced stat line linking to /statistics
+- Prevention guide: new 'Back Up Your Device' section (iCloud/Google
+  steps, storage limits, monthly verification reminder)
 - Sourced borough hotspots, about-page stats; drop unpatchable vulns; remove one-off scripts
 
 - Hotspot lists on statistics + the-problem now use police.uk figures
@@ -1335,6 +1341,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
