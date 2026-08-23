@@ -131,6 +131,9 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Add square 1080x1080 OG share card for 1:1 crop contexts
+
+convert-og-image.mjs now renders both wide and square variants; Layout emits both as og:image alternates.
 - Redesign OG image and logo lockup, refresh meta descriptions to new tagline
 
 og-image + logo.svg/png now match the editorial ink/paper/alert-red system; default description, schema.org org logo, manifest, and og/twitter image alt text updated. Hero stats collapse behind a disclosure on mobile.
@@ -1291,6 +1294,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
