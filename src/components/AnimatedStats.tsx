@@ -39,9 +39,9 @@ const stats: Stat[] = [
     color: 'text-foreground'
   },
   {
-    value: 'Every 5 min',
+    value: 'Every 7 min',
     label: 'One stolen',
-    sublabel: '(2024 rate)',
+    sublabel: '(2025 rate)',
     color: 'text-foreground'
   },
 ];
