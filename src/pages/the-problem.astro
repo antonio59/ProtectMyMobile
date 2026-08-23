@@ -91,10 +91,10 @@ const colorClasses: Record<string, { bg: string; border: string; icon: string; b
 };
 
 const stats = [
-  { value: '116,000+', label: 'Phones stolen in London (2024)', color: 'text-destructive' },
-  { value: '230,000+', label: 'UK mobile thefts per year', color: 'text-foreground' },
-  { value: '150%', label: 'Increase since 2022', color: 'text-foreground' },
-  { value: '<5%', label: 'Recovery rate', color: 'text-foreground' },
+  { value: '117,211', label: 'Phones stolen in London (2024, Met FOI)', color: 'text-destructive' },
+  { value: '71,391', label: 'Stolen in London (2025, Met)', color: 'text-foreground' },
+  { value: '151,220', label: 'Theft from the person, E&W (YE Mar 2025, ONS)', color: 'text-foreground' },
+  { value: '−12.3%', label: 'Fall in London 2025 vs 2024', color: 'text-foreground' },
 ];
 
 const hotspots = [
@@ -141,7 +141,7 @@ const hotspots = [
           <div class="flex flex-wrap gap-3">
             <div class="flex items-center gap-2 bg-background/10 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm">
               <TrendingUp className="size-4" />
-              <span>150% increase since 2022</span>
+              <span>Down 12.3% in 2025 (Met Police)</span>
             </div>
             <div class="flex items-center gap-2 bg-background/10 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm">
               <Clock className="size-4" />

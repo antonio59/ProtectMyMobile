@@ -46,7 +46,7 @@ const londonHotspots = [
 
 // City comparison data
 const cityComparison = [
-  { city: 'London', thefts: 116656, year: '2024', change: '+50% since 2017' },
+  { city: 'London', thefts: 117211, year: '2024', change: '−12.3% in 2025' },
   { city: 'Manchester', thefts: 12370, year: '2024', change: '+31%' },
   { city: 'Birmingham', thefts: 10408, year: '2024', change: '+25%' },
   { city: 'Leeds', thefts: 7165, year: '2024', change: '+28%' },
@@ -54,16 +54,16 @@ const cityComparison = [
 ];
 
 const keyStats = [
-  { value: '78,000', label: 'Snatch thefts UK (2024)', icon: AlertTriangle, color: 'red' },
-  { value: '116,000+', label: 'London alone (2024)', icon: MapPin, color: 'orange' },
-  { value: '150%', label: 'Increase since 2023', icon: TrendingUp, color: 'yellow' },
-  { value: '0.8%', label: 'Result in charges', icon: Shield, color: 'teal' },
+  { value: '78,000', label: 'Snatch thefts UK (CSEW, YE Mar 2024)', icon: AlertTriangle, color: 'red' },
+  { value: '117,211', label: 'London (2024, Met FOI)', icon: MapPin, color: 'orange' },
+  { value: '−12.3%', label: 'Fall in London 2025 (Met)', icon: TrendingUp, color: 'yellow' },
+  { value: '248', label: 'Arrests in 4-week blitz (2026)', icon: Shield, color: 'teal' },
 ];
 ---
 
 <Layout
   title="UK Phone Theft Statistics | Live Data, London Crime Hotspots & Trends"
-  description="78,000+ phones stolen in UK. See live theft trends, London hotspots, borough data, seasonal patterns. Updated monthly from police.uk data."
+  description="117,211 phones were stolen in London in 2024; thefts fell 12% in 2025. See live theft trends, London hotspots, borough data, seasonal patterns. Updated monthly from police.uk data."
   canonicalPath="/statistics"
   schema={statisticsSchema}
 >
@@ -125,7 +125,7 @@ const keyStats = [
               <h2 class="text-lg sm:text-xl font-bold">London Theft Hotspots</h2>
             </div>
             <p class="text-muted-foreground text-xs sm:text-sm md:text-base mb-6">
-              London accounts for 75% of all UK phone thefts. These are the worst-affected boroughs.
+              London accounts for around two-thirds of theft-from-the-person offences in England & Wales (ONS). These are the worst-affected boroughs.
               Westminster alone sees more thefts than any other city in the UK.
             </p>
 
@@ -368,10 +368,10 @@ const keyStats = [
               <strong>Beyond the device:</strong> Victims face identity theft, financial fraud, loss of irreplaceable photos, and emotional distress.
             </p>
             <p>
-              <strong>Recovery is rare:</strong> Less than 5% of stolen phones are recovered. Prevention is crucial.
+              <strong>Recovery is rare:</strong> The vast majority of stolen phones are never recovered. Prevention is crucial.
             </p>
             <p>
-              <strong>Growing problem:</strong> The 150% year-on-year increase shows this is an escalating crisis requiring better awareness.
+              <strong>Turning a corner:</strong> After peaking at 117,211 in 2024, Met figures show London phone thefts fell 12.3% in 2025 — but levels remain historically high.
             </p>
           </div>
         </div>

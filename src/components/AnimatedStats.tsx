@@ -16,33 +16,32 @@ interface Stat {
 
 const stats: Stat[] = [
   {
-    value: '116,000+',
-    numericValue: 116000,
+    value: '117,211',
+    numericValue: 117211,
     label: 'Phones stolen',
     sublabel: 'in London (2024)',
     color: 'text-destructive'
   },
   {
-    value: '150%',
-    numericValue: 150,
+    value: '12.3%',
+    numericValue: 12.3,
     suffix: '%',
-    label: 'Increase',
-    sublabel: 'since 2023',
+    decimals: 1,
+    label: 'Fall in thefts',
+    sublabel: '2025 vs 2024',
     color: 'text-destructive'
   },
   {
-    value: '0.8%',
-    numericValue: 0.8,
-    suffix: '%',
-    decimals: 1,
-    label: 'Result in',
-    sublabel: 'charges',
+    value: '248',
+    numericValue: 248,
+    label: 'Arrests in one',
+    sublabel: '4-week blitz (2026)',
     color: 'text-foreground'
   },
   {
     value: 'Every 5 min',
     label: 'One stolen',
-    sublabel: '(theft rate)',
+    sublabel: '(2024 rate)',
     color: 'text-foreground'
   },
 ];
