@@ -198,9 +198,9 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
       btn.addEventListener('click', () => {
         document.querySelectorAll('.filter-btn').forEach(b => {
           b.classList.remove('bg-primary', 'text-background');
-          b.classList.add('bg-foreground', 'text-neutral-700');
+          b.classList.add('bg-neutral-100', 'text-neutral-700');
         });
-        btn.classList.remove('bg-foreground', 'text-neutral-700');
+        btn.classList.remove('bg-neutral-100', 'text-neutral-700');
         btn.classList.add('bg-primary', 'text-background');
         currentFilter = btn.id.replace('filter-', '');
         renderTable();
