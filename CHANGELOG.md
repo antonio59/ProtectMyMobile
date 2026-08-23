@@ -131,6 +131,9 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Fix mobile hero readability and compact mobile buttons
+
+Hero video becomes a cover background behind flowing content on mobile (no more cramped 4:5 overlay), scrim strengthened. touch-target min drops 44px to 40px (still above WCAG 2.2 AA 24px); hero, checkup, news CTAs get compact px-4 py-2 on small screens.
 - Wire orphaned color tokens into DESIGN.md component specs
 - Darken warning amber to #9A4F00 for WCAG AA contrast
 - Bump convex in the convex group across 1 directory (#73)
@@ -1285,6 +1288,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
