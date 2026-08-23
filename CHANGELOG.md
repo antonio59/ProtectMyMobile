@@ -131,6 +131,13 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Fix mobile UX sweep: lucide icon classes, contrast, spacing, excerpts
+
+- Codemod: class -> className for lucide-react icons across 23 .astro files (213 icons were rendering unstyled at default 24px, breaking layout and positioning, e.g. detached search icons).
+- mobile-providers: emergency contact box used solid bg-destructive with dark red text (unreadable) -> bg-destructive-subtle.
+- banks/theft-map: restore spaces eaten before inline links ('ouremergency guide', 'byreporting').
+- news: strip title prefix duplicated inside scraped excerpts (incl. source-suffix variants).
+- home: shorten key-stats disclosure summary to avoid mid-phrase wrap.
 - Add square 1080x1080 OG share card for 1:1 crop contexts
 
 convert-og-image.mjs now renders both wide and square variants; Layout emits both as og:image alternates.
@@ -1294,6 +1301,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
