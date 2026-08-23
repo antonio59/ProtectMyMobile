@@ -78,13 +78,13 @@ export default function CommunityStatsDisplay({ initialStats }: Props) {
         {/* Recovery Rate */}
         <div className="bg-destructive rounded-lg  p-6 border-2 border-destructive-muted">
           <div className="flex items-center justify-between mb-3">
-            <h3 className="text-sm font-medium text-foreground">Recovery Rate</h3>
-            <TrendingDown className="size-5 text-destructive" />
+            <h3 className="text-sm font-medium text-destructive-foreground">Recovery Rate</h3>
+            <TrendingDown className="size-5 text-destructive-foreground/80" />
           </div>
           <div className="mb-2">
-            <div className="text-4xl font-bold text-destructive">{recoveryRate}%</div>
+            <div className="text-4xl font-bold text-destructive-foreground">{recoveryRate}%</div>
           </div>
-          <div className="text-xs text-muted-foreground">
+          <div className="text-xs text-destructive-foreground/70">
             {100 - recoveryRate}% of phones are never recovered
           </div>
         </div>
@@ -106,13 +106,13 @@ export default function CommunityStatsDisplay({ initialStats }: Props) {
         {/* Security Adoption */}
         <div className="bg-foreground text-background rounded-lg  p-6 border-2 border-border">
           <div className="flex items-center justify-between mb-3">
-            <h3 className="text-sm font-medium text-foreground">Security Use</h3>
-            <Shield className="size-5 text-foreground" />
+            <h3 className="text-sm font-medium text-background/80">Security Use</h3>
+            <Shield className="size-5 text-background/80" />
           </div>
           <div className="mb-2">
-            <div className="text-4xl font-bold text-foreground">{securityAdoption}%</div>
+            <div className="text-4xl font-bold text-background">{securityAdoption}%</div>
           </div>
-          <div className="text-xs text-muted-foreground">
+          <div className="text-xs text-background/60">
             Have some security protection
           </div>
         </div>
