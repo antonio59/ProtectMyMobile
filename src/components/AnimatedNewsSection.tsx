@@ -215,7 +215,7 @@ function EmptyState() {
       </p>
       <a
         href="/news"
-        className="inline-flex items-center gap-2 px-6 py-3 bg-foreground text-background rounded-xl font-semibold hover:bg-primary-hover transition-colors"
+        className="inline-flex items-center gap-2 px-4 py-2 sm:px-6 sm:py-3 text-sm sm:text-base bg-foreground text-background rounded-xl font-semibold hover:bg-primary-hover transition-colors"
       >
         View all news <ArrowRight className="size-4" />
       </a>

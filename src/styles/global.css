@@ -892,10 +892,11 @@ img {
 
 /* Pointer-specific styles (touch vs mouse) */
 @media (pointer: coarse) {
-  /* Touch devices - larger tap targets */
+  /* Touch devices - comfortable tap targets without oversized buttons
+     (40px clears the WCAG 2.2 AA 24px minimum while staying compact) */
   .touch-target {
-    min-height: 44px;
-    min-width: 44px;
+    min-height: 40px;
+    min-width: 40px;
   }
 }
 

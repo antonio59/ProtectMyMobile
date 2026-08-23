@@ -299,14 +299,14 @@ export default function SecurityCheckup() {
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           <button
             onClick={handleShare}
-            className="flex items-center justify-center px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary-hover transition-colors"
+            className="flex items-center justify-center px-4 py-2 sm:px-6 sm:py-3 text-sm sm:text-base bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary-hover transition-colors"
           >
             <Share2 className="mr-2 size-5" />
             Share Result
           </button>
           <button
             onClick={handleReset}
-            className="px-6 py-3 bg-neutral-200 text-foreground rounded-lg font-medium hover:bg-neutral-300 transition-colors"
+            className="px-4 py-2 sm:px-6 sm:py-3 text-sm sm:text-base bg-neutral-200 text-foreground rounded-lg font-medium hover:bg-neutral-300 transition-colors"
           >
             Retake Assessment
           </button>

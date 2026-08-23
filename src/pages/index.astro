@@ -127,14 +127,14 @@ try {
               poster="/videos/phone-theft-animation-poster.jpg"
               disablepictureinpicture
               aria-hidden="true"
-              class="w-full aspect-[4/5] sm:aspect-[16/9] md:aspect-[21/9] object-cover object-[70%_center]"
+              class="absolute inset-0 w-full h-full object-cover object-[70%_center] sm:static sm:h-auto sm:w-full sm:aspect-[16/9] md:aspect-[21/9]"
             >
               <source src="/videos/phone-theft-animation-web.mp4" type="video/mp4" />
             </video>
-            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/65 to-black/30 sm:via-black/40 sm:to-transparent"></div>
 
             <!-- Overlay Content -->
-            <div class="absolute inset-0 flex flex-col justify-end p-4 sm:p-6 md:p-10 lg:p-12">
+            <div class="relative sm:absolute sm:inset-0 flex flex-col justify-end p-4 sm:p-6 md:p-10 lg:p-12 min-h-[70svh] sm:min-h-0">
               <div class="max-w-5xl">
                 <div class="inline-flex items-center gap-2 bg-destructive/50 text-destructive-foreground rounded-full px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-semibold w-fit mb-2 sm:mb-4 shadow-sm">
                   <AlertTriangle class="size-3 sm:size-4" aria-hidden="true" />
@@ -157,14 +157,14 @@ try {
                 <div class="flex flex-col sm:flex-row gap-2 sm:gap-4 mb-4 sm:mb-8">
                   <a
                     href="/prevention"
-                    class="inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base bg-card text-foreground rounded-xl font-semibold hover:bg-neutral-100 transition-all  shadow-glow-blue hover-lift touch-target"
+                    class="inline-flex items-center justify-center gap-2 px-4 py-2 sm:px-6 sm:py-3 text-sm sm:text-base bg-card text-foreground rounded-xl font-semibold hover:bg-neutral-100 transition-all  shadow-glow-blue hover-lift touch-target"
                   >
                     <Shield class="size-4 sm:size-5" />
                     <span>Protect Your Phone</span>
                   </a>
                   <a
                     href="/emergency"
-                    class="inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base bg-destructive text-destructive-foreground rounded-xl font-semibold hover:bg-destructive-hover transition-all shadow-glow-red animate-pulse-glow hover-lift touch-target"
+                    class="inline-flex items-center justify-center gap-2 px-4 py-2 sm:px-6 sm:py-3 text-sm sm:text-base bg-destructive text-destructive-foreground rounded-xl font-semibold hover:bg-destructive-hover transition-all shadow-glow-red animate-pulse-glow hover-lift touch-target"
                   >
                     <AlertTriangle class="size-4 sm:size-5" />
                     <span>Phone Stolen? Act Now</span>
