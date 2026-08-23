@@ -87,24 +87,6 @@ try {
           }
         }
       ]
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "VideoObject",
-      "name": "Phone Theft in the UK - Stay Alert",
-      "description": "Animation demonstrating how quickly phone theft can occur in London and UK cities, highlighting the importance of mobile security awareness.",
-      "thumbnailUrl": "https://protectmymobile.xyz/og-image.png",
-      "uploadDate": "2024-12-01",
-      "contentUrl": "https://protectmymobile.xyz/videos/phone-theft-animation.mp4",
-      "duration": "PT30S",
-      "publisher": {
-        "@type": "Organization",
-        "name": "ProtectMyMobile",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://protectmymobile.xyz/favicon.svg"
-        }
-      }
     }
   ]}
 >
@@ -116,25 +98,21 @@ try {
       <!-- Hero Section with Prominent Video -->
       <section class="mb-12">
         <div class="bg-foreground text-background rounded-3xl  overflow-hidden">
-          <!-- Video takes prominence -->
+          <!-- Cinematic London backdrop -->
           <div class="relative">
-            <video
-              id="hero-video"
-              autoplay
-              muted
-              playsinline
-              preload="metadata"
-              poster="/videos/phone-theft-animation-poster.jpg"
-              disablepictureinpicture
+            <img
+              src="/images/hero-london.jpg"
+              alt=""
               aria-hidden="true"
+              loading="eager"
+              fetchpriority="high"
+              decoding="async"
               class="absolute inset-0 w-full h-full object-cover object-[70%_center] sm:static sm:h-auto sm:w-full sm:aspect-[16/9] md:aspect-[21/9]"
-            >
-              <source src="/videos/phone-theft-animation-web.mp4" type="video/mp4" />
-            </video>
-            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/65 to-black/30 sm:via-black/40 sm:to-transparent"></div>
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-black/10 sm:via-black/30 sm:to-transparent"></div>
 
             <!-- Overlay Content -->
-            <div class="relative sm:absolute sm:inset-0 flex flex-col justify-end p-4 sm:p-6 md:p-10 lg:p-12 min-h-[70svh] sm:min-h-0">
+            <div class="relative sm:absolute sm:inset-0 flex flex-col justify-end p-4 sm:p-6 md:p-10 lg:p-12 min-h-[60svh] sm:min-h-0">
               <div class="max-w-5xl">
                 <div class="inline-flex items-center gap-2 bg-destructive/50 text-destructive-foreground rounded-full px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-semibold w-fit mb-2 sm:mb-4 shadow-sm">
                   <AlertTriangle className="size-3 sm:size-4" aria-hidden="true" />
@@ -171,53 +149,14 @@ try {
                 </div>
 
                 <!-- Slim evidence strip; full data and sources live on /statistics -->
-                <p class="text-xs sm:text-sm text-white/70 max-w-2xl">
-                  <span class="font-semibold text-white">117,211</span> phones stolen in London in 2024 (Met FOI)<span class="text-white/40"> · </span><span class="font-semibold text-white">down 12.3%</span> in 2025 after a record crackdown<span class="text-white/40"> · </span><a href="/statistics" class="underline underline-offset-2 decoration-white/40 hover:text-white transition-colors">Live stats &amp; sources</a>
+                <p class="text-xs sm:text-sm text-white/70 max-w-2xl whitespace-nowrap overflow-hidden text-ellipsis sm:whitespace-normal">
+                  <span class="font-semibold text-white">117,211</span> stolen in 2024 (Met FOI)<span class="text-white/40"> · </span><span class="font-semibold text-white">down 12.3%</span> in 2025<span class="text-white/40"> · </span><a href="/statistics" class="underline underline-offset-2 decoration-white/40 hover:text-white transition-colors">Live stats &amp; sources</a>
                 </p>
               </div>
             </div>
           </div>
         </div>
       </section>
-
-      <script>
-        // Hero video: respect reduced-motion, survive autoplay rejection,
-        // loop 3 times then settle back on the poster frame.
-        const heroVideo = document.getElementById('hero-video') as HTMLVideoElement | null;
-        if (heroVideo) {
-          const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-
-          const stopOnPoster = () => {
-            heroVideo.pause();
-            heroVideo.currentTime = 0;
-          };
-
-          if (prefersReducedMotion.matches) {
-            heroVideo.removeAttribute('autoplay');
-            stopOnPoster();
-          } else {
-            heroVideo.play().catch(() => stopOnPoster());
-          }
-
-          // If the OS-level setting changes while the page is open, follow it
-          prefersReducedMotion.addEventListener('change', (e) => {
-            if (e.matches) stopOnPoster();
-          });
-
-          // Replay up to 3 loops, then freeze on the first frame (poster)
-          let loopCount = 0;
-          const maxLoops = 3;
-          heroVideo.addEventListener('ended', () => {
-            loopCount++;
-            if (loopCount < maxLoops && !prefersReducedMotion.matches) {
-              heroVideo.currentTime = 0;
-              heroVideo.play().catch(() => {});
-            } else {
-              stopOnPoster();
-            }
-          });
-        }
-      </script>
 
       <!-- Visitor Safety Section (moved below "Blink and it's gone") -->
       <section class="mb-8 sm:mb-12">
