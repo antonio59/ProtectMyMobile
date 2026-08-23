@@ -131,6 +131,14 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Update theft stats to sourced 2024-2026 figures, trim hero copy
+
+- Hero: 117,211 London thefts 2024 (Met FOI), -12.3% fall in 2025 (Met),
+  248 arrests in 4-week blitz (Met, Jan-Feb 2026); drop unsourced 150%/0.8%
+- Remove hero paragraph; H1 + CTAs + stats grid only
+- statistics/the-problem/location/faq: year-labeled, sourced figures;
+  soften unsourced recovery-rate claims
+- AnimatedStats: match new sourced numbers
 - Fix mobile UX sweep: lucide icon classes, contrast, spacing, excerpts
 
 - Codemod: class -> className for lucide-react icons across 23 .astro files (213 icons were rendering unstyled at default 24px, breaking layout and positioning, e.g. detached search icons).
@@ -1301,6 +1309,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
