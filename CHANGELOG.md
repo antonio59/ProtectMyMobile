@@ -131,6 +131,17 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Sourced city data, OG refresh, sources block, em-dash purge
+
+- OG images regenerated with 'every seven minutes' tagline
+- City comparison + location pages: real police.uk figures
+  (Jul 2025-Jun 2026, theft-from-person within ~1mi of centre);
+  Manchester/Edinburgh/Glasgow marked 'not published' (GMP/Police
+  Scotland do not feed police.uk street data)
+- statistics page: Sources & methodology block with links to Met FOI,
+  Met press releases, ONS bulletins, police.uk API
+- Removed unused api/admin/seed-stats endpoint (generated synthetic data)
+- Purged em/en dashes from user-facing copy and outbound templates
 - Retag to 'every seven minutes', add 2019-2025 trend chart
 
 - Tagline now reflects 2025 Met rate (71,391 thefts, one every ~7.4 min)
@@ -1315,6 +1326,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
