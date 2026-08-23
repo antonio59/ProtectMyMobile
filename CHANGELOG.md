@@ -131,6 +131,15 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Sourced borough hotspots, about-page stats; drop unpatchable vulns; remove one-off scripts
+
+- Hotspot lists on statistics + the-problem now use police.uk figures
+  (12 months to Jun 2026, ~1mi of borough centre); Southwark enters top 5
+- About page: replaced unsourced stats with Met FOI / Met / ONS / CSEW figures
+- pnpm overrides: @netlify/blobs@^11, @netlify/dev-utils@^6,
+  @netlify/functions-dev@^2 - clears 2 of 3 Dependabot highs (image-size);
+  extract-zip remains, no upstream patch, dev-only, documented in auditConfig
+- Removed applied codemods and one-off fix/cleanup scripts
 - Sourced city data, OG refresh, sources block, em-dash purge
 
 - OG images regenerated with 'every seven minutes' tagline
@@ -1326,6 +1335,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
