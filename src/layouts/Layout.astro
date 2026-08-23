@@ -14,9 +14,10 @@ interface Props {
 }
 
 const siteUrl = "https://protectmymobile.xyz";
+const defaultDescription = "A phone is stolen in London every five minutes. ProtectMyMobile tracks live police.uk theft data and gives you prevention checklists, security checkups, and a step-by-step emergency guide if yours is taken.";
 const { 
   title, 
-  description = "ProtectMyMobile helps UK residents and visitors secure their mobile phones, provides step-by-step guidance if your phone is stolen, and offers comprehensive mobile security resources for London and UK travel.",
+  description = defaultDescription,
   canonicalPath = "",
   ogImage = "/og-image.png",
   ogType = "website",
@@ -34,8 +35,8 @@ const defaultSchema = {
   "@type": "Organization",
   "name": "ProtectMyMobile",
   "url": siteUrl,
-  "logo": `${siteUrl}/favicon.svg`,
-  "description": "UK and London travel resource for mobile phone theft prevention and recovery",
+  "logo": `${siteUrl}/logo-icon.png`,
+  "description": "UK phone theft prevention and recovery: live police.uk theft data, prevention checklists, and a step-by-step emergency guide.",
   "areaServed": {
     "@type": "Country",
     "name": "United Kingdom"
@@ -84,6 +85,7 @@ const schemas = [defaultSchema, websiteSchema, ...additionalSchemas];
     <meta property="og:image" content={ogImageUrl} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="ProtectMyMobile — a phone is stolen in London every five minutes. UK phone theft prevention and recovery guide." />
     <meta property="og:site_name" content="ProtectMyMobile" />
     <meta property="og:locale" content="en_GB" />
     
@@ -93,7 +95,7 @@ const schemas = [defaultSchema, websiteSchema, ...additionalSchemas];
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
-    <meta name="twitter:image:alt" content={title} />
+    <meta name="twitter:image:alt" content="ProtectMyMobile — a phone is stolen in London every five minutes. UK phone theft prevention and recovery guide." />
     {ogType === "article" && publishedTime && (
       <>
         <meta property="article:published_time" content={publishedTime} />

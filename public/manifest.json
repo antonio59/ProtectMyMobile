@@ -1,7 +1,7 @@
 {
   "name": "ProtectMyMobile",
   "short_name": "ProtectMyMobile",
-  "description": "UK phone theft prevention and recovery guide",
+  "description": "A phone is stolen in London every five minutes. Live police.uk theft data, prevention checklists, and a step-by-step emergency guide.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#FAF8F5",

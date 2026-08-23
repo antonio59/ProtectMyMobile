@@ -1,86 +1,47 @@
 <svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Background gradient -->
-  <defs>
-    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#1e3a5f"/>
-      <stop offset="100%" style="stop-color:#0f172a"/>
-    </linearGradient>
-    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#ef4444"/>
-      <stop offset="100%" style="stop-color:#f97316"/>
-    </linearGradient>
-  </defs>
-  
-  <!-- Background -->
-  <rect width="1200" height="630" fill="url(#bgGradient)"/>
-  
-  <!-- Decorative elements -->
-  <circle cx="1100" cy="100" r="200" fill="#ffffff" fill-opacity="0.03"/>
-  <circle cx="100" cy="530" r="150" fill="#ffffff" fill-opacity="0.03"/>
-  
-  <!-- Red accent bar -->
-  <rect x="0" y="0" width="8" height="630" fill="url(#accentGradient)"/>
-  
-  <!-- Shield icon -->
-  <g transform="translate(80, 180)">
-    <path d="M50 0L100 20V60C100 93.137 78.5 123.5 50 140C21.5 123.5 0 93.137 0 60V20L50 0Z" fill="#3b82f6" fill-opacity="0.2" stroke="#3b82f6" stroke-width="3"/>
-    <path d="M50 25L85 40V60C85 85 68 108 50 120C32 108 15 85 15 60V40L50 25Z" fill="#3b82f6" fill-opacity="0.3"/>
-    <!-- Checkmark inside shield -->
-    <path d="M35 65L45 75L65 55" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- Editorial system: ink ground, paper type, alert-red keyline -->
+  <rect width="1200" height="630" fill="#16130F"/>
+
+  <!-- Red keyline on the leading edge -->
+  <rect x="0" y="0" width="10" height="630" fill="#C8322B"/>
+
+  <!-- Subtle paper dot accents -->
+  <circle cx="1100" cy="90" r="180" fill="#FAF8F5" fill-opacity="0.04"/>
+  <circle cx="140" cy="560" r="130" fill="#FAF8F5" fill-opacity="0.04"/>
+
+  <!-- Shield mark (flat ink badge, paper check, red accent) -->
+  <g transform="translate(90, 120)">
+    <path d="M48 0L96 19.2V70.8C96 106.4 73.6 137.2 48 148 22.4 137.2 0 106.4 0 70.8V19.2L48 0Z" fill="#FAF8F5"/>
+    <path d="M28 73L44 89L72 56" stroke="#16130F" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="48" cy="20" r="9" fill="#C8322B"/>
   </g>
-  
-  <!-- Main text -->
-  <text x="200" y="230" font-family="system-ui, -apple-system, sans-serif" font-size="72" font-weight="700" fill="#ffffff">
+
+  <!-- Wordmark -->
+  <text x="230" y="170" font-family="Georgia, 'Times New Roman', serif" font-size="44" font-weight="700" fill="#FAF8F5" letter-spacing="0.5">
     ProtectMyMobile
   </text>
-  
-  <!-- Tagline -->
-  <text x="200" y="300" font-family="system-ui, -apple-system, sans-serif" font-size="36" font-weight="400" fill="#94a3b8">
-    UK's #1 Phone Theft Prevention Resource
+  <text x="230" y="212" font-family="system-ui, -apple-system, sans-serif" font-size="22" fill="#A39B8D" letter-spacing="3">
+    UK PHONE THEFT PREVENTION &amp; RECOVERY
   </text>
-  
-  <!-- Divider line -->
-  <rect x="200" y="340" width="120" height="4" fill="url(#accentGradient)" rx="2"/>
-  
-  <!-- Features -->
-  <g font-family="system-ui, -apple-system, sans-serif" font-size="24" fill="#cbd5e1">
-    <text x="200" y="400">
-      <tspan fill="#ef4444">●</tspan> Emergency Response Guide
-    </text>
-    <text x="200" y="445">
-      <tspan fill="#f97316">●</tspan> UK Theft Statistics &amp; Hotspots
-    </text>
-    <text x="200" y="490">
-      <tspan fill="#3b82f6">●</tspan> Prevention Tips &amp; Resources
-    </text>
-  </g>
-  
+
+  <!-- Headline (the tagline) -->
+  <text x="90" y="350" font-family="Georgia, 'Times New Roman', serif" font-size="64" font-weight="700" fill="#FAF8F5">
+    A phone is stolen in London
+  </text>
+  <text x="90" y="430" font-family="Georgia, 'Times New Roman', serif" font-size="64" font-weight="700" fill="#FAF8F5">
+    every <tspan fill="#E0685F">five minutes</tspan>.
+  </text>
+
+  <!-- Red rule -->
+  <rect x="90" y="470" width="120" height="5" fill="#C8322B" rx="2.5"/>
+
+  <!-- Subline -->
+  <text x="90" y="525" font-family="system-ui, -apple-system, sans-serif" font-size="26" fill="#C9C2B6">
+    Live police.uk data · Prevention checklists · Step-by-step emergency guide
+  </text>
+
   <!-- URL -->
-  <text x="200" y="570" font-family="system-ui, -apple-system, sans-serif" font-size="22" fill="#64748b">
+  <text x="90" y="580" font-family="system-ui, -apple-system, sans-serif" font-size="22" fill="#8A7A54">
     protectmymobile.xyz
   </text>
-  
-  <!-- UK Flag hint -->
-  <g transform="translate(1020, 520)">
-    <rect width="80" height="50" fill="#012169" rx="4"/>
-    <path d="M0,0 L80,50 M80,0 L0,50" stroke="#ffffff" stroke-width="8"/>
-    <path d="M0,0 L80,50 M80,0 L0,50" stroke="#C8102E" stroke-width="4"/>
-    <path d="M40,0 V50 M0,25 H80" stroke="#ffffff" stroke-width="12"/>
-    <path d="M40,0 V50 M0,25 H80" stroke="#C8102E" stroke-width="6"/>
-  </g>
-  
-  <!-- Phone illustration on right -->
-  <g transform="translate(900, 140)">
-    <!-- Phone body -->
-    <rect x="0" y="0" width="180" height="350" rx="24" fill="#1f2937" stroke="#374151" stroke-width="2"/>
-    <!-- Screen -->
-    <rect x="10" y="40" width="160" height="280" rx="4" fill="#111827"/>
-    <!-- Alert on screen -->
-    <circle cx="90" cy="140" r="40" fill="#ef4444" fill-opacity="0.2"/>
-    <text x="90" y="150" font-family="system-ui, sans-serif" font-size="40" fill="#ef4444" text-anchor="middle">!</text>
-    <text x="90" y="200" font-family="system-ui, sans-serif" font-size="14" fill="#9ca3af" text-anchor="middle">Phone Stolen?</text>
-    <text x="90" y="225" font-family="system-ui, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">We can help.</text>
-    <!-- Notch -->
-    <rect x="55" y="10" width="70" height="20" rx="10" fill="#111827"/>
-  </g>
 </svg>
