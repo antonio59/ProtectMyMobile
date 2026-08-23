@@ -131,6 +131,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Remove stale uuid override/resolution (dep no longer in tree; fixes Fallow CI)
 - Fix null-rank badge on no-data locations, tidy hero separators, correct chart footnote
 - Slim hero to tagline + CTAs + one-line evidence strip; add backup guide
 
@@ -1342,6 +1343,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
