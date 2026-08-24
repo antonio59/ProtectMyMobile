@@ -79,7 +79,7 @@ const theftMethods = [
 
 const colorClasses: Record<string, { bg: string; border: string; icon: string; badge: string }> = {
   red:     { bg: 'bg-destructive-subtle', border: 'border-destructive-muted', icon: 'text-destructive', badge: 'bg-destructive text-background' },
-  orange:  { bg: 'bg-foreground', border: 'border-border', icon: 'text-foreground', badge: 'bg-foreground text-background' },
+  orange:  { bg: 'bg-neutral-100', border: 'border-border', icon: 'text-foreground', badge: 'bg-foreground text-background' },
   yellow:  { bg: 'bg-neutral-100', border: 'border-border', icon: 'text-foreground', badge: 'bg-foreground text-background' },
   green:   { bg: 'bg-neutral-100', border: 'border-border', icon: 'text-foreground', badge: 'bg-foreground text-background' },
   teal:    { bg: 'bg-neutral-100', border: 'border-border', icon: 'text-foreground', badge: 'bg-foreground text-background' },
@@ -193,9 +193,9 @@ const hotspots = [
                       <div class="flex-1">
                         <h3 class="font-bold text-foreground mb-1">{method.title}</h3>
                         <p class="text-sm text-foreground mb-3">{method.description}</p>
-                        <div class={`${colors.badge} text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg inline-flex items-center gap-1`}>
-                          <Shield className="size-3" />
-                          {method.tip}
+                        <div class={`${colors.badge} text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg flex items-start gap-1.5`}>
+                          <Shield className="size-3.5 mt-0.5 shrink-0" />
+                          <span>{method.tip}</span>
                         </div>
                       </div>
                     </div>
