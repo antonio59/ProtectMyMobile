@@ -279,7 +279,7 @@ export default function SecurityCheckup() {
         {score.percentage === 100 && (
           <div className="bg-success-subtle border-2 border-border rounded-lg p-6 text-center">
             <CheckCircle2 className="size-12 text-success mx-auto mb-3" />
-            <h3 className="text-xl font-bold text-success mb-2">Perfect Security Setup! 🎉</h3>
+            <h3 className="text-xl font-bold text-success mb-2">Perfect Security Setup!</h3>
             <p className="text-success">
               You've implemented all recommended security measures. Keep maintaining these practices to stay protected.
             </p>
@@ -290,9 +290,9 @@ export default function SecurityCheckup() {
         <div className="bg-primary/5 border border-primary/20 rounded-lg p-6">
           <h3 className="text-lg font-semibold mb-3">Next Steps</h3>
           <div className="space-y-2 text-sm">
-            <p>✅ Review our <a href="/prevention" className="text-primary hover:underline font-medium">prevention guides</a> for detailed setup instructions</p>
-            <p>✅ Save emergency contacts for your <a href="/banks" className="text-primary hover:underline font-medium">bank</a> and <a href="/mobile-providers" className="text-primary hover:underline font-medium">network provider</a></p>
-            <p>✅ Bookmark our <a href="/emergency" className="text-primary hover:underline font-medium">emergency response guide</a> for quick access if theft occurs</p>
+            <p className="flex items-start gap-2"><CheckCircle2 className="size-4 text-success flex-shrink-0 mt-0.5" /><span>Review our <a href="/prevention" className="text-primary hover:underline font-medium">prevention guides</a> for detailed setup instructions</span></p>
+            <p className="flex items-start gap-2"><CheckCircle2 className="size-4 text-success flex-shrink-0 mt-0.5" /><span>Save emergency contacts for your <a href="/banks" className="text-primary hover:underline font-medium">bank</a> and <a href="/mobile-providers" className="text-primary hover:underline font-medium">network provider</a></span></p>
+            <p className="flex items-start gap-2"><CheckCircle2 className="size-4 text-success flex-shrink-0 mt-0.5" /><span>Bookmark our <a href="/emergency" className="text-primary hover:underline font-medium">emergency response guide</a> for quick access if theft occurs</span></p>
           </div>
         </div>
 
