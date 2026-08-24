@@ -131,6 +131,11 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Fix mobile menu trapped inside blurred header
+
+The sticky header's backdrop-blur creates a containing block for fixed
+descendants, so the slide-out menu and backdrop were sized to the 51px
+header instead of the viewport. Render them as siblings of the header.
 - Fix hero layout and mobile header overflow
 
 - Remove UK Theft Crisis badge; vertically centre hero content
@@ -1371,6 +1376,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
