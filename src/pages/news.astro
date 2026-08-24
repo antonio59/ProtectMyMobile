@@ -114,7 +114,7 @@ const newsSchema = {
             {lastUpdated && (
               <span class="text-muted-foreground uppercase tracking-wide font-semibold">Updated {lastUpdated}</span>
             )}
-            <a href="/rss.xml" class="inline-flex items-center gap-1.5 min-h-11 border-2 border-foreground px-3 py-1.5 font-bold uppercase tracking-wide hover:bg-foreground hover:text-background transition-colors">
+            <a href="/rss.xml" class="inline-flex items-center gap-1.5 min-h-11 border-2 border-foreground rounded-lg px-3 py-1.5 font-bold uppercase tracking-wide hover:bg-foreground hover:text-background transition-colors">
               <Rss className="size-3.5" />
               RSS
             </a>
@@ -123,11 +123,11 @@ const newsSchema = {
       </header>
 
       {error ? (
-        <div class="border-2 border-destructive-muted bg-destructive-subtle p-6">
+        <div class="border-2 border-destructive-muted bg-destructive-subtle p-6 rounded-xl">
           <p class="text-destructive-hover text-sm">Unable to load news right now. Please try again later.</p>
         </div>
       ) : posts.length === 0 ? (
-        <div class="border-2 border-border p-10 sm:p-12 text-center">
+        <div class="border-2 border-border p-10 sm:p-12 text-center rounded-xl">
           <h2 class="font-serif text-2xl text-foreground mb-2">Nothing on the wire yet</h2>
           <p class="text-muted-foreground text-sm max-w-md mx-auto">
             The feed is gathered weekly from UK news sources. Check back shortly, or
@@ -139,14 +139,14 @@ const newsSchema = {
           <!-- Filters -->
           <section class="mb-6 sm:mb-8">
             <div class="flex items-center gap-2 overflow-x-auto pb-1">
-              <button class="category-btn active min-h-11 border-2 border-foreground bg-foreground text-background px-3 py-1.5 text-xs font-bold uppercase tracking-wide whitespace-nowrap transition-colors" data-category="all">
+              <button class="category-btn active min-h-11 border-2 border-foreground bg-foreground text-background px-3 py-1.5 text-xs font-bold uppercase tracking-wide whitespace-nowrap transition-colors rounded-full" data-category="all">
                 All <span class="opacity-60">{posts.length}</span>
               </button>
               {Object.entries(categoryConfig).map(([key, config]) => {
                 if (!categoryCounts[key]) return null;
                 return (
                   <button
-                    class="category-btn min-h-11 border-2 border-foreground bg-background text-foreground px-3 py-1.5 text-xs font-bold uppercase tracking-wide whitespace-nowrap hover:bg-neutral-100 transition-colors"
+                    class="category-btn min-h-11 border-2 border-foreground bg-background text-foreground px-3 py-1.5 text-xs font-bold uppercase tracking-wide whitespace-nowrap hover:bg-neutral-100 transition-colors rounded-full"
                     data-category={key}
                   >
                     {config.label} <span class="opacity-60">{categoryCounts[key]}</span>

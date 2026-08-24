@@ -43,13 +43,13 @@ export default function VotingSuccess({ stats, formData }: VotingSuccessProps) {
       <div className="flex flex-wrap gap-3">
         <a
           href="/prevention"
-          className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary-hover transition-colors"
+          className="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary-hover transition-colors"
         >
           View Prevention Tips
         </a>
         <a
           href="#analytics"
-          className="px-4 py-2 bg-neutral-100 text-foreground rounded-md hover:bg-neutral-200 transition-colors"
+          className="px-4 py-2 bg-neutral-100 text-foreground rounded-lg hover:bg-neutral-200 transition-colors"
         >
           View Full Analytics
         </a>
