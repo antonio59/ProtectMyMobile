@@ -131,6 +131,15 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Fix hero layout and mobile header overflow
+
+- Remove UK Theft Crisis badge; vertically centre hero content
+- Hero image now sizes via aspect ratio at all breakpoints (was collapsing
+  to a thin strip on mobile due to over-constrained absolute sizing)
+- Evidence strip wraps naturally instead of truncating the sources link
+- Header: burger menu now appears at tablet widths (768-1023 had no nav),
+  wordmark shrinks/truncates, theme toggle hides below 400px so the
+  burger never overflows the viewport edge
 - Round off harsh square cards and buttons across key pages
 
 - Home: round Share-a-stat cards, scenarios/statistics CTA banners, count box
@@ -1362,6 +1371,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
