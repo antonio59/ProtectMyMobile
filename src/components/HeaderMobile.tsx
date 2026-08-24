@@ -87,7 +87,7 @@ export default function HeaderMobile() {
             <SiteSearch />
             <a
               href="/emergency"
-              className="inline-flex items-center gap-1.5 px-3 py-2.5 bg-destructive text-destructive-foreground font-bold uppercase tracking-wide hover:bg-destructive-hover transition-all text-xs whitespace-nowrap"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-destructive text-destructive-foreground rounded-lg font-bold uppercase tracking-wide hover:bg-destructive-hover transition-all text-xs whitespace-nowrap"
             >
               <AlertTriangle className="size-4" />
               Phone Stolen?

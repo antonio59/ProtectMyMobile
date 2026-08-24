@@ -52,7 +52,7 @@ const searchData: SearchResult[] = [
   { title: 'All Resources', description: 'Complete resource library', href: '/resources', category: 'Help', icon: BookOpen },
 
   // Contact
-  { title: 'About Us', description: 'Learn about ProtectMyMobile', href: '/about-us', category: 'About', icon: HelpCircle },
+  { title: 'About', description: 'Learn about ProtectMyMobile', href: '/about-us', category: 'About', icon: HelpCircle },
   { title: 'Contact Us', description: 'Get in touch', href: '/contact-us', category: 'About', icon: HelpCircle },
   { title: 'Privacy Policy', description: 'How we handle your data', href: '/privacy', category: 'About', icon: HelpCircle },
   { title: 'Terms of Service', description: 'Terms and conditions', href: '/terms', category: 'About', icon: HelpCircle },
