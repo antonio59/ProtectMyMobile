@@ -199,22 +199,22 @@ const banksFaqSchema = {
               class="bank-card bg-card rounded-xl border border-border p-5 flex flex-col h-full transition-shadow hover:shadow-md"
               data-category={bank.category}
             >
-              <div class="flex items-start justify-between gap-2">
-                <div class="min-w-0">
-                  <h3 class="text-xl font-semibold text-foreground leading-tight">{bank.name}</h3>
-                  <span class="text-xs px-2 py-0.5 bg-neutral-100 text-muted-foreground rounded-full mt-1.5 inline-block capitalize whitespace-nowrap">
+              <div>
+                <h3 class="text-sm sm:text-base font-semibold text-foreground whitespace-nowrap leading-tight">{bank.name}</h3>
+                <div class="flex items-center justify-between gap-2 mt-1.5">
+                  <span class="text-xs px-2 py-0.5 bg-neutral-100 text-muted-foreground rounded-full capitalize whitespace-nowrap">
                     {bank.category.replace('_', ' ')}
                   </span>
+                  <a
+                    href={bank.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-xs text-muted-foreground hover:text-primary flex items-center gap-1 flex-shrink-0"
+                  >
+                    <ExternalLink className="size-3" />
+                    Website
+                  </a>
                 </div>
-                <a
-                  href={bank.website}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-xs text-muted-foreground hover:text-primary flex items-center gap-1 flex-shrink-0 mt-1"
-                >
-                  <ExternalLink className="size-3" />
-                  Website
-                </a>
               </div>
 
               <!-- Emergency Contact -->
