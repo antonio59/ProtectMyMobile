@@ -131,6 +131,10 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Round header emergency button; rename About Us to About
+
+Site voice is first-person (solo maintainer), so the footer and search
+index now say About instead of About Us.
 - Fix stretched icon bar in security checkup hero on mobile
 - Fix mobile menu trapped inside blurred header
 
@@ -1377,6 +1381,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
