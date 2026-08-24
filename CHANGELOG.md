@@ -131,6 +131,16 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Denser directory grids, calmer contact blocks, first-person Ko-fi
+
+- banks/mobile-providers: auto-fill minmax(280px,1fr) grid (1-4 cols),
+  20px padding, equal-height cards with contact block anchored to the
+  bottom via mt-auto, names wrap instead of truncating
+- Emergency contact block now reads as information: light tinted surface
+  with a red left accent border, dark 20px tabular-nums tel: number,
+  muted uppercase label, availability and abroad number on one compact
+  secondary line. Identical treatment on both directories
+- Footer: 'Support us' Ko-fi button renamed 'Buy me a coffee'
 - Fix theft-methods dark card, redesign directory cards, schedule monthly verification
 
 - the-problem: orange method card used bg-foreground, hiding title and
@@ -1390,6 +1400,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
