@@ -131,6 +131,15 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Fix theft-methods dark card, redesign directory cards, schedule monthly verification
+
+- the-problem: orange method card used bg-foreground, hiding title and
+  description (dark-on-dark); now matches other cards
+- Tip pills: icon and text align properly when the tip wraps
+- banks/mobile-providers: drop coloured letter avatars, cleaner name +
+  tag + website rows
+- Add scheduled-verify-directory Netlify function (monthly, 1st, 07:17
+  UTC) calling /api/cron/verify-directory so Last verified dates refresh
 - Round header emergency button; rename About Us to About
 
 Site voice is first-person (solo maintainer), so the footer and search
@@ -1381,6 +1390,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
