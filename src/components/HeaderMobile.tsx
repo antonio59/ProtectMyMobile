@@ -115,8 +115,10 @@ export default function HeaderMobile() {
           </div>
         </div>
       </div>
+    </header>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu Overlay (must live OUTSIDE the header: its backdrop-blur
+          creates a containing block that would trap fixed positioning) */}
       {/* Backdrop */}
       <div
         className={`fixed inset-0 bg-black/50 z-40 lg:hidden transition-opacity duration-200 ${
@@ -198,7 +200,6 @@ export default function HeaderMobile() {
           </p>
         </div>
       </div>
-    </header>
     </>
   );
 }
