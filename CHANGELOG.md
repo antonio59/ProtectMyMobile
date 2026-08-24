@@ -131,6 +131,18 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Restructure About page, single-line directory names
+
+- About: reorganised around five visitor questions (what is it, why it
+  exists, what can I do here, why trust it, how can I help); hero now
+  one-sentence mission plus a single emergency CTA; stats consolidated
+  into one headline figure plus a compact strip; data sources and values
+  merged into one 'Why Trust It' section with a 'Built differently'
+  panel absorbing the repeated free/privacy/no-ads messages; closing CTA
+  card trio removed
+- banks/mobile-providers: names sit on their own line at a smaller
+  responsive size so they fit on one line without wrapping or
+  truncating; Website link moved to the tag row
 - Denser directory grids, calmer contact blocks, first-person Ko-fi
 
 - banks/mobile-providers: auto-fill minmax(280px,1fr) grid (1-4 cols),
@@ -1400,6 +1412,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
