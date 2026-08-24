@@ -107,18 +107,13 @@ try {
               loading="eager"
               fetchpriority="high"
               decoding="async"
-              class="absolute inset-0 w-full h-full object-cover object-[70%_center] sm:static sm:h-auto sm:w-full sm:aspect-[16/9] md:aspect-[21/9]"
+              class="w-full aspect-[3/4] min-[420px]:aspect-[4/5] sm:aspect-[16/9] md:aspect-[21/9] object-cover object-[70%_center]"
             />
             <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-black/10 sm:via-black/30 sm:to-transparent"></div>
 
             <!-- Overlay Content -->
-            <div class="relative sm:absolute sm:inset-0 flex flex-col justify-end p-4 sm:p-6 md:p-10 lg:p-12 min-h-[60svh] sm:min-h-0">
+            <div class="absolute inset-0 flex flex-col justify-center p-4 sm:p-6 md:p-10 lg:p-12">
               <div class="max-w-5xl">
-                <div class="inline-flex items-center gap-2 bg-destructive/50 text-destructive-foreground rounded-full px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-semibold w-fit mb-2 sm:mb-4 shadow-sm">
-                  <AlertTriangle className="size-3 sm:size-4" aria-hidden="true" />
-                  <span>UK Theft Crisis</span>
-                </div>
-
                 <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-4 sm:mb-6 text-shadow-hero max-w-3xl">
                   A phone is stolen in London every seven minutes.
                 </h1>
@@ -149,7 +144,7 @@ try {
                 </div>
 
                 <!-- Slim evidence strip; full data and sources live on /statistics -->
-                <p class="text-xs sm:text-sm text-white/70 max-w-2xl whitespace-nowrap overflow-hidden text-ellipsis sm:whitespace-normal">
+                <p class="text-xs sm:text-sm text-white/70 max-w-2xl">
                   <span class="font-semibold text-white">117,211</span> stolen in 2024 (Met FOI)<span class="text-white/40"> · </span><span class="font-semibold text-white">down 12.3%</span> in 2025<span class="text-white/40"> · </span><a href="/statistics" class="underline underline-offset-2 decoration-white/40 hover:text-white transition-colors">Live stats &amp; sources</a>
                 </p>
               </div>

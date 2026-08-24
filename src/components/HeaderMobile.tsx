@@ -59,8 +59,8 @@ export default function HeaderMobile() {
         <div className="container mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
             {/* Wordmark */}
-            <a href="/" className="flex items-baseline gap-2.5 group" aria-label="ProtectMyMobile - Go to homepage">
-              <span className="font-serif text-xl sm:text-2xl font-bold text-foreground tracking-tight">
+            <a href="/" className="flex items-baseline gap-2.5 group min-w-0 shrink" aria-label="ProtectMyMobile - Go to homepage">
+              <span className="font-serif text-lg sm:text-2xl font-bold text-foreground tracking-tight truncate">
                 ProtectMyMobile
               </span>
               <span className="hidden xl:inline whitespace-nowrap text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
@@ -82,7 +82,7 @@ export default function HeaderMobile() {
             </nav>
 
           {/* Search + Desktop CTA */}
-          <div className="hidden md:flex items-center gap-2">
+          <div className="hidden lg:flex items-center gap-2">
             <ThemeToggle />
             <SiteSearch />
             <a
@@ -95,8 +95,8 @@ export default function HeaderMobile() {
           </div>
 
           {/* Mobile Search + Emergency + Menu */}
-          <div className="md:hidden flex items-center gap-2">
-            <ThemeToggle />
+          <div className="lg:hidden flex items-center gap-1.5 sm:gap-2 shrink-0">
+            <div className="hidden min-[400px]:block"><ThemeToggle /></div>
             <SiteSearch />
             <a
               href="/emergency"
@@ -119,7 +119,7 @@ export default function HeaderMobile() {
       {/* Mobile Menu Overlay */}
       {/* Backdrop */}
       <div
-        className={`fixed inset-0 bg-black/50 z-40 md:hidden transition-opacity duration-200 ${
+        className={`fixed inset-0 bg-black/50 z-40 lg:hidden transition-opacity duration-200 ${
           isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
         onClick={() => setIsOpen(false)}
@@ -128,7 +128,7 @@ export default function HeaderMobile() {
 
       {/* Slide-out Menu */}
       <div
-        className={`fixed top-0 right-0 h-full w-[85%] max-w-sm z-50 shadow-2xl md:hidden overflow-hidden bg-card transition-transform duration-200 ease-out ${
+        className={`fixed top-0 right-0 h-full w-[85%] max-w-sm z-50 shadow-2xl lg:hidden overflow-hidden bg-card transition-transform duration-200 ease-out ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
         aria-hidden={!isOpen}
@@ -149,7 +149,7 @@ export default function HeaderMobile() {
         </div>
 
         {/* CTA Buttons */}
-        <div className="p-4 space-y-3 border-b border-border bg-neutral">
+        <div className="p-4 space-y-3 border-b border-border bg-neutral-50">
           <a
             href="/emergency"
             className="flex items-center justify-center gap-2 w-full px-4 py-3 bg-destructive text-destructive-foreground rounded-xl font-bold shadow-lg hover:scale-[1.01] active:scale-[0.99] transition-transform duration-150"
@@ -192,7 +192,7 @@ export default function HeaderMobile() {
         </nav>
 
         {/* Footer */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-border bg-neutral">
+        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-border bg-neutral-50">
           <p className="text-xs text-muted-foreground text-center">
             Protecting UK residents from mobile theft
           </p>
