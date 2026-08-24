@@ -131,6 +131,12 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Round off harsh square cards and buttons across key pages
+
+- Home: round Share-a-stat cards, scenarios/statistics CTA banners, count box
+- News: category filters to pills, round RSS button and state boxes
+- Community: compact buttons to rounded-lg per DESIGN.md
+- Footer: round outline Support button
 - Restyle OG share images with cinematic London hero backdrop
 - Drop orphaned hero video assets
 - Replace flat hero animation with cinematic London street image
@@ -1356,6 +1362,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
