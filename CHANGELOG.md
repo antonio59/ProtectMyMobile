@@ -131,6 +131,17 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Restructure FAQ around the post-theft visitor journey
+
+- Categories reordered: 'My Phone Was Just Stolen' first, then Reporting
+  to Police, Blocking Your SIM & Number, Recovery & Insurance, and
+  Protecting Your Next Phone last
+- Category headers drop decorative icon chips for plain typography
+- Fix pill filter JS bug: inactive pills were set to bg-foreground
+  (black) instead of bg-neutral-100, and active used text-background
+  instead of text-primary-foreground
+- Hero simplified with a 'start with the first section' pointer; 'contact
+  us' is now 'contact me'
 - Restructure About page, single-line directory names
 
 - About: reorganised around five visitor questions (what is it, why it
@@ -1412,6 +1423,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
