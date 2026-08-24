@@ -131,6 +131,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Fix stretched icon bar in security checkup hero on mobile
 - Fix mobile menu trapped inside blurred header
 
 The sticky header's backdrop-blur creates a containing block for fixed
@@ -1376,6 +1377,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
