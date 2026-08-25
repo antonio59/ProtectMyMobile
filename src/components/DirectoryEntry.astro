@@ -1,0 +1,451 @@
+---
+/**
+ * DirectoryEntry — one entry in the bank / mobile provider directory.
+ *
+ * Two layouts, one markup:
+ *   < 768px  compact "call tile" — the number is the tap target
+ *   >= 768px printed-index row with an alphabet rail
+ *
+ * The emergency number is the loudest thing in either layout; red is reserved
+ * for the glyph and the hover state rather than a tinted panel.
+ */
+import { Phone, MessageSquare, ExternalLink } from 'lucide-react';
+
+interface Tag {
+  label: string;
+  muted?: boolean;
+}
+
+interface Props {
+  name: string;
+  tags?: Tag[];
+  website?: string;
+  /** Dialable number, or null when the provider is chat/app only */
+  phone?: string | null;
+  /** Shown in place of the number when phone is null */
+  fallbackLabel?: string;
+  availability?: string;
+  abroad?: string | null;
+  note?: string | null;
+  noteSummary?: string;
+  /** Extra class the page's filter script looks for, e.g. "bank-card" */
+  class?: string;
+  [key: string]: any;
+}
+
+const {
+  name,
+  tags = [],
+  website,
+  phone = null,
+  fallbackLabel = 'Online support only',
+  availability = 'Available 24/7',
+  abroad = null,
+  note = null,
+  noteSummary = 'Before you call',
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+const telHref = phone ? `tel:${phone.replace(/\s+/g, '')}` : null;
+---
+
+<div class:list={['directory-entry', className]} data-letter={name.charAt(0).toUpperCase()} {...rest}>
+  <span class="entry-rail" aria-hidden="true"></span>
+
+  <div class="entry-id">
+    <h3 class="entry-name">{name}</h3>
+    {tags.length > 0 && (
+      <span class="entry-tags">
+        {tags.map(tag => (
+          <span class:list={['entry-tag', { 'is-outline': tag.muted }]}>{tag.label}</span>
+        ))}
+      </span>
+    )}
+  </div>
+
+  <div class="entry-meta">
+    <span>{availability}</span>
+    {abroad && (
+      <span class="entry-abroad">Abroad <a href={`tel:${abroad.replace(/\s+/g, '')}`}>{abroad}</a></span>
+    )}
+  </div>
+
+  {telHref ? (
+    <a class="entry-call" href={telHref} aria-label={`Call ${name} on ${phone}`}>
+      <span class="entry-glyph"><Phone className="size-3.5" aria-hidden="true" /></span>
+      <span class="entry-number">{phone}</span>
+      <span class="entry-cta">Call</span>
+    </a>
+  ) : (
+    <div class="entry-call is-static">
+      <span class="entry-glyph"><MessageSquare className="size-3.5" aria-hidden="true" /></span>
+      <span class="entry-fallback">{fallbackLabel}</span>
+    </div>
+  )}
+
+  <div class="entry-aside">
+    {website && (
+      <a class="entry-site" href={website} target="_blank" rel="noopener noreferrer">
+        <ExternalLink className="size-3" aria-hidden="true" />
+        <span>Website</span>
+      </a>
+    )}
+  </div>
+
+  {note && (
+    <details class="entry-note">
+      <summary>{noteSummary}</summary>
+      <p>{note}</p>
+    </details>
+  )}
+</div>
+
+<style>
+  .directory-entry {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      'id     aside'
+      'call   call'
+      'meta   meta'
+      'note   note';
+    gap: 0.5rem 0.75rem;
+    align-items: center;
+    padding: 0.875rem 1rem 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: 0.625rem;
+    background: var(--color-card);
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+  }
+
+  .directory-entry:hover {
+    border-color: var(--color-foreground);
+  }
+
+  .entry-rail {
+    grid-area: rail;
+    display: none;
+    font-family: var(--font-serif);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--color-neutral-400);
+  }
+
+  .entry-id {
+    grid-area: id;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    min-width: 0;
+  }
+
+  .entry-name {
+    font-family: var(--font-serif);
+    font-size: 1.1875rem;
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--color-foreground);
+    margin: 0;
+  }
+
+  .entry-tags {
+    display: flex;
+    gap: 0.3125rem;
+    flex-wrap: wrap;
+  }
+
+  .entry-tag {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-muted-foreground);
+    background: var(--color-neutral-100);
+    border: 1px solid transparent;
+    border-radius: 999px;
+    padding: 0.125rem 0.5rem;
+    white-space: nowrap;
+  }
+
+  .entry-tag.is-outline {
+    background: transparent;
+    border-color: var(--color-border);
+  }
+
+  .entry-call {
+    grid-area: call;
+    display: flex;
+    align-items: center;
+    gap: 0.5625rem;
+    text-decoration: none;
+    color: inherit;
+    border-top: 1px solid var(--color-border);
+    padding-top: 0.625rem;
+    min-height: 2.75rem;
+  }
+
+  .entry-glyph {
+    flex: none;
+    width: 1.625rem;
+    height: 1.625rem;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    background: var(--color-destructive-subtle);
+    color: var(--color-destructive);
+  }
+
+  .entry-number {
+    font-size: 1.375rem;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-foreground);
+    transition: color 0.15s ease;
+  }
+
+  .entry-call:hover .entry-number,
+  .entry-call:focus-visible .entry-number {
+    color: var(--color-destructive);
+  }
+
+  .entry-call:focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 3px;
+    border-radius: 0.25rem;
+  }
+
+  .entry-fallback {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-foreground);
+  }
+
+  .entry-cta {
+    display: none;
+  }
+
+  .entry-meta {
+    grid-area: meta;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 0.375rem;
+    font-size: 0.75rem;
+    line-height: 1.4;
+    color: var(--color-muted-foreground);
+  }
+
+  .entry-abroad::before {
+    content: '·';
+    margin-right: 0.375rem;
+  }
+
+  .entry-abroad a {
+    color: var(--color-foreground);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    text-decoration: none;
+  }
+
+  .entry-abroad a:hover {
+    color: var(--color-destructive);
+  }
+
+  .entry-aside {
+    grid-area: aside;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .entry-site {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.75rem;
+    color: var(--color-neutral-400);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .entry-site:hover {
+    color: var(--color-foreground);
+    text-decoration: underline;
+  }
+
+  .entry-note {
+    grid-area: note;
+    font-size: 0.75rem;
+    color: var(--color-muted-foreground);
+  }
+
+  .entry-note summary {
+    cursor: pointer;
+    list-style: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3125rem;
+    font-weight: 500;
+  }
+
+  .entry-note summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .entry-note summary::before {
+    content: '+';
+    font-weight: 700;
+    color: var(--color-destructive);
+  }
+
+  .entry-note[open] summary::before {
+    content: '–';
+  }
+
+  .entry-note p {
+    margin: 0.375rem 0 0;
+    max-width: 60ch;
+  }
+
+  /* ---- Printed-index row ---- */
+  @media (min-width: 768px) {
+    .directory-entry {
+      grid-template-columns: 1.5rem minmax(0, 1.3fr) minmax(0, 1fr) auto auto;
+      grid-template-areas:
+        'rail id meta call aside'
+        '.    note note note note';
+      gap: 0 1.25rem;
+      align-items: center;
+      padding: 0.75rem 0.5rem;
+      border: 0;
+      border-bottom: 1px solid var(--color-border);
+      border-radius: 0;
+      background: transparent;
+    }
+
+    .directory-entry:hover {
+      border-color: var(--color-border);
+      background: var(--color-neutral-100);
+    }
+
+    .entry-rail {
+      display: block;
+      align-self: center;
+    }
+
+    .entry-name {
+      font-size: 1.0625rem;
+    }
+
+    .entry-call {
+      justify-self: end;
+      justify-content: flex-end;
+      border-top: 0;
+      padding-top: 0;
+      min-height: 0;
+      gap: 0.625rem;
+      /* Fixed width keeps the numbers and Call buttons in true columns,
+         so the meta column doesn't shift row to row. */
+      min-width: 15.5rem;
+    }
+
+    .entry-number {
+      min-width: 11rem;
+      text-align: right;
+    }
+
+    .entry-glyph {
+      display: none;
+    }
+
+    .entry-number {
+      font-size: 1.125rem;
+    }
+
+    .entry-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3125rem;
+      background: var(--color-foreground);
+      color: var(--color-background);
+      border-radius: 999px;
+      padding: 0.3125rem 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      transition: background-color 0.15s ease, color 0.15s ease;
+    }
+
+    .entry-call:hover .entry-cta,
+    .entry-call:focus-visible .entry-cta {
+      background: var(--color-destructive);
+      color: var(--color-destructive-foreground);
+    }
+
+    .entry-call.is-static {
+      gap: 0.5rem;
+    }
+
+    .entry-call.is-static .entry-glyph {
+      display: grid;
+    }
+
+    .entry-note {
+      padding-bottom: 0.25rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .directory-entry,
+    .entry-number,
+    .entry-cta {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  // Alphabet rails: show a letter beside the first visible entry of each letter.
+  // Recomputed whenever the page's search / filter script hides or shows entries.
+  function paintRails(list: Element) {
+    let previous = '';
+    list.querySelectorAll<HTMLElement>('.directory-entry').forEach(entry => {
+      const rail = entry.querySelector<HTMLElement>('.entry-rail');
+      if (!rail) return;
+      if (entry.style.display === 'none') {
+        rail.textContent = '';
+        return;
+      }
+      const letter = entry.dataset.letter || '';
+      rail.textContent = letter === previous ? '' : letter;
+      previous = letter;
+    });
+  }
+
+  function initRails() {
+    const lists = document.querySelectorAll('#bank-list, #provider-list');
+    lists.forEach(list => {
+      paintRails(list);
+      let queued = false;
+      const observer = new MutationObserver(() => {
+        if (queued) return;
+        queued = true;
+        requestAnimationFrame(() => {
+          queued = false;
+          paintRails(list);
+        });
+      });
+      observer.observe(list, { attributes: true, attributeFilter: ['style'], subtree: true });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initRails);
+  } else {
+    initRails();
+  }
+</script>

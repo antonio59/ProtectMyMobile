@@ -4,7 +4,8 @@ import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
 import { getBanks, getDirectoryLastVerified } from '../lib/convexData';
 import { banks as staticBanks } from '../data/banks';
-import { Building2, Search, Phone, AlertCircle, Clock, CheckCircle2, ExternalLink, Shield, ArrowRight } from 'lucide-react';
+import { Building2, Search, AlertCircle, Clock } from 'lucide-react';
+import DirectoryEntry from '../components/DirectoryEntry.astro';
 
 // Get last verified date from Convex (automatically updated when cron runs)
 const verifiedDates = await getDirectoryLastVerified();
@@ -193,56 +194,28 @@ const banksFaqSchema = {
         </div>
         
         <!-- Banks List -->
-        <div class="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-3 sm:gap-4" id="bank-list">
-          {sortedBanks.map(bank => (
-            <div
-              class="bank-card bg-card rounded-xl border border-border p-5 flex flex-col h-full transition-shadow hover:shadow-md"
-              data-category={bank.category}
-            >
-              <div>
-                <h3 class="text-sm sm:text-base font-semibold text-foreground whitespace-nowrap leading-tight">{bank.name}</h3>
-                <div class="flex items-center justify-between gap-2 mt-1.5">
-                  <span class="text-xs px-2 py-0.5 bg-neutral-100 text-muted-foreground rounded-full capitalize whitespace-nowrap">
-                    {bank.category.replace('_', ' ')}
-                  </span>
-                  <a
-                    href={bank.website}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="text-xs text-muted-foreground hover:text-primary flex items-center gap-1 flex-shrink-0"
-                  >
-                    <ExternalLink className="size-3" />
-                    Website
-                  </a>
-                </div>
-              </div>
-
-              <!-- Emergency Contact -->
-              <div class="mt-auto pt-4">
-                <div class="border-l-2 border-destructive bg-destructive-subtle rounded-r-lg px-3 py-2.5">
-                  <div class="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
-                    <Phone className="size-3.5 text-destructive" />
-                    Emergency contact
-                  </div>
-                  {bank.emergencyContact.uk.startsWith('In-app') ? (
-                    <p class="text-foreground font-semibold text-sm mt-1">{bank.emergencyContact.uk}</p>
-                  ) : (
-                    <a href={`tel:${bank.emergencyContact.uk}`} data-bank-name={bank.name} class="block text-xl font-bold tabular-nums text-foreground hover:text-destructive focus-visible:text-destructive transition-colors mt-0.5 break-all">{bank.emergencyContact.uk}</a>
-                  )}
-                  <p class="text-xs text-muted-foreground mt-1">
-                    {bank.emergencyContact.available}
-                    {bank.emergencyContact.abroad && (
-                      <> · Abroad: <a href={`tel:${bank.emergencyContact.abroad}`} class="text-foreground font-medium hover:text-destructive tabular-nums">{bank.emergencyContact.abroad}</a></>
-                    )}
-                  </p>
-                </div>
-
-                {bank.additionalInfo && (
-                  <p class="mt-2 text-xs text-muted-foreground"><strong class="text-foreground">Note:</strong> {bank.additionalInfo}</p>
-                )}
-              </div>
-            </div>
-          ))}
+        <div
+          class="grid grid-cols-[repeat(auto-fill,minmax(268px,1fr))] gap-3 md:block md:gap-0 md:border-t-2 md:border-foreground"
+          id="bank-list"
+        >
+          {sortedBanks.map(bank => {
+            const isChatOnly = bank.emergencyContact.uk.startsWith('In-app');
+            return (
+              <DirectoryEntry
+                class="bank-card"
+                data-category={bank.category}
+                name={bank.name}
+                tags={[{ label: bank.category.replace('_', ' ') }]}
+                website={bank.website}
+                phone={isChatOnly ? null : bank.emergencyContact.uk}
+                fallbackLabel="In-app chat only"
+                availability={bank.emergencyContact.available}
+                abroad={bank.emergencyContact.abroad}
+                note={bank.additionalInfo}
+                noteSummary={isChatOnly ? 'How to reach them' : 'Before you call'}
+              />
+            );
+          })}
         </div>
         
         <!-- Important Notes -->

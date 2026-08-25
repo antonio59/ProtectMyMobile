@@ -4,7 +4,8 @@ import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
 import { getMobileProviders, getDirectoryLastVerified } from '../lib/convexData';
 import { mobileProviders as staticProviders } from '../data/mobileProviders';
-import { Phone, Search, AlertCircle, Clock, CheckCircle2, ExternalLink } from 'lucide-react';
+import { Phone, Search, AlertCircle, Clock, CheckCircle2 } from 'lucide-react';
+import DirectoryEntry from '../components/DirectoryEntry.astro';
 
 // Get last verified date from Convex (automatically updated when cron runs)
 const verifiedDates = await getDirectoryLastVerified();
@@ -157,52 +158,30 @@ const providersFaqSchema = {
         </div>
         
         <!-- Providers List -->
-        <div class="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-3 sm:gap-4" id="provider-list">
-          {sortedProviders.map(provider => (
-            <div
-              class="provider-card bg-card rounded-xl border border-border p-5 flex flex-col h-full transition-shadow hover:shadow-md"
-              data-network={provider.network.toLowerCase()}
-            >
-              <div>
-                <h3 class="text-sm sm:text-base font-semibold text-foreground whitespace-nowrap leading-tight">{provider.name}</h3>
-                <div class="flex items-center justify-between gap-2 mt-1.5">
-                  <div class="flex items-center gap-1.5 whitespace-nowrap">
-                    <span class="text-xs px-2 py-0.5 bg-neutral-100 text-muted-foreground rounded-full">{provider.network}</span>
-                    {provider.is_mvno && <span class="text-xs px-2 py-0.5 bg-primary-muted text-primary-hover rounded-full">MVNO</span>}
-                  </div>
-                  <a
-                    href={provider.website}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="text-xs text-muted-foreground hover:text-primary flex items-center gap-1 flex-shrink-0"
-                  >
-                    <ExternalLink className="size-3" />
-                    Website
-                  </a>
-                </div>
-              </div>
-
-              <!-- Emergency Contact -->
-              <div class="mt-auto pt-4">
-                <div class="border-l-2 border-destructive bg-destructive-subtle rounded-r-lg px-3 py-2.5">
-                  <div class="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
-                    <Phone className="size-3.5 text-destructive" />
-                    Emergency contact
-                  </div>
-                  {provider.emergencyContact.uk.startsWith('Online') ? (
-                    <p class="text-foreground font-semibold text-sm mt-1">{provider.emergencyContact.uk}</p>
-                  ) : (
-                    <a href={`tel:${provider.emergencyContact.uk}`} class="block text-xl font-bold tabular-nums text-foreground hover:text-destructive focus-visible:text-destructive transition-colors mt-0.5">{provider.emergencyContact.uk}</a>
-                  )}
-                  <p class="text-xs text-muted-foreground mt-1">{provider.emergencyContact.available}</p>
-                </div>
-
-                {provider.additionalInfo && (
-                  <p class="mt-2 text-xs text-muted-foreground"><strong class="text-foreground">Note:</strong> {provider.additionalInfo}</p>
-                )}
-              </div>
-            </div>
-          ))}
+        <div
+          class="grid grid-cols-[repeat(auto-fill,minmax(268px,1fr))] gap-3 md:block md:gap-0 md:border-t-2 md:border-foreground"
+          id="provider-list"
+        >
+          {sortedProviders.map(provider => {
+            const isOnlineOnly = provider.emergencyContact.uk.startsWith('Online');
+            return (
+              <DirectoryEntry
+                class="provider-card"
+                data-network={provider.network.toLowerCase()}
+                name={provider.name}
+                tags={[
+                  { label: provider.network },
+                  ...(provider.is_mvno ? [{ label: 'MVNO', muted: true }] : []),
+                ]}
+                website={provider.website}
+                phone={isOnlineOnly ? null : provider.emergencyContact.uk}
+                fallbackLabel="Web chat only"
+                availability={provider.emergencyContact.available}
+                note={provider.additionalInfo}
+                noteSummary={isOnlineOnly ? 'Why there is no phone number' : 'Before you call'}
+              />
+            );
+          })}
         </div>
         
         <!-- Important Notes -->
