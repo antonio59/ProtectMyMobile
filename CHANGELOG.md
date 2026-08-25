@@ -131,6 +131,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Redesign directory entries as index rows and call tiles
 - Restructure FAQ around the post-theft visitor journey
 
 - Categories reordered: 'My Phone Was Just Stolen' first, then Reporting
@@ -1423,6 +1424,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
