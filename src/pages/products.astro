@@ -4,12 +4,21 @@ import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
 import { ShoppingBag, Shield, Smartphone, Watch, Backpack, Lock, Eye, CreditCard, Tag, ChevronRight, AlertTriangle, CheckCircle2, ExternalLink } from 'lucide-react';
 
-const productCategories = [
+type ProductCategory = {
+  title: string;
+  description: string;
+  icon: typeof Shield;
+  affiliateLink?: string;
+  safety?: string;
+  benefits: string[];
+  lookFor: string[];
+};
+
+const productCategories: ProductCategory[] = [
   {
     title: "Phone Lanyards & Wrist Straps",
     description: "Attach your phone to your wrist or around your neck to prevent snatch theft. Essential for busy streets and public transport.",
     icon: Watch,
-    color: "blue",
     affiliateLink: "https://amzn.to/4pSVcfm",
     benefits: [
       "Prevents grab-and-run theft",
@@ -27,7 +36,6 @@ const productCategories = [
     title: "Anti-Theft Crossbody Bags",
     description: "Specially designed bags with hidden zips, slash-proof material, and RFID blocking. Wear across your body for maximum security.",
     icon: Backpack,
-    color: "green",
     affiliateLink: "https://amzn.to/4ovAOzD",
     benefits: [
       "Hidden zippers deter pickpockets",
@@ -46,7 +54,6 @@ const productCategories = [
     title: "Phone Tracking Devices",
     description: "Small Bluetooth trackers that attach to your phone case or sit in your bag. Help locate your device if stolen.",
     icon: Tag,
-    color: "teal",
     affiliateLink: "https://amzn.to/4pMUKiv",
     benefits: [
       "Track phone location remotely",
@@ -54,6 +61,7 @@ const productCategories = [
       "Separation alerts",
       "Long battery life"
     ],
+    safety: "If a tracker shows where your stolen phone is, give that location to the police on 101 or through your crime report. Never go to the address yourself: people have been seriously hurt confronting thieves to recover a phone.",
     lookFor: [
       "Compatibility with your phone (Apple/Android)",
       "Range and accuracy",
@@ -65,7 +73,6 @@ const productCategories = [
     title: "Phone Grips & Holders",
     description: "Attachable grips that make your phone harder to knock out of your hand. Reduces accidental drops and opportunistic grabs.",
     icon: Smartphone,
-    color: "purple",
     affiliateLink: "https://amzn.to/3MaQtqR",
     benefits: [
       "Secure one-handed grip",
@@ -84,7 +91,6 @@ const productCategories = [
     title: "Privacy Screen Protectors",
     description: "Screen films that prevent others from viewing your screen from the side. Stops shoulder surfing for passwords and PINs.",
     icon: Eye,
-    color: "orange",
     affiliateLink: "https://amzn.to/3MFlaEt",
     benefits: [
       "Blocks side-angle viewing",
@@ -103,7 +109,6 @@ const productCategories = [
     title: "RFID Blocking Wallets & Cases",
     description: "Protect your contactless cards from electronic pickpocketing. Essential as many thieves now target digital theft too.",
     icon: CreditCard,
-    color: "red",
     affiliateLink: "https://amzn.to/4pq3r2G",
     benefits: [
       "Blocks contactless card skimming",
@@ -122,7 +127,6 @@ const productCategories = [
     title: "Secure Phone Cases",
     description: "Heavy-duty cases with lanyard attachment points, card holders, and enhanced grip surfaces.",
     icon: Shield,
-    color: "indigo",
     affiliateLink: "https://amzn.to/4izJBiy",
     benefits: [
       "Built-in lanyard attachment",
@@ -141,7 +145,6 @@ const productCategories = [
     title: "Phone Insurance",
     description: "While not a physical product, comprehensive phone insurance can cover theft, giving you peace of mind and financial protection.",
     icon: Lock,
-    color: "slate",
     benefits: [
       "Financial protection if stolen",
       "Often covers accidental damage too",
@@ -157,16 +160,8 @@ const productCategories = [
   }
 ];
 
-const colorClasses: Record<string, { bg: string; border: string; icon: string; light: string }> = {
-  blue:   { bg: 'bg-foreground', border: 'border-foreground', icon: 'text-foreground', light: 'bg-neutral-100' },
-  green:  { bg: 'bg-foreground', border: 'border-foreground', icon: 'text-foreground', light: 'bg-neutral-100' },
-  teal:   { bg: 'bg-foreground', border: 'border-foreground', icon: 'text-foreground', light: 'bg-neutral-100' },
-  purple: { bg: 'bg-foreground', border: 'border-foreground', icon: 'text-foreground', light: 'bg-neutral-100' },
-  orange: { bg: 'bg-foreground', border: 'border-foreground', icon: 'text-foreground', light: 'bg-neutral-100' },
-  red:    { bg: 'bg-foreground', border: 'border-foreground', icon: 'text-foreground', light: 'bg-neutral-100' },
-  indigo: { bg: 'bg-foreground', border: 'border-foreground', icon: 'text-foreground', light: 'bg-neutral-100' },
-  slate:  { bg: 'bg-foreground', border: 'border-foreground', icon: 'text-foreground', light: 'bg-neutral-100' },
-};
+// Affiliate destinations last opened and confirmed working on this date.
+const linksCheckedDate = "26 August 2026";
 ---
 
 <Layout 
@@ -179,7 +174,7 @@ const colorClasses: Record<string, { bg: string; border: string; icon: string; l
     <div class="container mx-auto px-4 py-4 sm:py-6 max-w-6xl">
       
       <!-- Hero Section -->
-      <div class="bg-foreground text-background rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8 ">
+      <div class="bg-foreground text-background rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8">
         <div class="flex items-center gap-3 mb-3">
           <div class="bg-background/20 p-2 sm:p-3 rounded-xl">
             <ShoppingBag className="size-6 sm:size-8" />
@@ -191,76 +186,84 @@ const colorClasses: Record<string, { bg: string; border: string; icon: string; l
         </p>
         <div class="flex items-start gap-2 bg-background/10 rounded-xl p-4 text-sm">
           <AlertTriangle className="size-5 flex-shrink-0 mt-0.5" />
-          <p class="text-neutral-300">
-            <strong class="text-background">Affiliate Disclosure:</strong> As an Amazon Associate, I earn from qualifying purchases. This helps support the site at no extra cost to you.
-          </p>
+          <div>
+            <p class="text-neutral-300">
+              <strong class="text-background">Affiliate Disclosure:</strong> As an Amazon Associate, I earn from qualifying purchases. This helps support the site at no extra cost to you.
+            </p>
+            <p class="text-neutral-300 text-xs mt-2">Links checked: {linksCheckedDate}</p>
+          </div>
         </div>
       </div>
       
       <!-- Product Categories -->
       <div class="space-y-6">
-        {productCategories.map((product) => {
-          const colors = colorClasses[product.color] ?? colorClasses.blue;
-          return (
-            <div class={`bg-card rounded-lg sm:rounded-2xl  overflow-hidden border ${colors.border}`}>
-              <div class={`h-2 ${colors.bg}`}></div>
-              <div class="p-4 sm:p-6">
-                <div class="flex flex-col md:flex-row md:items-start gap-4 sm:gap-6">
-                  <!-- Icon and Title -->
-                  <div class="flex items-start gap-4 md:w-1/3">
-                    <div class={`${colors.light} rounded-xl p-2 sm:p-3 flex-shrink-0`}>
-                      <product.icon class={`size-5 sm:size-6 ${colors.icon}`} />
-                    </div>
-                    <div>
-                      <h2 class="text-base sm:text-lg font-bold text-foreground">{product.title}</h2>
-                      <p class="text-sm text-muted-foreground mt-1 mb-3">{product.description}</p>
-                      {product.affiliateLink && (
-                        <a
-                          href={product.affiliateLink}
-                          target="_blank"
-                          rel="noopener noreferrer sponsored"
-                          class={`inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 ${colors.bg} text-background text-xs sm:text-sm font-semibold rounded-lg hover:opacity-90 transition-opacity`}
-                        >
-                          {product.title}
-                          <ExternalLink className="size-3 sm:size-4" />
-                        </a>
-                      )}
-                    </div>
+        {productCategories.map((product) => (
+          <div class="bg-card rounded-lg sm:rounded-2xl overflow-hidden border border-border">
+            <div class="h-1 bg-foreground"></div>
+            <div class="p-4 sm:p-6">
+              <div class="flex flex-col md:flex-row md:items-start gap-4 sm:gap-6">
+                <!-- Icon and Title -->
+                <div class="flex items-start gap-4 md:w-1/3">
+                  <div class="bg-neutral-100 rounded-xl p-2 sm:p-3 flex-shrink-0">
+                    <product.icon class="size-5 sm:size-6 text-foreground" />
+                  </div>
+                  <div>
+                    <h2 class="text-base sm:text-lg font-bold text-foreground">{product.title}</h2>
+                    <p class="text-sm text-muted-foreground mt-1 mb-3">{product.description}</p>
+                    {product.affiliateLink && (
+                      <a
+                        href={product.affiliateLink}
+                        target="_blank"
+                        rel="noopener noreferrer sponsored"
+                        class="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-foreground text-background text-xs sm:text-sm font-semibold rounded-lg hover:opacity-90 transition-opacity"
+                      >
+                        {product.title}
+                        <ExternalLink className="size-3 sm:size-4" />
+                      </a>
+                    )}
+                  </div>
+                </div>
+
+                <!-- Benefits and What to Look For: one container, hairline rules -->
+                <div class="flex-1 product-panels">
+                  <div class="product-panel">
+                    <h3 class="font-semibold text-sm text-foreground mb-2">Benefits</h3>
+                    <ul class="space-y-1.5">
+                      {product.benefits.map((benefit) => (
+                        <li class="flex items-start gap-2 text-sm text-foreground">
+                          <CheckCircle2 className="size-4 text-foreground flex-shrink-0 mt-0.5" />
+                          <span>{benefit}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
 
-                  <!-- Benefits and What to Look For -->
-                  <div class="flex-1 grid sm:grid-cols-2 gap-3 sm:gap-4">
-                    <!-- Benefits -->
-                    <div class={`${colors.light} rounded-lg sm:rounded-xl p-3 sm:p-4`}>
-                      <h3 class="font-semibold text-sm text-foreground mb-2">Benefits</h3>
-                      <ul class="space-y-1.5">
-                        {product.benefits.map((benefit) => (
-                          <li class="flex items-start gap-2 text-sm text-foreground">
-                            <CheckCircle2 className={`size-4 ${colors.icon} flex-shrink-0 mt-0.5`} />
-                            <span>{benefit}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <!-- What to Look For -->
-                    <div class="bg-neutral rounded-lg sm:rounded-xl p-3 sm:p-4">
-                      <h3 class="font-semibold text-sm text-foreground mb-2">What to Look For</h3>
-                      <ul class="space-y-1.5">
-                        {product.lookFor.map((item) => (
-                          <li class="flex items-start gap-2 text-sm text-muted-foreground">
-                            <ChevronRight className="size-4 text-muted-foreground flex-shrink-0 mt-0.5" />
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                  <div class="product-panel">
+                    <h3 class="font-semibold text-sm text-foreground mb-2">What to Look For</h3>
+                    <ul class="space-y-1.5">
+                      {product.lookFor.map((item) => (
+                        <li class="flex items-start gap-2 text-sm text-muted-foreground">
+                          <ChevronRight className="size-4 text-muted-foreground flex-shrink-0 mt-0.5" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
+
+                  {product.safety && (
+                    <div class="product-panel">
+                      <h3 class="font-semibold text-sm text-foreground mb-2 flex items-center gap-2">
+                        <AlertTriangle className="size-4 text-destructive flex-shrink-0" />
+                        Safety first
+                      </h3>
+                      <p class="text-sm text-foreground">{product.safety}</p>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
-          );
-        })}
+          </div>
+        ))}
       </div>
       
       <!-- Tips Section -->
@@ -270,7 +273,7 @@ const colorClasses: Record<string, { bg: string; border: string; icon: string; l
           General Buying Tips
         </h2>
         <div class="grid md:grid-cols-2 gap-4">
-          <div class="bg-card rounded-xl p-3 sm:p-4 ">
+          <div class="bg-card rounded-xl p-3 sm:p-4">
             <h3 class="font-semibold mb-2">Before You Buy</h3>
             <ul class="text-sm text-foreground space-y-2">
               <li>• Read multiple reviews from verified purchasers</li>
@@ -279,7 +282,7 @@ const colorClasses: Record<string, { bg: string; border: string; icon: string; l
               <li>• Look for products with warranties or guarantees</li>
             </ul>
           </div>
-          <div class="bg-card rounded-xl p-3 sm:p-4 ">
+          <div class="bg-card rounded-xl p-3 sm:p-4">
             <h3 class="font-semibold mb-2">Remember</h3>
             <ul class="text-sm text-foreground space-y-2">
               <li>• No product guarantees complete protection</li>
@@ -317,3 +320,18 @@ const colorClasses: Record<string, { bg: string; border: string; icon: string; l
   
   <Footer />
 </Layout>
+
+<style>
+  /* One card, hairline rules between sections (see DirectoryEntry.astro) */
+  .product-panels {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .product-panel {
+    padding: 0.875rem 0;
+  }
+
+  .product-panel + .product-panel {
+    border-top: 1px solid var(--color-border);
+  }
+</style>

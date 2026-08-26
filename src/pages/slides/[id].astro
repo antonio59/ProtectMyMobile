@@ -1,0 +1,148 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import HeaderMobile from '../../components/HeaderMobile';
+import Footer from '../../components/Footer.astro';
+import { ScenarioCarousel } from '../../components/ScenarioCarousel';
+import { safetySlideSets, slideUrls, findSlideSet } from '../../data/scenarios';
+import { Phone, Download, ArrowLeft, ArrowRight } from 'lucide-react';
+
+export function getStaticPaths() {
+  return safetySlideSets.map((set) => ({ params: { id: set.id } }));
+}
+
+const { id } = Astro.params;
+const set = findSlideSet(id!);
+
+if (!set) {
+  return Astro.redirect('/news');
+}
+
+const images = slideUrls(set);
+const publishedLabel = new Date(set.published).toLocaleDateString('en-GB', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: set.title,
+  description: set.summary,
+  datePublished: set.published,
+  step: set.prevention.map((text, i) => ({
+    '@type': 'HowToStep',
+    position: i + 1,
+    text,
+  })),
+};
+---
+
+<Layout
+  title={`${set.title} | ProtectMyMobile`}
+  description={set.summary}
+  canonicalPath={`/slides/${set.id}`}
+  ogImage={images[0]}
+  schema={schema}
+>
+  <HeaderMobile client:idle />
+
+  <main id="main-content" class="bg-background min-h-screen">
+    <article class="container mx-auto px-4 py-4 sm:py-6 md:py-8 max-w-4xl">
+
+      <a href="/news" class="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground">
+        <ArrowLeft className="size-4" aria-hidden="true" />
+        All news and slides
+      </a>
+
+      <header class="mt-4 pb-6 border-b-2 border-foreground">
+        <p class="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+          Safety slides · {publishedLabel}
+        </p>
+        <h1 class="mt-2 font-serif text-2xl sm:text-3xl md:text-4xl font-bold text-foreground">
+          {set.title}
+        </h1>
+        <p class="mt-3 text-sm sm:text-base text-muted-foreground max-w-2xl">{set.summary}</p>
+      </header>
+
+      <div class="mt-6">
+        <ScenarioCarousel
+          client:visible
+          images={images}
+          title={set.title}
+          summary={set.summary}
+          scenarioId={set.id}
+        />
+        <div class="mt-3 flex items-center justify-between gap-3 text-xs text-muted-foreground">
+          <span>{set.slides} slides · free to share, credit appreciated</span>
+          <a
+            href={images[0]}
+            download
+            class="inline-flex items-center gap-1.5 hover:text-foreground"
+          >
+            <Download className="size-3.5" aria-hidden="true" />
+            Save the first slide
+          </a>
+        </div>
+      </div>
+
+      <div class="mt-10 space-y-8">
+        <section>
+          <h2 class="font-serif text-xl font-semibold text-foreground">What actually happens</h2>
+          <p class="mt-2 text-foreground/90 leading-relaxed">{set.whatHappens}</p>
+        </section>
+
+        <section class="pt-8 border-t border-border">
+          <h2 class="font-serif text-xl font-semibold text-foreground">The moment it turns</h2>
+          <p class="mt-2 text-foreground/90 leading-relaxed">{set.theMoment}</p>
+        </section>
+
+        <section class="pt-8 border-t border-border">
+          <h2 class="font-serif text-xl font-semibold text-foreground">If it happens to you</h2>
+          <p class="mt-2 text-foreground/90 leading-relaxed">{set.whatToDo}</p>
+          <a
+            href="/emergency"
+            class="mt-4 inline-flex items-center gap-2 min-h-11 px-4 py-2 rounded-lg bg-destructive text-destructive-foreground font-semibold text-sm hover:bg-destructive-hover"
+          >
+            <Phone className="size-4" aria-hidden="true" />
+            Phone just stolen? Emergency steps
+          </a>
+        </section>
+
+        <section class="pt-8 border-t border-border">
+          <h2 class="font-serif text-xl font-semibold text-foreground">Habits that lower the odds</h2>
+          <ul class="mt-3 space-y-2">
+            {set.prevention.map((tip) => (
+              <li class="flex gap-3 text-sm sm:text-base text-foreground/90">
+                <span class="mt-2 size-1.5 rounded-full bg-foreground flex-none" aria-hidden="true"></span>
+                <span>{tip}</span>
+              </li>
+            ))}
+          </ul>
+          <a href="/prevention" class="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-foreground hover:text-destructive">
+            More prevention guides
+            <ArrowRight className="size-4" aria-hidden="true" />
+          </a>
+        </section>
+      </div>
+
+      <nav class="mt-12 pt-6 border-t-2 border-foreground">
+        <h2 class="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+          Other slide sets
+        </h2>
+        <ul class="mt-3 grid gap-x-6 sm:grid-cols-2">
+          {safetySlideSets.filter((s) => s.id !== set.id).map((s) => (
+            <li class="border-t border-border first:border-t-0 sm:[&:nth-child(2)]:border-t-0">
+              <a href={`/slides/${s.id}`} class="flex items-baseline justify-between gap-3 py-2.5 group">
+                <span class="font-serif text-base text-foreground group-hover:text-destructive">{s.title}</span>
+                <span class="text-xs text-muted-foreground flex-none">{s.slides} slides</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </article>
+  </main>
+
+  <Footer />
+</Layout>

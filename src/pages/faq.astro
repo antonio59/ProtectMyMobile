@@ -44,18 +44,13 @@ const faqCategories = [
     questions: [
       {
         question: "How do I report phone theft to UK police?",
-        answer: "Report online at police.uk/pu/contact-the-police/report-a-crime-incident/ or call 101 (non-emergency). You'll need to provide: details of when and where the theft occurred, your phone's make and model, IMEI number (dial *#06# or check phone box), serial number if available, phone number and network provider, current location if tracking shows it, description of suspect if you saw them, and any witnesses' contact details. You'll receive a crime reference number - keep this for insurance claims and provider notifications.",
-        keywords: ["report", "police", "101", "crime reference"]
+        answer: "Report online at police.uk/pu/contact-the-police/report-a-crime-incident/ or call 101 (non-emergency). Have this ready before you start: the exact date, time and location of the theft, a description of how it happened, your phone's make, model and colour, the IMEI number (dial *#06# or check the phone box or receipt), the serial number if available, your phone number and network provider, the current location if tracking shows it, a description of the suspect if you saw them, and any witnesses' contact details. You'll receive a crime reference number - keep this for insurance claims and provider notifications.",
+        keywords: ["report", "police", "101", "crime reference", "information", "details", "what do I need"]
       },
       {
         question: "Do I need a crime reference number?",
         answer: "Yes, a crime reference number is essential for: making insurance claims for device replacement, providing proof of theft to your mobile provider when blocking your device, potentially recovering your phone if police find it, and protecting yourself legally if your phone is used for criminal activity. Always obtain and save this number when reporting theft.",
         keywords: ["crime reference", "number", "insurance"]
-      },
-      {
-        question: "What information do police need when I report theft?",
-        answer: "Prepare this information: exact date, time, and location of theft, description of circumstances (how it was stolen), phone make, model, and color, IMEI number (dial *#06# or check phone box/receipt), serial number if available, phone number and network provider, current location if tracking shows it, description of suspect if you saw them, and any witnesses' contact details.",
-        keywords: ["information", "details", "what do I need"]
       },
       {
         question: "Will police actually investigate phone theft?",
@@ -140,13 +135,8 @@ const faqCategories = [
     questions: [
       {
         question: "How can I prevent my phone from being stolen?",
-        answer: "Enable multiple layers of security: set a SIM card PIN (Settings > Security > SIM card lock), use biometric authentication with a strong 6+ digit backup passcode, enable app-specific security for banking apps with additional PINs and 2FA, and know your IMEI number (dial *#06#). Stay aware of your surroundings, especially in crowded areas like public transport and busy streets.",
-        keywords: ["prevent", "security", "pin", "biometric", "imei"]
-      },
-      {
-        question: "What is the best way to secure my phone in London?",
-        answer: "Use comprehensive security measures: enable SIM card lock, set up biometric authentication with a strong backup passcode, secure banking and payment apps with app-specific PINs, and store your IMEI number in a password manager. Be especially vigilant on the London Underground, at tourist attractions, and in crowded areas. Keep your phone out of sight when not needed, and hold it firmly when using it near train doors or busy streets.",
-        keywords: ["london", "secure", "tube", "tourist"]
+        answer: "Enable multiple layers of security: set a SIM card PIN (Settings > Security > SIM card lock), use biometric authentication with a strong 6+ digit backup passcode, enable app-specific security for banking apps with additional PINs and 2FA, and know your IMEI number (dial *#06#) - store it in a password manager. Then change how you carry it: stay aware of your surroundings and keep the phone out of sight when you don't need it, especially on the London Underground, at tourist attractions, and on crowded streets. If someone does grab it, let go rather than be pulled after it - a phone is replaceable.",
+        keywords: ["prevent", "security", "pin", "biometric", "imei", "london", "secure", "tube", "tourist"]
       },
       {
         question: "Should I use a phone lanyard to prevent theft?",
@@ -198,7 +188,7 @@ const faqSchema = {
   <HeaderMobile client:idle />
 
   <main id="main-content" class="bg-background min-h-screen">
-    <div class="container mx-auto px-4 py-4 sm:py-6 max-w-5xl">
+    <div class="container mx-auto px-4 py-4 sm:py-6 max-w-4xl">
       
 
       <!-- Hero Section -->
@@ -210,7 +200,7 @@ const faqSchema = {
       </div>
 
       <!-- Search & Filter -->
-      <div class="bg-card rounded-xl  p-4 mb-6 sticky top-20 z-30 border border-border">
+      <div class="bg-card rounded-xl p-4 mb-6 sticky top-20 z-30 border border-border">
         <div class="relative mb-4">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground size-5" />
           <input
@@ -221,7 +211,9 @@ const faqSchema = {
           />
           <button 
             id="clear-search" 
-            class="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-muted-foreground hidden"
+            type="button"
+            aria-label="Clear search"
+            class="absolute right-1 top-1/2 -translate-y-1/2 min-h-11 min-w-11 text-muted-foreground hover:text-muted-foreground hidden"
           >
             <X className="size-4" />
           </button>
@@ -248,7 +240,7 @@ const faqSchema = {
       <!-- FAQ Content -->
       <div id="faq-content" class="space-y-6">
         {faqCategories.map((category) => (
-          <section class="faq-category bg-card rounded-xl  overflow-hidden border border-border" data-category={category.id}>
+          <section class="faq-category bg-card rounded-xl overflow-hidden border border-border" data-category={category.id}>
             <div class="bg-neutral-100 p-4 sm:p-5 border-b border-border">
               <h2 class="font-bold text-foreground">{category.title}</h2>
               <p class="text-xs text-muted-foreground mt-0.5">{category.description}</p>

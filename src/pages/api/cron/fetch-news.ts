@@ -75,6 +75,23 @@ function filterAndScoreArticles(
   return { newArticles, rejectedArticles };
 }
 
+/**
+ * Store a summary of someone else's reporting, never the whole article.
+ *
+ * The /news colophon tells readers we do not republish other outlets' work in
+ * full. This is where that promise is kept: whatever the feed or the scraper
+ * hands us, only the opening of it is stored, and the article page links back
+ * to the original. The article template applies the same cap at render time so
+ * rows written before this existed are covered too.
+ */
+const SYNDICATION_WORD_LIMIT = 90;
+
+function toSyndicationSummary(text: string): string {
+  const words = text.trim().split(/\s+/).filter(Boolean);
+  if (words.length <= SYNDICATION_WORD_LIMIT) return text.trim();
+  return words.slice(0, SYNDICATION_WORD_LIMIT).join(" ").replace(/[.,;:\u2013\u2014-]+$/, "") + "\u2026";
+}
+
 async function createPost(
   article: any,
   relevanceScore: number,
@@ -92,18 +109,15 @@ async function createPost(
 
   const rssFullContent = (article as any)["content:encoded"];
   if (rssFullContent && stripHtml(rssFullContent).trim().length > 200) {
-    finalContent = stripHtml(rssFullContent).trim();
-    if (finalContent.length > 3000) {
-      finalContent = finalContent.substring(0, 3000).trim() + "...";
-    }
-    logMessage("info", `Using RSS full content for ${article.title!.substring(0, 40)}`);
+    finalContent = toSyndicationSummary(stripHtml(rssFullContent).trim());
+    logMessage("info", `Stored summary of RSS content for ${article.title!.substring(0, 40)}`);
   } else {
     const scraped = await scrapeArticleContent(article.link!);
     const fallbackContent = stripHtml(article.content || article.contentSnippet || "").trim();
     if (scraped.content !== "Content to be curated.") {
-      finalContent = scraped.content;
+      finalContent = toSyndicationSummary(scraped.content);
     } else if (fallbackContent.length > 100) {
-      finalContent = fallbackContent;
+      finalContent = toSyndicationSummary(fallbackContent);
     } else {
       finalContent = cleanSnippet.length > 50
         ? `${article.title!}\n\n${cleanSnippet}`

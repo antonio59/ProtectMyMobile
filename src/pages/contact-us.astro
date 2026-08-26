@@ -12,12 +12,12 @@ import { Mail, Send, User, FileText } from 'lucide-react';
   <HeaderMobile client:idle />
   
   <main id="main-content" class="bg-background min-h-screen">
-    <div class="container mx-auto px-4 py-4 sm:py-6 max-w-2xl">
+    <div class="container mx-auto px-4 py-4 sm:py-6 max-w-4xl">
 
-      <div class="bg-foreground text-background rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-8 mb-6 sm:mb-8 ">
+      <div class="bg-foreground text-background rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-8 mb-6 sm:mb-8">
         <div class="flex items-center gap-3 mb-3">
           <div class="bg-background/20 p-2.5 rounded-xl">
-            <Mail className="size-6" />
+            <Mail aria-hidden="true" className="size-6" />
           </div>
           <h1 class="text-xl sm:text-2xl font-bold">Get in Touch</h1>
         </div>
@@ -26,14 +26,14 @@ import { Mail, Send, User, FileText } from 'lucide-react';
         </p>
       </div>
 
-      <div class="bg-card rounded-xl sm:rounded-2xl  border border-border p-5 sm:p-6 md:p-8">
+      <div class="bg-card rounded-xl sm:rounded-2xl border border-border p-5 sm:p-6 md:p-8">
         <form id="contact-form" class="space-y-5">
           <div>
             <label for="name" class="block text-sm font-semibold text-foreground mb-1.5">
               Your Name
             </label>
             <div class="relative">
-              <User className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
+              <User aria-hidden="true" className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
               <input 
                 type="text" 
                 id="name" 
@@ -50,7 +50,7 @@ import { Mail, Send, User, FileText } from 'lucide-react';
               Email Address
             </label>
             <div class="relative">
-              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
+              <Mail aria-hidden="true" className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
               <input 
                 type="email" 
                 id="email" 
@@ -67,7 +67,7 @@ import { Mail, Send, User, FileText } from 'lucide-react';
               Subject
             </label>
             <div class="relative">
-              <FileText className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
+              <FileText aria-hidden="true" className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
               <input 
                 type="text" 
                 id="subject" 
@@ -93,16 +93,31 @@ import { Mail, Send, User, FileText } from 'lucide-react';
             ></textarea>
           </div>
 
+          <!-- Spam trap: off-screen for sighted users, ignored by assistive tech,
+               skipped by keyboard tab order. A real person never fills this in. -->
+          <div class="sr-only" aria-hidden="true">
+            <label for="website">Leave this field empty</label>
+            <input
+              type="text"
+              id="website"
+              name="website"
+              tabindex="-1"
+              autocomplete="off"
+              value=""
+            />
+          </div>
+          <input type="hidden" id="form-rendered-at" name="renderedAt" value="" />
+
           <button 
             type="submit" 
             id="submit-btn"
-            class="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-2.5 bg-primary text-primary-foreground rounded-lg font-semibold text-sm hover:bg-primary-hover transition-colors shadow-sm disabled:opacity-60 disabled:cursor-not-allowed"
+            class="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-2.5 bg-primary text-primary-foreground rounded-lg font-semibold text-sm hover:bg-primary-hover transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
           >
-            <Send className="size-4" />
+            <Send aria-hidden="true" className="size-4" />
             Send Message
           </button>
 
-          <div id="form-status" class="hidden text-sm"></div>
+          <div id="form-status" class="hidden text-sm" role="status" aria-live="polite"></div>
         </form>
       </div>
 
@@ -121,6 +136,12 @@ import { Mail, Send, User, FileText } from 'lucide-react';
     const form = document.getElementById('contact-form') as HTMLFormElement;
     const status = document.getElementById('form-status') as HTMLDivElement;
     const btn = document.getElementById('submit-btn') as HTMLButtonElement;
+    const honeypot = document.getElementById('website') as HTMLInputElement;
+    const renderedAt = document.getElementById('form-rendered-at') as HTMLInputElement;
+
+    // Stamp the moment the form became usable, so the API can reject
+    // submissions that arrive impossibly fast.
+    renderedAt.value = String(Date.now());
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -137,6 +158,8 @@ import { Mail, Send, User, FileText } from 'lucide-react';
             email: (document.getElementById('email') as HTMLInputElement).value,
             subject: (document.getElementById('subject') as HTMLInputElement).value,
             message: (document.getElementById('message') as HTMLTextAreaElement).value,
+            website: honeypot.value,
+            renderedAt: Number(renderedAt.value) || 0,
           }),
         });
 
@@ -147,11 +170,11 @@ import { Mail, Send, User, FileText } from 'lucide-react';
           status.textContent = 'Message sent! I\'ll get back to you soon.';
           form.reset();
         } else {
-          status.className = 'bg-destructive-subtle border border-destructive-muted text-destructive rounded-lg p-3 text-sm';
+          status.className = 'bg-warning-subtle border border-border text-warning rounded-lg p-3 text-sm';
           status.textContent = data.error || 'Something went wrong. Please try again.';
         }
       } catch {
-        status.className = 'bg-destructive-subtle border border-destructive-muted text-destructive rounded-lg p-3 text-sm';
+        status.className = 'bg-warning-subtle border border-border text-warning rounded-lg p-3 text-sm';
         status.textContent = 'Network error. Please check your connection and try again.';
       } finally {
         btn.disabled = false;

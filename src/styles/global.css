@@ -119,11 +119,6 @@
      TAILWIND v4 ENHANCEMENTS
      ===================================================== */
 
-  /* Text shadows for headlines */
-  --text-shadow-hero: 0 4px 12px rgb(0 0 0 / 40%);
-  --text-shadow-glow: 0 0 20px rgb(255 255 255 / 30%);
-  --text-shadow-danger: 0 0 30px rgb(239 68 68 / 50%);
-
   /* Custom animations */
   --animate-fade-in: fade-in 0.5s ease-out;
   --animate-fade-out: fade-out 0.3s ease-in;
@@ -135,7 +130,6 @@
   --animate-accordion-up: accordion-up 0.2s ease-out;
   --animate-caret-blink: caret-blink 1.25s ease-out infinite;
   --animate-float: float 3s ease-in-out infinite;
-  --animate-pulse-glow: pulse-glow 2s ease-in-out infinite;
 
   /* 3D perspective */
   --perspective-normal: 1000px;
@@ -304,11 +298,6 @@
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
-}
-
-@keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 16px rgb(200 50 43 / 35%); }
-  50% { box-shadow: 0 0 32px rgb(200 50 43 / 65%); }
 }
 
 /* =====================================================
@@ -768,42 +757,8 @@ img {
    ===================================================== */
 
 /* Text Shadows */
-.text-shadow-hero {
-  text-shadow: var(--text-shadow-hero);
-}
-
-.text-shadow-glow {
-  text-shadow: var(--text-shadow-glow);
-}
-
-.text-shadow-danger {
-  text-shadow: var(--text-shadow-danger);
-}
-
 .text-shadow-none {
   text-shadow: none;
-}
-
-/* Colored Drop Shadows — flattened to quiet ink shadows in the editorial system */
-.shadow-glow-red {
-  box-shadow: 0 8px 24px -12px rgb(200 50 43 / 45%);
-}
-
-.shadow-glow-blue {
-  box-shadow: 0 8px 24px -12px rgb(22 19 15 / 30%);
-}
-
-.shadow-glow-amber {
-  box-shadow: 0 8px 24px -12px rgb(22 19 15 / 30%);
-}
-
-.shadow-glow-emerald {
-  box-shadow: 0 8px 24px -12px rgb(22 19 15 / 30%);
-}
-
-/* Pulse Glow Effect */
-.animate-pulse-glow {
-  animation: var(--animate-pulse-glow);
 }
 
 /* Float Animation */
@@ -863,12 +818,11 @@ img {
 
 /* Card lift effect on hover */
 .card-lift {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease;
 }
 
 .card-lift:hover {
   transform: translateY(-4px) scale(1.01);
-  box-shadow: 0 20px 40px -15px rgb(0 0 0 / 20%);
 }
 
 /* 3D tilt effect */
@@ -904,10 +858,6 @@ img {
   /* Mouse/trackpad - enable hover effects */
   .hover-lift:hover {
     transform: translateY(-2px);
-  }
-  
-  .hover-glow:hover {
-    box-shadow: 0 0 30px rgb(59 130 246 / 40%);
   }
 }
 
@@ -1017,7 +967,6 @@ img {
   video,
   iframe,
   .animate-pulse,
-  .animate-pulse-glow,
   [class*="animate-"],
   /* Hide CTA buttons that don't make sense printed */
   a[href="/security-checkup"],

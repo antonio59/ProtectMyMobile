@@ -37,7 +37,7 @@ const navLinks = [
   { href: '/banks', label: 'Banks', icon: Building2 },
   { href: '/mobile-providers', label: 'Mobile Providers', icon: Phone },
   { href: '/london-visitor-safety', label: 'Visitor Safety', icon: MapPin },
-  { href: '/scenarios', label: 'Scenarios', icon: AlertTriangle },
+  { href: '/news?category=safety_slides', label: 'Safety slides', icon: AlertTriangle },
   { href: '/products', label: 'Product Recommendations', icon: ShoppingBag },
   { href: '/resources', label: 'Resources', icon: HelpCircle },
 ];
