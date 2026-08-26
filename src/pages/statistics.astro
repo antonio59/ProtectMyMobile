@@ -4,7 +4,8 @@ import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
 import StatisticsDashboard from '../components/StatisticsDashboard';
 import { getTheftStats } from '../lib/convexData';
-import { BarChart3, TrendingUp, MapPin, AlertTriangle, Clock, Shield, ArrowRight, Calendar, Sun, Snowflake, Leaf } from 'lucide-react';
+import { londonHotspots, hotspotsSource, hotspotThefts } from '../data/hotspots';
+import { BarChart3, TrendingUp, MapPin, AlertTriangle, Shield, ArrowRight } from 'lucide-react';
 
 const statisticsSchema = {
   "@context": "https://schema.org",
@@ -35,25 +36,18 @@ try {
   console.warn('Could not fetch live stats, using baseline data');
 }
 
-// Top 5 London hotspots: theft-from-the-person offences within roughly 1 mile of
-// each borough centre, July 2025 - June 2026 (police.uk).
-const londonHotspots = [
-  { rank: 1, area: 'Westminster', thefts: '16,639', description: 'Tourist areas, West End, transport hubs' },
-  { rank: 2, area: 'Camden', thefts: '6,651', description: 'Markets, nightlife, busy high streets' },
-  { rank: 3, area: 'Southwark', thefts: '5,571', description: 'Borough Market, London Bridge, South Bank' },
-  { rank: 4, area: 'Hackney', thefts: '1,610', description: 'Nightlife spots, busy cafes' },
-  { rank: 5, area: 'Lambeth', thefts: '1,523', description: 'Brixton, Waterloo, South Bank fringe' },
-];
+// Top 5 London hotspots, from the shared dataset in src/data/hotspots.ts.
+const topHotspots = londonHotspots.slice(0, 5);
 
 // City comparison: theft-from-the-person offences recorded within roughly 1 mile
 // of each city centre, July 2025 - June 2026 (latest police.uk data), with
 // year-on-year change vs July 2024 - June 2025. Greater Manchester Police does
 // not currently publish street-level data to police.uk, so Manchester is excluded.
 const cityComparison = [
-  { city: 'London (Westminster area)', thefts: 16639, year: 'Jul 2025 - Jun 2026', change: '-40.9% YoY' },
-  { city: 'Camden (London)', thefts: 6651, year: 'Jul 2025 - Jun 2026', change: '-28.7% YoY' },
-  { city: 'Hackney (London)', thefts: 1610, year: 'Jul 2025 - Jun 2026', change: '-1.8% YoY' },
-  { city: 'Tower Hamlets (London)', thefts: 709, year: 'Jul 2025 - Jun 2026', change: '-18.4% YoY' },
+  { city: 'London (Westminster area)', thefts: hotspotThefts('Westminster'), year: 'Jul 2025 - Jun 2026', change: '-40.9% YoY' },
+  { city: 'Camden (London)', thefts: hotspotThefts('Camden'), year: 'Jul 2025 - Jun 2026', change: '-28.7% YoY' },
+  { city: 'Hackney (London)', thefts: hotspotThefts('Hackney'), year: 'Jul 2025 - Jun 2026', change: '-1.8% YoY' },
+  { city: 'Tower Hamlets (London)', thefts: hotspotThefts('Tower Hamlets'), year: 'Jul 2025 - Jun 2026', change: '-18.4% YoY' },
   { city: 'Leeds', thefts: 528, year: 'Jul 2025 - Jun 2026', change: '-11.9% YoY' },
   { city: 'Birmingham', thefts: 436, year: 'Jul 2025 - Jun 2026', change: '-21.3% YoY' },
   { city: 'Liverpool', thefts: 376, year: 'Jul 2025 - Jun 2026', change: '-21.5% YoY' },
@@ -62,10 +56,10 @@ const cityComparison = [
 ];
 
 const keyStats = [
-  { value: '78,000', label: 'Snatch thefts UK (CSEW, YE Mar 2024)', icon: AlertTriangle, color: 'red' },
-  { value: '117,211', label: 'London (2024, Met FOI)', icon: MapPin, color: 'orange' },
-  { value: '−12.3%', label: 'Fall in London 2025 (Met)', icon: TrendingUp, color: 'yellow' },
-  { value: '248', label: 'Arrests in 4-week blitz (2026)', icon: Shield, color: 'teal' },
+  { value: '78,000', label: 'Snatch thefts UK (CSEW, YE Mar 2024)', icon: AlertTriangle },
+  { value: '117,211', label: 'London (2024, Met FOI)', icon: MapPin },
+  { value: '−12.3%', label: 'Fall in London 2025 (Met)', icon: TrendingUp },
+  { value: '248', label: 'Arrests in 4-week blitz (2026)', icon: Shield },
 ];
 
 // Phones recorded stolen in London, calendar years 2019-2024: Met Police FOI
@@ -86,7 +80,7 @@ const maxYearlyThefts = Math.max(...yearlyTrend.map((y) => y.thefts));
 
 <Layout
   title="UK Phone Theft Statistics | Live Data, London Crime Hotspots & Trends"
-  description="117,211 phones were stolen in London in 2024; thefts fell 12% in 2025. See live theft trends, London hotspots, borough data, seasonal patterns. Updated monthly from police.uk data."
+  description="117,211 phones were stolen in London in 2024; thefts fell 12% in 2025. See live theft trends, London hotspots, borough data and city comparisons. Updated monthly from police.uk data."
   canonicalPath="/statistics"
   schema={statisticsSchema}
 >
@@ -121,7 +115,7 @@ const maxYearlyThefts = Math.max(...yearlyTrend.map((y) => y.thefts));
         <div class="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3">
           {keyStats.map((stat) => (
             <div class="bg-background/10 rounded-xl p-3 sm:p-4 text-center">
-              <div class="text-xl sm:text-2xl md:text-3xl font-bold">{stat.value}</div>
+              <div class="text-xl sm:text-2xl md:text-3xl font-bold tabular-nums">{stat.value}</div>
               <div class="text-xs text-neutral-400 mt-1">{stat.label}</div>
             </div>
           ))}
@@ -190,24 +184,27 @@ const maxYearlyThefts = Math.max(...yearlyTrend.map((y) => y.thefts));
             </p>
 
             <div class="space-y-3">
-              {londonHotspots.map((spot) => (
-                <div class="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-neutral rounded-xl">
-                  <span class={`size-6 sm:size-8 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 ${spot.rank === 1 ? 'bg-destructive text-destructive-foreground' : spot.rank <= 3 ? 'bg-foreground text-background' : 'bg-neutral-300 text-foreground'}`}>
-                    {spot.rank}
-                  </span>
-                  <div class="flex-1 min-w-0">
-                    <div class="flex items-baseline gap-2">
-                      <h3 class="font-bold text-foreground text-xs sm:text-sm md:text-base">{spot.area}</h3>
-                      <span class="text-destructive font-semibold text-xs sm:text-sm">{spot.thefts}</span>
+              {topHotspots.map((spot, i) => {
+                const rank = i + 1;
+                return (
+                  <div class="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-neutral rounded-xl">
+                    <span class={`size-6 sm:size-8 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 tabular-nums ${rank === 1 ? 'bg-destructive text-destructive-foreground' : rank <= 3 ? 'bg-foreground text-background' : 'bg-neutral-300 text-foreground'}`}>
+                      {rank}
+                    </span>
+                    <div class="flex-1 min-w-0">
+                      <div class="flex items-baseline gap-2">
+                        <h3 class="font-bold text-foreground text-xs sm:text-sm md:text-base">{spot.borough}</h3>
+                        <span class="text-destructive font-semibold text-xs sm:text-sm tabular-nums">{spot.thefts.toLocaleString('en-GB')}</span>
+                      </div>
+                      <p class="text-xs text-muted-foreground truncate">{spot.description}</p>
                     </div>
-                    <p class="text-xs text-muted-foreground truncate">{spot.description}</p>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
             <p class="text-xs text-muted-foreground mt-4">
-              Source: police.uk recorded crime data, 12 months to June 2026 (theft from the person within ~1 mile of each borough centre)
+              Source: <a href={hotspotsSource.sourceUrl} target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">{hotspotsSource.sourceName}</a> (theft from the person within ~1 mile of each borough centre).
             </p>
           </div>
         </div>
@@ -239,7 +236,7 @@ const maxYearlyThefts = Math.max(...yearlyTrend.map((y) => y.thefts));
                         <span class="text-xs text-muted-foreground">({city.year})</span>
                       </div>
                       <div class="text-right">
-                        <span class="font-bold text-foreground text-xs sm:text-sm md:text-base">{city.thefts.toLocaleString()}</span>
+                        <span class="font-bold text-foreground text-xs sm:text-sm md:text-base tabular-nums">{city.thefts.toLocaleString()}</span>
                         <span class="text-xs text-destructive ml-1 sm:ml-2">{city.change}</span>
                       </div>
                     </div>
@@ -253,169 +250,10 @@ const maxYearlyThefts = Math.max(...yearlyTrend.map((y) => y.thefts));
                 );
               })}
             </div>
-          </div>
-        </div>
-      </section>
 
-      <!-- Time of Day Analysis -->
-      <section class="mb-6 sm:mb-8 md:mb-10">
-        <div class="bg-card rounded-xl sm:rounded-2xl  overflow-hidden border border-border">
-          <div class="h-1 bg-foreground"></div>
-          <div class="p-4 sm:p-6 md:p-8">
-            <div class="flex items-center gap-3 mb-2">
-              <Clock className="size-6 sm:size-8 text-foreground" />
-              <h2 class="text-lg sm:text-xl font-bold">When Do Thefts Happen?</h2>
-            </div>
-            <p class="text-muted-foreground text-xs sm:text-sm md:text-base mb-6">
-              Time-of-day breakdown showing peak risk periods. Knowing when you're most vulnerable helps you stay alert.
+            <p class="text-xs text-muted-foreground mt-4">
+              Source: <a href={hotspotsSource.sourceUrl} target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">{hotspotsSource.sourceName}</a>. London borough figures come from the shared hotspot dataset.
             </p>
-
-            <div class="space-y-5">
-              <div role="img" aria-label="Evening Rush 5pm to 7pm: 32% of thefts, Highest Risk">
-                <div class="flex justify-between items-center mb-2">
-                  <div class="flex items-center gap-2">
-                    <span class="inline-flex items-center justify-center size-6 bg-destructive-muted rounded-full" aria-hidden="true">
-                      <svg class="size-4 text-destructive" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
-                    </span>
-                    <span class="font-bold text-foreground text-xs sm:text-sm md:text-base">Evening Rush</span>
-                    <span class="text-xs sm:text-sm text-muted-foreground">5pm - 7pm</span>
-                  </div>
-                  <span class="text-lg sm:text-xl font-bold text-destructive">32%</span>
-                </div>
-                <div class="w-full bg-neutral-100 rounded-full h-3 sm:h-4 md:h-5 overflow-hidden">
-                  <div class="bg-destructive h-3 sm:h-4 md:h-5 rounded-full flex items-center justify-end pr-2" style="width: 100%">
-                    <span class="text-destructive-foreground text-xs font-bold hidden sm:inline">Highest Risk</span>
-                  </div>
-                </div>
-              </div>
-
-              <div role="img" aria-label="Late Night 10pm to 2am: 28% of thefts, High Risk">
-                <div class="flex justify-between items-center mb-2">
-                  <div class="flex items-center gap-2">
-                    <span class="inline-flex items-center justify-center size-6 bg-neutral-100 rounded-full" aria-hidden="true">
-                      <svg class="size-4 text-foreground" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
-                    </span>
-                    <span class="font-bold text-foreground text-xs sm:text-sm md:text-base">Late Night</span>
-                    <span class="text-xs sm:text-sm text-muted-foreground">10pm - 2am</span>
-                  </div>
-                  <span class="text-lg sm:text-xl font-bold text-foreground">28%</span>
-                </div>
-                <div class="w-full bg-neutral-100 rounded-full h-3 sm:h-4 md:h-5 overflow-hidden">
-                  <div class="bg-neutral-100 h-3 sm:h-4 md:h-5 rounded-full" style="width: 87.5%"></div>
-                </div>
-              </div>
-
-              <div role="img" aria-label="Morning Rush 7am to 9am: 18% of thefts, Moderate Risk">
-                <div class="flex justify-between items-center mb-2">
-                  <div class="flex items-center gap-2">
-                    <span class="inline-flex items-center justify-center size-6 bg-neutral-100 rounded-full" aria-hidden="true">
-                      <svg class="size-4 text-foreground" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
-                    </span>
-                    <span class="font-bold text-foreground text-xs sm:text-sm md:text-base">Morning Rush</span>
-                    <span class="text-xs sm:text-sm text-muted-foreground">7am - 9am</span>
-                  </div>
-                  <span class="text-lg sm:text-xl font-bold text-foreground">18%</span>
-                </div>
-                <div class="w-full bg-neutral-100 rounded-full h-3 sm:h-4 md:h-5 overflow-hidden">
-                  <div class="bg-neutral-100 h-3 sm:h-4 md:h-5 rounded-full" style="width: 56%"></div>
-                </div>
-              </div>
-
-              <div role="img" aria-label="Afternoon 12pm to 5pm: 15% of thefts, Lower Risk">
-                <div class="flex justify-between items-center mb-2">
-                  <div class="flex items-center gap-2">
-                    <span class="inline-flex items-center justify-center size-6 bg-primary-muted rounded-full" aria-hidden="true">
-                      <svg class="size-4 text-primary" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                    </span>
-                    <span class="font-bold text-foreground text-xs sm:text-sm md:text-base">Afternoon</span>
-                    <span class="text-xs sm:text-sm text-muted-foreground">12pm - 5pm</span>
-                  </div>
-                  <span class="text-lg sm:text-xl font-bold text-primary">15%</span>
-                </div>
-                <div class="w-full bg-neutral-100 rounded-full h-3 sm:h-4 md:h-5 overflow-hidden">
-                  <div class="bg-neutral-100 h-3 sm:h-4 md:h-5 rounded-full" style="width: 47%"></div>
-                </div>
-              </div>
-
-              <div role="img" aria-label="Other Times 2am to 7am and 9am to 12pm: 7% of thefts, Lowest Risk">
-                <div class="flex justify-between items-center mb-2">
-                  <div class="flex items-center gap-2">
-                    <span class="inline-flex items-center justify-center size-6 bg-neutral-100 rounded-full" aria-hidden="true">
-                      <svg class="size-4 text-muted-foreground" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                    </span>
-                    <span class="font-bold text-foreground text-xs sm:text-sm md:text-base">Other Times</span>
-                    <span class="text-xs sm:text-sm text-muted-foreground">2am - 7am, 9am - 12pm</span>
-                  </div>
-                  <span class="text-lg sm:text-xl font-bold text-muted-foreground">7%</span>
-                </div>
-                <div class="w-full bg-neutral-100 rounded-full h-3 sm:h-4 md:h-5 overflow-hidden">
-                  <div class="bg-neutral-400 h-3 sm:h-4 md:h-5 rounded-full" style="width: 22%"></div>
-                </div>
-              </div>
-            </div>
-
-            <div class="mt-6 p-4 bg-neutral-100 border border-border rounded-xl">
-              <p class="text-xs sm:text-sm text-foreground">
-                <strong>Stay Alert:</strong> Be extra vigilant during evening rush hour and late at night. Keep devices secure and be aware of your surroundings.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Seasonal Patterns -->
-      <section class="mb-6 sm:mb-8 md:mb-10">
-        <div class="bg-card rounded-xl sm:rounded-2xl  overflow-hidden border border-border">
-          <div class="h-1 bg-foreground"></div>
-          <div class="p-4 sm:p-6 md:p-8">
-            <div class="flex items-center gap-3 mb-2">
-              <Calendar className="size-6 sm:size-8 text-foreground" />
-              <h2 class="text-lg sm:text-xl font-bold">Seasonal Patterns</h2>
-            </div>
-            <p class="text-muted-foreground text-xs sm:text-sm md:text-base mb-6">
-              How theft rates change throughout the year. Understanding seasonal patterns helps you prepare.
-            </p>
-
-            <div class="grid md:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
-              <div class="bg-neutral-100 border border-border rounded-xl p-4 sm:p-5">
-                <div class="flex items-center gap-2 mb-3">
-                  <Sun className="size-5 text-foreground" />
-                  <h3 class="font-bold text-foreground text-xs sm:text-sm md:text-base">Summer Spike</h3>
-                </div>
-                <p class="text-xs sm:text-sm text-foreground mb-2">
-                  <strong>June - August:</strong> Thefts rise 25-30%
-                </p>
-                <p class="text-xs text-muted-foreground">
-                  Outdoor dining, festivals, and tourists with phones out create more opportunities. "Table surfing" peaks.
-                </p>
-              </div>
-
-              <div class="bg-destructive-subtle border border-destructive-muted rounded-xl p-4 sm:p-5">
-                <div class="flex items-center gap-2 mb-3">
-                  <Snowflake className="size-5 text-destructive" />
-                  <h3 class="font-bold text-foreground text-xs sm:text-sm md:text-base">December Danger</h3>
-                </div>
-                <p class="text-xs sm:text-sm text-foreground mb-2">
-                  <strong>December:</strong> Secondary peak (+20%)
-                </p>
-                <p class="text-xs text-muted-foreground">
-                  Christmas shopping crowds, holiday parties, and reduced awareness due to alcohol consumption.
-                </p>
-              </div>
-
-              <div class="bg-primary-subtle border border-border rounded-xl p-4 sm:p-5">
-                <div class="flex items-center gap-2 mb-3">
-                  <Leaf className="size-5 text-primary" />
-                  <h3 class="font-bold text-foreground text-xs sm:text-sm md:text-base">Winter Lull</h3>
-                </div>
-                <p class="text-xs sm:text-sm text-foreground mb-2">
-                  <strong>January - February:</strong> Lowest rates
-                </p>
-                <p class="text-xs text-muted-foreground">
-                  Fewer people outdoors, darker evenings keep people home, reduced social activity post-holidays.
-                </p>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -468,7 +306,7 @@ const maxYearlyThefts = Math.max(...yearlyTrend.map((y) => y.thefts));
       <!-- Data Sources & Methodology -->
       <section class="mb-6 sm:mb-8 md:mb-10">
         <div class="bg-card rounded-xl sm:rounded-2xl  p-4 sm:p-6 border border-border">
-          <h3 class="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3">Sources &amp; Methodology</h3>
+          <h2 class="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3">Sources &amp; Methodology</h2>
           <div class="grid sm:grid-cols-2 gap-3 text-xs text-muted-foreground mb-4">
             <div class="flex items-start gap-2">
               <Shield className="size-4 text-muted-foreground mt-0.5 flex-shrink-0" />

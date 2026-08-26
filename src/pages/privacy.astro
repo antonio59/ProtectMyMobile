@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
-import { Shield, Eye, Lock, Database, Mail, Cookie } from 'lucide-react';
+import { Shield, Eye, Lock, Database, Mail, Cookie, Scale, Clock, Globe, UserCheck } from 'lucide-react';
 ---
 
 <Layout 
@@ -14,7 +14,7 @@ import { Shield, Eye, Lock, Database, Mail, Cookie } from 'lucide-react';
   <main id="main-content" class="bg-background min-h-screen">
     <div class="container mx-auto px-4 py-4 sm:py-6 max-w-4xl">
       <!-- Hero Section -->
-      <div class="bg-foreground text-background rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8 ">
+      <div class="bg-foreground text-background rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8">
         <div class="flex items-center gap-3 mb-3">
           <div class="bg-background/20 p-2 sm:p-3 rounded-xl">
             <Shield className="size-6 sm:size-8" />
@@ -22,137 +22,250 @@ import { Shield, Eye, Lock, Database, Mail, Cookie } from 'lucide-react';
           <h1 class="text-xl sm:text-2xl md:text-3xl font-bold">Privacy Policy</h1>
         </div>
         <p class="text-neutral-300 text-sm md:text-base">
-          Last updated: December 2024
+          Last updated: August 2026
         </p>
       </div>
       
       <!-- Content -->
-      <div class="bg-card rounded-xl sm:rounded-2xl  overflow-hidden border border-border">
+      <div class="bg-card rounded-xl sm:rounded-2xl overflow-hidden border border-border">
         <div class="p-4 sm:p-6 md:p-8 space-y-6 sm:space-y-8">
           
           <!-- Introduction -->
           <section>
             <p class="text-foreground text-xs sm:text-sm">
-              At ProtectMyMobile, I take your privacy seriously. This policy explains what information I collect, how I use it, and your rights regarding your data.
+              This policy explains what personal data I collect through ProtectMyMobile, why I collect it, how long I keep it, and what rights you have over it under the UK GDPR and the Data Protection Act 2018. I have tried to write it in plain English rather than legal boilerplate.
             </p>
           </section>
-          
-          <!-- What We Collect -->
+
+          <!-- Who runs this site -->
           <section>
             <div class="flex items-center gap-3 mb-4">
               <div class="bg-neutral-100 rounded-lg sm:rounded-xl p-1.5 sm:p-2">
-                <Database className="size-4 sm:size-5 text-foreground" />
+                <UserCheck aria-hidden="true" className="size-4 sm:size-5 text-foreground" />
               </div>
-              <h2 class="text-base sm:text-lg font-bold">What I Collect</h2>
+              <h2 class="text-base sm:text-lg font-bold">Who Runs This Site</h2>
             </div>
-            <div class="space-y-4 text-foreground">
-              <div>
-                <h3 class="font-semibold mb-2 text-xs sm:text-sm">Information you provide:</h3>
-                <ul class="list-disc pl-6 space-y-1 text-xs sm:text-sm">
-                  <li>Contact form submissions (name, email, message)</li>
-                  <li>Community survey responses (anonymised)</li>
-                  <li>Newsletter subscriptions (email only)</li>
-                </ul>
-              </div>
-              <div>
-                <h3 class="font-semibold mb-2 text-xs sm:text-sm">Automatically collected:</h3>
-                <ul class="list-disc pl-6 space-y-1 text-xs sm:text-sm">
-                  <li>Anonymous page view analytics <em>(self-hosted via Convex, no third parties)</em></li>
-                  <li>Browser type and device category</li>
-                  <li>Referring website</li>
-                </ul>
-              </div>
+            <div class="space-y-3 text-foreground text-xs sm:text-sm">
+              <p>
+                ProtectMyMobile is run by me, Antonio Smith, as an individual working as a sole trader. There is no company behind it. That makes me the data controller for everything described on this page.
+              </p>
+              <p>
+                The route for any data protection request, question or complaint is my <a href="/contact-us" class="text-primary hover:underline">contact form</a>. I do not publish a postal address on the site, but a correspondence address is available on request if you need one for a formal request.
+                <!-- TODO: add correspondence address before publishing -->
+              </p>
             </div>
           </section>
-          
-          <!-- What We DON'T Collect -->
+
+          <!-- What I collect, why, and for how long -->
+          <section>
+            <div class="flex items-center gap-3 mb-4">
+              <div class="bg-neutral-100 rounded-lg sm:rounded-xl p-1.5 sm:p-2">
+                <Database aria-hidden="true" className="size-4 sm:size-5 text-foreground" />
+              </div>
+              <h2 class="text-base sm:text-lg font-bold">What I Collect, Why, and For How Long</h2>
+            </div>
+            <p class="text-foreground text-xs sm:text-sm mb-4">
+              Each thing I collect is listed below with the reason I collect it, the lawful basis I rely on under the UK GDPR, and how long I keep it.
+            </p>
+            <div class="space-y-5 text-foreground text-xs sm:text-sm">
+
+              <div>
+                <h3 class="font-semibold mb-1.5">Contact form messages</h3>
+                <p>Your name, email address, subject and message.</p>
+                <ul class="list-disc pl-6 space-y-1 mt-1.5">
+                  <li><strong>Why:</strong> so I can read your message and reply to you.</li>
+                  <li><strong>Lawful basis:</strong> legitimate interests &mdash; you have chosen to write to me and expect an answer.</li>
+                  <li><strong>Retention:</strong> kept while I still need it to deal with your message and any follow-up, then deleted.
+                    <!-- TODO: confirm a specific retention period for contact messages before publishing --></li>
+                </ul>
+              </div>
+
+              <div>
+                <h3 class="font-semibold mb-1.5">Community survey responses</h3>
+                <p>Your answers to the multiple-choice survey questions, a random session identifier generated in your browser, your browser's user agent string, and a one-way hash of your IP address. The IP address itself is not stored, and the survey does not ask for your name or email.</p>
+                <ul class="list-disc pl-6 space-y-1 mt-1.5">
+                  <li><strong>Why:</strong> to produce the statistics published on this site, and to spot duplicate or automated submissions.</li>
+                  <li><strong>Lawful basis:</strong> consent &mdash; you choose whether to submit the survey.</li>
+                  <li><strong>Retention:</strong> kept while the statistics drawn from them are still published.
+                    <!-- TODO: confirm a specific retention period for survey responses before publishing --></li>
+                </ul>
+              </div>
+
+              <div>
+                <h3 class="font-semibold mb-1.5">Experience reports</h3>
+                <p>If you submit your story through the report-an-experience form: your name, email address and the account you write.</p>
+                <ul class="list-disc pl-6 space-y-1 mt-1.5">
+                  <li><strong>Why:</strong> so I can review it and, if you have agreed, publish it to help other people.</li>
+                  <li><strong>Lawful basis:</strong> consent.</li>
+                  <li><strong>Retention:</strong> published reports stay until you ask me to take yours down; reports I do not publish are deleted after review.
+                    <!-- TODO: confirm how long unpublished experience reports are kept before publishing --></li>
+                </ul>
+              </div>
+
+              <div>
+                <h3 class="font-semibold mb-1.5">Theft map reports</h3>
+                <p>The location name, approximate coordinates, date, item type and free-text description you enter, plus a random session identifier. No name or email is collected.</p>
+                <ul class="list-disc pl-6 space-y-1 mt-1.5">
+                  <li><strong>Why:</strong> to build the crowd-sourced theft map. Please do not put personal details about yourself or anyone else in the description &mdash; approved reports are shown publicly.</li>
+                  <li><strong>Lawful basis:</strong> consent.</li>
+                  <li><strong>Retention:</strong> kept while the report is displayed on the map.
+                    <!-- TODO: confirm a specific retention period for map reports before publishing --></li>
+                </ul>
+              </div>
+
+              <div>
+                <h3 class="font-semibold mb-1.5">Site analytics</h3>
+                <p>The site keeps its own simple usage log. When you view certain pages or use certain features &mdash; including landing on a page that does not exist &mdash; a record is written to my own database containing the page path or address, your browser's user agent string, the page that referred you, and a random session identifier. There are no analytics cookies and no third-party trackers of any kind: nothing is sent to Google Analytics, advertising networks or similar services.</p>
+                <ul class="list-disc pl-6 space-y-1 mt-1.5">
+                  <li><strong>Why:</strong> to see which guides people actually use, and to find broken links and missing pages.</li>
+                  <li><strong>Lawful basis:</strong> legitimate interests &mdash; running and fixing my own site, using the smallest amount of data I can.</li>
+                  <li><strong>Retention:</strong> kept while it is useful for improving the site, then deleted.
+                    <!-- TODO: confirm a specific retention period for analytics records before publishing --></li>
+                </ul>
+              </div>
+
+            </div>
+          </section>
+
+          <!-- What I DON'T Collect -->
           <section class="bg-neutral-100 border border-border rounded-lg sm:rounded-xl p-4 sm:p-6">
             <div class="flex items-center gap-3 mb-4">
               <div class="bg-neutral-100 rounded-lg sm:rounded-xl p-1.5 sm:p-2">
-                <Eye className="size-4 sm:size-5 text-foreground" />
+                <Eye aria-hidden="true" className="size-4 sm:size-5 text-foreground" />
               </div>
               <h2 class="text-base sm:text-lg font-bold text-foreground">What I DON'T Collect</h2>
             </div>
             <ul class="space-y-2 text-foreground">
               <li class="flex items-center gap-2 text-xs sm:text-sm">
-                <Lock className="size-4" />
+                <Lock aria-hidden="true" className="size-4" />
                 <span>Your IMEI number or device identifiers</span>
               </li>
               <li class="flex items-center gap-2 text-xs sm:text-sm">
-                <Lock className="size-4" />
+                <Lock aria-hidden="true" className="size-4" />
                 <span>Your banking or financial information</span>
               </li>
               <li class="flex items-center gap-2 text-xs sm:text-sm">
-                <Lock className="size-4" />
+                <Lock aria-hidden="true" className="size-4" />
                 <span>Your precise location</span>
               </li>
               <li class="flex items-center gap-2 text-xs sm:text-sm">
-                <Lock className="size-4" />
+                <Lock aria-hidden="true" className="size-4" />
                 <span>Personal identification documents</span>
               </li>
             </ul>
+            <p class="text-foreground text-xs sm:text-sm mt-4">
+              I also do not sell personal data, share it for advertising, or use it to make automated decisions about you.
+            </p>
           </section>
-          
-          <!-- How We Use Data -->
-          <section>
-            <div class="flex items-center gap-3 mb-4">
-              <div class="bg-neutral-100/10 rounded-lg sm:rounded-xl p-1.5 sm:p-2">
-                <Lock className="size-4 sm:size-5 text-foreground" />
-              </div>
-              <h2 class="text-base sm:text-lg font-bold">How I Use Your Data</h2>
-            </div>
-            <ul class="list-disc pl-6 space-y-2 text-foreground text-xs sm:text-sm">
-              <li>To respond to your contact form inquiries</li>
-              <li>To improve my guides and resources based on community feedback</li>
-              <li>To understand how the site is used and make improvements</li>
-              <li>To send newsletters (only if you've subscribed)</li>
-            </ul>
-          </section>
-          
+
           <!-- Cookies -->
           <section>
             <div class="flex items-center gap-3 mb-4">
               <div class="bg-neutral-100 rounded-lg sm:rounded-xl p-1.5 sm:p-2">
-                <Cookie className="size-4 sm:size-5 text-foreground" />
+                <Cookie aria-hidden="true" className="size-4 sm:size-5 text-foreground" />
               </div>
-              <h2 class="text-base sm:text-lg font-bold">Cookies</h2>
+              <h2 class="text-base sm:text-lg font-bold">Cookies and Local Storage</h2>
             </div>
-            <p class="text-foreground text-xs sm:text-sm mb-3">
-              This site uses only essential cookies required for the website to function. No advertising or third-party tracking cookies are set.
-            </p>
+            <div class="space-y-3 text-foreground text-xs sm:text-sm">
+              <p>
+                No advertising cookies and no third-party tracking cookies are set on this site. The cookie banner you may have seen at the bottom of the page is a notice only &mdash; there is nothing to accept or reject, because the analytics described above do not use cookies at all.
+              </p>
+              <p>
+                Dismissing that banner stores a single flag in your browser's local storage so it does not come back. A few other small flags are stored the same way, for example to remember that you have already answered a one-question survey. All of that stays on your device and is never sent to me.
+              </p>
+            </div>
           </section>
-          
-          <!-- Third Parties -->
+
+          <!-- Who else processes it -->
           <section>
-            <h2 class="text-base sm:text-lg font-bold mb-3">Third-Party Services</h2>
-            <p class="text-foreground text-xs sm:text-sm mb-3">I use the following services:</p>
-            <ul class="list-disc pl-6 space-y-1 text-foreground text-xs sm:text-sm">
-              <li><strong>Convex</strong> - Database hosting (EU servers)</li>
-              <li><strong>Netlify</strong> - Website hosting</li>
-              <li><strong>Resend</strong> - Email delivery</li>
+            <div class="flex items-center gap-3 mb-4">
+              <div class="bg-neutral-100 rounded-lg sm:rounded-xl p-1.5 sm:p-2">
+                <Shield aria-hidden="true" className="size-4 sm:size-5 text-foreground" />
+              </div>
+              <h2 class="text-base sm:text-lg font-bold">Who Else Handles Your Data</h2>
+            </div>
+            <p class="text-foreground text-xs sm:text-sm mb-3">I use three suppliers, each acting as a processor on my instructions:</p>
+            <ul class="list-disc pl-6 space-y-1.5 text-foreground text-xs sm:text-sm">
+              <li><strong>Convex</strong> &mdash; the database and backend that stores contact messages, survey responses, reports and analytics records.</li>
+              <li><strong>Netlify</strong> &mdash; website hosting and the serverless functions that handle form submissions. Netlify keeps its own short-lived server logs.</li>
+              <li><strong>Resend</strong> &mdash; email delivery, used to send replies and notifications.</li>
             </ul>
           </section>
-          
+
+          <!-- International transfers -->
+          <section>
+            <div class="flex items-center gap-3 mb-4">
+              <div class="bg-neutral-100 rounded-lg sm:rounded-xl p-1.5 sm:p-2">
+                <Globe aria-hidden="true" className="size-4 sm:size-5 text-foreground" />
+              </div>
+              <h2 class="text-base sm:text-lg font-bold">Transfers Outside the UK</h2>
+            </div>
+            <div class="space-y-3 text-foreground text-xs sm:text-sm">
+              <p>
+                Netlify and Resend are United States companies, so personal data handled by them may be processed outside the UK.
+              </p>
+              <p>
+                Where personal data is transferred outside the UK, I rely on the UK International Data Transfer Agreement (IDTA), or the UK Addendum to the European Commission's Standard Contractual Clauses, as incorporated into each supplier's terms, where those mechanisms apply.
+                <!-- TODO: confirm and record the transfer mechanism each supplier actually offers, and where Convex stores data, before publishing -->
+              </p>
+            </div>
+          </section>
+
           <!-- Your Rights -->
           <section>
-            <h2 class="text-base sm:text-lg font-bold mb-3">Your Rights</h2>
-            <p class="text-foreground text-xs sm:text-sm mb-3">Under UK GDPR, you have the right to:</p>
-            <ul class="list-disc pl-6 space-y-1 text-foreground text-xs sm:text-sm">
-              <li>Access the personal data I hold about you</li>
-              <li>Request correction of inaccurate data</li>
-              <li>Request deletion of your data</li>
-              <li>Withdraw consent at any time</li>
+            <div class="flex items-center gap-3 mb-4">
+              <div class="bg-neutral-100 rounded-lg sm:rounded-xl p-1.5 sm:p-2">
+                <Scale aria-hidden="true" className="size-4 sm:size-5 text-foreground" />
+              </div>
+              <h2 class="text-base sm:text-lg font-bold">Your Rights</h2>
+            </div>
+            <p class="text-foreground text-xs sm:text-sm mb-3">Under the UK GDPR you have the right to:</p>
+            <ul class="list-disc pl-6 space-y-1.5 text-foreground text-xs sm:text-sm">
+              <li><strong>Be informed</strong> about how your data is used &mdash; which is what this page is for.</li>
+              <li><strong>Access</strong> the personal data I hold about you, and get a copy of it.</li>
+              <li><strong>Rectification</strong> &mdash; have inaccurate data corrected or incomplete data completed.</li>
+              <li><strong>Erasure</strong> &mdash; ask me to delete your data.</li>
+              <li><strong>Restrict processing</strong> &mdash; ask me to keep your data but stop using it, for example while a dispute about its accuracy is sorted out.</li>
+              <li><strong>Object to processing</strong> &mdash; including objecting at any time to anything I do on the basis of legitimate interests.</li>
+              <li><strong>Data portability</strong> &mdash; receive the data you gave me in a common, machine-readable format, or have me send it to someone else where that is technically possible.</li>
+              <li><strong>Withdraw consent</strong> at any time, where I rely on consent. Withdrawing consent does not undo what was done before you withdrew it.</li>
+              <li><strong>Not be subject to automated decision-making</strong> &mdash; I do not do any.</li>
             </ul>
+            <p class="text-foreground text-xs sm:text-sm mt-3">
+              To exercise any of these, use my <a href="/contact-us" class="text-primary hover:underline">contact form</a>. It is free, and I will respond within one month. I may need to ask you something to confirm which submission is yours, since most of the site does not use accounts.
+            </p>
           </section>
-          
+
+          <!-- Complaints -->
+          <section>
+            <div class="flex items-center gap-3 mb-4">
+              <div class="bg-neutral-100 rounded-lg sm:rounded-xl p-1.5 sm:p-2">
+                <Clock aria-hidden="true" className="size-4 sm:size-5 text-foreground" />
+              </div>
+              <h2 class="text-base sm:text-lg font-bold">Complaints</h2>
+            </div>
+            <p class="text-foreground text-xs sm:text-sm">
+              If you are unhappy with how I have handled your personal data, please tell me first so I can put it right. You also have the right to complain to the Information Commissioner's Office, the UK's data protection regulator, at <a href="https://ico.org.uk" class="text-primary hover:underline" rel="noopener noreferrer" target="_blank">ico.org.uk</a>, or on 0303 123 1113.
+            </p>
+          </section>
+
+          <!-- Changes -->
+          <section>
+            <h2 class="text-base sm:text-lg font-bold mb-3">Changes to This Policy</h2>
+            <p class="text-foreground text-xs sm:text-sm">
+              If what I collect or how I use it changes, I will update this page and change the date at the top. Significant changes will be flagged on the site.
+            </p>
+          </section>
+
           <!-- Contact -->
           <section class="bg-neutral-100 rounded-lg sm:rounded-xl p-4 sm:p-6">
             <div class="flex items-center gap-3 mb-3">
-              <Mail className="size-4 sm:size-5 text-muted-foreground" />
-              <h2 class="text-base sm:text-lg font-bold">Contact Us</h2>
+              <Mail aria-hidden="true" className="size-4 sm:size-5 text-muted-foreground" />
+              <h2 class="text-base sm:text-lg font-bold">Contact</h2>
             </div>
             <p class="text-foreground text-xs sm:text-sm">
-              For privacy-related inquiries, please use my <a href="/contact-us" class="text-primary hover:underline">contact form</a>.
+              For anything to do with privacy or your data, please use my <a href="/contact-us" class="text-primary hover:underline">contact form</a>. A correspondence address is available on request.
+              <!-- TODO: add correspondence address before publishing -->
             </p>
           </section>
           

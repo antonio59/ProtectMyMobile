@@ -30,26 +30,26 @@ import { MapPin, Shield, Info } from "lucide-react";
 
         <!-- Stats Bar -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
-          <div class="bg-card rounded-xl p-4  text-center">
+          <div class="bg-card rounded-xl p-4 text-center">
             <div class="text-2xl sm:text-3xl font-bold text-destructive" id="stat-reported">-</div>
             <div class="text-xs sm:text-sm text-muted-foreground">Reports</div>
           </div>
-          <div class="bg-card rounded-xl p-4  text-center">
+          <div class="bg-card rounded-xl p-4 text-center">
             <div class="text-2xl sm:text-3xl font-bold text-primary" id="stat-this-month">-</div>
             <div class="text-xs sm:text-sm text-muted-foreground">This Month</div>
           </div>
-          <div class="bg-card rounded-xl p-4  text-center">
+          <div class="bg-card rounded-xl p-4 text-center">
             <div class="text-2xl sm:text-3xl font-bold text-foreground" id="stat-london">-</div>
             <div class="text-xs sm:text-sm text-muted-foreground">London Reports</div>
           </div>
-          <div class="bg-card rounded-xl p-4  text-center">
+          <div class="bg-card rounded-xl p-4 text-center">
             <div class="text-2xl sm:text-3xl font-bold text-foreground" id="stat-last-7">-</div>
             <div class="text-xs sm:text-sm text-muted-foreground">Last 7 Days</div>
           </div>
         </div>
 
         <!-- Map Container -->
-        <div class="bg-card rounded-xl  overflow-hidden mb-6 sm:mb-8 relative">
+        <div class="bg-card rounded-xl overflow-hidden mb-6 sm:mb-8 relative">
           <div id="theft-map" class="w-full h-[400px] sm:h-[500px] md:h-[600px]"></div>
           <div id="map-overlay" class="absolute inset-0 bg-card/90 flex items-center justify-center hidden z-[1000]">
             <div class="text-center px-4">
@@ -133,6 +133,28 @@ import { MapPin, Shield, Info } from "lucide-react";
       });
     }
 
+    // Read the site's own tokens so the map matches the design system.
+    function tokenColor(name: string, fallback: string) {
+      const value = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+      return value || fallback;
+    }
+
+    // Popups are built as DOM nodes, never HTML strings: locationName and
+    // description come from public crowd-sourced submissions and must never
+    // be parsed as markup.
+    function buildPopup(parts: Array<{ text: string; className: string }>) {
+      const wrap = document.createElement('div');
+      wrap.className = 'font-sans';
+      parts.forEach((part) => {
+        if (!part.text) return;
+        const line = document.createElement('p');
+        line.className = part.className;
+        line.textContent = part.text;
+        wrap.appendChild(line);
+      });
+      return wrap;
+    }
+
     async function initMap() {
       await loadScript('https://unpkg.com/leaflet@1.9.4/dist/leaflet.js');
       const L = (window as any).L;
@@ -195,6 +217,9 @@ import { MapPin, Shield, Info } from "lucide-react";
           reports.filter((r: any) => r.createdAt > sevenDaysAgo).length
         );
 
+        const colorForeground = tokenColor('--color-foreground', '#16130F');
+        const colorDestructive = tokenColor('--color-destructive', '#c8322b');
+
         const markers: any[] = [];
 
         // Add FOI data points (ink, larger, lower opacity)
@@ -203,20 +228,23 @@ import { MapPin, Shield, Info } from "lucide-react";
             const radius = Math.min(20, Math.max(6, Math.sqrt(p.theftCount) * 1.5));
             const marker = L.circleMarker([p.latitude, p.longitude], {
               radius,
-              fillColor: '#16130F',
+              fillColor: colorForeground,
               color: '#fff',
               weight: 1,
               opacity: 0.6,
               fillOpacity: 0.35,
             }).addTo(map);
 
-            marker.bindPopup(`
-              <div class="font-sans">
-                <p class="font-semibold text-sm">${p.locationName || 'Unknown'}</p>
-                <p class="text-xs text-muted-foreground">${p.date || ''}</p>
-                <p class="text-xs text-primary mt-1 font-medium">${p.theftCount} thefts (police data)</p>
-              </div>
-            `);
+            marker.bindPopup(
+              buildPopup([
+                { text: String(p.locationName || 'Unknown'), className: 'font-semibold text-sm' },
+                { text: String(p.date || ''), className: 'text-xs text-muted-foreground' },
+                {
+                  text: `${p.theftCount} thefts (police data)`,
+                  className: 'text-xs text-primary mt-1 font-medium',
+                },
+              ])
+            );
             markers.push(marker);
           }
         });
@@ -226,7 +254,7 @@ import { MapPin, Shield, Info } from "lucide-react";
           if (r.latitude && r.longitude) {
             const marker = L.circleMarker([r.latitude, r.longitude], {
               radius: 8,
-              fillColor: '#dc2626',
+              fillColor: colorDestructive,
               color: '#fff',
               weight: 2,
               opacity: 1,
@@ -237,14 +265,14 @@ import { MapPin, Shield, Info } from "lucide-react";
               ? new Date(r.theftDate).toLocaleDateString('en-GB')
               : 'Date unknown';
 
-            marker.bindPopup(`
-              <div class="font-sans">
-                <p class="font-semibold text-sm">${r.locationName || 'Unknown location'}</p>
-                <p class="text-xs text-muted-foreground">${dateStr}</p>
-                ${r.description ? `<p class="text-xs mt-1">${r.description}</p>` : ''}
-                <p class="text-xs text-destructive mt-1 font-medium">Crowdsourced report</p>
-              </div>
-            `);
+            marker.bindPopup(
+              buildPopup([
+                { text: String(r.locationName || 'Unknown location'), className: 'font-semibold text-sm' },
+                { text: dateStr, className: 'text-xs text-muted-foreground' },
+                { text: r.description ? String(r.description) : '', className: 'text-xs mt-1' },
+                { text: 'Crowdsourced report', className: 'text-xs text-destructive mt-1 font-medium' },
+              ])
+            );
             markers.push(marker);
           }
         });

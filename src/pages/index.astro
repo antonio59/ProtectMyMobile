@@ -14,6 +14,7 @@ import AnimatedNewsSection from '../components/AnimatedNewsSection';
 import AnimatedStats from '../components/AnimatedStats';
 import AnimatedResources from '../components/AnimatedResources';
 import TheftTrendsChart from '../components/TheftTrendsChart';
+import { londonHotspots } from '../data/hotspots';
 
 // Fetch latest news posts
 let latestNews: any[] = [];
@@ -37,6 +38,10 @@ try {
 } catch (e: unknown) {
   console.error('Error fetching stats:', e);
 }
+
+// Share card figure, from the single-sourced hotspot dataset.
+const westminster = londonHotspots.find((h) => h.borough === 'Westminster') ?? londonHotspots[0];
+
 ---
 
 <Layout
@@ -97,7 +102,7 @@ try {
       
       <!-- Hero Section with Prominent Video -->
       <section class="mb-12">
-        <div class="bg-foreground text-background rounded-3xl  overflow-hidden">
+        <div class="bg-foreground text-background rounded-3xl overflow-hidden">
           <!-- Cinematic London backdrop -->
           <div class="relative">
             <img
@@ -109,12 +114,12 @@ try {
               decoding="async"
               class="w-full aspect-[3/4] min-[420px]:aspect-[4/5] sm:aspect-[16/9] md:aspect-[21/9] object-cover object-[70%_center]"
             />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-black/10 sm:via-black/30 sm:to-transparent"></div>
+            <div class="hero-scrim absolute inset-0"></div>
 
             <!-- Overlay Content -->
-            <div class="absolute inset-0 flex flex-col justify-center p-4 sm:p-6 md:p-10 lg:p-12">
+            <div class="hero-overlay absolute inset-0 flex flex-col justify-center p-4 sm:p-6 md:p-10 lg:p-12">
               <div class="max-w-5xl">
-                <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-4 sm:mb-6 text-shadow-hero max-w-3xl">
+                <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-background mb-4 sm:mb-6 max-w-3xl">
                   A phone is stolen in London every seven minutes.
                 </h1>
 
@@ -122,21 +127,21 @@ try {
                 <div class="flex flex-col sm:flex-row gap-2 sm:gap-4 mb-4 sm:mb-8">
                   <a
                     href="/prevention"
-                    class="inline-flex items-center justify-center gap-2 px-4 py-2 sm:px-6 sm:py-3 text-sm sm:text-base bg-card text-foreground rounded-xl font-semibold hover:bg-neutral-100 transition-all  shadow-glow-blue hover-lift touch-target"
+                    class="inline-flex items-center justify-center gap-2 px-4 py-2 sm:px-6 sm:py-3 text-sm sm:text-base bg-card text-foreground rounded-xl font-semibold hover:bg-neutral-100 transition-all hover-lift touch-target"
                   >
                     <Shield className="size-4 sm:size-5" />
                     <span>Protect Your Phone</span>
                   </a>
                   <a
                     href="/emergency"
-                    class="inline-flex items-center justify-center gap-2 px-4 py-2 sm:px-6 sm:py-3 text-sm sm:text-base bg-destructive text-destructive-foreground rounded-xl font-semibold hover:bg-destructive-hover transition-all shadow-glow-red animate-pulse-glow hover-lift touch-target"
+                    class="inline-flex items-center justify-center gap-2 px-4 py-2 sm:px-6 sm:py-3 text-sm sm:text-base bg-destructive text-destructive-foreground rounded-xl font-semibold hover:bg-destructive-hover transition-all hover-lift touch-target"
                   >
                     <AlertTriangle className="size-4 sm:size-5" />
                     <span>Phone Stolen? Act Now</span>
                   </a>
                   <a
                     href="/the-problem"
-                    class="hidden sm:inline-flex items-center justify-center gap-2 px-6 py-3 text-sm sm:text-base bg-white/10 text-white border border-white/20 rounded-xl font-semibold hover:bg-white/20 transition-all hover-lift touch-target"
+                    class="hidden sm:inline-flex items-center justify-center gap-2 px-6 py-3 text-sm sm:text-base bg-background/10 text-background border border-background/20 rounded-xl font-semibold hover:bg-background/20 transition-all hover-lift touch-target"
                   >
                     <span>Learn How Thieves Operate</span>
                     <ArrowRight className="size-4" />
@@ -144,8 +149,8 @@ try {
                 </div>
 
                 <!-- Slim evidence strip; full data and sources live on /statistics -->
-                <p class="text-xs sm:text-sm text-white/70 max-w-2xl">
-                  <span class="font-semibold text-white">117,211</span> stolen in 2024 (Met FOI)<span class="text-white/40"> · </span><span class="font-semibold text-white">down 12.3%</span> in 2025<span class="text-white/40"> · </span><a href="/statistics" class="underline underline-offset-2 decoration-white/40 hover:text-white transition-colors">Live stats &amp; sources</a>
+                <p class="text-xs sm:text-sm text-background/70 max-w-2xl">
+                  <span class="font-semibold text-background">117,211</span> stolen in 2024 (Met FOI)<span class="text-background/40"> · </span><span class="font-semibold text-background">down 12.3%</span> in 2025<span class="text-background/40"> · </span><a href="/statistics" class="underline underline-offset-2 decoration-background/40 hover:text-background transition-colors">Live stats &amp; sources</a>
                 </p>
               </div>
             </div>
@@ -155,7 +160,7 @@ try {
 
       <!-- Visitor Safety Section (moved below "Blink and it's gone") -->
       <section class="mb-8 sm:mb-12">
-        <div class="bg-card rounded-2xl  border border-border p-4 sm:p-6 md:p-8 lg:p-10">
+        <div class="bg-card rounded-2xl border border-border p-4 sm:p-6 md:p-8 lg:p-10">
           <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 lg:gap-8 mb-4 lg:mb-6">
             <div class="lg:max-w-2xl">
               <p class="text-xs uppercase tracking-wide text-primary font-semibold mb-1">London visitors</p>
@@ -163,12 +168,12 @@ try {
               <p class="text-muted-foreground text-xs sm:text-sm md:text-base lg:text-lg mt-2">Fast tips for travellers and students: avoid kerbside scrolling, use cross-body bags, pre-save Find My links, and know who to contact if you're targeted.</p>
             </div>
             <div class="grid grid-cols-2 sm:flex sm:flex-row gap-2 sm:gap-3 shrink-0 mt-2 lg:mt-0">
-              <a href="/london-visitor-safety" class="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-4 sm:px-5 py-2.5 sm:py-3 bg-primary text-primary-foreground rounded-xl font-semibold  hover:bg-primary-hover hover:scale-[1.02] transition-all text-xs sm:text-sm md:text-base">
+              <a href="/london-visitor-safety" class="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-4 sm:px-5 py-2.5 sm:py-3 bg-primary text-primary-foreground rounded-xl font-semibold hover:bg-primary-hover hover:scale-[1.02] transition-all text-xs sm:text-sm md:text-base">
                 <Shield className="size-4 sm:size-5" />
                 <span class="sm:hidden">Safety</span>
                 <span class="hidden sm:inline">Visitor Safety Guide</span>
               </a>
-              <a href="/emergency" class="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-4 sm:px-5 py-2.5 sm:py-3 bg-destructive text-destructive-foreground rounded-xl font-semibold  hover:bg-destructive-hover hover:scale-[1.02] transition-all text-xs sm:text-sm md:text-base">
+              <a href="/emergency" class="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-4 sm:px-5 py-2.5 sm:py-3 bg-destructive text-destructive-foreground rounded-xl font-semibold hover:bg-destructive-hover hover:scale-[1.02] transition-all text-xs sm:text-sm md:text-base">
                 <AlertTriangle className="size-4 sm:size-5" />
                 <span class="sm:hidden">Emergency</span>
                 <span class="hidden sm:inline">Emergency Steps</span>
@@ -176,16 +181,16 @@ try {
               </a>
             </div>
           </div>
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
-            <div class="p-3 sm:p-4 lg:p-5 rounded-xl bg-neutral border border-border hover:border-primary/20 hover:bg-primary/5 transition-colors">
+          <div class="visitor-tips">
+            <div class="visitor-tip">
               <p class="text-xs sm:text-sm lg:text-base font-semibold text-foreground mb-1">Before you arrive</p>
               <p class="text-xs sm:text-sm lg:text-base text-muted-foreground">Enable Find My, turn on device passcodes and Face ID/biometrics, and store IMEI + carrier contact numbers.</p>
             </div>
-            <div class="p-3 sm:p-4 lg:p-5 rounded-xl bg-neutral border border-border hover:border-primary/20 hover:bg-primary/5 transition-colors">
+            <div class="visitor-tip">
               <p class="text-xs sm:text-sm lg:text-base font-semibold text-foreground mb-1">While in the city</p>
               <p class="text-xs sm:text-sm lg:text-base text-muted-foreground">Keep devices away from kerbs and train doors, use cross-body straps, and avoid flashing phones in crowded tourist hotspots.</p>
             </div>
-            <div class="p-3 sm:p-4 lg:p-5 rounded-xl bg-neutral border border-border hover:border-primary/20 hover:bg-primary/5 transition-colors">
+            <div class="visitor-tip">
               <p class="text-xs sm:text-sm lg:text-base font-semibold text-foreground mb-1">If it's stolen</p>
               <p class="text-xs sm:text-sm lg:text-base text-muted-foreground">Lock the device remotely, block the SIM, call your bank, and file a report with police: follow the 5-step emergency guide.</p>
             </div>
@@ -204,14 +209,22 @@ try {
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
           <div class="bg-foreground text-background p-6 sm:p-7 flex flex-col justify-between gap-4 aspect-square rounded-xl">
-            <span class="text-[11px] font-bold uppercase tracking-[0.15em] text-[#E0685F]">London 2025</span>
+            <span class="text-[11px] font-bold uppercase tracking-[0.15em] text-background/70">London 2025</span>
             <span class="font-serif text-2xl lg:text-3xl leading-tight">One phone stolen every 7 minutes.</span>
-            <span class="text-xs text-neutral-400">protectmymobile.xyz</span>
+            <div class="flex flex-col gap-0.5">
+              <span class="text-[11px] text-neutral-400">Source: Met Police, phones recorded stolen in London, 2025</span>
+              <span class="text-xs text-neutral-400">protectmymobile.xyz</span>
+            </div>
           </div>
-          <div class="bg-destructive text-destructive-foreground p-6 sm:p-7 flex flex-col justify-between gap-4 aspect-square rounded-xl">
-            <span class="text-[11px] font-bold uppercase tracking-[0.15em]">The odds</span>
-            <span class="font-serif text-2xl lg:text-3xl leading-tight">99.2% of phone thefts go unpunished.</span>
-            <span class="text-xs text-destructive-foreground/70">protectmymobile.xyz</span>
+          <div class="bg-neutral-100 text-foreground p-6 sm:p-7 flex flex-col justify-between gap-4 aspect-square rounded-xl">
+            <span class="text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground">One borough</span>
+            <span class="font-serif text-2xl lg:text-3xl leading-tight">
+              {westminster.thefts.toLocaleString('en-GB')} phones taken in Westminster alone.
+            </span>
+            <div class="flex flex-col gap-0.5">
+              <span class="text-[11px] text-muted-foreground">Source: {westminster.sourceName}</span>
+              <span class="text-xs text-muted-foreground">protectmymobile.xyz</span>
+            </div>
           </div>
           <div class="bg-background border-2 border-foreground p-6 sm:p-7 flex flex-col justify-between gap-4 aspect-square rounded-xl">
             <span class="text-[11px] font-bold uppercase tracking-[0.15em] text-destructive">Do this today</span>
@@ -223,17 +236,17 @@ try {
 
       <!-- Scenarios CTA -->
       <section class="mb-8 sm:mb-12">
-        <a href="/scenarios" class="block bg-foreground text-background overflow-hidden group rounded-2xl">
+        <a href="/news?category=safety_slides" class="block bg-foreground text-background overflow-hidden group rounded-2xl">
           <div class="p-5 sm:p-8 md:p-10">
             <div class="flex items-start justify-between gap-4">
               <div class="flex-1 space-y-2 sm:space-y-4">
-                <div class="inline-flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-bold uppercase tracking-[0.15em] text-[#E0685F]">
+                <div class="inline-flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-bold uppercase tracking-[0.15em] text-background/70">
                   <AlertTriangle className="size-3 sm:size-4" />
-                  Real-world scenarios
+                  Safety slides
                 </div>
                 <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl leading-tight text-background">See how theft happens, and how to stop it</h2>
                 <p class="text-sm sm:text-base md:text-lg text-neutral-400 max-w-2xl">
-                  Frame-by-frame playbooks for moped snatches, public transport grabs, nightlife thefts and more.
+                  Shareable slide sets on moped snatches, transport grabs, nightlife and more, with the advice written out.
                 </p>
                 <div class="inline-flex items-center gap-2 text-sm sm:text-base font-bold uppercase tracking-wide group-hover:gap-3 sm:group-hover:gap-4 transition-all">
                   View the playbooks <ArrowRight className="size-4 sm:size-5" />
@@ -281,7 +294,7 @@ try {
       {/* Theft Trends Chart */}
       {trendsData && trendsData.data.length > 0 && (
         <section class="mb-8 sm:mb-12">
-          <div class="bg-card rounded-2xl  border border-border p-4 sm:p-6 md:p-8">
+          <div class="bg-card rounded-2xl border border-border p-4 sm:p-6 md:p-8">
             <TheftTrendsChart client:visible />
           </div>
         </section>
@@ -294,14 +307,14 @@ try {
       <AnimatedResources client:visible />
 
       <!-- More Resources CTA -->
-      <section class="bg-background rounded-2xl  border border-border p-5 sm:p-8 lg:p-12 text-center">
+      <section class="bg-background rounded-2xl border border-border p-5 sm:p-8 lg:p-12 text-center">
         <h3 class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mb-2 sm:mb-3 text-foreground">Looking for More Resources?</h3>
         <p class="text-muted-foreground mb-4 sm:mb-6 lg:mb-8 max-w-2xl mx-auto text-sm sm:text-base lg:text-lg">
           Access the complete library of guides, tools, community stories, and expert advice.
         </p>
         <a
           href="/resources"
-          class="inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 bg-primary text-primary-foreground rounded-xl font-semibold hover:bg-primary-hover hover:scale-[1.02] transition-all text-sm sm:text-base lg:text-lg  shadow-primary/20"
+          class="inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 bg-primary text-primary-foreground rounded-xl font-semibold hover:bg-primary-hover hover:scale-[1.02] transition-all text-sm sm:text-base lg:text-lg shadow-primary/20"
         >
           Browse All Resources
           <ArrowRight className="size-4 lg:size-5" />
@@ -313,3 +326,33 @@ try {
   
   <Footer />
 </Layout>
+
+<style>
+  /* The hero sits on a photograph, so it is always an ink surface.
+     Pin the surface tokens here so the overlay reads as paper-on-ink
+     in both light and dark themes. */
+  .hero-scrim {
+    background-color: rgb(22 19 15 / 62%);
+  }
+
+  .hero-overlay {
+    --color-background: #faf8f5;
+    --color-foreground: #16130f;
+    --color-card: #faf8f5;
+    --color-card-foreground: #16130f;
+    --color-neutral-100: #f2eee6;
+  }
+
+  /* One container, hairline rules between items (see DirectoryEntry.astro) */
+  .visitor-tips {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .visitor-tip {
+    padding: 0.875rem 0;
+  }
+
+  .visitor-tip + .visitor-tip {
+    border-top: 1px solid var(--color-border);
+  }
+</style>

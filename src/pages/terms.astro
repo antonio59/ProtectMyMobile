@@ -14,34 +14,38 @@ import { FileText, AlertTriangle, CheckCircle2, Scale } from 'lucide-react';
   <main id="main-content" class="bg-background min-h-screen">
     <div class="container mx-auto px-4 py-4 sm:py-6 max-w-4xl">
       <!-- Hero Section -->
-      <div class="bg-foreground text-background rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8 ">
+      <div class="bg-foreground text-background rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8">
         <div class="flex items-center gap-3 mb-3">
           <div class="bg-background/20 p-2 sm:p-3 rounded-xl">
-            <FileText className="size-6 sm:size-8" />
+            <FileText aria-hidden="true" className="size-6 sm:size-8" />
           </div>
           <h1 class="text-xl sm:text-2xl md:text-3xl font-bold">Terms of Service</h1>
         </div>
         <p class="text-neutral-300 text-sm md:text-base">
-          Last updated: December 2024
+          Last updated: August 2026
         </p>
       </div>
       
       <!-- Content -->
-      <div class="bg-card rounded-xl sm:rounded-2xl  overflow-hidden border border-border">
+      <div class="bg-card rounded-xl sm:rounded-2xl overflow-hidden border border-border">
         <div class="p-4 sm:p-6 md:p-8 space-y-6 sm:space-y-8">
           
           <!-- Introduction -->
           <section>
             <p class="text-foreground text-xs sm:text-sm">
-              Welcome to ProtectMyMobile. By accessing and using this website, you agree to be bound by these Terms of Service. If you do not agree, please do not use the site.
+              Welcome to ProtectMyMobile. This site is operated by me, Antonio Smith, as an individual working as a sole trader. In these terms, &ldquo;I&rdquo; and &ldquo;me&rdquo; mean Antonio Smith, and &ldquo;you&rdquo; means anyone using the site. By accessing and using this website, you agree to be bound by these Terms of Service. If you do not agree, please do not use the site.
+            </p>
+            <p class="text-foreground text-xs sm:text-sm mt-3">
+              If you need to reach me about anything on this page, use my <a href="/contact-us" class="text-primary hover:underline">contact form</a>. A correspondence address is available on request.
+              <!-- TODO: add correspondence address before publishing -->
             </p>
           </section>
           
           <!-- About the Service -->
           <section>
             <div class="flex items-center gap-3 mb-4">
-              <div class="bg-neutral-100/10 rounded-lg sm:rounded-xl p-1.5 sm:p-2">
-                <CheckCircle2 className="size-4 sm:size-5 text-foreground" />
+              <div class="bg-neutral-100 rounded-lg sm:rounded-xl p-1.5 sm:p-2">
+                <CheckCircle2 aria-hidden="true" className="size-4 sm:size-5 text-foreground" />
               </div>
               <h2 class="text-base sm:text-lg font-bold">About This Service</h2>
             </div>
@@ -61,7 +65,7 @@ import { FileText, AlertTriangle, CheckCircle2, Scale } from 'lucide-react';
           <section class="bg-neutral-100 border border-border rounded-lg sm:rounded-xl p-4 sm:p-6">
             <div class="flex items-center gap-3 mb-4">
               <div class="bg-neutral-100 rounded-lg sm:rounded-xl p-1.5 sm:p-2">
-                <AlertTriangle className="size-4 sm:size-5 text-foreground" />
+                <AlertTriangle aria-hidden="true" className="size-4 sm:size-5 text-foreground" />
               </div>
               <h2 class="text-base sm:text-lg font-bold text-foreground">Important Disclaimer</h2>
             </div>
@@ -85,7 +89,7 @@ import { FileText, AlertTriangle, CheckCircle2, Scale } from 'lucide-react';
           <section>
             <div class="flex items-center gap-3 mb-4">
               <div class="bg-neutral-100 rounded-lg sm:rounded-xl p-1.5 sm:p-2">
-                <Scale className="size-4 sm:size-5 text-foreground" />
+                <Scale aria-hidden="true" className="size-4 sm:size-5 text-foreground" />
               </div>
               <h2 class="text-base sm:text-lg font-bold">User Responsibilities</h2>
             </div>
@@ -103,16 +107,24 @@ import { FileText, AlertTriangle, CheckCircle2, Scale } from 'lucide-react';
           <section>
             <h2 class="text-base sm:text-lg font-bold mb-3">Intellectual Property</h2>
             <p class="text-foreground text-xs sm:text-sm">
-              All original content on this website (text, graphics, logos) is owned by Antonio Smith or used with permission. You may share content for personal, non-commercial purposes with attribution.
+              All original content on this website (text, graphics, logos) is owned by me, Antonio Smith, or used with permission. You may share content for personal, non-commercial purposes with attribution.
             </p>
           </section>
           
           <!-- Limitation of Liability -->
           <section>
             <h2 class="text-base sm:text-lg font-bold mb-3">Limitation of Liability</h2>
-            <p class="text-foreground text-xs sm:text-sm">
-              ProtectMyMobile shall not be liable for any direct, indirect, incidental, or consequential damages arising from the use of this website or reliance on any information provided. This includes, but is not limited to, losses resulting from theft, fraud, or failure to prevent theft.
-            </p>
+            <div class="space-y-3 text-foreground text-xs sm:text-sm">
+              <p>
+                <strong>Nothing in these terms excludes or limits my liability for death or personal injury caused by my negligence, for fraud or fraudulent misrepresentation, or for any other liability that cannot lawfully be excluded or limited.</strong> If you use the site as a consumer, nothing in these terms affects your statutory rights.
+              </p>
+              <p>
+                Subject to that, and to the fullest extent permitted by law, I am not liable for any direct, indirect, incidental or consequential loss arising from the use of this website or from reliance on any information provided on it. This includes, but is not limited to, losses resulting from theft, fraud, or a failure to prevent theft.
+              </p>
+              <p>
+                The site is provided free of charge and for information only. It is not a substitute for contacting the police, your bank or your mobile provider.
+              </p>
+            </div>
           </section>
           
           <!-- Changes to Terms -->
@@ -135,7 +147,7 @@ import { FileText, AlertTriangle, CheckCircle2, Scale } from 'lucide-react';
           <section class="bg-neutral-100 rounded-lg sm:rounded-xl p-4 sm:p-6">
             <h2 class="text-base sm:text-lg font-bold mb-2">Questions?</h2>
             <p class="text-foreground text-xs sm:text-sm">
-              If you have questions about these terms, please <a href="/contact-us" class="text-primary hover:underline">contact me</a>.
+              If you have questions about these terms, please <a href="/contact-us" class="text-primary hover:underline">contact me</a>. How I handle personal data is set out in my <a href="/privacy" class="text-primary hover:underline">privacy policy</a>.
             </p>
           </section>
           

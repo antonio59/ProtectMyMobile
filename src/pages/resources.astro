@@ -2,7 +2,43 @@
 import Layout from '../layouts/Layout.astro';
 import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
-import { Book, Shield, AlertTriangle, Building2, Phone, TrendingUp, Newspaper, ArrowRight, Users, ShoppingBag, MapPin } from 'lucide-react';
+import { Book, Shield, AlertTriangle, Building2, Phone, TrendingUp, Newspaper, ArrowRight, Users, ShoppingBag, MapPin, ExternalLink } from 'lucide-react';
+
+// Every link below was opened and confirmed working on this date.
+const externalLinksCheckedDate = "26 August 2026";
+
+const externalResources = [
+  {
+    name: "Police.uk - contact the police",
+    href: "https://www.police.uk/pu/contact-us",
+    description: "The national starting point: 999 in an emergency, 101 for non-emergency enquiries, and online reporting forms for your local force. Also links to Crimestoppers if you want to report anonymously.",
+  },
+  {
+    name: "Metropolitan Police - report a crime online",
+    href: "https://www.met.police.uk/ro/report/ocr/af/how-to-report-a-crime/",
+    description: "Report a theft or robbery in London and get the crime reference number your insurer and network will ask for.",
+  },
+  {
+    name: "Metropolitan Police - protect your mobile phone",
+    href: "https://www.met.police.uk/cp/crime-prevention/personal-safety-how-to-stay-safe/mobile-phone-advice/",
+    description: "Official Met crime prevention advice on locking your phone, recording your IMEI, and what to do the moment it is taken.",
+  },
+  {
+    name: "Metropolitan Police - phone snatching by bike and moped",
+    href: "https://www.met.police.uk/phonesnatch",
+    description: "Met guidance on the moped and e-bike snatches that account for much of London's phone theft. Their advice is explicit: never confront a thief for the sake of a phone.",
+  },
+  {
+    name: "Report Fraud (formerly Action Fraud)",
+    href: "https://www.reportfraud.police.uk/",
+    description: "The national reporting service for fraud and cyber crime in England, Wales and Northern Ireland: use it if your accounts, cards or identity are misused after a theft. In Scotland, report via 101.",
+  },
+  {
+    name: "Information Commissioner's Office - for the public",
+    href: "https://ico.org.uk/for-the-public/",
+    description: "Your data protection rights, and how to raise a concern if an organisation mishandles your personal data after a device is lost or stolen.",
+  },
+];
 ---
 
 <Layout 
@@ -15,7 +51,7 @@ import { Book, Shield, AlertTriangle, Building2, Phone, TrendingUp, Newspaper, A
     <div class="container mx-auto px-4 py-4 sm:py-6 max-w-6xl">
 
       <!-- Hero Section -->
-      <div class="bg-foreground text-background rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8 ">
+      <div class="bg-foreground text-background rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8">
         <div class="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
           <div class="bg-background/20 p-2 sm:p-3 rounded-xl">
             <Book className="size-6 sm:size-8" />
@@ -44,9 +80,9 @@ import { Book, Shield, AlertTriangle, Building2, Phone, TrendingUp, Newspaper, A
             <MapPin className="size-4" />
             Visitor Safety
           </a>
-          <a href="/scenarios" class="inline-flex items-center gap-1.5 sm:gap-2 min-h-11 px-3 sm:px-4 py-1.5 sm:py-2 bg-background/20 hover:bg-background/30 rounded-lg text-xs sm:text-sm font-medium transition-colors">
+          <a href="/news?category=safety_slides" class="inline-flex items-center gap-1.5 sm:gap-2 min-h-11 px-3 sm:px-4 py-1.5 sm:py-2 bg-background/20 hover:bg-background/30 rounded-lg text-xs sm:text-sm font-medium transition-colors">
             <AlertTriangle className="size-4" />
-            Scenarios
+            Safety slides
           </a>
         </div>
       </div>
@@ -57,11 +93,11 @@ import { Book, Shield, AlertTriangle, Building2, Phone, TrendingUp, Newspaper, A
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
           
           <!-- Prevention -->
-          <a href="/prevention" class="bg-card rounded-xl sm:rounded-2xl  hover: transition-all duration-300 overflow-hidden border border-border group">
+          <a href="/prevention" class="bg-card rounded-xl sm:rounded-2xl transition-all duration-300 overflow-hidden border border-border group">
             <div class="h-1 bg-foreground"></div>
             <div class="p-4 sm:p-6">
               <div class="flex items-start gap-3 sm:gap-4">
-                <div class="bg-neutral-100/10 rounded-xl p-2 sm:p-3 group-hover:scale-110 transition-transform">
+                <div class="bg-neutral-100 rounded-xl p-2 sm:p-3 group-hover:scale-110 transition-transform">
                   <Shield className="size-5 sm:size-6 text-foreground" />
                 </div>
                 <div class="flex-1">
@@ -74,7 +110,7 @@ import { Book, Shield, AlertTriangle, Building2, Phone, TrendingUp, Newspaper, A
           </a>
 
           <!-- Visitor Safety -->
-          <a href="/london-visitor-safety" class="bg-card rounded-xl sm:rounded-2xl  hover: transition-all duration-300 overflow-hidden border border-border group">
+          <a href="/london-visitor-safety" class="bg-card rounded-xl sm:rounded-2xl transition-all duration-300 overflow-hidden border border-border group">
             <div class="h-1 bg-foreground"></div>
             <div class="p-4 sm:p-6">
               <div class="flex items-start gap-3 sm:gap-4">
@@ -91,7 +127,7 @@ import { Book, Shield, AlertTriangle, Building2, Phone, TrendingUp, Newspaper, A
           </a>
 
           <!-- Emergency -->
-          <a href="/emergency" class="bg-card rounded-xl sm:rounded-2xl  hover: transition-all duration-300 overflow-hidden border border-border group">
+          <a href="/emergency" class="bg-card rounded-xl sm:rounded-2xl transition-all duration-300 overflow-hidden border border-border group">
             <div class="h-1 bg-foreground"></div>
             <div class="p-4 sm:p-6">
               <div class="flex items-start gap-3 sm:gap-4">
@@ -108,7 +144,7 @@ import { Book, Shield, AlertTriangle, Building2, Phone, TrendingUp, Newspaper, A
           </a>
 
           <!-- Scenarios -->
-          <a href="/scenarios" class="bg-card rounded-xl sm:rounded-2xl  hover: transition-all duration-300 overflow-hidden border border-border group">
+          <a href="/news?category=safety_slides" class="bg-card rounded-xl sm:rounded-2xl transition-all duration-300 overflow-hidden border border-border group">
             <div class="h-1 bg-foreground"></div>
             <div class="p-4 sm:p-6">
               <div class="flex items-start gap-3 sm:gap-4">
@@ -116,7 +152,7 @@ import { Book, Shield, AlertTriangle, Building2, Phone, TrendingUp, Newspaper, A
                   <AlertTriangle className="size-5 sm:size-6 text-foreground" />
                 </div>
                 <div class="flex-1">
-                  <h3 class="font-semibold text-sm sm:text-base mb-1 group-hover:text-foreground transition-colors">Scenarios Gallery</h3>
+                  <h3 class="font-semibold text-sm sm:text-base mb-1 group-hover:text-foreground transition-colors">Safety slides</h3>
                   <p class="text-muted-foreground text-xs sm:text-sm">Slide-by-slide visuals for common theft setups (moped snatch, transport, nightlife) with prevention cues.</p>
                 </div>
                 <ArrowRight className="size-5 text-neutral-300 group-hover:text-foreground group-hover:translate-x-1 transition-all flex-shrink-0" />
@@ -125,7 +161,7 @@ import { Book, Shield, AlertTriangle, Building2, Phone, TrendingUp, Newspaper, A
           </a>
 
           <!-- Security Checkup -->
-          <a href="/security-checkup" class="bg-card rounded-xl sm:rounded-2xl  hover: transition-all duration-300 overflow-hidden border border-border group">
+          <a href="/security-checkup" class="bg-card rounded-xl sm:rounded-2xl transition-all duration-300 overflow-hidden border border-border group">
             <div class="h-1 bg-foreground"></div>
             <div class="p-4 sm:p-6">
               <div class="flex items-start gap-3 sm:gap-4">
@@ -142,7 +178,7 @@ import { Book, Shield, AlertTriangle, Building2, Phone, TrendingUp, Newspaper, A
           </a>
 
           <!-- Community Experiences -->
-          <a href="/community-experiences" class="bg-card rounded-xl sm:rounded-2xl  hover: transition-all duration-300 overflow-hidden border border-border group">
+          <a href="/community-experiences" class="bg-card rounded-xl sm:rounded-2xl transition-all duration-300 overflow-hidden border border-border group">
             <div class="h-1 bg-foreground"></div>
             <div class="p-4 sm:p-6">
               <div class="flex items-start gap-3 sm:gap-4">
@@ -159,7 +195,7 @@ import { Book, Shield, AlertTriangle, Building2, Phone, TrendingUp, Newspaper, A
           </a>
 
           <!-- Product Recommendations -->
-          <a href="/products" class="bg-card rounded-xl sm:rounded-2xl  hover: transition-all duration-300 overflow-hidden border border-border group">
+          <a href="/products" class="bg-card rounded-xl sm:rounded-2xl transition-all duration-300 overflow-hidden border border-border group">
             <div class="h-1 bg-foreground"></div>
             <div class="p-4 sm:p-6">
               <div class="flex items-start gap-3 sm:gap-4">
@@ -184,7 +220,7 @@ import { Book, Shield, AlertTriangle, Building2, Phone, TrendingUp, Newspaper, A
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
 
           <!-- Banks -->
-          <a href="/banks" class="bg-card rounded-xl sm:rounded-2xl  hover: transition-all duration-300 overflow-hidden border border-border group">
+          <a href="/banks" class="bg-card rounded-xl sm:rounded-2xl transition-all duration-300 overflow-hidden border border-border group">
             <div class="h-1 bg-foreground"></div>
             <div class="p-4 sm:p-6">
               <div class="flex items-start gap-3 sm:gap-4">
@@ -201,7 +237,7 @@ import { Book, Shield, AlertTriangle, Building2, Phone, TrendingUp, Newspaper, A
           </a>
 
           <!-- Mobile Providers -->
-          <a href="/mobile-providers" class="bg-card rounded-xl sm:rounded-2xl  hover: transition-all duration-300 overflow-hidden border border-border group">
+          <a href="/mobile-providers" class="bg-card rounded-xl sm:rounded-2xl transition-all duration-300 overflow-hidden border border-border group">
             <div class="h-1 bg-foreground"></div>
             <div class="p-4 sm:p-6">
               <div class="flex items-start gap-3 sm:gap-4">
@@ -226,38 +262,89 @@ import { Book, Shield, AlertTriangle, Building2, Phone, TrendingUp, Newspaper, A
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
 
           <!-- The Problem -->
-          <a href="/the-problem" class="bg-card rounded-xl sm:rounded-2xl  hover: transition-all duration-300 overflow-hidden border border-border group">
+          <a href="/the-problem" class="bg-card rounded-xl sm:rounded-2xl transition-all duration-300 overflow-hidden border border-border group">
             <div class="h-1 bg-foreground"></div>
             <div class="p-4 sm:p-6">
-              <div class="flex flex-col items-center text-center">
-                <div class="bg-destructive-muted rounded-xl p-2 sm:p-3 mb-2 sm:mb-3 group-hover:scale-110 transition-transform">
-                  <AlertTriangle className="size-5 sm:size-6 text-destructive" />
+              <div class="flex items-start gap-3 sm:gap-4">
+                <div class="bg-neutral-100 rounded-xl p-2 sm:p-3 group-hover:scale-110 transition-transform">
+                  <AlertTriangle className="size-5 sm:size-6 text-foreground" />
                 </div>
-                <h3 class="font-semibold text-sm sm:text-base mb-1 group-hover:text-destructive transition-colors">The Problem</h3>
-                <p class="text-muted-foreground text-xs sm:text-sm">Understand the UK phone theft epidemic and how thieves operate.</p>
+                <div class="flex-1">
+                  <h3 class="font-semibold text-sm sm:text-base mb-1 group-hover:text-primary transition-colors">The Problem</h3>
+                  <p class="text-muted-foreground text-xs sm:text-sm">Understand the UK phone theft epidemic and how thieves operate.</p>
+                </div>
+                <ArrowRight className="size-5 text-neutral-300 group-hover:text-primary group-hover:translate-x-1 transition-all flex-shrink-0" />
               </div>
             </div>
           </a>
 
           <!-- Statistics -->
-          <a href="/statistics" class="bg-card rounded-xl sm:rounded-2xl  hover: transition-all duration-300 overflow-hidden border border-border group">
+          <a href="/statistics" class="bg-card rounded-xl sm:rounded-2xl transition-all duration-300 overflow-hidden border border-border group">
             <div class="h-1 bg-foreground"></div>
             <div class="p-4 sm:p-6">
-              <div class="flex flex-col items-center text-center">
-                <div class="bg-neutral-100 rounded-xl p-2 sm:p-3 mb-2 sm:mb-3 group-hover:scale-110 transition-transform">
+              <div class="flex items-start gap-3 sm:gap-4">
+                <div class="bg-neutral-100 rounded-xl p-2 sm:p-3 group-hover:scale-110 transition-transform">
                   <TrendingUp className="size-5 sm:size-6 text-foreground" />
                 </div>
-                <h3 class="font-semibold text-sm sm:text-base mb-1 group-hover:text-primary transition-colors">Statistics & Hotspots</h3>
-                <p class="text-muted-foreground text-xs sm:text-sm">View theft data, hotspot rankings, and trends across the UK.</p>
+                <div class="flex-1">
+                  <h3 class="font-semibold text-sm sm:text-base mb-1 group-hover:text-primary transition-colors">Statistics & Hotspots</h3>
+                  <p class="text-muted-foreground text-xs sm:text-sm">View theft data, hotspot rankings, and trends across the UK.</p>
+                </div>
+                <ArrowRight className="size-5 text-neutral-300 group-hover:text-primary group-hover:translate-x-1 transition-all flex-shrink-0" />
               </div>
             </div>
           </a>
 
         </div>
       </section>
-      
+
+      <!-- External UK Resources -->
+      <section class="mt-6 sm:mt-8 md:mt-10">
+        <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-4 sm:mb-6">
+          <h2 class="text-lg sm:text-xl font-bold">Official UK services</h2>
+          <p class="text-xs text-muted-foreground">Checked {externalLinksCheckedDate}</p>
+        </div>
+        <p class="text-muted-foreground text-xs sm:text-sm mb-4">
+          These are the organisations that can actually take a report or act on your case. We are not affiliated with any of them.
+        </p>
+        <div class="bg-card rounded-xl sm:rounded-2xl overflow-hidden border border-border">
+          <div class="h-1 bg-foreground"></div>
+          <div class="px-4 sm:px-6">
+            {externalResources.map((resource) => (
+              <a
+                href={resource.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="external-resource group"
+              >
+                <div class="flex items-start gap-3 sm:gap-4">
+                  <div class="flex-1">
+                    <h3 class="font-semibold text-sm sm:text-base mb-1 group-hover:text-primary transition-colors">{resource.name}</h3>
+                    <p class="text-muted-foreground text-xs sm:text-sm">{resource.description}</p>
+                  </div>
+                  <ExternalLink className="size-5 text-neutral-300 group-hover:text-primary transition-colors flex-shrink-0" />
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
     </div>
   </main>
   
   <Footer />
 </Layout>
+
+<style>
+  /* One container, hairline rules between entries (see DirectoryEntry.astro) */
+  .external-resource {
+    display: block;
+    padding: 1rem 0;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .external-resource:first-child {
+    border-top: 0;
+  }
+</style>

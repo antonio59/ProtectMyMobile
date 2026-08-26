@@ -18,7 +18,7 @@ const searchData: SearchResult[] = [
 
   // Prevention
   { title: 'Prevention Guide', description: 'How to prevent phone theft and secure your device', href: '/prevention', category: 'Prevention', icon: Shield },
-  { title: 'Scenarios Gallery', description: 'Visual guides showing how theft happens', href: '/scenarios', category: 'Prevention', icon: BookOpen },
+  { title: 'Safety slides', description: 'Shareable slides showing how phone theft happens', href: '/news?category=safety_slides', category: 'Prevention', icon: BookOpen },
   { title: 'Products', description: 'Protective gear and accessories', href: '/products', category: 'Prevention', icon: ShoppingBag },
 
   // Information

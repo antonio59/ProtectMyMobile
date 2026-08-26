@@ -2,11 +2,20 @@
 import Layout from '../layouts/Layout.astro';
 import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
+import { londonHotspots, hotspotsSource } from '../data/hotspots';
 import { MapPin, AlertTriangle, Shield, TrendingUp, ArrowRight, Phone, Building2, Train, Navigation, CheckCircle2 } from 'lucide-react';
 
 export const prerender = true;
 
 export function getStaticPaths() {
+  // London borough figures and ranking come from the shared hotspot dataset.
+  const boroughData = (borough: string) => {
+    const index = londonHotspots.findIndex((h) => h.borough === borough);
+    if (index === -1) throw new Error(`Unknown London hotspot borough: ${borough}`);
+    const entry = londonHotspots[index];
+    return { thefts: entry.thefts, year: entry.year, boroughRank: index + 1 };
+  };
+
   const locations = [
     {
       slug: 'london',
@@ -15,7 +24,6 @@ export function getStaticPaths() {
       thefts: 117211,
       year: 2024,
       change: '−12.3% in 2025',
-      rank: 1,
       hotspots: [
         { area: 'Westminster', description: 'Oxford Street, Piccadilly, Soho, Leicester Square', risk: 'Very High' },
         { area: 'Camden', description: 'Camden Market, High Street, nightlife districts', risk: 'Very High' },
@@ -25,7 +33,6 @@ export function getStaticPaths() {
       ],
       transport: {
         type: 'Tube & Rail',
-        icon: 'Train',
         risks: [
           'Phones snatched at open train doors (before closing)',
           'Grab-and-run on escalators and platforms',
@@ -48,10 +55,8 @@ export function getStaticPaths() {
       slug: 'westminster',
       name: 'Westminster',
       fullName: 'City of Westminster, London',
-      thefts: 16639,
-      year: 'Jul 2025 - Jun 2026',
+      ...boroughData('Westminster'),
       change: '-40.9% YoY',
-      rank: 1,
       hotspots: [
         { area: 'Oxford Street', description: 'Shopping district, heavy foot traffic', risk: 'Extreme' },
         { area: 'Piccadilly Circus', description: 'Tourist hub, busy intersections', risk: 'Extreme' },
@@ -61,7 +66,6 @@ export function getStaticPaths() {
       ],
       transport: {
         type: 'Tube & Bus',
-        icon: 'Train',
         risks: [
           'Very high risk at Oxford Circus, Piccadilly Circus, Leicester Square stations',
           'Bus stops on Oxford Street and Regent Street',
@@ -78,16 +82,14 @@ export function getStaticPaths() {
       emergencyPhone: '999',
       reportingUrl: 'https://www.met.police.uk/ro/report/theft/',
       description: 'Police.uk recorded 16,639 theft-from-the-person offences within roughly a mile of Charing Cross in the 12 months to June 2026, down 41% year on year. Westminster remains the UK\'s worst-affected area; the Met reports thefts in Westminster fell 45.8% in Jan-May 2026 vs the same months of 2025.',
-      residents: false
+      residents: true
     },
     {
       slug: 'camden',
       name: 'Camden',
       fullName: 'London Borough of Camden',
-      thefts: 6651,
-      year: 'Jul 2025 - Jun 2026',
+      ...boroughData('Camden'),
       change: '-28.7% YoY',
-      rank: 2,
       hotspots: [
         { area: 'Camden Market', description: 'Markets, street vendors, heavy crowds', risk: 'Very High' },
         { area: 'Camden High Street', description: 'Shopping, restaurants, transport hub', risk: 'Very High' },
@@ -97,7 +99,6 @@ export function getStaticPaths() {
       ],
       transport: {
         type: 'Tube & Overground',
-        icon: 'Train',
         risks: [
           'Camden Town Tube station extremely busy on weekends',
           'King\'s Cross St Pancras major theft hotspot',
@@ -123,7 +124,6 @@ export function getStaticPaths() {
       thefts: null,
       year: 'Jul 2025 - Jun 2026',
       change: 'Not published',
-      rank: null,
       hotspots: [
         { area: 'City Centre', description: 'Market Street, Arndale, Piccadilly Gardens', risk: 'Very High' },
         { area: 'Northern Quarter', description: 'Bars, restaurants, nightlife', risk: 'High' },
@@ -133,7 +133,6 @@ export function getStaticPaths() {
       ],
       transport: {
         type: 'Metrolink & Bus',
-        icon: 'Train',
         risks: [
           'Tram platforms at Piccadilly Gardens and Market Street',
           'Phones grabbed at open tram doors',
@@ -159,7 +158,6 @@ export function getStaticPaths() {
       thefts: 436,
       year: 'Jul 2025 - Jun 2026',
       change: '-21.3% YoY',
-      rank: null,
       hotspots: [
         { area: 'City Centre', description: 'New Street, Bull Ring, Corporation Street', risk: 'Very High' },
         { area: 'Broad Street', description: 'Nightlife, bars, restaurants', risk: 'High' },
@@ -169,7 +167,6 @@ export function getStaticPaths() {
       ],
       transport: {
         type: 'Metro & Rail',
-        icon: 'Train',
         risks: [
           'Birmingham New Street station - major theft hotspot',
           'Metro tram stops along Bull Street and Corporation Street',
@@ -195,7 +192,6 @@ export function getStaticPaths() {
       thefts: 376,
       year: 'Jul 2025 - Jun 2026',
       change: '-21.5% YoY',
-      rank: null,
       hotspots: [
         { area: 'City Centre', description: 'Church Street, Liverpool ONE shopping, Lime Street', risk: 'Very High' },
         { area: 'Concert Square', description: 'Nightlife hub, bars, late-night venues', risk: 'High' },
@@ -205,7 +201,6 @@ export function getStaticPaths() {
       ],
       transport: {
         type: 'Merseyrail & Bus',
-        icon: 'Train',
         risks: [
           'Lime Street station concourse during rush hour',
           'Busy bus stops on Lord Street and Renshaw Street',
@@ -231,7 +226,6 @@ export function getStaticPaths() {
       thefts: 528,
       year: 'Jul 2025 - Jun 2026',
       change: '-11.9% YoY',
-      rank: null,
       hotspots: [
         { area: 'City Centre', description: 'Briggate, Trinity Leeds, Commercial Street', risk: 'Very High' },
         { area: 'Headingley', description: 'Student area, bars, Otley Run pub crawl route', risk: 'High' },
@@ -241,7 +235,6 @@ export function getStaticPaths() {
       ],
       transport: {
         type: 'Bus & Rail',
-        icon: 'Train',
         risks: [
           'Leeds station and bus interchange area',
           'Busy bus stops along the Headingley corridor',
@@ -267,7 +260,6 @@ export function getStaticPaths() {
       thefts: null,
       year: 'N/A',
       change: 'Not published',
-      rank: 7,
       hotspots: [
         { area: 'Royal Mile', description: 'Tourist heart of the city, heavy foot traffic', risk: 'Very High' },
         { area: 'Princes Street', description: 'Main shopping street, transport hub', risk: 'High' },
@@ -277,7 +269,6 @@ export function getStaticPaths() {
       ],
       transport: {
         type: 'Bus & Tram',
-        icon: 'Train',
         risks: [
           'Waverley station and Princes Street tram stop',
           'Crowded tourist buses during festival season',
@@ -303,7 +294,6 @@ export function getStaticPaths() {
       thefts: null,
       year: 'N/A',
       change: 'Not published',
-      rank: 6,
       hotspots: [
         { area: 'Sauchiehall Street', description: 'Nightlife, bars, clubs', risk: 'Very High' },
         { area: 'Buchanan Street', description: 'Main shopping street, bus station', risk: 'High' },
@@ -313,7 +303,6 @@ export function getStaticPaths() {
       ],
       transport: {
         type: 'Subway & Bus',
-        icon: 'Train',
         risks: [
           'Central and Queen Street stations during rush hour',
           'Buchanan Street bus station and subway',
@@ -339,7 +328,6 @@ export function getStaticPaths() {
       thefts: 282,
       year: 'Jul 2025 - Jun 2026',
       change: '+46.1% YoY',
-      rank: 8,
       hotspots: [
         { area: 'Broadmead', description: 'Cabot Circus shopping, city centre', risk: 'High' },
         { area: 'Harbourside', description: 'Waterfront bars, restaurants, tourist area', risk: 'High' },
@@ -349,7 +337,6 @@ export function getStaticPaths() {
       ],
       transport: {
         type: 'Bus & Rail',
-        icon: 'Train',
         risks: [
           'Temple Meads station during commuter hours',
           'Broadmead bus stops and central area',
@@ -375,7 +362,6 @@ export function getStaticPaths() {
       thefts: 308,
       year: 'Jul 2025 - Jun 2026',
       change: '-23.2% YoY',
-      rank: 9,
       hotspots: [
         { area: 'The Lanes', description: 'Narrow shopping streets, tourist crowds', risk: 'High' },
         { area: 'North Laine', description: 'Independent shops, busy pedestrian area', risk: 'High' },
@@ -385,7 +371,6 @@ export function getStaticPaths() {
       ],
       transport: {
         type: 'Bus & Rail',
-        icon: 'Train',
         risks: [
           'Brighton station concourse and taxi rank',
           'Crowded buses along the seafront',
@@ -408,10 +393,8 @@ export function getStaticPaths() {
       slug: 'tower-hamlets',
       name: 'Tower Hamlets',
       fullName: 'London Borough of Tower Hamlets',
-      thefts: 709,
-      year: 'Jul 2025 - Jun 2026',
+      ...boroughData('Tower Hamlets'),
       change: '-18.4% YoY',
-      rank: 3,
       hotspots: [
         { area: 'Shoreditch', description: 'Nightlife, street art, Boxpark', risk: 'Extreme' },
         { area: 'Brick Lane', description: 'Restaurants, markets, weekend crowds', risk: 'Very High' },
@@ -421,7 +404,6 @@ export function getStaticPaths() {
       ],
       transport: {
         type: 'Tube, DLR & Bus',
-        icon: 'Train',
         risks: [
           'Shoreditch High Street Overground station',
           'Canary Wharf and Liverpool Street stations during rush hour',
@@ -444,10 +426,8 @@ export function getStaticPaths() {
       slug: 'hackney',
       name: 'Hackney',
       fullName: 'London Borough of Hackney',
-      thefts: 1610,
-      year: 'Jul 2025 - Jun 2026',
+      ...boroughData('Hackney'),
       change: '-1.8% YoY',
-      rank: 4,
       hotspots: [
         { area: 'Dalston', description: 'Nightlife, Dalston Junction, busy bars', risk: 'Very High' },
         { area: 'Hackney Central', description: 'Broadway Market, Mare Street', risk: 'High' },
@@ -457,7 +437,6 @@ export function getStaticPaths() {
       ],
       transport: {
         type: 'Overground & Bus',
-        icon: 'Train',
         risks: [
           'Dalston Kingsland and Dalston Junction stations',
           'Busy buses on Mare Street and Kingsland Road',
@@ -478,13 +457,44 @@ export function getStaticPaths() {
     }
   ];
 
+  // UK city ranking: cities only (boroughs carry a borough rank instead), ordered
+  // by published thefts. A location with no published figure is never ranked.
+  const ukRanks = new Map<string, number>(
+    locations
+      .filter((l) => !('boroughRank' in l) && l.thefts !== null)
+      .sort((a, b) => (b.thefts ?? 0) - (a.thefts ?? 0))
+      .map((l, i) => [l.slug, i + 1] as [string, number])
+  );
+
   return locations.map((location) => ({
     params: { location: location.slug },
-    props: { location }
+    props: {
+      location: {
+        ...location,
+        boroughRank: 'boroughRank' in location ? location.boroughRank : null,
+        ukRank: ukRanks.get(location.slug) ?? null,
+      }
+    }
   }));
 }
 
 const { location } = Astro.props;
+
+// Ordinal for any number, not just 1-3.
+function ordinal(n: number): string {
+  const rem100 = n % 100;
+  if (rem100 >= 11 && rem100 <= 13) return `${n}th`;
+  return `${n}${['th', 'st', 'nd', 'rd'][n % 10] ?? 'th'}`;
+}
+
+// One ranking value, read by both the hero badge and the ranking tile so the two
+// can never contradict each other. Boroughs rank within London, cities within the UK.
+const isBorough = location.boroughRank != null;
+const rankValue: number | null = location.boroughRank ?? location.ukRank ?? null;
+const rankScope = isBorough ? 'London borough' : 'UK city';
+const theftsLabel = location.thefts === null
+  ? `Not published for ${location.name}`
+  : `Thefts in ${location.year}`;
 
 const pageTitle = `Phone Theft in ${location.name} | Prevention & Emergency Guide`;
 const pageDescription = `${location.description} Learn how to protect your phone in ${location.name} and what to do if it's stolen.`;
@@ -564,39 +574,47 @@ const schema = [
     <div class="container mx-auto px-4 py-4 sm:py-6 md:py-8 max-w-6xl">
       
       <!-- Hero Section with Location Stats -->
-      <div class="bg-destructive text-destructive-foreground rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8 ">
+      <div class="bg-foreground text-background rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8">
         <div class="flex items-center gap-3 mb-3">
           <div class="bg-background/20 p-2 sm:p-3 rounded-xl">
             <MapPin className="size-6 sm:size-8" />
           </div>
           <div>
-            <p class="text-xs uppercase tracking-wide text-destructive-foreground/70 font-semibold">
-              {location.rank === 1 ? 'Highest Risk Area' : location.rank ? `#${location.rank} UK Hotspot` : 'Known Risk Area'}
+            <p class="text-xs uppercase tracking-wide text-background/70 font-semibold">
+              {rankValue ? `${ordinal(rankValue)} worst ${rankScope}` : 'Known risk area'}
             </p>
             <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">
               Phone Theft in {location.name}
             </h1>
           </div>
         </div>
-        <p class="text-destructive-foreground/70 text-sm md:text-base max-w-3xl mb-6">
+        <p class="text-background/70 text-sm md:text-base max-w-3xl mb-6">
           {location.description}
         </p>
 
         <!-- Key Stats -->
         <div class="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
-          <div class="bg-background/15 backdrop-blur-sm rounded-xl p-3 sm:p-4">
-            <div class="text-2xl sm:text-3xl font-bold">{location.thefts === null ? 'No data' : location.thefts.toLocaleString()}</div>
-            <div class="text-xs sm:text-sm text-destructive-foreground/70 mt-1">Thefts in {location.year}</div>
+          <div class="bg-background/15 rounded-xl p-3 sm:p-4">
+            <div class="text-2xl sm:text-3xl font-bold tabular-nums">{location.thefts === null ? 'No data' : location.thefts.toLocaleString()}</div>
+            <div class="text-xs sm:text-sm text-background/70 mt-1">{theftsLabel}</div>
           </div>
-          <div class="bg-background/15 backdrop-blur-sm rounded-xl p-3 sm:p-4">
-            <div class="text-2xl sm:text-3xl font-bold">{location.change}</div>
-            <div class="text-xs sm:text-sm text-destructive-foreground/70 mt-1">Trend</div>
+          <div class="bg-background/15 rounded-xl p-3 sm:p-4">
+            <div class="text-2xl sm:text-3xl font-bold tabular-nums">{location.change}</div>
+            <div class="text-xs sm:text-sm text-background/70 mt-1">Trend</div>
           </div>
-          <div class="bg-background/15 backdrop-blur-sm rounded-xl p-3 sm:p-4 col-span-2 md:col-span-1">
-            <div class="text-2xl sm:text-3xl font-bold">{location.rank === 1 ? '1st' : location.rank === 2 ? '2nd' : location.rank === 3 ? '3rd' : 'N/A'}</div>
-            <div class="text-xs sm:text-sm text-destructive-foreground/70 mt-1">UK Ranking</div>
-          </div>
+          {rankValue && (
+            <div class="bg-background/15 rounded-xl p-3 sm:p-4 col-span-2 md:col-span-1">
+              <div class="text-2xl sm:text-3xl font-bold tabular-nums">{ordinal(rankValue)}</div>
+              <div class="text-xs sm:text-sm text-background/70 mt-1">{rankScope} ranking</div>
+            </div>
+          )}
         </div>
+
+        {isBorough && (
+          <p class="text-xs text-background/70 mt-4">
+            Source: <a href={hotspotsSource.sourceUrl} target="_blank" rel="noopener noreferrer" class="underline">{hotspotsSource.sourceName}</a> (theft from the person within ~1 mile of the borough centre).
+          </p>
+        )}
       </div>
 
       <!-- Quick Action Cards -->

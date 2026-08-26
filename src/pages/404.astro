@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
-import { Shield, Home, Search } from 'lucide-react';
+import { Shield, Home, Search, Siren } from 'lucide-react';
 ---
 
 <Layout 
@@ -13,9 +13,9 @@ import { Shield, Home, Search } from 'lucide-react';
   
   <main id="main-content" class="bg-background min-h-[70vh] flex items-center justify-center">
     <div class="container mx-auto px-4 py-6 sm:py-8 md:py-12 text-center">
-      <div class="bg-card rounded-xl sm:rounded-2xl  p-4 sm:p-6 md:p-8 lg:p-12 max-w-2xl mx-auto">
-        <div class="inline-flex items-center justify-center p-3 sm:p-4 bg-destructive-muted rounded-full mb-4 sm:mb-6">
-          <Shield className="h-10 w-10 sm:size-12 md:size-16 text-destructive" />
+      <div class="bg-card rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 lg:p-12 max-w-2xl mx-auto">
+        <div class="inline-flex items-center justify-center p-3 sm:p-4 bg-neutral-100 rounded-full mb-4 sm:mb-6">
+          <Shield aria-hidden="true" className="h-10 w-10 sm:size-12 md:size-16 text-muted-foreground" />
         </div>
         
         <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-3 sm:mb-4">404</h1>
@@ -27,10 +27,18 @@ import { Shield, Home, Search } from 'lucide-react';
         
         <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
           <a
+            href="/emergency"
+            class="inline-flex items-center justify-center px-4 sm:px-5 py-2.5 bg-destructive text-destructive-foreground rounded-lg font-semibold hover:bg-destructive-hover transition-colors text-sm sm:text-base"
+          >
+            <Siren aria-hidden="true" className="size-4 sm:size-5 mr-2" />
+            Phone Just Stolen?
+          </a>
+
+          <a
             href="/"
             class="inline-flex items-center justify-center px-4 sm:px-5 py-2.5 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary-hover transition-colors text-sm sm:text-base"
           >
-            <Home className="size-4 sm:size-5 mr-2" />
+            <Home aria-hidden="true" className="size-4 sm:size-5 mr-2" />
             Back to Home
           </a>
 
@@ -38,7 +46,7 @@ import { Shield, Home, Search } from 'lucide-react';
             href="/resources"
             class="inline-flex items-center justify-center px-4 sm:px-5 py-2.5 bg-card border-2 border-border text-foreground rounded-lg font-semibold hover:bg-neutral transition-colors text-sm sm:text-base"
           >
-            <Search className="size-4 sm:size-5 mr-2" />
+            <Search aria-hidden="true" className="size-4 sm:size-5 mr-2" />
             Browse Resources
           </a>
         </div>

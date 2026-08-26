@@ -40,7 +40,7 @@ const initialStats = await getCommunityStats();
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           <!-- Voting Section (Main) -->
           <section class="lg:col-span-2" id="share">
-            <div class="bg-card rounded-xl  p-4 sm:p-6 md:p-8 mb-6 border-t-4 border-primary">
+            <div class="bg-card rounded-xl p-4 sm:p-6 md:p-8 mb-6 border-t-4 border-primary">
               <div class="flex items-center gap-3 mb-4">
                 <MessageSquare className="size-5 sm:size-6 text-primary" />
                 <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-foreground">
@@ -57,35 +57,42 @@ const initialStats = await getCommunityStats();
           </section>
 
           <!-- Sidebar Info -->
-          <aside class="space-y-4 sm:space-y-6">
-            <!-- Privacy Card -->
-            <div class="bg-primary-subtle rounded-xl p-4 sm:p-6 border border-border ">
-              <h3 class="text-base sm:text-lg font-bold text-primary mb-3 flex items-center">
+          <aside aria-label="About sharing your experience" class="bg-card rounded-xl border border-border px-4 sm:px-6">
+            <!-- Privacy -->
+            <div class="sidebar-block">
+              <h3 class="text-base sm:text-lg font-bold text-foreground mb-3 flex items-center">
                 <Shield className="size-4 sm:size-5 mr-2" />
                 Privacy First
               </h3>
-              <ul class="space-y-3 text-sm text-primary">
+              <ul class="space-y-3 text-sm text-foreground">
                 <li class="flex items-start">
-                  <span class="mr-2">•</span>
+                  <span class="mr-2">&bull;</span>
                   No accounts or login required
                 </li>
                 <li class="flex items-start">
-                  <span class="mr-2">•</span>
+                  <span class="mr-2">&bull;</span>
                   No names or emails collected
                 </li>
                 <li class="flex items-start">
-                  <span class="mr-2">•</span>
+                  <span class="mr-2">&bull;</span>
                   IP addresses hashed for anonymity
                 </li>
                 <li class="flex items-start">
-                  <span class="mr-2">•</span>
+                  <span class="mr-2">&bull;</span>
                   Data used solely for aggregation
                 </li>
+                <li class="flex items-start">
+                  <span class="mr-2">&bull;</span>
+                  Submissions are reviewed before they appear publicly, and you can ask us to remove yours at any time
+                </li>
               </ul>
+              <p class="text-sm text-muted-foreground mt-3">
+                Full detail in our <a href="/privacy" class="underline underline-offset-2 font-medium text-foreground hover:text-primary transition-colors">privacy policy</a>.
+              </p>
             </div>
 
             <!-- Why it matters -->
-            <div class="bg-card rounded-xl p-4 sm:p-6 border border-border ">
+            <div class="sidebar-block">
               <h3 class="text-base sm:text-lg font-bold text-foreground mb-3">
                 Why contribute?
               </h3>
@@ -94,7 +101,7 @@ const initialStats = await getCommunityStats();
               </p>
               <ul class="space-y-2 text-sm text-foreground font-medium">
                 <li class="flex items-center gap-2">
-                  <span class="w-2 h-2 bg-destructive rounded-full"></span>
+                  <span class="w-2 h-2 bg-foreground rounded-full"></span>
                   New theft hotspots
                 </li>
                 <li class="flex items-center gap-2">
@@ -116,3 +123,14 @@ const initialStats = await getCommunityStats();
   
   <Footer />
 </Layout>
+
+<style>
+  /* Rule-based sidebar: one container, hairline rules between blocks */
+  .sidebar-block {
+    padding: 1.25rem 0;
+  }
+
+  .sidebar-block + .sidebar-block {
+    border-top: 1px solid var(--color-border);
+  }
+</style>

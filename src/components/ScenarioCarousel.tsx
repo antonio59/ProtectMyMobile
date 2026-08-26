@@ -22,8 +22,7 @@ export function ScenarioCarousel({ images, title, summary, scenarioId }: Props) 
 
   const getShareUrl = () => {
     const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://protectmymobile.xyz';
-    const anchor = scenarioId ? `#${scenarioId}` : '';
-    return `${baseUrl}/scenarios${anchor}`;
+    return scenarioId ? `${baseUrl}/slides/${scenarioId}` : `${baseUrl}/news`;
   };
 
   const getShareText = () => {
@@ -89,9 +88,9 @@ export function ScenarioCarousel({ images, title, summary, scenarioId }: Props) 
           aria-label={`${title} slides`}
         >
           <div className="flex snap-x snap-mandatory">
-            {images.map((src) => (
+            {images.map((src, idx) => (
               <div className="min-w-0 flex-[0_0_100%] snap-center" key={src}>
-                <img src={src} alt={title} className="w-full h-auto object-contain bg-neutral" loading="lazy" />
+                <img src={src} alt={`${title}, slide ${idx + 1} of ${images.length}`} className="w-full h-auto object-contain bg-neutral" loading="lazy" />
               </div>
             ))}
           </div>

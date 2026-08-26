@@ -105,13 +105,13 @@ contentHtml = contentHtml.replace(
   '$1'
 );
 
-const categoryConfig: Record<string, { color: string; bg: string; border: string; label: string; icon: any; gradient: string }> = {
-  arrest: { color: 'text-destructive-hover', bg: 'bg-destructive-subtle', border: 'border-destructive-muted', label: 'Arrest', icon: Siren, gradient: 'from-destructive to-destructive-hover' },
-  seizure: { color: 'text-foreground', bg: 'bg-neutral-100', border: 'border-border', label: 'Seizure', icon: ShieldAlert, gradient: 'from-foreground to-foreground' },
-  law_change: { color: 'text-foreground', bg: 'bg-neutral-100', border: 'border-border', label: 'Law Change', icon: Gavel, gradient: 'from-foreground to-foreground' },
-  statistics: { color: 'text-primary-hover', bg: 'bg-primary-subtle', border: 'border-border', label: 'Statistics', icon: TrendingUp, gradient: 'from-primary to-primary' },
-  prevention_tip: { color: 'text-foreground', bg: 'bg-neutral-100', border: 'border-border', label: 'Tip', icon: Lightbulb, gradient: 'from-foreground to-foreground' },
-  other: { color: 'text-foreground', bg: 'bg-neutral', border: 'border-border', label: 'News', icon: FileText, gradient: 'from-neutral-500 to-neutral-600' },
+const categoryConfig: Record<string, { color: string; bg: string; border: string; label: string; icon: any }> = {
+  arrest: { color: 'text-destructive-hover', bg: 'bg-destructive-subtle', border: 'border-destructive-muted', label: 'Arrest', icon: Siren },
+  seizure: { color: 'text-foreground', bg: 'bg-neutral-100', border: 'border-border', label: 'Seizure', icon: ShieldAlert },
+  law_change: { color: 'text-foreground', bg: 'bg-neutral-100', border: 'border-border', label: 'Law Change', icon: Gavel },
+  statistics: { color: 'text-primary-hover', bg: 'bg-primary-subtle', border: 'border-border', label: 'Statistics', icon: TrendingUp },
+  prevention_tip: { color: 'text-foreground', bg: 'bg-neutral-100', border: 'border-border', label: 'Tip', icon: Lightbulb },
+  other: { color: 'text-foreground', bg: 'bg-neutral', border: 'border-border', label: 'News', icon: FileText },
 };
 
 function formatDate(dateValue: string | number) {
@@ -137,6 +137,52 @@ function readingTime(text: string): number {
 const config = categoryConfig[post.category] || categoryConfig.other;
 const pageUrl = `https://protectmymobile.xyz/news/${slug}`;
 const isExternal = !!post.sourceUrl;
+
+/**
+ * Syndication cap.
+ *
+ * For anything sourced from another publisher we show a short summary and send
+ * the reader to the original. This is enforced here, at render, as well as at
+ * ingestion, so that posts stored before the cap existed are also covered —
+ * and so the promise made in the /news colophon holds for every article.
+ */
+const SUMMARY_WORD_LIMIT = 90;
+
+function capToSummary(html: string, wordLimit: number): { html: string; capped: boolean } {
+  const blocks = html.match(/<p[^>]*>[\s\S]*?<\/p>/gi) || [];
+  if (blocks.length === 0) {
+    const words = html.replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean);
+    if (words.length <= wordLimit) return { html, capped: false };
+    return { html: `<p>${words.slice(0, wordLimit).join(' ')}\u2026</p>`, capped: true };
+  }
+
+  const kept: string[] = [];
+  let used = 0;
+  for (const block of blocks) {
+    const words = block.replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean);
+    if (used > 0 && used + words.length > wordLimit) break;
+    if (used + words.length > wordLimit) {
+      kept.push(`<p>${words.slice(0, wordLimit).join(' ')}\u2026</p>`);
+      used = wordLimit;
+      break;
+    }
+    kept.push(block);
+    used += words.length;
+    if (used >= wordLimit) break;
+  }
+
+  const capped = kept.length < blocks.length || used >= wordLimit;
+  return { html: kept.join('\n'), capped };
+}
+
+let summaryCapped = false;
+if (isExternal) {
+  const summary = capToSummary(contentHtml, SUMMARY_WORD_LIMIT);
+  contentHtml = summary.html;
+  summaryCapped = summary.capped;
+}
+
+
 
 // Schema
 const articleSchema = {
@@ -182,7 +228,7 @@ const articleSchema = {
   <HeaderMobile client:idle />
   
   <main id="main-content" class="bg-background min-h-screen">
-    <div class="container mx-auto px-4 py-4 sm:py-6 max-w-5xl">
+    <div class="container mx-auto px-4 py-4 sm:py-6 max-w-4xl">
       
       <article class="bg-card rounded-xl sm:rounded-2xl  overflow-hidden border border-border">
         {/* Featured Image */}
@@ -221,7 +267,7 @@ const articleSchema = {
             <span class="text-muted-foreground">&bull;</span>
             <span class="text-xs text-muted-foreground flex items-center gap-1">
               <BookOpen className="size-3" />
-              {readingTime(post.content || post.excerpt || '')} min read
+              {readingTime(isExternal ? contentHtml : (post.content || post.excerpt || ''))} min read
             </span>
             {isExternal && (
               <>
@@ -260,6 +306,18 @@ const articleSchema = {
               <p class="text-muted-foreground italic">{post.excerpt}</p>
             )}
           </div>
+
+          {summaryCapped && post.sourceUrl && (
+            <p class="mt-4 text-sm text-muted-foreground">
+              This is a summary of reporting by {post.sourceName || 'the original publisher'}.
+              <a
+                href={post.sourceUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="ml-1 text-foreground font-medium underline hover:text-destructive"
+              >Read the full article</a>.
+            </p>
+          )}
 
           {/* Prominent External Link CTA */}
           {isExternal && post.sourceUrl && (
@@ -378,7 +436,7 @@ const articleSchema = {
                   href={related.sourceUrl || `/news/${related.slug}`}
                   target={related.sourceUrl ? "_blank" : undefined}
                   rel={related.sourceUrl ? "noopener noreferrer" : undefined}
-                  class="group bg-card rounded-xl overflow-hidden border border-border hover:border-primary/30 hover: transition-all"
+                  class="group bg-card rounded-xl overflow-hidden border border-border hover:border-primary/30 transition-all"
                 >
                   {related.featuredImageUrl ? (
                     <div class="w-full aspect-[16/9] overflow-hidden bg-neutral-100">
@@ -417,6 +475,7 @@ const articleSchema = {
           </div>
         </section>
       )}
+    </div>
     </div>
   </main>
   

@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
+import { londonHotspots, hotspotsSource } from '../data/hotspots';
 import { AlertTriangle, TrendingUp, MapPin, Clock, Shield, ArrowRight, ExternalLink, Bike, Users, Coffee, Camera, Train, Moon, Briefcase, Map, TreePine } from 'lucide-react';
 
 const theftMethods = [
@@ -77,34 +78,30 @@ const theftMethods = [
   }
 ];
 
-const colorClasses: Record<string, { bg: string; border: string; icon: string; badge: string }> = {
-  red:     { bg: 'bg-destructive-subtle', border: 'border-destructive-muted', icon: 'text-destructive', badge: 'bg-destructive text-background' },
-  orange:  { bg: 'bg-neutral-100', border: 'border-border', icon: 'text-foreground', badge: 'bg-foreground text-background' },
-  yellow:  { bg: 'bg-neutral-100', border: 'border-border', icon: 'text-foreground', badge: 'bg-foreground text-background' },
-  green:   { bg: 'bg-neutral-100', border: 'border-border', icon: 'text-foreground', badge: 'bg-foreground text-background' },
-  teal:    { bg: 'bg-neutral-100', border: 'border-border', icon: 'text-foreground', badge: 'bg-foreground text-background' },
-  blue:    { bg: 'bg-neutral-100', border: 'border-border', icon: 'text-foreground', badge: 'bg-foreground text-background' },
-  emerald: { bg: 'bg-neutral-100', border: 'border-border', icon: 'text-foreground', badge: 'bg-foreground text-background' },
-  purple:  { bg: 'bg-neutral-100', border: 'border-border', icon: 'text-foreground', badge: 'bg-foreground text-background' },
-  slate:   { bg: 'bg-neutral-100', border: 'border-border', icon: 'text-foreground', badge: 'bg-foreground text-background' },
-  indigo:  { bg: 'bg-neutral-100', border: 'border-border', icon: 'text-foreground', badge: 'bg-foreground text-background' },
+// Every method card is styled the same except the first, which carries the
+// destructive accent. Two variants, not ten colour keys that resolve alike.
+type MethodStyle = { bg: string; border: string; icon: string; badge: string };
+
+const dangerStyle: MethodStyle = {
+  bg: 'bg-destructive-subtle', border: 'border-destructive-muted', icon: 'text-destructive', badge: 'bg-destructive text-background',
 };
+const standardStyle: MethodStyle = {
+  bg: 'bg-neutral-100', border: 'border-border', icon: 'text-foreground', badge: 'bg-foreground text-background',
+};
+const methodStyle = (color: string): MethodStyle => (color === 'red' ? dangerStyle : standardStyle);
+
+// The headline figure this page displays, and the "one every N minutes" claim
+// derived from it, so the two can never drift apart.
+const londonThefts2024 = 117211;
+const minutesBetweenThefts = ((365 * 24 * 60) / londonThefts2024).toFixed(1);
 
 const stats = [
-  { value: '117,211', label: 'Phones stolen in London (2024, Met FOI)', color: 'text-destructive' },
+  { value: londonThefts2024.toLocaleString('en-GB'), label: 'Phones stolen in London (2024, Met FOI)', color: 'text-destructive' },
   { value: '71,391', label: 'Stolen in London (2025, Met)', color: 'text-foreground' },
   { value: '151,220', label: 'Theft from the person, E&W (YE Mar 2025, ONS)', color: 'text-foreground' },
   { value: '−12.3%', label: 'Fall in London 2025 vs 2024', color: 'text-foreground' },
 ];
 
-const hotspots = [
-  { area: 'Westminster', thefts: '16,639', risk: 'Extreme' },
-  { area: 'Camden', thefts: '6,651', risk: 'Very High' },
-  { area: 'Southwark', thefts: '5,571', risk: 'Very High' },
-  { area: 'Hackney', thefts: '1,610', risk: 'High' },
-  { area: 'Lambeth', thefts: '1,523', risk: 'High' },
-  { area: 'Tower Hamlets', thefts: '709', risk: 'High' },
-];
 ---
 
 <Layout 
@@ -126,14 +123,13 @@ const hotspots = [
     <div class="container mx-auto px-4 py-4 sm:py-6 max-w-6xl">
       
       <!-- Hero Section -->
-      <div class="bg-destructive text-destructive-foreground rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8  relative overflow-hidden">
-        <div class="absolute top-0 right-0 w-64 h-64 bg-card/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
-        <div class="relative">
+      <div class="bg-destructive text-destructive-foreground rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8">
+        <div>
           <div class="flex items-center gap-3 mb-3">
             <div class="bg-background/20 p-2 sm:p-3 rounded-xl">
               <AlertTriangle className="size-6 sm:size-8" />
             </div>
-            <h1 class="text-xl sm:text-2xl md:text-3xl font-bold text-shadow-danger">The Mobile Theft Epidemic</h1>
+            <h1 class="text-xl sm:text-2xl md:text-3xl font-bold">The Mobile Theft Epidemic</h1>
           </div>
           <p class="text-destructive-foreground/70 text-xs sm:text-sm md:text-base mb-6">
             Phone theft in the UK has reached crisis levels. Understanding how thieves operate is the first step to protecting yourself.
@@ -145,9 +141,9 @@ const hotspots = [
             </div>
             <div class="flex items-center gap-2 bg-background/10 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm">
               <Clock className="size-4" />
-              <span>One stolen every 7 minutes</span>
+              <span>One every {minutesBetweenThefts} minutes, based on {londonThefts2024.toLocaleString('en-GB')} recorded thefts in London in 2024 (Met FOI)</span>
             </div>
-            <a href="/scenarios" class="inline-flex items-center gap-2 bg-card text-destructive-hover px-3 sm:px-4 py-1.5 sm:py-2 min-h-11 rounded-lg text-xs sm:text-sm font-semibold  hover:bg-card/90 transition">
+            <a href="/news?category=safety_slides" class="inline-flex items-center gap-2 bg-card text-destructive-hover px-3 sm:px-4 py-1.5 sm:py-2 min-h-11 rounded-lg text-xs sm:text-sm font-semibold hover:bg-card/90 transition">
               <AlertTriangle className="size-4" />
               View scenario slides
             </a>
@@ -163,8 +159,8 @@ const hotspots = [
         </h2>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
           {stats.map((stat) => (
-            <div class="bg-card rounded-lg sm:rounded-2xl p-3 sm:p-4 md:p-5  border border-border text-center">
-              <div class={`text-xl sm:text-2xl md:text-3xl font-bold ${stat.color}`}>{stat.value}</div>
+            <div class="bg-card rounded-lg sm:rounded-2xl p-3 sm:p-4 md:p-5 border border-border text-center">
+              <div class={`text-xl sm:text-2xl md:text-3xl font-bold tabular-nums ${stat.color}`}>{stat.value}</div>
               <p class="text-[10px] sm:text-xs text-muted-foreground mt-2">{stat.label}</p>
             </div>
           ))}
@@ -183,9 +179,9 @@ const hotspots = [
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
               {theftMethods.map((method) => {
-                const colors = colorClasses[method.color] ?? colorClasses.red;
+                const colors = methodStyle(method.color);
                 return (
-                  <div class={`${colors.bg} ${colors.border} border rounded-lg sm:rounded-xl p-3 sm:p-4 md:p-5 hover: transition-shadow`}>
+                  <div class={`${colors.bg} ${colors.border} border rounded-lg sm:rounded-xl p-3 sm:p-4 md:p-5`}>
                     <div class="flex items-start gap-3 sm:gap-4">
                       <div class={`${colors.icon} mt-1`}>
                         <method.icon class="size-5 sm:size-6" />
@@ -214,17 +210,15 @@ const hotspots = [
           London Theft Hotspots
         </h2>
         <div class="grid grid-cols-2 md:grid-cols-3 gap-2 sm:gap-3">
-          {hotspots.map((spot) => (
-            <div class="bg-card rounded-lg sm:rounded-xl p-3 sm:p-4  border border-border">
+          {londonHotspots.map((spot) => (
+            <div class="bg-card rounded-lg sm:rounded-xl p-3 sm:p-4 border border-border">
               <div class="flex items-center gap-2 mb-1">
                 <MapPin className="size-4 text-destructive" />
-                <span class="font-semibold text-xs sm:text-sm">{spot.area}</span>
+                <span class="font-semibold text-xs sm:text-sm">{spot.borough}</span>
               </div>
-              <p class="text-lg font-bold text-destructive">{spot.thefts}</p>
+              <p class="text-lg font-bold text-destructive tabular-nums">{spot.thefts.toLocaleString('en-GB')}</p>
               <span class={`text-xs sm:text-sm px-2 py-0.5 rounded-full ${
-                spot.risk === 'Extreme' ? 'bg-destructive-muted text-destructive-hover' :
-                spot.risk === 'Very High' ? 'bg-neutral-100 text-foreground' :
-                'bg-neutral-100 text-foreground'
+                spot.risk === 'Extreme' ? 'bg-destructive-muted text-destructive-hover' : 'bg-neutral-100 text-foreground'
               }`}>
                 {spot.risk} Risk
               </span>
@@ -232,7 +226,7 @@ const hotspots = [
           ))}
         </div>
         <p class="text-xs text-muted-foreground mt-4">
-          Source: police.uk recorded crime data, 12 months to June 2026 (theft from the person within ~1 mile of each borough centre).
+          Source: <a href={hotspotsSource.sourceUrl} target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">{hotspotsSource.sourceName}</a> (theft from the person within ~1 mile of each borough centre).
         </p>
       </section>
       
