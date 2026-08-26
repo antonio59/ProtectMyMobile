@@ -131,6 +131,9 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Address the August site audit: syndication cap, city ranks, map escaping, legal pages, safety slides (#99)
+
+Co-authored-by: Antonio Smith <antoniojosephsmith18@gmail.com>
 - Redesign directory entries as index rows and call tiles
 - Restructure FAQ around the post-theft visitor journey
 
@@ -1424,6 +1427,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
