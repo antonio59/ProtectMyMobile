@@ -131,6 +131,14 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Remove duplicate directory entries, fix stale bank count in FAQ schema
+
+- Deduped Convex directories: 28 banks and 9 providers were seeded twice
+  (exact name matches), plus a sparser duplicate Lebara record removed;
+  banks now 58 active, providers 26
+- Added scripts/dedupe-directories.mjs (dry-run by default, --apply to
+  delete) so this can be re-run safely
+- banks.astro FAQ schema said 'over 25 UK banks'; now 'over 55'
 - Stop verification cron from deactivating live directories on bot-blocks
 
 The first run hid Revolut, TSB, Lebara and others because their WAFs
@@ -1442,6 +1450,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
