@@ -10,44 +10,50 @@ interface VerificationReport {
   checked: number;
   active: number;
   inactive: number;
+  uncertain: number;
   details: string[];
 }
 
-async function tryFetch(url: string): Promise<{ ok: boolean; status?: number; err?: string }> {
+// Realistic browser UA: many bank/provider sites bot-block the default
+// fetch UA with 403, which must not be treated as "site is down".
+const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36';
+
+async function tryFetch(url: string, method: 'HEAD' | 'GET'): Promise<{ responded: boolean; ok: boolean; status?: number; err?: string }> {
   try {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 5000);
+    const timeoutId = setTimeout(() => controller.abort(), 8000);
     const res = await fetch(url, {
-      method: 'HEAD',
+      method,
       signal: controller.signal,
-      headers: { 'User-Agent': 'ProtectMyMobile/1.0 DirectoryBot' }
+      redirect: 'follow',
+      headers: { 'User-Agent': UA }
     });
     clearTimeout(timeoutId);
-    if (res.ok || res.status === 405) return { ok: true };
-    if (res.status === 403) return { ok: false, status: res.status };
-    return { ok: false, status: res.status };
+    return { responded: true, ok: res.ok || res.status === 405, status: res.status };
   } catch (err: any) {
-    return { ok: false, err: err.message };
+    return { responded: false, ok: false, err: err.message };
   }
 }
 
-async function checkUrlAlive(url: string): Promise<{ alive: boolean; detail: string }> {
-  const head = await tryFetch(url);
-  if (head.ok) return { alive: true, detail: '' };
-
-  if (head.status === 403) {
-    const get = await tryFetch(url);
-    if (get.ok) return { alive: true, detail: '' };
-    return { alive: false, detail: `returned 403 (HEAD) and ${get.status ?? get.err} (GET)` };
+// Any HTTP response at all (even 403/404/500) means the domain is alive:
+// bot protection and WAFs answer with 403 to non-browser clients. Only a
+// network-level failure on BOTH HEAD and GET is suspicious, and even then
+// we do not auto-deactivate; the entry is flagged for manual review so a
+// transient outage or bot block never removes a real bank from the directory.
+async function checkUrlAlive(url: string): Promise<{ alive: boolean; uncertain: boolean; detail: string }> {
+  const head = await tryFetch(url, 'HEAD');
+  if (head.responded) {
+    return head.ok || head.status === 403
+      ? { alive: true, uncertain: false, detail: '' }
+      : { alive: true, uncertain: true, detail: `unusual status ${head.status} (HEAD)` };
   }
 
-  if (head.err) {
-    const get = await tryFetch(url);
-    if (get.ok) return { alive: true, detail: '' };
-    return { alive: false, detail: `failed: ${head.err} (HEAD), then ${get.status ?? get.err} (GET)` };
+  const get = await tryFetch(url, 'GET');
+  if (get.responded) {
+    return { alive: true, uncertain: false, detail: '' };
   }
 
-  return { alive: false, detail: `returned ${head.status}` };
+  return { alive: false, uncertain: true, detail: `no response: ${head.err} (HEAD), ${get.err} (GET)` };
 }
 
 async function verifyEntry(
@@ -59,22 +65,21 @@ async function verifyEntry(
   id: any
 ) {
   report.checked++;
-  const { alive, detail } = await checkUrlAlive(url);
+  const { alive, uncertain, detail } = await checkUrlAlive(url);
   const adminToken = import.meta.env.CRON_SECRET || process.env.CRON_SECRET;
 
   if (alive) {
     report.active++;
+    if (uncertain) report.details.push(`⚠️ ${name} (${url}) ${detail}`);
     await convex.mutation(
       type === 'bank' ? api.banks.update : api.mobileProviders.update,
       { adminToken, id, lastVerified: Date.now(), active: true }
     );
   } else {
-    report.inactive++;
-    report.details.push(`❌ ${name} (${url}) ${detail}`);
-    await convex.mutation(
-      type === 'bank' ? api.banks.update : api.mobileProviders.update,
-      { adminToken, id, active: false }
-    );
+    // Never auto-deactivate on ambiguous network failures: keep the entry
+    // visible and flag it for manual review in the emailed report.
+    report.uncertain++;
+    report.details.push(`❓ ${name} (${url}) ${detail} - left active, needs manual review`);
   }
 }
 
@@ -92,7 +97,7 @@ export const GET: APIRoute = async ({ request }) => {
       convex.query(api.mobileProviders.list, { activeOnly: false })
     ]);
 
-    const report: VerificationReport = { checked: 0, active: 0, inactive: 0, details: [] };
+    const report: VerificationReport = { checked: 0, active: 0, inactive: 0, uncertain: 0, details: [] };
 
     await Promise.all([
       ...(banks || []).map(b => verifyEntry(convex, report, b.website, b.name, 'bank', b._id)),
@@ -104,13 +109,14 @@ export const GET: APIRoute = async ({ request }) => {
     await convex.mutation(api.siteMetadata.updateDirectoryVerified, { adminToken, directory: 'mobileProviders' });
 
     await sendReportEmail(
-      `Directory Verification Report: ${report.inactive} Issues Found`,
+      `Directory Verification Report: ${report.uncertain} Need Review`,
       `
         <h2>Directory Verification Status</h2>
         <p><strong>Checked:</strong> ${report.checked}</p>
-        <p><strong>Active:</strong> <span style="color:green">${report.active}</span></p>
-        <p><strong>Inactive/Issues:</strong> <span style="color:red">${report.inactive}</span></p>
-        <h3>Issues Detail:</h3>
+        <p><strong>Reachable:</strong> <span style="color:green">${report.active}</span></p>
+        <p><strong>Needs manual review:</strong> <span style="color:orange">${report.uncertain}</span></p>
+        <p>Entries are never deactivated automatically; anything below stayed visible in the directory.</p>
+        <h3>Review Detail:</h3>
         <ul>
           ${report.details.length > 0 ? report.details.map(d => `<li>${d}</li>`).join('') : '<li>No issues found.</li>'}
         </ul>
