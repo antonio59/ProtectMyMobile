@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
-import { londonHotspots, hotspotsSource } from '../data/hotspots';
+import { londonHotspots, hotspotsSource, hotspotRank } from '../data/hotspots';
 import { MapPin, AlertTriangle, Shield, TrendingUp, ArrowRight, Phone, Building2, Train, Navigation, CheckCircle2 } from 'lucide-react';
 
 export const prerender = true;
@@ -10,10 +10,9 @@ export const prerender = true;
 export function getStaticPaths() {
   // London borough figures and ranking come from the shared hotspot dataset.
   const boroughData = (borough: string) => {
-    const index = londonHotspots.findIndex((h) => h.borough === borough);
-    if (index === -1) throw new Error(`Unknown London hotspot borough: ${borough}`);
-    const entry = londonHotspots[index];
-    return { thefts: entry.thefts, year: entry.year, boroughRank: index + 1 };
+    const entry = londonHotspots.find((h) => h.borough === borough);
+    if (!entry) throw new Error(`Unknown London hotspot borough: ${borough}`);
+    return { thefts: entry.thefts, year: entry.year, boroughRank: hotspotRank(borough) };
   };
 
   const locations = [

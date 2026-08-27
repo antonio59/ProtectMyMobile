@@ -1,4 +1,8 @@
 ---
+// Prerendered: output is 'server', so a dynamic route using getStaticPaths
+// must opt in explicitly or the build fails.
+export const prerender = true;
+
 import Layout from '../../layouts/Layout.astro';
 import HeaderMobile from '../../components/HeaderMobile';
 import Footer from '../../components/Footer.astro';
