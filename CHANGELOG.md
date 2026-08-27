@@ -131,6 +131,18 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Make directory creates idempotent at the Convex layer
+
+- New insertDirectoryRowIfAbsent in convex/lib/crud.ts: inside the
+  mutation (transactional, race-safe) it matches an existing row by
+  normalized name or website host, fills only missing optional fields,
+  and never inserts a duplicate. Returns { id, created }
+- banks.create and mobileProviders.create now use it
+- directory-discovery normalizeName strips generic suffixes
+  (mobile/bank/building/society/uk) so 'Lebara' and 'Lebara Mobile'
+  resolve to the same key, matching the Convex-side rule
+- Verified against prod: creating 'Barclays Bank' returned
+  { created: false } with no row count change
 - Remove duplicate directory entries, fix stale bank count in FAQ schema
 
 - Deduped Convex directories: 28 banks and 9 providers were seeded twice
@@ -1450,6 +1462,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
