@@ -131,6 +131,14 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Fix build failures and dead-code check
+
+- news/[slug].astro and emergency.astro each had a duplicate closing
+  </div> breaking the Astro compiler on CI
+- [location].astro: use hotspotRank() from the shared hotspot dataset
+  (fixes Fallow unused-export failure)
+- slides/[id].astro: opt dynamic route into prerender explicitly for
+  output: 'server'
 - Address the August site audit: syndication cap, city ranks, map escaping, legal pages, safety slides (#99)
 
 Co-authored-by: Antonio Smith <antoniojosephsmith18@gmail.com>
@@ -1427,6 +1435,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
