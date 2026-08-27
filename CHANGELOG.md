@@ -131,6 +131,13 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Stop verification cron from deactivating live directories on bot-blocks
+
+The first run hid Revolut, TSB, Lebara and others because their WAFs
+answered 403 to the bot User-Agent. Now any HTTP response counts as
+alive, the UA looks like a real browser, network-level failures are
+flagged for manual review instead of auto-deactivating, and the report
+email reflects the new 'needs review' semantics.
 - Fix build failures and dead-code check
 
 - news/[slug].astro and emergency.astro each had a duplicate closing
@@ -1435,6 +1442,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
