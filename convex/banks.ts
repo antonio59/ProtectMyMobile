@@ -1,6 +1,6 @@
 import { v } from "convex/values";
 import { query, mutation } from "./_generated/server";
-import { insertRow, listRows, patchById, removeById } from "./lib/crud";
+import { insertDirectoryRowIfAbsent, listRows, patchById, removeById } from "./lib/crud";
 
 export const list = query({
   args: { activeOnly: v.optional(v.boolean()) },
@@ -23,7 +23,7 @@ export const create = mutation({
     logoUrl: v.optional(v.string()),
     active: v.boolean(),
   },
-  handler: async (ctx, args) => insertRow(ctx, "banks", args),
+  handler: async (ctx, args) => insertDirectoryRowIfAbsent(ctx, "banks", args),
 });
 
 export const update = mutation({

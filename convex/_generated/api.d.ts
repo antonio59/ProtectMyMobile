@@ -17,6 +17,8 @@ import type * as contactSubmissions from "../contactSubmissions.js";
 import type * as experienceReports from "../experienceReports.js";
 import type * as foiRequests from "../foiRequests.js";
 import type * as importLogs from "../importLogs.js";
+import type * as lib_crud from "../lib/crud.js";
+import type * as lib_newsDedup from "../lib/newsDedup.js";
 import type * as mobileProviders from "../mobileProviders.js";
 import type * as newsPosts from "../newsPosts.js";
 import type * as pageViews from "../pageViews.js";
@@ -42,6 +44,8 @@ declare const fullApi: ApiFromModules<{
   experienceReports: typeof experienceReports;
   foiRequests: typeof foiRequests;
   importLogs: typeof importLogs;
+  "lib/crud": typeof lib_crud;
+  "lib/newsDedup": typeof lib_newsDedup;
   mobileProviders: typeof mobileProviders;
   newsPosts: typeof newsPosts;
   pageViews: typeof pageViews;

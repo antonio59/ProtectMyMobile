@@ -22,9 +22,12 @@ export interface DiscoveryReport {
 }
 
 function normalizeName(name: string): string {
+  // Mirrors normalizeDirectoryName in convex/lib/crud.ts: generic suffixes
+  // like "Mobile"/"Bank"/"Building Society" are stripped so brand variants
+  // ("Lebara" vs "Lebara Mobile") resolve to the same key.
   return name
     .toLowerCase()
-    .replace(/\b(limited|ltd|plc|llp)\b/g, '')
+    .replace(/\b(limited|ltd|plc|llp|mobile|bank|building|society|uk)\b/g, '')
     .replace(/[^a-z0-9]/g, '')
     .trim();
 }
