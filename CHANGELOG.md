@@ -131,6 +131,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Bump tailwindcss from 4.3.1 to 4.3.3 in the tailwind group (#96)
 - Make directory creates idempotent at the Convex layer
 
 - New insertDirectoryRowIfAbsent in convex/lib/crud.ts: inside the
@@ -1462,6 +1463,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
