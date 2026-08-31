@@ -77,8 +77,8 @@ importers:
         specifier: ^19.2.8
         version: 19.2.8(react@19.2.8)
       resend:
-        specifier: ^6.21.0
-        version: 6.21.0
+        specifier: ^6.24.0
+        version: 6.24.0
       rss-parser:
         specifier: ^3.13.0
         version: 3.13.0
@@ -4329,8 +4329,8 @@ packages:
   require-package-name@2.0.1:
     resolution: {integrity: sha512-uuoJ1hU/k6M0779t3VMVIYpb2VMJk05cehCaABFhXaibcbvfgR8wKiozLjVFSzJPmQMRqIcO0HMyTFqfV09V6Q==}
 
-  resend@6.21.0:
-    resolution: {integrity: sha512-XT1eP2iA8rZ51NSO2CJlL1ZE2baBoPpOGMgz2p0o2uluz/YU3XfItpGymXDlL0Sp2Mc+y9+Xxsfdccfi4f2FzQ==}
+  resend@6.24.0:
+    resolution: {integrity: sha512-ZG+tRzTtg3usrzMMVK1THPILCDbxE0uefG3XEQro/+jb9hcRb8JiQeyzIo2BphMJk2OomBeciZU3rCgX3XWx5w==}
     engines: {node: '>=20'}
     peerDependencies:
       '@react-email/render': '*'
@@ -9823,7 +9823,7 @@ snapshots:
 
   require-package-name@2.0.1: {}
 
-  resend@6.21.0:
+  resend@6.24.0:
     dependencies:
       postal-mime: 2.7.5
       standardwebhooks: 1.0.0
