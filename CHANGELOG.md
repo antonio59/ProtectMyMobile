@@ -132,6 +132,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Bump convex from 1.44.0 to 1.45.0 in the convex group (#102)
 - Bump resend from 6.21.0 to 6.24.0 (#104)
 - Bump @astrojs/netlify in the dev-dependencies group (#103)
 - Bump resend from 6.20.0 to 6.21.0 (#98)
@@ -1468,6 +1469,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
