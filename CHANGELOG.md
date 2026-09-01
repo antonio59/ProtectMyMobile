@@ -101,6 +101,7 @@ All notable changes to this project will be documented in this file.
 
 ### CI/CD
 
+- Bump google/osv-scanner-action from 2.3.8 to 2.5.1 (#105)
 - Bump actions/checkout from 6 to 7 (#77)
 - Bump actions/setup-node from 6 to 7 (#88)
 - Fix fallow dead-code analysis
@@ -131,6 +132,8 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Bump resend from 6.20.0 to 6.21.0 (#98)
+- Bump nanostores from 1.5.1 to 1.5.2 (#97)
 - Bump tailwindcss from 4.3.1 to 4.3.3 in the tailwind group (#96)
 - Make directory creates idempotent at the Convex layer
 
@@ -1463,6 +1466,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
