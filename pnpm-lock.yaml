@@ -56,8 +56,8 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1
       convex:
-        specifier: ^1.44.0
-        version: 1.44.0(react@19.2.8)
+        specifier: ^1.45.0
+        version: 1.45.0(react@19.2.8)
       lucide-react:
         specifier: ^0.577.0
         version: 0.577.0(react@19.2.8)
@@ -2391,9 +2391,9 @@ packages:
   convert-source-map@2.0.0:
     resolution: {integrity: sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==}
 
-  convex@1.44.0:
-    resolution: {integrity: sha512-84bBa1ufSX4qohXdycXuQl2c2kAmfVpTCpypcmIgxpS5rUBgv5qjhArYugTkJVbljMs5SH2mW30bjJo+SQwe1w==}
-    engines: {node: '>=18.0.0', npm: '>=7.0.0'}
+  convex@1.45.0:
+    resolution: {integrity: sha512-AV3B56Ptu/14d76g3urBJ50dwpiZa6uJaLT84OWox5aCwZIJiuAamdjv3lLHDzs8vv5kC31anEZohhUe3qJ2bA==}
+    engines: {node: '>=20.0.0', npm: '>=7.0.0'}
     hasBin: true
     peerDependencies:
       '@auth0/auth0-react': ^2.0.1
@@ -6646,7 +6646,7 @@ snapshots:
       common-path-prefix: 3.0.0
       copy-file: 11.1.0
       es-module-lexer: 1.7.0
-      esbuild: 0.28.2
+      esbuild: 0.28.1
       execa: 8.0.1
       fast-glob: 3.3.3
       filter-obj: 6.1.0
@@ -7765,7 +7765,7 @@ snapshots:
 
   convert-source-map@2.0.0: {}
 
-  convex@1.44.0(react@19.2.8):
+  convex@1.45.0(react@19.2.8):
     dependencies:
       esbuild: 0.28.2
       prettier: 3.9.6
