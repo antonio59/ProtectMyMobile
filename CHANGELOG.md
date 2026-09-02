@@ -132,6 +132,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Bump astro in the astro group across 1 directory (#100)
 - Bump @types/react-dom in the react group across 1 directory (#101)
 - Bump convex from 1.44.0 to 1.45.0 in the convex group (#102)
 - Bump resend from 6.21.0 to 6.24.0 (#104)
@@ -1470,6 +1471,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
