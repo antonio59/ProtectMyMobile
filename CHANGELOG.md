@@ -132,6 +132,21 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Merge pull request #107 from antonio59/cursor/google-site-verification-meta-aed0
+
+Fix nested Google site verification meta tag
+- Remove unused verification helper test file
+
+Fallow flags unimported *.test.ts as dead code, and this repo has no
+test runner in CI.
+
+Co-authored-by: Antonio Smith <antonio59@users.noreply.github.com>
+- Normalize Google site verification env to a bare token
+
+Peel nested content="..." / &quot; snippets so a pasted <meta> tag
+cannot be emitted as the verification content attribute.
+
+Co-authored-by: Antonio Smith <antonio59@users.noreply.github.com>
 - Merge pull request #106 from antonio59/cursor/charger-photo-alert-guide-9768
 
 Add charger photo alert prevention guide
@@ -1479,6 +1494,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
