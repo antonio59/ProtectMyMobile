@@ -4,7 +4,7 @@ import { useRef } from 'react';
 import { Sun } from 'lucide-react';
 import { useChartJS } from '../../hooks/useChart';
 import type { SeasonalData } from '../../hooks/useDashboardData';
-import { CHART_SERIES_COLORS as COLORS, CHART_TOOLTIP_BASE, CHART_TICKS, CHART_GRID } from '@/lib/chartPalette';
+import { CHART_TOOLTIP_BASE, CHART_TICKS, CHART_GRID } from '@/lib/chartPalette';
 
 
 export default function SeasonalChart({ data }: { data: SeasonalData }) {
