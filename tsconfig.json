@@ -6,7 +6,8 @@
   ],
   "exclude": [
     "dist",
-    "cron-worker"
+    "cron-worker",
+    "**/*.test.ts"
   ],
   "compilerOptions": {
     "jsx": "react-jsx",

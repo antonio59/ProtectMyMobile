@@ -2,6 +2,7 @@
 
 interface ImportMetaEnv {
   readonly PUBLIC_CONVEX_URL?: string;
+  readonly PUBLIC_GOOGLE_SITE_VERIFICATION?: string;
   readonly CONVEX_URL?: string;
   readonly CRON_SECRET?: string;
   readonly ADMIN_PASSWORD?: string;

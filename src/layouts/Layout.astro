@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import CookieConsent from '../components/CookieConsent.astro';
+import { normalizeGoogleSiteVerification } from '@/lib/googleSiteVerification';
 
 interface Props {
   title: string;
@@ -59,6 +60,9 @@ const websiteSchema = {
 
 const additionalSchemas = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
 const schemas = [defaultSchema, websiteSchema, ...additionalSchemas];
+const googleSiteVerification = normalizeGoogleSiteVerification(
+  import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION,
+);
 ---
 
 <!DOCTYPE html>
@@ -66,8 +70,8 @@ const schemas = [defaultSchema, websiteSchema, ...additionalSchemas];
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    {import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION && (
-      <meta name="google-site-verification" content={import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION} />
+    {googleSiteVerification && (
+      <meta name="google-site-verification" content={googleSiteVerification} />
     )}
     <title>{title}</title>
     <meta name="description" content={description} />
