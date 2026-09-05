@@ -132,6 +132,14 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Merge pull request #106 from antonio59/cursor/charger-photo-alert-guide-9768
+
+Add charger photo alert prevention guide
+- Add charger photo alert prevention guide
+
+Publish a dual-platform UK walkthrough at /guides/charger-photo-alert and link it from prevention, resources, search, footer, and FAQ.
+
+Co-authored-by: Antonio Smith <antonio59@users.noreply.github.com>
 - Bump astro in the astro group across 1 directory (#100)
 - Bump @types/react-dom in the react group across 1 directory (#101)
 - Bump convex from 1.44.0 to 1.45.0 in the convex group (#102)
@@ -1471,6 +1479,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
