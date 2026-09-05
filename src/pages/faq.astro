@@ -154,6 +154,11 @@ const faqCategories = [
         keywords: ["security", "features", "find my", "2fa"]
       },
       {
+        question: "Can my phone email me a photo if a thief plugs it in to charge?",
+        answer: "Not as a built-in Apple or Google theft mode. You can build a charger automation yourself: on iPhone, a Shortcuts personal automation for Charger / Is Connected can take a front-camera photo, read a location, and send email without showing compose. On Android there is no stock equivalent — MacroDroid, Tasker, or Automate can do a similar Power Connected flow. It also fires when you charge the phone, and it cannot run if the phone is off or has no signal. See the charger photo alert guide on this site for the full UK walkthrough.",
+        keywords: ["charger", "photo", "selfie", "shortcuts", "automation", "plug", "email", "location"]
+      },
+      {
         question: "Should I keep my phone in my pocket or bag?",
         answer: "Both have risks. Front pockets are safer than back pockets, which are easy targets for pickpockets. Bags should have zippers and be worn across your body with the opening facing inward. Never place your phone in an outside pocket of a bag. In very crowded areas, consider keeping your phone in an inner jacket pocket or front trouser pocket with your hand over it.",
         keywords: ["pocket", "bag", "carry"]
@@ -284,6 +289,9 @@ const faqSchema = {
           </a>
           <a href="/prevention" class="inline-flex items-center gap-1.5 min-h-11 px-3 py-1.5 bg-primary text-primary-foreground rounded-lg text-xs font-medium hover:bg-primary-hover transition-colors">
             Prevention Guide
+          </a>
+          <a href="/guides/charger-photo-alert" class="inline-flex items-center gap-1.5 min-h-11 px-3 py-1.5 bg-card border border-border text-foreground rounded-lg text-xs font-medium hover:bg-neutral transition-colors">
+            Charger photo alert
           </a>
           <a href="/contact-us" class="inline-flex items-center gap-1.5 min-h-11 px-3 py-1.5 bg-card border border-border text-foreground rounded-lg text-xs font-medium hover:bg-neutral transition-colors">
             Contact Me
