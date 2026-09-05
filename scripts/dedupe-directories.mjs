@@ -28,7 +28,7 @@ async function dedupe(table, listApi, removeApi) {
     groups.get(key).push(row);
   }
   let removed = 0;
-  for (const [key, dupes] of groups) {
+  for (const [, dupes] of groups) {
     if (dupes.length < 2) continue;
     // Keep the most recently verified / most complete record
     dupes.sort((a, b) => (b.lastVerified ?? 0) - (a.lastVerified ?? 0));
