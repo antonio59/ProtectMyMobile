@@ -132,6 +132,16 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Merge pull request #108 from antonio59/cursor/security-findings-9197
+
+Clear OSV and CodeQL security findings
+- Clear OSV/Dependabot CVEs and unused CodeQL notes
+
+Override transitive deps to patched releases, bump
+@netlify/functions-dev so extract-zip leaves the tree,
+and drop unused CodeQL symbols.
+
+Co-authored-by: Antonio Smith <antonio59@users.noreply.github.com>
 - Merge pull request #107 from antonio59/cursor/google-site-verification-meta-aed0
 
 Fix nested Google site verification meta tag
@@ -1494,6 +1504,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
