@@ -1,0 +1,392 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import HeaderMobile from '../../components/HeaderMobile';
+import Footer from '../../components/Footer.astro';
+import {
+  BatteryCharging,
+  Smartphone,
+  AlertTriangle,
+  CheckCircle2,
+  ArrowRight,
+  Shield,
+  Lock,
+  Info,
+  ShieldCheck,
+} from 'lucide-react';
+
+const pageTitle = 'Charger photo alert: email a selfie and location when someone plugs in (iPhone & Android)';
+const pageDescription =
+  'A careful UK guide to a user-built charger automation: if a stolen phone is plugged in, the front camera can take a photo and email it to you with a location. Not a stock Apple or Google theft mode.';
+const pageUrl = 'https://protectmymobile.org/guides/charger-photo-alert';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: 'Set up a charger photo alert on iPhone or Android',
+  description: pageDescription,
+  url: pageUrl,
+  step: [
+    {
+      '@type': 'HowToStep',
+      position: 1,
+      name: 'Prepare the phone first',
+      text: 'Turn on Find My (iPhone) or Find My Device (Android), set a strong screen lock, and consider a dedicated inbox for alert emails that include a face and a location.',
+      url: `${pageUrl}#before-you-start`,
+    },
+    {
+      '@type': 'HowToStep',
+      position: 2,
+      name: 'Build the iPhone Shortcuts automation',
+      text: 'In Shortcuts, create a personal automation for Charger / Is Connected, set it to Run Immediately, then turn mobile data on if needed, get the current location, take a front-camera photo with preview off, and send an email with compose off.',
+      url: `${pageUrl}#iphone`,
+    },
+    {
+      '@type': 'HowToStep',
+      position: 3,
+      name: 'Or build an Android automation',
+      text: 'Android has no stock equivalent. Use MacroDroid, Tasker, or Automate with a Power Connected trigger, a front-camera photo, a location, and an email or SMS. On ColorOS, allow unrestricted battery and autostart.',
+      url: `${pageUrl}#android`,
+    },
+    {
+      '@type': 'HowToStep',
+      position: 4,
+      name: 'Understand the limits',
+      text: 'The automation also fires when you charge the phone yourself. It cannot run if the phone is powered off, has no signal, or has been permission-killed by the manufacturer. Alert emails contain a face and a location.',
+      url: `${pageUrl}#caveats`,
+    },
+    {
+      '@type': 'HowToStep',
+      position: 5,
+      name: 'Test it on your own charger',
+      text: 'Plug the phone into your own charger, confirm a photo and location arrive, check that it can run while locked, and decide whether the false positives are acceptable.',
+      url: `${pageUrl}#test-checklist`,
+    },
+  ],
+  tool: [
+    'Apple Shortcuts (iPhone)',
+    'MacroDroid, Tasker, or Automate (Android)',
+    'Find My or Find My Device',
+    'An email account you can reach from another device',
+  ],
+};
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonicalPath="/guides/charger-photo-alert"
+  ogImage="/og-image.png"
+  schema={schema}
+>
+  <HeaderMobile client:idle />
+
+  <main id="main-content" class="bg-background min-h-screen">
+    <div class="container mx-auto px-4 py-4 sm:py-6 md:py-8 max-w-6xl">
+      <div class="bg-foreground text-background rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="bg-background/20 p-2 sm:p-3 rounded-xl">
+            <BatteryCharging className="size-6 sm:size-8" />
+          </div>
+          <div>
+            <p class="text-xs uppercase tracking-wide text-background/70 font-semibold">Prevention guide · iPhone &amp; Android</p>
+            <h1 class="text-xl sm:text-2xl md:text-3xl font-bold">Charger photo alert</h1>
+          </div>
+        </div>
+        <p class="text-background/85 text-sm md:text-base max-w-3xl">
+          If a stolen phone is plugged in to charge, you can arrange for the front camera to take a photo and email it to you with a location. It is a user-built automation — not a stock Apple or Google “theft mode”.
+        </p>
+        <div class="flex flex-wrap gap-3 mt-5">
+          <a href="#iphone" class="inline-flex items-center gap-2 bg-background/15 px-3 py-2 min-h-11 rounded-full text-sm hover:bg-background/25 transition-colors">
+            <Smartphone className="size-4" /> iPhone Shortcuts
+          </a>
+          <a href="#android" class="inline-flex items-center gap-2 bg-background/15 px-3 py-2 min-h-11 rounded-full text-sm hover:bg-background/25 transition-colors">
+            <Smartphone className="size-4" /> Android apps
+          </a>
+          <a href="/emergency" class="inline-flex items-center gap-2 bg-destructive text-destructive-foreground px-3 py-2 min-h-11 rounded-full text-sm font-semibold hover:bg-destructive-hover transition-colors">
+            <AlertTriangle className="size-4" /> Already stolen?
+          </a>
+        </div>
+      </div>
+
+      <section class="mb-6 sm:mb-8">
+        <a
+          href="/emergency"
+          class="flex items-start gap-3 bg-destructive-subtle border border-destructive-muted rounded-xl sm:rounded-2xl p-4 sm:p-5 hover:bg-destructive-muted/60 transition-colors"
+        >
+          <div class="bg-destructive-muted text-destructive rounded-lg p-2 h-fit">
+            <AlertTriangle className="size-5" />
+          </div>
+          <div class="flex-1">
+            <p class="text-sm font-semibold text-foreground">Already stolen? Do not set this up now.</p>
+            <p class="text-xs sm:text-sm text-muted-foreground mt-1">
+              This guide is for phones you still have. If the handset is gone, lock it, block the SIM, and report it — start with the emergency steps.
+            </p>
+          </div>
+          <ArrowRight className="size-5 text-destructive flex-shrink-0 mt-1" />
+        </a>
+      </section>
+
+      <section class="mb-6 sm:mb-8 grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+        <div class="bg-card rounded-xl sm:rounded-2xl border border-border p-4 sm:p-5 flex gap-3">
+          <div class="bg-neutral-100 text-foreground rounded-lg p-2 h-fit">
+            <Info className="size-5" />
+          </div>
+          <div>
+            <h2 class="text-sm font-semibold text-foreground">What this is</h2>
+            <p class="text-xs sm:text-sm text-muted-foreground mt-1">
+              A shortcut or third-party automation you build yourself. When the phone starts charging, it can take a front-camera photo, read a location, and send both to an inbox you control.
+            </p>
+          </div>
+        </div>
+        <div class="bg-card rounded-xl sm:rounded-2xl border border-border p-4 sm:p-5 flex gap-3">
+          <div class="bg-neutral-100 text-foreground rounded-lg p-2 h-fit">
+            <Shield className="size-5" />
+          </div>
+          <div>
+            <h2 class="text-sm font-semibold text-foreground">What this is not</h2>
+            <p class="text-xs sm:text-sm text-muted-foreground mt-1">
+              It is not a built-in Apple or Google theft feature, and it will not replace Find My, a strong lock screen, or a police report. Charger-trap tips have been circulating; this is a careful UK walkthrough of what actually works, and what does not.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="before-you-start" class="mb-6 sm:mb-8 md:mb-10 scroll-mt-24">
+        <div class="bg-card rounded-xl sm:rounded-2xl border border-border p-4 sm:p-6">
+          <div class="flex items-center gap-2 mb-4">
+            <Lock className="size-5 text-foreground" />
+            <h2 class="text-xl md:text-2xl font-bold text-foreground">Before you start</h2>
+          </div>
+          <p class="text-muted-foreground text-sm md:text-base mb-4">
+            Do the basics first. An alert photo is only useful if you can still lock the device and reach your accounts from somewhere else.
+          </p>
+          <ol class="list-decimal pl-5 space-y-2 text-xs sm:text-sm text-foreground">
+            <li>Turn on <strong>Find My</strong> (iPhone) or <strong>Find My Device</strong> (Android) and confirm you can sign in from another device.</li>
+            <li>Set a strong screen lock — a 6+ digit passcode, not a simple pattern — and keep biometrics as a convenience, not the only lock.</li>
+            <li>Consider a dedicated email inbox for these alerts. The messages will contain a face and a location. You do not want them mixed into a work inbox that other people can see.</li>
+            <li>Accept that the same automation will fire when <em>you</em> plug the phone in. Test that you can live with that before you rely on it.</li>
+          </ol>
+        </div>
+      </section>
+
+      <section id="iphone" class="mb-6 sm:mb-8 md:mb-10 scroll-mt-24">
+        <div class="bg-card rounded-xl sm:rounded-2xl overflow-hidden border border-border">
+          <div class="h-1 bg-foreground"></div>
+          <div class="p-4 sm:p-6 md:p-8">
+            <div class="flex items-center gap-2 sm:gap-3 mb-3">
+              <div class="bg-neutral-100 rounded-xl p-2 sm:p-3">
+                <Smartphone className="size-6 sm:size-8 text-foreground" />
+              </div>
+              <div>
+                <p class="text-xs uppercase tracking-wide text-muted-foreground font-semibold">iPhone</p>
+                <h2 class="text-xl sm:text-2xl font-bold text-foreground">Shortcuts automation</h2>
+              </div>
+            </div>
+            <p class="text-muted-foreground text-sm md:text-base mb-4">
+              Apple Shortcuts can run when the phone is connected to power. Menu names shift slightly between iOS versions — look for <strong>Charger</strong> or <strong>Is Connected</strong>. The important setting is <strong>Run Immediately</strong>, so the phone does not ask for confirmation.
+            </p>
+
+            <ol class="list-decimal pl-5 space-y-3 text-xs sm:text-sm text-foreground mb-4">
+              <li>Open the <strong>Shortcuts</strong> app → <strong>Automation</strong> → create a new personal automation.</li>
+              <li>Choose <strong>Charger</strong> (or <strong>Is Connected</strong>). Trigger it when the phone is connected to power, not when it disconnects.</li>
+              <li>Turn on <strong>Run Immediately</strong> and turn off any “Ask Before Running” prompt. Save the trigger, then add actions.</li>
+              <li>
+                <strong>Set Mobile Data → On</strong> if you want the phone to send mail without Wi‑Fi. On some iPhones this action is labelled Cellular Data. Skip this step only if you are sure the phone will have a usable network.
+              </li>
+              <li>
+                Add <strong>Get Current Location</strong>. The first run will ask for Location access — choose <strong>Always</strong> or <strong>While Using</strong>, whichever your iOS version offers for Shortcuts.
+              </li>
+              <li>
+                Add <strong>Take Photo</strong>. Set Camera to <strong>Front</strong>. Turn <strong>Show Preview</strong> (or Show Camera Preview) <strong>Off</strong>, so it does not wait for someone to tap the shutter.
+              </li>
+              <li>
+                Add <strong>Send Email</strong>. Put your alert address in To, mention the location in the body, attach the photo, and turn <strong>Show Compose Sheet</strong> <strong>Off</strong>. Mail must already be set up on the iPhone.
+              </li>
+              <li>Save the automation. Then test it on your own charger — not on a public one — and check that the email arrives with a photo and a location.</li>
+            </ol>
+
+            <div class="p-3 sm:p-4 bg-neutral-100 border border-border rounded-xl text-xs sm:text-sm text-foreground">
+              <p>
+                <strong>First-run prompts.</strong> iOS will ask for camera, location, and Mail permissions the first time this runs. Grant them while you still have the phone. If any prompt is left unanswered, the automation will stall later.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="android" class="mb-6 sm:mb-8 md:mb-10 scroll-mt-24">
+        <div class="bg-card rounded-xl sm:rounded-2xl overflow-hidden border border-border">
+          <div class="h-1 bg-foreground"></div>
+          <div class="p-4 sm:p-6 md:p-8">
+            <div class="flex items-center gap-2 sm:gap-3 mb-3">
+              <div class="bg-neutral-100 rounded-xl p-2 sm:p-3">
+                <Smartphone className="size-6 sm:size-8 text-foreground" />
+              </div>
+              <div>
+                <p class="text-xs uppercase tracking-wide text-muted-foreground font-semibold">Android</p>
+                <h2 class="text-xl sm:text-2xl font-bold text-foreground">No stock zero-app twin</h2>
+              </div>
+            </div>
+            <p class="text-muted-foreground text-sm md:text-base mb-4">
+              Android does not ship a built-in equivalent that can silently take a front-camera photo and email it when the charger is connected. The practical route is a well-known automation app, plus manufacturer battery and autostart exceptions so the app is not killed overnight.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 mb-6">
+              <div class="p-4 rounded-xl bg-neutral border border-border">
+                <h3 class="font-semibold text-foreground text-sm mb-2">MacroDroid</h3>
+                <ol class="list-decimal pl-4 space-y-1 text-xs sm:text-sm text-foreground">
+                  <li>Trigger: <strong>Power Connected</strong>.</li>
+                  <li>Action: <strong>Take Picture</strong> (front camera).</li>
+                  <li>Action: get location (GPS or network).</li>
+                  <li>Action: <strong>Send Email</strong> or SMS with the photo attached.</li>
+                </ol>
+              </div>
+              <div class="p-4 rounded-xl bg-neutral border border-border">
+                <h3 class="font-semibold text-foreground text-sm mb-2">Tasker</h3>
+                <ol class="list-decimal pl-4 space-y-1 text-xs sm:text-sm text-foreground">
+                  <li>Profile state: <strong>Power → Any</strong>.</li>
+                  <li>Task: <strong>Take Photo</strong> (front).</li>
+                  <li>Task: <strong>Get Location</strong>.</li>
+                  <li>Task: <strong>Send Email</strong> or SMS.</li>
+                </ol>
+              </div>
+              <div class="p-4 rounded-xl bg-neutral border border-border">
+                <h3 class="font-semibold text-foreground text-sm mb-2">Automate</h3>
+                <ol class="list-decimal pl-4 space-y-1 text-xs sm:text-sm text-foreground">
+                  <li>Block: power plugged in.</li>
+                  <li>Block: <strong>Take picture</strong> (front).</li>
+                  <li>Block: location.</li>
+                  <li>Block: <strong>Email send</strong> with the picture attached.</li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="p-4 sm:p-5 bg-primary-subtle border border-border rounded-xl mb-4">
+              <h3 class="font-semibold text-foreground text-sm mb-2">ColorOS / Oppo Find X9 Pro notes</h3>
+              <p class="text-xs sm:text-sm text-foreground mb-2">
+                ColorOS is particularly keen to stop background apps. If the automation looks correct but never fires after a night on the bedside table, check these before you blame the flow:
+              </p>
+              <ul class="list-disc pl-5 space-y-1 text-xs sm:text-sm text-foreground">
+                <li>Battery for the automation app: <strong>Unrestricted</strong>, not Optimised.</li>
+                <li>Allow <strong>Autostart</strong> (and any “run in background” / “allow while sleeping” toggle).</li>
+                <li>Camera and location permissions while the screen is locked. Some ColorOS builds refuse a camera capture until the phone is unlocked — test this explicitly.</li>
+              </ul>
+            </div>
+
+            <div class="p-4 sm:p-5 bg-warning-subtle border border-border rounded-xl">
+              <h3 class="font-semibold text-foreground text-sm mb-2">Weaker built-in options</h3>
+              <p class="text-xs sm:text-sm text-foreground">
+                <strong>Samsung Modes &amp; Routines</strong> can start when charging begins, but they are a poor fit for a silent front-camera photo plus email. <strong>Pixel Digital Wellbeing</strong> (and similar focus tools) is not an automation platform for this job. Use one of the three apps above if you want the same outcome as the iPhone shortcut.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="caveats" class="mb-6 sm:mb-8 md:mb-10 scroll-mt-24">
+        <div class="bg-card rounded-xl sm:rounded-2xl border border-border p-4 sm:p-6">
+          <div class="flex items-center gap-2 mb-4">
+            <AlertTriangle className="size-5 text-warning" />
+            <h2 class="text-xl md:text-2xl font-bold text-foreground">Shared caveats</h2>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 text-xs sm:text-sm text-foreground">
+            <div class="p-4 rounded-xl bg-neutral border border-border">
+              <p class="font-semibold mb-1">It fires when you charge too</p>
+              <p class="text-muted-foreground">Every time you plug in at home or on a train, you may email yourself a selfie. That is expected, not a bug. Turn the automation off when the noise is too much.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-neutral border border-border">
+              <p class="font-semibold mb-1">Power off and no signal</p>
+              <p class="text-muted-foreground">A powered-off phone, or one with no mobile data and no Wi‑Fi, cannot take a photo or send mail. Find My still matters more than this shortcut.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-neutral border border-border">
+              <p class="font-semibold mb-1">OEM permission kills</p>
+              <p class="text-muted-foreground">Many Android skins quietly stop background camera and location access. Re-check battery, autostart, and “locked screen” camera after each system update.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-neutral border border-border">
+              <p class="font-semibold mb-1">Privacy of face and location</p>
+              <p class="text-muted-foreground">Alert emails are personal data. Use an inbox only you can open, and delete old alerts. Do not forward them into a shared family account without thinking it through.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-neutral border border-border md:col-span-2">
+              <p class="font-semibold mb-1">Shutter sound</p>
+              <p class="text-muted-foreground">
+                Some devices play a camera shutter even when the screen is off. That can draw attention if someone else is holding the phone. Test with the ringer off and the phone locked before you treat this as silent.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="test-checklist" class="mb-6 sm:mb-8 md:mb-10 scroll-mt-24">
+        <div class="bg-card rounded-xl sm:rounded-2xl border border-border p-4 sm:p-6">
+          <div class="flex items-center gap-2 mb-4">
+            <CheckCircle2 className="size-5 text-foreground" />
+            <h2 class="text-xl md:text-2xl font-bold text-foreground">Test checklist</h2>
+          </div>
+          <p class="text-muted-foreground text-sm mb-4">
+            Use your own charger, in a room you control. Do not test this on a café or train socket you do not trust.
+          </p>
+          <ul class="space-y-2 text-xs sm:text-sm text-foreground">
+            <li class="flex items-start gap-2">
+              <CheckCircle2 className="size-4 mt-0.5 flex-shrink-0 text-success" />
+              <span>Lock the phone, then plug it in. The automation should run without you unlocking it.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <CheckCircle2 className="size-4 mt-0.5 flex-shrink-0 text-success" />
+              <span>An email arrives with a front-camera photo and a location that is roughly correct.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <CheckCircle2 className="size-4 mt-0.5 flex-shrink-0 text-success" />
+              <span>It still works on mobile data with Wi‑Fi off (if you added that step).</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <CheckCircle2 className="size-4 mt-0.5 flex-shrink-0 text-success" />
+              <span>You have heard whether a shutter sound plays, and decided if that is acceptable.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <CheckCircle2 className="size-4 mt-0.5 flex-shrink-0 text-success" />
+              <span>After a reboot, or a night unused, it still fires — especially on ColorOS and other aggressive skins.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <CheckCircle2 className="size-4 mt-0.5 flex-shrink-0 text-success" />
+              <span>You know how to pause the automation on days you will be charging often.</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="mb-6 sm:mb-8">
+        <div class="bg-foreground text-background rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div>
+            <p class="text-xs uppercase tracking-wide text-background/60 font-semibold mb-1">Need help fast?</p>
+            <h2 class="text-xl font-bold">If the phone is already gone</h2>
+            <p class="text-sm text-background/80 mt-1">This charger alert cannot be added after theft. Lock the device, block the SIM, and file a report.</p>
+          </div>
+          <a href="/emergency" class="inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 min-h-11 text-xs sm:text-sm bg-destructive text-destructive-foreground rounded-xl font-semibold hover:bg-destructive-hover transition">
+            Open the emergency guide <ArrowRight className="size-4" />
+          </a>
+        </div>
+      </section>
+
+      <section class="mb-8 sm:mb-10 md:mb-12">
+        <div class="bg-card rounded-xl sm:rounded-2xl border border-border p-4 sm:p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div class="flex items-start gap-3">
+            <div class="bg-neutral-100 rounded-xl p-2 h-fit">
+              <ShieldCheck className="size-5 text-foreground" />
+            </div>
+            <div>
+              <h2 class="text-base sm:text-lg font-bold text-foreground">Optional: check the rest of the setup</h2>
+              <p class="text-xs sm:text-sm text-muted-foreground mt-1">
+                A charger alert sits on top of Find My, a proper lock screen, and backups. The security checkup walks through those in a few minutes.
+              </p>
+            </div>
+          </div>
+          <a href="/security-checkup" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 min-h-11 text-xs sm:text-sm bg-primary text-primary-foreground rounded-xl font-semibold hover:bg-primary-hover transition whitespace-nowrap">
+            Security checkup <ArrowRight className="size-4" />
+          </a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
