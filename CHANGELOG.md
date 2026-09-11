@@ -132,6 +132,14 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Merge pull request #116 from antonio59/cursor/emergency-wipe-guidance-46b7
+
+Add wipe/erase guidance when a stolen phone is unlikely to return
+- Add remote wipe guidance when a stolen phone is unlikely to return
+
+Keep the five 30-minute emergency steps as the primary path, then add a follow-on section for iPhone and Android remote erase, with when-to-wait vs when-to-wipe advice. Reflect the guidance in HowTo/FAQ schema and use protectmymobile.org step URLs.
+
+Co-authored-by: Antonio Smith <antonio59@users.noreply.github.com>
 - Bump the dev-dependencies group across 1 directory with 5 updates (#115)
 - Bump @types/react-dom in the react group across 1 directory (#110)
 - Bump nanostores from 1.5.2 to 1.5.3 (#114)
@@ -1509,6 +1517,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
