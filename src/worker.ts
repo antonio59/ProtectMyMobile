@@ -61,8 +61,11 @@ const CRON_JOBS: Record<string, CronJob[]> = {
     { name: 'scheduled-police-data', path: '/api/admin/fetch-police-uk?mode=recent&months=3' },
     { name: 'scheduled-wdtk', path: '/api/cron/monitor-wdtk' },
   ],
-  '0 8 * * 0': [{ name: 'scheduled-news', path: '/api/cron/fetch-news' }],
-  '17 7 1 * *': [{ name: 'scheduled-verify-directory', path: '/api/cron/verify-directory' }],
+  '0 8 * * 7': [{ name: 'scheduled-news', path: '/api/cron/fetch-news' }],
+  '17 7 1 * *': [
+    { name: 'scheduled-verify-directory', path: '/api/cron/verify-directory' },
+    { name: 'scheduled-purge-data', path: '/api/cron/purge-data' },
+  ],
 };
 
 async function runCronJob(env: WorkerEnv, job: CronJob): Promise<void> {
