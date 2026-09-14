@@ -1,0 +1,7 @@
+# Security contact information for protectmymobile.org (RFC 9116)
+# Report vulnerabilities via the contact form; include "Security" in the
+# subject and enough detail to reproduce the issue.
+Contact: https://protectmymobile.org/contact-us
+Expires: 2027-09-14T23:59:59.000Z
+Preferred-Languages: en
+Canonical: https://protectmymobile.org/.well-known/security.txt

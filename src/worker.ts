@@ -104,6 +104,17 @@ export default {
       );
     }
 
+    // RFC 9116 also recognises /security.txt at the root; serve the canonical
+    // /.well-known/ copy instead of maintaining two files.
+    if (url.pathname === '/security.txt') {
+      return withSecurityHeaders(
+        new Response(null, {
+          status: 301,
+          headers: { Location: `${CANONICAL_ORIGIN}/.well-known/security.txt` },
+        }),
+      );
+    }
+
     // handle() = the adapter's full pipeline: ASSETS binding for static
     // files, route matching, app.render for SSR. Env/ctx types come from
     // generated workers-types excluded from this tsconfig; resolve as any.
