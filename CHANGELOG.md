@@ -132,6 +132,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Bump astro from 7.3.1 to 7.3.2 in the astro group (#117)
 - Merge pull request #116 from antonio59/cursor/emergency-wipe-guidance-46b7
 
 Add wipe/erase guidance when a stolen phone is unlikely to return
@@ -1517,6 +1518,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
