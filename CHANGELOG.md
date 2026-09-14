@@ -132,6 +132,8 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Bump the react group across 1 directory with 4 updates (#118)
+- Bump resend from 6.26.0 to 6.27.0 (#119)
 - Bump astro from 7.3.1 to 7.3.2 in the astro group (#117)
 - Merge pull request #116 from antonio59/cursor/emergency-wipe-guidance-46b7
 
@@ -1518,6 +1520,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
