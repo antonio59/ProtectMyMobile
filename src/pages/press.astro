@@ -1,0 +1,81 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HeaderMobile from '../components/HeaderMobile';
+import Footer from '../components/Footer.astro';
+import { SITE_HOST, SITE_URL } from '../lib/site';
+import { PRESS_EMAIL, FOI_PUBLIC_EMAIL, FOI_FROM_EMAIL } from '../lib/mail';
+---
+
+<Layout
+  title="Press | ProtectMyMobile"
+  description="Data, methodology and contact for journalists covering UK phone theft. FOI series, maps and quotes from founder Antonio Smith."
+  canonicalPath="/press"
+  schema={{
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Press",
+    "about": "UK mobile phone theft data for journalists"
+  }}
+>
+  <HeaderMobile client:idle />
+
+  <main id="main-content" class="bg-background min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-3xl">
+      <p class="text-xs uppercase tracking-[0.15em] font-semibold text-muted-foreground mb-2">Media</p>
+      <h1 class="text-3xl sm:text-4xl font-serif font-bold mb-4">Press</h1>
+      <p class="text-muted-foreground mb-10">
+        Independent UK phone-theft data and recovery guidance, built by Antonio Smith.
+        Quote, charts and FOI notes for crime and consumer desks. Not a news wire.
+      </p>
+
+      <section class="mb-10 border-t-[3px] border-foreground pt-6">
+        <h2 class="text-lg font-bold mb-3">Contact</h2>
+        <p class="text-sm text-foreground mb-2">Antonio Smith, founder</p>
+        <p class="text-sm text-muted-foreground mb-4">
+          Email <a href={`mailto:${PRESS_EMAIL}`} class="text-primary underline underline-offset-2">{PRESS_EMAIL}</a>
+          or use the <a href="/contact-us" class="text-primary underline underline-offset-2">contact form</a> with “Press” in the subject.
+          Same-day comments on London figures, FOI vs Met press-release series, and visitor safety.
+        </p>
+        <p class="text-sm text-muted-foreground mb-4">
+          FOI replies: <a href={`mailto:${FOI_FROM_EMAIL}`} class="text-primary underline underline-offset-2">{FOI_FROM_EMAIL}</a>
+          (live). <span class="text-foreground">{FOI_PUBLIC_EMAIL}</span> forwards to the same inbox once routing is on.
+        </p>
+        <p class="text-xs text-muted-foreground">
+          Embargoes: 24 hours if you ask. I do not send mass releases.
+        </p>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-lg font-bold mb-3">Use these numbers</h2>
+        <ul class="space-y-3 text-sm text-foreground">
+          <li><strong>117,211</strong> phones stolen in London in 2024 (Met FOI, broader series).</li>
+          <li><strong>About 12.3% down</strong> in 2025 on the Met’s narrower phone-involved theft-from-person / robbery series (71,391). Do not mix the two series without saying so.</li>
+          <li><strong>One every seven minutes</strong> in London at the 2025 recorded rate.</li>
+        </ul>
+        <p class="text-sm mt-4">
+          <a href="/statistics" class="text-primary underline underline-offset-2">Statistics and source notes</a>
+          · <a href="/theft-map" class="text-primary underline underline-offset-2">Theft map</a>
+          · <a href="/london-visitor-safety" class="text-primary underline underline-offset-2">Visitor safety</a>
+        </p>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-lg font-bold mb-3">How the data is built</h2>
+        <p class="text-sm text-muted-foreground leading-relaxed">
+          Police.uk street-level crime, Freedom of Information responses, and Met press figures where cited on the page.
+          News on this site is a UK-filtered roundup of other outlets, not original reporting. Community reports are anonymous and not official crime stats.
+        </p>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-lg font-bold mb-3">Cite this site</h2>
+        <p class="text-sm text-muted-foreground leading-relaxed">
+          Canonical URL: <a href={SITE_URL} class="text-primary underline underline-offset-2">{SITE_URL}</a>.
+          Older <span class="text-foreground">protectmymobile.xyz</span> links 301 here.
+        </p>
+      </section>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

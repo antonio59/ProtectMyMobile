@@ -116,7 +116,8 @@ export const GET: APIRoute = async ({ request }) => {
     );
 
     // Get existing WDTK entries from our database
-    const existingEntries = await convex.query(api.wdtkEntries.list, {}) || [];
+    const adminToken = process.env.CRON_SECRET || import.meta.env.CRON_SECRET;
+    const existingEntries = await convex.query(api.wdtkEntries.list, { adminToken }) || [];
     const existingIds = new Set(existingEntries.map((e: any) => e.wdtkId));
 
     // Filter to only new entries
@@ -127,7 +128,7 @@ export const GET: APIRoute = async ({ request }) => {
     for (const entry of newEntries) {
       try {
         await convex.mutation(api.wdtkEntries.create, {
-          adminToken: import.meta.env.CRON_SECRET || process.env.CRON_SECRET,
+          adminToken: process.env.CRON_SECRET || import.meta.env.CRON_SECRET,
           wdtkId: entry.id,
           title: entry.title,
           url: entry.link,
@@ -162,7 +163,7 @@ export const GET: APIRoute = async ({ request }) => {
               </li>
             `).join('')}
           </ul>
-          <p><a href="https://protectmymobile.xyz/admin/foi">Import data in Admin Dashboard</a></p>
+          <p><a href="https://protectmymobile.org/admin/foi">Import data in Admin Dashboard</a></p>
         `
       );
     }

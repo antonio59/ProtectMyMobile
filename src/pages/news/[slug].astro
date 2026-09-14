@@ -5,6 +5,8 @@ import Layout from '../../layouts/Layout.astro';
 import HeaderMobile from '../../components/HeaderMobile';
 import Footer from '../../components/Footer.astro';
 import { getNewsPosts, getNewsPostBySlug } from '../../lib/convexData';
+import { isUkPhoneTheftStory } from '../../lib/news/geo';
+import { SITE_URL } from '../../lib/site';
 import type { NewsPost } from '../../types/news';
 import { Calendar, ExternalLink, ArrowLeft, Tag, ChevronRight, MessageSquare, BookOpen, Siren, ShieldAlert, Gavel, TrendingUp, Lightbulb, FileText } from 'lucide-react';
 import { marked } from 'marked';
@@ -20,9 +22,18 @@ marked.setOptions({
 export async function getStaticPaths() {
   try {
     const posts = await getNewsPosts(true);
-    return posts.map((post) => ({
-      params: { slug: post.slug },
-    }));
+    return posts
+      .filter((post) =>
+        isUkPhoneTheftStory({
+          title: post.title,
+          excerpt: post.excerpt,
+          sourceUrl: post.sourceUrl,
+          sourceName: post.sourceName,
+        }),
+      )
+      .map((post) => ({
+        params: { slug: post.slug },
+      }));
   } catch (error) {
     console.error('Error generating static paths for news:', error);
     return [];
@@ -135,8 +146,10 @@ function readingTime(text: string): number {
 }
 
 const config = categoryConfig[post.category] || categoryConfig.other;
-const pageUrl = `https://protectmymobile.xyz/news/${slug}`;
+const pageUrl = `${SITE_URL}/news/${slug}`;
 const isExternal = !!post.sourceUrl;
+const published = toISODate(post.publishedAt || post._creationTime);
+const modified = toISODate(post.updatedAt || post.publishedAt || post._creationTime);
 
 /**
  * Syndication cap.
@@ -187,31 +200,32 @@ if (isExternal) {
 // Schema
 const articleSchema = {
   "@context": "https://schema.org",
-  "@type": "NewsArticle",
+  "@type": isExternal ? "Article" : "NewsArticle",
   "headline": post.title,
   "description": post.excerpt,
-  "datePublished": toISODate(post.publishedAt || post._creationTime),
-  "dateModified": toISODate(post._creationTime),
+  "datePublished": published,
+  "dateModified": modified,
   "author": {
-    "@type": post.authorName ? "Person" : "Organization",
-    "name": post.authorName || "ProtectMyMobile"
+    "@type": "Organization",
+    "name": "ProtectMyMobile"
   },
   "publisher": {
     "@type": "Organization",
     "name": "ProtectMyMobile",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://protectmymobile.xyz/favicon.svg"
+      "url": `${SITE_URL}/logo-icon.png`
     }
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": pageUrl
   },
-  "image": post.featuredImageUrl || "https://protectmymobile.xyz/og-image.png",
+  "image": post.featuredImageUrl || `${SITE_URL}/og-image.png`,
   "articleSection": config.label,
   "url": pageUrl,
-  "inLanguage": "en-GB"
+  "inLanguage": "en-GB",
+  ...(post.sourceUrl ? { isBasedOn: post.sourceUrl } : {}),
 };
 ---
 
@@ -221,8 +235,8 @@ const articleSchema = {
   canonicalPath={`/news/${slug}`}
   ogType="article"
   ogImage={post.featuredImageUrl || "/og-image.png"}
-  publishedTime={toISODate(post.publishedAt || post._creationTime)}
-  modifiedTime={toISODate(post._creationTime)}
+  publishedTime={published}
+  modifiedTime={modified}
   schema={articleSchema}
 >
   <HeaderMobile client:idle />

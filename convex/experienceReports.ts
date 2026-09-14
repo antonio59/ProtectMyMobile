@@ -38,6 +38,17 @@ export const create = mutation({
   },
   handler: async (ctx, args) => {
     // Public can submit reports - they start unapproved
+    if (
+      !args.where.trim() || !args.whatHappened.trim() ||
+      args.where.length > 300 || args.whatHappened.length > 5000 ||
+      (args.doingDifferently && args.doingDifferently.length > 2000) ||
+      args.when.length > 100 || args.name.length > 200 || args.email.length > 320
+    ) {
+      throw new Error("Invalid submission");
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(args.email)) {
+      throw new Error("Invalid email address");
+    }
     return await ctx.db.insert("experienceReports", {
       ...args,
       approved: false,

@@ -36,6 +36,21 @@ export const create = mutation({
     sessionId: v.string(),
   },
   handler: async (ctx, args) => {
+    if (!args.locationName.trim() || args.locationName.length > 200) {
+      throw new Error("Invalid location name");
+    }
+    if (args.description && args.description.length > 2000) {
+      throw new Error("Description too long");
+    }
+    if (args.sessionId.length > 100) {
+      throw new Error("Invalid session");
+    }
+    if (
+      (args.latitude !== undefined && (args.latitude < -90 || args.latitude > 90)) ||
+      (args.longitude !== undefined && (args.longitude < -180 || args.longitude > 180))
+    ) {
+      throw new Error("Invalid coordinates");
+    }
     return await ctx.db.insert("theftReports", {
       ...args,
       approved: false,

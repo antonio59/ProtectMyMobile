@@ -2,13 +2,19 @@ import type { APIRoute } from 'astro';
 import { verifyJWT } from '../../../middleware';
 
 const convexUrl = import.meta.env.PUBLIC_CONVEX_URL;
-const cronSecret = import.meta.env.CRON_SECRET || process.env.CRON_SECRET;
-const ADMIN_PASSWORD = import.meta.env.ADMIN_PASSWORD || process.env.ADMIN_PASSWORD;
+// Read lazily per request: workerd populates process.env at request time.
+function cronSecret(): string | undefined {
+  return process.env.CRON_SECRET || import.meta.env.CRON_SECRET;
+}
+function adminPassword(): string | undefined {
+  return process.env.ADMIN_PASSWORD || import.meta.env.ADMIN_PASSWORD;
+}
 
 export const POST: APIRoute = async ({ request, cookies }) => {
   // Validate admin session cookie
   const authCookie = cookies.get('admin_auth');
-  if (!authCookie?.value || !ADMIN_PASSWORD) {
+  const adminPw = adminPassword();
+  if (!authCookie?.value || !adminPw) {
     console.error('[admin/convex] Missing cookie or ADMIN_PASSWORD env var');
     return new Response(JSON.stringify({ error: 'Unauthorized: missing session' }), {
       status: 401,
@@ -16,7 +22,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     });
   }
 
-  const payload = await verifyJWT(authCookie.value, ADMIN_PASSWORD);
+  const payload = await verifyJWT(authCookie.value, adminPw);
   if (!payload) {
     console.error('[admin/convex] JWT verification failed');
     return new Response(JSON.stringify({ error: 'Unauthorized: invalid session' }), {
@@ -32,7 +38,8 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     });
   }
 
-  if (!convexUrl || !cronSecret) {
+  const secret = cronSecret();
+  if (!convexUrl || !secret) {
     return new Response(JSON.stringify({ error: 'Server configuration error' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
@@ -59,7 +66,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
   }
 
   const endpoint = method === 'query' ? '/api/query' : '/api/mutation';
-  const argsWithToken = { ...args, adminToken: cronSecret };
+  const argsWithToken = { ...args, adminToken: secret };
 
   try {
     const convexRes = await fetch(`${convexUrl}${endpoint}`, {

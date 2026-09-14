@@ -1,3 +1,4 @@
+import { isUkPhoneTheftStory } from "./geo";
 import type { RelevanceResult } from "./types";
 
 const IRRELEVANT_KEYWORDS = [
@@ -52,6 +53,7 @@ const SCORING_RULES: ScoringRule[] = [
 export function calculateRelevanceScore(
   title: string,
   snippet: string,
+  sourceUrl?: string,
 ): RelevanceResult {
   const text = (title + " " + snippet).toLowerCase();
   const reasons: string[] = [];
@@ -61,6 +63,14 @@ export function calculateRelevanceScore(
       score: 0,
       shouldImport: false,
       reason: "Contains irrelevant vehicle keywords",
+    };
+  }
+
+  if (!isUkPhoneTheftStory({ title, excerpt: snippet, sourceUrl })) {
+    return {
+      score: 0,
+      shouldImport: false,
+      reason: "Not a UK phone-theft story",
     };
   }
 

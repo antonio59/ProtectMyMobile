@@ -1,5 +1,6 @@
 import { ConvexHttpClient } from 'convex/browser';
 import { Resend } from 'resend';
+import { NOTIFY_FROM } from './mail';
 
 export function getConvexClient(): ConvexHttpClient | null {
   const convexUrl = import.meta.env.PUBLIC_CONVEX_URL;
@@ -20,13 +21,13 @@ export function requireConvex(convex: ConvexHttpClient | null): Response | null 
 }
 
 export async function sendReportEmail(subject: string, htmlBody: string): Promise<void> {
-  const resendApiKey = import.meta.env.RESEND_API_KEY || process.env.RESEND_API_KEY;
+  const resendApiKey = process.env.RESEND_API_KEY || import.meta.env.RESEND_API_KEY;
   if (!resendApiKey) return;
 
   try {
     const resend = new Resend(resendApiKey);
     await resend.emails.send({
-      from: 'ProtectMyMobile <onboarding@resend.dev>',
+      from: NOTIFY_FROM,
       to: ['protectmymobile.xyz.overlabor129@passmail.com'],
       subject,
       html: htmlBody,

@@ -93,7 +93,7 @@ export default function AnimatedNewsSection({ news }: Props) {
       >
         <div>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground leading-tight">
-            Latest Mobile Security News
+            UK phone theft in the press
           </h2>
           <p className="mt-2 text-muted-foreground text-sm sm:text-base max-w-2xl">
             Updates on UK mobile theft trends, policy changes, and safety guides.

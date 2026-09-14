@@ -7,8 +7,10 @@ export const list = query({
   args: { 
     status: v.optional(v.string()),
     policeForce: v.optional(v.string()),
+    adminToken: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
+    requireAdmin(ctx, args.adminToken);
     if (args.status) {
       return await ctx.db
         .query("foiRequests")
@@ -28,8 +30,9 @@ export const list = query({
 });
 
 export const getOverdue = query({
-  args: {},
-  handler: async (ctx) => {
+  args: { adminToken: v.optional(v.string()) },
+  handler: async (ctx, args) => {
+    requireAdmin(ctx, args.adminToken);
     const now = Date.now();
     const requests = await ctx.db
       .query("foiRequests")
@@ -117,7 +120,8 @@ export const markAsSent = mutation({
 
 export const getStats = query({
   args: { adminToken: v.optional(v.string()) },
-  handler: async (ctx, _args) => {
+  handler: async (ctx, args) => {
+    requireAdmin(ctx, args.adminToken);
     const all = await ctx.db.query("foiRequests").collect();
     const now = Date.now();
     

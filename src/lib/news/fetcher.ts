@@ -9,7 +9,7 @@ const parser = new Parser({
 });
 
 const USER_AGENT =
-  "Mozilla/5.0 (compatible; ProtectMyMobile-Bot/1.0; +https://protectmymobile.xyz)";
+  "Mozilla/5.0 (compatible; ProtectMyMobile-Bot/1.0; +https://protectmymobile.org)";
 
 async function fetchWithRetry(
   url: string,

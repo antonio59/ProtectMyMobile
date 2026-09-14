@@ -83,16 +83,16 @@ The `/news` page displays:
 
 ## Scheduling
 
-### Netlify Scheduled Function
+### Cloudflare Cron Trigger
 
-**File:** `netlify/functions/scheduled-news.ts`
+**Wired in:** `wrangler.jsonc` triggers + `src/worker.ts` `CRON_JOBS`
 
 **Schedule:** Weekly on Sundays at 8:00 AM UTC (`0 8 * * 0`)
 
 **Behavior:**
 
 1. Calls `/api/cron/fetch-news` with CRON_SECRET
-2. Logs results to Netlify Functions logs
+2. Logs results to Worker logs (`wrangler tail`)
 3. Returns detailed status
 
 ## Error Handling
@@ -132,7 +132,7 @@ The `/news` page displays:
 Required in production:
 
 - `PUBLIC_CONVEX_URL`: Convex deployment URL
-- `CRON_SECRET`: Secret token for cron jobs (must match Netlify env var)
+- `CRON_SECRET`: Secret token for cron jobs (Worker secret via `wrangler secret put`)
 - `RESEND_API_KEY`: Optional, for email notifications
 
 ## Maintenance
@@ -140,7 +140,7 @@ Required in production:
 ### Daily Checks
 
 1. Monitor `/api/health` endpoint
-2. Check Netlify Functions logs for errors
+2. Check Worker logs (`pnpm wrangler tail`) for errors
 3. Review email notifications for new articles
 
 ### Weekly Tasks
@@ -153,8 +153,8 @@ Required in production:
 
 **Scraper not running:**
 
-1. Check Netlify scheduled functions logs
-2. Verify CRON_SECRET is set in Netlify dashboard
+1. Check Worker cron logs (`pnpm wrangler tail`)
+2. Verify CRON_SECRET is set as a Worker secret
 3. Test manually: `curl /api/cron/fetch-news -H "x-api-key: YOUR_SECRET"`
 
 **No articles fetched:**

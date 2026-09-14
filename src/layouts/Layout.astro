@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import CookieConsent from '../components/CookieConsent.astro';
 import { normalizeGoogleSiteVerification } from '@/lib/googleSiteVerification';
+import { SITE_URL } from '../lib/site';
 
 interface Props {
   title: string;
@@ -14,12 +15,12 @@ interface Props {
   schema?: object | object[];
 }
 
-const siteUrl = "https://protectmymobile.xyz";
+const siteUrl = SITE_URL;
 const defaultDescription = "A phone is stolen in London every seven minutes. ProtectMyMobile tracks live police.uk theft data and gives you prevention checklists, security checkups, and a step-by-step emergency guide if yours is taken.";
 const { 
   title, 
   description = defaultDescription,
-  canonicalPath = "",
+  canonicalPath,
   ogImage = "/og-image.png",
   ogType = "website",
   publishedTime,
@@ -27,7 +28,11 @@ const {
   schema
 } = Astro.props;
 
-const canonicalUrl = `${siteUrl}${canonicalPath}`;
+// Default to the current path so pages without an explicit canonicalPath
+// don't all claim to be the homepage. Trailing slash stripped to match the
+// canonical style used elsewhere (/banks, not /banks/).
+const resolvedPath = canonicalPath ?? (Astro.url.pathname.replace(/\/+$/, '') || '/');
+const canonicalUrl = `${siteUrl}${resolvedPath}`;
 const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
 
 // Default Organization schema
@@ -42,7 +47,7 @@ const defaultSchema = {
     "@type": "Country",
     "name": "United Kingdom"
   },
-  "sameAs": []
+    "sameAs": [`${siteUrl}/press`, `${siteUrl}/about`]
 };
 
 // WebSite schema for search box
@@ -75,7 +80,6 @@ const googleSiteVerification = normalizeGoogleSiteVerification(
     )}
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="keywords" content="mobile theft UK, phone security, UK mobile providers, prevent phone theft, report stolen phone, secure banking apps, mobile security guide, phone stolen london, phone stolen UK, london travel safety, tourist safety london, visiting london phone theft, london trip security" />
     <meta name="author" content="ProtectMyMobile" />
     <meta name="robots" content="index, follow" />
     <meta name="geo.region" content="GB" />

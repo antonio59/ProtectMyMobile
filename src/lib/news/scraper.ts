@@ -26,7 +26,11 @@ export function stripHtml(html: string): string {
 
 export function extractExcerpt(content: string | undefined, maxLength = 150): string {
   if (!content) return "No excerpt available.";
-  const cleanText = stripHtml(content);
+  const cleanText = stripHtml(content)
+    .replace(/\{"@context"[\s\S]*/, "")
+    .replace(/this content is provided by[\s\S]*/i, "")
+    .trim();
+  if (!cleanText) return "No excerpt available.";
   if (cleanText.length <= maxLength) return cleanText;
   const truncated = cleanText.substring(0, maxLength);
   const lastPeriod = truncated.lastIndexOf(".");
@@ -56,7 +60,7 @@ async function tryDirectScrape(url: string): Promise<{ content: string; html: st
     const response = await fetch(url, {
       signal: controller.signal,
       headers: {
-        "User-Agent": "Mozilla/5.0 (compatible; ProtectMyMobile-Bot/1.0; +https://protectmymobile.xyz)",
+        "User-Agent": "Mozilla/5.0 (compatible; ProtectMyMobile-Bot/1.0; +https://protectmymobile.org)",
         Accept: "text/html",
       },
     });

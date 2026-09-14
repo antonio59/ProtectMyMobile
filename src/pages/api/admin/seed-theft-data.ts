@@ -104,7 +104,7 @@ export const GET: APIRoute = async ({ request }) => {
     }
     
     // Batch insert (appends to existing data from other years)
-    await convex.mutation(api.theftDataPoints.createBatch, { adminToken: import.meta.env.CRON_SECRET || process.env.CRON_SECRET, dataPoints });
+    await convex.mutation(api.theftDataPoints.createBatch, { adminToken: process.env.CRON_SECRET || import.meta.env.CRON_SECRET, dataPoints });
     
     return new Response(JSON.stringify({
       success: true,

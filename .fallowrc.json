@@ -1,7 +1,7 @@
 {
   "$schema": "https://fallow.dev/schema.json",
-  "ignorePatterns": ["cron-worker/**", "convex/_generated/**"],
-  "entry": ["scripts/**/*.ts", "scripts/**/*.mjs", "netlify/functions/**/*.ts", "netlify/functions/**/*.mts"],
+  "ignorePatterns": ["convex/_generated/**", "worker-configuration.d.ts"],
+  "entry": ["scripts/**/*.ts", "scripts/**/*.mjs", "src/worker.ts"],
   "ignoreDependencies": ["lightningcss-linux-x64-gnu"],
   "ignoreDependencyOverrides": [
     { "package": "yaml", "source": "pnpm-workspace.yaml" }

@@ -3,6 +3,8 @@ import Layout from '../layouts/Layout.astro';
 import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
 import { getNewsPosts } from '../lib/convexData';
+import { isUkPhoneTheftStory, sanitizeNewsExcerpt } from '../lib/news/geo';
+import { SITE_URL } from '../lib/site';
 import type { NewsPost } from '../types/news';
 import { Newspaper, ArrowRight, Gavel, Siren, ShieldAlert, TrendingUp, Lightbulb, FileText, Rss, Clock, Filter, Images } from 'lucide-react';
 import { safetySlideSets } from '../data/scenarios';
@@ -12,7 +14,19 @@ let error: unknown = null;
 let lastUpdated: string | null = null;
 
 try {
-  posts = await getNewsPosts(true);
+  posts = (await getNewsPosts(true))
+    .filter((post) =>
+      isUkPhoneTheftStory({
+        title: post.title,
+        excerpt: post.excerpt,
+        sourceUrl: post.sourceUrl,
+        sourceName: post.sourceName,
+      }),
+    )
+    .map((post) => ({
+      ...post,
+      excerpt: sanitizeNewsExcerpt(post.excerpt, "UK phone theft coverage."),
+    }));
   if (posts.length > 0 && posts[0].publishedAt) {
     lastUpdated = new Date(posts[0].publishedAt).toLocaleDateString('en-GB', {
       day: 'numeric',
@@ -118,14 +132,14 @@ const newsSchema = {
   "@type": "CollectionPage",
   "name": "UK Mobile Theft News",
   "description": "Latest news on phone theft arrests, seizures, law changes, and prevention tips across the UK.",
-  "url": "https://protectmymobile.xyz/news",
+  "url": `${SITE_URL}/news`,
   "mainEntity": {
     "@type": "ItemList",
     "numberOfItems": posts.length,
     "itemListElement": posts.slice(0, 10).map((post, i) => ({
       "@type": "ListItem",
       "position": i + 1,
-      "url": `https://protectmymobile.xyz/news/${post.slug}`,
+      "url": `${SITE_URL}/news/${post.slug}`,
       "name": post.title,
     }))
   }
@@ -135,6 +149,7 @@ const newsSchema = {
 <Layout
   title="Latest News & Updates | UK Mobile Theft | ProtectMyMobile"
   description={`Stay informed about mobile theft arrests, seizures, law changes, and prevention tips across the UK. ${posts.length} articles tracked.`}
+  canonicalPath="/news"
   schema={newsSchema}
 >
   <HeaderMobile client:idle />

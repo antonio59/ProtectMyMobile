@@ -10,12 +10,16 @@ const ALLOWED_PATHS = [
   '/api/cron/send-foi-requests',
 ];
 
-const ADMIN_PASSWORD = import.meta.env.ADMIN_PASSWORD || process.env.ADMIN_PASSWORD;
+// Read lazily per request: workerd populates process.env at request time.
+function adminPassword(): string | undefined {
+  return process.env.ADMIN_PASSWORD || import.meta.env.ADMIN_PASSWORD;
+}
 
 export const GET: APIRoute = async ({ cookies, url }) => {
   // Validate admin session cookie
   const authCookie = cookies.get('admin_auth');
-  if (!authCookie?.value || !ADMIN_PASSWORD) {
+  const adminPw = adminPassword();
+  if (!authCookie?.value || !adminPw) {
     console.error('[admin/proxy] Missing cookie or ADMIN_PASSWORD env var');
     return new Response(JSON.stringify({ error: 'Unauthorized: missing session' }), {
       status: 401,
@@ -23,7 +27,7 @@ export const GET: APIRoute = async ({ cookies, url }) => {
     });
   }
 
-  const payload = await verifyJWT(authCookie.value, ADMIN_PASSWORD);
+  const payload = await verifyJWT(authCookie.value, adminPw);
   if (!payload) {
     console.error('[admin/proxy] JWT verification failed');
     return new Response(JSON.stringify({ error: 'Unauthorized: invalid session' }), {
@@ -47,7 +51,7 @@ export const GET: APIRoute = async ({ cookies, url }) => {
     });
   }
 
-  const cronSecret = import.meta.env.CRON_SECRET || process.env.CRON_SECRET;
+  const cronSecret = process.env.CRON_SECRET || import.meta.env.CRON_SECRET;
   if (!cronSecret) {
     return new Response(JSON.stringify({ error: 'Server configuration error' }), {
       status: 500,

@@ -1,12 +1,13 @@
 import type { APIRoute } from 'astro';
 import { Resend } from 'resend';
 import { requireApiKey } from '../../../lib/security';
+import { NOTIFY_FROM } from '../../../lib/mail';
 
 export const GET: APIRoute = async ({ url, request }) => {
   const unauthorized = requireApiKey(request);
   if (unauthorized) return unauthorized;
 
-  const resendApiKey = import.meta.env.RESEND_API_KEY || process.env.RESEND_API_KEY;
+  const resendApiKey = process.env.RESEND_API_KEY || import.meta.env.RESEND_API_KEY;
   
   if (!resendApiKey) {
     return new Response(JSON.stringify({ 
@@ -22,7 +23,7 @@ export const GET: APIRoute = async ({ url, request }) => {
     const resend = new Resend(resendApiKey);
     
     const { data, error } = await resend.emails.send({
-      from: 'ProtectMyMobile <onboarding@resend.dev>',
+      from: NOTIFY_FROM,
       to: [recipientEmail],
       subject: '🧪 Test Email - ProtectMyMobile Data Alerts',
       html: `
@@ -43,7 +44,7 @@ export const GET: APIRoute = async ({ url, request }) => {
         <hr>
         <p style="color: #666; font-size: 12px;">
           This email was sent from ProtectMyMobile admin panel.<br>
-          <a href="https://protectmymobile.xyz/admin/data">Manage Data</a>
+          <a href="https://protectmymobile.org/admin/data">Manage Data</a>
         </p>
       `,
     });

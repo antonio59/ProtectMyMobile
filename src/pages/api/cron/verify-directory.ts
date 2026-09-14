@@ -66,7 +66,7 @@ async function verifyEntry(
 ) {
   report.checked++;
   const { alive, uncertain, detail } = await checkUrlAlive(url);
-  const adminToken = import.meta.env.CRON_SECRET || process.env.CRON_SECRET;
+  const adminToken = process.env.CRON_SECRET || import.meta.env.CRON_SECRET;
 
   if (alive) {
     report.active++;
@@ -104,7 +104,7 @@ export const GET: APIRoute = async ({ request }) => {
       ...(providers || []).map(p => verifyEntry(convex, report, p.website, p.name, 'provider', p._id))
     ]);
 
-    const adminToken = import.meta.env.CRON_SECRET || process.env.CRON_SECRET;
+    const adminToken = process.env.CRON_SECRET || import.meta.env.CRON_SECRET;
     await convex.mutation(api.siteMetadata.updateDirectoryVerified, { adminToken, directory: 'banks' });
     await convex.mutation(api.siteMetadata.updateDirectoryVerified, { adminToken, directory: 'mobileProviders' });
 

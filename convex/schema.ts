@@ -277,6 +277,8 @@ export default defineSchema({
       v.literal("security_checkup_started"),
       v.literal("security_checkup_completed"),
       v.literal("emergency_guide_viewed"),
+      v.literal("emergency_guide_helpful"),
+      v.literal("emergency_guide_not_helpful"),
       v.literal("bank_contact_clicked"),
       v.literal("provider_contact_clicked"),
       v.literal("community_survey_completed"),

@@ -12,7 +12,7 @@
 - **Styling:** [Tailwind CSS](https://tailwindcss.com) v4
 - **Database:** [Convex](https://convex.dev) (Real-time backend)
 - **Charts:** [Recharts](https://recharts.org)
-- **Hosting:** [Netlify](https://netlify.com)
+- **Hosting:** [Cloudflare Workers](https://workers.cloudflare.com)
 - **Icons:** [Lucide React](https://lucide.dev)
 - **Package Manager:** pnpm
 
@@ -145,9 +145,6 @@ pnpm run design:export      # Export tokens to src/styles/design-tokens.json
 │   ├── newsPosts.ts         # News queries/mutations
 │   ├── theftDataPoints.ts   # Crime statistics data
 │   └── ...
-├── netlify/functions/       # Netlify scheduled functions
-│   ├── scheduled-news.ts    # Daily news fetching
-│   └── scheduled-police-data.ts  # Weekly police data refresh
 ├── public/                  # Static assets
 ├── src/
 │   ├── components/          # UI Components
@@ -162,30 +159,36 @@ pnpm run design:export      # Export tokens to src/styles/design-tokens.json
 │   │   ├── api/             # Server-side API endpoints
 │   │   ├── [location].astro # Location-specific guides (13 cities)
 │   │   └── news/            # News listing & article pages
-│   └── styles/              # Global CSS (including print styles)
+│   ├── styles/              # Global CSS (including print styles)
+│   └── worker.ts            # Cloudflare Worker entrypoint (headers, redirects, crons)
+├── wrangler.jsonc           # Cloudflare Worker configuration
 └── package.json
 ```
 
 ## 🚢 Deployment
 
-The project is configured for deployment on **Netlify**.
+The project is deployed as a **Cloudflare Worker** (`@astrojs/cloudflare` adapter).
 
-1. Connect your GitHub repository to Netlify
-2. Build command: `pnpm run build`
-3. Publish directory: `dist`
-4. Add environment variables in Netlify dashboard:
-   - `PUBLIC_CONVEX_URL`
-   - `CRON_SECRET`
-5. Deploy Convex to production: `npx convex deploy --prod`
+1. Install deps and build: `pnpm install && pnpm run build`
+2. Set secrets: `pnpm wrangler secret put CRON_SECRET` (also `ADMIN_PASSWORD`, `CONVEX_ADMIN_TOKEN`, `RESEND_API_KEY`, and optionally `BUILD_HOOK_URL`)
+3. Deploy: `pnpm run deploy` (runs `wrangler deploy`)
+4. Deploy Convex to production: `npx convex deploy --prod`
 
-### Scheduled Functions
+Non-secret env vars live in `wrangler.jsonc` under `vars`. For local preview of
+the Worker runtime, use `pnpm run preview` (after `pnpm run build`) and put
+secrets in `.dev.vars` (gitignored).
 
-The following cron jobs run automatically on Netlify:
+### Scheduled Jobs
 
-| Function | Schedule | Description |
-|----------|----------|-------------|
-| `scheduled-news` | 0 6,18 * * * | Fetch news twice daily (6am, 6pm UTC) |
-| `scheduled-police-data` | 0 3 * * 0 | Refresh police.uk data weekly (Sundays 3am) |
+Cron triggers are declared in `wrangler.jsonc` and dispatched by
+`src/worker.ts` to the site's `/api/cron/*` endpoints (authenticated with
+`CRON_SECRET`):
+
+| Trigger | Schedule | Jobs |
+|---------|----------|------|
+| `0 8 * * *` | Daily 8am UTC | police.uk data refresh + WDTK monitor |
+| `0 8 * * 0` | Sundays 8am UTC | News fetch |
+| `17 7 1 * *` | 1st of month, 07:17 UTC | Directory verification |
 
 ## 📄 License
 

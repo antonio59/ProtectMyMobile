@@ -66,7 +66,7 @@ curl https://protectmymobile.xyz/api/cron/fetch-news \
 ### For Production Testing
 
 - `SITE_URL`: Your production site URL (e.g., `https://protectmymobile.xyz`)
-- `CRON_SECRET`: Your actual CRON_SECRET from Netlify
+- `CRON_SECRET`: Your actual CRON_SECRET (Worker secret)
 
 ---
 
@@ -83,7 +83,7 @@ The news scraper will work once:
    npx convex deploy --prod
    ```
 
-4. ✅ Netlify is deployed with updated code
+4. ✅ Cloudflare Worker is deployed with updated code
 
 ---
 

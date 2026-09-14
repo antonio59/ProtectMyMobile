@@ -59,7 +59,11 @@ function filterAndScoreArticles(
     if (isDuplicateTitle(item.title, seenTitles)) continue;
 
     const snippet = stripHtml(item.contentSnippet || item.content || "");
-    const { score, shouldImport, reason } = calculateRelevanceScore(item.title, snippet);
+    const { score, shouldImport, reason } = calculateRelevanceScore(
+      item.title,
+      snippet,
+      item.link,
+    );
 
     if (shouldImport) {
       if (item.guid) seenGuids.add(item.guid);
@@ -134,7 +138,7 @@ async function createPost(
   }
 
   const newPostId = await convex.mutation(api.newsPosts.create, {
-    adminToken: import.meta.env.CRON_SECRET || process.env.CRON_SECRET,
+    adminToken: process.env.CRON_SECRET || import.meta.env.CRON_SECRET,
     title: article.title!,
     slug,
     excerpt,
@@ -190,7 +194,10 @@ export const GET: APIRoute = async ({ request }) => {
   }
 
   try {
-    const existingPosts = await convex.query(api.newsPosts.list, { publishedOnly: false });
+    const existingPosts = await convex.query(api.newsPosts.list, {
+      publishedOnly: false,
+      adminToken: process.env.CRON_SECRET || import.meta.env.CRON_SECRET,
+    });
     const existingUrls = new Set(existingPosts?.map((p: any) => p.sourceUrl) || []);
     const existingSlugs = new Set(existingPosts?.map((p: any) => p.slug) || []);
     const existingTitles = existingPosts?.map((p: any) => p.title) || [];

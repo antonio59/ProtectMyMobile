@@ -14,7 +14,7 @@ export const GET: APIRoute = async ({ request }) => {
   }
 
   try {
-    const adminToken = import.meta.env.CRON_SECRET || process.env.CRON_SECRET;
+    const adminToken = process.env.CRON_SECRET || import.meta.env.CRON_SECRET;
     if (!adminToken) {
       return new Response(JSON.stringify({ success: false, error: 'Missing CRON_SECRET' }), { status: 500 });
     }

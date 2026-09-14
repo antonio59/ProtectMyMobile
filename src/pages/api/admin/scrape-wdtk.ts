@@ -2,6 +2,7 @@ import type { APIRoute } from "astro";
 import { ConvexHttpClient } from "convex/browser";
 import { api } from "../../../../convex/_generated/api";
 import { requireApiKey } from "../../../lib/security";
+import { FOI_BOT_UA } from "../../../lib/mail";
 
 const convexUrl = import.meta.env.PUBLIC_CONVEX_URL;
 const convex = convexUrl ? new ConvexHttpClient(convexUrl) : null;
@@ -40,7 +41,7 @@ async function fetchWDTKSearchPage(
   try {
     const response = await fetch(url, {
       headers: {
-        "User-Agent": "ProtectMyMobile Research Bot (foi@protectmymobile.xyz)",
+        "User-Agent": FOI_BOT_UA,
       },
     });
 
@@ -216,6 +217,7 @@ export const GET: APIRoute = async ({ url, request }) => {
         // Check if already exists
         const existing = await convex.query(api.wdtkEntries.getByWdtkId, {
           wdtkId: req.id,
+          adminToken: process.env.CRON_SECRET || import.meta.env.CRON_SECRET,
         });
 
         if (existing) {
@@ -227,7 +229,7 @@ export const GET: APIRoute = async ({ url, request }) => {
         const hasData = req.status === "successful" || req.status === "partial";
 
         await convex.mutation(api.wdtkEntries.create, {
-          adminToken: import.meta.env.CRON_SECRET || process.env.CRON_SECRET,
+          adminToken: process.env.CRON_SECRET || import.meta.env.CRON_SECRET,
           wdtkId: req.id,
           title: req.title,
           url: req.url,

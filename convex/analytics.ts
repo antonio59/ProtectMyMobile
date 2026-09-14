@@ -1,6 +1,7 @@
 import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
 import type { QueryCtx } from "./_generated/server";
+import { requireAdmin } from "./auth";
 
 // Shared prologue: collect analyticsEvents from the last `days` (default 30).
 async function collectRecentEvents(ctx: QueryCtx, days?: number) {
@@ -19,6 +20,8 @@ export const trackEvent = mutation({
       v.literal("security_checkup_started"),
       v.literal("security_checkup_completed"),
       v.literal("emergency_guide_viewed"),
+      v.literal("emergency_guide_helpful"),
+      v.literal("emergency_guide_not_helpful"),
       v.literal("bank_contact_clicked"),
       v.literal("provider_contact_clicked"),
       v.literal("community_survey_completed"),
@@ -58,6 +61,7 @@ export const getSummary = query({
     adminToken: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
+    requireAdmin(ctx, args.adminToken);
     const allEvents = await collectRecentEvents(ctx, args.days);
 
     // Count by event type
@@ -156,6 +160,7 @@ export const getRecentEvents = query({
     adminToken: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
+    requireAdmin(ctx, args.adminToken);
     const limit = args.limit || 50;
 
     const events = await ctx.db
@@ -179,6 +184,7 @@ export const getCheckupAnalytics = query({
     adminToken: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
+    requireAdmin(ctx, args.adminToken);
     const checkupEvents = (await collectRecentEvents(ctx, args.days))
       .filter(e =>
         e.eventType === "security_checkup_started" ||

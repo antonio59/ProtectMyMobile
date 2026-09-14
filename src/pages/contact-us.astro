@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
 import { Mail, Send, User, FileText } from 'lucide-react';
+import { PRESS_EMAIL, FOI_FROM_EMAIL } from '../lib/mail';
 ---
 
 <Layout 
@@ -23,6 +24,8 @@ import { Mail, Send, User, FileText } from 'lucide-react';
         </div>
         <p class="text-neutral-300 text-sm">
           Questions, corrections, media inquiries, or feedback: I read everything.
+          Press: <a href={`mailto:${PRESS_EMAIL}`} class="underline underline-offset-2">{PRESS_EMAIL}</a>.
+          FOI: <a href={`mailto:${FOI_FROM_EMAIL}`} class="underline underline-offset-2">{FOI_FROM_EMAIL}</a>.
         </p>
       </div>
 

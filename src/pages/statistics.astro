@@ -4,6 +4,7 @@ import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
 import StatisticsDashboard from '../components/StatisticsDashboard';
 import { getTheftStats } from '../lib/convexData';
+import { SITE_URL } from '../lib/site';
 import { londonHotspots, hotspotsSource, hotspotThefts } from '../data/hotspots';
 import { BarChart3, TrendingUp, MapPin, AlertTriangle, Shield, ArrowRight } from 'lucide-react';
 
@@ -16,7 +17,7 @@ const statisticsSchema = {
   "creator": { "@type": "Organization", "name": "ProtectMyMobile" },
   "temporalCoverage": "2017/2026",
   "spatialCoverage": { "@type": "Place", "name": "United Kingdom" },
-  "url": "https://protectmymobile.xyz/statistics"
+  "url": `${SITE_URL}/statistics`
 };
 
 // Try to fetch live data from Convex

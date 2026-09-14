@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 export {};
 
-const API_URL = process.env.SITE_URL || "https://protectmymobile.xyz";
+const API_URL = process.env.SITE_URL || "https://protectmymobile.org";
 
 console.log("Checking system health...");
 console.log(`API URL: ${API_URL}`);
@@ -69,7 +69,7 @@ try {
   if (error.message.includes("Unable to connect")) {
     console.error("\nMake sure the site is accessible at:", API_URL);
     console.error("For local testing, start dev server: pnpm run dev");
-    console.error("For production, set SITE_URL=https://protectmymobile.xyz");
+    console.error("For production, set SITE_URL=https://protectmymobile.org");
   }
   process.exit(1);
 }

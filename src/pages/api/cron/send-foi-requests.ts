@@ -3,6 +3,7 @@ import { api } from '../../../../convex/_generated/api';
 import { getConvexClient, requireConvex, sendReportEmail } from '../../../lib/cron-utils';
 import { requireApiKey } from '../../../lib/security';
 import { Resend } from 'resend';
+import { FOI_FROM_EMAIL, FOI_FROM_HEADER, FOI_PUBLIC_EMAIL } from '../../../lib/mail';
 
 const convex = getConvexClient();
 
@@ -73,8 +74,9 @@ Thank you for your assistance.
 
 Kind regards,
 ProtectMyMobile Research Team
-Email: foi@protectmymobile.xyz
-Website: https://protectmymobile.xyz
+Email: ${FOI_FROM_EMAIL} (replies)
+Also: ${FOI_PUBLIC_EMAIL}
+Website: https://protectmymobile.org
 
 This request is made for research purposes to help provide the public with accurate information about mobile phone theft trends in the UK.`;
 }
@@ -87,7 +89,7 @@ export const GET: APIRoute = async ({ request }) => {
     return requireConvex(convex)!;
   }
 
-  const resendApiKey = import.meta.env.RESEND_API_KEY || process.env.RESEND_API_KEY;
+  const resendApiKey = process.env.RESEND_API_KEY || import.meta.env.RESEND_API_KEY;
   if (!resendApiKey) {
     return new Response(JSON.stringify({ 
       success: false, 
@@ -119,7 +121,8 @@ export const GET: APIRoute = async ({ request }) => {
     for (const force of forces) {
       // Check if we already sent a request to this force this quarter
       const existingRequests = await convex.query(api.foiRequests.list, { 
-        policeForce: force.name 
+        policeForce: force.name,
+        adminToken: process.env.CRON_SECRET || import.meta.env.CRON_SECRET,
       });
       
       const thisQuarterRequests = existingRequests?.filter(r => {
@@ -141,16 +144,16 @@ export const GET: APIRoute = async ({ request }) => {
       try {
         // Send the FOI request email
         await resend.emails.send({
-          from: 'ProtectMyMobile FOI <foi@protectmymobile.xyz>',
+          from: FOI_FROM_HEADER,
           to: [force.foiEmail],
           subject: `Freedom of Information Request - Mobile Phone Theft Data [${referenceNumber}]`,
           text: requestBody,
-          replyTo: 'foi@protectmymobile.xyz',
+          replyTo: FOI_FROM_EMAIL,
         });
 
         // Create the request record in database
         await convex.mutation(api.foiRequests.create, {
-          adminToken: import.meta.env.CRON_SECRET || process.env.CRON_SECRET,
+          adminToken: process.env.CRON_SECRET || import.meta.env.CRON_SECRET,
           referenceNumber,
           policeForce: force.name,
           policeForceEmail: force.foiEmail,
@@ -162,7 +165,7 @@ export const GET: APIRoute = async ({ request }) => {
 
         // Update last request date on police force
         await convex.mutation(api.policeForces.update, {
-          adminToken: import.meta.env.CRON_SECRET || process.env.CRON_SECRET,
+          adminToken: process.env.CRON_SECRET || import.meta.env.CRON_SECRET,
           id: force._id,
           lastRequestDate: Date.now(),
         });
@@ -191,7 +194,7 @@ export const GET: APIRoute = async ({ request }) => {
         <ul>${results.skipped.map(f => `<li>${f}</li>`).join('') || '<li>None</li>'}</ul>
         <h3>❌ Failed (${results.failed.length})</h3>
         <ul>${results.failed.map(f => `<li>${f.force}: ${f.error}</li>`).join('') || '<li>None</li>'}</ul>
-        <p>View all requests at: <a href="https://protectmymobile.xyz/admin/foi">Admin Dashboard</a></p>
+        <p>View all requests at: <a href="https://protectmymobile.org/admin/foi">Admin Dashboard</a></p>
       `
     );
 

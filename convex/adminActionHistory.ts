@@ -3,8 +3,9 @@ import { query, mutation } from "./_generated/server";
 import { requireAdmin } from "./auth";
 
 export const list = query({
-  args: {},
-  handler: async (ctx) => {
+  args: { adminToken: v.optional(v.string()) },
+  handler: async (ctx, args) => {
+    requireAdmin(ctx, args.adminToken);
     return await ctx.db
       .query("adminActionHistory")
       .order("desc")

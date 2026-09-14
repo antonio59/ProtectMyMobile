@@ -12,4 +12,5 @@ export interface NewsPost {
   imageUrl?: string;
   featuredImageUrl?: string;
   authorName?: string;
+  updatedAt?: number;
 }

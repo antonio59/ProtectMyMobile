@@ -21,7 +21,7 @@ export function ScenarioCarousel({ images, title, summary, scenarioId }: Props) 
   };
 
   const getShareUrl = () => {
-    const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://protectmymobile.xyz';
+    const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://protectmymobile.org';
     return scenarioId ? `${baseUrl}/slides/${scenarioId}` : `${baseUrl}/news`;
   };
 

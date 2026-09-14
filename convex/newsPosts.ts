@@ -14,6 +14,7 @@ export const list = query({
         .collect();
       return posts.filter((p) => p.published);
     }
+    requireAdmin(ctx, args.adminToken);
     return await ctx.db.query("newsPosts").order("desc").collect();
   },
 });
@@ -21,10 +22,11 @@ export const list = query({
 export const getBySlug = query({
   args: { slug: v.string() },
   handler: async (ctx, args) => {
-    return await ctx.db
+    const post = await ctx.db
       .query("newsPosts")
       .withIndex("by_slug", (q) => q.eq("slug", args.slug))
       .first();
+    return post?.published ? post : null;
   },
 });
 

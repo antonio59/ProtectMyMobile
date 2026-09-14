@@ -1,7 +1,10 @@
 import { defineMiddleware } from 'astro:middleware';
 import { checkRateLimit, getClientIp } from './lib/security';
 
-const ADMIN_PASSWORD = import.meta.env.ADMIN_PASSWORD || process.env.ADMIN_PASSWORD;
+// Read lazily: workerd populates process.env per request, not at module init.
+function adminPassword(): string | undefined {
+  return process.env.ADMIN_PASSWORD || import.meta.env.ADMIN_PASSWORD;
+}
 
 // JWT implementation using Web Crypto API (stateless, works on serverless)
 async function importKey(secret: string) {
@@ -39,10 +42,28 @@ export async function verifyJWT(token: string, secret: string): Promise<any | nu
       new TextEncoder().encode(`${header}.${body}`)
     );
     if (!valid) return null;
-    return JSON.parse(atob(body));
+    const payload = JSON.parse(atob(body));
+    // Tokens must carry a numeric, unexpired `exp` claim
+    if (typeof payload?.exp !== 'number' || payload.exp <= Date.now()) return null;
+    return payload;
   } catch {
     return null;
   }
+}
+
+// Constant-time string comparison to avoid leaking password bytes via timing
+async function timingSafeEqual(a: string, b: string): Promise<boolean> {
+  const [ha, hb] = await Promise.all([
+    crypto.subtle.digest('SHA-256', new TextEncoder().encode(a)),
+    crypto.subtle.digest('SHA-256', new TextEncoder().encode(b)),
+  ]);
+  const ba = new Uint8Array(ha);
+  const bb = new Uint8Array(hb);
+  let diff = ba.length ^ bb.length;
+  for (let i = 0; i < Math.max(ba.length, bb.length); i++) {
+    diff |= (ba[i] ?? 0) ^ (bb[i] ?? 0);
+  }
+  return diff === 0;
 }
 
 export function invalidateSession(_token: string): void {
@@ -59,8 +80,9 @@ export const onRequest = defineMiddleware(async (context, next) => {
 
   // Check for valid JWT in cookie
   const authCookie = context.cookies.get('admin_auth');
-  if (authCookie?.value && ADMIN_PASSWORD) {
-    const payload = await verifyJWT(authCookie.value, ADMIN_PASSWORD);
+  const adminPw = adminPassword();
+  if (authCookie?.value && adminPw) {
+    const payload = await verifyJWT(authCookie.value, adminPw);
     if (payload && payload.exp > Date.now()) {
       return next();
     }
@@ -74,13 +96,13 @@ export const onRequest = defineMiddleware(async (context, next) => {
     const formData = await context.request.formData();
     const password = formData.get('password');
 
-    if (password === ADMIN_PASSWORD) {
+    if (typeof password === 'string' && adminPw && await timingSafeEqual(password, adminPw)) {
       // Clear any stale legacy cookie before setting the new one
       context.cookies.delete('admin_auth', { path: '/admin' });
 
       const token = await signJWT(
         { exp: Date.now() + 24 * 60 * 60 * 1000 },
-        ADMIN_PASSWORD
+        adminPw
       );
 
       context.cookies.set('admin_auth', token, {

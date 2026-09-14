@@ -17,6 +17,10 @@ pnpm-debug.log*
 .env
 .env.production
 .env.local
+.dev.vars
+
+# wrangler generated types
+worker-configuration.d.ts
 
 # macOS-specific files
 .DS_Store
@@ -36,3 +40,4 @@ netlify/netlify/
 
 *.bin
 bun.lock
+.pnpm-store/

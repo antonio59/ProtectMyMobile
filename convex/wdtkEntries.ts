@@ -8,8 +8,10 @@ export const list = query({
     status: v.optional(v.string()),
     hasData: v.optional(v.boolean()),
     imported: v.optional(v.boolean()),
+    adminToken: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
+    requireAdmin(ctx, args.adminToken);
     if (args.hasData !== undefined) {
       return await ctx.db
         .query("wdtkEntries")
@@ -36,8 +38,9 @@ export const list = query({
 });
 
 export const getByWdtkId = query({
-  args: { wdtkId: v.string() },
+  args: { wdtkId: v.string(), adminToken: v.optional(v.string()) },
   handler: async (ctx, args) => {
+    requireAdmin(ctx, args.adminToken);
     const entries = await ctx.db
       .query("wdtkEntries")
       .withIndex("by_wdtk_id", (q) => q.eq("wdtkId", args.wdtkId))
@@ -121,7 +124,8 @@ export const markAsImported = mutation({
 
 export const getStats = query({
   args: { adminToken: v.optional(v.string()) },
-  handler: async (ctx, _args) => {
+  handler: async (ctx, args) => {
+    requireAdmin(ctx, args.adminToken);
     const all = await ctx.db.query("wdtkEntries").collect();
     
     return {

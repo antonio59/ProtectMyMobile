@@ -64,8 +64,10 @@ export const list = query({
         v.literal("failed")
       )
     ),
+    adminToken: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
+    requireAdmin(ctx, args.adminToken);
     let logs;
 
     // Apply filters if provided
@@ -106,8 +108,10 @@ export const list = query({
 export const getRecent = query({
   args: {
     limit: v.optional(v.number()),
+    adminToken: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
+    requireAdmin(ctx, args.adminToken);
     const limit = args.limit ?? 10;
     return await ctx.db
       .query("importLogs")
@@ -118,8 +122,9 @@ export const getRecent = query({
 });
 
 export const getStats = query({
-  args: {},
-  handler: async (ctx) => {
+  args: { adminToken: v.optional(v.string()) },
+  handler: async (ctx, args) => {
+    requireAdmin(ctx, args.adminToken);
     const allLogs = await ctx.db.query("importLogs").collect();
 
     if (allLogs.length === 0) {
@@ -212,8 +217,10 @@ export const getBySource = query({
   args: {
     source: v.string(),
     limit: v.optional(v.number()),
+    adminToken: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
+    requireAdmin(ctx, args.adminToken);
     const limit = args.limit ?? 20;
     return await ctx.db
       .query("importLogs")
@@ -226,8 +233,10 @@ export const getBySource = query({
 export const getById = query({
   args: {
     id: v.id("importLogs"),
+    adminToken: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
+    requireAdmin(ctx, args.adminToken);
     return await ctx.db.get(args.id);
   },
 });

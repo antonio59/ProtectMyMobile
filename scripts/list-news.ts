@@ -5,7 +5,10 @@ const convexUrl = process.env.PUBLIC_CONVEX_URL!;
 const convex = new ConvexHttpClient(convexUrl);
 
 async function main() {
-  const posts: any[] = await convex.query(api.newsPosts.list, { publishedOnly: false });
+  const posts: any[] = await convex.query(api.newsPosts.list, {
+    publishedOnly: false,
+    adminToken: process.env.CRON_SECRET || process.env.CONVEX_ADMIN_TOKEN,
+  });
   for (const p of posts) {
     console.log(p.title);
     console.log("  " + (p.sourceName || "no source") + " | " + p.slug);

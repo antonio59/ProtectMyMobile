@@ -1,5 +1,6 @@
 import { v } from "convex/values";
 import { query, mutation } from "./_generated/server";
+import { requireAdmin } from "./auth";
 
 export const record = mutation({
   args: {
@@ -14,8 +15,9 @@ export const record = mutation({
 });
 
 export const getStats = query({
-  args: { daysBack: v.optional(v.number()) },
+  args: { daysBack: v.optional(v.number()), adminToken: v.optional(v.string()) },
   handler: async (ctx, args) => {
+    requireAdmin(ctx, args.adminToken);
     const daysBack = args.daysBack || 30;
     const cutoff = Date.now() - daysBack * 24 * 60 * 60 * 1000;
 

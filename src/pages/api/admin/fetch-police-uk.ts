@@ -170,7 +170,7 @@ export const GET: APIRoute = async ({ request }) => {
 
     if (newDataPoints.length > 0) {
       await convex.mutation(api.theftDataPoints.createBatch, {
-        adminToken: import.meta.env.CRON_SECRET || process.env.CRON_SECRET,
+        adminToken: process.env.CRON_SECRET || import.meta.env.CRON_SECRET,
         dataPoints: newDataPoints
       });
     }
