@@ -132,6 +132,39 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Regenerate lockfile after rebase onto remote dep bumps
+
+Generated with [Devin](https://devin.ai)
+
+Co-Authored-By: Devin <158243242+devin-ai-integration[bot]@users.noreply.github.com>
+- Migrate to Cloudflare Workers, fix critical security issues
+
+Security:
+- Upgrade Astro 7.2.4 → 7.3.2 (fixes RCE via AVIF optimization, GHSA-26w7-cxv4-gfx2)
+- Pin vulnerable transitive deps via pnpm-workspace.yaml; audit now clean
+- Add requireAdmin to ~15 unprotected Convex queries (contact submissions,
+  analytics, FOI requests, import logs, WDTK, page views were publicly readable)
+- Restrict newsPosts.getBySlug to published posts; validate public mutations
+- Timing-safe admin password check; enforce JWT exp in verifyJWT
+- Escape scraped values in admin notification emails; validate URL schemes
+
+Migration (Netlify → Cloudflare Workers):
+- @astrojs/cloudflare adapter; src/worker.ts entrypoint handles host
+  canonicalization, security headers, and cron triggers
+- wrangler.jsonc: custom domains for .org/.xyz, 3 cron schedules, vars
+- Delete netlify/, netlify.toml, stale cron-worker/; remove Netlify deps
+- cf-connecting-ip for client IP; secrets prefer runtime env over build-time
+- Docs updated to Cloudflare/Resend/GitHub
+
+Content/SEO:
+- Canonical URLs derive from request path (10 pages pointed to homepage)
+- Accept emergency helpfulness analytics events in Convex validator
+- Filter non-UK stories from /news, article routes, and RSS
+- Email senders move to verified protectmymobile.org domain
+
+Generated with [Devin](https://devin.ai)
+
+Co-Authored-By: Devin <158243242+devin-ai-integration[bot]@users.noreply.github.com>
 - Bump the react group across 1 directory with 4 updates (#118)
 - Bump resend from 6.26.0 to 6.27.0 (#119)
 - Bump astro from 7.3.1 to 7.3.2 in the astro group (#117)
@@ -1520,6 +1553,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
