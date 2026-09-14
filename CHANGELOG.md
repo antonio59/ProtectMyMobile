@@ -132,6 +132,14 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Add security.txt (RFC 9116)
+
+Serves /.well-known/security.txt as a static asset with the contact form
+as the reporting channel, plus a /security.txt redirect in the worker.
+
+Generated with [Devin](https://devin.ai)
+
+Co-Authored-By: Devin <158243242+devin-ai-integration[bot]@users.noreply.github.com>
 - Fix SSR returning [object Object] on Workers
 
 workerd's native process v2 (via nodejs_compat) makes Astro detect Node
@@ -1589,6 +1597,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
