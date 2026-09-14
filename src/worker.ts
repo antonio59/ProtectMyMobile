@@ -1,5 +1,4 @@
-import { astro, FetchState } from 'astro/fetch';
-import { cf, finalize } from '@astrojs/cloudflare/fetch';
+import { handle } from '@astrojs/cloudflare/handler';
 
 // Minimal Workers runtime types. Kept local so the full
 // @cloudflare/workers-types globals (which change Body.json() to `unknown`
@@ -105,11 +104,10 @@ export default {
       );
     }
 
-    const state = new FetchState(request);
-    // The adapter's Env/ExecutionContext param types come from generated
-    // workers-types excluded from this tsconfig; they resolve as `any`.
-    const response =
-      (await cf(state, env, ctx)) ?? finalize(state, await astro(state));
+    // handle() = the adapter's full pipeline: ASSETS binding for static
+    // files, route matching, app.render for SSR. Env/ctx types come from
+    // generated workers-types excluded from this tsconfig; resolve as any.
+    const response = await handle(request, env as never, ctx as never);
     return withSecurityHeaders(response);
   },
 
