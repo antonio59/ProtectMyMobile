@@ -132,6 +132,19 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Complete privacy policy, add data retention purge, fix news cron
+
+- Fill all retention-period and transfer-mechanism TODOs in privacy
+  policy and terms; concrete periods now stated and enforced
+- New dataRetention.purgeExpired mutation + /api/cron/purge-data
+  endpoint, run monthly alongside directory verification
+- Fix worker cron dispatch key for Sunday news fetch (event.cron is
+  '0 8 * * 7', map had '0 8 * * 0' — job never ran)
+- NOTIFY_FROM now sends from verified notifications@protectmymobile.org
+
+Generated with [Devin](https://devin.ai)
+
+Co-Authored-By: Devin <158243242+devin-ai-integration[bot]@users.noreply.github.com>
 - Regenerate lockfile after rebase onto remote dep bumps
 
 Generated with [Devin](https://devin.ai)
@@ -1553,6 +1566,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
