@@ -132,6 +132,19 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Fix SSR returning [object Object] on Workers
+
+workerd's native process v2 (via nodejs_compat) makes Astro detect Node
+and return an AsyncIterable body, which workerd stringifies to
+"[object Object]". Add disable_nodejs_process_v2 compat flag so Astro
+takes the ReadableStream path. Also use the adapter's handle() pipeline
+directly in the custom worker entrypoint.
+
+https://github.com/withastro/astro/issues/14511
+
+Generated with [Devin](https://devin.ai)
+
+Co-Authored-By: Devin <158243242+devin-ai-integration[bot]@users.noreply.github.com>
 - Add methodology & corrections page
 
 New /methodology covering data sources (police.uk, FOI, ONS), the
@@ -1576,6 +1589,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
