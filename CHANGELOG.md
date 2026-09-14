@@ -132,6 +132,16 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Fix Fallow dead-code failures
+
+Remove unused AnimatedStats component and dead dependency overrides for
+packages no longer in the tree (tmp, tar, @opentelemetry/core,
+brace-expansion, toml, rollup, node-forge) — they were Netlify-era
+security pins whose packages left the dependency graph in the migration.
+
+Generated with [Devin](https://devin.ai)
+
+Co-Authored-By: Devin <158243242+devin-ai-integration[bot]@users.noreply.github.com>
 - Update Ko-fi link to ko-fi.com/antoniojasmith
 
 Generated with [Devin](https://devin.ai)
@@ -1602,6 +1612,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
