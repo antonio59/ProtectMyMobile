@@ -1,0 +1,159 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HeaderMobile from '../components/HeaderMobile';
+import Footer from '../components/Footer.astro';
+import { Database, Newspaper, Users, AlertTriangle, FileCheck, HandHeart } from 'lucide-react';
+---
+
+<Layout
+  title="Methodology & Corrections | ProtectMyMobile"
+  description="How ProtectMyMobile collects, checks and publishes phone theft data and news — and how to request a correction."
+  canonicalPath="/methodology"
+>
+  <HeaderMobile client:idle />
+
+  <main id="main-content" class="bg-background min-h-screen">
+    <div class="container mx-auto px-4 py-4 sm:py-6 max-w-4xl">
+      <!-- Hero -->
+      <div class="bg-foreground text-background rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 mb-6 sm:mb-8">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="bg-background/20 p-2 sm:p-3 rounded-xl">
+            <FileCheck className="size-6 sm:size-8" />
+          </div>
+          <h1 class="text-xl sm:text-2xl md:text-3xl font-bold">Methodology & Corrections</h1>
+        </div>
+        <p class="text-neutral-300 text-sm md:text-base">
+          Where every number on this site comes from, how news and community reports are handled, what the data can't tell you, and how to get something fixed.
+        </p>
+      </div>
+
+      <div class="bg-card rounded-xl sm:rounded-2xl overflow-hidden border border-border">
+        <div class="p-4 sm:p-6 md:p-8 space-y-6 sm:space-y-8">
+
+          <!-- Data sources -->
+          <section>
+            <div class="flex items-center gap-3 mb-4">
+              <div class="bg-neutral-100 rounded-lg sm:rounded-xl p-1.5 sm:p-2">
+                <Database aria-hidden="true" className="size-4 sm:size-5 text-foreground" />
+              </div>
+              <h2 class="text-base sm:text-lg font-bold">Where the Data Comes From</h2>
+            </div>
+            <div class="space-y-4 text-foreground text-xs sm:text-sm">
+              <div>
+                <h3 class="font-semibold mb-1">police.uk street-level API</h3>
+                <p>The theft map and city pages draw on the official police.uk data API, which publishes street-level crime reports for England, Wales and Northern Ireland. An automated job refreshes the most recent three months every day. Police data typically runs two to three months behind real time, and reflects crimes that were reported and recorded — not every theft.</p>
+              </div>
+              <div>
+                <h3 class="font-semibold mb-1">Freedom of Information requests</h3>
+                <p>Where the public API doesn't answer a question — for example phone-specific theft counts by force — I submit FOI requests to UK police forces and publish the aggregates. FOI figures are reported exactly as supplied; forces vary in how they categorise and extract the data, so figures between forces are not always directly comparable.</p>
+              </div>
+              <div>
+                <h3 class="font-semibold mb-1">National statistics for context</h3>
+                <p>Headline figures (for example the 78,000 snatch-theft estimate) come from the Office for National Statistics and the Crime Survey for England and Wales. These are survey estimates, not counts of recorded crime — the site labels them as such wherever they appear.</p>
+              </div>
+              <div>
+                <h3 class="font-semibold mb-1">Directory contact data</h3>
+                <p>Bank and mobile provider contact details in the directory are checked monthly by an automated job that tests each link. Entries that fail are flagged for manual review — nothing is removed or changed without me looking at it.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- News -->
+          <section>
+            <div class="flex items-center gap-3 mb-4">
+              <div class="bg-neutral-100 rounded-lg sm:rounded-xl p-1.5 sm:p-2">
+                <Newspaper aria-hidden="true" className="size-4 sm:size-5 text-foreground" />
+              </div>
+              <h2 class="text-base sm:text-lg font-bold">How News Is Selected</h2>
+            </div>
+            <div class="space-y-3 text-foreground text-xs sm:text-sm">
+              <p>
+                A weekly automated scan pulls UK news feeds for phone-theft stories. Each candidate article is scored against relevance rules — keywords around phone theft, snatching, pickpocketing and related policing — and only articles scoring above the threshold are imported. A separate UK-relevance filter keeps out stories that mention the terms but aren't about the UK.
+              </p>
+              <p>
+                Articles are excerpts with attribution, not full republications: each links back to the original publisher, which remains responsible for the underlying reporting. If a publisher corrects or removes a story, the excerpt here may lag behind until the next weekly scan.
+              </p>
+            </div>
+          </section>
+
+          <!-- Community data -->
+          <section>
+            <div class="flex items-center gap-3 mb-4">
+              <div class="bg-neutral-100 rounded-lg sm:rounded-xl p-1.5 sm:p-2">
+                <Users aria-hidden="true" className="size-4 sm:size-5 text-foreground" />
+              </div>
+              <h2 class="text-base sm:text-lg font-bold">Community-Contributed Data</h2>
+            </div>
+            <div class="space-y-3 text-foreground text-xs sm:text-sm">
+              <p>
+                <strong>Theft map reports</strong> are anonymous and self-reported. Every submission is reviewed before it appears on the map, and obvious spam or entries containing personal details are rejected. Because they are self-reported, treat them as signals of where thefts happen — useful for spotting hotspots early, but not verified crime records.
+              </p>
+              <p>
+                <strong>Experience reports</strong> are published only with the submitter's consent and after review. <strong>Survey responses</strong> feed the aggregated community statistics; individual responses are deleted after 24 months as described in the <a href="/privacy" class="text-primary hover:underline">privacy policy</a>.
+              </p>
+            </div>
+          </section>
+
+          <!-- Limitations -->
+          <section class="bg-neutral-100 border border-border rounded-lg sm:rounded-xl p-4 sm:p-6">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="bg-neutral-100 rounded-lg sm:rounded-xl p-1.5 sm:p-2">
+                <AlertTriangle aria-hidden="true" className="size-4 sm:size-5 text-foreground" />
+              </div>
+              <h2 class="text-base sm:text-lg font-bold text-foreground">What the Data Can't Tell You</h2>
+            </div>
+            <ul class="list-disc pl-6 space-y-1.5 text-foreground text-xs sm:text-sm">
+              <li>Police figures only capture thefts that were reported and recorded. Many phone thefts are never reported, so real numbers are higher.</li>
+              <li>Street-level locations are deliberately anonymised by police.uk to nearby snap points — a dot is an area, not an exact address.</li>
+              <li>FOI responses differ in format and completeness between forces; cross-force comparisons carry caveats.</li>
+              <li>Community reports are unverified. A cluster may reflect who found this site as much as where thefts concentrate.</li>
+              <li>Estimates and survey figures are always labelled as estimates. Where a number is derived rather than directly counted, the page says so.</li>
+            </ul>
+          </section>
+
+          <!-- Corrections -->
+          <section>
+            <div class="flex items-center gap-3 mb-4">
+              <div class="bg-neutral-100 rounded-lg sm:rounded-xl p-1.5 sm:p-2">
+                <FileCheck aria-hidden="true" className="size-4 sm:size-5 text-foreground" />
+              </div>
+              <h2 class="text-base sm:text-lg font-bold">Corrections & Takedowns</h2>
+            </div>
+            <div class="space-y-3 text-foreground text-xs sm:text-sm">
+              <p>
+                If you spot an error — a wrong statistic, a broken directory link, a mislabelled source — tell me through the <a href="/contact-us" class="text-primary hover:underline">contact form</a>. I aim to review corrections within a few days, fix verified errors, and update the page. Where an error was material to a statistic's meaning, I'll note the correction on the page rather than silently changing it.
+              </p>
+              <p>
+                To remove something that is yours — an experience report, a theft map entry, a survey response — use the same form and tell me roughly when and what you submitted. Published experience reports come down on request, as promised in the privacy policy.
+              </p>
+              <p>
+                For errors in syndicated news excerpts, the fix has to happen at the original publisher; I'll remove or update the excerpt here once they do.
+              </p>
+            </div>
+          </section>
+
+          <!-- Independence -->
+          <section>
+            <div class="flex items-center gap-3 mb-4">
+              <div class="bg-neutral-100 rounded-lg sm:rounded-xl p-1.5 sm:p-2">
+                <HandHeart aria-hidden="true" className="size-4 sm:size-5 text-foreground" />
+              </div>
+              <h2 class="text-base sm:text-lg font-bold">Independence & Funding</h2>
+            </div>
+            <div class="space-y-3 text-foreground text-xs sm:text-sm">
+              <p>
+                ProtectMyMobile is run by one person, Antonio Smith, as a sole trader. There is no newsroom, no sponsor and no advertiser influence over what gets published. Nobody pays for coverage or placement.
+              </p>
+              <p>
+                The site is free. The <a href="/products" class="text-primary hover:underline">products page</a> contains Amazon affiliate links, clearly labelled — purchases through them earn a small commission at no extra cost to you, which helps cover hosting. Product choices are made independently; commission rates don't influence what is recommended.
+              </p>
+            </div>
+          </section>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
