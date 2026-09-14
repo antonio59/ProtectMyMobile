@@ -132,6 +132,16 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Add methodology & corrections page
+
+New /methodology covering data sources (police.uk, FOI, ONS), the
+scored weekly news pipeline, community data handling, limitations,
+corrections/takedown process, and funding disclosure. Linked from
+footer and the about page.
+
+Generated with [Devin](https://devin.ai)
+
+Co-Authored-By: Devin <158243242+devin-ai-integration[bot]@users.noreply.github.com>
 - Complete privacy policy, add data retention purge, fix news cron
 
 - Fill all retention-period and transfer-mechanism TODOs in privacy
@@ -1566,6 +1576,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
