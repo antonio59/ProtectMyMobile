@@ -132,6 +132,19 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Adopt cloudflare/security-audit-skill
+
+Vendor the MIT-licensed security-audit skill into .devin/skills/ so
+focused reviews and full audits follow its six-phase workflow
+(recon, coverage-led hunting, candidate validation, structured
+findings, independent verification, reporting). Validators ship
+with self-tests (65 passing). AGENTS.md notes when to use it.
+
+Source: https://github.com/cloudflare/security-audit-skill
+
+Generated with [Devin](https://devin.ai)
+
+Co-Authored-By: Devin <158243242+devin-ai-integration[bot]@users.noreply.github.com>
 - Fix Fallow dead-code failures
 
 Remove unused AnimatedStats component and dead dependency overrides for
@@ -1612,6 +1625,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
