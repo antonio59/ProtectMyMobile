@@ -132,6 +132,22 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Improve accessibility: zoom, menu focus, charts, form errors
+
+- Remove maximum-scale so pinch-zoom works (WCAG 1.4.4)
+- Mobile menu: aria-expanded/controls, Escape close, focus trap,
+  inert hidden panel, focus return, body scroll lock
+- Add group-focus-within twins to all group-hover affordances
+- Give all 6 chart canvases role=img + data-summarizing aria-labels
+- Bump sub-12px text to text-xs; drop redundant eyebrow label
+- Contact form: per-field inline errors with aria-invalid +
+  aria-describedby, first-invalid focus, server-error field mapping
+- Replace transition-all with targeted transition except where
+  layout properties (width/gap) are intentionally animated
+
+Generated with [Devin](https://devin.ai)
+
+Co-Authored-By: Devin <158243242+devin-ai-integration[bot]@users.noreply.github.com>
 - Adopt cloudflare/security-audit-skill
 
 Vendor the MIT-licensed security-audit skill into .devin/skills/ so
@@ -1625,6 +1641,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
