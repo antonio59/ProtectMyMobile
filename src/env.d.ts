@@ -12,3 +12,10 @@ interface ImportMetaEnv {
 interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
+
+// worker-configuration.d.ts is excluded from tsconfig (its globals change
+// Body.json() to `unknown` codebase-wide), so declare the one binding module
+// we use here. Runtime value comes from workerd/miniflare.
+declare module "cloudflare:workers" {
+  export const env: Record<string, unknown>;
+}
