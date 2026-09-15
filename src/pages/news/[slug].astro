@@ -269,7 +269,7 @@ const articleSchema = {
         {/* Article Header */}
         <header class={`px-4 sm:px-6 lg:px-8 py-5 sm:py-6 border-b ${config.border} ${config.bg}`}>
           <div class="flex items-center gap-2 mb-3 flex-wrap">
-            <span class={`inline-flex items-center gap-1.5 text-[10px] sm:text-xs px-2.5 py-1 rounded-full font-medium bg-card border ${config.border} ${config.color}`}>
+            <span class={`inline-flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full font-medium bg-card border ${config.border} ${config.color}`}>
               <Tag className="size-3" />
               {config.label}
             </span>
@@ -450,14 +450,14 @@ const articleSchema = {
                   href={related.sourceUrl || `/news/${related.slug}`}
                   target={related.sourceUrl ? "_blank" : undefined}
                   rel={related.sourceUrl ? "noopener noreferrer" : undefined}
-                  class="group bg-card rounded-xl overflow-hidden border border-border hover:border-primary/30 transition-all"
+                  class="group bg-card rounded-xl overflow-hidden border border-border hover:border-primary/30 transition"
                 >
                   {related.featuredImageUrl ? (
                     <div class="w-full aspect-[16/9] overflow-hidden bg-neutral-100">
                       <img
                         src={related.featuredImageUrl}
                         alt={related.title}
-                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        class="w-full h-full object-cover group-hover:scale-105 group-focus-within:scale-105 transition-transform duration-300"
                         loading="lazy"
                       />
                     </div>
@@ -472,10 +472,10 @@ const articleSchema = {
                     </div>
                   )}
                   <div class="p-4">
-                    <span class={`text-[10px] font-medium px-2 py-0.5 rounded-full ${relatedConfig.bg} ${relatedConfig.color}`}>
+                    <span class={`text-xs font-medium px-2 py-0.5 rounded-full ${relatedConfig.bg} ${relatedConfig.color}`}>
                       {relatedConfig.label}
                     </span>
-                    <h3 class="mt-2 text-sm sm:text-base font-semibold text-foreground group-hover:text-primary transition-colors leading-tight line-clamp-2">
+                    <h3 class="mt-2 text-sm sm:text-base font-semibold text-foreground group-hover:text-primary group-focus-within:text-primary transition-colors leading-tight line-clamp-2">
                       {related.title}
                     </h3>
                     <div class="mt-2 flex items-center gap-1 text-xs text-muted-foreground">

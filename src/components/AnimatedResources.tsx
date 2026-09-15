@@ -81,19 +81,19 @@ function ResourceCard({ resource, index }: { resource: Resource; index: number }
     <a
       ref={ref}
       href={resource.href}
-      className={`group bg-card rounded-xl sm:rounded-2xl  p-4 sm:p-6 md:p-8 lg:p-10 hover: transition-all duration-300 border border-transparent hover:border-primary/10 hover:-translate-y-1 hover:scale-[1.01] animate-on-scroll ${isInView ? 'is-visible' : ''}`}
+      className={`group bg-card rounded-xl sm:rounded-2xl  p-4 sm:p-6 md:p-8 lg:p-10 hover: transition duration-300 border border-transparent hover:border-primary/10 hover:-translate-y-1 hover:scale-[1.01] animate-on-scroll ${isInView ? 'is-visible' : ''}`}
       style={{ animationDelay: `${index * 100}ms` }}
     >
       <div className="flex items-start gap-3 sm:gap-4 lg:gap-5">
         <div
-          className={`${resource.iconBg} rounded-lg sm:rounded-xl lg:rounded-2xl p-2 sm:p-3 lg:p-4 flex-shrink-0 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3`}
+          className={`${resource.iconBg} rounded-lg sm:rounded-xl lg:rounded-2xl p-2 sm:p-3 lg:p-4 flex-shrink-0 transition-transform duration-300 group-hover:scale-110 group-focus-within:scale-110 group-hover:rotate-3 group-focus-within:rotate-3`}
         >
           <div className="[&>svg]:h-6 [&>svg]:w-6 sm:[&>svg]:h-8 sm:[&>svg]:w-8 lg:[&>svg]:h-10 lg:[&>svg]:w-10">
             {resource.icon}
           </div>
         </div>
         <div className="flex-1 min-w-0">
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold mb-1 sm:mb-2 lg:mb-3 group-hover:text-primary transition-colors">
+          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold mb-1 sm:mb-2 lg:mb-3 group-hover:text-primary group-focus-within:text-primary transition-colors">
             {resource.title}
           </h3>
           <p className="text-muted-foreground mb-2 sm:mb-4 text-xs sm:text-sm md:text-base lg:text-lg line-clamp-2 sm:line-clamp-none">
@@ -101,7 +101,7 @@ function ResourceCard({ resource, index }: { resource: Resource; index: number }
           </p>
           <span className={`${resource.linkColor} font-medium flex items-center gap-1 sm:gap-2 text-xs sm:text-sm md:text-base lg:text-lg`}>
             {resource.linkText}
-            <ArrowRight className="size-3 sm:size-4 lg:size-5 group-hover:translate-x-2 transition-transform" />
+            <ArrowRight className="size-3 sm:size-4 lg:size-5 group-hover:translate-x-2 group-focus-within:translate-x-2 transition-transform" />
           </span>
         </div>
       </div>

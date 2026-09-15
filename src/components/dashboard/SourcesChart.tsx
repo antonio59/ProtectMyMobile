@@ -57,7 +57,11 @@ export default function SourcesChart({ data, totalRecords }: { data: SourceBreak
       </h3>
       <p className="text-xs text-muted-foreground mb-4">Composition of our statistics database</p>
       <div className="flex-1 min-h-[200px] flex items-center justify-center">
-        <canvas ref={canvasRef} />
+        <canvas
+          ref={canvasRef}
+          role="img"
+          aria-label={`Doughnut chart of data sources: ${data.map((item) => `${item.name} ${totalRecords > 0 ? ((item.records / totalRecords) * 100).toFixed(1) : '0'}%`).join(', ')}.`}
+        />
       </div>
       <div className="mt-3 space-y-1">
         {data.map((item, i) => {

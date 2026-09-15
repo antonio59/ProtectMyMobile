@@ -62,7 +62,11 @@ export default function LocationsChart({ data }: { data: LocationRanking[] }) {
       </h3>
       <p className="text-xs text-muted-foreground mb-4">Ranked by total theft count from police.uk data</p>
       <div className="flex-1 min-h-[240px]">
-        <canvas ref={canvasRef} />
+        <canvas
+          ref={canvasRef}
+          role="img"
+          aria-label={`Bar chart ranking the top ${limited.length} theft hotspots. Highest: ${limited[0]?.name ?? 'none'} with ${limited[0]?.total?.toLocaleString() ?? 0} thefts.`}
+        />
       </div>
     </div>
   );

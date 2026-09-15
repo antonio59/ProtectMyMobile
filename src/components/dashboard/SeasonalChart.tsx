@@ -70,16 +70,20 @@ export default function SeasonalChart({ data }: { data: SeasonalData }) {
       </h3>
       <p className="text-xs text-muted-foreground mb-4">Average thefts per month across all years</p>
       <div className="flex-1 min-h-[200px]">
-        <canvas ref={canvasRef} />
+        <canvas
+          ref={canvasRef}
+          role="img"
+          aria-label={`Line chart of average thefts per calendar month. Peak month: ${data.months[maxIndex]}; lowest: ${data.months[minIndex]}.`}
+        />
       </div>
       <div className="mt-3 grid grid-cols-2 gap-2">
         <div className="bg-destructive-subtle rounded-lg p-2 text-center">
           <div className="text-sm font-bold text-destructive-hover">{data.months[maxIndex]}</div>
-          <div className="text-[10px] text-destructive uppercase tracking-wide font-medium">Peak month</div>
+          <div className="text-xs text-destructive uppercase tracking-wide font-medium">Peak month</div>
         </div>
         <div className="bg-neutral-100 rounded-lg p-2 text-center">
           <div className="text-sm font-bold text-success">{data.months[minIndex]}</div>
-          <div className="text-[10px] text-success uppercase tracking-wide font-medium">Lowest month</div>
+          <div className="text-xs text-success uppercase tracking-wide font-medium">Lowest month</div>
         </div>
       </div>
     </div>

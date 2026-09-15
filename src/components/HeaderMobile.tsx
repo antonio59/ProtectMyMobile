@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   Shield,
   AlertTriangle,
@@ -44,6 +44,49 @@ const navLinks = [
 
 export default function HeaderMobile() {
   const [isOpen, setIsOpen] = useState(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+
+  const closeMenu = (returnFocus = true) => {
+    setIsOpen(false);
+    if (returnFocus) toggleRef.current?.focus();
+  };
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const panel = panelRef.current;
+    if (!panel) return;
+
+    panel.querySelector<HTMLElement>('a[href], button:not([disabled])')?.focus();
+    document.body.style.overflow = 'hidden';
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        closeMenu();
+        return;
+      }
+      if (e.key !== 'Tab') return;
+      const items = Array.from(
+        panel.querySelectorAll<HTMLElement>('a[href], button:not([disabled])')
+      ).filter((el) => el.offsetParent !== null);
+      if (!items.length) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.removeEventListener('keydown', onKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
 
   return (
     <>
@@ -63,7 +106,7 @@ export default function HeaderMobile() {
               <span className="font-serif text-lg sm:text-2xl font-bold text-foreground tracking-tight truncate">
                 ProtectMyMobile
               </span>
-              <span className="hidden xl:inline whitespace-nowrap text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+              <span className="hidden xl:inline whitespace-nowrap text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
                 Track the theft. Protect your phone.
               </span>
             </a>
@@ -87,7 +130,7 @@ export default function HeaderMobile() {
             <SiteSearch />
             <a
               href="/emergency"
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-destructive text-destructive-foreground rounded-lg font-bold uppercase tracking-wide hover:bg-destructive-hover transition-all text-xs whitespace-nowrap"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-destructive text-destructive-foreground rounded-lg font-bold uppercase tracking-wide hover:bg-destructive-hover transition text-xs whitespace-nowrap"
             >
               <AlertTriangle className="size-4" />
               Phone Stolen?
@@ -106,9 +149,12 @@ export default function HeaderMobile() {
               <AlertTriangle className="size-5" />
             </a>
             <button
+              ref={toggleRef}
               onClick={() => setIsOpen(!isOpen)}
               className="size-11 flex items-center justify-center rounded-xl bg-neutral-100 hover:bg-neutral-200 transition-colors hover:scale-105 active:scale-90 transition-transform duration-150"
-              aria-label="Toggle menu"
+              aria-expanded={isOpen}
+              aria-controls="mobile-menu"
+              aria-label={isOpen ? 'Close menu' : 'Open menu'}
             >
               {isOpen ? <X className="size-5" /> : <Menu className="size-5" />}
             </button>
@@ -124,16 +170,18 @@ export default function HeaderMobile() {
         className={`fixed inset-0 bg-black/50 z-40 lg:hidden transition-opacity duration-200 ${
           isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
-        onClick={() => setIsOpen(false)}
-        aria-hidden={!isOpen}
+        onClick={() => closeMenu()}
+        aria-hidden="true"
       />
 
       {/* Slide-out Menu */}
       <div
+        id="mobile-menu"
+        ref={panelRef}
         className={`fixed top-0 right-0 h-full w-[85%] max-w-sm z-50 shadow-2xl lg:hidden overflow-hidden bg-card transition-transform duration-200 ease-out ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
-        aria-hidden={!isOpen}
+        inert={!isOpen}
       >
         {/* Menu Header */}
         <div className="flex items-center justify-between p-4 border-b border-border bg-card">
@@ -141,8 +189,8 @@ export default function HeaderMobile() {
           <div className="flex items-center gap-2">
             <ThemeToggle />
             <button
-            onClick={() => setIsOpen(false)}
-            className="size-11 flex items-center justify-center rounded-xl bg-neutral-200 hover:bg-neutral-300 hover:scale-105 active:scale-90 transition-all duration-150"
+            onClick={() => closeMenu()}
+            className="size-11 flex items-center justify-center rounded-xl bg-neutral-200 hover:bg-neutral-300 hover:scale-105 active:scale-90 transition duration-150"
             aria-label="Close menu"
           >
             <X className="size-6 text-foreground" />
@@ -184,9 +232,9 @@ export default function HeaderMobile() {
                   className="flex items-center gap-3 px-4 py-3 rounded-xl text-foreground hover:bg-neutral-100 active:bg-neutral-200 transition-colors group"
                   onClick={() => setIsOpen(false)}
                 >
-                  <link.icon className="size-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                  <link.icon className="size-5 text-muted-foreground group-hover:text-primary group-focus-within:text-primary transition-colors" />
                   <span className="font-medium flex-1">{link.label}</span>
-                  <ChevronRight className="size-4 text-neutral-300 group-hover:text-primary transition-colors" />
+                  <ChevronRight className="size-4 text-neutral-300 group-hover:text-primary group-focus-within:text-primary transition-colors" />
                 </a>
               </li>
             ))}

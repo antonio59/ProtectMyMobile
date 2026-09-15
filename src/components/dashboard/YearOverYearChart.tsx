@@ -52,7 +52,11 @@ export default function YearOverYearChart({ data }: { data: YoYData }) {
       </h3>
       <p className="text-xs text-muted-foreground mb-4">Same month across different years</p>
       <div className="flex-1 min-h-[240px]">
-        <canvas ref={canvasRef} />
+        <canvas
+          ref={canvasRef}
+          role="img"
+          aria-label={`Bar chart comparing monthly thefts across years ${years.join(', ')}.`}
+        />
       </div>
     </div>
   );

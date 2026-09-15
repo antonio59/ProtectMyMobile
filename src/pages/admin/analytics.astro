@@ -85,7 +85,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
             <span class="text-sm font-bold" id="completion-rate">-</span>
           </div>
           <div class="w-full bg-neutral-200 rounded-full h-3">
-            <div id="completion-bar" class="h-3 rounded-full bg-primary transition-all duration-500" style="width: 0%"></div>
+            <div id="completion-bar" class="h-3 rounded-full bg-primary transition duration-500" style="width: 0%"></div>
           </div>
           <p class="text-xs text-neutral-500 mt-1"><span id="started-count">-</span> started, <span id="completed-count">-</span> completed</p>
         </div>
@@ -97,28 +97,28 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
             <div class="flex items-center gap-3">
               <span class="text-xs w-28 text-neutral-600">Excellent (90%+)</span>
               <div class="flex-1 bg-neutral-100 rounded-full h-2">
-                <div id="dist-excellent" class="h-2 rounded-full bg-success transition-all" style="width: 0%"></div>
+                <div id="dist-excellent" class="h-2 rounded-full bg-success transition" style="width: 0%"></div>
               </div>
               <span class="text-xs w-8 text-right font-medium" id="dist-excellent-count">-</span>
             </div>
             <div class="flex items-center gap-3">
               <span class="text-xs w-28 text-neutral-600">Good (70-89%)</span>
               <div class="flex-1 bg-neutral-100 rounded-full h-2">
-                <div id="dist-good" class="h-2 rounded-full bg-primary transition-all" style="width: 0%"></div>
+                <div id="dist-good" class="h-2 rounded-full bg-primary transition" style="width: 0%"></div>
               </div>
               <span class="text-xs w-8 text-right font-medium" id="dist-good-count">-</span>
             </div>
             <div class="flex items-center gap-3">
               <span class="text-xs w-28 text-neutral-600">Fair (50-69%)</span>
               <div class="flex-1 bg-neutral-100 rounded-full h-2">
-                <div id="dist-fair" class="h-2 rounded-full bg-warning transition-all" style="width: 0%"></div>
+                <div id="dist-fair" class="h-2 rounded-full bg-warning transition" style="width: 0%"></div>
               </div>
               <span class="text-xs w-8 text-right font-medium" id="dist-fair-count">-</span>
             </div>
             <div class="flex items-center gap-3">
               <span class="text-xs w-28 text-neutral-600">Needs Work (&lt;50%)</span>
               <div class="flex-1 bg-neutral-100 rounded-full h-2">
-                <div id="dist-needs" class="h-2 rounded-full bg-destructive transition-all" style="width: 0%"></div>
+                <div id="dist-needs" class="h-2 rounded-full bg-destructive transition" style="width: 0%"></div>
               </div>
               <span class="text-xs w-8 text-right font-medium" id="dist-needs-count">-</span>
             </div>

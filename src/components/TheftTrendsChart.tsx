@@ -243,7 +243,11 @@ export default function TheftTrendsChart() {
       </div>
       <TrendSummaryStats data={data} />
       <div className="w-full h-[350px] sm:h-[400px]">
-        <canvas ref={canvasRef} />
+        <canvas
+          ref={canvasRef}
+          role="img"
+          aria-label={`Line chart of monthly phone-theft reports for ${locations.length} locations over ${points.length} months. Latest month ${points[points.length - 1]?.label}: ${points[points.length - 1]?.total?.toLocaleString() ?? 0} thefts.`}
+        />
       </div>
     </div>
   );

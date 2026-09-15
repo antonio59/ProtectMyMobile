@@ -101,9 +101,9 @@ export default function AnimatedNewsSection({ news }: Props) {
         </div>
         <a
           href="/news"
-          className="hidden sm:flex items-center gap-2 px-5 py-2.5 rounded-xl bg-card border border-border shadow-sm text-muted-foreground text-sm font-semibold hover:bg-neutral hover:text-primary hover:border-primary/20 transition-all group whitespace-nowrap hover:scale-[1.02] active:scale-[0.98]"
+          className="hidden sm:flex items-center gap-2 px-5 py-2.5 rounded-xl bg-card border border-border shadow-sm text-muted-foreground text-sm font-semibold hover:bg-neutral hover:text-primary hover:border-primary/20 transition group whitespace-nowrap hover:scale-[1.02] active:scale-[0.98]"
         >
-          View All <ArrowRight className="size-4 group-hover:translate-x-0.5 transition-transform" />
+          View All <ArrowRight className="size-4 group-hover:translate-x-0.5 group-focus-within:translate-x-0.5 transition-transform" />
         </a>
       </div>
 
@@ -154,7 +154,7 @@ function NewsCard({ post, index, config, Icon }: { post: NewsPost; index: number
     <a
       ref={ref}
       href={`/news/${post.slug}`}
-      className={`group flex flex-col bg-card rounded-xl shadow-sm hover: hover:shadow-primary/5 transition-all duration-300 border-l-4 border-t border-r border-b border-border hover:border-r-primary/20 hover:border-t-primary/20 hover:border-b-primary/20 h-full relative overflow-hidden hover:-translate-y-1 animate-on-scroll ${isInView ? 'is-visible' : ''}`}
+      className={`group flex flex-col bg-card rounded-xl shadow-sm hover: hover:shadow-primary/5 transition duration-300 border-l-4 border-t border-r border-b border-border hover:border-r-primary/20 hover:border-t-primary/20 hover:border-b-primary/20 h-full relative overflow-hidden hover:-translate-y-1 animate-on-scroll ${isInView ? 'is-visible' : ''}`}
       style={{ animationDelay: `${index * 50}ms`, borderLeftColor: borderColor }}
     >
       <div className="p-5 sm:p-6 flex flex-col flex-grow">
@@ -171,7 +171,7 @@ function NewsCard({ post, index, config, Icon }: { post: NewsPost; index: number
         </div>
 
         {/* Title */}
-        <h3 className="text-sm sm:text-base font-semibold text-foreground mb-3 group-hover:text-primary transition-colors leading-tight">
+        <h3 className="text-sm sm:text-base font-semibold text-foreground mb-3 group-hover:text-primary group-focus-within:text-primary transition-colors leading-tight">
           {post.title}
         </h3>
 
@@ -183,7 +183,7 @@ function NewsCard({ post, index, config, Icon }: { post: NewsPost; index: number
         )}
 
         {/* Footer */}
-        <div className="flex items-center text-sm font-semibold text-primary group-hover:gap-2 transition-all mt-auto">
+        <div className="flex items-center text-sm font-semibold text-primary group-hover:gap-2 group-focus-within:gap-2 transition-all mt-auto">
           Read article
           <ArrowRight className="size-4 ml-1 transition-transform" />
         </div>

@@ -101,28 +101,32 @@ export default function TrendsChart({ data }: { data: MonthlyTrends }) {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
         <div className="bg-neutral-100 rounded-lg p-3">
           <div className="text-lg font-bold text-primary-hover">{(latest.total as number).toLocaleString()}</div>
-          <div className="text-[10px] text-primary uppercase tracking-wide font-medium">Latest month</div>
+          <div className="text-xs text-primary uppercase tracking-wide font-medium">Latest month</div>
         </div>
         <div className="bg-neutral rounded-lg p-3">
           <div className="text-lg font-bold text-foreground">
             {data.data.reduce((s, d) => s + (d.total as number), 0).toLocaleString()}
           </div>
-          <div className="text-[10px] text-muted-foreground uppercase tracking-wide font-medium">Total tracked</div>
+          <div className="text-xs text-muted-foreground uppercase tracking-wide font-medium">Total tracked</div>
         </div>
         <div className={`rounded-lg p-3 ${monthChange && Number(monthChange) > 0 ? 'bg-destructive-subtle' : 'bg-success-subtle'}`}>
           <div className={`text-lg font-bold ${monthChange && Number(monthChange) > 0 ? 'text-destructive-hover' : 'text-success'}`}>
             {monthChange ? `${Number(monthChange) > 0 ? '+' : ''}${monthChange}%` : '—'}
           </div>
-          <div className="text-[10px] text-muted-foreground uppercase tracking-wide font-medium">Month-on-month</div>
+          <div className="text-xs text-muted-foreground uppercase tracking-wide font-medium">Month-on-month</div>
         </div>
         <div className="bg-neutral rounded-lg p-3">
           <div className="text-lg font-bold text-foreground">{data.locations.length}</div>
-          <div className="text-[10px] text-muted-foreground uppercase tracking-wide font-medium">Locations</div>
+          <div className="text-xs text-muted-foreground uppercase tracking-wide font-medium">Locations</div>
         </div>
       </div>
 
       <div className="w-full h-[300px] sm:h-[360px]">
-        <canvas ref={canvasRef} />
+        <canvas
+          ref={canvasRef}
+          role="img"
+          aria-label={`Line chart of monthly phone thefts across ${data.locations.length} locations over ${data.data.length} months. Latest month ${latest.label}: ${(latest.total as number).toLocaleString()} thefts${monthChange ? `, ${Number(monthChange) > 0 ? 'up' : 'down'} ${Math.abs(Number(monthChange))}% month-on-month` : ''}.`}
+        />
       </div>
     </div>
   );

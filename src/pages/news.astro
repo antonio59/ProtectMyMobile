@@ -161,7 +161,7 @@ const newsSchema = {
       <header class="border-b-[3px] border-foreground pb-4 mb-6 sm:mb-8">
         <div class="flex flex-wrap items-end justify-between gap-3">
           <div>
-            <p class="text-[11px] font-bold uppercase tracking-[0.18em] text-destructive mb-1">The wire</p>
+            <p class="text-xs font-bold uppercase tracking-[0.18em] text-destructive mb-1">The wire</p>
             <h1 class="font-serif text-3xl sm:text-4xl md:text-5xl text-foreground leading-none">News &amp; analysis</h1>
             <p class="text-muted-foreground text-sm sm:text-base mt-2 max-w-xl">
               UK phone theft in the news: arrests, seizures, policy moves and prevention advice, gathered from the national and local press.
@@ -218,10 +218,10 @@ const newsSchema = {
             <section class="mb-8 sm:mb-10 news-card" data-category={featuredPost.category}>
               <a href={`/news/${featuredPost.slug}`} class="group block border-b border-border pb-8">
                 <div class="max-w-3xl">
-                  <p class={`text-[11px] font-bold uppercase tracking-[0.18em] mb-2 ${featuredPost.category === 'arrest' ? 'text-destructive' : 'text-muted-foreground'}`}>
+                  <p class={`text-xs font-bold uppercase tracking-[0.18em] mb-2 ${featuredPost.category === 'arrest' ? 'text-destructive' : 'text-muted-foreground'}`}>
                     Lead &middot; {categoryConfig[featuredPost.category]?.label || 'News'}
                   </p>
-                  <h2 class="font-serif text-2xl sm:text-3xl md:text-4xl text-foreground leading-[1.12] group-hover:underline">
+                  <h2 class="font-serif text-2xl sm:text-3xl md:text-4xl text-foreground leading-[1.12] group-hover:underline group-focus-within:underline">
                     {featuredPost.title}
                   </h2>
                   {cleanExcerpt(featuredPost.excerpt, featuredPost.title) && (
@@ -233,7 +233,7 @@ const newsSchema = {
                     <span>{formatDate(featuredPost.publishedAt || featuredPost._creationTime)}</span>
                     {featuredPost.sourceName && (<><span aria-hidden="true">&middot;</span><span>{featuredPost.sourceName}</span></>)}
                     <span aria-hidden="true">&middot;</span>
-                    <span class="inline-flex items-center gap-1.5 text-foreground group-hover:gap-2.5 transition-all">
+                    <span class="inline-flex items-center gap-1.5 text-foreground group-hover:gap-2.5 group-focus-within:gap-2.5 transition">
                       Read the story <ArrowRight className="size-3.5" />
                     </span>
                   </div>
@@ -259,16 +259,16 @@ const newsSchema = {
                     class="news-card group block border-b border-border py-5 hover:bg-neutral-100 transition-colors"
                     data-category={entry.category}
                   >
-                    <p class={`text-[10px] font-bold uppercase tracking-[0.16em] mb-1.5 ${isUrgent ? 'text-destructive' : 'text-muted-foreground'}`}>
+                    <p class={`text-xs font-bold uppercase tracking-[0.16em] mb-1.5 ${isUrgent ? 'text-destructive' : 'text-muted-foreground'}`}>
                       {config.label}
                     </p>
-                    <h3 class="font-serif text-lg sm:text-xl text-foreground leading-snug group-hover:underline">
+                    <h3 class="font-serif text-lg sm:text-xl text-foreground leading-snug group-hover:underline group-focus-within:underline">
                       {entry.title}
                     </h3>
                     {cleanExcerpt(entry.excerpt, entry.title) && (
                       <p class="text-sm text-muted-foreground leading-relaxed mt-1.5 line-clamp-2">{cleanExcerpt(entry.excerpt, entry.title)}</p>
                     )}
-                    <div class="flex items-center gap-2 mt-2.5 text-[11px] text-muted-foreground uppercase tracking-wide font-semibold">
+                    <div class="flex items-center gap-2 mt-2.5 text-xs text-muted-foreground uppercase tracking-wide font-semibold">
                       <span>{formatDate(entry.date)}</span>
                       {entry.sourceName && (<><span aria-hidden="true">&middot;</span><span>{entry.sourceName}</span></>)}
                       {entry.isSlides && (<><span aria-hidden="true">&middot;</span><span>{entry.slideCount} slides</span></>)}
@@ -281,7 +281,7 @@ const newsSchema = {
 
           <!-- Colophon -->
           <section class="mt-10 border-t-[3px] border-foreground pt-5">
-            <h3 class="font-sans text-[11px] font-bold uppercase tracking-[0.18em] text-muted-foreground mb-2">About this feed</h3>
+            <h3 class="font-sans text-xs font-bold uppercase tracking-[0.18em] text-muted-foreground mb-2">About this feed</h3>
             <p class="text-sm text-neutral-700 leading-relaxed max-w-3xl">
               Stories are gathered weekly from UK news sources, filtered for relevance and summarised here.
               We do not republish other outlets' reporting in full: each entry is capped at a short summary, credits its source and links back to the original article.

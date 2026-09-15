@@ -233,7 +233,7 @@ export default function SiteSearch() {
             role="dialog"
             aria-modal="true"
             aria-label="Site search"
-            className="fixed inset-x-4 top-20 md:inset-x-auto md:left-1/2 md:-translate-x-1/2 md:w-full md:max-w-2xl bg-card rounded-2xl shadow-2xl z-50 overflow-hidden flex flex-col max-h-[80vh] transition-all duration-150 opacity-100 scale-100 translate-y-0"
+            className="fixed inset-x-4 top-20 md:inset-x-auto md:left-1/2 md:-translate-x-1/2 md:w-full md:max-w-2xl bg-card rounded-2xl shadow-2xl z-50 overflow-hidden flex flex-col max-h-[80vh] transition duration-150 opacity-100 scale-100 translate-y-0"
           >
             {/* Search Input */}
             <div className="flex items-center gap-3 px-4 py-4 border-b border-border">

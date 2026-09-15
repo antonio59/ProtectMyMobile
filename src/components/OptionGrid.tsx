@@ -26,7 +26,7 @@ export default function OptionGrid({ options, selected, onSelect, multiSelect, s
         <button
           key={option.value}
           onClick={() => onSelect(option.value)}
-          className={`p-4 rounded-lg border-2 text-left transition-all ${
+          className={`p-4 rounded-lg border-2 text-left transition ${
             isSelected(option.value)
               ? 'border-destructive bg-destructive-subtle'
               : 'border-border hover:border-neutral-300'

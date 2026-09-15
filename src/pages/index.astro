@@ -83,14 +83,14 @@ const westminster = londonHotspots.find((h) => h.borough === 'Westminster') ?? l
                 <div class="flex flex-col sm:flex-row gap-2 sm:gap-4 mb-4 sm:mb-6">
                   <a
                     href="/prevention"
-                    class="inline-flex items-center justify-center gap-2 px-4 py-2 sm:px-6 sm:py-3 text-sm sm:text-base bg-card text-foreground rounded-xl font-semibold hover:bg-neutral-100 transition-all hover-lift touch-target"
+                    class="inline-flex items-center justify-center gap-2 px-4 py-2 sm:px-6 sm:py-3 text-sm sm:text-base bg-card text-foreground rounded-xl font-semibold hover:bg-neutral-100 transition hover-lift touch-target"
                   >
                     <Shield className="size-4 sm:size-5" />
                     <span>Protect your phone</span>
                   </a>
                   <a
                     href="/emergency"
-                    class="inline-flex items-center justify-center gap-2 px-4 py-2 sm:px-6 sm:py-3 text-sm sm:text-base bg-destructive text-destructive-foreground rounded-xl font-semibold hover:bg-destructive-hover transition-all hover-lift touch-target"
+                    class="inline-flex items-center justify-center gap-2 px-4 py-2 sm:px-6 sm:py-3 text-sm sm:text-base bg-destructive text-destructive-foreground rounded-xl font-semibold hover:bg-destructive-hover transition hover-lift touch-target"
                   >
                     <AlertTriangle className="size-4 sm:size-5" />
                     <span>Phone stolen? Act now</span>
@@ -148,7 +148,7 @@ const westminster = londonHotspots.find((h) => h.borough === 'Westminster') ?? l
             <p class="text-sm sm:text-base text-neutral-400 max-w-2xl mb-4">
               Short playbooks on moped snatches, transport grabs and nightlife.
             </p>
-            <span class="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wide group-hover:gap-3 transition-all">
+            <span class="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wide group-hover:gap-3 group-focus-within:gap-3 transition-all">
               View the playbooks <ArrowRight className="size-4" />
             </span>
           </div>

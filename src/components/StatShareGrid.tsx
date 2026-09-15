@@ -53,12 +53,12 @@ export default function StatShareGrid({ cards }: { cards: Card[] }) {
             card.variant === "ink" ? "text-neutral-400" : "text-muted-foreground";
           return (
             <div key={card.kicker} className={`${shell} p-6 sm:p-7 flex flex-col justify-between gap-4 min-h-[16rem] rounded-xl`}>
-              <span className={`text-[11px] font-bold uppercase tracking-[0.15em] ${kicker}`}>
+              <span className={`text-xs font-bold uppercase tracking-[0.15em] ${kicker}`}>
                 {card.kicker}
               </span>
               <span className="font-serif text-2xl lg:text-3xl leading-tight">{card.body}</span>
               <div className="flex flex-col gap-2">
-                <span className={`text-[11px] ${meta}`}>{card.source}</span>
+                <span className={`text-xs ${meta}`}>{card.source}</span>
                 <span className={`text-xs ${meta}`}>{SITE_HOST}</span>
                 <button
                   type="button"

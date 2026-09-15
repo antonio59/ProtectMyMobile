@@ -327,7 +327,7 @@ export default function SecurityCheckup() {
         </div>
         <div className="w-full bg-neutral-200 rounded-full h-2">
           <div
-            className="bg-primary h-2 rounded-full transition-all duration-300"
+            className="bg-primary h-2 rounded-full transition duration-300"
             style={{ width: `${(Object.keys(answers).length / questions.length) * 100}%` }}
           ></div>
         </div>
@@ -346,7 +346,7 @@ export default function SecurityCheckup() {
                 <div className="flex gap-3">
                   <button
                     onClick={() => handleAnswer(q.id, true)}
-                    className={`flex-1 px-4 py-3 rounded-lg border-2 transition-all ${
+                    className={`flex-1 px-4 py-3 rounded-lg border-2 transition ${
                       answers[q.id] === true
                         ? 'border-success bg-success-subtle text-success'
                         : 'border-input hover:border-success text-foreground'
@@ -357,7 +357,7 @@ export default function SecurityCheckup() {
                   </button>
                   <button
                     onClick={() => handleAnswer(q.id, false)}
-                    className={`flex-1 px-4 py-3 rounded-lg border-2 transition-all ${
+                    className={`flex-1 px-4 py-3 rounded-lg border-2 transition ${
                       answers[q.id] === false
                         ? 'border-destructive-muted bg-destructive-subtle text-destructive-hover'
                         : 'border-input hover:border-destructive-muted text-foreground'
@@ -378,7 +378,7 @@ export default function SecurityCheckup() {
         <button
           onClick={handleSubmit}
           disabled={!allAnswered}
-          className={`w-full px-6 py-4 rounded-lg font-bold text-lg transition-all ${
+          className={`w-full px-6 py-4 rounded-lg font-bold text-lg transition ${
             allAnswered
               ? 'bg-primary text-primary-foreground hover:bg-primary-hover cursor-pointer'
               : 'bg-neutral-300 text-muted-foreground cursor-not-allowed'
