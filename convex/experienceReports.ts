@@ -10,12 +10,16 @@ export const list = query({
   },
   handler: async (ctx, args) => {
     if (args.approvedOnly) {
-      // Public access - only approved reports
-      return await ctx.db
+      // Public access - only approved reports, projected so submitter
+      // PII (name, email) never leaves the backend. The privacy policy
+      // promises contributors anonymity; returning the raw documents
+      // broke that promise to any anonymous caller.
+      const reports = await ctx.db
         .query("experienceReports")
         .withIndex("by_approved", (q) => q.eq("approved", true))
         .order("desc")
         .collect();
+      return reports.map(({ name: _name, email: _email, ...pub }) => pub);
     }
     // Admin access - requires token to view all reports (including unapproved)
     requireAdmin(ctx, args.adminToken);

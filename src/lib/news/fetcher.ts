@@ -1,4 +1,5 @@
 import Parser from "rss-parser";
+import { readBodyCapped } from "../fetch";
 import type { NewsSource, FeedResult } from "./types";
 
 const parser = new Parser({
@@ -47,7 +48,7 @@ async function fetchWithRetry(
 export async function fetchFeed(source: NewsSource): Promise<FeedResult> {
   try {
     const response = await fetchWithRetry(source.url, 2, 500, 3500);
-    const xml = await response.text();
+    const xml = await readBodyCapped(response);
     const feed = await parser.parseString(xml);
     return { source, items: feed.items || [] };
   } catch (err: any) {

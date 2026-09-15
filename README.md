@@ -117,12 +117,13 @@ pnpm run design:export      # Export tokens to src/styles/design-tokens.json
    ```
 
 3. **Environment Variables:**
-   Create a `.env` file in the root directory:
+   Public build-time values go in `.env` (inlined into the bundle — safe):
    ```env
    PUBLIC_CONVEX_URL=your_convex_deployment_url
-   CRON_SECRET=your_secure_random_string
-   RESEND_API_KEY=your_resend_api_key_optional
    ```
+   Secrets go in `.dev.vars` for `wrangler dev` — never `.env`, since Vite
+   inlines `import.meta.env` values into the built bundle. See `.env.example`
+   for the full list.
 
 4. **Start Convex development server:**
    ```bash
@@ -170,7 +171,7 @@ pnpm run design:export      # Export tokens to src/styles/design-tokens.json
 The project is deployed as a **Cloudflare Worker** (`@astrojs/cloudflare` adapter).
 
 1. Install deps and build: `pnpm install && pnpm run build`
-2. Set secrets: `pnpm wrangler secret put CRON_SECRET` (also `ADMIN_PASSWORD`, `CONVEX_ADMIN_TOKEN`, `RESEND_API_KEY`, and optionally `BUILD_HOOK_URL`)
+2. Set secrets: `pnpm wrangler secret put CRON_SECRET` (also `ADMIN_PASSWORD`, `ADMIN_JWT_SECRET`, `CONVEX_ADMIN_TOKEN`, `RESEND_API_KEY`, and optionally `BUILD_HOOK_URL` / `ADMIN_SESSION_VERSION`)
 3. Deploy: `pnpm run deploy` (runs `wrangler deploy`)
 4. Deploy Convex to production: `npx convex deploy --prod`
 
@@ -187,6 +188,7 @@ Cron triggers are declared in `wrangler.jsonc` and dispatched by
 | Trigger | Schedule | Jobs |
 |---------|----------|------|
 | `0 8 * * *` | Daily 8am UTC | police.uk data refresh + WDTK monitor |
+| `30 4 * * *` | Daily 4:30am UTC | Retention purge |
 | `0 8 * * 0` | Sundays 8am UTC | News fetch |
 | `17 7 1 * *` | 1st of month, 07:17 UTC | Directory verification |
 

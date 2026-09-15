@@ -1,13 +1,13 @@
 import type { APIRoute } from 'astro';
 import { Resend } from 'resend';
-import { requireApiKey } from '../../../lib/security';
+import { requireApiKey, getSecret } from '../../../lib/security';
 import { NOTIFY_FROM } from '../../../lib/mail';
 
-export const GET: APIRoute = async ({ url, request }) => {
-  const unauthorized = requireApiKey(request);
+export const GET: APIRoute = async ({ url, request, locals }) => {
+  const unauthorized = await requireApiKey(request, locals);
   if (unauthorized) return unauthorized;
 
-  const resendApiKey = process.env.RESEND_API_KEY || import.meta.env.RESEND_API_KEY;
+  const resendApiKey = getSecret(locals, 'RESEND_API_KEY');
   
   if (!resendApiKey) {
     return new Response(JSON.stringify({ 

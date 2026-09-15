@@ -1,5 +1,5 @@
 import { Resend } from "resend";
-import { NOTIFY_FROM } from "../mail";
+import { NOTIFY_FROM, escapeHtml, safeUrl } from "../mail";
 
 function logMessage(
   level: "info" | "warning" | "error",
@@ -9,33 +9,14 @@ function logMessage(
   console.log(`[NewsFetch][${level.toUpperCase()}]`, message, details || "");
 }
 
-// Scraped article fields are attacker-influenceable; escape before HTML email.
-function escapeHtml(value: unknown): string {
-  return String(value ?? "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
-
-function safeUrl(value: unknown): string {
-  try {
-    const url = new URL(String(value ?? ""));
-    if (url.protocol !== "http:" && url.protocol !== "https:") return "#";
-    return escapeHtml(url.toString());
-  } catch {
-    return "#";
-  }
-}
-
 export async function sendNewArticlesEmail(
+  env: Record<string, string | undefined>,
   createdPosts: any[],
   sourcesFetched: string[],
   sourcesFailed: Array<{ name: string; error: string }>,
   rejectedArticles: Array<{ title: string; score: number; reason: string }>,
 ): Promise<void> {
-  const resendApiKey = process.env.RESEND_API_KEY || import.meta.env.RESEND_API_KEY;
+  const resendApiKey = env.RESEND_API_KEY;
   if (!resendApiKey || createdPosts.length === 0) return;
 
   try {
@@ -94,9 +75,8 @@ export async function sendNewArticlesEmail(
   }
 }
 
-export function triggerBuildHook(): void {
-  const buildHookUrl =
-    process.env.BUILD_HOOK_URL || import.meta.env.BUILD_HOOK_URL;
+export function triggerBuildHook(env: Record<string, string | undefined>): void {
+  const buildHookUrl = env.BUILD_HOOK_URL;
   if (!buildHookUrl) return;
   try {
     fetch(buildHookUrl, { method: "POST" })

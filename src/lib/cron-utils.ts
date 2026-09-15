@@ -20,8 +20,12 @@ export function requireConvex(convex: ConvexHttpClient | null): Response | null 
   return null;
 }
 
-export async function sendReportEmail(subject: string, htmlBody: string): Promise<void> {
-  const resendApiKey = process.env.RESEND_API_KEY || import.meta.env.RESEND_API_KEY;
+export async function sendReportEmail(
+  env: Record<string, string | undefined>,
+  subject: string,
+  htmlBody: string,
+): Promise<void> {
+  const resendApiKey = env.RESEND_API_KEY;
   if (!resendApiKey) return;
 
   try {

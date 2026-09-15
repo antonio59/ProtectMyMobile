@@ -10,7 +10,19 @@ export const record = mutation({
     ipHash: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
-    return await ctx.db.insert("pageViews", args);
+    // Public endpoint — cap lengths so forged submissions can't store
+    // arbitrary blobs (path must at least look like a site path).
+    if (!args.path.startsWith("/") || args.path.length > 500) {
+      throw new Error("Invalid path");
+    }
+    const bounded = (s?: string, max = 400) =>
+      typeof s === "string" ? s.slice(0, max) : undefined;
+    return await ctx.db.insert("pageViews", {
+      path: args.path.slice(0, 500),
+      referrer: bounded(args.referrer, 500),
+      userAgent: bounded(args.userAgent),
+      ipHash: bounded(args.ipHash, 100),
+    });
   },
 });
 

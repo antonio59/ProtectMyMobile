@@ -61,14 +61,14 @@ export function getOrCreateSessionId(): string {
 }
 
 export async function hashIP(ip: string): Promise<string> {
-  if (typeof window === 'undefined' || !window.crypto || !window.crypto.subtle) {
-    return '';
-  }
-  
-  const encoder = new TextEncoder();
-  const data = encoder.encode(ip);
-  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-  return hashHex;
+  // globalThis.crypto.subtle exists in browsers, Node 20+, and workerd —
+  // the old window.crypto guard made this silently return '' server-side.
+  const subtle = globalThis.crypto?.subtle;
+  if (!subtle) return '';
+
+  const data = new TextEncoder().encode(ip);
+  const hashBuffer = await subtle.digest('SHA-256', data);
+  return Array.from(new Uint8Array(hashBuffer))
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('');
 }

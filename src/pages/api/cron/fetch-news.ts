@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro";
 import { ConvexHttpClient } from "convex/browser";
 import { api } from "../../../../convex/_generated/api";
-import { requireApiKey } from "../../../lib/security";
+import { requireApiKey, getEnv, getSecret } from "../../../lib/security";
 import { NEWS_SOURCES } from "../../../lib/news/sources";
 import { fetchFeed } from "../../../lib/news/fetcher";
 import { calculateRelevanceScore } from "../../../lib/news/scorer";
@@ -101,6 +101,7 @@ async function createPost(
   relevanceScore: number,
   existingSlugs: Set<string>,
   convex: ConvexHttpClient,
+  locals: unknown,
 ) {
   const slug = generateSlug(article.title!);
   if (existingSlugs.has(slug)) return null;
@@ -138,7 +139,7 @@ async function createPost(
   }
 
   const newPostId = await convex.mutation(api.newsPosts.create, {
-    adminToken: process.env.CRON_SECRET || import.meta.env.CRON_SECRET,
+    adminToken: getSecret(locals, 'CRON_SECRET'),
     title: article.title!,
     slug,
     excerpt,
@@ -163,9 +164,9 @@ async function createPost(
     : null;
 }
 
-export const GET: APIRoute = async ({ request }) => {
+export const GET: APIRoute = async ({ request, locals }) => {
   const startTime = Date.now();
-  const unauthorized = requireApiKey(request);
+  const unauthorized = await requireApiKey(request, locals);
   if (unauthorized) return unauthorized;
 
   const url = new URL(request.url);
@@ -196,7 +197,7 @@ export const GET: APIRoute = async ({ request }) => {
   try {
     const existingPosts = await convex.query(api.newsPosts.list, {
       publishedOnly: false,
-      adminToken: process.env.CRON_SECRET || import.meta.env.CRON_SECRET,
+      adminToken: getSecret(locals, 'CRON_SECRET'),
     });
     const existingUrls = new Set(existingPosts?.map((p: any) => p.sourceUrl) || []);
     const existingSlugs = new Set(existingPosts?.map((p: any) => p.slug) || []);
@@ -219,7 +220,7 @@ export const GET: APIRoute = async ({ request }) => {
     const createdPosts = [];
     for (const { item, relevanceScore } of newArticles.slice(0, 5)) {
       try {
-        const post = await createPost(item, relevanceScore, existingSlugs, convex);
+        const post = await createPost(item, relevanceScore, existingSlugs, convex, locals);
         if (post) createdPosts.push(post);
       } catch (err: any) {
         logMessage("error", `Failed to create post: ${item.title}`, err.message);
@@ -227,8 +228,8 @@ export const GET: APIRoute = async ({ request }) => {
     }
 
     if (createdPosts.length > 0) {
-      await sendNewArticlesEmail(createdPosts, sourcesFetched, sourcesFailed, rejectedArticles);
-      triggerBuildHook();
+      await sendNewArticlesEmail(getEnv(locals), createdPosts, sourcesFetched, sourcesFailed, rejectedArticles);
+      triggerBuildHook(getEnv(locals));
     }
 
     logMessage(

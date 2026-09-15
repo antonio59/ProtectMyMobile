@@ -2,7 +2,8 @@ import type { APIRoute } from 'astro';
 import { ConvexHttpClient } from 'convex/browser';
 import { api } from '../../../../convex/_generated/api';
 import { getConvexClient, requireConvex, sendReportEmail } from '../../../lib/cron-utils';
-import { requireApiKey } from '../../../lib/security';
+import { requireApiKey, getEnv, getSecret } from '../../../lib/security';
+import { escapeHtml } from '../../../lib/mail';
 
 const convex = getConvexClient();
 
@@ -62,11 +63,12 @@ async function verifyEntry(
   url: string,
   name: string,
   type: 'bank' | 'provider',
-  id: any
+  id: any,
+  locals: unknown
 ) {
   report.checked++;
   const { alive, uncertain, detail } = await checkUrlAlive(url);
-  const adminToken = process.env.CRON_SECRET || import.meta.env.CRON_SECRET;
+  const adminToken = getSecret(locals, 'CRON_SECRET');
 
   if (alive) {
     report.active++;
@@ -83,8 +85,8 @@ async function verifyEntry(
   }
 }
 
-export const GET: APIRoute = async ({ request }) => {
-  const unauthorized = requireApiKey(request);
+export const GET: APIRoute = async ({ request, locals }) => {
+  const unauthorized = await requireApiKey(request, locals);
   if (unauthorized) return unauthorized;
 
   if (!convex) {
@@ -100,15 +102,15 @@ export const GET: APIRoute = async ({ request }) => {
     const report: VerificationReport = { checked: 0, active: 0, inactive: 0, uncertain: 0, details: [] };
 
     await Promise.all([
-      ...(banks || []).map(b => verifyEntry(convex, report, b.website, b.name, 'bank', b._id)),
-      ...(providers || []).map(p => verifyEntry(convex, report, p.website, p.name, 'provider', p._id))
+      ...(banks || []).map(b => verifyEntry(convex, report, b.website, b.name, 'bank', b._id, locals)),
+      ...(providers || []).map(p => verifyEntry(convex, report, p.website, p.name, 'provider', p._id, locals))
     ]);
 
-    const adminToken = process.env.CRON_SECRET || import.meta.env.CRON_SECRET;
+    const adminToken = getSecret(locals, 'CRON_SECRET');
     await convex.mutation(api.siteMetadata.updateDirectoryVerified, { adminToken, directory: 'banks' });
     await convex.mutation(api.siteMetadata.updateDirectoryVerified, { adminToken, directory: 'mobileProviders' });
 
-    await sendReportEmail(
+    await sendReportEmail(getEnv(locals), 
       `Directory Verification Report: ${report.uncertain} Need Review`,
       `
         <h2>Directory Verification Status</h2>
@@ -118,7 +120,7 @@ export const GET: APIRoute = async ({ request }) => {
         <p>Entries are never deactivated automatically; anything below stayed visible in the directory.</p>
         <h3>Review Detail:</h3>
         <ul>
-          ${report.details.length > 0 ? report.details.map(d => `<li>${d}</li>`).join('') : '<li>No issues found.</li>'}
+          ${report.details.length > 0 ? report.details.map(d => `<li>${escapeHtml(d)}</li>`).join('') : '<li>No issues found.</li>'}
         </ul>
         <p>Note: Automated check performed at ${new Date().toISOString()}.</p>
       `

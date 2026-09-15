@@ -1,12 +1,12 @@
 import type { APIRoute } from 'astro';
 import { getConvexClient, requireConvex, sendReportEmail } from '../../../lib/cron-utils';
-import { requireApiKey } from '../../../lib/security';
+import { requireApiKey, getEnv, getSecret } from '../../../lib/security';
 import { runDiscovery, buildDiscoveryReportHtml } from '../../../lib/directory-discovery';
 
 const convex = getConvexClient();
 
-export const GET: APIRoute = async ({ request }) => {
-  const unauthorized = requireApiKey(request);
+export const GET: APIRoute = async ({ request, locals }) => {
+  const unauthorized = await requireApiKey(request, locals);
   if (unauthorized) return unauthorized;
 
   if (!convex) {
@@ -14,14 +14,14 @@ export const GET: APIRoute = async ({ request }) => {
   }
 
   try {
-    const adminToken = process.env.CRON_SECRET || import.meta.env.CRON_SECRET;
+    const adminToken = getSecret(locals, 'CRON_SECRET');
     if (!adminToken) {
       return new Response(JSON.stringify({ success: false, error: 'Missing CRON_SECRET' }), { status: 500 });
     }
 
     const report = await runDiscovery(convex, adminToken);
 
-    await sendReportEmail(
+    await sendReportEmail(getEnv(locals), 
       `Directory Discovery Report: ${report.societiesNew + report.providersNew} Auto-Created, ${report.banksPending + report.societiesPending + report.providersPending} Pending`,
       buildDiscoveryReportHtml(report)
     );

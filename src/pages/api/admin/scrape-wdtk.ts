@@ -1,8 +1,9 @@
 import type { APIRoute } from "astro";
 import { ConvexHttpClient } from "convex/browser";
 import { api } from "../../../../convex/_generated/api";
-import { requireApiKey } from "../../../lib/security";
+import { requireApiKey, getSecret } from "../../../lib/security";
 import { FOI_BOT_UA } from "../../../lib/mail";
+import { readBodyCapped } from "../../../lib/fetch";
 
 const convexUrl = import.meta.env.PUBLIC_CONVEX_URL;
 const convex = convexUrl ? new ConvexHttpClient(convexUrl) : null;
@@ -47,7 +48,7 @@ async function fetchWDTKSearchPage(
 
     if (!response.ok) return [];
 
-    const html = await response.text();
+    const html = await readBodyCapped(response);
     const requests: WDTKRequest[] = [];
 
     // Parse request links - looking for patterns like /request/request_name
@@ -168,9 +169,9 @@ function extractPoliceForce(authority: string): string | undefined {
   return undefined;
 }
 
-export const GET: APIRoute = async ({ url, request }) => {
+export const GET: APIRoute = async ({ url, request, locals }) => {
   const startTime = Date.now();
-  const unauthorized = requireApiKey(request);
+  const unauthorized = await requireApiKey(request, locals);
   if (unauthorized) return unauthorized;
 
   if (!convex) {
@@ -217,7 +218,7 @@ export const GET: APIRoute = async ({ url, request }) => {
         // Check if already exists
         const existing = await convex.query(api.wdtkEntries.getByWdtkId, {
           wdtkId: req.id,
-          adminToken: process.env.CRON_SECRET || import.meta.env.CRON_SECRET,
+          adminToken: getSecret(locals, 'CRON_SECRET'),
         });
 
         if (existing) {
@@ -229,7 +230,7 @@ export const GET: APIRoute = async ({ url, request }) => {
         const hasData = req.status === "successful" || req.status === "partial";
 
         await convex.mutation(api.wdtkEntries.create, {
-          adminToken: process.env.CRON_SECRET || import.meta.env.CRON_SECRET,
+          adminToken: getSecret(locals, 'CRON_SECRET'),
           wdtkId: req.id,
           title: req.title,
           url: req.url,

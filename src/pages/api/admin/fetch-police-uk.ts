@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
 import { api } from '../../../../convex/_generated/api';
 import { getConvexClient, requireConvex } from '../../../lib/cron-utils';
-import { requireApiKey } from '../../../lib/security';
+import { requireApiKey, getSecret } from '../../../lib/security';
 import { UK_LOCATIONS, fetchPoliceUKData, generateMonthRange, sleep } from '../../../lib/police-uk';
 
 const convex = getConvexClient();
@@ -143,8 +143,8 @@ function buildSuccessResponse(stats: FetchStats, months: string[], dataPoints: a
   };
 }
 
-export const GET: APIRoute = async ({ request }) => {
-  const unauthorized = requireApiKey(request);
+export const GET: APIRoute = async ({ request, locals }) => {
+  const unauthorized = await requireApiKey(request, locals);
   if (unauthorized) return unauthorized;
 
   if (!convex) {
@@ -170,7 +170,7 @@ export const GET: APIRoute = async ({ request }) => {
 
     if (newDataPoints.length > 0) {
       await convex.mutation(api.theftDataPoints.createBatch, {
-        adminToken: process.env.CRON_SECRET || import.meta.env.CRON_SECRET,
+        adminToken: getSecret(locals, 'CRON_SECRET'),
         dataPoints: newDataPoints
       });
     }

@@ -2,7 +2,9 @@ import type { APIRoute } from 'astro';
 import { api } from '../../../../convex/_generated/api';
 import Parser from 'rss-parser';
 import { getConvexClient, requireConvex, sendReportEmail } from '../../../lib/cron-utils';
-import { requireApiKey } from '../../../lib/security';
+import { requireApiKey, getEnv, getSecret } from '../../../lib/security';
+import { escapeHtml, safeUrl, FOI_BOT_UA } from '../../../lib/mail';
+import { readBodyCapped } from '../../../lib/fetch';
 
 const convex = getConvexClient();
 const parser = new Parser();
@@ -85,7 +87,10 @@ function isRelevantEntry(item: any): WDTKEntry | null {
 
 async function fetchFeedEntries(feedUrl: string): Promise<WDTKEntry[]> {
   try {
-    const feed = await parser.parseURL(feedUrl);
+    // parseURL fetches internally with no size bound — fetch + cap first.
+    const response = await fetch(feedUrl, { headers: { 'User-Agent': FOI_BOT_UA } });
+    if (!response.ok) return [];
+    const feed = await parser.parseString(await readBodyCapped(response));
     const entries: WDTKEntry[] = [];
     for (const item of feed.items || []) {
       const entry = isRelevantEntry(item);
@@ -98,8 +103,8 @@ async function fetchFeedEntries(feedUrl: string): Promise<WDTKEntry[]> {
   }
 }
 
-export const GET: APIRoute = async ({ request }) => {
-  const unauthorized = requireApiKey(request);
+export const GET: APIRoute = async ({ request, locals }) => {
+  const unauthorized = await requireApiKey(request, locals);
   if (unauthorized) return unauthorized;
 
   if (!convex) {
@@ -116,7 +121,7 @@ export const GET: APIRoute = async ({ request }) => {
     );
 
     // Get existing WDTK entries from our database
-    const adminToken = process.env.CRON_SECRET || import.meta.env.CRON_SECRET;
+    const adminToken = getSecret(locals, 'CRON_SECRET');
     const existingEntries = await convex.query(api.wdtkEntries.list, { adminToken }) || [];
     const existingIds = new Set(existingEntries.map((e: any) => e.wdtkId));
 
@@ -128,7 +133,7 @@ export const GET: APIRoute = async ({ request }) => {
     for (const entry of newEntries) {
       try {
         await convex.mutation(api.wdtkEntries.create, {
-          adminToken: process.env.CRON_SECRET || import.meta.env.CRON_SECRET,
+          adminToken: getSecret(locals, 'CRON_SECRET'),
           wdtkId: entry.id,
           title: entry.title,
           url: entry.link,
@@ -150,7 +155,7 @@ export const GET: APIRoute = async ({ request }) => {
     );
 
     if (successfulNew.length > 0) {
-      await sendReportEmail(
+      await sendReportEmail(getEnv(locals),
         `🎉 ${successfulNew.length} New FOI Responses Found on WhatDoTheyKnow`,
         `
           <h2>New Successful FOI Responses Detected</h2>
@@ -158,8 +163,8 @@ export const GET: APIRoute = async ({ request }) => {
           <ul>
             ${successfulNew.map(e => `
               <li>
-                <strong>${e.policeForce || 'Unknown Force'}</strong>: ${e.title}<br>
-                <a href="${e.link}">View on WhatDoTheyKnow</a>
+                <strong>${escapeHtml(e.policeForce) || 'Unknown Force'}</strong>: ${escapeHtml(e.title)}<br>
+                <a href="${safeUrl(e.link)}">View on WhatDoTheyKnow</a>
               </li>
             `).join('')}
           </ul>

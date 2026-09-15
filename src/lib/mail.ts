@@ -12,3 +12,24 @@ export const FOI_BOT_UA = `ProtectMyMobile Research Bot (${FOI_FROM_EMAIL}; ${FO
 
 // Internal admin notifications.
 export const NOTIFY_FROM = "ProtectMyMobile <notifications@protectmymobile.org>";
+
+// Scraped/remote-sourced values (feed fields, WDTK titles, directory data)
+// are attacker-influenceable — escape before interpolating into HTML email.
+export function escapeHtml(value: unknown): string {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+export function safeUrl(value: unknown): string {
+  try {
+    const url = new URL(String(value ?? ""));
+    if (url.protocol !== "http:" && url.protocol !== "https:") return "#";
+    return escapeHtml(url.toString());
+  } catch {
+    return "#";
+  }
+}

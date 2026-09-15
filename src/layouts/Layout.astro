@@ -128,9 +128,11 @@ const googleSiteVerification = normalizeGoogleSiteVerification(
     <link rel="alternate" hreflang="en-GB" href={canonicalUrl} />
     <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
 
-    <!-- Schema.org JSON-LD -->
+    <!-- Schema.org JSON-LD. JSON.stringify does not escape "</script>", so a
+         feed-derived string could break out of the block. Encoding "<" as
+         the \u003c escape keeps the JSON identical and prevents breakout. -->
     {schemas.map((s) => (
-      <script type="application/ld+json" is:inline set:html={JSON.stringify(s)} />
+      <script type="application/ld+json" is:inline set:html={JSON.stringify(s).replace(/</g, '\\u003c')} />
     ))}
     
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />

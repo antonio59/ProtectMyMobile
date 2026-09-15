@@ -37,12 +37,14 @@
   },
 
   // Secrets (set via `pnpm wrangler secret put <NAME>` or .dev.vars locally):
-  //   CRON_SECRET, ADMIN_PASSWORD, CONVEX_ADMIN_TOKEN, RESEND_API_KEY,
-  //   BUILD_HOOK_URL (optional rebuild trigger after news fetches)
+  //   CRON_SECRET, ADMIN_PASSWORD, ADMIN_JWT_SECRET, CONVEX_ADMIN_TOKEN,
+  //   RESEND_API_KEY, BUILD_HOOK_URL (optional rebuild trigger after news
+  //   fetches), ADMIN_SESSION_VERSION (optional — bump to log out all admins)
 
   "triggers": {
     "crons": [
       "0 8 * * *",   // daily: police.uk refresh + WDTK monitor
+      "30 4 * * *",  // daily: retention purge
       "0 8 * * 7",   // weekly (Sun): news fetch
       "17 7 1 * *"   // monthly (1st): directory verification
     ]

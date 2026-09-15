@@ -44,12 +44,24 @@ export const trackEvent = mutation({
     referrer: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
+    // Public endpoint — cap field lengths so forged submissions can't
+    // store arbitrary blobs (values themselves remain caller-chosen).
+    const bounded = (s?: string, max = 300) =>
+      typeof s === "string" ? s.slice(0, max) : undefined;
+    const metadata = args.metadata
+      ? Object.fromEntries(
+          Object.entries(args.metadata).map(([k, v]) => [
+            k,
+            typeof v === "string" ? v.slice(0, 300) : v,
+          ]),
+        )
+      : undefined;
     return await ctx.db.insert("analyticsEvents", {
       eventType: args.eventType,
-      metadata: args.metadata,
-      sessionId: args.sessionId,
-      userAgent: args.userAgent,
-      referrer: args.referrer,
+      metadata,
+      sessionId: bounded(args.sessionId, 100),
+      userAgent: bounded(args.userAgent, 400),
+      referrer: bounded(args.referrer, 500),
     });
   },
 });

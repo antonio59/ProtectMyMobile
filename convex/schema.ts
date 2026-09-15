@@ -221,7 +221,9 @@ export default defineSchema({
     sessionId: v.string(),
     userIpHash: v.optional(v.string()),
     userAgent: v.optional(v.string()),
-  }).index("by_session", ["sessionId"]),
+  })
+    .index("by_session", ["sessionId"])
+    .index("by_ipHash", ["userIpHash"]),
 
   // Page Views (analytics)
   pageViews: defineTable({

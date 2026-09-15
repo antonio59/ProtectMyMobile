@@ -1,4 +1,5 @@
 import { parse } from "node-html-parser";
+import { readBodyCapped } from "../fetch";
 
 const HTML_ENTITIES: Record<string, string> = {
   "&nbsp;": " ",
@@ -53,6 +54,7 @@ function looksLikeBotBlock(html: string): boolean {
   return html.includes("Access Denied") || html.includes("403 Forbidden");
 }
 
+
 async function tryDirectScrape(url: string): Promise<{ content: string; html: string } | null> {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), 2000);
@@ -65,7 +67,7 @@ async function tryDirectScrape(url: string): Promise<{ content: string; html: st
       },
     });
     clearTimeout(timeoutId);
-    const html = await response.text();
+    const html = await readBodyCapped(response);
     if (looksLikeBotBlock(html) || html.length <= 5000) return null;
 
     const root = parse(html);
@@ -117,7 +119,7 @@ async function tryJinaAiScrape(url: string): Promise<string | null> {
     });
     clearTimeout(timeoutId);
     if (!response.ok) return null;
-    const text = await response.text();
+    const text = await readBodyCapped(response);
     if (looksLikeBotBlock(text) || text.length <= 200) return null;
     let content = text.trim();
     if (content.length > 3000) content = content.substring(0, 3000).trim() + "...";

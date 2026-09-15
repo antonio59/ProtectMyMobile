@@ -1,44 +1,19 @@
 import type { APIRoute } from 'astro';
-import { verifyJWT } from '../../../middleware';
+import { verifyAdminSession } from '../../../middleware';
+import { getSecret } from '../../../lib/security';
 
 const convexUrl = import.meta.env.PUBLIC_CONVEX_URL;
-// Read lazily per request: workerd populates process.env at request time.
-function cronSecret(): string | undefined {
-  return process.env.CRON_SECRET || import.meta.env.CRON_SECRET;
-}
-function adminPassword(): string | undefined {
-  return process.env.ADMIN_PASSWORD || import.meta.env.ADMIN_PASSWORD;
-}
 
-export const POST: APIRoute = async ({ request, cookies }) => {
-  // Validate admin session cookie
-  const authCookie = cookies.get('admin_auth');
-  const adminPw = adminPassword();
-  if (!authCookie?.value || !adminPw) {
-    console.error('[admin/convex] Missing cookie or ADMIN_PASSWORD env var');
-    return new Response(JSON.stringify({ error: 'Unauthorized: missing session' }), {
+export const POST: APIRoute = async ({ request, cookies, locals }) => {
+  // Validate admin session cookie (JWT signed with ADMIN_JWT_SECRET)
+  if (!(await verifyAdminSession(cookies, locals))) {
+    return new Response(JSON.stringify({ error: 'Unauthorized' }), {
       status: 401,
       headers: { 'Content-Type': 'application/json' },
     });
   }
 
-  const payload = await verifyJWT(authCookie.value, adminPw);
-  if (!payload) {
-    console.error('[admin/convex] JWT verification failed');
-    return new Response(JSON.stringify({ error: 'Unauthorized: invalid session' }), {
-      status: 401,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  }
-  if (payload.exp < Date.now()) {
-    console.error('[admin/convex] JWT expired', payload.exp, Date.now());
-    return new Response(JSON.stringify({ error: 'Unauthorized: session expired' }), {
-      status: 401,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  }
-
-  const secret = cronSecret();
+  const secret = getSecret(locals, 'CRON_SECRET');
   if (!convexUrl || !secret) {
     return new Response(JSON.stringify({ error: 'Server configuration error' }), {
       status: 500,

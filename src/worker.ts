@@ -61,9 +61,11 @@ const CRON_JOBS: Record<string, CronJob[]> = {
     { name: 'scheduled-wdtk', path: '/api/cron/monitor-wdtk' },
   ],
   '0 8 * * 7': [{ name: 'scheduled-news', path: '/api/cron/fetch-news' }],
+  // Daily purge so retention deadlines are honoured within ~24h — the old
+  // monthly run could leave expired data in place for up to ~31 days.
+  '30 4 * * *': [{ name: 'scheduled-purge-data', path: '/api/cron/purge-data' }],
   '17 7 1 * *': [
     { name: 'scheduled-verify-directory', path: '/api/cron/verify-directory' },
-    { name: 'scheduled-purge-data', path: '/api/cron/purge-data' },
   ],
 };
 

@@ -10,7 +10,7 @@ export const GET: APIRoute = async () => {
     return new Response(
       JSON.stringify({
         status: "unhealthy",
-        error: "Missing PUBLIC_CONVEX_URL",
+        error: "Service temporarily unavailable",
       }),
       { status: 500 },
     );
@@ -18,17 +18,12 @@ export const GET: APIRoute = async () => {
 
   try {
     // Just check if we can connect to Convex and get news posts
-    const newsPosts = await convex.query(api.newsPosts.list, {
-      publishedOnly: true,
-    });
+    await convex.query(api.newsPosts.list, { publishedOnly: true });
 
     return new Response(
       JSON.stringify({
         status: "healthy",
         timestamp: new Date().toISOString(),
-        newsScraper: {
-          totalPublishedPosts: newsPosts?.length || 0,
-        },
       }),
       { status: 200 },
     );

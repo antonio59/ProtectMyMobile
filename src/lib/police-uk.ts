@@ -2,6 +2,8 @@
 // (src/pages/api/admin/fetch-police-uk.ts) and the backfill script
 // (scripts/backfill-police-data.ts).
 
+import { readBodyCapped } from './fetch';
+
 // UK major cities with coordinates.
 export const UK_LOCATIONS = [
   // London Boroughs
@@ -63,7 +65,7 @@ export async function fetchPoliceUKData(
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}`);
       }
-      const data = await response.json();
+      const data = JSON.parse(await readBodyCapped(response, 10_000_000));
       return Array.isArray(data) ? data : [];
     } catch (error: any) {
       if (attempt === retries) {

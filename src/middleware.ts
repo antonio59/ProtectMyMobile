@@ -1,10 +1,5 @@
 import { defineMiddleware } from 'astro:middleware';
-import { checkRateLimit, getClientIp } from './lib/security';
-
-// Read lazily: workerd populates process.env per request, not at module init.
-function adminPassword(): string | undefined {
-  return process.env.ADMIN_PASSWORD || import.meta.env.ADMIN_PASSWORD;
-}
+import { checkRateLimit, getClientIp, getEnv, getSecret } from './lib/security';
 
 // JWT implementation using Web Crypto API (stateless, works on serverless)
 async function importKey(secret: string) {
@@ -30,7 +25,7 @@ async function signJWT(payload: object, secret: string): Promise<string> {
   return `${header}.${body}.${sigBase64}`;
 }
 
-export async function verifyJWT(token: string, secret: string): Promise<any | null> {
+async function verifyJWT(token: string, secret: string): Promise<any | null> {
   const [header, body, sig] = token.split('.');
   if (!header || !body || !sig) return null;
   try {
@@ -66,8 +61,29 @@ async function timingSafeEqual(a: string, b: string): Promise<boolean> {
   return diff === 0;
 }
 
+// Sessions are JWTs signed with ADMIN_JWT_SECRET — deliberately not
+// ADMIN_PASSWORD. Signing with the password made the cookie check an
+// unthrottled offline oracle: any forged token that verified proved the
+// guessed password correct. A dedicated random secret reveals nothing.
+// The `ver` claim is compared to ADMIN_SESSION_VERSION (default "1"):
+// bump that binding to revoke every issued session at once.
+function sessionVersion(locals: unknown): string {
+  return getEnv(locals).ADMIN_SESSION_VERSION || '1';
+}
+
+type CookieJar = { get(name: string): { value: string } | undefined };
+
+export async function verifyAdminSession(cookies: CookieJar, locals: unknown): Promise<boolean> {
+  const token = cookies.get('admin_auth')?.value;
+  const jwtSecret = getSecret(locals, 'ADMIN_JWT_SECRET');
+  if (!token || !jwtSecret) return false;
+  const payload = await verifyJWT(token, jwtSecret);
+  return !!payload && payload.ver === sessionVersion(locals);
+}
+
 export function invalidateSession(_token: string): void {
-  // No-op: JWTs are stateless; logout clears the client cookie
+  // JWTs are stateless; the login cookie is cleared client-side. To revoke
+  // all sessions rotate ADMIN_SESSION_VERSION in the Worker environment.
 }
 
 export const onRequest = defineMiddleware(async (context, next) => {
@@ -78,14 +94,9 @@ export const onRequest = defineMiddleware(async (context, next) => {
     return next();
   }
 
-  // Check for valid JWT in cookie
-  const authCookie = context.cookies.get('admin_auth');
-  const adminPw = adminPassword();
-  if (authCookie?.value && adminPw) {
-    const payload = await verifyJWT(authCookie.value, adminPw);
-    if (payload && payload.exp > Date.now()) {
-      return next();
-    }
+  // Check for valid session JWT in cookie (signed with ADMIN_JWT_SECRET)
+  if (await verifyAdminSession(context.cookies, context.locals)) {
+    return next();
   }
 
   // Check for login form submission
@@ -95,14 +106,19 @@ export const onRequest = defineMiddleware(async (context, next) => {
     if (rateLimited) return rateLimited;
     const formData = await context.request.formData();
     const password = formData.get('password');
+    const adminPw = getSecret(context.locals, 'ADMIN_PASSWORD');
+    const jwtSecret = getSecret(context.locals, 'ADMIN_JWT_SECRET');
 
-    if (typeof password === 'string' && adminPw && await timingSafeEqual(password, adminPw)) {
+    if (
+      typeof password === 'string' && adminPw && jwtSecret &&
+      await timingSafeEqual(password, adminPw)
+    ) {
       // Clear any stale legacy cookie before setting the new one
       context.cookies.delete('admin_auth', { path: '/admin' });
 
       const token = await signJWT(
-        { exp: Date.now() + 24 * 60 * 60 * 1000 },
-        adminPw
+        { exp: Date.now() + 24 * 60 * 60 * 1000, ver: sessionVersion(context.locals) },
+        jwtSecret
       );
 
       context.cookies.set('admin_auth', token, {

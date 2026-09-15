@@ -46,9 +46,9 @@ function validateSubmission(data: NormalizedSubmission): string | null {
 }
 
 async function getIpHash(request: Request): Promise<string | undefined> {
-  const clientIP = request.headers.get('x-forwarded-for')?.split(',')[0] ||
-                   request.headers.get('x-real-ip') ||
-                   'unknown';
+  // getClientIp trusts cf-connecting-ip (set by the edge, unspoofable)
+  // rather than the first client-supplied x-forwarded-for entry.
+  const clientIP = getClientIp(request);
   return clientIP !== 'unknown' ? await hashIP(clientIP) : undefined;
 }
 

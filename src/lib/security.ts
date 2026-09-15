@@ -1,9 +1,41 @@
-// Runtime binding (worker secrets via process.env) wins over build-time
-// inlined .env values so `wrangler secret put` rotation takes effect.
-// Read lazily: workerd populates process.env per request, not at module init.
-function apiSecret(): string | undefined {
-  return process.env.CRON_SECRET ||
-    (typeof import.meta !== 'undefined' && (import.meta as any).env?.CRON_SECRET);
+// Secrets come from runtime Worker bindings. Never read them via
+// import.meta.env: Vite inlines import.meta.env at build time, so a local
+// `pnpm run build` with .env present would bake real secrets into
+// dist/server. The process.env fallback exists only for plain-Node
+// contexts; under workerd the process polyfill does not expose secret
+// bindings anyway.
+import { env as cfWorkerEnv } from "cloudflare:workers";
+
+export type EnvLike = Record<string, string | undefined>;
+
+export function getEnv(locals: unknown): EnvLike {
+  try {
+    // Older adapters exposed locals.runtime.env; Astro v6 made it a
+    // throwing getter, so this must stay inside try/catch.
+    const runtime = (locals as { runtime?: { env?: EnvLike } } | undefined)?.runtime?.env;
+    if (runtime) return runtime;
+  } catch { /* fall through to cloudflare:workers */ }
+  if (cfWorkerEnv) return cfWorkerEnv as unknown as EnvLike;
+  return (typeof process !== 'undefined' ? process.env : {}) as EnvLike;
+}
+
+export function getSecret(locals: unknown, name: string): string | undefined {
+  const value = getEnv(locals)[name];
+  return typeof value === 'string' && value.length > 0 ? value : undefined;
+}
+
+async function sha256(value: string): Promise<Uint8Array> {
+  return new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(value)));
+}
+
+// Constant-time comparison so the key length/value can't leak via timing.
+async function timingSafeEqual(a: string, b: string): Promise<boolean> {
+  const [ba, bb] = await Promise.all([sha256(a), sha256(b)]);
+  let diff = ba.length ^ bb.length;
+  for (let i = 0; i < Math.max(ba.length, bb.length); i++) {
+    diff |= (ba[i] ?? 0) ^ (bb[i] ?? 0);
+  }
+  return diff === 0;
 }
 
 function extractBearerToken(request: Request) {
@@ -14,16 +46,16 @@ function extractBearerToken(request: Request) {
   return null;
 }
 
-export function requireApiKey(request: Request): Response | null {
+export async function requireApiKey(request: Request, locals: unknown): Promise<Response | null> {
   const key = request.headers.get('x-api-key') || extractBearerToken(request);
-  const secret = apiSecret();
+  const secret = getSecret(locals, 'CRON_SECRET');
   if (!secret) {
     return new Response(JSON.stringify({ error: 'Server missing CRON_SECRET' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
     });
   }
-  if (key !== secret) {
+  if (!key || !(await timingSafeEqual(key, secret))) {
     return new Response(JSON.stringify({ error: 'Unauthorized' }), {
       status: 401,
       headers: { 'Content-Type': 'application/json' },

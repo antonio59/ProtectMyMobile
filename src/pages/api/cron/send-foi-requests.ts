@@ -1,9 +1,9 @@
 import type { APIRoute } from 'astro';
 import { api } from '../../../../convex/_generated/api';
 import { getConvexClient, requireConvex, sendReportEmail } from '../../../lib/cron-utils';
-import { requireApiKey } from '../../../lib/security';
+import { requireApiKey, getEnv, getSecret } from '../../../lib/security';
 import { Resend } from 'resend';
-import { FOI_FROM_EMAIL, FOI_FROM_HEADER, FOI_PUBLIC_EMAIL } from '../../../lib/mail';
+import { FOI_FROM_EMAIL, FOI_FROM_HEADER, FOI_PUBLIC_EMAIL, escapeHtml } from '../../../lib/mail';
 
 const convex = getConvexClient();
 
@@ -81,15 +81,15 @@ Website: https://protectmymobile.org
 This request is made for research purposes to help provide the public with accurate information about mobile phone theft trends in the UK.`;
 }
 
-export const GET: APIRoute = async ({ request }) => {
-  const unauthorized = requireApiKey(request);
+export const GET: APIRoute = async ({ request, locals }) => {
+  const unauthorized = await requireApiKey(request, locals);
   if (unauthorized) return unauthorized;
 
   if (!convex) {
     return requireConvex(convex)!;
   }
 
-  const resendApiKey = process.env.RESEND_API_KEY || import.meta.env.RESEND_API_KEY;
+  const resendApiKey = getSecret(locals, 'RESEND_API_KEY');
   if (!resendApiKey) {
     return new Response(JSON.stringify({ 
       success: false, 
@@ -122,7 +122,7 @@ export const GET: APIRoute = async ({ request }) => {
       // Check if we already sent a request to this force this quarter
       const existingRequests = await convex.query(api.foiRequests.list, { 
         policeForce: force.name,
-        adminToken: process.env.CRON_SECRET || import.meta.env.CRON_SECRET,
+        adminToken: getSecret(locals, 'CRON_SECRET'),
       });
       
       const thisQuarterRequests = existingRequests?.filter(r => {
@@ -153,7 +153,7 @@ export const GET: APIRoute = async ({ request }) => {
 
         // Create the request record in database
         await convex.mutation(api.foiRequests.create, {
-          adminToken: process.env.CRON_SECRET || import.meta.env.CRON_SECRET,
+          adminToken: getSecret(locals, 'CRON_SECRET'),
           referenceNumber,
           policeForce: force.name,
           policeForceEmail: force.foiEmail,
@@ -165,7 +165,7 @@ export const GET: APIRoute = async ({ request }) => {
 
         // Update last request date on police force
         await convex.mutation(api.policeForces.update, {
-          adminToken: process.env.CRON_SECRET || import.meta.env.CRON_SECRET,
+          adminToken: getSecret(locals, 'CRON_SECRET'),
           id: force._id,
           lastRequestDate: Date.now(),
         });
@@ -183,17 +183,17 @@ export const GET: APIRoute = async ({ request }) => {
       }
     }
 
-    await sendReportEmail(
+    await sendReportEmail(getEnv(locals), 
       `FOI Requests Summary: ${results.sent.length} sent, ${results.failed.length} failed`,
       `
         <h2>Quarterly FOI Request Summary</h2>
         <p>Date Range Requested: ${dateRange.start} to ${dateRange.end}</p>
         <h3>✅ Successfully Sent (${results.sent.length})</h3>
-        <ul>${results.sent.map(f => `<li>${f}</li>`).join('') || '<li>None</li>'}</ul>
+        <ul>${results.sent.map(f => `<li>${escapeHtml(f)}</li>`).join('') || '<li>None</li>'}</ul>
         <h3>⏭️ Skipped - Already Requested (${results.skipped.length})</h3>
-        <ul>${results.skipped.map(f => `<li>${f}</li>`).join('') || '<li>None</li>'}</ul>
+        <ul>${results.skipped.map(f => `<li>${escapeHtml(f)}</li>`).join('') || '<li>None</li>'}</ul>
         <h3>❌ Failed (${results.failed.length})</h3>
-        <ul>${results.failed.map(f => `<li>${f.force}: ${f.error}</li>`).join('') || '<li>None</li>'}</ul>
+        <ul>${results.failed.map(f => `<li>${escapeHtml(f.force)}: ${escapeHtml(f.error)}</li>`).join('') || '<li>None</li>'}</ul>
         <p>View all requests at: <a href="https://protectmymobile.org/admin/foi">Admin Dashboard</a></p>
       `
     );

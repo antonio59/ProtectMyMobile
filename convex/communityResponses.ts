@@ -61,7 +61,9 @@ export const submit = mutation({
     userAgent: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
-    // Check if already voted
+    // Dedupe on the caller-supplied sessionId AND the server-derived IP
+    // hash (set by the API route from cf-connecting-ip). sessionId alone
+    // was forgeable — a fresh UUID bypassed the check entirely.
     const existing = await ctx.db
       .query("communityResponses")
       .withIndex("by_session", (q) => q.eq("sessionId", args.sessionId))
@@ -69,6 +71,16 @@ export const submit = mutation({
 
     if (existing) {
       throw new Error("You have already submitted a response");
+    }
+
+    if (args.userIpHash) {
+      const sameIp = await ctx.db
+        .query("communityResponses")
+        .withIndex("by_ipHash", (q) => q.eq("userIpHash", args.userIpHash))
+        .first();
+      if (sameIp) {
+        throw new Error("You have already submitted a response");
+      }
     }
 
     return await ctx.db.insert("communityResponses", args);

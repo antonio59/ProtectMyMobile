@@ -3,6 +3,8 @@
 // (scripts/run-directory-discovery.ts).
 import type { ConvexHttpClient } from "convex/browser";
 import { api } from "../../convex/_generated/api";
+import { escapeHtml, safeUrl } from "./mail";
+import { readBodyCapped } from "./fetch";
 
 const BOT_UA = 'ProtectMyMobile/1.0 DirectoryBot';
 
@@ -133,7 +135,7 @@ async function fetchBoeCsv(filename: string): Promise<string> {
   for (const year of [currentYear, currentYear - 1]) {
     const url = `https://www.bankofengland.co.uk/-/media/boe/files/prudential-regulation/authorisations/which-firms-does-the-pra-regulate/${year}/${filename}`;
     const res = await fetch(url, { headers: { 'User-Agent': BOT_UA } });
-    if (res.ok) return res.text();
+    if (res.ok) return readBodyCapped(res, 5_000_000);
   }
   throw new Error(`Failed to fetch BoE CSV: ${filename}`);
 }
@@ -209,7 +211,7 @@ async function fetchWikipediaMvno(): Promise<{ name: string; network: string }[]
   const url = 'https://en.wikipedia.org/wiki/List_of_mobile_virtual_network_operators_in_the_United_Kingdom';
   const res = await fetch(url, { headers: { 'User-Agent': BOT_UA } });
   if (!res.ok) throw new Error('Failed to fetch Wikipedia MVNO page');
-  const html = await res.text();
+  const html = await readBodyCapped(res);
 
   const tableMatch = html.match(/<table[^>]*class="[^"]*wikitable[^"]*"[^>]*>(.*?)<\/table>/is);
   if (!tableMatch) throw new Error('Could not find MVNO table');
@@ -369,27 +371,27 @@ export function buildDiscoveryReportHtml(report: DiscoveryReport): string {
     <p>Auto-created: <span style="color:green">${report.societiesNew}</span> | Pending review: <span style="color:orange">${report.societiesPending}</span></p>
     ${report.newSocieties.length > 0 ? `
     <h4>New Building Societies (inactive, awaiting review)</h4>
-    <ul>${report.newSocieties.map(b => `<li><strong>${b.name}</strong>: <a href="${b.website}">${b.website}</a></li>`).join('')}</ul>
+    <ul>${report.newSocieties.map(b => `<li><strong>${escapeHtml(b.name)}</strong>: <a href="${safeUrl(b.website)}">${escapeHtml(b.website)}</a></li>`).join('')}</ul>
     ` : ''}
     ${report.pendingSocieties.length > 0 ? `
     <h4>Pending Building Societies (could not infer website)</h4>
-    <ul>${report.pendingSocieties.map(b => `<li><strong>${b.name}</strong></li>`).join('')}</ul>
+    <ul>${report.pendingSocieties.map(b => `<li><strong>${escapeHtml(b.name)}</strong></li>`).join('')}</ul>
     ` : ''}
     <h3>Other Banks (Manual Review Required)</h3>
     <p>${report.banksPending} banks found that are not in the database. <strong>They are NOT auto-created.</strong> Review the BoE CSV to find any new retail/challenger banks to add manually.</p>
     ${report.pendingBanks.length > 0 && report.pendingBanks.length <= 50 ? `
-    <ul>${report.pendingBanks.slice(0, 50).map(b => `<li>${b.name}</li>`).join('')}</ul>
+    <ul>${report.pendingBanks.slice(0, 50).map(b => `<li>${escapeHtml(b.name)}</li>`).join('')}</ul>
     ${report.pendingBanks.length > 50 ? `<p>...and ${report.pendingBanks.length - 50} more.</p>` : ''}
     ` : ''}
     <h3>Mobile Providers</h3>
     <p>Checked: ${report.providersChecked} | Auto-created: <span style="color:green">${report.providersNew}</span> | Pending review: <span style="color:orange">${report.providersPending}</span></p>
     ${report.newProviders.length > 0 ? `
     <h4>New Providers (inactive, awaiting review)</h4>
-    <ul>${report.newProviders.map(p => `<li><strong>${p.name}</strong>: <a href="${p.website}">${p.website}</a> (host: ${p.network})</li>`).join('')}</ul>
+    <ul>${report.newProviders.map(p => `<li><strong>${escapeHtml(p.name)}</strong>: <a href="${safeUrl(p.website)}">${escapeHtml(p.website)}</a> (host: ${escapeHtml(p.network)})</li>`).join('')}</ul>
     ` : ''}
     ${report.pendingProviders.length > 0 ? `
     <h4>Pending Providers (could not infer website)</h4>
-    <ul>${report.pendingProviders.map(p => `<li><strong>${p.name}</strong> (host: ${p.network})</li>`).join('')}</ul>
+    <ul>${report.pendingProviders.map(p => `<li><strong>${escapeHtml(p.name)}</strong> (host: ${escapeHtml(p.network)})</li>`).join('')}</ul>
     ` : ''}
   `;
 }
