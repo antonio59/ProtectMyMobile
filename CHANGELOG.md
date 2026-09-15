@@ -132,6 +132,32 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Close audit findings: runtime secrets, JWT oracle, stored XSS, PII leak
+
+- Read secrets only from Worker bindings (getSecret/getEnv via
+  cloudflare:workers); import.meta.env fallbacks inlined real
+  CRON_SECRET/ADMIN_PASSWORD/RESEND_API_KEY into dist and made
+  wrangler secret put rotation a no-op
+- Sign admin sessions with dedicated ADMIN_JWT_SECRET + ver claim —
+  JWTs signed with ADMIN_PASSWORD were an unthrottled password oracle
+- Escape "<" as unicode-escape in JSON-LD so feed-derived strings
+  can't break out of the script block (stored XSS)
+- Project name/email out of public experienceReports:list
+- Dedupe community survey by server-derived IP hash, not just the
+  caller-chosen sessionId; hashIP now works server-side
+- Validate http(s) on all feed-derived hrefs/img/schema URLs
+- Escape WDTK/FOI/directory/news values in report emails
+- Cap all remote response bodies (readBodyCapped, 1-10MB)
+- SSR news/[slug] so unpublishing takes effect immediately
+- Daily bounded retention purge (was monthly: ~31d deadline drift and
+  an unbounded single transaction)
+- Trim health endpoint detail; field-length caps on public analytics
+  writes; top-level read-only CI token permissions
+- Document env vars in .env.example/README; adopt UI audit skills
+
+Generated with [Devin](https://devin.ai)
+
+Co-Authored-By: Devin <158243242+devin-ai-integration[bot]@users.noreply.github.com>
 - Improve accessibility: zoom, menu focus, charts, form errors
 
 - Remove maximum-scale so pinch-zoom works (WCAG 1.4.4)
@@ -1641,6 +1667,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
