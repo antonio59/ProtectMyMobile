@@ -132,6 +132,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Declare cloudflare:workers module for astro check
 - Close audit findings: runtime secrets, JWT oracle, stored XSS, PII leak
 
 - Read secrets only from Worker bindings (getSecret/getEnv via
@@ -1667,6 +1668,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
