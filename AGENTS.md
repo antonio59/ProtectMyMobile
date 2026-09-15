@@ -22,6 +22,7 @@
 ## Security & Secrets
 - Never commit secrets. Use `.env` / `.dev.vars` (local workerd) / `wrangler secret put` / Convex env. Do not log secrets.
 - Cron/admin routes expect `CRON_SECRET`/admin tokens; keep them out of code and commits.
+- Security reviews: the `security-audit` skill (`.devin/skills/security-audit/`) provides the audit workflow; run it in guidance mode for focused questions, full mode only on explicit audit requests.
 
 ## JIT Index (what to open, not what to paste)
 ### Areas
