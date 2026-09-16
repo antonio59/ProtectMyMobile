@@ -132,6 +132,20 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Improve statistics dashboard accessibility and theft-map reporting
+
+- Add ChartDataTable: collapsible semantic <table> under every chart so
+  screen readers and no-JS contexts get the exact values canvases show
+- CSV export of the charted monthly trends for journalists/researchers
+- Fix invisible city-comparison bars (track color used as bar fill)
+- Fix 9px text regression; link comparison cities to location pages
+- Theft map: legend, loading state, and SSR'd recent-reports list as an
+  accessible alternative to the canvas map
+- Replace misleading "Date Range" stat card with "Latest Data"
+
+Generated with [Devin](https://devin.ai)
+
+Co-Authored-By: Devin <158243242+devin-ai-integration[bot]@users.noreply.github.com>
 - Clamp public year-range and topN args in getMonthlyTrends
 - Declare cloudflare:workers module for astro check
 - Close audit findings: runtime secrets, JWT oracle, stored XSS, PII leak
@@ -1669,6 +1683,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
