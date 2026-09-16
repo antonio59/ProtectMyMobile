@@ -132,6 +132,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Clamp public year-range and topN args in getMonthlyTrends
 - Declare cloudflare:workers module for astro check
 - Close audit findings: runtime secrets, JWT oracle, stored XSS, PII leak
 
@@ -1668,6 +1669,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
