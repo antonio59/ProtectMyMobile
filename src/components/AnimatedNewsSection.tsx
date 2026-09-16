@@ -140,8 +140,9 @@ function NewsCard({ post, index, config, Icon }: { post: NewsPost; index: number
           )}
         </div>
 
-        {/* Headline — suffix stripped, hard 2-line clamp */}
-        <h3 className="text-base sm:text-lg font-semibold text-foreground group-hover:text-primary group-focus-within:text-primary transition-colors leading-snug line-clamp-2">
+        {/* Headline — outlet suffix stripped, shown in full so readers can
+            judge the story before clicking */}
+        <h3 className="text-base sm:text-lg font-semibold text-foreground group-hover:text-primary group-focus-within:text-primary transition-colors leading-snug">
           {title}
         </h3>
 
