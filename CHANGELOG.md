@@ -132,6 +132,30 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Tighten news geo/relevance filtering after article audit
+
+Audit of 141 published posts found 82 were foreign-jurisdiction crime,
+off-topic, spam sources, or duplicates — all unpublished (reversible).
+Root cause: articles predated the geo filter (added Sep 14), plus real
+gaps in it:
+
+- UK_SIGNALS was London-centric: regional stories (Sussex, Yorkshire,
+  Dorset, Smethwick, EDP24) failed. Added ~90 UK towns/counties and
+  unambiguous UK outlet names.
+- FOREIGN_SIGNALS missed most cities the feed actually surfaced
+  (Kisumu, Bungoma, Kerala, Tenerife, Dublin, etc.) — expanded.
+- sourceName was never passed to the geo check, so outlet names like
+  "kenyan-post.com" couldn't veto; rss-parser now captures <source>
+  and it's threaded through scorer -> geo.
+- Foreign check now scans headline+outlet only (not excerpt), so UK
+  stories about phones trafficked abroad aren't false-flagged.
+- Added off-topic blocks (catalytic converters, phone coverage,
+  digital detox).
+- Fixed one stored excerpt containing raw scraped JSON-LD.
+
+Generated with [Devin](https://devin.ai)
+
+Co-Authored-By: Devin <158243242+devin-ai-integration[bot]@users.noreply.github.com>
 - Improve statistics dashboard accessibility and theft-map reporting
 
 - Add ChartDataTable: collapsible semantic <table> under every chart so
@@ -1683,6 +1707,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
