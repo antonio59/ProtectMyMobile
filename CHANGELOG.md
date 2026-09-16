@@ -132,6 +132,19 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Declutter homepage news cards
+
+Feed titles ran 150+ chars with "- dailymail.com" suffixes, stacked on a
+pill badge + calendar icon + 3-line excerpt + footer. Cards now show:
+- One quiet meta line: category icon + label, date, outlet name
+- Headline with outlet suffix split off, hard 2-line clamp
+- Excerpt clamped to 2 lines
+- Also fixes stray `hover:` class and replaces hardcoded border-l hexes
+  with design tokens (border-l-destructive etc.)
+
+Generated with [Devin](https://devin.ai)
+
+Co-Authored-By: Devin <158243242+devin-ai-integration[bot]@users.noreply.github.com>
 - Tighten news geo/relevance filtering after article audit
 
 Audit of 141 published posts found 82 were foreign-jurisdiction crime,
@@ -1707,6 +1720,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
