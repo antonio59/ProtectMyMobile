@@ -172,10 +172,20 @@ export const getMonthlyTrends = query({
       return { months: [], locations: [], data: [] };
     }
 
-    // Determine year range
+    // Determine year range. Public args are clamped to the data's actual
+    // span: a caller-supplied endYear of "9999" would otherwise build ~95k
+    // month entries, and non-numeric input would loop forever on NaN.
     const years = [...new Set(all.map(p => p.date.substring(0, 4)))].sort();
-    const startYear = args.startYear || years[0];
-    const endYear = args.endYear || years[years.length - 1];
+    const minY = Number(years[0]);
+    const maxY = Number(years[years.length - 1]);
+    const clampYear = (raw: string | undefined, fallback: number) => {
+      const n = Number(raw);
+      return Number.isFinite(n) && /^\d{4}$/.test(raw ?? "")
+        ? Math.min(Math.max(n, minY), maxY)
+        : fallback;
+    };
+    const startYear = String(clampYear(args.startYear, minY));
+    const endYear = String(clampYear(args.endYear, maxY));
 
     const filtered = all.filter(
       p => p.date >= `${startYear}-01` && p.date <= `${endYear}-12`
@@ -186,7 +196,8 @@ export const getMonthlyTrends = query({
     for (const p of filtered) {
       locationTotals[p.locationName] = (locationTotals[p.locationName] || 0) + p.theftCount;
     }
-    const topN = args.topN || 8;
+    // Cap topN: each location adds a key to every month object.
+    const topN = Math.min(Math.max(args.topN || 8, 1), 20);
     const topLocations = Object.entries(locationTotals)
       .sort((a, b) => b[1] - a[1])
       .slice(0, topN)
