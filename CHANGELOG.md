@@ -132,6 +132,11 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Show full headline on homepage news cards
+
+Clipping the title meant readers couldn't judge the story before
+clicking. Outlet suffix still split into meta; excerpt keeps its
+2-line teaser clamp.
 - Declutter homepage news cards
 
 Feed titles ran 150+ chars with "- dailymail.com" suffixes, stacked on a
@@ -1720,6 +1725,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
