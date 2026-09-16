@@ -3,6 +3,14 @@ import type { RelevanceResult } from "./types";
 
 const IRRELEVANT_KEYWORDS = [
   "car", "vehicle", "motorbike", "motorcycle", "bicycle", "van", "truck", "lorry",
+  // Off-topic stories that otherwise keyword-match ("phone", "stolen")
+  "catalytic converter",
+  "phone coverage",
+  "signal coverage",
+  "network coverage",
+  "digital detox",
+  "screen time",
+  "camera was stolen",
 ];
 
 const HIGHLY_RELEVANT_KEYWORDS = [
@@ -54,6 +62,7 @@ export function calculateRelevanceScore(
   title: string,
   snippet: string,
   sourceUrl?: string,
+  sourceName?: string,
 ): RelevanceResult {
   const text = (title + " " + snippet).toLowerCase();
   const reasons: string[] = [];
@@ -66,7 +75,7 @@ export function calculateRelevanceScore(
     };
   }
 
-  if (!isUkPhoneTheftStory({ title, excerpt: snippet, sourceUrl })) {
+  if (!isUkPhoneTheftStory({ title, excerpt: snippet, sourceUrl, sourceName })) {
     return {
       score: 0,
       shouldImport: false,

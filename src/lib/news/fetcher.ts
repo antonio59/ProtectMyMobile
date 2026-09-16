@@ -4,7 +4,7 @@ import type { NewsSource, FeedResult } from "./types";
 
 const parser = new Parser({
   customFields: {
-    item: ["media:content", "media:thumbnail", "content:encoded"],
+    item: ["media:content", "media:thumbnail", "content:encoded", "source"],
   },
   timeout: 5000,
 });

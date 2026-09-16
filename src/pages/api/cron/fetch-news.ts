@@ -63,6 +63,7 @@ function filterAndScoreArticles(
       item.title,
       snippet,
       item.link,
+      feedSourceName(item),
     );
 
     if (shouldImport) {
@@ -96,6 +97,12 @@ function toSyndicationSummary(text: string): string {
   return words.slice(0, SYNDICATION_WORD_LIMIT).join(" ").replace(/[.,;:\u2013\u2014-]+$/, "") + "\u2026";
 }
 
+function feedSourceName(article: any): string | undefined {
+  const s = article.source;
+  const name = typeof s === "string" ? s : s?._;
+  return name?.trim() || undefined;
+}
+
 async function createPost(
   article: any,
   relevanceScore: number,
@@ -126,7 +133,7 @@ async function createPost(
     } else {
       finalContent = cleanSnippet.length > 50
         ? `${article.title!}\n\n${cleanSnippet}`
-        : `${article.title!}\n\n(Source: ${article.source?.trim() || "News Feed"})`;
+        : `${article.title!}\n\n(Source: ${feedSourceName(article) || "News Feed"})`;
     }
     featuredImageUrl = scraped.featuredImageUrl;
   }
@@ -147,7 +154,7 @@ async function createPost(
     authorName: "Automated News Bot",
     category,
     sourceUrl: article.link,
-    sourceName: article.source?.trim() || "News Feed",
+    sourceName: feedSourceName(article) || "News Feed",
     featuredImageUrl: featuredImageUrl || undefined,
     published: true,
   });
@@ -157,7 +164,7 @@ async function createPost(
         _id: newPostId,
         title: article.title!,
         sourceUrl: article.link,
-        sourceName: article.source?.trim() || "News Feed",
+        sourceName: feedSourceName(article) || "News Feed",
         category,
         relevanceScore,
       }
