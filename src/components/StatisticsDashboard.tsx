@@ -1,6 +1,6 @@
 'use client';
 
-import { BarChart3, MapPin, TrendingUp, Calendar, RefreshCw } from 'lucide-react';
+import { BarChart3, MapPin, TrendingUp, Calendar, RefreshCw, Download } from 'lucide-react';
 import { Skeleton } from './ui/Skeleton';
 import { useDashboardData } from '../hooks/useDashboardData';
 import StatCard from './ui/StatCard';
@@ -50,13 +50,37 @@ export default function StatisticsDashboard() {
   }
 
   const { trends, rankings, yoy, seasonal, sources, stats } = data;
+  const latestMonth = stats?.dateRange.latest
+    ? new Date(stats.dateRange.latest).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' })
+    : '—';
   const dateRangeText =
     stats?.dateRange.earliest && stats?.dateRange.latest
-      ? `${new Date(stats.dateRange.earliest).toLocaleDateString('en-GB', {
+      ? `Since ${new Date(stats.dateRange.earliest).toLocaleDateString('en-GB', {
           month: 'short',
           year: 'numeric',
-        })} - ${new Date(stats.dateRange.latest).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' })}`
+        })}`
       : '';
+
+  // Export exactly what the charts render: month, total, per-location counts.
+  const exportCsv = () => {
+    if (!trends) return;
+    const escape = (v: unknown) => `"${String(v ?? '').replace(/"/g, '""')}"`;
+    const header = ['month', 'total', ...trends.locations];
+    const lines = trends.data.map((d) => [
+      d.month ?? d.label,
+      d.total ?? 0,
+      ...trends.locations.map((loc) => (typeof d[loc] === 'number' ? d[loc] : 0)),
+    ]);
+    const csv = [header, ...lines]
+      .map((row) => row.map(escape).join(','))
+      .join('\n');
+    const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv' }));
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'protectmymobile-theft-trends.csv';
+    a.click();
+    URL.revokeObjectURL(url);
+  };
 
   return (
     <div className="space-y-4 sm:space-y-6">
@@ -64,7 +88,7 @@ export default function StatisticsDashboard() {
         <StatCard label="Total Thefts Tracked" value={stats?.totalThefts.toLocaleString() || '0'} subtext="Across all data sources" icon={BarChart3} color="blue" />
         <StatCard label="Live Data Points" value={stats?.bySource['police.uk API']?.toLocaleString() || '0'} subtext="From police.uk API" icon={MapPin} color="red" />
         <StatCard label="Locations Monitored" value={stats?.uniqueLocations.toLocaleString() || '0'} subtext="UK cities & boroughs" icon={TrendingUp} color="green" />
-        <StatCard label="Date Range" value={dateRangeText.split(' ').slice(-1)[0] || '—'} subtext={dateRangeText} icon={Calendar} color="purple" />
+        <StatCard label="Latest Data" value={latestMonth} subtext={dateRangeText} icon={Calendar} color="purple" />
       </div>
       {trends && <TrendsChart data={trends} />}
       <div className="grid md:grid-cols-2 gap-4">
@@ -75,10 +99,21 @@ export default function StatisticsDashboard() {
         {yoy && yoy.years.length > 1 && <YearOverYearChart data={yoy} />}
         {seasonal && <SeasonalChart data={seasonal} />}
       </div>
-      <div className="bg-primary-subtle border border-border rounded-xl p-4 text-xs text-primary">
-        <strong>About the data:</strong> Live trends are sourced from the police.uk API (theft-from-the-person category).
-        This specifically covers street theft (snatching/pickpocketing) and may not include all mobile phone thefts.
-        Static baseline figures from Met Police and Home Office estimates are shown elsewhere on this page.
+      <div className="bg-primary-subtle border border-border rounded-xl p-4 text-xs text-primary flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <p>
+          <strong>About the data:</strong> Live trends are sourced from the police.uk API (theft-from-the-person category).
+          This specifically covers street theft (snatching/pickpocketing) and may not include all mobile phone thefts.
+          Static baseline figures from Met Police and Home Office estimates are shown elsewhere on this page.
+        </p>
+        {trends && (
+          <button
+            onClick={exportCsv}
+            className="inline-flex items-center gap-1.5 px-3 py-2 bg-card border border-border rounded-lg text-foreground font-medium hover:bg-neutral-100 transition-colors whitespace-nowrap self-start sm:self-auto"
+          >
+            <Download className="size-3.5" />
+            Download CSV
+          </button>
+        )}
       </div>
     </div>
   );

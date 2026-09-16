@@ -5,6 +5,7 @@ import { Sun } from 'lucide-react';
 import { useChartJS } from '../../hooks/useChart';
 import type { SeasonalData } from '../../hooks/useDashboardData';
 import { CHART_TOOLTIP_BASE, CHART_TICKS, CHART_GRID } from '@/lib/chartPalette';
+import ChartDataTable from './ChartDataTable';
 
 
 export default function SeasonalChart({ data }: { data: SeasonalData }) {
@@ -86,6 +87,11 @@ export default function SeasonalChart({ data }: { data: SeasonalData }) {
           <div className="text-xs text-success uppercase tracking-wide font-medium">Lowest month</div>
         </div>
       </div>
+      <ChartDataTable
+        caption="Average and total thefts per calendar month"
+        columns={['Month', 'Average', 'Total']}
+        rows={data.months.map((month, i) => [month, data.averages[i] ?? 0, data.totals[i] ?? 0])}
+      />
     </div>
   );
 }

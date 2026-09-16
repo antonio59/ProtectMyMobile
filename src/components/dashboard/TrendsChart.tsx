@@ -5,6 +5,7 @@ import { TrendingUp } from 'lucide-react';
 import { useChartJS } from '../../hooks/useChart';
 import type { MonthlyTrends } from '../../hooks/useDashboardData';
 import { CHART_SERIES_COLORS as COLORS, CHART_TOOLTIP_BASE, CHART_TICKS, CHART_GRID } from '@/lib/chartPalette';
+import ChartDataTable from './ChartDataTable';
 
 
 export default function TrendsChart({ data }: { data: MonthlyTrends }) {
@@ -128,6 +129,15 @@ export default function TrendsChart({ data }: { data: MonthlyTrends }) {
           aria-label={`Line chart of monthly phone thefts across ${data.locations.length} locations over ${data.data.length} months. Latest month ${latest.label}: ${(latest.total as number).toLocaleString()} thefts${monthChange ? `, ${Number(monthChange) > 0 ? 'up' : 'down'} ${Math.abs(Number(monthChange))}% month-on-month` : ''}.`}
         />
       </div>
+      <ChartDataTable
+        caption="Monthly theft counts by location"
+        columns={['Month', 'Total', ...data.locations]}
+        rows={data.data.map((d) => [
+          String(d.label),
+          Number(d.total) || 0,
+          ...data.locations.map((loc) => (typeof d[loc] === 'number' ? (d[loc] as number) : 0)),
+        ])}
+      />
     </div>
   );
 }

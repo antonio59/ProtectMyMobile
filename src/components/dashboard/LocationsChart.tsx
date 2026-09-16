@@ -5,6 +5,7 @@ import { MapPin } from 'lucide-react';
 import { useChartJS } from '../../hooks/useChart';
 import type { LocationRanking } from '../../hooks/useDashboardData';
 import { CHART_SERIES_COLORS as COLORS, CHART_TOOLTIP_BASE, CHART_TICKS, CHART_GRID } from '@/lib/chartPalette';
+import ChartDataTable from './ChartDataTable';
 
 
 export default function LocationsChart({ data }: { data: LocationRanking[] }) {
@@ -68,6 +69,15 @@ export default function LocationsChart({ data }: { data: LocationRanking[] }) {
           aria-label={`Bar chart ranking the top ${limited.length} theft hotspots. Highest: ${limited[0]?.name ?? 'none'} with ${limited[0]?.total?.toLocaleString() ?? 0} thefts.`}
         />
       </div>
+      <ChartDataTable
+        caption="Theft count ranking by location"
+        columns={['Location', 'Thefts', 'YoY change']}
+        rows={limited.map((d) => [
+          d.name,
+          d.total,
+          d.yoyChange === null ? '—' : `${d.yoyChange > 0 ? '+' : ''}${d.yoyChange.toFixed(1)}%`,
+        ])}
+      />
     </div>
   );
 }

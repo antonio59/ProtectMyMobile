@@ -45,15 +45,15 @@ const topHotspots = londonHotspots.slice(0, 5);
 // year-on-year change vs July 2024 - June 2025. Greater Manchester Police does
 // not currently publish street-level data to police.uk, so Manchester is excluded.
 const cityComparison = [
-  { city: 'London (Westminster area)', thefts: hotspotThefts('Westminster'), year: 'Jul 2025 - Jun 2026', change: '-40.9% YoY' },
-  { city: 'Camden (London)', thefts: hotspotThefts('Camden'), year: 'Jul 2025 - Jun 2026', change: '-28.7% YoY' },
-  { city: 'Hackney (London)', thefts: hotspotThefts('Hackney'), year: 'Jul 2025 - Jun 2026', change: '-1.8% YoY' },
-  { city: 'Tower Hamlets (London)', thefts: hotspotThefts('Tower Hamlets'), year: 'Jul 2025 - Jun 2026', change: '-18.4% YoY' },
-  { city: 'Leeds', thefts: 528, year: 'Jul 2025 - Jun 2026', change: '-11.9% YoY' },
-  { city: 'Birmingham', thefts: 436, year: 'Jul 2025 - Jun 2026', change: '-21.3% YoY' },
-  { city: 'Liverpool', thefts: 376, year: 'Jul 2025 - Jun 2026', change: '-21.5% YoY' },
-  { city: 'Brighton', thefts: 308, year: 'Jul 2025 - Jun 2026', change: '-23.2% YoY' },
-  { city: 'Bristol', thefts: 282, year: 'Jul 2025 - Jun 2026', change: '+46.1% YoY' },
+  { city: 'London (Westminster area)', thefts: hotspotThefts('Westminster'), year: 'Jul 2025 - Jun 2026', change: '-40.9% YoY', slug: 'westminster' },
+  { city: 'Camden (London)', thefts: hotspotThefts('Camden'), year: 'Jul 2025 - Jun 2026', change: '-28.7% YoY', slug: 'camden' },
+  { city: 'Hackney (London)', thefts: hotspotThefts('Hackney'), year: 'Jul 2025 - Jun 2026', change: '-1.8% YoY', slug: 'hackney' },
+  { city: 'Tower Hamlets (London)', thefts: hotspotThefts('Tower Hamlets'), year: 'Jul 2025 - Jun 2026', change: '-18.4% YoY', slug: 'tower-hamlets' },
+  { city: 'Leeds', thefts: 528, year: 'Jul 2025 - Jun 2026', change: '-11.9% YoY', slug: 'leeds' },
+  { city: 'Birmingham', thefts: 436, year: 'Jul 2025 - Jun 2026', change: '-21.3% YoY', slug: 'birmingham' },
+  { city: 'Liverpool', thefts: 376, year: 'Jul 2025 - Jun 2026', change: '-21.5% YoY', slug: 'liverpool' },
+  { city: 'Brighton', thefts: 308, year: 'Jul 2025 - Jun 2026', change: '-23.2% YoY', slug: 'brighton' },
+  { city: 'Bristol', thefts: 282, year: 'Jul 2025 - Jun 2026', change: '+46.1% YoY', slug: 'bristol' },
 ];
 
 const keyStats = [
@@ -149,14 +149,14 @@ const maxYearlyThefts = Math.max(...yearlyTrend.map((y) => y.thefts));
             <div class="flex items-end gap-1.5 sm:gap-3 h-40 sm:h-52 md:h-60" role="img" aria-label="Bar chart of phones recorded stolen in London per year: 91,481 in 2019, 55,820 in 2020, 63,777 in 2021, 90,810 in 2022, 115,261 in 2023, 117,211 in 2024, 71,391 in 2025">
               {yearlyTrend.map((entry) => (
                 <div class="flex-1 flex flex-col items-center justify-end gap-1 h-full min-w-0">
-                  <span class="text-[9px] sm:text-xs font-semibold text-foreground tabular-nums">
+                  <span class="text-xs font-semibold text-foreground tabular-nums">
                     {entry.thefts >= 100000 ? `${Math.round(entry.thefts / 1000)}K` : entry.thefts.toLocaleString()}
                   </span>
                   <div
                     class={`w-full rounded-t-md ${entry.comparable ? 'bg-destructive' : 'bg-primary'}`}
                     style={`height: ${Math.max(4, Math.round((entry.thefts / maxYearlyThefts) * 100))}%`}
                   ></div>
-                  <span class="text-[9px] sm:text-xs text-muted-foreground">{entry.year}</span>
+                  <span class="text-xs text-muted-foreground">{entry.year}</span>
                 </div>
               ))}
             </div>
@@ -233,7 +233,7 @@ const maxYearlyThefts = Math.max(...yearlyTrend.map((y) => y.thefts));
                   <div>
                     <div class="flex items-center justify-between mb-2">
                       <div class="flex items-center gap-2 sm:gap-3">
-                        <span class="font-bold text-foreground text-xs sm:text-sm md:text-base">{city.city}</span>
+                        <a href={`/${city.slug}`} class="font-bold text-foreground text-xs sm:text-sm md:text-base hover:text-primary hover:underline transition-colors">{city.city}</a>
                         <span class="text-xs text-muted-foreground">({city.year})</span>
                       </div>
                       <div class="text-right">
@@ -243,7 +243,7 @@ const maxYearlyThefts = Math.max(...yearlyTrend.map((y) => y.thefts));
                     </div>
                     <div class="w-full bg-neutral-100 rounded-full h-3 sm:h-4 md:h-5 overflow-hidden">
                       <div
-                        class={`h-3 sm:h-4 md:h-5 rounded-full ${i === 0 ? 'bg-destructive' : 'bg-neutral-100'}`}
+                        class={`h-3 sm:h-4 md:h-5 rounded-full ${i === 0 ? 'bg-destructive' : 'bg-foreground'}`}
                         style={`width: ${width}%`}
                       ></div>
                     </div>

@@ -5,6 +5,7 @@ import { Layers } from 'lucide-react';
 import { useChartJS } from '../../hooks/useChart';
 import type { YoYData } from '../../hooks/useDashboardData';
 import { CHART_SERIES_COLORS as COLORS, CHART_TOOLTIP_BASE, CHART_TICKS, CHART_GRID } from '@/lib/chartPalette';
+import ChartDataTable from './ChartDataTable';
 
 
 export default function YearOverYearChart({ data }: { data: YoYData }) {
@@ -58,6 +59,14 @@ export default function YearOverYearChart({ data }: { data: YoYData }) {
           aria-label={`Bar chart comparing monthly thefts across years ${years.join(', ')}.`}
         />
       </div>
+      <ChartDataTable
+        caption="Monthly thefts compared across years"
+        columns={['Month', ...years]}
+        rows={data.months.map((month, i) => [
+          month,
+          ...years.map((year) => data.data[year]?.[i] ?? 0),
+        ])}
+      />
     </div>
   );
 }

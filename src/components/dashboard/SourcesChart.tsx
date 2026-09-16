@@ -5,6 +5,7 @@ import { PieChart } from 'lucide-react';
 import { useChartJS } from '../../hooks/useChart';
 import type { SourceBreakdown } from '../../hooks/useDashboardData';
 import { CHART_SERIES_COLORS as COLORS, CHART_TOOLTIP_BASE } from '@/lib/chartPalette';
+import ChartDataTable from './ChartDataTable';
 
 
 export default function SourcesChart({ data, totalRecords }: { data: SourceBreakdown; totalRecords: number }) {
@@ -77,6 +78,16 @@ export default function SourcesChart({ data, totalRecords }: { data: SourceBreak
           );
         })}
       </div>
+      <ChartDataTable
+        caption="Records and theft counts per data source"
+        columns={['Source', 'Records', 'Thefts', 'Share']}
+        rows={data.map((item) => [
+          item.name,
+          item.records,
+          item.thefts,
+          totalRecords > 0 ? `${((item.records / totalRecords) * 100).toFixed(1)}%` : '0%',
+        ])}
+      />
     </div>
   );
 }

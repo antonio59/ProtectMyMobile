@@ -2,7 +2,30 @@
 import Layout from '../layouts/Layout.astro';
 import HeaderMobile from '../components/HeaderMobile';
 import Footer from '../components/Footer.astro';
-import { MapPin, Shield, Info } from "lucide-react";
+import { MapPin, Shield, Info, List } from "lucide-react";
+import { ConvexHttpClient } from 'convex/browser';
+import { api } from '../../convex/_generated/api';
+
+// SSR fetch of recent approved reports — doubles as the accessible,
+// no-JS alternative to the canvas map and gives the page real content.
+const convexUrl = import.meta.env.PUBLIC_CONVEX_URL;
+let recentReports: Array<{ locationName: string; theftDate?: string; description?: string; createdAt: number }> = [];
+try {
+  if (convexUrl) {
+    const client = new ConvexHttpClient(convexUrl);
+    const reports = await client.query(api.theftReports.list, { approvedOnly: true });
+    recentReports = (reports || [])
+      .filter((r: any) => r.locationName)
+      .slice(0, 8);
+  }
+} catch {
+  // The client-side map retries on its own; the list just stays empty.
+}
+
+function reportDate(r: { theftDate?: string; createdAt: number }) {
+  const d = r.theftDate ? new Date(r.theftDate) : new Date(r.createdAt);
+  return isNaN(d.getTime()) ? 'Date unknown' : d.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+}
 ---
 
 <Layout 
@@ -50,14 +73,54 @@ import { MapPin, Shield, Info } from "lucide-react";
 
         <!-- Map Container -->
         <div class="bg-card rounded-xl overflow-hidden mb-6 sm:mb-8 relative">
-          <div id="theft-map" class="w-full h-[400px] sm:h-[500px] md:h-[600px]"></div>
+          <div id="theft-map" class="w-full h-[400px] sm:h-[500px] md:h-[600px]" role="img" aria-label="Interactive map of phone theft reports across the UK. A text list of recent reports follows below."></div>
+          <div id="map-loading" class="absolute inset-0 bg-card/90 flex items-center justify-center z-[999]">
+            <p class="text-muted-foreground font-medium text-sm">Loading map…</p>
+          </div>
           <div id="map-overlay" class="absolute inset-0 bg-card/90 flex items-center justify-center hidden z-[1000]">
             <div class="text-center px-4">
               <p class="text-muted-foreground font-medium">No reports yet.</p>
               <p class="text-sm text-muted-foreground mt-1">Be the first to <a href="/emergency#report-theft" class="text-primary underline">report a theft</a>.</p>
             </div>
           </div>
+          <!-- Legend -->
+          <div class="absolute bottom-3 left-3 z-[1000] bg-card/95 border border-border rounded-lg px-3 py-2 flex items-center gap-4 text-xs">
+            <span class="flex items-center gap-1.5">
+              <span class="size-2.5 rounded-full bg-foreground opacity-60 inline-block"></span>
+              Police data
+            </span>
+            <span class="flex items-center gap-1.5">
+              <span class="size-2.5 rounded-full bg-destructive inline-block"></span>
+              Community report
+            </span>
+          </div>
         </div>
+
+        <!-- Accessible report list (map alternative) -->
+        {recentReports.length > 0 && (
+          <section class="bg-card rounded-xl border border-border p-4 sm:p-6 mb-6 sm:mb-8">
+            <h2 class="text-base sm:text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+              <List className="size-5 text-primary" />
+              Recent Community Reports
+            </h2>
+            <ul class="divide-y divide-border">
+              {recentReports.map((r) => (
+                <li class="py-3 first:pt-0 last:pb-0">
+                  <div class="flex items-baseline justify-between gap-3">
+                    <h3 class="font-semibold text-foreground text-sm">{r.locationName}</h3>
+                    <span class="text-xs text-muted-foreground whitespace-nowrap">{reportDate(r)}</span>
+                  </div>
+                  {r.description && (
+                    <p class="text-xs text-muted-foreground mt-1 line-clamp-2">{r.description}</p>
+                  )}
+                </li>
+              ))}
+            </ul>
+            <p class="text-xs text-muted-foreground mt-4">
+              Community-submitted, admin-verified. Locations are approximate.
+            </p>
+          </section>
+        )}
 
         <!-- Info Cards -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
@@ -156,7 +219,17 @@ import { MapPin, Shield, Info } from "lucide-react";
     }
 
     async function initMap() {
-      await loadScript('https://unpkg.com/leaflet@1.9.4/dist/leaflet.js');
+      const loading = document.getElementById('map-loading');
+      try {
+        await loadScript('https://unpkg.com/leaflet@1.9.4/dist/leaflet.js');
+      } catch {
+        loading?.classList.add('hidden');
+        document.getElementById('map-overlay')!.classList.remove('hidden');
+        document.getElementById('map-overlay')!.innerHTML =
+          '<div class="text-center px-4"><p class="text-muted-foreground font-medium">Unable to load map</p></div>';
+        return;
+      }
+      loading?.classList.add('hidden');
       const L = (window as any).L;
 
       const map = L.map('theft-map').setView([54.5, -2.5], 6);
