@@ -3,7 +3,6 @@
 import {
   Newspaper,
   ArrowRight,
-  Calendar,
   Gavel,
   Siren,
   ShieldAlert,
@@ -27,59 +26,32 @@ interface Props {
   news: NewsPost[];
 }
 
-const categoryConfig: Record<string, { color: string; bg: string; icon: any; gradient: string }> = {
-  arrest: {
-    color: "text-destructive-hover",
-    bg: "bg-destructive-subtle",
-    icon: Siren,
-    gradient: "from-destructive to-destructive-hover",
-  },
-  seizure: {
-    color: "text-foreground",
-    bg: "bg-neutral-100",
-    icon: ShieldAlert,
-    gradient: "from-foreground to-foreground",
-  },
-  law_change: {
-    color: "text-foreground",
-    bg: "bg-neutral-100",
-    icon: Gavel,
-    gradient: "from-foreground to-foreground",
-  },
-  law_changes: {
-    color: "text-foreground",
-    bg: "bg-neutral-100",
-    icon: Gavel,
-    gradient: "from-foreground to-foreground",
-  },
-  statistics: {
-    color: "text-primary-hover",
-    bg: "bg-primary-subtle",
-    icon: TrendingUp,
-    gradient: "from-primary to-primary",
-  },
-  prevention_tip: {
-    color: "text-foreground",
-    bg: "bg-neutral-100",
-    icon: Lightbulb,
-    gradient: "from-foreground to-foreground",
-  },
-  other: {
-    color: "text-foreground",
-    bg: "bg-neutral",
-    icon: FileText,
-    gradient: "from-neutral-500 to-neutral-600",
-  },
+const categoryConfig: Record<string, { color: string; icon: any; border: string }> = {
+  arrest: { color: "text-destructive-hover", icon: Siren, border: "border-l-destructive" },
+  seizure: { color: "text-foreground", icon: ShieldAlert, border: "border-l-foreground" },
+  law_change: { color: "text-foreground", icon: Gavel, border: "border-l-foreground" },
+  law_changes: { color: "text-foreground", icon: Gavel, border: "border-l-foreground" },
+  statistics: { color: "text-primary-hover", icon: TrendingUp, border: "border-l-primary" },
+  prevention_tip: { color: "text-foreground", icon: Lightbulb, border: "border-l-foreground" },
+  other: { color: "text-muted-foreground", icon: FileText, border: "border-l-muted-foreground" },
 };
 
 function formatDate(dateValue: string | number) {
-  const date =
-    typeof dateValue === "number" ? new Date(dateValue) : new Date(dateValue);
-  return date.toLocaleDateString("en-GB", {
+  return new Date(dateValue).toLocaleDateString("en-GB", {
     day: "numeric",
     month: "short",
     year: "numeric",
   });
+}
+
+// Feed titles carry an outlet suffix ("... - dailymail.com"). Split it off so
+// the card can show a short headline and credit the outlet as quiet meta text.
+function splitTitle(raw: string): { title: string; outlet?: string } {
+  const idx = raw.lastIndexOf(" - ");
+  if (idx > 0 && raw.length - idx <= 60) {
+    return { title: raw.slice(0, idx).trim(), outlet: raw.slice(idx + 3).trim() };
+  }
+  return { title: raw };
 }
 
 export default function AnimatedNewsSection({ news }: Props) {
@@ -142,50 +114,47 @@ export default function AnimatedNewsSection({ news }: Props) {
 
 function NewsCard({ post, index, config, Icon }: { post: NewsPost; index: number; config: any; Icon: any }) {
   const { ref, isInView } = useInView<HTMLAnchorElement>({ rootMargin: '-50px', threshold: 0.1 });
-  
-  const borderColor = post.category === 'arrest' ? '#C8322B' : 
-                      post.category === 'seizure' ? '#9A4F00' : 
-                      post.category === 'law_change' ? '#2F6B4F' : 
-                      post.category === 'statistics' ? '#16130F' : 
-                      post.category === 'prevention_tip' ? '#2F6B4F' : 
-                      '#6B6459';
+  const { title, outlet } = splitTitle(post.title);
 
   return (
     <a
       ref={ref}
       href={`/news/${post.slug}`}
-      className={`group flex flex-col bg-card rounded-xl shadow-sm hover: hover:shadow-primary/5 transition duration-300 border-l-4 border-t border-r border-b border-border hover:border-r-primary/20 hover:border-t-primary/20 hover:border-b-primary/20 h-full relative overflow-hidden hover:-translate-y-1 animate-on-scroll ${isInView ? 'is-visible' : ''}`}
-      style={{ animationDelay: `${index * 50}ms`, borderLeftColor: borderColor }}
+      className={`group flex flex-col bg-card rounded-xl shadow-sm hover:shadow-md transition duration-300 border border-border border-l-4 ${config.border} hover:-translate-y-1 animate-on-scroll ${isInView ? 'is-visible' : ''}`}
+      style={{ animationDelay: `${index * 50}ms` }}
     >
-      <div className="p-5 sm:p-6 flex flex-col flex-grow">
-        {/* Meta Header */}
-        <div className="flex items-center gap-2 mb-3 flex-wrap">
-          <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold ${config.bg} ${config.color}`}>
-            <Icon className="h-3.5 w-3.5" />
-            {post.category.replace("_", " ")}
+      <div className="p-5 sm:p-6 flex flex-col flex-grow gap-3">
+        {/* Meta: category · date · outlet — one quiet line, no pills */}
+        <div className="flex items-center gap-1.5 text-xs text-muted-foreground min-w-0">
+          <Icon className={`size-3.5 shrink-0 ${config.color}`} />
+          <span className={`font-semibold capitalize ${config.color}`}>
+            {post.category.replace(/_/g, " ")}
           </span>
-          <div className="flex items-center gap-1.5 text-xs text-muted-foreground font-medium">
-            <Calendar className="h-3.5 w-3.5" />
-            {formatDate(post.publishedAt || post._creationTime)}
-          </div>
+          <span aria-hidden="true">·</span>
+          <time>{formatDate(post.publishedAt || post._creationTime)}</time>
+          {outlet && (
+            <>
+              <span aria-hidden="true">·</span>
+              <span className="truncate">{outlet}</span>
+            </>
+          )}
         </div>
 
-        {/* Title */}
-        <h3 className="text-sm sm:text-base font-semibold text-foreground mb-3 group-hover:text-primary group-focus-within:text-primary transition-colors leading-tight">
-          {post.title}
+        {/* Headline — suffix stripped, hard 2-line clamp */}
+        <h3 className="text-base sm:text-lg font-semibold text-foreground group-hover:text-primary group-focus-within:text-primary transition-colors leading-snug line-clamp-2">
+          {title}
         </h3>
 
-        {/* Excerpt */}
+        {/* Excerpt — 2 lines max */}
         {post.excerpt && (
-          <p className="text-muted-foreground text-sm leading-relaxed mb-4 flex-grow line-clamp-3">
+          <p className="text-muted-foreground text-sm leading-relaxed line-clamp-2">
             {post.excerpt}
           </p>
         )}
 
-        {/* Footer */}
-        <div className="flex items-center text-sm font-semibold text-primary group-hover:gap-2 group-focus-within:gap-2 transition-all mt-auto">
+        <div className="flex items-center text-sm font-semibold text-primary mt-auto pt-1 group-hover:gap-2 group-focus-within:gap-2 transition-all">
           Read article
-          <ArrowRight className="size-4 ml-1 transition-transform" />
+          <ArrowRight className="size-4 ml-1 transition-transform group-hover:translate-x-0.5" />
         </div>
       </div>
     </a>
