@@ -87,7 +87,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
-    "@astrojs/react": "^6.0.5",
+    "@astrojs/react": "^6.0.6",
     "@astrojs/sitemap": "^3.7.4",
     "@google/design.md": "^0.4.0",
     "@tailwindcss/postcss": "^4.3.3",
@@ -98,7 +98,7 @@
     "stylelint-config-standard": "^37.0.0",
     "tsx": "^4.23.13",
     "typescript": "^5.9.3",
-    "wrangler": "^4.131.2"
+    "wrangler": "^4.134.0"
   },
   "trustedDependencies": [
     "@parcel/watcher",
