@@ -68,7 +68,7 @@ import { Database, Newspaper, Users, AlertTriangle, FileCheck, HandHeart } from 
             </div>
             <div class="space-y-3 text-foreground text-xs sm:text-sm">
               <p>
-                A weekly automated scan pulls UK news feeds for phone-theft stories. Each candidate article is scored against relevance rules — keywords around phone theft, snatching, pickpocketing and related policing — and only articles scoring above the threshold are imported. A separate UK-relevance filter keeps out stories that mention the terms but aren't about the UK.
+                A weekly automated scan pulls UK news feeds for phone-theft stories. Each candidate article is screened by an AI judgment layer (TypeSafe): it must assess the story as genuinely about phone theft, about the UK, and useful to readers before import — with keyword rules as a fallback and uncertain cases held as drafts for review. A semantic same-story check catches rewrites that keyword dedup misses.
               </p>
               <p>
                 Articles are excerpts with attribution, not full republications: each links back to the original publisher, which remains responsible for the underlying reporting. If a publisher corrects or removes a story, the excerpt here may lag behind until the next weekly scan.

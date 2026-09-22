@@ -40,7 +40,12 @@ export default function LocationsChart({ data }: { data: LocationRanking[] }) {
               callbacks: {
                 afterLabel: (ctx: any) => {
                   const item = limited[ctx.dataIndex];
-                  return item.yoyChange !== null ? `YoY change: ${item.yoyChange > 0 ? '+' : ''}${item.yoyChange}%` : '';
+                  if (item.yoyChange === null) return '';
+                  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                  const period = item.monthsCompared > 0 && item.monthsCompared < 12
+                    ? ` (${months[0]}–${months[item.monthsCompared - 1]} only)`
+                    : '';
+                  return `YoY change: ${item.yoyChange > 0 ? '+' : ''}${item.yoyChange}%${period}`;
                 },
               },
             },

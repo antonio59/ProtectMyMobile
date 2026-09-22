@@ -6,6 +6,7 @@ export const list = query({
   args: {
     startDate: v.optional(v.string()),
     endDate: v.optional(v.string()),
+    source: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     let points = await ctx.db
@@ -14,6 +15,9 @@ export const list = query({
       .order("asc")
       .collect();
 
+    if (args.source) {
+      points = points.filter((p) => p.dataSource === args.source);
+    }
     if (args.startDate) {
       points = points.filter((p) => p.date >= args.startDate!);
     }
@@ -115,6 +119,13 @@ export const getStats = query({
       return acc;
     }, {} as Record<string, number>);
 
+    // Sources can overlap (e.g. seed estimates vs police.uk actuals for the
+    // same location-month), so totalThefts is not a unique-offence count.
+    const theftsBySource = all.reduce((acc, p) => {
+      acc[p.dataSource] = (acc[p.dataSource] || 0) + p.theftCount;
+      return acc;
+    }, {} as Record<string, number>);
+
     const byLocation = all.reduce((acc, p) => {
       acc[p.locationName] = (acc[p.locationName] || 0) + p.theftCount;
       return acc;
@@ -125,6 +136,7 @@ export const getStats = query({
     return {
       totalRecords: all.length,
       totalThefts: all.reduce((sum, p) => sum + p.theftCount, 0),
+      theftsBySource,
       bySource,
       topLocations: Object.entries(byLocation)
         .sort((a, b) => b[1] - a[1])
@@ -164,9 +176,17 @@ export const getMonthlyTrends = query({
     topN: v.optional(v.number()),
     startYear: v.optional(v.string()),
     endYear: v.optional(v.string()),
+    source: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
-    const all = await ctx.db.query("theftDataPoints").collect();
+    let all = await ctx.db.query("theftDataPoints").collect();
+
+    // Sources overlap (seed estimates vs police.uk actuals for the same
+    // location-month) — mixing them double-counts. Callers charting police
+    // data must pass source: 'police.uk API'.
+    if (args.source) {
+      all = all.filter(p => p.dataSource === args.source);
+    }
 
     if (all.length === 0) {
       return { months: [], locations: [], data: [] };
@@ -187,8 +207,10 @@ export const getMonthlyTrends = query({
     const startYear = String(clampYear(args.startYear, minY));
     const endYear = String(clampYear(args.endYear, maxY));
 
+    // Dates are stored as YYYY-MM-DD (always "-01" today); comparing against
+    // "YYYY-12" would drop every December record of the end year.
     const filtered = all.filter(
-      p => p.date >= `${startYear}-01` && p.date <= `${endYear}-12`
+      p => p.date >= `${startYear}-01` && p.date <= `${endYear}-12-31`
     );
 
     // Get top locations by total theft count
@@ -217,16 +239,24 @@ export const getMonthlyTrends = query({
 
     // Aggregate: { month: { location: count } }
     const monthData: Record<string, Record<string, number>> = {};
+    const monthTotals: Record<string, number> = {};
     for (const month of months) {
       monthData[month] = {};
+      monthTotals[month] = 0;
       for (const loc of topLocations) {
         monthData[month][loc] = 0;
       }
     }
+    const topSet = new Set(topLocations);
     for (const p of filtered) {
       const month = p.date.substring(0, 7);
-      if (monthData[month] && topLocations.includes(p.locationName)) {
-        monthData[month][p.locationName] = (monthData[month][p.locationName] || 0) + p.theftCount;
+      if (monthData[month]) {
+        // "total" must cover every monitored location, not just the top-N
+        // series shown in the chart, or summary cards undercount.
+        monthTotals[month] += p.theftCount;
+        if (topSet.has(p.locationName)) {
+          monthData[month][p.locationName] += p.theftCount;
+        }
       }
     }
 
@@ -235,7 +265,7 @@ export const getMonthlyTrends = query({
       month,
       label: new Date(month + "-01").toLocaleDateString("en-GB", { month: "short", year: "2-digit" }),
       ...monthData[month],
-      total: Object.values(monthData[month]).reduce((s, v) => s + v, 0),
+      total: monthTotals[month],
     }));
 
     return { months, locations: topLocations, data };
@@ -256,12 +286,21 @@ export const getLocationRankings = query({
 
     const locationTotals: Record<string, number> = {};
     const locationByYear: Record<string, Record<string, number>> = {};
+    // Per-location, per-year, per-month totals so YoY can compare the same
+    // calendar months — a partial latest year must never be compared against
+    // a full prior year.
+    const locationByYearMonth: Record<string, Record<string, Record<number, number>>> = {};
 
     for (const p of filtered) {
       const year = p.date.substring(0, 4);
+      const month = Number(p.date.substring(5, 7));
       locationTotals[p.locationName] = (locationTotals[p.locationName] || 0) + p.theftCount;
       if (!locationByYear[p.locationName]) locationByYear[p.locationName] = {};
       locationByYear[p.locationName][year] = (locationByYear[p.locationName][year] || 0) + p.theftCount;
+      if (!locationByYearMonth[p.locationName]) locationByYearMonth[p.locationName] = {};
+      if (!locationByYearMonth[p.locationName][year]) locationByYearMonth[p.locationName][year] = {};
+      locationByYearMonth[p.locationName][year][month] =
+        (locationByYearMonth[p.locationName][year][month] || 0) + p.theftCount;
     }
 
     const topN = args.topN || 10;
@@ -274,8 +313,18 @@ export const getLocationRankings = query({
         const latestYear = sortedYears[sortedYears.length - 1];
         const previousYear = sortedYears[sortedYears.length - 2];
         let yoyChange: number | null = null;
-        if (previousYear && years[previousYear] > 0) {
-          yoyChange = ((years[latestYear] - years[previousYear]) / years[previousYear]) * 100;
+        let monthsCompared = 0;
+        if (previousYear) {
+          const latestMonths = locationByYearMonth[name]?.[latestYear] ?? {};
+          const prevMonths = locationByYearMonth[name]?.[previousYear] ?? {};
+          const comparedMonths = Object.keys(latestMonths).map(Number);
+          const prevSamePeriod = comparedMonths.reduce(
+            (sum, m) => sum + (prevMonths[m] || 0), 0,
+          );
+          monthsCompared = comparedMonths.length;
+          if (prevSamePeriod > 0) {
+            yoyChange = ((years[latestYear] - prevSamePeriod) / prevSamePeriod) * 100;
+          }
         }
         return {
           name,
@@ -283,6 +332,7 @@ export const getLocationRankings = query({
           years,
           latestYear,
           yoyChange: yoyChange !== null ? Number(yoyChange.toFixed(1)) : null,
+          monthsCompared,
         };
       });
 
@@ -336,21 +386,34 @@ export const getSeasonalPatterns = query({
     const all = await ctx.db.query("theftDataPoints").collect();
     const filtered = args.source ? all.filter(p => p.dataSource === args.source) : all;
 
+    // Average must be per calendar month across the years that contain it:
+    // total for that month in each year, then averaged over the year count.
+    // Dividing by record count instead produced a per-location average (~1/24
+    // of the real monthly total) and broke on uneven coverage.
+    const byYearMonth: Record<string, number[]> = {};
     const monthTotals = new Array(12).fill(0);
-    const monthCounts = new Array(12).fill(0);
 
     for (const p of filtered) {
+      const year = p.date.substring(0, 4);
       const monthIndex = Number(p.date.substring(5, 7)) - 1;
+      if (!byYearMonth[year]) byYearMonth[year] = new Array(12).fill(0);
+      byYearMonth[year][monthIndex] += p.theftCount;
       monthTotals[monthIndex] += p.theftCount;
-      monthCounts[monthIndex] += 1;
+    }
+
+    const yearsWithMonth = new Array(12).fill(0);
+    for (const yearData of Object.values(byYearMonth)) {
+      for (let i = 0; i < 12; i++) {
+        if (yearData[i] > 0) yearsWithMonth[i]++;
+      }
     }
 
     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     const averages = monthTotals.map((total, i) =>
-      monthCounts[i] > 0 ? Number((total / monthCounts[i]).toFixed(1)) : 0
+      yearsWithMonth[i] > 0 ? Number((total / yearsWithMonth[i]).toFixed(1)) : 0
     );
 
-    return { months, averages, totals: monthTotals };
+    return { months, averages, totals: monthTotals, yearsPerMonth: yearsWithMonth };
   },
 });
 
@@ -370,6 +433,32 @@ export const getSourceBreakdown = query({
       bySource[p.dataSource].thefts += p.theftCount;
     }
     return Object.entries(bySource).map(([name, stats]) => ({ name, ...stats }));
+  },
+});
+
+/**
+ * Delete every data point from one source (e.g. removing synthetic seed data
+ * once real police.uk coverage exists). Refuses the live police.uk source so a
+ * typo can't wipe the primary dataset.
+ */
+export const deleteBySource = mutation({
+  args: {
+    adminToken: v.optional(v.string()),
+    source: v.string(),
+  },
+  handler: async (ctx, args) => {
+    requireAdmin(ctx, args.adminToken);
+    if (args.source === "police.uk API") {
+      throw new Error("Refusing to delete the primary police.uk source");
+    }
+    const matches = await ctx.db
+      .query("theftDataPoints")
+      .collect()
+      .then((all) => all.filter((p) => p.dataSource === args.source));
+    for (const p of matches) {
+      await ctx.db.delete(p._id);
+    }
+    return { deleted: matches.length, source: args.source };
   },
 });
 

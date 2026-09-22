@@ -133,6 +133,18 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Bump the astro group across 1 directory with 2 updates (#120)
+- Fix theft-stat accuracy and add TypeSafe news screening
+
+Charts were double-counting overlapping data sources (~36k phantom
+thefts), under/overstating YoY and seasonal figures, and publishing an
+incorrect Westminster hotspot count. News imports now optionally use
+TypeSafe semantic judgments with keyword fallback and draft review for
+uncertain articles. Synthetic seed data removed from prod.
+
+Generated with [Devin](https://devin.ai)
+
+Co-Authored-By: Devin <158243242+devin-ai-integration[bot]@users.noreply.github.com>
 - Show full headline on homepage news cards
 
 Clipping the title meant readers couldn't judge the story before
@@ -1726,6 +1738,8 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]

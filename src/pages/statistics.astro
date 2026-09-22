@@ -5,7 +5,8 @@ import Footer from '../components/Footer.astro';
 import StatisticsDashboard from '../components/StatisticsDashboard';
 import { getTheftStats } from '../lib/convexData';
 import { SITE_URL } from '../lib/site';
-import { londonHotspots, hotspotsSource, hotspotThefts } from '../data/hotspots';
+import { londonHotspots, hotspotsSource } from '../data/hotspots';
+import { cityComparison } from '../data/cityComparison';
 import { BarChart3, TrendingUp, MapPin, AlertTriangle, Shield, ArrowRight } from 'lucide-react';
 
 const statisticsSchema = {
@@ -15,7 +16,7 @@ const statisticsSchema = {
   "description": "Comprehensive data on mobile phone thefts across UK cities including London, Manchester, Birmingham. Live data from police.uk API.",
   "keywords": ["phone theft statistics UK", "London phone theft", "mobile crime UK", "snatch theft data"],
   "creator": { "@type": "Organization", "name": "ProtectMyMobile" },
-  "temporalCoverage": "2017/2026",
+  "temporalCoverage": "2024/2026",
   "spatialCoverage": { "@type": "Place", "name": "United Kingdom" },
   "url": `${SITE_URL}/statistics`
 };
@@ -40,21 +41,8 @@ try {
 // Top 5 London hotspots, from the shared dataset in src/data/hotspots.ts.
 const topHotspots = londonHotspots.slice(0, 5);
 
-// City comparison: theft-from-the-person offences recorded within roughly 1 mile
-// of each city centre, July 2025 - June 2026 (latest police.uk data), with
-// year-on-year change vs July 2024 - June 2025. Greater Manchester Police does
-// not currently publish street-level data to police.uk, so Manchester is excluded.
-const cityComparison = [
-  { city: 'London (Westminster area)', thefts: hotspotThefts('Westminster'), year: 'Jul 2025 - Jun 2026', change: '-40.9% YoY', slug: 'westminster' },
-  { city: 'Camden (London)', thefts: hotspotThefts('Camden'), year: 'Jul 2025 - Jun 2026', change: '-28.7% YoY', slug: 'camden' },
-  { city: 'Hackney (London)', thefts: hotspotThefts('Hackney'), year: 'Jul 2025 - Jun 2026', change: '-1.8% YoY', slug: 'hackney' },
-  { city: 'Tower Hamlets (London)', thefts: hotspotThefts('Tower Hamlets'), year: 'Jul 2025 - Jun 2026', change: '-18.4% YoY', slug: 'tower-hamlets' },
-  { city: 'Leeds', thefts: 528, year: 'Jul 2025 - Jun 2026', change: '-11.9% YoY', slug: 'leeds' },
-  { city: 'Birmingham', thefts: 436, year: 'Jul 2025 - Jun 2026', change: '-21.3% YoY', slug: 'birmingham' },
-  { city: 'Liverpool', thefts: 376, year: 'Jul 2025 - Jun 2026', change: '-21.5% YoY', slug: 'liverpool' },
-  { city: 'Brighton', thefts: 308, year: 'Jul 2025 - Jun 2026', change: '-23.2% YoY', slug: 'brighton' },
-  { city: 'Bristol', thefts: 282, year: 'Jul 2025 - Jun 2026', change: '+46.1% YoY', slug: 'bristol' },
-];
+// City comparison figures live in src/data/cityComparison.ts (YoY computed from
+// both windows; verify with scripts/verify-statistics.ts).
 
 const keyStats = [
   { value: '78,000', label: 'Snatch thefts UK (CSEW, YE Mar 2024)', icon: AlertTriangle },

@@ -54,13 +54,15 @@ pnpm run design:export      # Export tokens to src/styles/design-tokens.json
 
 ### 📊 UK Theft Statistics & Live Trends
 - **Live Monthly Trends:** Interactive area charts showing theft patterns over time across UK cities
-- **Police.uk Integration:** Automated data fetching from official crime statistics API
+- **Police.uk Integration:** Automated data fetching from official crime statistics API; all charts and published figures are sourced exclusively from recorded police.uk data
+- **Verified Figures:** `scripts/verify-statistics.ts` recomputes every published statistic against the live database and fails on drift
 - **13 Location Pages:** Detailed theft hotspots for London, Manchester, Birmingham, Liverpool, Leeds, Edinburgh, Glasgow, Bristol, Brighton, and London boroughs
 - **Data Visualization:** Stacked area charts with toggle between stacked/lines view
 
 ### 📰 Automated News Aggregation
 - **12+ News Sources:** Automatically monitors Google News, BBC, Guardian, Sky News, Evening Standard, Metro, Daily Mail, Telegraph, Mirror, ITV, and Independent
 - **Smart Categorization:** Articles auto-categorized as Arrests, Seizures, Law Changes, Statistics, or Prevention Tips
+- **AI-Assisted Screening:** Optional TypeSafe semantic judgments score each article for phone-theft relevance, UK scope, category, and editorial value; uncertain articles are held as unpublished drafts for admin review (falls back to keyword heuristics when `TYPESAFE_API_KEY` is unset)
 - **Relevance Scoring:** Keyword-based filtering to ensure only phone-theft related articles are included
 - **RSS Feed:** Subscribe to updates via `/rss.xml`
 - **Twice Daily Updates:** Automated cron jobs fetch new articles at 6am and 6pm UTC
