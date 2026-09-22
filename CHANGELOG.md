@@ -3,24 +3,9 @@
 All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
-### Features
-
-- **news**: Optional TypeSafe semantic judgments for article relevance, UK scope, category, and editorial quality (`TYPESAFE_API_KEY`; keyword heuristics remain the fallback)
-- **news**: Hold uncertain articles as unpublished drafts for admin review instead of auto-publishing
-- **news**: Semantic same-story check for borderline title matches across publishers
-- **data**: `scripts/verify-statistics.ts` validates every published figure against the live database
-- **data**: `scripts/delete-seed-data.ts` removes synthetic seed sources (run in prod; police.uk data untouched)
-
 ### Bug Fixes
 
 - **security**: Bump devalue to >=5.9.2 (#126)
-- **stats**: Stop double-counting overlapping sources in trends/map — charts now filter to `police.uk API` (~36,821 phantom thefts removed; seed data deleted)
-- **stats**: Fix December exclusion in end-of-year date filters
-- **stats**: Trend totals now cover all locations, not just the top-N charted
-- **stats**: YoY location rankings compare identical calendar months (partial-year vs full-year was inflating declines)
-- **stats**: Seasonal chart divides by months-with-data, not record count (was ~24x understated)
-- **stats**: Dashboard headline card shows police.uk-only recorded thefts; `getStats` returns `theftsBySource`
-- **data**: Correct Westminster hotspot to 7,435 thefts / -26.3% YoY (was 16,639 / -40.9%); compute city-comparison YoY from windows
 - Dedup news within a single fetch run, not just against the DB
 - Require API key on cron endpoints that were unauthenticated
 - Resolve Tailwind v4 @theme spacing collision breaking max-w utilities
@@ -148,6 +133,18 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Bump the astro group across 1 directory with 2 updates (#120)
+- Fix theft-stat accuracy and add TypeSafe news screening
+
+Charts were double-counting overlapping data sources (~36k phantom
+thefts), under/overstating YoY and seasonal figures, and publishing an
+incorrect Westminster hotspot count. News imports now optionally use
+TypeSafe semantic judgments with keyword fallback and draft review for
+uncertain articles. Synthetic seed data removed from prod.
+
+Generated with [Devin](https://devin.ai)
+
+Co-Authored-By: Devin <158243242+devin-ai-integration[bot]@users.noreply.github.com>
 - Show full headline on homepage news cards
 
 Clipping the title meant readers couldn't judge the story before
@@ -1741,6 +1738,8 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
