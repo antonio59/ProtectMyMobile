@@ -99,7 +99,7 @@
     "stylelint-config-standard": "^37.0.0",
     "tsx": "^4.23.13",
     "typescript": "^5.9.3",
-    "wrangler": "^4.131.2"
+    "wrangler": "^4.135.0"
   },
   "trustedDependencies": [
     "@parcel/watcher",
