@@ -133,6 +133,9 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Bump the dev-dependencies group across 1 directory with 2 updates (#128)
+- Bump convex in the convex group across 1 directory (#122)
+- Bump resend from 6.28.0 to 6.28.1 (#124)
 - Bump tailwind-merge from 3.6.0 to 3.7.0 (#125)
 - Bump the astro group across 1 directory with 2 updates (#120)
 - Fix theft-stat accuracy and add TypeSafe news screening
@@ -1739,6 +1742,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
