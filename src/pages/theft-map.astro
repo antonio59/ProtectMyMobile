@@ -263,7 +263,7 @@ function reportDate(r: { theftDate?: string; createdAt: number }) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               path: 'theftDataPoints:list',
-              args: {},
+              args: { source: 'police.uk API' },
             }),
           }),
         ]);

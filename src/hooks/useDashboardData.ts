@@ -16,6 +16,7 @@ export type LocationRanking = {
   years: Record<string, number>;
   latestYear: string;
   yoyChange: number | null;
+  monthsCompared: number;
 };
 
 export type YoYData = {
@@ -28,6 +29,7 @@ export type SeasonalData = {
   months: string[];
   averages: number[];
   totals: number[];
+  yearsPerMonth: number[];
 };
 
 export type SourceBreakdown = Array<{ name: string; records: number; thefts: number }>;
@@ -41,6 +43,7 @@ type DashboardData = {
   stats: {
     totalRecords: number;
     totalThefts: number;
+    theftsBySource: Record<string, number>;
     bySource: Record<string, number>;
     topLocations: Array<[string, number]>;
     dateRange: { earliest: string | null; latest: string | null };
@@ -72,7 +75,7 @@ export function useDashboardData() {
     try {
       const client = new ConvexHttpClient(url);
       const [trends, rankings, yoy, seasonal, sources, stats] = await Promise.all([
-        client.query(api.theftDataPoints.getMonthlyTrends, { topN: 8 }),
+        client.query(api.theftDataPoints.getMonthlyTrends, { topN: 8, source: 'police.uk API' }),
         client.query(api.theftDataPoints.getLocationRankings, { topN: 10, source: 'police.uk API' }),
         client.query(api.theftDataPoints.getYearOverYearComparison, { source: 'police.uk API' }),
         client.query(api.theftDataPoints.getSeasonalPatterns, { source: 'police.uk API' }),

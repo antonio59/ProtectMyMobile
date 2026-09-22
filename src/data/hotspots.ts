@@ -6,6 +6,9 @@
  *
  * Rendered by /statistics, /the-problem and the London borough pages under
  * /[location]. Update the numbers here and every page follows.
+ *
+ * Verified against the live database by scripts/verify-statistics.ts
+ * (run `npx tsx scripts/verify-statistics.ts`).
  */
 
 export type HotspotRisk = 'Extreme' | 'Very High' | 'High';
@@ -43,7 +46,7 @@ export const hotspotsSource = source;
 export const londonHotspots: LondonHotspot[] = [
   {
     borough: 'Westminster',
-    thefts: 16639,
+    thefts: 7435,
     year: 'Jul 2025 - Jun 2026',
     ...source,
     description: 'Tourist areas, West End, transport hubs',

@@ -124,7 +124,7 @@ function ChartErrorState({ error, hasData, onRetry }: { error: string | null; ha
       <p className="text-sm text-muted-foreground max-w-md mx-auto mb-4">
         {error
           ? 'There was a problem loading the theft trends data. Please try again.'
-          : 'Monthly theft trends will appear here once data has been imported from police.uk. The data is automatically refreshed weekly.'
+          : 'Monthly theft trends will appear here once data has been imported from police.uk. The data is automatically refreshed daily.'
         }
       </p>
       {(error || !hasData) && (
@@ -176,7 +176,7 @@ export default function TheftTrendsChart() {
     }
     try {
       const client = new ConvexHttpClient(url);
-      const result = await client.query(api.theftDataPoints.getMonthlyTrends, { topN: 6 });
+      const result = await client.query(api.theftDataPoints.getMonthlyTrends, { topN: 6, source: 'police.uk API' });
       if (!cancelled) { setData(result); setLoading(false); }
     } catch (e: any) {
       if (!cancelled) { setError(e.message || 'Unable to load trends data'); setLoading(false); }
