@@ -21,7 +21,7 @@ const MIN_EDITORIAL = 1.5;
 /** Semantic dedup: same-story probability that counts as a duplicate. */
 const SAME_STORY_THRESHOLD = 0.6;
 
-export interface ArticleVerdict {
+interface ArticleVerdict {
   shouldImport: boolean;
   /** Hold as a draft for admin review instead of auto-publishing. */
   holdForReview: boolean;
