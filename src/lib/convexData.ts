@@ -47,9 +47,9 @@ export async function checkHasVoted(sessionId: string) {
 }
 
 // Monthly Trends for charts
-export async function getMonthlyTrends(topN?: number, startYear?: string, endYear?: string) {
+export async function getMonthlyTrends(topN?: number, startYear?: string, endYear?: string, source?: string) {
   if (!convexClient) return { months: [], locations: [], data: [] };
-  return await convexClient.query(api.theftDataPoints.getMonthlyTrends, { topN, startYear, endYear });
+  return await convexClient.query(api.theftDataPoints.getMonthlyTrends, { topN, startYear, endYear, source });
 }
 
 // Theft stats summary

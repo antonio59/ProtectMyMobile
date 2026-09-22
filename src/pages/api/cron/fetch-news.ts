@@ -7,8 +7,10 @@ import { fetchFeed } from "../../../lib/news/fetcher";
 import { calculateRelevanceScore } from "../../../lib/news/scorer";
 import { categorizeArticle } from "../../../lib/news/categorizer";
 import { stripHtml, extractExcerpt, scrapeArticleContent } from "../../../lib/news/scraper";
-import { generateSlug, isDuplicateTitle } from "../../../lib/news/dedup";
+import { generateSlug, isDuplicateTitle, titleSimilarity } from "../../../lib/news/dedup";
 import { sendNewArticlesEmail, triggerBuildHook } from "../../../lib/news/notifier";
+import { createJudge, type NewsJudge } from "../../../lib/news/judge";
+import type { ArticleCategory } from "../../../lib/news/categorizer";
 import type { FeedResult } from "../../../lib/news/types";
 
 const convexUrl = import.meta.env.PUBLIC_CONVEX_URL;
@@ -39,18 +41,46 @@ function processFeeds(feedResults: FeedResult[]) {
   return { allItems, sourcesFetched, sourcesFailed };
 }
 
-function filterAndScoreArticles(
+interface ScoredArticle {
+  item: any;
+  relevanceScore: number;
+  relevanceReason: string;
+  /** Judged category overrides the keyword categorizer when present. */
+  category?: ArticleCategory;
+  holdForReview?: boolean;
+}
+
+// Cap TypeSafe calls per run so a feed flood can't blow the budget; anything
+// past the cap falls back to the keyword scorer.
+const MAX_JUDGED_ARTICLES = 40;
+const MAX_SAME_STORY_CHECKS = 10;
+// Title-similarity band where a semantic same-story check is worthwhile.
+const BORDERLINE_SIMILARITY = 0.3;
+
+function mostSimilarTitle(title: string, titles: string[]): { title: string; similarity: number } | null {
+  let best: { title: string; similarity: number } | null = null;
+  for (const t of titles) {
+    const s = titleSimilarity(title, t);
+    if (!best || s > best.similarity) best = { title: t, similarity: s };
+  }
+  return best;
+}
+
+async function filterAndScoreArticles(
   items: any[],
   existingUrls: Set<string>,
   existingTitles: string[],
+  judge: NewsJudge | null,
 ) {
-  const newArticles: Array<{ item: any; relevanceScore: number; relevanceReason: string }> = [];
+  const newArticles: ScoredArticle[] = [];
   const rejectedArticles: Array<{ title: string; score: number; reason: string }> = [];
   const seenGuids = new Set<string>();
   // Seed with the existing DB titles, then grow as we accept articles so that
   // same-story rewrites arriving from different feeds in this run dedup against
   // each other — not just against what's already stored.
   const seenTitles = [...existingTitles];
+  let judged = 0;
+  let sameStoryChecks = 0;
 
   for (const item of items) {
     if (!item.link || !item.title) continue;
@@ -59,25 +89,72 @@ function filterAndScoreArticles(
     if (isDuplicateTitle(item.title, seenTitles)) continue;
 
     const snippet = stripHtml(item.contentSnippet || item.content || "");
-    const { score, shouldImport, reason } = calculateRelevanceScore(
-      item.title,
-      snippet,
-      item.link,
-      feedSourceName(item),
-    );
+    let score: number;
+    let shouldImport: boolean;
+    let reason: string;
+    let category: ArticleCategory | undefined;
+    let holdForReview = false;
+
+    if (judge && judged < MAX_JUDGED_ARTICLES) {
+      // Borderline dedup: token-similar but below the auto-dup threshold —
+      // ask whether it's the same story before spending a full judgment.
+      const near = mostSimilarTitle(item.title, seenTitles);
+      if (near && near.similarity >= BORDERLINE_SIMILARITY && sameStoryChecks < MAX_SAME_STORY_CHECKS) {
+        sameStoryChecks++;
+        try {
+          const p = await judge.sameStory(item.title, near.title);
+          if (p >= judge.SAME_STORY_THRESHOLD) {
+            rejectedArticles.push({
+              title: item.title.substring(0, 60) + "...",
+              score: 0,
+              reason: `Same story as "${near.title.substring(0, 50)}" (p=${p.toFixed(2)})`,
+            });
+            continue;
+          }
+        } catch (err: any) {
+          logMessage("warning", "sameStory check failed; continuing", err.message);
+        }
+      }
+
+      judged++;
+      try {
+        const verdict = await judge.judgeArticle({
+          title: item.title,
+          excerpt: snippet,
+          sourceUrl: item.link,
+          sourceName: feedSourceName(item),
+        });
+        shouldImport = verdict.shouldImport;
+        score = verdict.relevanceScore;
+        reason = verdict.reason;
+        category = verdict.category;
+        holdForReview = verdict.holdForReview;
+      } catch (err: any) {
+        logMessage("warning", "TypeSafe judgment failed; using keyword fallback", err.message);
+        const kw = calculateRelevanceScore(item.title, snippet, item.link, feedSourceName(item));
+        shouldImport = kw.shouldImport;
+        score = kw.score;
+        reason = `keywords (fallback): ${kw.reason}`;
+      }
+    } else {
+      const kw = calculateRelevanceScore(item.title, snippet, item.link, feedSourceName(item));
+      shouldImport = kw.shouldImport;
+      score = kw.score;
+      reason = kw.reason;
+    }
 
     if (shouldImport) {
       if (item.guid) seenGuids.add(item.guid);
       seenTitles.push(item.title);
-      newArticles.push({ item, relevanceScore: score, relevanceReason: reason });
-      logMessage("info", `Article passed relevance check (score: ${score})`, `"${item.title.substring(0, 60)}..." - ${reason}`);
+      newArticles.push({ item, relevanceScore: score, relevanceReason: reason, category, holdForReview });
+      logMessage("info", `Article passed relevance check (score: ${score}${holdForReview ? ", held for review" : ""})`, `"${item.title.substring(0, 60)}..." - ${reason}`);
     } else {
       rejectedArticles.push({ title: item.title.substring(0, 60) + "...", score, reason });
     }
   }
 
   newArticles.sort((a, b) => b.relevanceScore - a.relevanceScore);
-  return { newArticles, rejectedArticles };
+  return { newArticles, rejectedArticles, judged };
 }
 
 /**
@@ -109,12 +186,13 @@ async function createPost(
   existingSlugs: Set<string>,
   convex: ConvexHttpClient,
   locals: unknown,
+  verdict?: { category?: ArticleCategory; holdForReview?: boolean },
 ) {
   const slug = generateSlug(article.title!);
   if (existingSlugs.has(slug)) return null;
 
   const cleanSnippet = stripHtml(article.contentSnippet || article.content || "");
-  const category = categorizeArticle(article.title!, cleanSnippet);
+  const category = verdict?.category ?? categorizeArticle(article.title!, cleanSnippet);
 
   let finalContent = "";
   let featuredImageUrl: string | null = null;
@@ -156,7 +234,7 @@ async function createPost(
     sourceUrl: article.link,
     sourceName: feedSourceName(article) || "News Feed",
     featuredImageUrl: featuredImageUrl || undefined,
-    published: true,
+    published: !verdict?.holdForReview,
   });
 
   return newPostId
@@ -167,6 +245,7 @@ async function createPost(
         sourceName: feedSourceName(article) || "News Feed",
         category,
         relevanceScore,
+        heldForReview: !!verdict?.holdForReview,
       }
     : null;
 }
@@ -221,14 +300,21 @@ export const GET: APIRoute = async ({ request, locals }) => {
       );
     }
 
-    const { newArticles, rejectedArticles } = filterAndScoreArticles(allItems, existingUrls, existingTitles);
-    logMessage("info", `Filtered ${allItems.length} items to ${newArticles.length} relevant articles (score >= 45)`);
+    const judge = createJudge(getSecret(locals, "TYPESAFE_API_KEY"));
+    logMessage("info", judge ? "Using TypeSafe judgments for relevance/categories" : "TYPESAFE_API_KEY not set; using keyword heuristics");
+
+    const { newArticles, rejectedArticles, judged } = await filterAndScoreArticles(allItems, existingUrls, existingTitles, judge);
+    logMessage("info", `Filtered ${allItems.length} items to ${newArticles.length} relevant articles (${judged} TypeSafe-judged)`);
 
     const createdPosts = [];
-    for (const { item, relevanceScore } of newArticles.slice(0, 5)) {
+    for (const { item, relevanceScore, category, holdForReview } of newArticles.slice(0, 5)) {
       try {
-        const post = await createPost(item, relevanceScore, existingSlugs, convex, locals);
-        if (post) createdPosts.push(post);
+        const slug = generateSlug(item.title!);
+        const post = await createPost(item, relevanceScore, existingSlugs, convex, locals, { category, holdForReview });
+        if (post) {
+          existingSlugs.add(slug);
+          createdPosts.push(post);
+        }
       } catch (err: any) {
         logMessage("error", `Failed to create post: ${item.title}`, err.message);
       }
@@ -236,7 +322,10 @@ export const GET: APIRoute = async ({ request, locals }) => {
 
     if (createdPosts.length > 0) {
       await sendNewArticlesEmail(getEnv(locals), createdPosts, sourcesFetched, sourcesFailed, rejectedArticles);
-      triggerBuildHook(getEnv(locals));
+      // Drafts held for review don't change the public site — no rebuild needed.
+      if (createdPosts.some((p) => !p.heldForReview)) {
+        triggerBuildHook(getEnv(locals));
+      }
     }
 
     logMessage(
@@ -252,6 +341,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
         totalFound: allItems.length,
         newArticles: newArticles.length,
         rejectedArticles: rejectedArticles.length,
+        judgedByTypeSafe: judged,
         createdPosts: createdPosts.length,
         sourcesFetched,
         sourcesFailed,

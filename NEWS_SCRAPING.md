@@ -17,6 +17,17 @@ The scraper fetches from multiple RSS feeds with priority-based fallback:
 
 ### Content Filtering
 
+**AI judgment layer (TypeSafe):** when `TYPESAFE_API_KEY` is set, each candidate
+article gets one `systemOne` call (`src/lib/news/judge.ts`) asking four parallel
+questions: is it about phone theft (Noul), is it about the UK (Noul), which
+category fits (Choice over the six categories), and how useful is it to a UK
+reader (Score 0–4). Articles pass when both Nouls are ≥ 0.5 and the editorial
+score ≥ 1.5. Uncertain answers (probability in 0.35–0.65 or low confidence) are
+imported as **drafts** for admin review rather than auto-published. Headline
+pairs in the 0.3–0.6 token-similarity band get a semantic same-story check
+before import. If the key is unset or a call fails, the pipeline falls back to
+the keyword heuristics below.
+
 **Relevant Keywords:**
 
 - phone, mobile, smartphone, device, handset, iphone, android, samsung, snatch

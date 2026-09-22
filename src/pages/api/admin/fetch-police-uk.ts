@@ -160,7 +160,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
 
     const existing = await convex.query(api.theftDataPoints.list, {
       startDate: `${startMonth}-01`,
-      endDate: `${endMonth}-28`
+      endDate: `${endMonth}-31`
     });
 
     const newDataPoints = dataPoints.filter(dp => {

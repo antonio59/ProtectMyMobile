@@ -85,7 +85,7 @@ export default function StatisticsDashboard() {
   return (
     <div className="space-y-4 sm:space-y-6">
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <StatCard label="Total Thefts Tracked" value={stats?.totalThefts.toLocaleString() || '0'} subtext="Across all data sources" icon={BarChart3} color="blue" />
+        <StatCard label="Recorded Thefts" value={(stats?.theftsBySource?.['police.uk API'] ?? stats?.totalThefts ?? 0).toLocaleString()} subtext="police.uk theft-from-the-person" icon={BarChart3} color="blue" />
         <StatCard label="Live Data Points" value={stats?.bySource['police.uk API']?.toLocaleString() || '0'} subtext="From police.uk API" icon={MapPin} color="red" />
         <StatCard label="Locations Monitored" value={stats?.uniqueLocations.toLocaleString() || '0'} subtext="UK cities & boroughs" icon={TrendingUp} color="green" />
         <StatCard label="Latest Data" value={latestMonth} subtext={dateRangeText} icon={Calendar} color="purple" />

@@ -36,7 +36,7 @@ export async function sendNewArticlesEmail(
             <li>
               <strong>${escapeHtml(p.title)}</strong><br>
               <span style="font-size: 0.8em; color: #666;">
-                ${escapeHtml(p.sourceName)} • ${escapeHtml(p.category)} • Relevance: ${escapeHtml(p.relevanceScore)}/100
+                ${escapeHtml(p.sourceName)} • ${escapeHtml(p.category)} • Relevance: ${escapeHtml(p.relevanceScore)}/100${p.heldForReview ? " • HELD FOR REVIEW (draft)" : ""}
               </span><br>
               <a href="${safeUrl(p.sourceUrl)}">Original Link</a>
             </li>
