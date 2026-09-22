@@ -110,6 +110,11 @@ curl -X GET \
 - Sets dataSource: "police.uk API"
 - Stores date as YYYY-MM-01 for consistency
 
+### 5. Source Separation
+- All frontend queries pass `source: "police.uk API"` — multiple sources in `theftDataPoints` must never be summed together
+- The synthetic seed sources (`Met Police 2024`, `Home Office Est.`) were removed from production via `scripts/delete-seed-data.ts`; `deleteBySource` refuses to delete `police.uk API`
+- `scripts/verify-statistics.ts` recomputes every published figure from the live DB — run it after imports
+
 ## Locations Covered
 
 24 UK cities/boroughs:

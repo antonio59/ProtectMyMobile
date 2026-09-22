@@ -38,7 +38,7 @@ try {
 }
 
 try {
-  trendsData = await getMonthlyTrends(6);
+  trendsData = await getMonthlyTrends(6, undefined, undefined, 'police.uk API');
 } catch (e: unknown) {
   console.error('Error fetching trends:', e);
 }

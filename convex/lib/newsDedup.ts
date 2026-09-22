@@ -74,6 +74,24 @@ export function titlesAreSimilar(a: string, b: string): boolean {
   return jaccard >= SIMILARITY_THRESHOLD || containment >= CONTAINMENT_THRESHOLD;
 }
 
+/**
+ * Jaccard similarity (0–1) over significant title tokens. Lets callers route
+ * borderline pairs — similar enough to suspect, below the auto-dup threshold —
+ * to a semantic same-story check.
+ */
+export function titleSimilarity(a: string, b: string): number {
+  const tokensA = tokenizeTitle(a);
+  const tokensB = tokenizeTitle(b);
+  if (tokensA.size === 0 || tokensB.size === 0) return 0;
+
+  let shared = 0;
+  for (const token of tokensA) {
+    if (tokensB.has(token)) shared++;
+  }
+  const union = tokensA.size + tokensB.size - shared;
+  return union === 0 ? 0 : shared / union;
+}
+
 export function isDuplicateTitle(title: string, existingTitles: string[]): boolean {
   const normalized = normalizeTitle(title);
   if (!normalized || normalized.length < 10) return false;
