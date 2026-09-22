@@ -24,7 +24,7 @@ export const COMPARISON_WINDOW = {
   previousEnd: '2025-06-30',
 };
 
-export interface CityComparisonEntry {
+interface CityComparisonEntry {
   /** Display name. */
   city: string;
   /** theftDataPoints.locationName used for verification lookups. */
@@ -49,7 +49,7 @@ const entries: CityComparisonEntry[] = [
 ];
 
 /** "+12.3% YoY" / "-4.0% YoY" — computed, so the figure can never drift from the counts. */
-export function formatYoY(current: number, previous: number): string {
+function formatYoY(current: number, previous: number): string {
   if (previous <= 0) return 'n/a';
   const pct = ((current - previous) / previous) * 100;
   return `${pct > 0 ? '+' : ''}${pct.toFixed(1)}% YoY`;
