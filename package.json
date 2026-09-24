@@ -21,7 +21,8 @@
     "design:export": "npx @google/design.md export --format tailwind DESIGN.md > src/styles/design-tokens.json",
     "design:export-dtcg": "npx @google/design.md export --format dtcg DESIGN.md > src/styles/design-tokens-dtcg.json",
     "cf-typegen": "wrangler types",
-    "deploy": "pnpm run build && wrangler deploy"
+    "deploy": "pnpm run build && wrangler deploy",
+    "pins:generate": "tsx scripts/generate-pins.ts"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^14.3.2",
