@@ -1,4 +1,6 @@
 ---
+import '@fontsource-variable/archivo';
+import '@fontsource-variable/newsreader/opsz.css';
 import '../styles/global.css';
 
 interface Props {
@@ -46,9 +48,6 @@ const icons: Record<string, string> = {
     {description && <meta name="description" content={description} />}
     <meta name="robots" content="noindex, nofollow" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
   </head>
   <body class="bg-neutral-100 min-h-screen">
     <!-- Mobile Header -->

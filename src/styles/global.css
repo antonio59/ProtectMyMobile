@@ -71,8 +71,8 @@
   --color-ring: #c8322b;
 
   /* Font families */
-  --font-sans: "Archivo", ui-sans-serif, system-ui, -apple-system, blinkmacsystemfont, "Segoe UI", "Helvetica Neue", arial, sans-serif;
-  --font-serif: "Newsreader", georgia, "Times New Roman", serif;
+  --font-sans: "Archivo Variable", "Archivo", ui-sans-serif, system-ui, -apple-system, blinkmacsystemfont, "Segoe UI", "Helvetica Neue", arial, sans-serif;
+  --font-serif: "Newsreader Variable", "Newsreader", georgia, "Times New Roman", serif;
 
   /* Typography scale — design system tokens */
   --text-h1: 1.875rem;

@@ -1,4 +1,8 @@
 ---
+// Self-hosted fonts (bundled by Vite, served from our own origin). Google
+// Fonts was blocked by our CSP and would send visitor IPs to Google.
+import '@fontsource-variable/archivo';
+import '@fontsource-variable/newsreader/opsz.css';
 import '../styles/global.css';
 import CookieConsent from '../components/CookieConsent.astro';
 import { normalizeGoogleSiteVerification } from '@/lib/googleSiteVerification';
@@ -154,13 +158,7 @@ const googleSiteVerification = normalizeGoogleSiteVerification(
         // Default is light — no class needed
       })();
     </script>
-    
-    <!-- Preconnect for performance -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,700&family=Archivo:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'" />
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,700&family=Archivo:wght@400;500;600;700&display=swap" /></noscript>
-    
+
     <!-- Initialize Convex URL for analytics -->
     <script is:inline define:vars={{ convexUrl: import.meta.env.PUBLIC_CONVEX_URL || '' }}>
       window.__CONVEX_URL = convexUrl;
