@@ -10,8 +10,12 @@
  * Outputs:
  *   public/pins/<set-id>-<part>.jpg   pin images (served from the site so
  *                                     Pinterest can fetch them by URL)
- *   scripts/pinterest/pins.json       manifest: copy, links, board, schedule
- *   scripts/pinterest/pins.csv        Pinterest "bulk create Pins" upload
+ *   src/data/pinterest-pins.json      manifest: copy, links, feed, schedule
+ *
+ * The manifest drives the RSS feeds at /pinterest/<feed>.xml, one per board.
+ * Each feed only lists pins whose publishAt has passed, so connecting the
+ * feeds in Pinterest (Settings → Create Pins in bulk → Connect RSS feed)
+ * drips out one pin a day with nothing to upload.
  *
  * JPEG conversion uses macOS `sips`; elsewhere the PNG is kept instead.
  * Fonts in scripts/pin-fonts are static TTF copies of the site's Archivo and
@@ -19,7 +23,7 @@
  */
 import { Resvg } from '@resvg/resvg-js';
 import { execFileSync } from 'node:child_process';
-import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { safetySlideSets, type SafetySlideSet } from '../src/data/scenarios';
 
@@ -27,10 +31,12 @@ const SITE = 'https://protectmymobile.org';
 const ROOT = join(import.meta.dirname, '..');
 const FONT_DIR = join(ROOT, 'scripts/pin-fonts');
 const OUT_IMG = join(ROOT, 'public/pins');
-const OUT_DATA = join(ROOT, 'scripts/pinterest');
+const OUT_MANIFEST = join(ROOT, 'src/data/pinterest-pins.json');
 
-// First pin goes out on this day; one pin per day at 19:00 UK time (BST).
-const SCHEDULE_START = '2026-09-26';
+// One pin per day at 19:00 UK time (BST). Backdated so the first four pins
+// (one per feed at least) are already due when the feeds are first
+// connected; Pinterest can reject a feed that has no items yet.
+const SCHEDULE_START = '2026-09-21';
 const SCHEDULE_UTC_TIME = '18:00:00';
 
 const W = 1000;
@@ -42,19 +48,20 @@ const MUTED = '#5b5549';
 const SERIF = 'Newsreader 16pt 16pt';
 const SANS = 'Archivo';
 
-const BOARDS: Record<string, string> = {
-  'moped-snatch': 'Phone Theft Prevention Tips',
-  'street-safety': 'Phone Theft Prevention Tips',
-  'bump-and-grab': 'Phone Theft Prevention Tips',
-  'map-trick': 'Phone Theft Prevention Tips',
-  'public-transport': 'London Travel Safety Tips',
-  'park-safety': 'London Travel Safety Tips',
-  'cafe-safety': 'London Travel Safety Tips',
-  nightlife: 'Nightlife Safety Tips',
+// Feed slug per set. Each feed is connected to one board in Pinterest:
+//   prevention → Phone Theft Prevention Tips
+//   travel     → London Travel Safety Tips
+//   nightlife  → Nightlife Safety Tips
+const FEEDS: Record<string, string> = {
+  'moped-snatch': 'prevention',
+  'street-safety': 'prevention',
+  'bump-and-grab': 'prevention',
+  'map-trick': 'prevention',
+  'public-transport': 'travel',
+  'park-safety': 'travel',
+  'cafe-safety': 'travel',
+  nightlife: 'nightlife',
 };
-
-const KEYWORDS =
-  'phone theft, phone snatching, stolen phone, London safety, travel safety tips, UK safety';
 
 interface Pin {
   file: string;
@@ -67,7 +74,8 @@ interface Pin {
   altText: string;
   link: string;
   mediaUrl: string;
-  board: string;
+  bytes: number;
+  feed: string;
   publishAt: string;
 }
 
@@ -197,20 +205,12 @@ function toJpeg(png: Buffer, outBase: string): string {
   }
 }
 
-// Match Pinterest's sample file exactly: quote only when needed, CRLF line
-// endings, no trailing newline. An always-quoted empty Thumbnail ("") and
-// LF endings got the whole upload rejected.
-function csvCell(value: string): string {
-  return /[",\r\n]/.test(value) ? `"${value.replace(/"/g, '""')}"` : value;
-}
-
 function main(): void {
   const fontFiles = readdirSync(FONT_DIR)
     .filter((f) => f.endsWith('.ttf'))
     .map((f) => join(FONT_DIR, f));
   if (existsSync(OUT_IMG)) rmSync(OUT_IMG, { recursive: true });
   mkdirSync(OUT_IMG, { recursive: true });
-  mkdirSync(OUT_DATA, { recursive: true });
 
   // Render every pin, grouped by set.
   const bySet = safetySlideSets.map((set) => {
@@ -225,7 +225,9 @@ function main(): void {
         .asPng();
       const written = toJpeg(Buffer.from(png), join(OUT_IMG, `${set.id}-${part}`));
       const file = written.split('/').pop()!;
-      const link = `${SITE}/slides/${set.id}?utm_source=pinterest&utm_medium=social&utm_campaign=${set.id}`;
+      // utm_content keeps each pin's link unique, so Pinterest doesn't treat
+      // the parts of one set as duplicates of the same page.
+      const link = `${SITE}/slides/${set.id}?utm_source=pinterest&utm_medium=social&utm_campaign=${set.id}&utm_content=part-${part}`;
       console.log(`  ${file}`);
       return {
         file,
@@ -236,7 +238,8 @@ function main(): void {
         ...pinCopy(set, part, pairs.length),
         link,
         mediaUrl: `${SITE}/pins/${file}`,
-        board: BOARDS[set.id] ?? 'Phone Theft Prevention Tips',
+        bytes: statSync(written).size,
+        feed: FEEDS[set.id] ?? 'prevention',
       };
     });
   });
@@ -251,12 +254,7 @@ function main(): void {
     publishAt: new Date(start.getTime() + day * 86_400_000).toISOString().slice(0, 19),
   }));
 
-  writeFileSync(join(OUT_DATA, 'pins.json'), `${JSON.stringify(pins, null, 2)}\n`);
-  const header = ['Title', 'Media URL', 'Pinterest board', 'Thumbnail', 'Description', 'Link', 'Publish date', 'Keywords'];
-  const rows = pins.map((p) =>
-    [p.title, p.mediaUrl, p.board, '', p.description, p.link, p.publishAt, KEYWORDS].map(csvCell).join(','),
-  );
-  writeFileSync(join(OUT_DATA, 'pins.csv'), [header.join(','), ...rows].join('\r\n'));
+  writeFileSync(OUT_MANIFEST, `${JSON.stringify(pins, null, 2)}\n`);
 
   console.log(`\n${pins.length} pins, ${pins[0].publishAt} → ${pins[pins.length - 1].publishAt} (UTC)`);
 }
