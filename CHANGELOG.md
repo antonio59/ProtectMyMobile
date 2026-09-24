@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 
 ### Bug Fixes
 
+- Self-host Archivo and Newsreader fonts
 - **security**: Bump devalue to >=5.9.2 (#126)
 - Dedup news within a single fetch run, not just against the DB
 - Require API key on cron endpoints that were unauthenticated
@@ -133,6 +134,9 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Revert "feat: add Plausible analytics (cookieless) and update privacy policy"
+
+This reverts commit 560c236034935aea64452af5a1bff6d671cd802d.
 - Bump the dev-dependencies group across 1 directory with 2 updates (#128)
 - Bump convex in the convex group across 1 directory (#122)
 - Bump resend from 6.28.0 to 6.28.1 (#124)
@@ -1742,6 +1746,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
