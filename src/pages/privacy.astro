@@ -110,11 +110,12 @@ import { Shield, Eye, Lock, Database, Mail, Cookie, Scale, Clock, Globe, UserChe
 
               <div>
                 <h3 class="font-semibold mb-1.5">Site analytics</h3>
-                <p>The site keeps its own simple usage log. When you view certain pages or use certain features &mdash; including landing on a page that does not exist &mdash; a record is written to my own database containing the page path or address, your browser's user agent string, the page that referred you, and a random session identifier. There are no analytics cookies and no third-party trackers of any kind: nothing is sent to Google Analytics, advertising networks or similar services.</p>
+                <p>The site keeps its own simple usage log. When you view certain pages or use certain features &mdash; including landing on a page that does not exist &mdash; a record is written to my own database containing the page path or address, your browser's user agent string, the page that referred you, and a random session identifier.</p>
+                <p class="mt-1.5">I also use <a href="https://plausible.io/data-policy" class="text-primary hover:underline" target="_blank" rel="noopener noreferrer">Plausible Analytics</a> to count visits. Plausible sets no cookies and does not store your IP address or anything that identifies you. It records the page you viewed, the site that referred you, any campaign tag in the link (for example <code>utm_source=pinterest</code>), your browser, operating system and device type, your rough location (country, region and city, worked out from your IP address, which is then discarded), and links you click that lead to other websites. Unique visitors are counted using a scrambled code that changes every 24 hours, so you cannot be followed from one day to the next or across other sites. Nothing is sent to Google Analytics, advertising networks or similar services.</p>
                 <ul class="list-disc pl-6 space-y-1 mt-1.5">
-                  <li><strong>Why:</strong> to see which guides people actually use, and to find broken links and missing pages.</li>
+                  <li><strong>Why:</strong> to see which guides people actually use, where visitors come from, and to find broken links and missing pages.</li>
                   <li><strong>Lawful basis:</strong> legitimate interests &mdash; running and fixing my own site, using the smallest amount of data I can.</li>
-                  <li><strong>Retention:</strong> kept for up to 12 months, then deleted.</li>
+                  <li><strong>Retention:</strong> my own log is kept for up to 12 months, then deleted. Plausible keeps only aggregated, anonymous statistics.</li>
                 </ul>
               </div>
 
@@ -178,11 +179,12 @@ import { Shield, Eye, Lock, Database, Mail, Cookie, Scale, Clock, Globe, UserChe
               </div>
               <h2 class="text-base sm:text-lg font-bold">Who Else Handles Your Data</h2>
             </div>
-            <p class="text-foreground text-xs sm:text-sm mb-3">I use three suppliers, each acting as a processor on my instructions:</p>
+            <p class="text-foreground text-xs sm:text-sm mb-3">I use four suppliers, each acting as a processor on my instructions:</p>
             <ul class="list-disc pl-6 space-y-1.5 text-foreground text-xs sm:text-sm">
               <li><strong>Convex</strong> &mdash; the database and backend that stores contact messages, survey responses, reports and analytics records.</li>
               <li><strong>Cloudflare</strong> &mdash; website hosting and the serverless functions that handle form submissions and scheduled tasks. Cloudflare keeps its own short-lived server logs.</li>
               <li><strong>Resend</strong> &mdash; email delivery, used to send replies and notifications.</li>
+              <li><strong>Plausible Analytics</strong> &mdash; cookieless visitor statistics, as described under Site analytics above.</li>
             </ul>
           </section>
 
@@ -196,10 +198,13 @@ import { Shield, Eye, Lock, Database, Mail, Cookie, Scale, Clock, Globe, UserChe
             </div>
             <div class="space-y-3 text-foreground text-xs sm:text-sm">
               <p>
-                All three suppliers are United States companies, so personal data handled by them is processed outside the UK. Convex stores its data in the United States (it runs on AWS infrastructure there). Cloudflare processes requests at its global edge network, including UK and EU points of presence, with logs held in the US. Resend processes email in the US.
+                Convex, Cloudflare and Resend are United States companies, so personal data handled by them is processed outside the UK. Convex stores its data in the United States (it runs on AWS infrastructure there). Cloudflare processes requests at its global edge network, including UK and EU points of presence, with logs held in the US. Resend processes email in the US.
               </p>
               <p>
-                Each supplier offers a data processing agreement incorporating the UK Addendum to the European Commission's Standard Contractual Clauses (or the equivalent UK International Data Transfer Agreement), which is the safeguard I rely on for these transfers. Cloudflare is additionally certified under the UK Extension to the EU&ndash;US Data Privacy Framework.
+                Each of the three US suppliers offers a data processing agreement incorporating the UK Addendum to the European Commission's Standard Contractual Clauses (or the equivalent UK International Data Transfer Agreement), which is the safeguard I rely on for these transfers. Cloudflare is additionally certified under the UK Extension to the EU&ndash;US Data Privacy Framework.
+              </p>
+              <p>
+                Plausible is an EU company and processes and stores its data in the European Union. The UK recognises the EU as providing adequate protection for personal data, so no extra safeguard is needed for Plausible.
               </p>
             </div>
           </section>

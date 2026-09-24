@@ -2,7 +2,7 @@
 import '../styles/global.css';
 import CookieConsent from '../components/CookieConsent.astro';
 import { normalizeGoogleSiteVerification } from '@/lib/googleSiteVerification';
-import { SITE_URL } from '../lib/site';
+import { SITE_URL, SITE_HOST } from '../lib/site';
 
 interface Props {
   title: string;
@@ -68,6 +68,12 @@ const schemas = [defaultSchema, websiteSchema, ...additionalSchemas];
 const googleSiteVerification = normalizeGoogleSiteVerification(
   import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION,
 );
+
+// Plausible: cookieless, no personal data stored. Production builds only so
+// local and dev visits don't pollute the stats.
+const plausibleDomain = import.meta.env.PROD
+  ? import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN || SITE_HOST
+  : null;
 ---
 
 <!DOCTYPE html>
@@ -165,6 +171,16 @@ const googleSiteVerification = normalizeGoogleSiteVerification(
     <script is:inline define:vars={{ convexUrl: import.meta.env.PUBLIC_CONVEX_URL || '' }}>
       window.__CONVEX_URL = convexUrl;
     </script>
+
+    <!-- Plausible analytics (outbound-links variant tracks clicks to external sites) -->
+    {plausibleDomain && (
+      <script
+        is:inline
+        defer
+        data-domain={plausibleDomain}
+        src="https://plausible.io/js/script.outbound-links.js"
+      ></script>
+    )}
   </head>
   <body class="bg-background text-foreground">
     <slot />

@@ -37,7 +37,7 @@ const SECURITY_HEADERS: Record<string, string> = {
   'Referrer-Policy': 'strict-origin-when-cross-origin',
   'Permissions-Policy': 'camera=(), microphone=(), geolocation=(), payment=()',
   'Content-Security-Policy':
-    "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://giddy-civet-983.convex.cloud https://unpkg.com; style-src 'self' 'unsafe-inline' https://unpkg.com; img-src 'self' data: https: blob: https://*.tile.openstreetmap.org; font-src 'self' data:; connect-src 'self' https://giddy-civet-983.convex.cloud https://api.resend.com wss://giddy-civet-983.convex.cloud; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+    "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://giddy-civet-983.convex.cloud https://unpkg.com https://plausible.io; style-src 'self' 'unsafe-inline' https://unpkg.com; img-src 'self' data: https: blob: https://*.tile.openstreetmap.org; font-src 'self' data:; connect-src 'self' https://giddy-civet-983.convex.cloud https://api.resend.com wss://giddy-civet-983.convex.cloud https://plausible.io; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
   'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
 };
 
