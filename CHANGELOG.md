@@ -1946,10 +1946,12 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
+- Update changelog [skip ci]
 - Add UI/UX review documentation and misc updates
 
 ### Features
 
+- Add Plausible analytics (cookieless) and update privacy policy
 - Drop redundant Google News smartphone feed to cut duplicate ingestion
 - Dedup near-duplicate news from different outlets
 - Migrate from Netlify to Cloudflare Pages
