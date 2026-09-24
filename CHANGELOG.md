@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 
 ### Bug Fixes
 
+- Match Pinterest's sample CSV format for bulk upload
 - Self-host Archivo and Newsreader fonts
 - **security**: Bump devalue to >=5.9.2 (#126)
 - Dedup news within a single fetch run, not just against the DB
@@ -1746,6 +1747,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
