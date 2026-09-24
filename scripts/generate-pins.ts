@@ -197,8 +197,11 @@ function toJpeg(png: Buffer, outBase: string): string {
   }
 }
 
+// Match Pinterest's sample file exactly: quote only when needed, CRLF line
+// endings, no trailing newline. An always-quoted empty Thumbnail ("") and
+// LF endings got the whole upload rejected.
 function csvCell(value: string): string {
-  return `"${value.replace(/"/g, '""')}"`;
+  return /[",\r\n]/.test(value) ? `"${value.replace(/"/g, '""')}"` : value;
 }
 
 function main(): void {
@@ -253,7 +256,7 @@ function main(): void {
   const rows = pins.map((p) =>
     [p.title, p.mediaUrl, p.board, '', p.description, p.link, p.publishAt, KEYWORDS].map(csvCell).join(','),
   );
-  writeFileSync(join(OUT_DATA, 'pins.csv'), `${[header.join(','), ...rows].join('\n')}\n`);
+  writeFileSync(join(OUT_DATA, 'pins.csv'), [header.join(','), ...rows].join('\r\n'));
 
   console.log(`\n${pins.length} pins, ${pins[0].publishAt} → ${pins[pins.length - 1].publishAt} (UTC)`);
 }
