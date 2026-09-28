@@ -25,7 +25,7 @@
     "pins:generate": "tsx scripts/generate-pins.ts"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^14.3.2",
+    "@astrojs/cloudflare": "^14.3.3",
     "@astrojs/rss": "^4.0.19",
     "@fontsource-variable/archivo": "^5.3.0",
     "@fontsource-variable/newsreader": "^5.3.0",
@@ -35,7 +35,7 @@
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@typesafe-ai/sdk": "0.6.0",
-    "astro": "^7.3.3",
+    "astro": "^7.3.5",
     "chart.js": "^4.5.1",
     "clsx": "^2.1.1",
     "convex": "^1.46.0",
