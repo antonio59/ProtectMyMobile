@@ -135,6 +135,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Bump nanostores from 1.5.3 to 1.5.4 (#132)
 - Revert "feat: add Plausible analytics (cookieless) and update privacy policy"
 
 This reverts commit 560c236034935aea64452af5a1bff6d671cd802d.
@@ -1747,6 +1748,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
