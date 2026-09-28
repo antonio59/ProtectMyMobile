@@ -45,7 +45,7 @@
     "node-html-parser": "^7.1.0",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
-    "resend": "^6.28.1",
+    "resend": "^6.29.0",
     "rss-parser": "^3.13.0",
     "sanitize-html": "^2.17.7",
     "tailwind-merge": "^3.7.0",
