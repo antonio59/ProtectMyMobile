@@ -135,6 +135,9 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Bump the astro group across 1 directory with 2 updates (#129)
+- Bump the dev-dependencies group with 2 updates (#130)
+- Bump resend from 6.28.1 to 6.29.0 (#131)
 - Bump nanostores from 1.5.3 to 1.5.4 (#132)
 - Revert "feat: add Plausible analytics (cookieless) and update privacy policy"
 
@@ -1748,6 +1751,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
