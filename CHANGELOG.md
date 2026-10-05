@@ -137,6 +137,9 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Bump resend from 6.29.0 to 6.32.0 (#136)
+- Bump sanitize-html and @types/sanitize-html (#135)
+- Bump wrangler (#134)
 - Bump the astro group across 1 directory with 2 updates (#129)
 - Bump the dev-dependencies group with 2 updates (#130)
 - Bump resend from 6.28.1 to 6.29.0 (#131)
