@@ -105,6 +105,7 @@ All notable changes to this project will be documented in this file.
 
 ### CI/CD
 
+- Bump google/osv-scanner-action from 2.5.1 to 2.6.0 (#133)
 - Bump google/osv-scanner-action from 2.3.8 to 2.5.1 (#105)
 - Bump actions/checkout from 6 to 7 (#77)
 - Bump actions/setup-node from 6 to 7 (#88)
@@ -1752,6 +1753,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
