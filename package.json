@@ -65,7 +65,9 @@
     "sharp": "^0.35.4",
     "svgo": "^4.1.0",
     "browserslist": "^4.28.9",
-    "fast-uri": "^4.1.4",
+    "fast-uri": "^4.1.5",
+    "undici@7": "^7.29.1",
+    "http-cache-semantics": "^4.3.0",
     "postcss-selector-parser": "^7.1.6",
     "colord": "^2.10.0",
     "baseline-browser-mapping": "^2.11.23"
@@ -84,7 +86,9 @@
     "sharp": "^0.35.4",
     "svgo": "^4.1.0",
     "browserslist": "^4.28.9",
-    "fast-uri": "^4.1.4",
+    "fast-uri": "^4.1.5",
+    "undici@7": "^7.29.1",
+    "http-cache-semantics": "^4.3.0",
     "postcss-selector-parser": "^7.1.6",
     "colord": "^2.10.0",
     "baseline-browser-mapping": "^2.11.23"
