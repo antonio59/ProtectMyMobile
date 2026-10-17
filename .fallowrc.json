@@ -2,7 +2,11 @@
   "$schema": "https://fallow.dev/schema.json",
   "ignorePatterns": ["convex/_generated/**", "worker-configuration.d.ts"],
   "entry": ["scripts/**/*.ts", "scripts/**/*.mjs", "src/worker.ts"],
-  "ignoreDependencies": ["lightningcss-linux-x64-gnu"],
+  "ignoreDependencies": [
+    "lightningcss-linux-x64-gnu",
+    "postcss",
+    "@tailwindcss/postcss"
+  ],
   "ignoreDependencyOverrides": [
     { "package": "yaml", "source": "pnpm-workspace.yaml" }
   ]
