@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 
 ### Bug Fixes
 
+- **ci**: Unblock security audit and fallow dead-code (#143)
 - **deps**: Patch transitive security alerts (undici, fast-uri, http-cache-semantics)
 - Match Pinterest's sample CSV format for bulk upload
 - Self-host Archivo and Newsreader fonts
@@ -1756,6 +1757,8 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
