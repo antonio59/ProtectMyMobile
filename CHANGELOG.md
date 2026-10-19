@@ -138,6 +138,8 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Bump the react group across 1 directory with 2 updates (#145)
+- Bump convex from 1.46.0 to 1.47.0 in the convex group (#146)
 - Bump sanitize-html from 2.18.0 to 2.18.1 (#148)
 - Bump the dev-dependencies group across 1 directory with 2 updates (#144)
 - Bump resend from 6.32.0 to 6.33.0 (#142)
@@ -1761,6 +1763,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
