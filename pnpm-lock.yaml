@@ -70,8 +70,8 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1
       convex:
-        specifier: ^1.46.0
-        version: 1.46.0(react@19.3.0)
+        specifier: ^1.47.0
+        version: 1.47.0(react@19.3.0)
       lucide-react:
         specifier: ^0.577.0
         version: 0.577.0(react@19.3.0)
@@ -108,7 +108,7 @@ importers:
     devDependencies:
       '@astrojs/check':
         specifier: ^0.9.10
-        version: 0.9.10(prettier@3.9.8)(typescript@5.9.3)
+        version: 0.9.10(prettier@3.9.10)(typescript@5.9.3)
       '@astrojs/react':
         specifier: ^6.0.6
         version: 6.0.6(@types/node@25.7.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(esbuild@0.28.2)(jiti@2.7.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(tsx@4.23.15)(yaml@2.9.0)
@@ -1711,8 +1711,8 @@ packages:
   convert-source-map@2.0.0:
     resolution: {integrity: sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==}
 
-  convex@1.46.0:
-    resolution: {integrity: sha512-dhBwDQTZDOhi5SUGAX17EWNehCdNq6/UFrSL0eLZuGfMkdsQbCVWVRZCzbZ5CF+/pgvoGxtApbEoTSipqL4JTw==}
+  convex@1.47.0:
+    resolution: {integrity: sha512-B1z/lOmex7i09NASq8+2WG9rZLzGXXOSkpwGOpaNIvOs4awyW4RMgpVBjt8r2wvvHwhEBEsOr2pGYpulnmAxYQ==}
     engines: {node: '>=20.0.0', npm: '>=7.0.0'}
     hasBin: true
     peerDependencies:
@@ -2707,8 +2707,8 @@ packages:
     resolution: {integrity: sha512-zkd+e9S1AQHhmaBKye9zlFHWjOwVgqXl1q3ECYy8561K7qxR2cREf/STLskulBFd78k6AOFeA+ff1TtEzk9bAA==}
     engines: {node: ^10 || ^12 || >=14}
 
-  prettier@3.9.8:
-    resolution: {integrity: sha512-WRFq3Wn3WId7LLROfMLdH7xaFr2jR62wU8nLO6rQUOLOxNZUviyJQs1M0iIhLexSFy+L+w0ch66wtoO2jRjG0A==}
+  prettier@3.9.10:
+    resolution: {integrity: sha512-skGHTH1Yb9QvaTC4hWnRTzEYtCpApF0UMBPz+t/0ZPzP8ihefo/btKd+QA7pUE0fEwA1SbS/NmhyEcstdXOIdA==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -3372,18 +3372,6 @@ packages:
     resolution: {integrity: sha512-+QU2zd6OTD8XWIJCbffaiQeH9U73qIqafo1x6V1snCWYGJf6cVE0cDR4D8xRzcEnfI21IFrUPzPGtcPf8AC+Rw==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
 
-  ws@8.21.3:
-    resolution: {integrity: sha512-201TZ/kPWxoPr/OKWjquZR1SWKXcvxdH+e1xrx89b3YbmzLMFCLfnaG1HFIgWzJOEWZ7MvpK++odZufgYR50Rw==}
-    engines: {node: '>=10.0.0'}
-    peerDependencies:
-      bufferutil: ^4.0.1
-      utf-8-validate: '>=5.0.2'
-    peerDependenciesMeta:
-      bufferutil:
-        optional: true
-      utf-8-validate:
-        optional: true
-
   ws@8.22.0:
     resolution: {integrity: sha512-Ydggc987+RO0AnWtZ/7Wq9FtNvcrL1b/RO0ud9mWjUPgDrsAAwQSF51sm2hm1XofbU/4jkpGEsLFsZZxU+1DOg==}
     engines: {node: '>=10.0.0'}
@@ -3464,9 +3452,9 @@ snapshots:
 
   '@alloc/quick-lru@5.2.0': {}
 
-  '@astrojs/check@0.9.10(prettier@3.9.8)(typescript@5.9.3)':
+  '@astrojs/check@0.9.10(prettier@3.9.10)(typescript@5.9.3)':
     dependencies:
-      '@astrojs/language-server': 2.16.8(prettier@3.9.8)(typescript@5.9.3)
+      '@astrojs/language-server': 2.16.8(prettier@3.9.10)(typescript@5.9.3)
       chokidar: 4.0.3
       kleur: 4.1.5
       typescript: 5.9.3
@@ -3564,7 +3552,7 @@ snapshots:
       smol-toml: 1.9.0
       unified: 11.0.5
 
-  '@astrojs/language-server@2.16.8(prettier@3.9.8)(typescript@5.9.3)':
+  '@astrojs/language-server@2.16.8(prettier@3.9.10)(typescript@5.9.3)':
     dependencies:
       '@astrojs/compiler': 2.13.1
       '@astrojs/yaml2ts': 0.2.3
@@ -3578,14 +3566,14 @@ snapshots:
       volar-service-css: 0.0.70(@volar/language-service@2.4.28)
       volar-service-emmet: 0.0.70(@volar/language-service@2.4.28)
       volar-service-html: 0.0.70(@volar/language-service@2.4.28)
-      volar-service-prettier: 0.0.70(@volar/language-service@2.4.28)(prettier@3.9.8)
+      volar-service-prettier: 0.0.70(@volar/language-service@2.4.28)(prettier@3.9.10)
       volar-service-typescript: 0.0.70(@volar/language-service@2.4.28)
       volar-service-typescript-twoslash-queries: 0.0.70(@volar/language-service@2.4.28)
       volar-service-yaml: 0.0.70(@volar/language-service@2.4.28)
       vscode-html-languageservice: 5.6.2
       vscode-uri: 3.1.0
     optionalDependencies:
-      prettier: 3.9.8
+      prettier: 3.9.10
     transitivePeerDependencies:
       - typescript
 
@@ -4895,11 +4883,11 @@ snapshots:
 
   convert-source-map@2.0.0: {}
 
-  convex@1.46.0(react@19.3.0):
+  convex@1.47.0(react@19.3.0):
     dependencies:
       esbuild: 0.28.2
-      prettier: 3.9.8
-      ws: 8.21.3
+      prettier: 3.9.10
+      ws: 8.22.0
     optionalDependencies:
       react: 19.3.0
     transitivePeerDependencies:
@@ -5995,7 +5983,7 @@ snapshots:
       picocolors: 1.1.1
       source-map-js: 1.2.2
 
-  prettier@3.9.8: {}
+  prettier@3.9.10: {}
 
   prismjs@1.30.0: {}
 
@@ -6562,12 +6550,12 @@ snapshots:
     optionalDependencies:
       '@volar/language-service': 2.4.28
 
-  volar-service-prettier@0.0.70(@volar/language-service@2.4.28)(prettier@3.9.8):
+  volar-service-prettier@0.0.70(@volar/language-service@2.4.28)(prettier@3.9.10):
     dependencies:
       vscode-uri: 3.1.0
     optionalDependencies:
       '@volar/language-service': 2.4.28
-      prettier: 3.9.8
+      prettier: 3.9.10
 
   volar-service-typescript-twoslash-queries@0.0.70(@volar/language-service@2.4.28):
     dependencies:
@@ -6682,8 +6670,6 @@ snapshots:
       imurmurhash: 0.1.4
       signal-exit: 4.1.0
 
-  ws@8.21.3: {}
-
   ws@8.22.0: {}
 
   xml-naming@0.1.0: {}
@@ -6706,7 +6692,7 @@ snapshots:
       '@vscode/l10n': 0.0.18
       ajv: 8.20.0
       ajv-draft-04: 1.0.0(ajv@8.20.0)
-      prettier: 3.9.8
+      prettier: 3.9.10
       request-light: 0.5.8
       vscode-json-languageservice: 4.1.8
       vscode-languageserver: 9.0.1
