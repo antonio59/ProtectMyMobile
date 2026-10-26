@@ -11,7 +11,10 @@ overrides:
   yaml: 2.9.0
   esbuild: ^0.28.1
   ws: ^8.21.0
-  vite: ^8.0.13
+  # Vite 8.3.0–8.3.2 (GHSA-587h-7wmj-h5pm, GHSA-rq7h-c2jc-7f22,
+  # GHSA-9jrq-w75r-8gcw, GHSA-vfpm-58rq-9qcg, GHSA-r825-w8mm-5pxw,
+  # GHSA-698v-4r3x-3vcv). 8.3.3 is the patched 8.3 release.
+  vite: ^8.3.3
   js-yaml: ^4.3.2
   '@babel/core': ^7.29.1
   # GHSA-wq5f-xc86-pv6w: sharp below 0.35.5 (librsvg). Astro still requests 0.35.4.
@@ -19,8 +22,12 @@ overrides:
   postcss: ^8.5.26
   nanoid: ^3.3.18
   svgo: ^4.1.0
-  # GHSA-jvvf-x445-j334 / GHSA-hrr3-gc8f-f4qj (Dependabot #92); 4.1.4 is still vulnerable
-  fast-uri: ^4.1.5
+  # fast-uri 4.x below 4.2.3 (GHSA-w74x-v6f9-j3xg, GHSA-xhq7-xmqj-769h,
+  # GHSA-wjr9-j795-jxcr, GHSA-333x-w4r6-6crp). ajv still requests ^3.0.1.
+  fast-uri: ^4.2.3
+  # GHSA-mrhx-c7xc-m3w5: zod 4.x below 4.6.6. zod@3 stays on 3.25.76;
+  # @google/design.md requires ^3.24.0 and the only patched line is >=4.6.6.
+  'zod@4': ^4.6.6
   smol-toml: ^1.8.0
   browserslist: ^4.28.9
   # GHSA-rj75-hqrm-r3gf: every 6.x release is vulnerable, including
