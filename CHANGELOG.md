@@ -140,6 +140,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Bump the dev-dependencies group across 1 directory with 3 updates (#154)
 - Bump resend from 6.33.0 to 6.35.0 (#158)
 - Bump the astro group across 1 directory with 2 updates (#138)
 - Bump the react group across 1 directory with 2 updates (#145)
