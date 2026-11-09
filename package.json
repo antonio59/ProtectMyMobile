@@ -102,15 +102,15 @@
     "@astrojs/react": "^6.0.6",
     "@astrojs/sitemap": "^3.7.4",
     "@google/design.md": "^0.4.0",
-    "@tailwindcss/postcss": "^4.3.3",
-    "@tailwindcss/vite": "^4.3.3",
+    "@tailwindcss/postcss": "^4.3.4",
+    "@tailwindcss/vite": "^4.3.4",
     "@types/sanitize-html": "^2.16.2",
     "postcss": "^8.5.31",
     "stylelint": "^16.0.0",
     "stylelint-config-standard": "^37.0.0",
     "tsx": "^4.23.15",
     "typescript": "^5.9.3",
-    "wrangler": "^4.152.0"
+    "wrangler": "^4.158.0"
   },
   "trustedDependencies": [
     "@parcel/watcher",
