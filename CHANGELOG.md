@@ -107,6 +107,7 @@ All notable changes to this project will be documented in this file.
 
 ### CI/CD
 
+- Regenerate changelog when the update job races main (#163)
 - Bump google/osv-scanner-action from 2.6.0 to 2.7.0 (#156)
 - Bump google/osv-scanner-action from 2.5.1 to 2.6.0 (#133)
 - Bump google/osv-scanner-action from 2.3.8 to 2.5.1 (#105)
@@ -1772,6 +1773,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
