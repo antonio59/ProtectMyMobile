@@ -140,6 +140,8 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Bump resend from 6.35.0 to 6.37.0 (#162)
+- Bump convex (#150)
 - Bump the dev-dependencies group across 1 directory with 3 updates (#154)
 - Bump resend from 6.33.0 to 6.35.0 (#158)
 - Bump the astro group across 1 directory with 2 updates (#138)
@@ -1768,6 +1770,8 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
