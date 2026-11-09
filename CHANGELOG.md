@@ -140,6 +140,8 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Bump chart.js from 4.5.1 to 4.6.1 (#153)
+- Bump the dev-dependencies group with 3 updates (#161)
 - Bump resend from 6.35.0 to 6.37.0 (#162)
 - Bump convex (#150)
 - Bump the dev-dependencies group across 1 directory with 3 updates (#154)
@@ -1770,6 +1772,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
