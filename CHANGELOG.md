@@ -173,6 +173,7 @@ First recorded release of ProtectMyMobile — an independent UK mobile phone the
 
 ### Changes
 
+- Bump convex (#160)
 - Bump the tailwind group across 1 directory with 2 updates (#159)
 - Bump chart.js from 4.5.1 to 4.6.1 (#153)
 - Bump the dev-dependencies group with 3 updates (#161)
@@ -1806,6 +1807,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - **release**: Versioning from package.json, release notes and version in the app (#170)
 - Update changelog [skip ci]
