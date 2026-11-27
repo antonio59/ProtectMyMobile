@@ -35,7 +35,7 @@
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@typesafe-ai/sdk": "0.6.0",
-    "astro": "^7.4.0",
+    "astro": "^7.4.13",
     "chart.js": "^4.6.1",
     "clsx": "^2.1.1",
     "convex": "^1.48.0",
@@ -53,7 +53,7 @@
   },
   "overrides": {
     "devalue": "^5.9.2",
-    "fast-xml-parser": "^5.7.1",
+    "fast-xml-parser": "^5.11.3",
     "smol-toml": "^1.8.0",
     "yaml": "^2.8.3",
     "postcss": "^8.5.31",
@@ -76,7 +76,7 @@
   },
   "resolutions": {
     "devalue": "^5.9.2",
-    "fast-xml-parser": "^5.7.1",
+    "fast-xml-parser": "^5.11.3",
     "smol-toml": "^1.8.0",
     "yaml": "^2.8.3",
     "postcss": "^8.5.31",
