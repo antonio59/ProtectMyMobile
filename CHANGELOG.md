@@ -173,6 +173,7 @@ First recorded release of ProtectMyMobile — an independent UK mobile phone the
 
 ### Changes
 
+- Bump the dev-dependencies group across 1 directory with 2 updates (#175)
 - Bump tailwind-merge from 3.7.0 to 3.7.1 (#168)
 - Bump @astrojs/cloudflare (#173)
 - Bump sanitize-html from 2.18.1 to 2.18.2 (#166)
@@ -1811,6 +1812,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
