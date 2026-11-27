@@ -43,6 +43,8 @@ overrides:
   'undici@7': ^7.29.1
   # http-cache-semantics through 4.2.0 (GHSA-ch52-4w7c-c8xp / GHSA-f27v-pv5m-c5g6)
   http-cache-semantics: ^4.3.0
+  # GHSA-474x-hrwr-fgx4: fast-xml-parser <=5.11.2 via @astrojs/rss
+  fast-xml-parser: ^5.11.3
 
 pnpm:
   autoInstallPeers: true
