@@ -194,6 +194,18 @@ Cron triggers are declared in `wrangler.jsonc` and dispatched by
 | `0 8 * * 0` | Sundays 8am UTC | News fetch |
 | `17 7 1 * *` | 1st of month, 07:17 UTC | Directory verification |
 
+## 🏷️ Versioning and Releases
+
+`package.json` (`"version"`) is the single source of truth for the app version, following semantic versioning (`major.minor.patch` — bump **minor** for new user-facing features, **patch** for fixes). The version is read directly from `package.json` via `src/lib/version.ts` and displayed in the site footer with a link to the release notes.
+
+Plain-English release notes live in the `header` of [`cliff.toml`](./cliff.toml) under `## Release notes` (newest version first). Do **not** hand-edit `CHANGELOG.md` — [`.github/workflows/changelog.yml`](./.github/workflows/changelog.yml) runs `git-cliff` on every push to `main` and overwrites it.
+
+To release a user-facing change:
+1. Bump `"version"` in `package.json`.
+2. Add a `## [x.y.z] - YYYY-MM-DD` section under `## Release notes` in `cliff.toml`.
+3. Update `README.md` or other docs if user-visible behaviour changed.
+4. Merge to `main` (no manual git tags needed — `CHANGELOG.md` regenerates automatically).
+
 ## 📄 License
 
 This project is licensed under the MIT License.
