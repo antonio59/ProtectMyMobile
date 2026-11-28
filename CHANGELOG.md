@@ -1,10 +1,42 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
+All notable changes to this project are documented in this file.
+
+## Release notes
+
+## [1.0.0] - 2026-11-09
+
+First recorded release of ProtectMyMobile — an independent UK mobile phone theft prevention, statistics, and recovery resource.
+
+### Emergency response & prevention guides
+- Added a 5-step post-theft emergency action plan covering locking your phone, protecting banking and accounts, reporting to police, and deciding when to trigger a remote wipe.
+- Added step-by-step prevention and backup guides, including SIM PIN locks, biometric security, app protection, and the charger photo alert guide.
+- Added an interactive 12-question Security Checkup with personalised recommendations, a visual theft scenario gallery, a London visitor safety guide, curated product recommendations, and a post-theft FAQ.
+
+### Emergency directories
+- Added searchable UK bank and mobile network directories with direct emergency numbers and links to freeze accounts and block stolen SIMs, verified monthly for accuracy.
+
+### UK theft statistics, map & city guides
+- Added an interactive UK theft statistics dashboard and multi-year trend charts built from official police.uk data, ONS figures, and police Freedom of Information requests.
+- Added an interactive theft map showing official data alongside moderated anonymous community reports, plus dedicated guides for UK cities and London boroughs with local hotspots and police contacts.
+- Added a Methodology & Corrections page explaining every data source, its limitations, and how to report an error.
+
+### News, community & safety slides
+- Added a weekly UK phone-theft news digest covering arrests, seizures, law changes, and prevention tips, with category filters and an RSS feed.
+- Added shareable visual safety slides, anonymous community experience sharing and recovery insights, and quick site-wide search (`Cmd+K` / `Ctrl+K`).
+
+### Design, accessibility & privacy
+- Designed a mobile-first editorial layout with light and dark modes, self-hosted fonts, accessible charts and navigation, print-friendly emergency guides, and a quick-access emergency button.
+- Built with privacy in mind: no personal IMEI storage, no third-party analytics trackers, and automatic data retention cleanup.
+- Ongoing security hardening and dependency updates.
+
+## Commit log
+
 ## [Unreleased]
 
 ### Bug Fixes
 
+- **deps**: Update astro and fast-xml-parser to clear pnpm audit failures (#171)
 - Pin patched vite, zod 4, and fast-uri (#155)
 - **ci**: Unblock security audit and fallow dead-code (#143)
 - **deps**: Patch transitive security alerts (undici, fast-uri, http-cache-semantics)
@@ -141,6 +173,13 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
+- Bump the dev-dependencies group across 1 directory with 2 updates (#175)
+- Bump tailwind-merge from 3.7.0 to 3.7.1 (#168)
+- Bump @astrojs/cloudflare (#173)
+- Bump sanitize-html from 2.18.1 to 2.18.2 (#166)
+- Bump resend from 6.37.0 to 6.39.0 (#167)
+- Bump convex (#160)
+- Bump the tailwind group across 1 directory with 2 updates (#159)
 - Bump chart.js from 4.5.1 to 4.6.1 (#153)
 - Bump the dev-dependencies group with 3 updates (#161)
 - Bump resend from 6.35.0 to 6.37.0 (#162)
@@ -1773,6 +1812,16 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
+- Update changelog [skip ci]
+- Update changelog [skip ci]
+- Update changelog [skip ci]
+- Update changelog [skip ci]
+- Update changelog [skip ci]
+- Update changelog [skip ci]
+- **release**: Versioning from package.json, release notes and version in the app (#170)
+- Update changelog [skip ci]
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]

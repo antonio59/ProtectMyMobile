@@ -17,6 +17,7 @@
 - Prefer functional React components; follow existing Tailwind utility styling.
 - Commits: keep concise, imperative; include Co-authored-by when appropriate.
 - PRs: ensure `pnpm run check`, `pnpm run build`, and `pnpm run design:lint` pass.
+- Versioning & release notes: `package.json` `"version"` is the single source of truth; add user-facing release notes in `cliff.toml` under `## Release notes` (do not hand-edit `CHANGELOG.md`, which `git-cliff` regenerates on push to `main`).
 - Design system: always check [`DESIGN.md`](./DESIGN.md) before adding new colors, spacing, or components. Prefer semantic tokens (`bg-card`, `text-foreground`) over literal values (`bg-white`, `text-neutral-900`).
 
 ## Security & Secrets
