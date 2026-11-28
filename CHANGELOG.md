@@ -174,6 +174,7 @@ First recorded release of ProtectMyMobile — an independent UK mobile phone the
 
 ### Changes
 
+- Bump @typesafe-ai/sdk from 0.6.0 to 0.7.0 (#147)
 - Bump the dev-dependencies group across 1 directory with 2 updates (#175)
 - Bump tailwind-merge from 3.7.0 to 3.7.1 (#168)
 - Bump @astrojs/cloudflare (#173)
@@ -1813,6 +1814,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
