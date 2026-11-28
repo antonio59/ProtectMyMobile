@@ -36,6 +36,7 @@ First recorded release of ProtectMyMobile — an independent UK mobile phone the
 
 ### Bug Fixes
 
+- **security**: Bump astro to 7.4.13, fast-xml-parser to 5.12.1 and zod to 4.6.7 (#172)
 - **deps**: Update astro and fast-xml-parser to clear pnpm audit failures (#171)
 - Pin patched vite, zod 4, and fast-uri (#155)
 - **ci**: Unblock security audit and fallow dead-code (#143)
@@ -1812,6 +1813,7 @@ Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.g
 
 ### Documentation
 
+- Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
 - Update changelog [skip ci]
