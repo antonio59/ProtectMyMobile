@@ -1,5 +1,6 @@
 ---
 import { Heart, Shield, Smartphone, ChevronRight, Mail } from "lucide-react";
+import { APP_VERSION, RELEASE_NOTES_URL } from "@/lib/version";
 ---
 
 <footer class="bg-background border-t-[3px] border-foreground pt-8 sm:pt-12 pb-6" role="contentinfo">
@@ -182,9 +183,19 @@ import { Heart, Shield, Smartphone, ChevronRight, Mail } from "lucide-react";
       </div>
     </nav>
 
-    <!-- Bottom section with copyright -->
-    <div class="mt-8 text-center text-muted-foreground text-sm">
+    <!-- Bottom section with copyright and version -->
+    <div class="mt-8 text-center text-muted-foreground text-sm flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
       <p>&copy; {new Date().getFullYear()} ProtectMyMobile. All rights reserved.</p>
+      <span aria-hidden="true">&middot;</span>
+      <a
+        href={RELEASE_NOTES_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="hover:text-foreground underline-offset-4 hover:underline transition-colors"
+        title="View release notes"
+      >
+        v{APP_VERSION}
+      </a>
     </div>
   </div>
 </footer>
